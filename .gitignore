@@ -1,0 +1,7 @@
+*.o
+ui_*
+moc_*
+Makefile
+*.pro.user
+qrc_*
+*.log
