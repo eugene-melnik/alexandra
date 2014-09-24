@@ -2,6 +2,7 @@
 ui_*
 moc_*
 Makefile
+src/alexandra
 *.pro.user
 qrc_*
 *.log
