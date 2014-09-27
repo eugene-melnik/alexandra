@@ -16,3 +16,8 @@ SOURCES += alexandra.cpp \
 
 FORMS += mainwindow.ui
 
+TRANSLATIONS += lang/alexandra-ru.ts \
+                lang/alexandra-uk.ts
+
+RESOURCES = lang/lang.qrc \
+            icons/icons.qrc \
