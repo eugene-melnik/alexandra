@@ -1,0 +1,15 @@
+<!DOCTYPE RCC><RCC version="1.0">
+  <qresource prefix="window">
+    <file alias="prefs">window-prefs.svg</file>
+    <file alias="about">window-about.svg</file>
+  </qresource>
+  <qresource prefix="action">
+    <file alias="exit">action-exit.svg</file>
+  </qresource>
+  <qresource prefix="tool">
+    <file alias="add">tool-add.svg</file>
+    <file alias="delete">tool-delete.svg</file>
+    <file alias="edit">tool-edit.svg</file>
+    <file alias="find">tool-find.svg</file>
+  </qresource>
+</RCC>
