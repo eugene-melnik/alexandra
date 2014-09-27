@@ -7,6 +7,8 @@
 
 **Framework:** Qt 5
 
+**Libraries:** libmediainfo
+
 **IDE:** QtCreator 3.2
 
 ===
