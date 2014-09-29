@@ -9,11 +9,13 @@ QMAKE_CXXFLAGS += -std=c++11
 
 HEADERS += alexandra.h \
            film.h \
+           filmslist.h \
            mainwindow.h \
            version.h
 
 SOURCES += alexandra.cpp \
            film.cpp \
+           filmslist.cpp \
            mainwindow.cpp
 
 FORMS += mainwindow.ui

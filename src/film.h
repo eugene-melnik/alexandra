@@ -25,4 +25,4 @@ class Film
         QImage  poster;
 };
 
-#endif FILM_H
+#endif // FILM_H

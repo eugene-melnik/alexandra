@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "ui_mainwindow.h"
+#include "filmslist.h"
 
 #include <QMainWindow>
 
@@ -13,7 +14,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         MainWindow( QWidget* parent = nullptr );
 
     private:
-        //
+        FilmsList films;
 };
 
 #endif // MAINWINDOW_H
