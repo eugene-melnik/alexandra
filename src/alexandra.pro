@@ -8,10 +8,12 @@ CONFIG += qt warn_on debug
 QMAKE_CXXFLAGS += -std=c++11
 
 HEADERS += alexandra.h \
+           film.h \
            mainwindow.h \
            version.h
 
 SOURCES += alexandra.cpp \
+           film.cpp \
            mainwindow.cpp
 
 FORMS += mainwindow.ui
