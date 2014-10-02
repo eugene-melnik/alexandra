@@ -8,7 +8,7 @@
 class FilmsList
 {
     public:
-        FilmsList();
+        //FilmsList();
 
     private:
         QList<Film> films;

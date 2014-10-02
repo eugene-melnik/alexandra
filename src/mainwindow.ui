@@ -29,7 +29,14 @@
     </property>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menu_Help"/>
   </widget>
   <widget class="QToolBar" name="toolbarMain">
    <attribute name="toolBarArea">
@@ -48,8 +55,19 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/window/about</normaloff>:/window/about</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="icons/icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionExit</sender>

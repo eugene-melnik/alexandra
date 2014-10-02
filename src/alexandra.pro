@@ -7,18 +7,21 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += qt warn_on debug
 QMAKE_CXXFLAGS += -std=c++11
 
-HEADERS += alexandra.h \
+HEADERS += aboutwindow.h \
+           alexandra.h \
            film.h \
            filmslist.h \
            mainwindow.h \
            version.h
 
-SOURCES += alexandra.cpp \
+SOURCES += aboutwindow.cpp \
+           alexandra.cpp \
            film.cpp \
            filmslist.cpp \
            mainwindow.cpp
 
-FORMS += mainwindow.ui
+FORMS += aboutwindow.ui \
+         mainwindow.ui
 
 TRANSLATIONS += lang/alexandra-ru.ts \
                 lang/alexandra-uk.ts
