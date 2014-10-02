@@ -25,3 +25,5 @@ TRANSLATIONS += lang/alexandra-ru.ts \
 
 RESOURCES = lang/lang.qrc \
             icons/icons.qrc \
+            images/images.qrc
+

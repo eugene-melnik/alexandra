@@ -1,0 +1,10 @@
+<!DOCTYPE RCC><RCC version="1.0">
+  <qresource prefix="cats">
+    <file alias="1">cats/1.png</file>
+    <file alias="2">cats/2.png</file>
+    <file alias="3">cats/3.png</file>
+    <file alias="4">cats/4.png</file>
+    <file alias="5">cats/5.png</file>
+    <file alias="6">cats/6.png</file>
+  </qresource>
+</RCC>
