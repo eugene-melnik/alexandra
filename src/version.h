@@ -7,7 +7,7 @@ namespace Alexandra
 {
         const QString appName = QString( "alexandra" );
         const QString appNameGui = QString( "Alexandra Video Library" );
-        const QString appAuthor = QString( "Eugene Melnik <jeka7js@gmail.com>" );
+        const QString appAuthor = QString( "Eugene Melnik (jeka7js@gmail.com)" );
         const QString appLicense = QString( "GNU GPL v2" );
         const QString appAddress = QString( "https://github.com/jeka-js/alexandra" );
 

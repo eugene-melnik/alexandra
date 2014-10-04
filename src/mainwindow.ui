@@ -48,6 +48,10 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/action/exit</normaloff>:/action/exit</iconset>
+   </property>
    <property name="text">
     <string>E&amp;xit</string>
    </property>
