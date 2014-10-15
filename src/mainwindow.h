@@ -6,6 +6,7 @@
 #include "aboutwindow.h"
 
 #include <QMainWindow>
+#include <QCloseEvent>
 
 class MainWindow : public QMainWindow, public Ui::MainWindow
 {
@@ -13,13 +14,21 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
     public:
         MainWindow( QWidget* parent = nullptr );
-        ~MainWindow();
+
+    protected:
+        void closeEvent( QCloseEvent* event );
 
     private:
+        // functions
+        void SetDataDirectory();
+        void LoadSettings();
+        void SaveSettings();
+
         // subwindows
         AboutWindow* aboutWindow = nullptr;
 
         // variables
+        QString dataDirectory;
         FilmsList films;
 };
 
