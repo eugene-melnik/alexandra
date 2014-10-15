@@ -2,6 +2,7 @@
 #include "version.h"
 
 #include <QProcessEnvironment>
+#include <QMessageBox>
 #include <QSettings>
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
@@ -13,6 +14,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     // subwindows
     aboutWindow = new AboutWindow();
     connect( actionAbout, SIGNAL( triggered() ), aboutWindow, SLOT( show() ) );
+    connect( actionAboutQt, SIGNAL( triggered() ), this, SLOT( AboutQt() ) );
 
     // toolbar
     QAction* tbaAdd = new QAction( QIcon( ":/tool/add" ), tr("Add"), this );
@@ -55,6 +57,11 @@ void MainWindow::closeEvent( QCloseEvent* event )
     delete aboutWindow;
 
     event->accept();
+}
+
+void MainWindow::AboutQt()
+{
+    QMessageBox::aboutQt( this );
 }
 
 void MainWindow::SetDataDirectory()

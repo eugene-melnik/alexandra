@@ -18,6 +18,9 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
     protected:
         void closeEvent( QCloseEvent* event );
 
+    private slots:
+        void AboutQt();
+
     private:
         // functions
         void SetDataDirectory();
