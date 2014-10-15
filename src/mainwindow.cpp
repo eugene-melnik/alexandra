@@ -15,26 +15,26 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     connect( actionAbout, SIGNAL( triggered() ), aboutWindow, SLOT( show() ) );
 
     // toolbar
-    QAction* tbaAdd = new QAction( tr("Add"), this );
+    QAction* tbaAdd = new QAction( QIcon( ":/tool/add" ), tr("Add"), this );
     toolbar->addAction( tbaAdd );
 
-    QAction* tbaEdit = new QAction( tr("Edit"), this );
+    QAction* tbaEdit = new QAction( QIcon( ":/tool/edit" ), tr("Edit"), this );
     toolbar->addAction( tbaEdit );
 
-    QAction* tbaRemove = new QAction( tr("Remove"), this );
+    QAction* tbaRemove = new QAction( QIcon( ":/tool/delete" ), tr("Remove"), this );
     toolbar->addAction( tbaRemove );
 
     toolbar->addSeparator();
 
-    QAction* tbaRandom = new QAction( tr("Random"), this );
+    QAction* tbaRandom = new QAction( QIcon( ":/tool/random" ), tr("Random"), this );
     toolbar->addAction( tbaRandom );
 
-    QAction* tbaSearch = new QAction( tr("Search"), this );
+    QAction* tbaSearch = new QAction( QIcon( ":/tool/find" ), tr("Search"), this );
     toolbar->addAction( tbaSearch );
 
     toolbar->addSeparator();
 
-    QAction* tbaExit = new QAction( tr("Exit"), this );
+    QAction* tbaExit = new QAction( QIcon( ":/action/exit" ), tr("Exit"), this );
     toolbar->addAction( tbaExit );
 
     // settings and database

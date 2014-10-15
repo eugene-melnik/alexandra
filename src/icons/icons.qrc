@@ -1,19 +1,19 @@
 <!DOCTYPE RCC><RCC version="1.0">
   <qresource prefix="window">
-    <file alias="prefs">window-prefs.svg</file>
-    <file alias="about">window-about.svg</file>
-    <file alias="main">window-main.svg</file>
+    <file alias="prefs">window-prefs.png</file>
+    <file alias="about">window-about.png</file>
+    <file alias="main">window-main.png</file>
   </qresource>
   <qresource prefix="action">
-    <file alias="exit">action-exit.svg</file>
-    <file alias="favourite">action-favourite.svg</file>
-    <file alias="play">action-play.svg</file>
+    <file alias="exit">action-exit.png</file>
+    <file alias="favourite">action-favourite.png</file>
+    <file alias="play">action-play.png</file>
   </qresource>
   <qresource prefix="tool">
-    <file alias="add">tool-add.svg</file>
-    <file alias="delete">tool-delete.svg</file>
-    <file alias="edit">tool-edit.svg</file>
-    <file alias="find">tool-find.svg</file>
-    <file alias="random">tool-random.svg</file>
+    <file alias="add">tool-add.png</file>
+    <file alias="delete">tool-delete.png</file>
+    <file alias="edit">tool-edit.png</file>
+    <file alias="find">tool-find.png</file>
+    <file alias="random">tool-random.png</file>
   </qresource>
 </RCC>
