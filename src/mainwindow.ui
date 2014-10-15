@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string notr="true"/>
   </property>
+  <property name="windowIcon">
+   <iconset resource="icons/icons.qrc">
+    <normaloff>:/window/main</normaloff>:/window/main</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
@@ -452,6 +456,10 @@
    </property>
   </action>
   <action name="actionRandom">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/tool/random</normaloff>:/tool/random</iconset>
+   </property>
    <property name="text">
     <string>&amp;Random</string>
    </property>
