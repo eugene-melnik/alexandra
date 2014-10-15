@@ -1,6 +1,7 @@
 #ifndef FILM_H
 #define FILM_H
 
+#include <QDataStream>
 #include <QString>
 #include <QImage>
 
@@ -8,6 +9,9 @@ class Film
 {
     public:
         Film();
+
+        friend QDataStream& operator << ( QDataStream& out, const Film& f );
+        friend QDataStream& operator >> ( QDataStream& in, Film& f );
 
     private:
         QString fileName;
