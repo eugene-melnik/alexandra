@@ -316,7 +316,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>19</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -329,7 +329,7 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
-    <addaction name="actionAbout_Qt"/>
+    <addaction name="actionAboutQt"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
@@ -357,6 +357,9 @@
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QToolBar" name="toolbar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
@@ -468,7 +471,7 @@
     <string>Ctrl+F</string>
    </property>
   </action>
-  <action name="actionAbout_Qt">
+  <action name="actionAboutQt">
    <property name="text">
     <string>About Qt...</string>
    </property>
@@ -489,8 +492,24 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>226</x>
-     <y>145</y>
+     <x>399</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShowToolbar</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>toolbar</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>30</y>
     </hint>
    </hints>
   </connection>
