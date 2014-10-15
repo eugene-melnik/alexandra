@@ -15,7 +15,7 @@ namespace Alexandra
         const QString orgDomain = "higggs.com";
 
         const quint8 major = 0;
-        const quint8 minor = 1;
+        const quint8 minor = 2;
         const quint8 fix = 0;
         const QString appVersionFull = QString( "%1.%2.%3" ).arg( major ).arg( minor ).arg( fix );
 }

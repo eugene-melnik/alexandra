@@ -1,5 +1,5 @@
-### alexandra
-#### Video library.
+### Alexandra Video library
+#### v0.2
 
 ===
 
