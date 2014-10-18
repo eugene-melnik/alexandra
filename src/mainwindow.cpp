@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "version.h"
 
+#include <QStandardItemModel>
 #include <QProcessEnvironment>
 #include <QMessageBox>
 #include <QSettings>
@@ -71,11 +72,11 @@ void MainWindow::SetDataDirectory()
 
     if( dataDirectory.isEmpty() )
     {
-        dataDirectory = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config/";
+        dataDirectory = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
     }
 #endif
 
-    dataDirectory.append( Alexandra::appName + QString("/") );
+    dataDirectory.append( QString("/") + Alexandra::appName + QString("/") );
 }
 
 void MainWindow::LoadSettings()
