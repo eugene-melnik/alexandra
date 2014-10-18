@@ -112,6 +112,13 @@ void MainWindow::LoadSettings()
 
     actionShowToolbar->setChecked( s.value( "MainWindow/ShowToolbar", true ).toBool() );
     toolbar->move( s.value( "MainWindow/ToolbarPosition" ).toPoint() );
+
+    twFilms->setColumnWidth( 0, s.value( "FilmList/CW0", 20 ).toInt() );
+    twFilms->setColumnWidth( 1, s.value( "FilmList/CW1", 150 ).toInt() );
+    twFilms->setColumnWidth( 2, s.value( "FilmList/CW2", 50 ).toInt() );
+    twFilms->setColumnWidth( 3, s.value( "FilmList/CW3", 110 ).toInt() );
+    twFilms->setColumnWidth( 4, s.value( "FilmList/CW4", 110 ).toInt() );
+    twFilms->setColumnWidth( 5, s.value( "FilmList/CW5", 50 ).toInt() );
 }
 
 void MainWindow::SaveSettings()
@@ -124,6 +131,13 @@ void MainWindow::SaveSettings()
     s.setValue( "MainWindow/Maximized", isMaximized() );
     s.setValue( "MainWindow/ShowToolbar", toolbar->isVisible() );
     s.setValue( "MainWindow/ToolbarPosition", toolbar->pos() );
+
+    s.setValue( "FilmList/CW0", twFilms->columnWidth(0) );
+    s.setValue( "FilmList/CW1", twFilms->columnWidth(1) );
+    s.setValue( "FilmList/CW2", twFilms->columnWidth(2) );
+    s.setValue( "FilmList/CW3", twFilms->columnWidth(3) );
+    s.setValue( "FilmList/CW4", twFilms->columnWidth(4) );
+    s.setValue( "FilmList/CW5", twFilms->columnWidth(5) );
 }
 
 void MainWindow::FillFilmsTable()
@@ -139,13 +153,6 @@ void MainWindow::FillFilmsTable()
 
     twFilms->setColumnCount( colNames.size() );
     twFilms->setHorizontalHeaderLabels( colNames );
-
-    twFilms->setColumnWidth( 0, 20 );
-    twFilms->setColumnWidth( 1, 150 );
-    twFilms->setColumnWidth( 2, 50 );
-    twFilms->setColumnWidth( 3, 110 );
-    twFilms->setColumnWidth( 4, 110 );
-    twFilms->setColumnWidth( 5, 50 );
 
     // Configure rows
     twFilms->setRowCount( films->size() );
