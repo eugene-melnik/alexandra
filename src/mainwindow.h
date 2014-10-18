@@ -2,8 +2,11 @@
 #define MAINWINDOW_H
 
 #include "ui_mainwindow.h"
+
 #include "filmslist.h"
+
 #include "aboutwindow.h"
+#include "addfilmwindow.h"
 
 #include <QMainWindow>
 #include <QCloseEvent>
@@ -32,6 +35,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         // Subwindows
         AboutWindow* aboutWindow = nullptr;
+        AddFilmWindow* addFilmWindow = nullptr;
 
         // Variables
         FilmsList* films = nullptr;

@@ -11,9 +11,9 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
     // Interface
     setupUi( this );
-    ConfigureToolbar();
-    ConfigureSubwindows();
     setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
+    ConfigureSubwindows();
+    ConfigureToolbar();
 
     // Data
     LoadSettings();
@@ -40,6 +40,7 @@ void MainWindow::ConfigureToolbar()
     // Add film
     QAction* tbaAdd = new QAction( QIcon( ":/tool/add" ), tr("Add"), this );
     toolbar->addAction( tbaAdd );
+    connect( tbaAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
 
     // Edit film
     QAction* tbaEdit = new QAction( QIcon( ":/tool/edit" ), tr("Edit"), this );
@@ -73,6 +74,10 @@ void MainWindow::ConfigureSubwindows()
     aboutWindow = new AboutWindow();
     connect( actionAbout, SIGNAL( triggered() ), aboutWindow, SLOT( show() ) );
     connect( actionAboutQt, SIGNAL( triggered() ), this, SLOT( AboutQt() ) );
+
+    // Add film window
+    addFilmWindow = new AddFilmWindow();
+    connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
 }
 
 void MainWindow::SetDataDirectory()
