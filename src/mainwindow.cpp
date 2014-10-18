@@ -140,6 +140,13 @@ void MainWindow::FillFilmsTable()
     twFilms->setColumnCount( colNames.size() );
     twFilms->setHorizontalHeaderLabels( colNames );
 
+    twFilms->setColumnWidth( 0, 20 );
+    twFilms->setColumnWidth( 1, 150 );
+    twFilms->setColumnWidth( 2, 50 );
+    twFilms->setColumnWidth( 3, 110 );
+    twFilms->setColumnWidth( 4, 110 );
+    twFilms->setColumnWidth( 5, 50 );
+
     // Configure rows
     twFilms->setRowCount( films->size() );
 
@@ -149,31 +156,25 @@ void MainWindow::FillFilmsTable()
         // Favourite
         QTableWidgetItem* favourite = new QTableWidgetItem( films->at(row).isFavourite ? "+" : "" );
         twFilms->setItem( row, 0, favourite );
-        twFilms->setColumnWidth( 0, 20 );
 
         // Title
         QTableWidgetItem* title = new QTableWidgetItem( films->at(row).title );
         twFilms->setItem( row, 1, title );
-        twFilms->setColumnWidth( 1, 150 );
 
         // Year
         QTableWidgetItem* year = new QTableWidgetItem( QString("%1").arg(films->at(row).year) );
         twFilms->setItem( row, 2, year );
-        twFilms->setColumnWidth( 2, 50 );
 
         // Genre
         QTableWidgetItem* genre = new QTableWidgetItem( films->at(row).genre );
         twFilms->setItem( row, 3, genre );
-        twFilms->setColumnWidth( 3, 110 );
 
         // Director
         QTableWidgetItem* director = new QTableWidgetItem( films->at(row).director );
         twFilms->setItem( row, 4, director );
-        twFilms->setColumnWidth( 4, 110 );
 
         // Rating
         QTableWidgetItem* rating = new QTableWidgetItem( QString("%1/10").arg(films->at(row).rating) );
         twFilms->setItem( row, 5, rating);
-        twFilms->setColumnWidth( 5, 50 );
     }
 }
