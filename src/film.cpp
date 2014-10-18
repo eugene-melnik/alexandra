@@ -1,10 +1,5 @@
 #include "film.h"
 
-Film::Film()
-{
-    //
-}
-
 QDataStream& operator << ( QDataStream& out, const Film& f )
 {
     out << f.fileName << f.title << f.originalTitle << f.tagline << f.genre

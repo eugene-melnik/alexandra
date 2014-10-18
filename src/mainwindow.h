@@ -22,17 +22,20 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void AboutQt();
 
     private:
-        // functions
+        // Additional functions
+        void ConfigureToolbar();
+        void ConfigureSubwindows();
         void SetDataDirectory();
         void LoadSettings();
         void SaveSettings();
+        void FillFilmsTable();
 
-        // subwindows
+        // Subwindows
         AboutWindow* aboutWindow = nullptr;
 
-        // variables
+        // Variables
+        FilmsList* films = nullptr;
         QString dataDirectory;
-        FilmsList films;
 };
 
 #endif // MAINWINDOW_H

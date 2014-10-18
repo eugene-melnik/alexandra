@@ -31,3 +31,13 @@ void FilmsList::WriteDatabase( QString dataDirectory )
 
     dbFile.close();
 }
+
+const Film& FilmsList::at( int i ) const
+{
+    return( films.at( i ) );
+}
+
+int FilmsList::size() const
+{
+    return( films.size() );
+}

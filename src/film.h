@@ -8,12 +8,10 @@
 class Film
 {
     public:
-        Film();
-
         friend QDataStream& operator << ( QDataStream& out, const Film& f );
         friend QDataStream& operator >> ( QDataStream& in, Film& f );
 
-    private:
+    //private:
         QString fileName;
         QString title;
         QString originalTitle;
@@ -27,6 +25,9 @@ class Film
         QString description;
         quint8  rating;
         QImage  poster;
+
+        bool isViewed;
+        bool isFavourite;
 };
 
 #endif // FILM_H
