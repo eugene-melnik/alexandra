@@ -35,6 +35,11 @@ void MainWindow::AboutQt()
     QMessageBox::aboutQt( this );
 }
 
+void MainWindow::AddFilm( Film f )
+{
+    films->append( f );
+}
+
 void MainWindow::ConfigureToolbar()
 {
     // Add film
@@ -78,6 +83,7 @@ void MainWindow::ConfigureSubwindows()
     // Add film window
     addFilmWindow = new AddFilmWindow();
     connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
+    connect( addFilmWindow, SIGNAL( AddFilm(Film) ), this, SLOT( AddFilm(Film) ) );
 }
 
 void MainWindow::SetDataDirectory()

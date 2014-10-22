@@ -8,6 +8,8 @@
 class Film
 {
     public:
+        Film();
+
         friend QDataStream& operator << ( QDataStream& out, const Film& f );
         friend QDataStream& operator >> ( QDataStream& in, Film& f );
 

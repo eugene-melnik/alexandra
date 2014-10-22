@@ -1,5 +1,11 @@
 #include "film.h"
 
+Film::Film()
+{
+    isViewed = false;
+    isFavourite = false;
+}
+
 QDataStream& operator << ( QDataStream& out, const Film& f )
 {
     out << f.fileName << f.title << f.originalTitle << f.tagline << f.genre

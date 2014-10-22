@@ -14,6 +14,7 @@ class FilmsList
         void ReadDatabase( QString dataDirectory );
         void WriteDatabase( QString dataDirectory );
 
+        void append( Film f );
         const Film& at( int i) const;
         int size() const;
 

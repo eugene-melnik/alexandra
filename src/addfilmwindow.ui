@@ -46,7 +46,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="eFilmFileName"/>
+      <widget class="QLineEdit" name="eFilmFileName">
+       <property name="maxLength">
+        <number>3000</number>
+       </property>
+       <property name="placeholderText">
+        <string notr="true">...</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="bOpenFile">
@@ -73,7 +83,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="ePosterFileName"/>
+      <widget class="QLineEdit" name="ePosterFileName">
+       <property name="maxLength">
+        <number>3000</number>
+       </property>
+       <property name="placeholderText">
+        <string notr="true">...</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="bOpenPoster">
@@ -92,26 +112,6 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="labelTitle">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Title</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="eTitle"/>
-     </item>
-    </layout>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="QLabel" name="labelOriginalTitle">
@@ -127,7 +127,41 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="eOriginalTitle"/>
+      <widget class="QLineEdit" name="eOriginalTitle">
+       <property name="maxLength">
+        <number>500</number>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="labelTitle">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Title</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="eTitle">
+       <property name="maxLength">
+        <number>500</number>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -147,7 +181,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="eTagline"/>
+      <widget class="QLineEdit" name="eTagline">
+       <property name="maxLength">
+        <number>1000</number>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -170,9 +211,21 @@
       <widget class="QLineEdit" name="eYear">
        <property name="maximumSize">
         <size>
-         <width>100</width>
+         <width>60</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="inputMask">
+        <string notr="true">9999</string>
+       </property>
+       <property name="maxLength">
+        <number>4</number>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="placeholderText">
+        <string notr="true">XXXX</string>
        </property>
       </widget>
      </item>
@@ -191,7 +244,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="eCountry"/>
+      <widget class="QLineEdit" name="eCountry">
+       <property name="maxLength">
+        <number>200</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -211,7 +268,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="eGenre"/>
+      <widget class="QLineEdit" name="eGenre">
+       <property name="maxLength">
+        <number>200</number>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="Line" name="line_4">
@@ -252,7 +313,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="eDirector"/>
+      <widget class="QLineEdit" name="eDirector">
+       <property name="maxLength">
+        <number>200</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -272,7 +337,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="eProducer"/>
+      <widget class="QLineEdit" name="eProducer">
+       <property name="maxLength">
+        <number>500</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -292,7 +361,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="tStarring"/>
+      <widget class="QPlainTextEdit" name="tStarring">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOn</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -312,7 +385,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="tDescription"/>
+      <widget class="QPlainTextEdit" name="tDescription">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOn</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -335,22 +412,5 @@
  <resources>
   <include location="icons/icons.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>AddFilmWindow</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>407</x>
-     <y>543</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>313</x>
-     <y>285</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

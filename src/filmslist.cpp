@@ -32,6 +32,11 @@ void FilmsList::WriteDatabase( QString dataDirectory )
     dbFile.close();
 }
 
+void FilmsList::append( Film f )
+{
+    films.append( f );
+}
+
 const Film& FilmsList::at( int i ) const
 {
     return( films.at( i ) );
