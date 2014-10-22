@@ -42,70 +42,146 @@
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="54"/>
-        <location filename="../addfilmwindow.ui" line="81"/>
+        <location filename="../addfilmwindow.ui" line="67"/>
+        <location filename="../addfilmwindow.ui" line="107"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="71"/>
+        <location filename="../addfilmwindow.ui" line="84"/>
         <source>Poster</source>
         <translation>Изображение</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="105"/>
+        <location filename="../addfilmwindow.ui" line="158"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="125"/>
+        <location filename="../addfilmwindow.ui" line="131"/>
         <source>Original title</source>
         <translation>Оригинальное название</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="145"/>
+        <location filename="../addfilmwindow.ui" line="64"/>
+        <source>Open film on the disk</source>
+        <translation>Открыть фильм на диске</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="104"/>
+        <source>Open poster on the disk</source>
+        <translation>Открыть постер на диске</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="185"/>
         <source>Tagline</source>
         <translation>Слоган</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="165"/>
+        <location filename="../addfilmwindow.ui" line="212"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="189"/>
+        <location filename="../addfilmwindow.ui" line="248"/>
         <source>Country</source>
         <translation>Страна</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="209"/>
+        <location filename="../addfilmwindow.ui" line="255"/>
+        <source>Countries, comma separated</source>
+        <translation>Странны, перечисленные через запятую</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="275"/>
         <source>Genre</source>
         <translation>Жанр</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="226"/>
+        <location filename="../addfilmwindow.ui" line="282"/>
+        <source>Genres, comma separated</source>
+        <translation>Жанры, перечисленные через запятую</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="299"/>
         <source>Rating</source>
         <translation>Оценка</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="250"/>
+        <location filename="../addfilmwindow.ui" line="323"/>
         <source>Director</source>
         <translation>Режиссер</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="270"/>
+        <location filename="../addfilmwindow.ui" line="330"/>
+        <source>Directors, comma separated</source>
+        <translation>Режиссеры, перечисленные через запятую</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="350"/>
         <source>Producer</source>
         <translation>Продюсер</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="290"/>
+        <location filename="../addfilmwindow.ui" line="357"/>
+        <source>Producers, comma separated</source>
+        <translation>Продюсеры, перечисленные через запятую</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="377"/>
         <source>Starring</source>
         <translation>В ролях</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="310"/>
+        <location filename="../addfilmwindow.ui" line="384"/>
+        <source>Actors, comma separated</source>
+        <translation>Актеры, перечисленные через запятую</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="404"/>
         <source>Description</source>
         <translation>Описание</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="411"/>
+        <source>A summary of the plot</source>
+        <translation>Краткий пересказ сюжета</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.cpp" line="22"/>
+        <source>Select film</source>
+        <translation>Выбрать фильм</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.cpp" line="24"/>
+        <source>Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</source>
+        <translation>Видео файлы (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.cpp" line="33"/>
+        <source>Select image</source>
+        <translation>Выбрать изображение</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.cpp" line="35"/>
+        <source>Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</source>
+        <translation>Изображения (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.cpp" line="44"/>
+        <location filename="../addfilmwindow.cpp" line="50"/>
+        <source>Adding film</source>
+        <translation>Добавление фильма</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.cpp" line="44"/>
+        <source>You must choose file on the disk.</source>
+        <translation>Необходимо выбрать файл на диске.</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.cpp" line="50"/>
+        <source>Field &quot;Title&quot; can&apos;t be empty.</source>
+        <translation>Поле &quot;Название&quot; не может быть пустым.</translation>
     </message>
 </context>
 <context>
@@ -261,62 +337,62 @@
         <translation>О Qt...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="41"/>
+        <location filename="../mainwindow.cpp" line="46"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="46"/>
+        <location filename="../mainwindow.cpp" line="51"/>
         <source>Edit</source>
         <translation>Изменить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="50"/>
+        <location filename="../mainwindow.cpp" line="55"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="56"/>
+        <location filename="../mainwindow.cpp" line="61"/>
         <source>Random</source>
         <translation>Случайный</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="60"/>
+        <location filename="../mainwindow.cpp" line="65"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="66"/>
+        <location filename="../mainwindow.cpp" line="71"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="147"/>
+        <location filename="../mainwindow.cpp" line="153"/>
         <source>+</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="148"/>
+        <location filename="../mainwindow.cpp" line="154"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="149"/>
+        <location filename="../mainwindow.cpp" line="155"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="150"/>
+        <location filename="../mainwindow.cpp" line="156"/>
         <source>Genre</source>
         <translation>Жанр</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="151"/>
+        <location filename="../mainwindow.cpp" line="157"/>
         <source>Director</source>
         <translation>Режиссер</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="152"/>
+        <location filename="../mainwindow.cpp" line="158"/>
         <source>Rating</source>
         <translation>Оценка</translation>
     </message>
