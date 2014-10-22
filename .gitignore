@@ -4,5 +4,6 @@ moc_*
 Makefile
 src/alexandra
 *.pro.user
+*.autosave
 qrc_*
 *.log
