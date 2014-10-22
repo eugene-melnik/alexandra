@@ -12,6 +12,10 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
     // Interface
     setupUi( this );
+    wCenter->hide();
+    wRight->hide();
+    separatorLeft->hide();
+    separatorRight->hide();
     setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
     ConfigureSubwindows();
     ConfigureToolbar();
@@ -51,7 +55,6 @@ void MainWindow::FilmSelected( QTableWidgetItem* item )
 
     // Main information
     lFilmTitle->setText( f->title );
-
     lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->originalTitle ) );
     lTagline->setText( tr( "<b>Tagline:</b> %2" ).arg( f->tagline ) );
     lGenre->setText( tr( "<b>Genre:</b> %3" ).arg( f->genre ) );
@@ -63,6 +66,15 @@ void MainWindow::FilmSelected( QTableWidgetItem* item )
     lRating->setText( tr( "<b>Rating:</b> %1/10" ).arg( f->rating ) );
     lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->description ) );
     lPosterImage->setPixmap( f->poster );
+    bFavourite->setChecked( f->isFavourite );
+    bViewed->setChecked( f->isViewed );
+
+    lTechInformation->setText( f->fileName ); // dummy
+
+    wCenter->show();
+    wRight->show();
+    separatorLeft->show();
+    separatorRight->show();
 }
 
 void MainWindow::ConfigureToolbar()
@@ -217,5 +229,7 @@ void MainWindow::FillFilmsTable()
         // Rating
         QTableWidgetItem* rating = new QTableWidgetItem( QString("%1/10").arg(films->at(row).rating) );
         twFilms->setItem( row, 5, rating);
+
+        twFilms->itemClicked( rating ); // dummy
     }
 }

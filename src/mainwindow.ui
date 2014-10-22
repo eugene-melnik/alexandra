@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>808</width>
     <height>500</height>
    </rect>
   </property>
@@ -79,9 +79,6 @@
           <attribute name="horizontalHeaderMinimumSectionSize">
            <number>20</number>
           </attribute>
-          <attribute name="horizontalHeaderStretchLastSection">
-           <bool>true</bool>
-          </attribute>
           <attribute name="verticalHeaderVisible">
            <bool>false</bool>
           </attribute>
@@ -137,153 +134,191 @@
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="vlCenter">
-        <item>
-         <widget class="QLabel" name="lFilmTitle">
-          <property name="minimumSize">
-           <size>
-            <width>300</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>16</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
-            <underline>false</underline>
-           </font>
-          </property>
-          <property name="text">
-           <string notr="true">&lt;film_title&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QScrollArea" name="saFilmInformation">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="vlFilmInformation">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>318</width>
-             <height>373</height>
-            </rect>
+       <widget class="QWidget" name="wCenter" native="true">
+        <layout class="QVBoxLayout" name="vlCenter">
+         <property name="spacing">
+          <number>6</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="lFilmTitle">
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>0</height>
+            </size>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <widget class="QLabel" name="lOriginalTitle">
-              <property name="minimumSize">
-               <size>
-                <width>300</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="text">
-               <string notr="true">&lt;original_title&gt;</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-              </property>
-              <property name="wordWrap">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lTagline">
-              <property name="text">
-               <string>&lt;tagline&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lGenre">
-              <property name="text">
-               <string>&lt;genre&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lYear">
-              <property name="text">
-               <string>&lt;year&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lCountry">
-              <property name="text">
-               <string>&lt;country&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lDirector">
-              <property name="text">
-               <string>&lt;director&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lProducer">
-              <property name="text">
-               <string>&lt;producer&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lStarring">
-              <property name="text">
-               <string>&lt;starring&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lRating">
-              <property name="text">
-               <string>&lt;rating&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lDescription">
-              <property name="text">
-               <string>&lt;description&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="vsCenter">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
+           <property name="font">
+            <font>
+             <pointsize>16</pointsize>
+             <weight>75</weight>
+             <italic>false</italic>
+             <bold>true</bold>
+             <underline>false</underline>
+            </font>
+           </property>
+           <property name="text">
+            <string notr="true">&lt;film_title&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
           </widget>
-         </widget>
-        </item>
-       </layout>
+         </item>
+         <item>
+          <widget class="QScrollArea" name="saFilmInformation">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="vlFilmInformation">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>318</width>
+              <height>375</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <item>
+              <widget class="QLabel" name="lOriginalTitle">
+               <property name="minimumSize">
+                <size>
+                 <width>300</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string notr="true">&lt;original_title&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lTagline">
+               <property name="text">
+                <string notr="true">&lt;tagline&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lGenre">
+               <property name="text">
+                <string notr="true">&lt;genre&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lYear">
+               <property name="text">
+                <string notr="true">&lt;year&gt;</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lCountry">
+               <property name="text">
+                <string notr="true">&lt;country&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lDirector">
+               <property name="text">
+                <string notr="true">&lt;director&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lProducer">
+               <property name="text">
+                <string notr="true">&lt;producer&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lStarring">
+               <property name="text">
+                <string notr="true">&lt;starring&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lRating">
+               <property name="text">
+                <string notr="true">&lt;rating&gt;</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lDescription">
+               <property name="text">
+                <string notr="true">&lt;description&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="vsCenter">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
        <widget class="Line" name="separatorRight">
@@ -293,158 +328,175 @@
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="vlRight">
-        <item>
-         <widget class="QLabel" name="lPosterImage">
-          <property name="minimumSize">
-           <size>
-            <width>220</width>
-            <height>200</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>220</width>
-            <height>640</height>
-           </size>
-          </property>
-          <property name="text">
-           <string notr="true">&lt;image&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lTechInformation">
-          <property name="maximumSize">
-           <size>
-            <width>200</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string notr="true">&lt;tech_info&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="vlAllButtons">
-          <item>
-           <layout class="QHBoxLayout" name="hlOptionsButtons">
-            <item>
-             <widget class="QPushButton" name="bViewed">
-              <property name="maximumSize">
-               <size>
-                <width>50</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Is viewed</string>
-              </property>
-              <property name="text">
-               <string notr="true">v</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="bFavourite">
-              <property name="maximumSize">
-               <size>
-                <width>50</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Is added to favourites</string>
-              </property>
-              <property name="text">
-               <string notr="true">+</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="bTechInformation">
-              <property name="maximumSize">
-               <size>
-                <width>50</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Show technical information</string>
-              </property>
-              <property name="text">
-               <string notr="true">i</string>
-              </property>
-              <property name="autoDefault">
-               <bool>false</bool>
-              </property>
-              <property name="default">
-               <bool>false</bool>
-              </property>
-              <property name="flat">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QPushButton" name="bPlay">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Open film in external player</string>
-            </property>
-            <property name="text">
-             <string>PLAY</string>
-            </property>
-            <property name="shortcut">
-             <string>Alt+Return</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer name="vsRight">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>18</width>
-            <height>38</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
+       <widget class="QWidget" name="wRight" native="true">
+        <layout class="QVBoxLayout" name="vlRight">
+         <property name="spacing">
+          <number>6</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="lPosterImage">
+           <property name="minimumSize">
+            <size>
+             <width>220</width>
+             <height>200</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>220</width>
+             <height>640</height>
+            </size>
+           </property>
+           <property name="text">
+            <string notr="true">&lt;image&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lTechInformation">
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string notr="true">&lt;tech_info&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="vlAllButtons">
+           <item>
+            <layout class="QHBoxLayout" name="hlOptionsButtons">
+             <item>
+              <widget class="QPushButton" name="bViewed">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Is viewed</string>
+               </property>
+               <property name="text">
+                <string notr="true">v</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="bFavourite">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Is added to favourites</string>
+               </property>
+               <property name="text">
+                <string notr="true">+</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="bTechInformation">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Show technical information</string>
+               </property>
+               <property name="text">
+                <string notr="true">i</string>
+               </property>
+               <property name="autoDefault">
+                <bool>false</bool>
+               </property>
+               <property name="default">
+                <bool>false</bool>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="bPlay">
+             <property name="maximumSize">
+              <size>
+               <width>220</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Open film in external player</string>
+             </property>
+             <property name="text">
+              <string>PLAY</string>
+             </property>
+             <property name="shortcut">
+              <string>Alt+Return</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="vsRight">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>18</width>
+             <height>38</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </item>
@@ -455,7 +507,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>808</width>
      <height>24</height>
     </rect>
    </property>
