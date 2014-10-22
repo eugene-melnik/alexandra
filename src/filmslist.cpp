@@ -46,3 +46,16 @@ int FilmsList::size() const
 {
     return( films.size() );
 }
+
+const Film* FilmsList::GetFilmByTitle( const QString& t ) const
+{
+    for( int i = 0; i < films.size(); i++ )
+    {
+        if( films.at(i).title == t )
+        {
+            return( &films.at(i) );
+        }
+    }
+
+    return( nullptr );
+}

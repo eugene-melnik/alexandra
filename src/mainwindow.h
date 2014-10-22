@@ -10,6 +10,7 @@
 
 #include <QMainWindow>
 #include <QCloseEvent>
+#include <QTableWidgetItem>
 
 class MainWindow : public QMainWindow, public Ui::MainWindow
 {
@@ -24,6 +25,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
     private slots:
         void AboutQt();
         void AddFilm( Film f );
+
+        void FilmSelected( QTableWidgetItem* item );
 
     private:
         // Additional functions

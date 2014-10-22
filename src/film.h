@@ -3,7 +3,7 @@
 
 #include <QDataStream>
 #include <QString>
-#include <QImage>
+#include <QPixmap>
 
 class Film
 {
@@ -26,7 +26,7 @@ class Film
         QString starring;
         QString description;
         quint8  rating;
-        QImage  poster;
+        QPixmap poster;
 
         bool isViewed;
         bool isFavourite;

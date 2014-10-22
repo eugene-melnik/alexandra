@@ -7,6 +7,7 @@
 
 #include <QDialog>
 #include <QAbstractButton>
+#include <QShowEvent>
 
 class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
 {
@@ -15,6 +16,9 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
     public:
         AddFilmWindow( QWidget* parent = nullptr );
 
+    protected:
+        void showEvent( QShowEvent* event );
+
     signals:
         void AddFilm( Film f );
 
@@ -22,7 +26,6 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
         void OpenFilmFile();
         void OpenPosterFile();
         void OkButtonClicked();
-        void CancelButtonClicked();
 
     private:
         void ConfigureCBRating();

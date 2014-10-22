@@ -167,36 +167,121 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="lFilmInformation">
-          <property name="minimumSize">
-           <size>
-            <width>300</width>
-            <height>0</height>
-           </size>
+         <widget class="QScrollArea" name="saFilmInformation">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
           </property>
-          <property name="text">
-           <string notr="true">&lt;info&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-          </property>
-          <property name="wordWrap">
+          <property name="widgetResizable">
            <bool>true</bool>
           </property>
+          <widget class="QWidget" name="vlFilmInformation">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>318</width>
+             <height>373</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QLabel" name="lOriginalTitle">
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string notr="true">&lt;original_title&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lTagline">
+              <property name="text">
+               <string>&lt;tagline&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lGenre">
+              <property name="text">
+               <string>&lt;genre&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lYear">
+              <property name="text">
+               <string>&lt;year&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lCountry">
+              <property name="text">
+               <string>&lt;country&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lDirector">
+              <property name="text">
+               <string>&lt;director&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lProducer">
+              <property name="text">
+               <string>&lt;producer&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lStarring">
+              <property name="text">
+               <string>&lt;starring&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lRating">
+              <property name="text">
+               <string>&lt;rating&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lDescription">
+              <property name="text">
+               <string>&lt;description&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="vsCenter">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
          </widget>
-        </item>
-        <item>
-         <spacer name="vsCenter">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>
@@ -213,14 +298,14 @@
          <widget class="QLabel" name="lPosterImage">
           <property name="minimumSize">
            <size>
-            <width>0</width>
+            <width>220</width>
             <height>200</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>200</width>
-            <height>16777215</height>
+            <width>220</width>
+            <height>640</height>
            </size>
           </property>
           <property name="text">
@@ -371,7 +456,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>19</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">

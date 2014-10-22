@@ -13,7 +13,12 @@ AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
     connect( bOpenFile, SIGNAL( clicked() ), this, SLOT( OpenFilmFile() ) );
     connect( bOpenPoster, SIGNAL( clicked() ), this, SLOT( OpenPosterFile() ) );
     connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
-    connect( buttonBox, SIGNAL( rejected() ), this, SLOT( CancelButtonClicked() ) );
+}
+
+void AddFilmWindow::showEvent(QShowEvent *event)
+{
+    ClearFields();
+    event->accept();
 }
 
 void AddFilmWindow::OpenFilmFile()
@@ -54,7 +59,7 @@ void AddFilmWindow::OkButtonClicked()
 
     Film f;
     f.fileName = eFilmFileName->text();
-    f.poster = QImage( ePosterFileName->text() );
+    f.poster = QPixmap( ePosterFileName->text() );
     f.title = eTitle->text();
     f.originalTitle = eOriginalTitle->text();
     f.tagline = eTagline->text();
@@ -67,15 +72,8 @@ void AddFilmWindow::OkButtonClicked()
     f.starring = tStarring->toPlainText();
     f.description = tDescription->toPlainText();
 
+    close();
     emit AddFilm( f );
-    ClearFields();
-    close();
-}
-
-void AddFilmWindow::CancelButtonClicked()
-{
-    ClearFields();
-    close();
 }
 
 void AddFilmWindow::ConfigureCBRating()

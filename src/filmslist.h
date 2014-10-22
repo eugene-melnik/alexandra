@@ -18,6 +18,8 @@ class FilmsList
         const Film& at( int i) const;
         int size() const;
 
+        const Film* GetFilmByTitle( const QString& t ) const;
+
     private:
         QList<Film> films;
 };
