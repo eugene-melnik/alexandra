@@ -2,6 +2,7 @@
 
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QFileInfo>
 
 AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
 {
@@ -17,19 +18,22 @@ AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
 
 void AddFilmWindow::OpenFilmFile()
 {
-    QString fileName = QFileDialog::getOpenFileName( this,
-                                                     tr( "Select film" ),
-                                                     ".",
-                                                     tr( "Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)" ) );
-    eFilmFileName->setText( fileName );
+    QFileInfo fileName = QFileDialog::getOpenFileName( this,
+                         tr( "Select film" ),
+                         ".",
+                         tr( "Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)" ) );
+
+    eFilmFileName->setText( fileName.absoluteFilePath() );
+    eTitle->setText( fileName.baseName() );
 }
 
 void AddFilmWindow::OpenPosterFile()
 {
     QString fileName = QFileDialog::getOpenFileName( this,
-                                                     tr( "Select image" ),
-                                                     ".",
-                                                     tr( "Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)" ) );
+                       tr( "Select image" ),
+                       ".",
+                       tr( "Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)" ) );
+
     ePosterFileName->setText( fileName );
 }
 

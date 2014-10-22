@@ -60,6 +60,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="bOpenFile">
+       <property name="toolTip">
+        <string>Open film on the disk</string>
+       </property>
        <property name="text">
         <string>Open</string>
        </property>
@@ -97,6 +100,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="bOpenPoster">
+       <property name="toolTip">
+        <string>Open poster on the disk</string>
+       </property>
        <property name="text">
         <string>Open</string>
        </property>
@@ -245,6 +251,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="eCountry">
+       <property name="toolTip">
+        <string>Countries, comma separated</string>
+       </property>
        <property name="maxLength">
         <number>200</number>
        </property>
@@ -269,6 +278,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="eGenre">
+       <property name="toolTip">
+        <string>Genres, comma separated</string>
+       </property>
        <property name="maxLength">
         <number>200</number>
        </property>
@@ -314,6 +326,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="eDirector">
+       <property name="toolTip">
+        <string>Directors, comma separated</string>
+       </property>
        <property name="maxLength">
         <number>200</number>
        </property>
@@ -338,6 +353,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="eProducer">
+       <property name="toolTip">
+        <string>Producers, comma separated</string>
+       </property>
        <property name="maxLength">
         <number>500</number>
        </property>
@@ -362,6 +380,9 @@
      </item>
      <item>
       <widget class="QPlainTextEdit" name="tStarring">
+       <property name="toolTip">
+        <string>Actors, comma separated</string>
+       </property>
        <property name="verticalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOn</enum>
        </property>
@@ -386,6 +407,9 @@
      </item>
      <item>
       <widget class="QPlainTextEdit" name="tDescription">
+       <property name="toolTip">
+        <string>A summary of the plot</string>
+       </property>
        <property name="verticalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOn</enum>
        </property>
@@ -402,8 +426,14 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
