@@ -1,6 +1,7 @@
 #include "addfilmwindow.h"
 
 #include <QMessageBox>
+#include <QFileDialog>
 
 AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
 {
@@ -8,8 +9,28 @@ AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
     ConfigureCBRating();
     bOpenFile->setFocus();
 
+    connect( bOpenFile, SIGNAL( clicked() ), this, SLOT( OpenFilmFile() ) );
+    connect( bOpenPoster, SIGNAL( clicked() ), this, SLOT( OpenPosterFile() ) );
     connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
     connect( buttonBox, SIGNAL( rejected() ), this, SLOT( CancelButtonClicked() ) );
+}
+
+void AddFilmWindow::OpenFilmFile()
+{
+    QString fileName = QFileDialog::getOpenFileName( this,
+                                                     tr( "Select film" ),
+                                                     ".",
+                                                     tr( "Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)" ) );
+    eFilmFileName->setText( fileName );
+}
+
+void AddFilmWindow::OpenPosterFile()
+{
+    QString fileName = QFileDialog::getOpenFileName( this,
+                                                     tr( "Select image" ),
+                                                     ".",
+                                                     tr( "Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)" ) );
+    ePosterFileName->setText( fileName );
 }
 
 void AddFilmWindow::OkButtonClicked()

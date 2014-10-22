@@ -19,6 +19,8 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
         void AddFilm( Film f );
 
     private slots:
+        void OpenFilmFile();
+        void OpenPosterFile();
         void OkButtonClicked();
         void CancelButtonClicked();
 
