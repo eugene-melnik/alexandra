@@ -32,7 +32,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         // Additional functions
         void ConfigureToolbar();
         void ConfigureSubwindows();
-        void CreateFilmsTable();
 
         void SetDataDirectory();
         void LoadSettings();

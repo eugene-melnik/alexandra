@@ -17,7 +17,6 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
     ConfigureSubwindows();
     ConfigureToolbar();
-    CreateFilmsTable();
 
     // Data
     LoadSettings();
@@ -130,20 +129,6 @@ void MainWindow::ConfigureSubwindows()
     connect( addFilmWindow, SIGNAL( AddFilm(Film) ), this, SLOT( AddFilm(Film) ) );
 }
 
-void MainWindow::CreateFilmsTable()
-{
-    // Configure columns
-    QStringList colNames;
-    colNames.append( tr( "+" ) );
-    colNames.append( tr( "Title" ) );
-    colNames.append( tr( "Year" ) );
-    colNames.append( tr( "Genre" ) );
-    colNames.append( tr( "Director" ) );
-    colNames.append( tr( "Rating" ) );
-    twFilms->setColumnCount( colNames.size() );
-    twFilms->setHorizontalHeaderLabels( colNames );
-}
-
 void MainWindow::SetDataDirectory()
 {
 #ifdef Q_OS_LINUX
@@ -206,7 +191,21 @@ void MainWindow::SaveSettings()
 
 void MainWindow::UpdateFilmsTable()
 {
+    // Clear old data
     twFilms->clear();
+
+    // Configure columns
+    QStringList colNames;
+    colNames.append( tr( "+" ) );
+    colNames.append( tr( "Title" ) );
+    colNames.append( tr( "Year" ) );
+    colNames.append( tr( "Genre" ) );
+    colNames.append( tr( "Director" ) );
+    colNames.append( tr( "Rating" ) );
+    twFilms->setColumnCount( colNames.size() );
+    twFilms->setHorizontalHeaderLabels( colNames );
+
+    // Configure rows
     twFilms->setRowCount( films->size() );
 
     for( int row = 0; row != twFilms->rowCount(); row++ )
