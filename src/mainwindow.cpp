@@ -17,13 +17,15 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
     ConfigureSubwindows();
     ConfigureToolbar();
+    CreateFilmsTable();
 
     // Data
     LoadSettings();
     SetDataDirectory();
     films = new FilmsList();
     films->ReadDatabase( dataDirectory );
-    FillFilmsTable();
+
+    UpdateFilmsTable();
     UpdateStatusBar();
 }
 
@@ -46,6 +48,7 @@ void MainWindow::AddFilm( Film f )
     films->append( f );
     films->WriteDatabase( dataDirectory );
 
+    UpdateFilmsTable();
     UpdateStatusBar();
 }
 
@@ -127,6 +130,20 @@ void MainWindow::ConfigureSubwindows()
     connect( addFilmWindow, SIGNAL( AddFilm(Film) ), this, SLOT( AddFilm(Film) ) );
 }
 
+void MainWindow::CreateFilmsTable()
+{
+    // Configure columns
+    QStringList colNames;
+    colNames.append( tr( "+" ) );
+    colNames.append( tr( "Title" ) );
+    colNames.append( tr( "Year" ) );
+    colNames.append( tr( "Genre" ) );
+    colNames.append( tr( "Director" ) );
+    colNames.append( tr( "Rating" ) );
+    twFilms->setColumnCount( colNames.size() );
+    twFilms->setHorizontalHeaderLabels( colNames );
+}
+
 void MainWindow::SetDataDirectory()
 {
 #ifdef Q_OS_LINUX
@@ -187,24 +204,11 @@ void MainWindow::SaveSettings()
     s.setValue( "FilmList/CW5", twFilms->columnWidth(5) );
 }
 
-void MainWindow::FillFilmsTable()
+void MainWindow::UpdateFilmsTable()
 {
-    // Configure columns
-    QStringList colNames;
-    colNames.append( tr( "+" ) );
-    colNames.append( tr( "Title" ) );
-    colNames.append( tr( "Year" ) );
-    colNames.append( tr( "Genre" ) );
-    colNames.append( tr( "Director" ) );
-    colNames.append( tr( "Rating" ) );
-
-    twFilms->setColumnCount( colNames.size() );
-    twFilms->setHorizontalHeaderLabels( colNames );
-
-    // Configure rows
+    twFilms->clear();
     twFilms->setRowCount( films->size() );
 
-    // Fill table from the database
     for( int row = 0; row != twFilms->rowCount(); row++ )
     {
         // Favourite
