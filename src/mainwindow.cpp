@@ -5,6 +5,7 @@
 #include <QProcessEnvironment>
 #include <QMessageBox>
 #include <QSettings>
+#include <QProcess>
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
@@ -51,6 +52,12 @@ void MainWindow::AddFilm( Film f )
     UpdateStatusBar();
 }
 
+void MainWindow::PlayFilm()
+{
+    //QProcess player;
+    //player.startDetached( "smplayer" );
+}
+
 void MainWindow::FilmSelected( QTableWidgetItem* item )
 {
     QString selectedFilmTitle = twFilms->item( item->row(), 1 )->text();
@@ -59,13 +66,13 @@ void MainWindow::FilmSelected( QTableWidgetItem* item )
     // Main information
     lFilmTitle->setText( f->title );
     lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->originalTitle ) );
-    lTagline->setText( tr( "<b>Tagline:</b> %2" ).arg( f->tagline ) );
-    lGenre->setText( tr( "<b>Genre:</b> %3" ).arg( f->genre ) );
-    lYear->setText( tr( "<b>Year:</b> %4" ).arg( f->year ) );
-    lCountry->setText( tr( "<b>Country:</b> %5" ).arg( f->country ) );
-    lDirector->setText( tr( "<b>Director:</b> %6" ).arg( f->director ) );
-    lProducer->setText( tr( "<b>Producer:</b> %7" ).arg( f->producer ) );
-    lStarring->setText( tr( "<b>Starring:</b> %8" ).arg( f->starring ) );
+    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f->tagline ) );
+    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f->genre ) );
+    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f->year ) );
+    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f->country ) );
+    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f->director ) );
+    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f->producer ) );
+    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->starring ) );
     lRating->setText( tr( "<b>Rating:</b> %1/10" ).arg( f->rating ) );
     lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->description ) );
     lPosterImage->setPixmap( f->poster );
@@ -117,6 +124,7 @@ void MainWindow::ConfigureSubwindows()
 {
     // Main window
     connect( twFilms, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( FilmSelected(QTableWidgetItem*) ) );
+    connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
 
     // About and About Qt windows
     aboutWindow = new AboutWindow( this );

@@ -26,6 +26,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void AboutQt();
         void AddFilm( Film f );
 
+        void PlayFilm();
         void FilmSelected( QTableWidgetItem* item );
 
     private:
