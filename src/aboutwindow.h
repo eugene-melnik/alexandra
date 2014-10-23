@@ -4,6 +4,7 @@
 #include "ui_aboutwindow.h"
 
 #include <QDialog>
+#include <QShowEvent>
 
 class AboutWindow : public QDialog, public Ui::AboutWindow
 {
@@ -11,6 +12,9 @@ class AboutWindow : public QDialog, public Ui::AboutWindow
 
     public:
         AboutWindow( QWidget* parent = nullptr );
+
+    protected:
+        void showEvent( QShowEvent* event );
 };
 
 #endif // ABOUTWINDOW_H
