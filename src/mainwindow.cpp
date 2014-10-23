@@ -6,8 +6,6 @@
 #include <QMessageBox>
 #include <QSettings>
 
-#include<QTableWidget>
-
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
     // Interface
@@ -26,6 +24,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     films = new FilmsList();
     films->ReadDatabase( dataDirectory );
     FillFilmsTable();
+    UpdateStatusBar();
 }
 
 void MainWindow::closeEvent( QCloseEvent* event )
@@ -46,6 +45,8 @@ void MainWindow::AddFilm( Film f )
     // And save
     films->append( f );
     films->WriteDatabase( dataDirectory );
+
+    UpdateStatusBar();
 }
 
 void MainWindow::FilmSelected( QTableWidgetItem* item )
@@ -232,4 +233,12 @@ void MainWindow::FillFilmsTable()
 
         twFilms->itemClicked( rating ); // dummy
     }
+}
+
+void MainWindow::UpdateStatusBar()
+{
+    statusbar->showMessage( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
+                            .arg( films->size() )
+                            .arg( films->GetIsViewedCount() )
+                            .arg( films->GetIsFavouriteCount() ) );
 }

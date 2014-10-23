@@ -59,3 +59,27 @@ const Film* FilmsList::GetFilmByTitle( const QString& t ) const
 
     return( nullptr );
 }
+
+int FilmsList::GetIsViewedCount() const
+{
+    int res = 0;
+
+    foreach (Film f, films)
+    {
+        if( f.isViewed ) res++;
+    }
+
+    return( res );
+}
+
+int FilmsList::GetIsFavouriteCount() const
+{
+    int res = 0;
+
+    foreach (Film f, films)
+    {
+        if( f.isFavourite ) res++;
+    }
+
+    return( res );
+}

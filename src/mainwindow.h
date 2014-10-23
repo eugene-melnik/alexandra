@@ -36,6 +36,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void LoadSettings();
         void SaveSettings();
         void FillFilmsTable();
+        void CreateStatusBar();
+        void UpdateStatusBar();
 
         // Subwindows
         AboutWindow* aboutWindow = nullptr;

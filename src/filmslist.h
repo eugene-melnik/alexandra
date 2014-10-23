@@ -20,6 +20,9 @@ class FilmsList
 
         const Film* GetFilmByTitle( const QString& t ) const;
 
+        int GetIsViewedCount() const;
+        int GetIsFavouriteCount() const;
+
     private:
         QList<Film> films;
 };
