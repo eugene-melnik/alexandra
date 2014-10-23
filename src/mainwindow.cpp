@@ -119,12 +119,12 @@ void MainWindow::ConfigureSubwindows()
     connect( twFilms, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( FilmSelected(QTableWidgetItem*) ) );
 
     // About and About Qt windows
-    aboutWindow = new AboutWindow();
+    aboutWindow = new AboutWindow( this );
     connect( actionAbout, SIGNAL( triggered() ), aboutWindow, SLOT( show() ) );
     connect( actionAboutQt, SIGNAL( triggered() ), this, SLOT( AboutQt() ) );
 
     // Add film window
-    addFilmWindow = new AddFilmWindow();
+    addFilmWindow = new AddFilmWindow( this );
     connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
     connect( addFilmWindow, SIGNAL( AddFilm(Film) ), this, SLOT( AddFilm(Film) ) );
 }

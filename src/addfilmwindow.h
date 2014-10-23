@@ -6,7 +6,6 @@
 #include "film.h"
 
 #include <QDialog>
-#include <QAbstractButton>
 #include <QShowEvent>
 
 class AddFilmWindow : public QDialog, public Ui::AddFilmWindow

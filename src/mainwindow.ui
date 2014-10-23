@@ -537,8 +537,8 @@
      <string>Fil&amp;ms</string>
     </property>
     <addaction name="actionAdd"/>
-    <addaction name="actionEditFilm"/>
-    <addaction name="actionRemoveFilm"/>
+    <addaction name="actionEdit"/>
+    <addaction name="actionRemove"/>
     <addaction name="separator"/>
     <addaction name="actionRandom"/>
     <addaction name="actionSearch"/>
@@ -619,7 +619,7 @@
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="actionEditFilm">
+  <action name="actionEdit">
    <property name="icon">
     <iconset resource="icons/icons.qrc">
      <normaloff>:/tool/edit</normaloff>:/tool/edit</iconset>
@@ -631,7 +631,7 @@
     <string>Ctrl+E</string>
    </property>
   </action>
-  <action name="actionRemoveFilm">
+  <action name="actionRemove">
    <property name="icon">
     <iconset resource="icons/icons.qrc">
      <normaloff>:/tool/delete</normaloff>:/tool/delete</iconset>
