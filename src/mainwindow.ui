@@ -119,7 +119,7 @@
           <property name="placeholderText">
            <string>&lt;type to search&gt;</string>
           </property>
-          <property name="clearButtonEnabled">
+          <property name="clearButtonEnabled" stdset="0">
            <bool>true</bool>
           </property>
          </widget>
@@ -139,16 +139,7 @@
          <property name="spacing">
           <number>6</number>
          </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
@@ -193,7 +184,7 @@
               <x>0</x>
               <y>0</y>
               <width>318</width>
-              <height>375</height>
+              <height>378</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout">
@@ -333,16 +324,7 @@
          <property name="spacing">
           <number>6</number>
          </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
@@ -508,7 +490,7 @@
      <x>0</x>
      <y>0</y>
      <width>808</width>
-     <height>24</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -668,6 +650,10 @@
    </property>
   </action>
   <action name="actionAboutQt">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/window/about-qt</normaloff>:/window/about-qt</iconset>
+   </property>
    <property name="text">
     <string>About Qt...</string>
    </property>

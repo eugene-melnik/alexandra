@@ -2,6 +2,7 @@
   <qresource prefix="window">
     <file alias="prefs">window-prefs.png</file>
     <file alias="about">window-about.png</file>
+    <file alias="about-qt">window-about-qt.png</file>
     <file alias="main">window-main.png</file>
   </qresource>
   <qresource prefix="action">
