@@ -9,7 +9,7 @@ FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
     //
 }
 
-void FilmsList::ReadDatabase( QString dataDirectory )
+void FilmsList::LoadDatabase( QString dataDirectory )
 {
     dataDirectory.append( "database.dat" );
     QFile dbFile( dataDirectory );
@@ -21,9 +21,11 @@ void FilmsList::ReadDatabase( QString dataDirectory )
     }
 
     dbFile.close();
+
+    UpdateFilmsTable();
 }
 
-void FilmsList::WriteDatabase( QString dataDirectory )
+void FilmsList::SaveDatabase( QString dataDirectory )
 {
     dataDirectory.append( "database.dat" );
     QFile dbFile( dataDirectory );
@@ -35,34 +37,36 @@ void FilmsList::WriteDatabase( QString dataDirectory )
     }
 
     dbFile.close();
+
+    UpdateFilmsTable();
 }
 
-void FilmsList::append( Film f )
+void FilmsList::AppendFilm( Film f )
 {
     films.append( f );
 }
 
-const Film& FilmsList::at( int i ) const
+const Film& FilmsList::GetFilmAt( int i ) const
 {
     return( films.at( i ) );
 }
 
-int FilmsList::size() const
+int FilmsList::GetNumberOfFilms() const
 {
     return( films.size() );
 }
 
-const Film* FilmsList::GetFilmByTitle( const QString& t ) const
+const Film& FilmsList::GetFilmByTitle( const QString& t ) const
 {
     for( int i = 0; i < films.size(); i++ )
     {
         if( films.at(i).title == t )
         {
-            return( &films.at(i) );
+            return( films.at(i) );
         }
     }
 
-    return( nullptr );
+    return( *new Film() );
 }
 
 int FilmsList::GetIsViewedCount() const
@@ -106,7 +110,7 @@ void FilmsList::UpdateFilmsTable()
     setHorizontalHeaderLabels( colNames );
 
     // Configure rows
-    setRowCount( this->size() );
+    setRowCount( this->GetNumberOfFilms() );
 
     for( int row = 0; row != this->rowCount(); row++ )
     {

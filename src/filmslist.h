@@ -12,14 +12,14 @@ class FilmsList : public QTableWidget
     public:
         FilmsList( QWidget* parent = nullptr );
 
-        void ReadDatabase( QString dataDirectory );
-        void WriteDatabase( QString dataDirectory );
+        void LoadDatabase( QString dataDirectory );
+        void SaveDatabase( QString dataDirectory );
 
-        void append( Film f );
-        const Film& at( int i) const;
-        int size() const;
+        void AppendFilm( Film f );
 
-        const Film* GetFilmByTitle( const QString& t ) const;
+        int GetNumberOfFilms() const;
+        const Film& GetFilmAt( int i) const;
+        const Film& GetFilmByTitle( const QString& t ) const;
 
         int GetIsViewedCount() const;
         int GetIsFavouriteCount() const;

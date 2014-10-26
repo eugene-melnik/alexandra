@@ -22,12 +22,12 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
         void AddFilm( Film f );
 
     private slots:
-        void OpenFilmFile();
-        void OpenPosterFile();
+        void OpenFilmFileClicked();
+        void OpenPosterFileClicked();
         void OkButtonClicked();
 
     private:
-        void ConfigureCBRating();
+        void ConfigureRatingComboBox();
         void ClearFields();
 };
 

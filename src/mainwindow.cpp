@@ -19,8 +19,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     LoadSettings();
     SetDataDirectory();
 
-    twFilms->ReadDatabase( dataDirectory );
-    twFilms->UpdateFilmsTable();
+    twFilms->LoadDatabase( dataDirectory );
 
     UpdateStatusBar();
 }
@@ -41,9 +40,8 @@ void MainWindow::AddFilm( Film f )
     // Scale image
     f.poster = f.poster.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
     // And save
-    twFilms->append( f );
-    twFilms->UpdateFilmsTable();
-    twFilms->WriteDatabase( dataDirectory );
+    twFilms->AppendFilm( f );
+    twFilms->SaveDatabase( dataDirectory );
 
     UpdateStatusBar();
 }
@@ -57,25 +55,25 @@ void MainWindow::PlayFilm()
 void MainWindow::FilmSelected( QTableWidgetItem* item )
 {
     QString selectedFilmTitle = twFilms->item( item->row(), 1 )->text();
-    const Film* f = twFilms->GetFilmByTitle( selectedFilmTitle );
+    const Film f = twFilms->GetFilmByTitle( selectedFilmTitle );
 
     // Main information
-    lFilmTitle->setText( f->title );
-    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->originalTitle ) );
-    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f->tagline ) );
-    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f->genre ) );
-    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f->year ) );
-    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f->country ) );
-    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f->director ) );
-    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f->producer ) );
-    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->starring ) );
-    lRating->setText( tr( "<b>Rating:</b> %1/10" ).arg( f->rating ) );
-    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->description ) );
-    lPosterImage->setPixmap( f->poster );
-    bFavourite->setChecked( f->isFavourite );
-    bViewed->setChecked( f->isViewed );
+    lFilmTitle->setText( f.title );
+    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f.originalTitle ) );
+    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f.tagline ) );
+    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f.genre ) );
+    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f.year ) );
+    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f.country ) );
+    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f.director ) );
+    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f.producer ) );
+    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f.starring ) );
+    lRating->setText( tr( "<b>Rating:</b> %1/10" ).arg( f.rating ) );
+    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f.description ) );
+    lPosterImage->setPixmap( f.poster );
+    bFavourite->setChecked( f.isFavourite );
+    bViewed->setChecked( f.isViewed );
 
-    lTechInformation->setText( f->fileName ); // dummy
+    lTechInformation->setText( f.fileName ); // dummy
 }
 
 void MainWindow::ConfigureToolbar()
@@ -191,7 +189,7 @@ void MainWindow::SaveSettings()
 void MainWindow::UpdateStatusBar()
 {
     statusbar->showMessage( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
-                            .arg( twFilms->size() )
+                            .arg( twFilms->GetNumberOfFilms() )
                             .arg( twFilms->GetIsViewedCount() )
                             .arg( twFilms->GetIsFavouriteCount() ) );
 }
