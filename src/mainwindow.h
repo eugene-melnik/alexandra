@@ -38,7 +38,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void LoadSettings();
         void SaveSettings();
 
-        void UpdateFilmsTable();
         void UpdateStatusBar();
 
         // Subwindows
@@ -46,7 +45,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         AddFilmWindow* addFilmWindow = nullptr;
 
         // Variables
-        FilmsList* films = nullptr;
         QString dataDirectory;
 };
 

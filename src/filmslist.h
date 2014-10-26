@@ -1,15 +1,16 @@
 #ifndef FILMSLIST_H
 #define FILMSLIST_H
 
+#include <QTableWidget>
 #include <QString>
 #include <QList>
 
 #include "film.h"
 
-class FilmsList
+class FilmsList : public QTableWidget
 {
     public:
-        //FilmsList();
+        FilmsList( QWidget* parent = nullptr );
 
         void ReadDatabase( QString dataDirectory );
         void WriteDatabase( QString dataDirectory );
@@ -22,6 +23,8 @@ class FilmsList
 
         int GetIsViewedCount() const;
         int GetIsFavouriteCount() const;
+
+        void UpdateFilmsTable();
 
     private:
         QList<Film> films;

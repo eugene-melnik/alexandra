@@ -11,10 +11,6 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
     // Interface
     setupUi( this );
-    wCenter->hide();
-    wRight->hide();
-    separatorLeft->hide();
-    separatorRight->hide();
     setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
     ConfigureSubwindows();
     ConfigureToolbar();
@@ -22,10 +18,10 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     // Data
     LoadSettings();
     SetDataDirectory();
-    films = new FilmsList();
-    films->ReadDatabase( dataDirectory );
 
-    UpdateFilmsTable();
+    twFilms->ReadDatabase( dataDirectory );
+    twFilms->UpdateFilmsTable();
+
     UpdateStatusBar();
 }
 
@@ -45,10 +41,10 @@ void MainWindow::AddFilm( Film f )
     // Scale image
     f.poster = f.poster.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
     // And save
-    films->append( f );
-    films->WriteDatabase( dataDirectory );
+    twFilms->append( f );
+    twFilms->UpdateFilmsTable();
+    twFilms->WriteDatabase( dataDirectory );
 
-    UpdateFilmsTable();
     UpdateStatusBar();
 }
 
@@ -61,7 +57,7 @@ void MainWindow::PlayFilm()
 void MainWindow::FilmSelected( QTableWidgetItem* item )
 {
     QString selectedFilmTitle = twFilms->item( item->row(), 1 )->text();
-    const Film* f = films->GetFilmByTitle( selectedFilmTitle );
+    const Film* f = twFilms->GetFilmByTitle( selectedFilmTitle );
 
     // Main information
     lFilmTitle->setText( f->title );
@@ -80,11 +76,6 @@ void MainWindow::FilmSelected( QTableWidgetItem* item )
     bViewed->setChecked( f->isViewed );
 
     lTechInformation->setText( f->fileName ); // dummy
-
-    wCenter->show();
-    wRight->show();
-    separatorLeft->show();
-    separatorRight->show();
 }
 
 void MainWindow::ConfigureToolbar()
@@ -197,59 +188,10 @@ void MainWindow::SaveSettings()
     s.setValue( "FilmList/CW5", twFilms->columnWidth(5) );
 }
 
-void MainWindow::UpdateFilmsTable()
-{
-    // Clear old data
-    twFilms->clear();
-
-    // Configure columns
-    QStringList colNames;
-    colNames.append( tr( "+" ) );
-    colNames.append( tr( "Title" ) );
-    colNames.append( tr( "Year" ) );
-    colNames.append( tr( "Genre" ) );
-    colNames.append( tr( "Director" ) );
-    colNames.append( tr( "Rating" ) );
-    twFilms->setColumnCount( colNames.size() );
-    twFilms->setHorizontalHeaderLabels( colNames );
-
-    // Configure rows
-    twFilms->setRowCount( films->size() );
-
-    for( int row = 0; row != twFilms->rowCount(); row++ )
-    {
-        // Favourite
-        QTableWidgetItem* favourite = new QTableWidgetItem( films->at(row).isFavourite ? "+" : "" );
-        twFilms->setItem( row, 0, favourite );
-
-        // Title
-        QTableWidgetItem* title = new QTableWidgetItem( films->at(row).title );
-        twFilms->setItem( row, 1, title );
-
-        // Year
-        QTableWidgetItem* year = new QTableWidgetItem( QString("%1").arg(films->at(row).year) );
-        twFilms->setItem( row, 2, year );
-
-        // Genre
-        QTableWidgetItem* genre = new QTableWidgetItem( films->at(row).genre );
-        twFilms->setItem( row, 3, genre );
-
-        // Director
-        QTableWidgetItem* director = new QTableWidgetItem( films->at(row).director );
-        twFilms->setItem( row, 4, director );
-
-        // Rating
-        QTableWidgetItem* rating = new QTableWidgetItem( QString("%1/10").arg(films->at(row).rating) );
-        twFilms->setItem( row, 5, rating);
-
-        twFilms->itemClicked( rating ); // dummy
-    }
-}
-
 void MainWindow::UpdateStatusBar()
 {
     statusbar->showMessage( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
-                            .arg( films->size() )
-                            .arg( films->GetIsViewedCount() )
-                            .arg( films->GetIsFavouriteCount() ) );
+                            .arg( twFilms->size() )
+                            .arg( twFilms->GetIsViewedCount() )
+                            .arg( twFilms->GetIsFavouriteCount() ) );
 }

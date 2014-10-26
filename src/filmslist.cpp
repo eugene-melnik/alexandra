@@ -4,6 +4,11 @@
 #include <QDataStream>
 #include <QFile>
 
+FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
+{
+    //
+}
+
 void FilmsList::ReadDatabase( QString dataDirectory )
 {
     dataDirectory.append( "database.dat" );
@@ -82,4 +87,53 @@ int FilmsList::GetIsFavouriteCount() const
     }
 
     return( res );
+}
+
+void FilmsList::UpdateFilmsTable()
+{
+    // Clear old data
+    clear();
+
+    // Configure columns
+    QStringList colNames;
+    colNames.append( tr( "+" ) );
+    colNames.append( tr( "Title" ) );
+    colNames.append( tr( "Year" ) );
+    colNames.append( tr( "Genre" ) );
+    colNames.append( tr( "Director" ) );
+    colNames.append( tr( "Rating" ) );
+    setColumnCount( colNames.size() );
+    setHorizontalHeaderLabels( colNames );
+
+    // Configure rows
+    setRowCount( this->size() );
+
+    for( int row = 0; row != this->rowCount(); row++ )
+    {
+        // Favourite
+        QTableWidgetItem* favourite = new QTableWidgetItem( films.at(row).isFavourite ? "+" : "" );
+        this->setItem( row, 0, favourite );
+
+        // Title
+        QTableWidgetItem* title = new QTableWidgetItem( films.at(row).title );
+        this->setItem( row, 1, title );
+
+        // Year
+        QTableWidgetItem* year = new QTableWidgetItem( QString("%1").arg(films.at(row).year) );
+        this->setItem( row, 2, year );
+
+        // Genre
+        QTableWidgetItem* genre = new QTableWidgetItem( films.at(row).genre );
+        this->setItem( row, 3, genre );
+
+        // Director
+        QTableWidgetItem* director = new QTableWidgetItem( films.at(row).director );
+        this->setItem( row, 4, director );
+
+        // Rating
+        QTableWidgetItem* rating = new QTableWidgetItem( QString("%1/10").arg(films.at(row).rating) );
+        setItem( row, 5, rating);
+
+        itemClicked( rating ); // dummy
+    }
 }
