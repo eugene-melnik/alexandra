@@ -2,6 +2,7 @@
 #define FILMSLIST_H
 
 #include <QTableWidget>
+#include <QSettings>
 #include <QString>
 #include <QList>
 
@@ -9,11 +10,16 @@
 
 class FilmsList : public QTableWidget
 {
+    Q_OBJECT
+
     public:
         FilmsList( QWidget* parent = nullptr );
 
         void LoadDatabase( QString dataDirectory );
         void SaveDatabase( QString dataDirectory );
+
+        void LoadSettings( const QSettings& s );
+        void SaveSettings( QSettings& s ) const;
 
         void AppendFilm( Film f );
 
@@ -24,7 +30,11 @@ class FilmsList : public QTableWidget
         int GetIsViewedCount() const;
         int GetIsFavouriteCount() const;
 
+    public slots:
         void UpdateFilmsTable();
+
+    signals:
+        void DatabaseChanged();
 
     private:
         QList<Film> films;

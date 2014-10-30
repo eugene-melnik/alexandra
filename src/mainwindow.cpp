@@ -18,10 +18,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     // Data
     LoadSettings();
     SetDataDirectory();
-
     twFilms->LoadDatabase( dataDirectory );
-
-    UpdateStatusBar();
 }
 
 void MainWindow::closeEvent( QCloseEvent* event )
@@ -42,8 +39,6 @@ void MainWindow::AddFilm( Film f )
     // And save
     twFilms->AppendFilm( f );
     twFilms->SaveDatabase( dataDirectory );
-
-    UpdateStatusBar();
 }
 
 void MainWindow::PlayFilm()
@@ -74,6 +69,14 @@ void MainWindow::FilmSelected( QTableWidgetItem* item )
     bViewed->setChecked( f.isViewed );
 
     lTechInformation->setText( f.fileName ); // dummy
+}
+
+void MainWindow::UpdateStatusBar()
+{
+    statusbar->showMessage( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
+                            .arg( twFilms->GetNumberOfFilms() )
+                            .arg( twFilms->GetIsViewedCount() )
+                            .arg( twFilms->GetIsFavouriteCount() ) );
 }
 
 void MainWindow::ConfigureToolbar()
@@ -112,6 +115,7 @@ void MainWindow::ConfigureToolbar()
 void MainWindow::ConfigureSubwindows()
 {
     // Main window
+    connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateStatusBar() ) );
     connect( twFilms, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( FilmSelected(QTableWidgetItem*) ) );
     connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
 
@@ -144,6 +148,7 @@ void MainWindow::LoadSettings()
 {
     QSettings s( Alexandra::appName, "configuration" );
 
+    // Main window settings
     restoreState( s.value( "MainWindow/State" ).toByteArray() );
     move( s.value( "MainWindow/Position" ).toPoint() );
 
@@ -159,18 +164,15 @@ void MainWindow::LoadSettings()
     actionShowToolbar->setChecked( s.value( "MainWindow/ShowToolbar", true ).toBool() );
     toolbar->move( s.value( "MainWindow/ToolbarPosition" ).toPoint() );
 
-    twFilms->setColumnWidth( 0, s.value( "FilmList/CW0", 20 ).toInt() );
-    twFilms->setColumnWidth( 1, s.value( "FilmList/CW1", 150 ).toInt() );
-    twFilms->setColumnWidth( 2, s.value( "FilmList/CW2", 50 ).toInt() );
-    twFilms->setColumnWidth( 3, s.value( "FilmList/CW3", 110 ).toInt() );
-    twFilms->setColumnWidth( 4, s.value( "FilmList/CW4", 110 ).toInt() );
-    twFilms->setColumnWidth( 5, s.value( "FilmList/CW5", 50 ).toInt() );
+    // Table settings
+    twFilms->LoadSettings( s );
 }
 
 void MainWindow::SaveSettings()
 {
     QSettings s( Alexandra::appName, "configuration" );
 
+    // Main window settings
     s.setValue( "MainWindow/State", saveState() );
     s.setValue( "MainWindow/Position", pos() );
     s.setValue( "MainWindow/Size", size() );
@@ -178,18 +180,6 @@ void MainWindow::SaveSettings()
     s.setValue( "MainWindow/ShowToolbar", toolbar->isVisible() );
     s.setValue( "MainWindow/ToolbarPosition", toolbar->pos() );
 
-    s.setValue( "FilmList/CW0", twFilms->columnWidth(0) );
-    s.setValue( "FilmList/CW1", twFilms->columnWidth(1) );
-    s.setValue( "FilmList/CW2", twFilms->columnWidth(2) );
-    s.setValue( "FilmList/CW3", twFilms->columnWidth(3) );
-    s.setValue( "FilmList/CW4", twFilms->columnWidth(4) );
-    s.setValue( "FilmList/CW5", twFilms->columnWidth(5) );
-}
-
-void MainWindow::UpdateStatusBar()
-{
-    statusbar->showMessage( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
-                            .arg( twFilms->GetNumberOfFilms() )
-                            .arg( twFilms->GetIsViewedCount() )
-                            .arg( twFilms->GetIsFavouriteCount() ) );
+    // Table settings
+    twFilms->SaveSettings( s );
 }

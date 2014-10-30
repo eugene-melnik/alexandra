@@ -6,7 +6,7 @@
 
 FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
 {
-    //
+    connect( this, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateFilmsTable() ) );
 }
 
 void FilmsList::LoadDatabase( QString dataDirectory )
@@ -21,8 +21,7 @@ void FilmsList::LoadDatabase( QString dataDirectory )
     }
 
     dbFile.close();
-
-    UpdateFilmsTable();
+    emit DatabaseChanged();
 }
 
 void FilmsList::SaveDatabase( QString dataDirectory )
@@ -37,13 +36,34 @@ void FilmsList::SaveDatabase( QString dataDirectory )
     }
 
     dbFile.close();
+}
 
-    UpdateFilmsTable();
+void FilmsList::LoadSettings( const QSettings& s )
+{
+    // Columns' width
+    setColumnWidth( 0, s.value( "FilmList/CW0", 20 ).toInt() );
+    setColumnWidth( 1, s.value( "FilmList/CW1", 150 ).toInt() );
+    setColumnWidth( 2, s.value( "FilmList/CW2", 50 ).toInt() );
+    setColumnWidth( 3, s.value( "FilmList/CW3", 110 ).toInt() );
+    setColumnWidth( 4, s.value( "FilmList/CW4", 110 ).toInt() );
+    setColumnWidth( 5, s.value( "FilmList/CW5", 50 ).toInt() );
+}
+
+void FilmsList::SaveSettings( QSettings& s ) const
+{
+    // Columns' width
+    s.setValue( "FilmList/CW0", columnWidth(0) );
+    s.setValue( "FilmList/CW1", columnWidth(1) );
+    s.setValue( "FilmList/CW2", columnWidth(2) );
+    s.setValue( "FilmList/CW3", columnWidth(3) );
+    s.setValue( "FilmList/CW4", columnWidth(4) );
+    s.setValue( "FilmList/CW5", columnWidth(5) );
 }
 
 void FilmsList::AppendFilm( Film f )
 {
     films.append( f );
+    emit DatabaseChanged();
 }
 
 const Film& FilmsList::GetFilmAt( int i ) const

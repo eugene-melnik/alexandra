@@ -15,7 +15,7 @@ AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
     connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
 }
 
-void AddFilmWindow::showEvent(QShowEvent *event)
+void AddFilmWindow::showEvent( QShowEvent* event)
 {
     ClearFields();
     event->accept();
