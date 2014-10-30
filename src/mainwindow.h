@@ -29,6 +29,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void PlayFilm();
         void FilmSelected( QTableWidgetItem* item );
 
+        void UpdateStatusBar();
+
     private:
         // Additional functions
         void ConfigureToolbar();
@@ -38,15 +40,12 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void LoadSettings();
         void SaveSettings();
 
-        void UpdateFilmsTable();
-        void UpdateStatusBar();
 
         // Subwindows
         AboutWindow* aboutWindow = nullptr;
         AddFilmWindow* addFilmWindow = nullptr;
 
         // Variables
-        FilmsList* films = nullptr;
         QString dataDirectory;
 };
 

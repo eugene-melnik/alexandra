@@ -7,21 +7,21 @@
 AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
-    ConfigureCBRating();
+    ConfigureRatingComboBox();
     bOpenFile->setFocus();
 
-    connect( bOpenFile, SIGNAL( clicked() ), this, SLOT( OpenFilmFile() ) );
-    connect( bOpenPoster, SIGNAL( clicked() ), this, SLOT( OpenPosterFile() ) );
+    connect( bOpenFile, SIGNAL( clicked() ), this, SLOT( OpenFilmFileClicked() ) );
+    connect( bOpenPoster, SIGNAL( clicked() ), this, SLOT( OpenPosterFileClicked() ) );
     connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
 }
 
-void AddFilmWindow::showEvent(QShowEvent *event)
+void AddFilmWindow::showEvent( QShowEvent* event)
 {
     ClearFields();
     event->accept();
 }
 
-void AddFilmWindow::OpenFilmFile()
+void AddFilmWindow::OpenFilmFileClicked()
 {
     QFileInfo fileName = QFileDialog::getOpenFileName( this,
                          tr( "Select film" ),
@@ -32,7 +32,7 @@ void AddFilmWindow::OpenFilmFile()
     eTitle->setText( fileName.baseName() );
 }
 
-void AddFilmWindow::OpenPosterFile()
+void AddFilmWindow::OpenPosterFileClicked()
 {
     QString fileName = QFileDialog::getOpenFileName( this,
                        tr( "Select image" ),
@@ -76,14 +76,12 @@ void AddFilmWindow::OkButtonClicked()
     emit AddFilm( f );
 }
 
-void AddFilmWindow::ConfigureCBRating()
+void AddFilmWindow::ConfigureRatingComboBox()
 {
-    for( int i = 1; i <= 10; i++ )
+    for( long i = 10; i >= 1; i-- )
     {
-        cbRating->addItem( QString( "%1" ).arg(i) );
+        cbRating->addItem( QString::number( i ) );
     }
-
-    cbRating->setCurrentIndex( 5 );
 }
 
 void AddFilmWindow::ClearFields()
