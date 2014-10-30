@@ -12,6 +12,7 @@ HEADERS += aboutwindow.h \
            film.h \
            filmslist.h \
            mainwindow.h \
+           toolbar.h \
            version.h
 
 SOURCES += aboutwindow.cpp \
@@ -19,7 +20,8 @@ SOURCES += aboutwindow.cpp \
            alexandra.cpp \
            film.cpp \
            filmslist.cpp \
-           mainwindow.cpp
+           mainwindow.cpp \
+           toolbar.cpp
 
 FORMS += aboutwindow.ui \
          addfilmwindow.ui \

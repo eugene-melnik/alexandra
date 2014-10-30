@@ -13,7 +13,6 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     setupUi( this );
     setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
     ConfigureSubwindows();
-    ConfigureToolbar();
 
     // Data
     LoadSettings();
@@ -79,42 +78,10 @@ void MainWindow::UpdateStatusBar()
                             .arg( twFilms->GetIsFavouriteCount() ) );
 }
 
-void MainWindow::ConfigureToolbar()
-{
-    // Add film
-    QAction* tbaAdd = new QAction( QIcon( ":/tool/add" ), tr("Add"), this );
-    toolbar->addAction( tbaAdd );
-    connect( tbaAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
-
-    // Edit film
-    QAction* tbaEdit = new QAction( QIcon( ":/tool/edit" ), tr("Edit"), this );
-    toolbar->addAction( tbaEdit );
-
-    // Remove film
-    QAction* tbaRemove = new QAction( QIcon( ":/tool/delete" ), tr("Remove"), this );
-    toolbar->addAction( tbaRemove );
-
-    toolbar->addSeparator();
-
-    // Random
-    QAction* tbaRandom = new QAction( QIcon( ":/tool/random" ), tr("Random"), this );
-    toolbar->addAction( tbaRandom );
-
-    // Search
-    QAction* tbaSearch = new QAction( QIcon( ":/tool/find" ), tr("Search"), this );
-    toolbar->addAction( tbaSearch );
-
-    toolbar->addSeparator();
-
-    // Exit
-    QAction* tbaExit = new QAction( QIcon( ":/action/exit" ), tr("Exit"), this );
-    toolbar->addAction( tbaExit );
-    connect( tbaExit, SIGNAL( triggered() ), this, SLOT( close() ) );
-}
-
 void MainWindow::ConfigureSubwindows()
 {
     // Main window
+    connect( toolbar, SIGNAL( actionExit() ), this, SLOT( close() ) );
     connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateStatusBar() ) );
     connect( twFilms, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( FilmSelected(QTableWidgetItem*) ) );
     connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
@@ -126,6 +93,7 @@ void MainWindow::ConfigureSubwindows()
 
     // Add film window
     addFilmWindow = new AddFilmWindow( this );
+    connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
     connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
     connect( addFilmWindow, SIGNAL( AddFilm(Film) ), this, SLOT( AddFilm(Film) ) );
 }

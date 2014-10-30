@@ -33,7 +33,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
     private:
         // Additional functions
-        void ConfigureToolbar();
         void ConfigureSubwindows();
 
         void SetDataDirectory();

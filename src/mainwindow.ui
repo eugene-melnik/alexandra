@@ -546,7 +546,7 @@
    <addaction name="menu_Films"/>
    <addaction name="menu_Help"/>
   </widget>
-  <widget class="QToolBar" name="toolbar">
+  <widget class="ToolBar" name="toolbar">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -676,6 +676,11 @@
   </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ToolBar</class>
+   <extends>QToolBar</extends>
+   <header>toolbar.h</header>
+  </customwidget>
   <customwidget>
    <class>FilmsList</class>
    <extends>QTableWidget</extends>
