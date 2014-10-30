@@ -4,8 +4,11 @@
 AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
+
     lAppName->setText( Alexandra::appNameGui );
     lAppVersion->setText( tr( "version %1" ).arg( Alexandra::appVersionFull ) );
+
+    lQtVersion->setText( tr( "<b>Qt version:</b> %1" ).arg( QT_VERSION_STR ) );
     lAuthor->setText( tr( "<b>Author(s):</b> %1" ).arg( Alexandra::appAuthor ) );
     lLicense->setText( tr( "<b>License:</b> %1" ).arg( Alexandra::appLicense ) );
     lAddress->setText( tr( "<b>Address:</b> <a href=\"%1\">Github</a>" ).arg( Alexandra::appAddress ) );

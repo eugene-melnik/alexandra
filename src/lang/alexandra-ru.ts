@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru" sourcelanguage="en">
+<TS version="2.0" language="ru" sourcelanguage="en">
 <context>
     <name>AboutWindow</name>
     <message>
@@ -9,22 +9,27 @@
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../aboutwindow.cpp" line="8"/>
+        <location filename="../aboutwindow.cpp" line="9"/>
         <source>version %1</source>
         <translation>версия %1</translation>
     </message>
     <message>
-        <location filename="../aboutwindow.cpp" line="9"/>
+        <location filename="../aboutwindow.cpp" line="11"/>
+        <source>&lt;b&gt;Qt version:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Версия Qt:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../aboutwindow.cpp" line="12"/>
         <source>&lt;b&gt;Author(s):&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Автор(ы):&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../aboutwindow.cpp" line="10"/>
+        <location filename="../aboutwindow.cpp" line="13"/>
         <source>&lt;b&gt;License:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Лицензия:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../aboutwindow.cpp" line="11"/>
+        <location filename="../aboutwindow.cpp" line="14"/>
         <source>&lt;b&gt;Address:&lt;/b&gt; &lt;a href=&quot;%1&quot;&gt;Github&lt;/a&gt;</source>
         <translation>&lt;b&gt;Адрес:&lt;/b&gt; &lt;a href=&quot;%1&quot;&gt;Github&lt;/a&gt;</translation>
     </message>
