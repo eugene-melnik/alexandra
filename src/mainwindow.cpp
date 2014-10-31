@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "version.h"
 
-#include <QStandardItemModel>
 #include <QProcessEnvironment>
 #include <QMessageBox>
 #include <QSettings>
@@ -40,34 +39,43 @@ void MainWindow::AddFilm( Film f )
     twFilms->SaveDatabase( dataDirectory );
 }
 
-void MainWindow::PlayFilm()
+void MainWindow::RemoveFilm()
 {
-    //QProcess player;
-    //player.startDetached( "smplayer" );
+    int res = QMessageBox::question( this,
+                                     tr( "Remove film" ),
+                                     tr( "Are you sure to remove \"%1\"?" ).arg( twFilms->GetCurrentFilmTitle() ),
+                                     QMessageBox::Yes, QMessageBox::No );
+
+    if( res == QMessageBox::Yes) {
+        //delete
+    }
 }
 
-void MainWindow::FilmSelected( QTableWidgetItem* item )
+void MainWindow::FilmSelected( const Film* f )
 {
-    QString selectedFilmTitle = twFilms->item( item->row(), 1 )->text();
-    const Film f = twFilms->GetFilmByTitle( selectedFilmTitle );
-
     // Main information
-    lFilmTitle->setText( f.title );
-    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f.originalTitle ) );
-    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f.tagline ) );
-    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f.genre ) );
-    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f.year ) );
-    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f.country ) );
-    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f.director ) );
-    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f.producer ) );
-    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f.starring ) );
-    lRating->setText( tr( "<b>Rating:</b> %1/10" ).arg( f.rating ) );
-    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f.description ) );
-    lPosterImage->setPixmap( f.poster );
-    bFavourite->setChecked( f.isFavourite );
-    bViewed->setChecked( f.isViewed );
+    lFilmTitle->setText( f->title );
+    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->originalTitle ) );
+    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f->tagline ) );
+    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f->genre ) );
+    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f->year ) );
+    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f->country ) );
+    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f->director ) );
+    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f->producer ) );
+    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->starring ) );
+    lRating->setText( tr( "<b>Rating:</b> %1/10" ).arg( f->rating ) );
+    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->description ) );
+    lPosterImage->setPixmap( f->poster );
+    bFavourite->setChecked( f->isFavourite );
+    bViewed->setChecked( f->isViewed );
 
-    lTechInformation->setText( f.fileName ); // dummy
+    lTechInformation->setText( f->fileName ); // dummy
+}
+
+void MainWindow::PlayFilm()
+{
+    QProcess player;
+    player.startDetached( "xdg-open \"" + twFilms->GetCurrentFilmFileName() +"\"" );
 }
 
 void MainWindow::UpdateStatusBar()
@@ -83,7 +91,7 @@ void MainWindow::ConfigureSubwindows()
     // Main window
     connect( toolbar, SIGNAL( actionExit() ), this, SLOT( close() ) );
     connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateStatusBar() ) );
-    connect( twFilms, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( FilmSelected(QTableWidgetItem*) ) );
+    connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
     connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
 
     // About and About Qt windows
@@ -96,6 +104,10 @@ void MainWindow::ConfigureSubwindows()
     connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
     connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
     connect( addFilmWindow, SIGNAL( AddFilm(Film) ), this, SLOT( AddFilm(Film) ) );
+
+    // Remove film
+    connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );
+    connect( toolbar, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
 }
 
 void MainWindow::SetDataDirectory()
@@ -103,8 +115,7 @@ void MainWindow::SetDataDirectory()
 #ifdef Q_OS_LINUX
     dataDirectory = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
 
-    if( dataDirectory.isEmpty() )
-    {
+    if( dataDirectory.isEmpty() ) {
         dataDirectory = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
     }
 #endif
@@ -120,12 +131,9 @@ void MainWindow::LoadSettings()
     restoreState( s.value( "MainWindow/State" ).toByteArray() );
     move( s.value( "MainWindow/Position" ).toPoint() );
 
-    if( s.value( "MainWindow/Maximized", false ).toBool() )
-    {
+    if( s.value( "MainWindow/Maximized", false ).toBool() ) {
         showMaximized();
-    }
-    else
-    {
+    } else {
         resize( s.value( "MainWindow/Size" ).toSize() );
     }
 

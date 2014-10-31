@@ -1,6 +1,9 @@
 #include "aboutwindow.h"
 #include "version.h"
 
+#include <QPixmap>
+#include <QString>
+
 AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );

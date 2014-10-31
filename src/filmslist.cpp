@@ -1,11 +1,13 @@
 #include "filmslist.h"
 #include "version.h"
 
+#include <algorithm>
 #include <QDataStream>
 #include <QFile>
 
 FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
 {
+    connect( this, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( ItemSelected(QTableWidgetItem*) ) );
     connect( this, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateFilmsTable() ) );
 }
 
@@ -63,12 +65,8 @@ void FilmsList::SaveSettings( QSettings& s ) const
 void FilmsList::AppendFilm( Film f )
 {
     films.append( f );
+    std::sort( films.begin(), films.end() );
     emit DatabaseChanged();
-}
-
-const Film& FilmsList::GetFilmAt( int i ) const
-{
-    return( films.at( i ) );
 }
 
 int FilmsList::GetNumberOfFilms() const
@@ -76,26 +74,40 @@ int FilmsList::GetNumberOfFilms() const
     return( films.size() );
 }
 
-const Film& FilmsList::GetFilmByTitle( const QString& t ) const
+const Film* FilmsList::GetFilmAt( int i ) const
 {
-    for( int i = 0; i < films.size(); i++ )
-    {
-        if( films.at(i).title == t )
-        {
-            return( films.at(i) );
+    return( &films.at( i ) );
+}
+
+const Film* FilmsList::GetFilmByTitle( const QString& t ) const
+{
+    for( int i = 0; i < films.size(); i++ ) {
+        if( films.at(i).title == t ) {
+            return( &films.at(i) );
         }
     }
 
-    return( *new Film() );
+    return( new Film() );
+}
+
+const QString& FilmsList::GetCurrentFilmTitle() const
+{
+    return( currentFilm->title );
+}
+
+const QString& FilmsList::GetCurrentFilmFileName() const
+{
+    return( currentFilm->fileName );
 }
 
 int FilmsList::GetIsViewedCount() const
 {
     int res = 0;
 
-    foreach (Film f, films)
-    {
-        if( f.isViewed ) res++;
+    foreach( Film f, films ) {
+        if( f.isViewed ) {
+            res++;
+        }
     }
 
     return( res );
@@ -105,12 +117,20 @@ int FilmsList::GetIsFavouriteCount() const
 {
     int res = 0;
 
-    foreach (Film f, films)
-    {
-        if( f.isFavourite ) res++;
+    foreach( Film f, films ) {
+        if( f.isFavourite ) {
+            res++;
+        }
     }
 
     return( res );
+}
+
+void FilmsList::ItemSelected( QTableWidgetItem* i )
+{
+    QString selectedFilmTitle = item( i->row(), 1 )->text();
+    currentFilm = GetFilmByTitle( selectedFilmTitle );
+    emit FilmSelected( currentFilm );
 }
 
 void FilmsList::UpdateFilmsTable()
@@ -120,42 +140,44 @@ void FilmsList::UpdateFilmsTable()
 
     // Configure columns
     QStringList colNames;
-    colNames.append( tr( "+" ) );
-    colNames.append( tr( "Title" ) );
-    colNames.append( tr( "Year" ) );
-    colNames.append( tr( "Genre" ) );
-    colNames.append( tr( "Director" ) );
-    colNames.append( tr( "Rating" ) );
+    colNames << tr( "+" )
+             << tr( "Title" )
+             << tr( "Year" )
+             << tr( "Genre" )
+             << tr( "Director" )
+             << tr( "Rating" );
     setColumnCount( colNames.size() );
     setHorizontalHeaderLabels( colNames );
 
     // Configure rows
     setRowCount( this->GetNumberOfFilms() );
 
-    for( int row = 0; row != this->rowCount(); row++ )
+    for( int row = 0; row < rowCount(); row++ )
     {
+        const Film& f = films.at( row );
+
         // Favourite
-        QTableWidgetItem* favourite = new QTableWidgetItem( films.at(row).isFavourite ? "+" : "" );
-        this->setItem( row, 0, favourite );
+        QTableWidgetItem* favourite = new QTableWidgetItem( f.isFavourite ? "+" : "" );
+        setItem( row, 0, favourite );
 
         // Title
-        QTableWidgetItem* title = new QTableWidgetItem( films.at(row).title );
-        this->setItem( row, 1, title );
+        QTableWidgetItem* title = new QTableWidgetItem( f.title );
+        setItem( row, 1, title );
 
         // Year
-        QTableWidgetItem* year = new QTableWidgetItem( QString("%1").arg(films.at(row).year) );
-        this->setItem( row, 2, year );
+        QTableWidgetItem* year = new QTableWidgetItem( QString("%1").arg( f.year ) );
+        setItem( row, 2, year );
 
         // Genre
-        QTableWidgetItem* genre = new QTableWidgetItem( films.at(row).genre );
-        this->setItem( row, 3, genre );
+        QTableWidgetItem* genre = new QTableWidgetItem( f.genre );
+        setItem( row, 3, genre );
 
         // Director
-        QTableWidgetItem* director = new QTableWidgetItem( films.at(row).director );
-        this->setItem( row, 4, director );
+        QTableWidgetItem* director = new QTableWidgetItem( f.director );
+        setItem( row, 4, director );
 
         // Rating
-        QTableWidgetItem* rating = new QTableWidgetItem( QString("%1/10").arg(films.at(row).rating) );
+        QTableWidgetItem* rating = new QTableWidgetItem( QString("%1/10").arg( f.rating ) );
         setItem( row, 5, rating);
 
         itemClicked( rating ); // dummy

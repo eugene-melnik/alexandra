@@ -94,7 +94,6 @@ void AddFilmWindow::ClearFields()
     eYear->clear();
     eCountry->clear();
     eGenre->clear();
-    cbRating->setCurrentIndex(1);
     eDirector->clear();
     eProducer->clear();
     tStarring->clear();

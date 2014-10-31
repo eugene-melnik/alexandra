@@ -24,20 +24,26 @@ class FilmsList : public QTableWidget
         void AppendFilm( Film f );
 
         int GetNumberOfFilms() const;
-        const Film& GetFilmAt( int i) const;
-        const Film& GetFilmByTitle( const QString& t ) const;
+        const Film* GetFilmAt( int i ) const;
+        const Film* GetFilmByTitle( const QString& t ) const;
+
+        const QString& GetCurrentFilmTitle() const;
+        const QString& GetCurrentFilmFileName() const;
 
         int GetIsViewedCount() const;
         int GetIsFavouriteCount() const;
 
     public slots:
+        void ItemSelected( QTableWidgetItem* i );
         void UpdateFilmsTable();
 
     signals:
+        void FilmSelected( const Film* );
         void DatabaseChanged();
 
     private:
         QList<Film> films;
+        const Film* currentFilm;
 };
 
 #endif // FILMSLIST_H
