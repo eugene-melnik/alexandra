@@ -1,5 +1,5 @@
 ### Alexandra Video library
-#### v0.6
+#### v0.7
 
 ===
 

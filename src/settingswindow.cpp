@@ -5,7 +5,7 @@ SettingsWindow::SettingsWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
     ConfigureLanguageCB();
-
+    ConfigureToolbarStyleCB();
 }
 
 void SettingsWindow::ConfigureLanguageCB()
@@ -30,14 +30,14 @@ void SettingsWindow::ConfigureToolbarStyleCB()
         Qt::ToolButtonStyle style;
     } ToolStyle;
 
-    const QList<ToolStyle> toolStyle = { { tr("Icon only"),             Qt::ToolButtonIconOnly },
-                                         { tr("Text only"),             Qt::ToolButtonTextOnly },
-                                         { tr("Text beside icon"),      Qt::ToolButtonTextBesideIcon },
-                                         { tr("Text under icon"),       Qt::ToolButtonTextUnderIcon },
-                                         { tr("Follow system style"),   Qt::ToolButtonFollowStyle } };
+    const QList<ToolStyle> toolStyles = { { tr("<Follow system style>"),Qt::ToolButtonFollowStyle },
+                                          { tr("Icon only"),            Qt::ToolButtonIconOnly },
+                                          { tr("Text only"),            Qt::ToolButtonTextOnly },
+                                          { tr("Text beside icon"),     Qt::ToolButtonTextBesideIcon },
+                                          { tr("Text under icon"),      Qt::ToolButtonTextUnderIcon } };
 
-    foreach ( ToolStyle ts, toolStyle )
+    foreach( ToolStyle toolStyle, toolStyles )
     {
-        cbToolbarStyle->addItem( ts.name );
+        cbToolbarStyle->addItem( toolStyle.name );
     }
 }
