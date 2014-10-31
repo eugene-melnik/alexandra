@@ -528,7 +528,7 @@
     </property>
     <addaction name="actionShowToolbar"/>
     <addaction name="separator"/>
-    <addaction name="actionPreferences"/>
+    <addaction name="actionSettings"/>
    </widget>
    <widget class="QMenu" name="menu_Films">
     <property name="title">
@@ -593,13 +593,13 @@
     <string>Ctrl+T</string>
    </property>
   </action>
-  <action name="actionPreferences">
+  <action name="actionSettings">
    <property name="icon">
     <iconset resource="icons/icons.qrc">
-     <normaloff>:/window/prefs</normaloff>:/window/prefs</iconset>
+     <normaloff>:/window/settings</normaloff>:/window/settings</iconset>
    </property>
    <property name="text">
-    <string>Preferences...</string>
+    <string>Settings...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>

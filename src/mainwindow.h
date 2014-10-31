@@ -7,6 +7,7 @@
 
 #include "aboutwindow.h"
 #include "addfilmwindow.h"
+#include "settingswindow.h"
 
 #include <QMainWindow>
 #include <QCloseEvent>
@@ -44,6 +45,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         // Subwindows
         AboutWindow* aboutWindow = nullptr;
         AddFilmWindow* addFilmWindow = nullptr;
+        SettingsWindow* settingsWindow = nullptr;
 
         // Variables
         QString dataDirectory;

@@ -93,8 +93,10 @@ void MainWindow::ConfigureSubwindows()
 {
     // Main window
     connect( toolbar, SIGNAL( actionExit() ), this, SLOT( close() ) );
+
     connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateStatusBar() ) );
     connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
+
     connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
 
     // About and About Qt windows
@@ -104,13 +106,18 @@ void MainWindow::ConfigureSubwindows()
 
     // Add film window
     addFilmWindow = new AddFilmWindow( this );
-    connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
     connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
+    connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
+
     connect( addFilmWindow, SIGNAL( AddFilm(Film) ), this, SLOT( AddFilm(Film) ) );
 
     // Remove film
     connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );
     connect( toolbar, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
+
+    // Settings window
+    settingsWindow = new SettingsWindow( this );
+    connect( actionSettings, SIGNAL( triggered() ), settingsWindow, SLOT( show() ) );
 }
 
 void MainWindow::SetDataDirectory()

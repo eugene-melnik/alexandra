@@ -12,6 +12,7 @@ HEADERS += aboutwindow.h \
            film.h \
            filmslist.h \
            mainwindow.h \
+           settingswindow.h \
            toolbar.h \
            version.h
 
@@ -21,11 +22,13 @@ SOURCES += aboutwindow.cpp \
            film.cpp \
            filmslist.cpp \
            mainwindow.cpp \
+           settingswindow.cpp \
            toolbar.cpp
 
 FORMS += aboutwindow.ui \
          addfilmwindow.ui \
-         mainwindow.ui
+         mainwindow.ui \
+         settingswindow.ui
 
 TRANSLATIONS += lang/alexandra-ru.ts \
                 lang/alexandra-uk.ts

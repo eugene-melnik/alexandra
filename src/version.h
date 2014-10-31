@@ -2,6 +2,7 @@
 #define VERSION_H
 
 #include <QString>
+#include <QList>
 
 namespace Alexandra
 {
@@ -18,6 +19,16 @@ namespace Alexandra
         const quint8 minor = 6;
         const quint8 fix = 0;
         const QString appVersionFull = QString( "%1.%2.%3" ).arg( major ).arg( minor ).arg( fix );
+
+        typedef struct {
+            QString title;
+            QString name;
+            QString translator;
+        } Locale;
+
+        const QList<Locale> supportedLocales = { { "English",    "en_US", appAuthor },
+                                                 { "Russian",    "ru_RU", appAuthor },
+                                                 { "Ukrainian",  "uk_UA", appAuthor } };
 }
 
 #endif // VERSION_H
