@@ -27,7 +27,6 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
         void OkButtonClicked();
 
     private:
-        void ConfigureRatingComboBox();
         void ClearFields();
 };
 

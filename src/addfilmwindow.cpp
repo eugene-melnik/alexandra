@@ -7,7 +7,6 @@
 AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
-    ConfigureRatingComboBox();
     bOpenFile->setFocus();
 
     connect( bOpenFile, SIGNAL( clicked() ), this, SLOT( OpenFilmFileClicked() ) );
@@ -74,14 +73,6 @@ void AddFilmWindow::OkButtonClicked()
 
     close();
     emit AddFilm( f );
-}
-
-void AddFilmWindow::ConfigureRatingComboBox()
-{
-    for( long i = 10; i >= 1; i-- )
-    {
-        cbRating->addItem( QString::number( i ) );
-    }
 }
 
 void AddFilmWindow::ClearFields()
