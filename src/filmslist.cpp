@@ -7,6 +7,8 @@
 
 FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
 {
+    isDatabaseChanged = false;
+
     connect( this, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( ItemSelected(QTableWidgetItem*) ) );
     connect( this, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateFilmsTable() ) );
 }
@@ -28,16 +30,19 @@ void FilmsList::LoadDatabase( QString dataDirectory )
 
 void FilmsList::SaveDatabase( QString dataDirectory )
 {
-    dataDirectory.append( "database.dat" );
-    QFile dbFile( dataDirectory );
+    if( isDatabaseChanged ) {
+        dataDirectory.append( "database.dat" );
+        QFile dbFile( dataDirectory );
 
-    if( dbFile.open( QIODevice::WriteOnly ) )
-    {
-        QDataStream stream( &dbFile );
-        stream << films;
+        if( dbFile.open( QIODevice::WriteOnly ) )
+        {
+            QDataStream stream( &dbFile );
+            stream << films;
+        }
+
+        dbFile.close();
+        isDatabaseChanged = false;
     }
-
-    dbFile.close();
 }
 
 void FilmsList::LoadSettings( const QSettings& s )
@@ -66,6 +71,8 @@ void FilmsList::AppendFilm( Film f )
 {
     films.append( f );
     std::sort( films.begin(), films.end() );
+    isDatabaseChanged = true;
+
     emit DatabaseChanged();
 }
 
@@ -98,6 +105,14 @@ const QString& FilmsList::GetCurrentFilmTitle() const
 const QString& FilmsList::GetCurrentFilmFileName() const
 {
     return( currentFilm->fileName );
+}
+
+void FilmsList::RemoveCurrentFilm()
+{
+    films.removeOne( *currentFilm );
+    isDatabaseChanged = true;
+
+    emit DatabaseChanged();
 }
 
 int FilmsList::GetIsViewedCount() const

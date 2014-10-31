@@ -29,6 +29,7 @@ class FilmsList : public QTableWidget
 
         const QString& GetCurrentFilmTitle() const;
         const QString& GetCurrentFilmFileName() const;
+        void RemoveCurrentFilm();
 
         int GetIsViewedCount() const;
         int GetIsFavouriteCount() const;
@@ -44,6 +45,7 @@ class FilmsList : public QTableWidget
     private:
         QList<Film> films;
         const Film* currentFilm;
+        bool isDatabaseChanged;
 };
 
 #endif // FILMSLIST_H

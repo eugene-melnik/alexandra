@@ -21,7 +21,11 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 
 void MainWindow::closeEvent( QCloseEvent* event )
 {
+    hide();
+
     SaveSettings();
+    twFilms->SaveDatabase( dataDirectory );
+
     event->accept();
 }
 
@@ -36,7 +40,6 @@ void MainWindow::AddFilm( Film f )
     f.poster = f.poster.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
     // And save
     twFilms->AppendFilm( f );
-    twFilms->SaveDatabase( dataDirectory );
 }
 
 void MainWindow::RemoveFilm()
@@ -46,8 +49,8 @@ void MainWindow::RemoveFilm()
                                      tr( "Are you sure to remove \"%1\"?" ).arg( twFilms->GetCurrentFilmTitle() ),
                                      QMessageBox::Yes, QMessageBox::No );
 
-    if( res == QMessageBox::Yes) {
-        //delete
+    if( res == QMessageBox::Yes ) {
+        twFilms->RemoveCurrentFilm();
     }
 }
 
