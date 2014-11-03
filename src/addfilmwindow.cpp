@@ -57,19 +57,19 @@ void AddFilmWindow::OkButtonClicked()
     }
 
     Film f;
-    f.fileName = eFilmFileName->text();
-    f.poster = QPixmap( ePosterFileName->text() );
-    f.title = eTitle->text();
-    f.originalTitle = eOriginalTitle->text();
-    f.tagline = eTagline->text();
-    f.year = eYear->text().toUShort();
-    f.country = eCountry->text();
-    f.genre = eGenre->text();
-    f.rating = cbRating->currentText().toUShort();
-    f.director = eDirector->text();
-    f.producer = eProducer->text();
-    f.starring = tStarring->toPlainText();
-    f.description = tDescription->toPlainText();
+    f.SetFileName( eFilmFileName->text() );
+    f.SetPosterFromFile( ePosterFileName->text() );
+    f.SetTitle( eTitle->text() );
+    f.SetOriginalTitle( eOriginalTitle->text() );
+    f.SetTagline( eTagline->text() );
+    f.SetYearFromStr( eYear->text() );
+    f.SetCountry( eCountry->text() );
+    f.SetGenre( eGenre->text() );
+    f.SetRatingFromStr( cbRating->currentText() );
+    f.SetDirector( eDirector->text() );
+    f.SetProducer( eProducer->text() );
+    f.SetStarring( tStarring->toPlainText() );
+    f.SetDescription( tDescription->toPlainText() );
 
     close();
     emit AddFilm( f );

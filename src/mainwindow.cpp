@@ -37,7 +37,7 @@ void MainWindow::AboutQt()
 void MainWindow::AddFilm( Film f )
 {
     // Scale image
-    f.poster = f.poster.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
+    f.SetPoster( f.GetPoster().scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
     // And save
     twFilms->AppendFilm( f );
 }
@@ -57,22 +57,22 @@ void MainWindow::RemoveFilm()
 void MainWindow::FilmSelected( const Film* f )
 {
     // Main information
-    lFilmTitle->setText( f->title );
-    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->originalTitle ) );
-    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f->tagline ) );
-    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f->genre ) );
-    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f->year ) );
-    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f->country ) );
-    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f->director ) );
-    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f->producer ) );
-    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->starring ) );
-    lRating->setText( tr( "<b>Rating:</b> %1/10" ).arg( f->rating ) );
-    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->description ) );
-    lPosterImage->setPixmap( f->poster );
-    bFavourite->setChecked( f->isFavourite );
-    bViewed->setChecked( f->isViewed );
+    lFilmTitle->setText( f->GetTitle() );
+    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->GetOriginalTitle() ) );
+    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f->GetTagline() ) );
+    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f->GetGenre() ) );
+    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f->GetYear() ) );
+    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f->GetCountry() ) );
+    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f->GetDirector() ) );
+    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f->GetProducer() ) );
+    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->GetStarring() ) );
+    lRating->setText( tr( "<b>Rating:</b> %1" ).arg( f->GetRatingStr() ) );
+    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->GetDescription() ) );
+    lPosterImage->setPixmap( f->GetPoster() );
+    bFavourite->setChecked( f->GetIsFavourite() );
+    bViewed->setChecked( f->GetIsViewed() );
 
-    lTechInformation->setText( f->fileName ); // dummy
+    lTechInformation->setText( f->GetFileName() ); // dummy
 }
 
 void MainWindow::PlayFilm()

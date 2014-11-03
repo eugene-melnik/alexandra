@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru" sourcelanguage="en">
+<TS version="2.1" language="ru" sourcelanguage="en">
 <context>
     <name>AboutWindow</name>
     <message>
@@ -113,78 +113,78 @@
         <translation>Оценка</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="323"/>
+        <location filename="../addfilmwindow.ui" line="376"/>
         <source>Director</source>
         <translation>Режиссер</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="330"/>
+        <location filename="../addfilmwindow.ui" line="383"/>
         <source>Directors, comma separated</source>
         <translation>Режиссеры, перечисленные через запятую</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="350"/>
+        <location filename="../addfilmwindow.ui" line="403"/>
         <source>Producer</source>
         <translation>Продюсер</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="357"/>
+        <location filename="../addfilmwindow.ui" line="410"/>
         <source>Producers, comma separated</source>
         <translation>Продюсеры, перечисленные через запятую</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="377"/>
+        <location filename="../addfilmwindow.ui" line="430"/>
         <source>Starring</source>
         <translation>В ролях</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="384"/>
+        <location filename="../addfilmwindow.ui" line="437"/>
         <source>Actors, comma separated</source>
         <translation>Актеры, перечисленные через запятую</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="404"/>
+        <location filename="../addfilmwindow.ui" line="457"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="411"/>
+        <location filename="../addfilmwindow.ui" line="464"/>
         <source>A summary of the plot</source>
         <translation>Краткий пересказ сюжета</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="27"/>
+        <location filename="../addfilmwindow.cpp" line="26"/>
         <source>Select film</source>
         <translation>Выбрать фильм</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="29"/>
+        <location filename="../addfilmwindow.cpp" line="28"/>
         <source>Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</source>
         <translation>Видео файлы (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="38"/>
+        <location filename="../addfilmwindow.cpp" line="37"/>
         <source>Select image</source>
         <translation>Выбрать изображение</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="40"/>
+        <location filename="../addfilmwindow.cpp" line="39"/>
         <source>Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</source>
         <translation>Изображения (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="49"/>
-        <location filename="../addfilmwindow.cpp" line="55"/>
+        <location filename="../addfilmwindow.cpp" line="48"/>
+        <location filename="../addfilmwindow.cpp" line="54"/>
         <source>Adding film</source>
         <translation>Добавление фильма</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="49"/>
+        <location filename="../addfilmwindow.cpp" line="48"/>
         <source>You must choose file on the disk.</source>
         <translation>Необходимо выбрать файл на диске.</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="55"/>
+        <location filename="../addfilmwindow.cpp" line="54"/>
         <source>Field &quot;Title&quot; can&apos;t be empty.</source>
         <translation>Поле &quot;Название&quot; не может быть пустым.</translation>
     </message>
@@ -422,8 +422,8 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="69"/>
-        <source>&lt;b&gt;Rating:&lt;/b&gt; %1/10</source>
-        <translation>&lt;b&gt;Оценка:&lt;/b&gt; %1/10</translation>
+        <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Оценка:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="70"/>
@@ -523,31 +523,31 @@
     <message>
         <location filename="../settingswindow.cpp" line="13"/>
         <source>&lt;Auto&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Авто&gt;</translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="33"/>
-        <source>Icon only</source>
+        <source>&lt;Follow system style&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="34"/>
-        <source>Text only</source>
+        <source>Icon only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="35"/>
-        <source>Text beside icon</source>
+        <source>Text only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="36"/>
-        <source>Text under icon</source>
+        <source>Text beside icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="37"/>
-        <source>Follow system style</source>
+        <source>Text under icon</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

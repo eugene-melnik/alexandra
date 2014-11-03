@@ -89,7 +89,7 @@ const Film* FilmsList::GetFilmAt( int i ) const
 const Film* FilmsList::GetFilmByTitle( const QString& t ) const
 {
     for( int i = 0; i < films.size(); i++ ) {
-        if( films.at(i).title == t ) {
+        if( films.at(i).GetTitle() == t ) {
             return( &films.at(i) );
         }
     }
@@ -99,12 +99,12 @@ const Film* FilmsList::GetFilmByTitle( const QString& t ) const
 
 const QString& FilmsList::GetCurrentFilmTitle() const
 {
-    return( currentFilm->title );
+    return( currentFilm->GetTitle() );
 }
 
 const QString& FilmsList::GetCurrentFilmFileName() const
 {
-    return( currentFilm->fileName );
+    return( currentFilm->GetFileName() );
 }
 
 void FilmsList::RemoveCurrentFilm()
@@ -120,7 +120,7 @@ int FilmsList::GetIsViewedCount() const
     int res = 0;
 
     foreach( Film f, films ) {
-        if( f.isViewed ) {
+        if( f.GetIsViewed() ) {
             res++;
         }
     }
@@ -133,7 +133,7 @@ int FilmsList::GetIsFavouriteCount() const
     int res = 0;
 
     foreach( Film f, films ) {
-        if( f.isFavourite ) {
+        if( f.GetIsFavourite() ) {
             res++;
         }
     }
@@ -172,27 +172,27 @@ void FilmsList::UpdateFilmsTable()
         const Film& f = films.at( row );
 
         // Favourite
-        QTableWidgetItem* favourite = new QTableWidgetItem( f.isFavourite ? "+" : "" );
+        QTableWidgetItem* favourite = new QTableWidgetItem( f.GetIsFavouriteSign() );
         setItem( row, 0, favourite );
 
         // Title
-        QTableWidgetItem* title = new QTableWidgetItem( f.title );
+        QTableWidgetItem* title = new QTableWidgetItem( f.GetTitle() );
         setItem( row, 1, title );
 
         // Year
-        QTableWidgetItem* year = new QTableWidgetItem( QString("%1").arg( f.year ) );
+        QTableWidgetItem* year = new QTableWidgetItem( f.GetYearStr() );
         setItem( row, 2, year );
 
         // Genre
-        QTableWidgetItem* genre = new QTableWidgetItem( f.genre );
+        QTableWidgetItem* genre = new QTableWidgetItem( f.GetGenre() );
         setItem( row, 3, genre );
 
         // Director
-        QTableWidgetItem* director = new QTableWidgetItem( f.director );
+        QTableWidgetItem* director = new QTableWidgetItem( f.GetDirector() );
         setItem( row, 4, director );
 
         // Rating
-        QTableWidgetItem* rating = new QTableWidgetItem( QString("%1/10").arg( f.rating ) );
+        QTableWidgetItem* rating = new QTableWidgetItem( f.GetRatingStr() );
         setItem( row, 5, rating);
 
         itemClicked( rating ); // dummy
