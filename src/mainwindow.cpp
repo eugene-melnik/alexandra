@@ -138,17 +138,9 @@ void MainWindow::LoadSettings()
     QSettings s( Alexandra::appName, "configuration" );
 
     // Main window settings
+    restoreGeometry( s.value( "MainWindow/Geometry" ).toByteArray() );
     restoreState( s.value( "MainWindow/State" ).toByteArray() );
-    move( s.value( "MainWindow/Position" ).toPoint() );
-
-    if( s.value( "MainWindow/Maximized", false ).toBool() ) {
-        showMaximized();
-    } else {
-        resize( s.value( "MainWindow/Size" ).toSize() );
-    }
-
-    actionShowToolbar->setChecked( s.value( "MainWindow/ShowToolbar", true ).toBool() );
-    toolbar->move( s.value( "MainWindow/ToolbarPosition" ).toPoint() );
+    actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
 
     // Table settings
     twFilms->LoadSettings( s );
@@ -160,12 +152,10 @@ void MainWindow::SaveSettings()
 
     // Main window settings
     s.setValue( "MainWindow/State", saveState() );
-    s.setValue( "MainWindow/Position", pos() );
-    s.setValue( "MainWindow/Size", size() );
-    s.setValue( "MainWindow/Maximized", isMaximized() );
-    s.setValue( "MainWindow/ShowToolbar", toolbar->isVisible() );
-    s.setValue( "MainWindow/ToolbarPosition", toolbar->pos() );
+    s.setValue( "MainWindow/Geometry", saveGeometry() );
 
     // Table settings
     twFilms->SaveSettings( s );
+
+    s.sync();
 }
