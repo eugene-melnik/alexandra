@@ -62,6 +62,8 @@ class Film
         void SetIsViewed( bool b );
         void SetIsFavourite( bool b );
 
+        void SetNewData( const Film& other );
+
     private:
         QString fileName;
         QString title;

@@ -9,9 +9,7 @@ EditFilmWindow::EditFilmWindow( QWidget* parent ) : AddFilmWindow( parent )
 
 void EditFilmWindow::show( const Film* f )
 {
-    QWidget::show();
-
-    QString posterFileName( "poster.png" );
+    QString posterFileName( "alexandra-poster.png" );
 
 #if defined( Q_OS_LINUX )
     posterFileName = "/tmp/" + posterFileName;
@@ -19,10 +17,14 @@ void EditFilmWindow::show( const Film* f )
     posterFileName = QProcessEnvironment::systemEnvironment().value( "TEMP" ) + "\\" + posterFileName;
 #endif
 
-    f->GetPoster().save( posterFileName );
-    ePosterFileName->setText( posterFileName );
+    if( !f->GetPoster().save( posterFileName ) ) {
+        posterFileName.clear();
+    }
+
+    QWidget::show();
 
     eFilmFileName->setText( f->GetFileName() );
+    ePosterFileName->setText( posterFileName );
     eTitle->setText( f->GetTitle() );
     eOriginalTitle->setText( f->GetOriginalTitle() );
     eTagline->setText( f->GetTagline() );

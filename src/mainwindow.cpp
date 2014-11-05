@@ -38,12 +38,15 @@ void MainWindow::AddFilm( Film f )
 {
     // Scale image
     f.SetPoster( f.GetPoster().scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
-    // And save
+
     twFilms->AppendFilm( f );
 }
 
 void MainWindow::EditFilm( Film f )
 {
+    // Scale image
+    f.SetPoster( f.GetPoster().scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
+
     twFilms->EditCurrentFilm( f );
 }
 

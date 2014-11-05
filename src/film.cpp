@@ -281,3 +281,22 @@ void Film::SetIsFavourite( bool b )
 {
     isFavourite = b;
 }
+
+void Film::SetNewData( const Film& other )
+{
+    fileName = other.fileName;
+    title = other.title;
+    originalTitle = other.originalTitle;
+    tagline = other.tagline;
+    genre = other.genre;
+    country = other.country;
+    year = other.year;
+    director = other.director;
+    producer = other.producer;
+    starring = other.starring;
+    description = other.description;
+    rating = other.rating;
+    poster = other.poster;
+    isViewed = other.isViewed;
+    isFavourite = other.isFavourite;
+}

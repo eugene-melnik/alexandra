@@ -78,7 +78,15 @@ void FilmsList::AppendFilm( Film f )
 
 void FilmsList::EditCurrentFilm( Film f )
 {
-    *currentFilm = f;
+    for( int i = 0; i < films.size(); i++ ) {
+        if( films[i].GetTitle() == f.GetTitle() ) {
+            films[i].SetNewData( f );
+            isDatabaseChanged = true;
+            emit DatabaseChanged();
+            return;
+        }
+    }
+
 }
 
 int FilmsList::GetNumberOfFilms() const
@@ -102,7 +110,7 @@ const Film* FilmsList::GetFilmByTitle( const QString& t ) const
     return( new Film() );
 }
 
-const Film *FilmsList::GetCurrentFilm() const
+const Film* FilmsList::GetCurrentFilm() const
 {
     return( currentFilm );
 }
