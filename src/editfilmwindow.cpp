@@ -9,6 +9,7 @@ EditFilmWindow::EditFilmWindow( QWidget* parent ) : AddFilmWindow( parent )
 
 void EditFilmWindow::show( const Film* f )
 {
+    // Magic manipulations with poster image :)
     QString posterFileName( "alexandra-poster.png" );
 
 #if defined( Q_OS_LINUX )
@@ -17,7 +18,7 @@ void EditFilmWindow::show( const Film* f )
     posterFileName = QProcessEnvironment::systemEnvironment().value( "TEMP" ) + "\\" + posterFileName;
 #endif
 
-    if( !f->GetPoster().save( posterFileName ) ) {
+    if( !f->GetPoster().save( posterFileName ) ) { // if poster doesn't exists
         posterFileName.clear();
     }
 

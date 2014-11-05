@@ -6,6 +6,8 @@
 #include <QSettings>
 #include <QProcess>
 
+#include <QLabel>
+
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
     // Interface
@@ -32,22 +34,6 @@ void MainWindow::closeEvent( QCloseEvent* event )
 void MainWindow::AboutQt()
 {
     QMessageBox::aboutQt( this );
-}
-
-void MainWindow::AddFilm( Film f )
-{
-    // Scale image
-    f.SetPoster( f.GetPoster().scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
-
-    twFilms->AppendFilm( f );
-}
-
-void MainWindow::EditFilm( Film f )
-{
-    // Scale image
-    f.SetPoster( f.GetPoster().scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
-
-    twFilms->EditCurrentFilm( f );
 }
 
 void MainWindow::ShowEditFilmWindow()
@@ -81,9 +67,17 @@ void MainWindow::FilmSelected( const Film* f )
     lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->GetStarring() ) );
     lRating->setText( tr( "<b>Rating:</b> %1" ).arg( f->GetRatingStr() ) );
     lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->GetDescription() ) );
-    lPosterImage->setPixmap( f->GetPoster() );
     bFavourite->setChecked( f->GetIsFavourite() );
     bViewed->setChecked( f->GetIsViewed() );
+
+    QPixmap p = f->GetPoster();
+
+    if( p.isNull() ){
+        p.load( ":/standart-poster" );
+    }
+
+    p = p.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
+    lPosterImage->setPixmap( p );
 
     lTechInformation->setText( f->GetFileName() ); // dummy
 }
@@ -122,14 +116,14 @@ void MainWindow::ConfigureSubwindows()
     connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
     connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
 
-    connect( addFilmWindow, SIGNAL( Done(Film) ), this, SLOT( AddFilm(Film) ) );
+    connect( addFilmWindow, SIGNAL( Done(Film) ), twFilms, SLOT( AppendFilm(Film) ) );
 
     // Edit film window
     editFilmWindow = new EditFilmWindow( this );
     connect( actionEdit, SIGNAL( triggered() ), this, SLOT( ShowEditFilmWindow() ) );
     connect( toolbar, SIGNAL( actionEdit() ), this, SLOT( ShowEditFilmWindow() ) );
 
-    connect( editFilmWindow, SIGNAL( Done(Film) ), this, SLOT( EditFilm(Film) ) );
+    connect( editFilmWindow, SIGNAL( Done(Film) ), twFilms, SLOT( EditCurrentFilm(Film) ) );
 
     // Remove film
     connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );

@@ -67,28 +67,6 @@ void FilmsList::SaveSettings( QSettings& s ) const
     s.setValue( "FilmList/CW5", columnWidth(5) );
 }
 
-void FilmsList::AppendFilm( Film f )
-{
-    films.append( f );
-    std::sort( films.begin(), films.end() );
-    isDatabaseChanged = true;
-
-    emit DatabaseChanged();
-}
-
-void FilmsList::EditCurrentFilm( Film f )
-{
-    for( int i = 0; i < films.size(); i++ ) {
-        if( films[i].GetTitle() == f.GetTitle() ) {
-            films[i].SetNewData( f );
-            isDatabaseChanged = true;
-            emit DatabaseChanged();
-            return;
-        }
-    }
-
-}
-
 int FilmsList::GetNumberOfFilms() const
 {
     return( films.size() );
@@ -157,6 +135,28 @@ int FilmsList::GetIsFavouriteCount() const
     }
 
     return( res );
+}
+
+void FilmsList::AppendFilm( Film f )
+{
+    films.append( f );
+    std::sort( films.begin(), films.end() );
+    isDatabaseChanged = true;
+
+    emit DatabaseChanged();
+}
+
+void FilmsList::EditCurrentFilm( Film f )
+{
+    for( int i = 0; i < films.size(); i++ ) {
+        if( films[i].GetTitle() == f.GetTitle() ) {
+            films[i].SetNewData( f );
+            isDatabaseChanged = true;
+            emit DatabaseChanged();
+            return;
+        }
+    }
+
 }
 
 void FilmsList::ItemSelected( QTableWidgetItem* i )

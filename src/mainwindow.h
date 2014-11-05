@@ -26,8 +26,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
     private slots:
         void AboutQt();
 
-        void AddFilm( Film f );
-        void EditFilm( Film f );
         void ShowEditFilmWindow();
         void RemoveFilm();
 

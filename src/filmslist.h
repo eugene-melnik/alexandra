@@ -21,9 +21,6 @@ class FilmsList : public QTableWidget
         void LoadSettings( const QSettings& s );
         void SaveSettings( QSettings& s ) const;
 
-        void AppendFilm( Film f );
-        void EditCurrentFilm( Film f );
-
         int GetNumberOfFilms() const;
         const Film* GetFilmAt( int i ) const;
         const Film* GetFilmByTitle( const QString& t ) const;
@@ -37,6 +34,9 @@ class FilmsList : public QTableWidget
         int GetIsFavouriteCount() const;
 
     public slots:
+        void AppendFilm( Film f );
+        void EditCurrentFilm( Film f );
+
         void ItemSelected( QTableWidgetItem* i );
         void UpdateFilmsTable();
 
