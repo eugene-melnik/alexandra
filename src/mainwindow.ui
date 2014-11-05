@@ -398,7 +398,7 @@
               <widget class="QPushButton" name="bViewed">
                <property name="maximumSize">
                 <size>
-                 <width>50</width>
+                 <width>60</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -420,7 +420,7 @@
               <widget class="QPushButton" name="bFavourite">
                <property name="maximumSize">
                 <size>
-                 <width>50</width>
+                 <width>60</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -442,7 +442,7 @@
               <widget class="QPushButton" name="bTechInformation">
                <property name="maximumSize">
                 <size>
-                 <width>100</width>
+                 <width>60</width>
                  <height>16777215</height>
                 </size>
                </property>

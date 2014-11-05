@@ -1,5 +1,5 @@
 ### Alexandra Video library
-#### v0.7
+#### v0.8
 
 ===
 
@@ -24,8 +24,8 @@
 ###### Main menu
 ![Main menu](/doc/screenshots/02_MainMenu.png "Main menu")
 
-###### Add film window
-![Add film window](/doc/screenshots/03_AddFilmWindow.png "Add film window")
+###### Add film window (and Edit film window)
+![Add and Edit film window](/doc/screenshots/03_AddEditFilmWindow.png "Add and Edit film window")
 
 ###### Remove film window
 ![Remove film window](/doc/screenshots/04_RemoveFilmWindow.png "Remove film window")
