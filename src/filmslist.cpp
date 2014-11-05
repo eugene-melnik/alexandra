@@ -76,6 +76,11 @@ void FilmsList::AppendFilm( Film f )
     emit DatabaseChanged();
 }
 
+void FilmsList::EditCurrentFilm( Film f )
+{
+    *currentFilm = f;
+}
+
 int FilmsList::GetNumberOfFilms() const
 {
     return( films.size() );
@@ -95,6 +100,11 @@ const Film* FilmsList::GetFilmByTitle( const QString& t ) const
     }
 
     return( new Film() );
+}
+
+const Film *FilmsList::GetCurrentFilm() const
+{
+    return( currentFilm );
 }
 
 const QString& FilmsList::GetCurrentFilmTitle() const

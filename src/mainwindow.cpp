@@ -42,6 +42,16 @@ void MainWindow::AddFilm( Film f )
     twFilms->AppendFilm( f );
 }
 
+void MainWindow::EditFilm( Film f )
+{
+    twFilms->EditCurrentFilm( f );
+}
+
+void MainWindow::ShowEditFilmWindow()
+{
+    editFilmWindow->show( twFilms->GetCurrentFilm() );
+}
+
 void MainWindow::RemoveFilm()
 {
     int res = QMessageBox::question( this,
@@ -109,7 +119,14 @@ void MainWindow::ConfigureSubwindows()
     connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
     connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
 
-    connect( addFilmWindow, SIGNAL( AddFilm(Film) ), this, SLOT( AddFilm(Film) ) );
+    connect( addFilmWindow, SIGNAL( Done(Film) ), this, SLOT( AddFilm(Film) ) );
+
+    // Edit film window
+    editFilmWindow = new EditFilmWindow( this );
+    connect( actionEdit, SIGNAL( triggered() ), this, SLOT( ShowEditFilmWindow() ) );
+    connect( toolbar, SIGNAL( actionEdit() ), this, SLOT( ShowEditFilmWindow() ) );
+
+    connect( editFilmWindow, SIGNAL( Done(Film) ), this, SLOT( EditFilm(Film) ) );
 
     // Remove film
     connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );

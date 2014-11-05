@@ -72,7 +72,7 @@ void AddFilmWindow::OkButtonClicked()
     f.SetDescription( tDescription->toPlainText() );
 
     close();
-    emit AddFilm( f );
+    emit Done( f );
 }
 
 void AddFilmWindow::ClearFields()

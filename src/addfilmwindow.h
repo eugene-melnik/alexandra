@@ -19,7 +19,7 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
         void showEvent( QShowEvent* event );
 
     signals:
-        void AddFilm( Film f );
+        void Done( Film f );
 
     private slots:
         void OpenFilmFileClicked();

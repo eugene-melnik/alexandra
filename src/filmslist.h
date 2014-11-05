@@ -22,11 +22,13 @@ class FilmsList : public QTableWidget
         void SaveSettings( QSettings& s ) const;
 
         void AppendFilm( Film f );
+        void EditCurrentFilm( Film f );
 
         int GetNumberOfFilms() const;
         const Film* GetFilmAt( int i ) const;
         const Film* GetFilmByTitle( const QString& t ) const;
 
+        const Film* GetCurrentFilm() const;
         const QString& GetCurrentFilmTitle() const;
         const QString& GetCurrentFilmFileName() const;
         void RemoveCurrentFilm();

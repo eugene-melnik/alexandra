@@ -7,6 +7,7 @@
 
 #include "aboutwindow.h"
 #include "addfilmwindow.h"
+#include "editfilmwindow.h"
 #include "settingswindow.h"
 
 #include <QMainWindow>
@@ -26,6 +27,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void AboutQt();
 
         void AddFilm( Film f );
+        void EditFilm( Film f );
+        void ShowEditFilmWindow();
         void RemoveFilm();
 
         void FilmSelected( const Film* f );
@@ -45,6 +48,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         // Subwindows
         AboutWindow* aboutWindow = nullptr;
         AddFilmWindow* addFilmWindow = nullptr;
+        EditFilmWindow* editFilmWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
 
         // Variables
