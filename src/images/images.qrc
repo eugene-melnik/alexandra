@@ -7,4 +7,7 @@
     <file alias="5">cats/5.png</file>
     <file alias="6">cats/6.png</file>
   </qresource>
+  <qresource>
+    <file alias="standart-poster">standart-poster.png</file>
+  </qresource>
 </RCC>
