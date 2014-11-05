@@ -190,34 +190,42 @@
     </message>
 </context>
 <context>
+    <name>EditFilmWindow</name>
+    <message>
+        <location filename="../editfilmwindow.cpp" line="7"/>
+        <source>Edit film</source>
+        <translation>Изменение фильма</translation>
+    </message>
+</context>
+<context>
     <name>FilmsList</name>
     <message>
-        <location filename="../filmslist.cpp" line="158"/>
+        <location filename="../filmslist.cpp" line="176"/>
         <source>+</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../filmslist.cpp" line="159"/>
+        <location filename="../filmslist.cpp" line="177"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../filmslist.cpp" line="160"/>
+        <location filename="../filmslist.cpp" line="178"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
     <message>
-        <location filename="../filmslist.cpp" line="161"/>
+        <location filename="../filmslist.cpp" line="179"/>
         <source>Genre</source>
         <translation>Жанр</translation>
     </message>
     <message>
-        <location filename="../filmslist.cpp" line="162"/>
+        <location filename="../filmslist.cpp" line="180"/>
         <source>Director</source>
         <translation>Режиссер</translation>
     </message>
     <message>
-        <location filename="../filmslist.cpp" line="163"/>
+        <location filename="../filmslist.cpp" line="181"/>
         <source>Rating</source>
         <translation>Оценка</translation>
     </message>
@@ -225,213 +233,213 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="97"/>
+        <location filename="../mainwindow.ui" line="103"/>
         <source>Type keyword for filtering films list</source>
         <translation>Введите ключевое слово для фильтрации списка фильмов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="112"/>
+        <location filename="../mainwindow.ui" line="118"/>
         <source>&lt;type to search&gt;</source>
         <translation>&lt;введите для поиска&gt;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="400"/>
+        <location filename="../mainwindow.ui" line="406"/>
         <source>Is viewed</source>
         <translation>Просмотрен</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="422"/>
+        <location filename="../mainwindow.ui" line="428"/>
         <source>Is added to favourites</source>
         <translation>Добавлен в избранное</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="444"/>
+        <location filename="../mainwindow.ui" line="450"/>
         <source>Show technical information</source>
         <translation>Показать техническую информацию</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="471"/>
+        <location filename="../mainwindow.ui" line="477"/>
         <source>Open film in external player</source>
         <translation>Открыть фильм во внешнем проигрывателе</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="474"/>
+        <location filename="../mainwindow.ui" line="480"/>
         <source>PLAY</source>
         <translation>Воспроизвести</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="477"/>
+        <location filename="../mainwindow.ui" line="483"/>
         <source>Alt+Return</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="514"/>
+        <location filename="../mainwindow.ui" line="520"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="520"/>
+        <location filename="../mainwindow.ui" line="526"/>
         <source>&amp;Help</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="527"/>
+        <location filename="../mainwindow.ui" line="533"/>
         <source>&amp;Edit</source>
         <translation>&amp;Правка</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="535"/>
+        <location filename="../mainwindow.ui" line="541"/>
         <source>Fil&amp;ms</source>
         <translation>Ф&amp;ильмы</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="567"/>
+        <location filename="../mainwindow.ui" line="573"/>
         <source>E&amp;xit</source>
         <translation>В&amp;ыход</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="570"/>
+        <location filename="../mainwindow.ui" line="576"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="579"/>
+        <location filename="../mainwindow.ui" line="585"/>
         <source>&amp;About...</source>
         <translation>&amp;О программе...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="590"/>
+        <location filename="../mainwindow.ui" line="596"/>
         <source>Show toolbar</source>
         <translation>Показать панель инструментов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="593"/>
+        <location filename="../mainwindow.ui" line="599"/>
         <source>Ctrl+T</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="602"/>
+        <location filename="../mainwindow.ui" line="608"/>
         <source>Settings...</source>
         <translation>Настройки...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="605"/>
+        <location filename="../mainwindow.ui" line="611"/>
         <source>Ctrl+P</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="614"/>
+        <location filename="../mainwindow.ui" line="620"/>
         <source>&amp;Add film...</source>
         <translation>&amp;Добавить фильм...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="617"/>
+        <location filename="../mainwindow.ui" line="623"/>
         <source>Ctrl+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="626"/>
+        <location filename="../mainwindow.ui" line="632"/>
         <source>Edit film...</source>
         <translation>Изменить фильм...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="629"/>
+        <location filename="../mainwindow.ui" line="635"/>
         <source>Ctrl+E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="638"/>
-        <location filename="../mainwindow.cpp" line="48"/>
+        <location filename="../mainwindow.ui" line="644"/>
+        <location filename="../mainwindow.cpp" line="47"/>
         <source>Remove film</source>
         <translation>Удалить фильм</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="641"/>
+        <location filename="../mainwindow.ui" line="647"/>
         <source>Del</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="650"/>
+        <location filename="../mainwindow.ui" line="656"/>
         <source>&amp;Random</source>
         <translation>С&amp;лучайный</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="653"/>
+        <location filename="../mainwindow.ui" line="659"/>
         <source>Ctrl+R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="662"/>
+        <location filename="../mainwindow.ui" line="668"/>
         <source>&amp;Search...</source>
         <translation>По&amp;иск...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="665"/>
+        <location filename="../mainwindow.ui" line="671"/>
         <source>Ctrl+F</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="674"/>
+        <location filename="../mainwindow.ui" line="680"/>
         <source>About Qt...</source>
         <translation>О Qt...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="49"/>
+        <location filename="../mainwindow.cpp" line="48"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Вы уверены, что хотите удалить &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="61"/>
+        <location filename="../mainwindow.cpp" line="60"/>
         <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Оригинальное название:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="62"/>
+        <location filename="../mainwindow.cpp" line="61"/>
         <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Слоган:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="63"/>
+        <location filename="../mainwindow.cpp" line="62"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Жанр:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="64"/>
+        <location filename="../mainwindow.cpp" line="63"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Год:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="65"/>
+        <location filename="../mainwindow.cpp" line="64"/>
         <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Страна:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="66"/>
+        <location filename="../mainwindow.cpp" line="65"/>
         <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Режиссер:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="67"/>
+        <location filename="../mainwindow.cpp" line="66"/>
         <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Продюсер:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="68"/>
+        <location filename="../mainwindow.cpp" line="67"/>
         <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;В ролях:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="69"/>
+        <location filename="../mainwindow.cpp" line="68"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Оценка:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="70"/>
+        <location filename="../mainwindow.cpp" line="69"/>
         <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Описание:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="86"/>
+        <location filename="../mainwindow.cpp" line="93"/>
         <source>Total films: %1 (%2 viewed, %3 favourite)</source>
         <translation>Всего фильмов: %1 (%2 просмотрено, %3 в избранном)</translation>
     </message>
@@ -446,37 +454,32 @@
     <message>
         <location filename="../settingswindow.ui" line="40"/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Приложение</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="59"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Язык</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="72"/>
         <source>Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="85"/>
         <source>Toolbar style</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль панели инструментов</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="158"/>
         <source>External player</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="165"/>
-        <source>xdg-open</source>
-        <translation type="unfinished"></translation>
+        <translation>Внешний проигрыватель</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="195"/>
         <source>Database</source>
-        <translation type="unfinished"></translation>
+        <translation>База данных</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="213"/>
@@ -486,39 +489,39 @@
     <message>
         <location filename="../settingswindow.ui" line="222"/>
         <source>Checking availability of files at startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверка наличия файлов при запуске</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="243"/>
         <source>Films list</source>
-        <translation type="unfinished"></translation>
+        <translation>Список фильмов</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="253"/>
         <source>Highlight the viewed films</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделять просмотренные фильмы</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="260"/>
         <source>Highlight the favourite films</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделять избранные фильмы</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="267"/>
         <source>Highlight the unavailable films</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделять недоступные фильмы</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="278"/>
         <location filename="../settingswindow.ui" line="285"/>
         <location filename="../settingswindow.ui" line="292"/>
         <source>Select color</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать цвет</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="203"/>
         <source>Database file</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл базы данных</translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="13"/>
@@ -528,27 +531,27 @@
     <message>
         <location filename="../settingswindow.cpp" line="33"/>
         <source>&lt;Follow system style&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Следовать системному стилю&gt;</translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="34"/>
         <source>Icon only</source>
-        <translation type="unfinished"></translation>
+        <translation>Только значки</translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="35"/>
         <source>Text only</source>
-        <translation type="unfinished"></translation>
+        <translation>Только текст</translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="36"/>
         <source>Text beside icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст рядом со значками</translation>
     </message>
     <message>
         <location filename="../settingswindow.cpp" line="37"/>
         <source>Text under icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст под значками</translation>
     </message>
 </context>
 <context>

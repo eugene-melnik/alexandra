@@ -162,7 +162,7 @@
          <item>
           <widget class="QLineEdit" name="eExternalPlayer">
            <property name="text">
-            <string>xdg-open</string>
+            <string notr="true">xdg-open</string>
            </property>
           </widget>
          </item>
