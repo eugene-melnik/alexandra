@@ -1,9 +1,50 @@
 #include "settingswindow.h"
 #include "version.h"
 
-SettingsWindow::SettingsWindow( QWidget* parent ) : QDialog( parent )
+#include <QFileDialog>
+#include <QFileInfo>
+
+SettingsWindow::SettingsWindow( QSettings* s, QWidget* parent ) : QDialog( parent )
 {
+    settings = s;
+
     setupUi( this );
+    ConfigureApplicationTab();
+    ConfigureDatabaseTab();
+
+    connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
+}
+
+void SettingsWindow::OkButtonClicked()
+{
+    settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
+    settings->setValue( "Application/ExternalPlayer", eExternalPlayer->text() );
+
+    settings->sync();
+    close();
+    emit SettingsChanged();
+}
+
+void SettingsWindow::OpenDatabaseFile()
+{
+    QFileInfo currentPath( eDatabaseFile->text() );
+
+    QString databaseFileName = QFileDialog::getOpenFileName( this,
+                               tr( "Select database file" ),
+                               currentPath.absoluteFilePath(),
+                               tr( "Alexandra DB (*.adat)" ) );
+
+    if( !databaseFileName.isEmpty() ) {
+        eDatabaseFile->setText( databaseFileName );
+    }
+}
+
+/*************************************************************************************************
+ *  "Application" tab                                                                             *
+  *************************************************************************************************/
+
+void SettingsWindow::ConfigureApplicationTab()
+{
     ConfigureLanguageCB();
     ConfigureToolbarStyleCB();
 }
@@ -40,4 +81,15 @@ void SettingsWindow::ConfigureToolbarStyleCB()
     {
         cbToolbarStyle->addItem( toolStyle.name );
     }
+}
+
+/*************************************************************************************************
+ *  "Database" tab                                                                             *
+  *************************************************************************************************/
+
+void SettingsWindow::ConfigureDatabaseTab()
+{
+    connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
+
+    eDatabaseFile->setText( settings->value( "Application/DatabaseFile" ).toString() );
 }

@@ -15,11 +15,11 @@ class FilmsList : public QTableWidget
     public:
         FilmsList( QWidget* parent = nullptr );
 
-        void LoadDatabase( QString dataDirectory );
-        void SaveDatabase( QString dataDirectory );
+        void LoadDatabase( QString databaseFileName );
+        void SaveDatabase( QString databaseFileName );
 
-        void LoadSettings( const QSettings& s );
-        void SaveSettings( QSettings& s ) const;
+        void LoadSettings( QSettings* s );
+        void SaveSettings( QSettings* s ) const;
 
         int GetNumberOfFilms() const;
         const Film* GetFilmAt( int i ) const;

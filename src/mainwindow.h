@@ -12,6 +12,7 @@
 
 #include <QMainWindow>
 #include <QCloseEvent>
+#include <QSettings>
 
 class MainWindow : public QMainWindow, public Ui::MainWindow
 {
@@ -19,12 +20,14 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
     public:
         MainWindow( QWidget* parent = nullptr );
+        ~MainWindow();
 
     protected:
         void closeEvent( QCloseEvent* event );
 
     private slots:
         void AboutQt();
+        void SettingsChanged();
 
         void ShowEditFilmWindow();
         void RemoveFilm();
@@ -38,7 +41,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         // Additional functions
         void ConfigureSubwindows();
 
-        void SetDataDirectory();
+        void SetDatabaseFileName();
         void LoadSettings();
         void SaveSettings();
 
@@ -50,7 +53,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         SettingsWindow* settingsWindow = nullptr;
 
         // Variables
-        QString dataDirectory;
+        QSettings* settings;
+        QString databaseFileName;
 };
 
 #endif // MAINWINDOW_H

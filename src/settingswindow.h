@@ -4,18 +4,31 @@
 #include "ui_settingswindow.h"
 
 #include <QDialog>
+#include <QSettings>
 
 class SettingsWindow : public QDialog, public Ui::SettingsWindow
 {
     Q_OBJECT
 
     public:
-        SettingsWindow( QWidget* parent = nullptr );
+        SettingsWindow( QSettings* s, QWidget* parent = nullptr );
+
+    signals:
+        void SettingsChanged();
+
+    private slots:
+        void OkButtonClicked();
+        void OpenDatabaseFile();
 
     private:
+        void ConfigureApplicationTab();
         void ConfigureLanguageCB();
         void ConfigureStyleCB();
         void ConfigureToolbarStyleCB();
+
+        void ConfigureDatabaseTab();
+
+        QSettings* settings;
 };
 
 #endif // SETTINGSWINDOW_H

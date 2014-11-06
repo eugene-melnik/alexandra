@@ -10,15 +10,28 @@
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
+    // Data
+    settings = new QSettings( Alexandra::appName, "configuration" );
+
     // Interface
     setupUi( this );
     setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
     ConfigureSubwindows();
 
-    // Data
     LoadSettings();
-    SetDataDirectory();
-    twFilms->LoadDatabase( dataDirectory );
+    SettingsChanged();
+}
+
+MainWindow::~MainWindow()
+{
+    // Subwindows
+    delete aboutWindow;
+    delete addFilmWindow;
+    delete editFilmWindow;
+    delete settingsWindow;
+
+    // Variables
+    delete settings;
 }
 
 void MainWindow::closeEvent( QCloseEvent* event )
@@ -26,7 +39,7 @@ void MainWindow::closeEvent( QCloseEvent* event )
     hide();
 
     SaveSettings();
-    twFilms->SaveDatabase( dataDirectory );
+    twFilms->SaveDatabase( databaseFileName );
 
     event->accept();
 }
@@ -34,6 +47,12 @@ void MainWindow::closeEvent( QCloseEvent* event )
 void MainWindow::AboutQt()
 {
     QMessageBox::aboutQt( this );
+}
+
+void MainWindow::SettingsChanged()
+{
+    SetDatabaseFileName();
+    twFilms->LoadDatabase( databaseFileName );
 }
 
 void MainWindow::ShowEditFilmWindow()
@@ -130,46 +149,51 @@ void MainWindow::ConfigureSubwindows()
     connect( toolbar, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
 
     // Settings window
-    settingsWindow = new SettingsWindow( this );
+    settingsWindow = new SettingsWindow( settings, this );
     connect( actionSettings, SIGNAL( triggered() ), settingsWindow, SLOT( show() ) );
+
+    connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( SettingsChanged() ) );
 }
 
-void MainWindow::SetDataDirectory()
+void MainWindow::SetDatabaseFileName()
 {
+    databaseFileName = settings->value( "Application/DatabaseFile" ).toString();
+
+    if( databaseFileName.isEmpty() )
+    {
 #ifdef Q_OS_LINUX
-    dataDirectory = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
+        databaseFileName = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
 
-    if( dataDirectory.isEmpty() ) {
-        dataDirectory = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
-    }
+        if( databaseFileName.isEmpty() ) {
+            databaseFileName = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
+        }
+
+        databaseFileName.append( QString("/") + Alexandra::appName + QString("/database.adat") );
 #endif
-
-    dataDirectory.append( QString("/") + Alexandra::appName + QString("/") );
+        settings->setValue( "Application/DatabaseFile", databaseFileName );
+        settings->sync();
+    }
 }
 
 void MainWindow::LoadSettings()
 {
-    QSettings s( Alexandra::appName, "configuration" );
-
     // Main window settings
-    restoreGeometry( s.value( "MainWindow/Geometry" ).toByteArray() );
-    restoreState( s.value( "MainWindow/State" ).toByteArray() );
+    restoreGeometry( settings->value( "MainWindow/Geometry" ).toByteArray() );
+    restoreState( settings->value( "MainWindow/State" ).toByteArray() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
 
     // Table settings
-    twFilms->LoadSettings( s );
+    twFilms->LoadSettings( settings );
 }
 
 void MainWindow::SaveSettings()
 {
-    QSettings s( Alexandra::appName, "configuration" );
-
     // Main window settings
-    s.setValue( "MainWindow/State", saveState() );
-    s.setValue( "MainWindow/Geometry", saveGeometry() );
+    settings->setValue( "MainWindow/State", saveState() );
+    settings->setValue( "MainWindow/Geometry", saveGeometry() );
 
     // Table settings
-    twFilms->SaveSettings( s );
+    twFilms->SaveSettings( settings );
 
-    s.sync();
+    settings->sync();
 }
