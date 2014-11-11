@@ -13,6 +13,9 @@ class AboutWindow : public QDialog, public Ui::AboutWindow
     public:
         AboutWindow( QWidget* parent = nullptr );
 
+    public slots:
+        void AboutQt();
+
     protected:
         void showEvent( QShowEvent* event );
 };

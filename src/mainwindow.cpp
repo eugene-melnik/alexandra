@@ -6,8 +6,6 @@
 #include <QSettings>
 #include <QProcess>
 
-#include <QLabel>
-
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
     // Data
@@ -42,11 +40,6 @@ void MainWindow::closeEvent( QCloseEvent* event )
     twFilms->SaveDatabase( databaseFileName );
 
     event->accept();
-}
-
-void MainWindow::AboutQt()
-{
-    QMessageBox::aboutQt( this );
 }
 
 void MainWindow::SettingsChanged()
@@ -128,7 +121,7 @@ void MainWindow::ConfigureSubwindows()
     // About and About Qt windows
     aboutWindow = new AboutWindow( this );
     connect( actionAbout, SIGNAL( triggered() ), aboutWindow, SLOT( show() ) );
-    connect( actionAboutQt, SIGNAL( triggered() ), this, SLOT( AboutQt() ) );
+    connect( actionAboutQt, SIGNAL( triggered() ), aboutWindow, SLOT( AboutQt() ) );
 
     // Add film window
     addFilmWindow = new AddFilmWindow( this );
