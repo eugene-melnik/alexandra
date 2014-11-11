@@ -5,6 +5,7 @@ QT = core gui widgets
 
 CONFIG += qt warn_on debug
 QMAKE_CXXFLAGS += -std=c++11
+LIBS += -lmediainfo #-lz -lpthread -lzen -lpthread -lstdc++
 
 HEADERS += aboutwindow.h \
            addfilmwindow.h \

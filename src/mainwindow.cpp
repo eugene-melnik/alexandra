@@ -46,7 +46,7 @@ void MainWindow::closeEvent( QCloseEvent* event )
 
 void MainWindow::SettingsChanged()
 {
-    SetDatabaseFileName();
+    SetNames();
     twFilms->LoadDatabase( databaseFileName );
 }
 
@@ -99,7 +99,7 @@ void MainWindow::FilmSelected( const Film* f )
 void MainWindow::PlayFilm()
 {
     QProcess player;
-    player.startDetached( "xdg-open \"" + twFilms->GetCurrentFilmFileName() +"\"" );
+    player.startDetached( externalPlayer + " \"" + twFilms->GetCurrentFilmFileName() +"\"" );
 }
 
 void MainWindow::UpdateStatusBar()
@@ -154,24 +154,21 @@ void MainWindow::ConfigureSubwindows()
     connect( actionRandom, SIGNAL( triggered() ), twFilms, SLOT( SelectRandomFilm() ) );
 }
 
-void MainWindow::SetDatabaseFileName()
+void MainWindow::SetNames()
 {
+    /// Set database filename
     databaseFileName = settings->value( "Application/DatabaseFile" ).toString();
 
     if( databaseFileName.isEmpty() )
     {
 #ifdef Q_OS_LINUX
-
         databaseFileName = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
 
         if( databaseFileName.isEmpty() ) {
             databaseFileName = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
         }
-
 #elif defined( Q_OS_WIN32 )
-
         databaseFileName = QProcessEnvironment::systemEnvironment().value( "APPDATA" );
-
 #endif
         databaseFileName += "/" + Alexandra::appName + "/database.adat";
 
@@ -184,6 +181,20 @@ void MainWindow::SetDatabaseFileName()
 
     if( !QDir().exists( databaseDir ) ) {
         QDir().mkdir( databaseDir );
+    }
+
+    /// Set external player
+    externalPlayer = settings->value( "Application/ExternalPlayer" ).toString();
+
+    if( externalPlayer.isEmpty() )
+    {
+#ifdef Q_OS_LINUX
+        externalPlayer = "xdg-open";
+#else
+        externalPlayer.clear();
+#endif
+        settings->setValue( "Application/ExternalPlayer", externalPlayer );
+        settings->sync();
     }
 }
 

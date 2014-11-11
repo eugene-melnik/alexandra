@@ -9,10 +9,14 @@ SettingsWindow::SettingsWindow( QSettings* s, QWidget* parent ) : QDialog( paren
     settings = s;
 
     setupUi( this );
+    connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
+}
+
+void SettingsWindow::showEvent( QShowEvent* event )
+{
     ConfigureApplicationTab();
     ConfigureDatabaseTab();
-
-    connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
+    event->accept();
 }
 
 /*************************************************************************************************
@@ -27,6 +31,15 @@ void SettingsWindow::OkButtonClicked()
     settings->sync();
     close();
     emit SettingsChanged();
+}
+
+void SettingsWindow::SetDefaultExternalPlayer()
+{
+#ifdef Q_OS_LINUX
+    eExternalPlayer->setText( "xdg-open" );
+#else
+    eExternalPlayer->clear();
+#endif
 }
 
 void SettingsWindow::OpenDatabaseFile()
@@ -49,12 +62,17 @@ void SettingsWindow::OpenDatabaseFile()
 
 void SettingsWindow::ConfigureApplicationTab()
 {
+    connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
+
+    eExternalPlayer->setText( settings->value( "Application/ExternalPlayer" ).toString() );
+
     ConfigureLanguageCB();
     ConfigureToolbarStyleCB();
 }
 
 void SettingsWindow::ConfigureLanguageCB()
 {
+    cbLanguage->clear();
     cbLanguage->addItem( tr( "<Auto>" ) );
 
     foreach( Alexandra::Locale locale, Alexandra::supportedLocales )
@@ -65,7 +83,7 @@ void SettingsWindow::ConfigureLanguageCB()
 
 void SettingsWindow::ConfigureStyleCB()
 {
-    //
+    cbStyle->clear();
 }
 
 void SettingsWindow::ConfigureToolbarStyleCB()
@@ -80,6 +98,8 @@ void SettingsWindow::ConfigureToolbarStyleCB()
                                           { tr("Text only"),            Qt::ToolButtonTextOnly },
                                           { tr("Text beside icon"),     Qt::ToolButtonTextBesideIcon },
                                           { tr("Text under icon"),      Qt::ToolButtonTextUnderIcon } };
+
+    cbToolbarStyle->clear();
 
     foreach( ToolStyle toolStyle, toolStyles )
     {

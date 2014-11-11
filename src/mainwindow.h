@@ -40,7 +40,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         // Additional functions
         void ConfigureSubwindows();
 
-        void SetDatabaseFileName();
+        void SetNames();
         void LoadSettings();
         void SaveSettings();
 
@@ -54,6 +54,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         // Variables
         QSettings* settings;
         QString databaseFileName;
+        QString externalPlayer;
 };
 
 #endif // MAINWINDOW_H

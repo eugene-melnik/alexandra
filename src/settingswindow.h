@@ -4,6 +4,7 @@
 #include "ui_settingswindow.h"
 
 #include <QDialog>
+#include <QShowEvent>
 #include <QSettings>
 
 class SettingsWindow : public QDialog, public Ui::SettingsWindow
@@ -13,11 +14,15 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
     public:
         SettingsWindow( QSettings* s, QWidget* parent = nullptr );
 
+    protected:
+        void showEvent( QShowEvent* event );
+
     signals:
         void SettingsChanged();
 
     private slots:
         void OkButtonClicked();
+        void SetDefaultExternalPlayer();
         void OpenDatabaseFile();
 
     private:
