@@ -10,8 +10,8 @@
     </message>
     <message>
         <location filename="../aboutwindow.cpp" line="13"/>
-        <source>version %1</source>
-        <translation>версія %1</translation>
+        <source>version %1 (build date: %2)</source>
+        <translation>версія %1 (дата збірки %2)</translation>
     </message>
     <message>
         <location filename="../aboutwindow.cpp" line="15"/>
