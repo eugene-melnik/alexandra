@@ -16,6 +16,7 @@ FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
 void FilmsList::LoadDatabase( QString databaseFileName )
 {
     QFile dbFile( databaseFileName );
+    films.clear();
 
     if( dbFile.open( QIODevice::ReadOnly ) )
     {

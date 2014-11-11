@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QProcess>
+#include <QFileInfo>
+#include <QDir>
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
@@ -155,16 +157,29 @@ void MainWindow::SetDatabaseFileName()
     if( databaseFileName.isEmpty() )
     {
 #ifdef Q_OS_LINUX
+
         databaseFileName = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
 
         if( databaseFileName.isEmpty() ) {
             databaseFileName = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
         }
 
-        databaseFileName.append( QString("/") + Alexandra::appName + QString("/database.adat") );
+#elif defined( Q_OS_WIN32 )
+
+        databaseFileName = QProcessEnvironment::systemEnvironment().value( "APPDATA" );
+
 #endif
+        databaseFileName += "/" + Alexandra::appName + "/database.adat";
+
         settings->setValue( "Application/DatabaseFile", databaseFileName );
         settings->sync();
+    }
+
+    // Creating database directory (if not exists)
+    QString databaseDir = QFileInfo( databaseFileName ).absolutePath();
+
+    if( !QDir().exists( databaseDir ) ) {
+        QDir().mkdir( databaseDir );
     }
 }
 

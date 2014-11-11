@@ -26,7 +26,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void closeEvent( QCloseEvent* event );
 
     private slots:
-        void AboutQt();
         void SettingsChanged();
 
         void ShowEditFilmWindow();
