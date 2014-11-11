@@ -9,7 +9,8 @@ FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
 {
     isDatabaseChanged = false;
 
-    connect( this, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( ItemSelected(QTableWidgetItem*) ) );
+    connect( this, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( ItemSelected(QTableWidgetItem*) ) );   // mouse click
+    connect( this, SIGNAL( itemActivated(QTableWidgetItem*) ), this, SLOT( ItemSelected(QTableWidgetItem*) ) ); // Enter key press
     connect( this, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateFilmsTable() ) );
 }
 
@@ -209,7 +210,11 @@ void FilmsList::UpdateFilmsTable()
         // Rating
         QTableWidgetItem* rating = new QTableWidgetItem( f.GetRatingStr() );
         setItem( row, 5, rating);
+    }
 
-        itemClicked( rating ); // dummy
+    // Select first film
+    if( rowCount() != 0 ) {
+        itemClicked( item( 0, 0 ) );
+        setCurrentItem( item( 0, 0 ) ); // FIXME: fix this shi~
     }
 }
