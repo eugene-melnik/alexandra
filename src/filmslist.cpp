@@ -51,7 +51,6 @@ void FilmsList::LoadSettings( QSettings* s )
     setColumnWidth( 2, s->value( "FilmList/CW2", 50 ).toInt() );
     setColumnWidth( 3, s->value( "FilmList/CW3", 110 ).toInt() );
     setColumnWidth( 4, s->value( "FilmList/CW4", 110 ).toInt() );
-    setColumnWidth( 5, s->value( "FilmList/CW5", 50 ).toInt() );
 }
 
 void FilmsList::SaveSettings( QSettings* s ) const
@@ -62,7 +61,6 @@ void FilmsList::SaveSettings( QSettings* s ) const
     s->setValue( "FilmList/CW2", columnWidth(2) );
     s->setValue( "FilmList/CW3", columnWidth(3) );
     s->setValue( "FilmList/CW4", columnWidth(4) );
-    s->setValue( "FilmList/CW5", columnWidth(5) );
 }
 
 int FilmsList::GetNumberOfFilms() const
