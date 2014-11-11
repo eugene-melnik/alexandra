@@ -36,6 +36,7 @@ class FilmsList : public QTableWidget
     public slots:
         void AppendFilm( Film f );
         void EditCurrentFilm( Film f );
+        void SelectRandomFilm();
 
         void ItemSelected( QTableWidgetItem* i );
         void UpdateFilmsTable();

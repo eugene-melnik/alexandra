@@ -157,6 +157,22 @@ void FilmsList::EditCurrentFilm( Film f )
 
 }
 
+void FilmsList::SelectRandomFilm()
+{
+    int n;
+
+    do
+    {
+        n = qrand() % rowCount();
+    }
+    while( n == currentRow() );
+
+    if( rowCount() != 0 ) {
+        itemClicked( item( n, 0 ) );
+        setCurrentItem( item( n, 0 ) ); // FIXME: fix this shi~
+    }
+}
+
 void FilmsList::ItemSelected( QTableWidgetItem* i )
 {
     QString selectedFilmTitle = item( i->row(), 1 )->text();

@@ -148,6 +148,10 @@ void MainWindow::ConfigureSubwindows()
     connect( actionSettings, SIGNAL( triggered() ), settingsWindow, SLOT( show() ) );
 
     connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( SettingsChanged() ) );
+
+    // Random film
+    connect( toolbar, SIGNAL( actionRandom() ), twFilms, SLOT( SelectRandomFilm() ) );
+    connect( actionRandom, SIGNAL( triggered() ), twFilms, SLOT( SelectRandomFilm() ) );
 }
 
 void MainWindow::SetDatabaseFileName()

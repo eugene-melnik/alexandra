@@ -15,6 +15,10 @@ SettingsWindow::SettingsWindow( QSettings* s, QWidget* parent ) : QDialog( paren
     connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
 }
 
+/*************************************************************************************************
+ *  Events' handlers (slots)                                                                      *
+  *************************************************************************************************/
+
 void SettingsWindow::OkButtonClicked()
 {
     settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
@@ -40,7 +44,7 @@ void SettingsWindow::OpenDatabaseFile()
 }
 
 /*************************************************************************************************
- *  "Application" tab                                                                             *
+ *  "Application" tab settings                                                                    *
   *************************************************************************************************/
 
 void SettingsWindow::ConfigureApplicationTab()
@@ -84,7 +88,7 @@ void SettingsWindow::ConfigureToolbarStyleCB()
 }
 
 /*************************************************************************************************
- *  "Database" tab                                                                             *
+ *  "Database" tab settings                                                                    *
   *************************************************************************************************/
 
 void SettingsWindow::ConfigureDatabaseTab()
