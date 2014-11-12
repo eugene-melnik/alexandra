@@ -18,12 +18,15 @@ SettingsWindow::SettingsWindow( QSettings* s, QWidget* parent ) : QDialog( paren
     connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
     // filmslist tab
     connect( bSelectColorViewed, SIGNAL( clicked() ), this, SLOT( SelectColorViewed() ) );
+    connect( bSelectColorFavourite, SIGNAL( clicked() ), this, SLOT( SelectColorFavourite() ) );
+    connect( bSelectColorUnavailable, SIGNAL( clicked() ), this, SLOT( SelectColorUnavailable() ) );
 }
 
 void SettingsWindow::showEvent( QShowEvent* event )
 {
     ConfigureApplicationTab();
     ConfigureDatabaseTab();
+    ConfigureFilmslistTab();
     event->accept();
 }
 
@@ -33,11 +36,18 @@ void SettingsWindow::showEvent( QShowEvent* event )
 
 void SettingsWindow::OkButtonClicked()
 {
-    settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
+    // application tab
     settings->setValue( "Application/ExternalPlayer", eExternalPlayer->text() );
+    // database tab
+    settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
+    // filmslist tab
+    settings->setValue( "FilmList/HighlightViewed", cHighlightViewed->isChecked() );
+    settings->setValue( "FilmList/HighlightFavourite", cHighlightFavourite->isChecked() );
+    settings->setValue( "FilmList/HighlightUnavailable", cHighlightUnavailable->isChecked() );
 
-    settings->sync();
+    // save settings
     close();
+    settings->sync();
     emit SettingsChanged();
 }
 
@@ -66,19 +76,26 @@ void SettingsWindow::OpenDatabaseFile()
 
 void SettingsWindow::SelectColorViewed()
 {
-    // FIXME: fix "code" below
-    int r = settings->value( "FilmList/ViewedColorR" ).toInt();
-    int g = settings->value( "FilmList/ViewedColorG" ).toInt();
-    int b = settings->value( "FilmList/ViewedColorB" ).toInt();
-    int a = settings->value( "FilmList/ViewedColorA" ).toInt();
-
-    QColor oldColor( r, g, b, a );
+    // TODO
+    QColor oldColor = settings->value( "FilmList/ViewedColor" ).toUInt();
     QColor newColor = QColorDialog::getColor( oldColor, this );
+    settings->setValue( "FilmList/ViewedColor", newColor.rgba() );
+}
 
-    settings->setValue( "FilmList/ViewedColorR", newColor.red() );
-    settings->setValue( "FilmList/ViewedColorG", newColor.green() );
-    settings->setValue( "FilmList/ViewedColorB", newColor.blue() );
-    settings->setValue( "FilmList/ViewedColorA", newColor.alpha() );
+void SettingsWindow::SelectColorFavourite()
+{
+    // TODO
+    QColor oldColor = settings->value( "FilmList/FavouriteColor" ).toUInt();
+    QColor newColor = QColorDialog::getColor( oldColor, this );
+    settings->setValue( "FilmList/FavouriteColor", newColor.rgba() );
+}
+
+void SettingsWindow::SelectColorUnavailable()
+{
+    // TODO
+    QColor oldColor = settings->value( "FilmList/UnavailableColor" ).toUInt();
+    QColor newColor = QColorDialog::getColor( oldColor, this );
+    settings->setValue( "FilmList/UnavailableColor", newColor.rgba() );
 }
 
 /*************************************************************************************************
@@ -131,10 +148,21 @@ void SettingsWindow::ConfigureToolbarStyleCB()
 }
 
 /*************************************************************************************************
- *  "Database" tab settings                                                                    *
+ *  "Database" tab settings                                                                       *
   *************************************************************************************************/
 
 void SettingsWindow::ConfigureDatabaseTab()
 {
     eDatabaseFile->setText( settings->value( "Application/DatabaseFile" ).toString() );
+}
+
+/*************************************************************************************************
+ *  "Filmslist" tab settings                                                                      *
+  *************************************************************************************************/
+
+void SettingsWindow::ConfigureFilmslistTab()
+{
+    cHighlightViewed->setChecked( settings->value( "FilmList/HighlightViewed", false ).toBool() );
+    cHighlightFavourite->setChecked( settings->value( "FilmList/HighlightFavourite", false ).toBool() );
+    cHighlightUnavailable->setChecked( settings->value( "FilmList/HighlightUnavailable", false ).toBool() );
 }

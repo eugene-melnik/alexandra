@@ -217,7 +217,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbCheckFilesAtStartup">
+        <widget class="QCheckBox" name="cCheckFilesAtStartup">
          <property name="text">
           <string>Checking availability of files at startup</string>
          </property>
@@ -248,21 +248,21 @@
          <item>
           <layout class="QVBoxLayout" name="vl3">
            <item>
-            <widget class="QCheckBox" name="cbHighlightViewed">
+            <widget class="QCheckBox" name="cHighlightViewed">
              <property name="text">
               <string>Highlight the viewed films</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbHighlightFavourite">
+            <widget class="QCheckBox" name="cHighlightFavourite">
              <property name="text">
               <string>Highlight the favourite films</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbHighlightUnavailable">
+            <widget class="QCheckBox" name="cHighlightUnavailable">
              <property name="text">
               <string>Highlight the unavailable films</string>
              </property>
