@@ -3,13 +3,21 @@
 
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QColorDialog>
 
 SettingsWindow::SettingsWindow( QSettings* s, QWidget* parent ) : QDialog( parent )
 {
     settings = s;
 
+    // window
     setupUi( this );
     connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
+    // application tab
+    connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
+    // database tab
+    connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
+    // filmslist tab
+    connect( bSelectColorViewed, SIGNAL( clicked() ), this, SLOT( SelectColorViewed() ) );
 }
 
 void SettingsWindow::showEvent( QShowEvent* event )
@@ -56,14 +64,29 @@ void SettingsWindow::OpenDatabaseFile()
     }
 }
 
+void SettingsWindow::SelectColorViewed()
+{
+    // FIXME: fix "code" below
+    int r = settings->value( "FilmList/ViewedColorR" ).toInt();
+    int g = settings->value( "FilmList/ViewedColorG" ).toInt();
+    int b = settings->value( "FilmList/ViewedColorB" ).toInt();
+    int a = settings->value( "FilmList/ViewedColorA" ).toInt();
+
+    QColor oldColor( r, g, b, a );
+    QColor newColor = QColorDialog::getColor( oldColor, this );
+
+    settings->setValue( "FilmList/ViewedColorR", newColor.red() );
+    settings->setValue( "FilmList/ViewedColorG", newColor.green() );
+    settings->setValue( "FilmList/ViewedColorB", newColor.blue() );
+    settings->setValue( "FilmList/ViewedColorA", newColor.alpha() );
+}
+
 /*************************************************************************************************
  *  "Application" tab settings                                                                    *
   *************************************************************************************************/
 
 void SettingsWindow::ConfigureApplicationTab()
 {
-    connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
-
     eExternalPlayer->setText( settings->value( "Application/ExternalPlayer" ).toString() );
 
     ConfigureLanguageCB();
@@ -113,7 +136,5 @@ void SettingsWindow::ConfigureToolbarStyleCB()
 
 void SettingsWindow::ConfigureDatabaseTab()
 {
-    connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
-
     eDatabaseFile->setText( settings->value( "Application/DatabaseFile" ).toString() );
 }

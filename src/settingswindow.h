@@ -24,6 +24,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void OkButtonClicked();
         void SetDefaultExternalPlayer();
         void OpenDatabaseFile();
+        void SelectColorViewed();
 
     private:
         void ConfigureApplicationTab();
