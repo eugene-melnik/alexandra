@@ -143,6 +143,11 @@ void MainWindow::ConfigureSubwindows()
     connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );
     connect( toolbar, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
 
+    // Search window
+    searchWindow = new SearchWindow( this );
+    connect( actionSearch, SIGNAL( triggered() ), searchWindow, SLOT( show() ) );
+    connect( toolbar, SIGNAL( actionSearch() ), searchWindow, SLOT( show() ) );
+
     // Settings window
     settingsWindow = new SettingsWindow( settings, this );
     connect( actionSettings, SIGNAL( triggered() ), settingsWindow, SLOT( show() ) );

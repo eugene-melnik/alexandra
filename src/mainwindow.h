@@ -8,6 +8,7 @@
 #include "aboutwindow.h"
 #include "addfilmwindow.h"
 #include "editfilmwindow.h"
+#include "searchwindow.h"
 #include "settingswindow.h"
 
 #include <QMainWindow>
@@ -44,11 +45,11 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void LoadSettings();
         void SaveSettings();
 
-
         // Subwindows
         AboutWindow* aboutWindow = nullptr;
         AddFilmWindow* addFilmWindow = nullptr;
         EditFilmWindow* editFilmWindow = nullptr;
+        SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
 
         // Variables
