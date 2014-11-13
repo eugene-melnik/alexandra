@@ -11,6 +11,9 @@ class SearchWindow : public QDialog, public Ui::SearchWindow
 
     public:
         SearchWindow( QWidget* parent = nullptr );
+
+    private:
+        void ConfigureTable();
 };
 
 #endif // SEARCHWINDOW_H
