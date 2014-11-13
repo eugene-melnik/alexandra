@@ -569,7 +569,7 @@
     <string>E&amp;xit</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Q</string>
+    <string notr="true">Ctrl+Q</string>
    </property>
   </action>
   <action name="actionAbout">
@@ -579,6 +579,9 @@
    </property>
    <property name="text">
     <string>&amp;About...</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionShowToolbar">
@@ -592,7 +595,7 @@
     <string>Show toolbar</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+T</string>
+    <string notr="true">Ctrl+T</string>
    </property>
   </action>
   <action name="actionSettings">
@@ -604,7 +607,7 @@
     <string>Settings...</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+P</string>
+    <string notr="true">Ctrl+P</string>
    </property>
   </action>
   <action name="actionAdd">
@@ -616,7 +619,7 @@
     <string>&amp;Add film...</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+N</string>
+    <string notr="true">A</string>
    </property>
   </action>
   <action name="actionEdit">
@@ -628,7 +631,7 @@
     <string>Edit film...</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+E</string>
+    <string notr="true">E</string>
    </property>
   </action>
   <action name="actionRemove">
@@ -652,7 +655,7 @@
     <string>&amp;Random</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+R</string>
+    <string notr="true">R</string>
    </property>
   </action>
   <action name="actionSearch">
@@ -664,7 +667,7 @@
     <string>&amp;Search...</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+F</string>
+    <string notr="true">S</string>
    </property>
   </action>
   <action name="actionAboutQt">
@@ -674,6 +677,9 @@
    </property>
    <property name="text">
     <string>About Qt...</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
  </widget>

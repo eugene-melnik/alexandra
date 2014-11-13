@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="uk" sourcelanguage="en">
+<TS version="2.1" language="uk" sourcelanguage="en">
 <context>
     <name>AboutWindow</name>
     <message>
@@ -153,38 +153,38 @@
         <translation>Короткий переказ сюжету</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="26"/>
+        <location filename="../addfilmwindow.cpp" line="30"/>
         <source>Select film</source>
         <translation>Вибрати фільм</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="28"/>
+        <location filename="../addfilmwindow.cpp" line="32"/>
         <source>Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</source>
         <translation>Відео файли (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="37"/>
+        <location filename="../addfilmwindow.cpp" line="48"/>
         <source>Select image</source>
         <translation>Вибрати зображення</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="39"/>
+        <location filename="../addfilmwindow.cpp" line="50"/>
         <source>Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</source>
         <translation>Зображення (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="48"/>
-        <location filename="../addfilmwindow.cpp" line="54"/>
+        <location filename="../addfilmwindow.cpp" line="64"/>
+        <location filename="../addfilmwindow.cpp" line="70"/>
         <source>Adding film</source>
         <translation>Додавання фільму</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="48"/>
+        <location filename="../addfilmwindow.cpp" line="64"/>
         <source>You must choose file on the disk.</source>
         <translation>Необхідно обрати файл на накопичувачі.</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.cpp" line="54"/>
+        <location filename="../addfilmwindow.cpp" line="70"/>
         <source>Field &quot;Title&quot; can&apos;t be empty.</source>
         <translation>Поле &quot;Назва&quot; не може бути пустим.</translation>
     </message>
@@ -298,88 +298,53 @@
         <translation>В&amp;ихід</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="572"/>
-        <source>Ctrl+Q</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.ui" line="581"/>
         <source>&amp;About...</source>
         <translation>П&amp;ро програму...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="592"/>
+        <location filename="../mainwindow.ui" line="595"/>
         <source>Show toolbar</source>
         <translation>Показати панель інструментів</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="595"/>
-        <source>Ctrl+T</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="604"/>
+        <location filename="../mainwindow.ui" line="607"/>
         <source>Settings...</source>
         <translation>Налаштування...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="607"/>
-        <source>Ctrl+P</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="616"/>
+        <location filename="../mainwindow.ui" line="619"/>
         <source>&amp;Add film...</source>
         <translation>&amp;Додати фільм...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="619"/>
-        <source>Ctrl+N</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="628"/>
+        <location filename="../mainwindow.ui" line="631"/>
         <source>Edit film...</source>
         <translation>Редагувати фільм...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="631"/>
-        <source>Ctrl+E</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="640"/>
+        <location filename="../mainwindow.ui" line="643"/>
         <location filename="../mainwindow.cpp" line="61"/>
         <source>Remove film</source>
         <translation>Видалити фільм</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="643"/>
+        <location filename="../mainwindow.ui" line="646"/>
         <source>Del</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="652"/>
+        <location filename="../mainwindow.ui" line="655"/>
         <source>&amp;Random</source>
         <translation>&amp;Випадковий</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="655"/>
-        <source>Ctrl+R</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="664"/>
+        <location filename="../mainwindow.ui" line="667"/>
         <source>&amp;Search...</source>
         <translation>П&amp;ошук...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="667"/>
-        <source>Ctrl+F</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="676"/>
+        <location filename="../mainwindow.ui" line="679"/>
         <source>About Qt...</source>
         <translation>Про Qt...</translation>
     </message>
@@ -452,62 +417,95 @@
         <translation>Пошук фільму</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="30"/>
+        <location filename="../searchwindow.ui" line="32"/>
         <source>Search in</source>
         <translation>Шукати в</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="38"/>
+        <location filename="../searchwindow.ui" line="40"/>
+        <location filename="../searchwindow.cpp" line="14"/>
         <source>Title</source>
         <translation>Назва</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="48"/>
+        <location filename="../searchwindow.ui" line="50"/>
+        <location filename="../searchwindow.cpp" line="16"/>
         <source>Genre</source>
         <translation>Жанр</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="62"/>
+        <location filename="../searchwindow.ui" line="70"/>
+        <source>Description</source>
+        <translation>Опис</translation>
+    </message>
+    <message>
+        <location filename="../searchwindow.ui" line="81"/>
+        <location filename="../searchwindow.cpp" line="17"/>
         <source>Director</source>
         <translation>Режисер</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="72"/>
+        <location filename="../searchwindow.ui" line="123"/>
+        <source>Status</source>
+        <translation>Стан</translation>
+    </message>
+    <message>
+        <location filename="../searchwindow.ui" line="131"/>
+        <source>Viewed</source>
+        <translation>Переглянуто</translation>
+    </message>
+    <message>
+        <location filename="../searchwindow.ui" line="138"/>
+        <source>Not viewed</source>
+        <translation>Не переглянуто</translation>
+    </message>
+    <message>
+        <location filename="../searchwindow.ui" line="145"/>
+        <source>Favourite</source>
+        <translation>Улюблений</translation>
+    </message>
+    <message>
+        <location filename="../searchwindow.ui" line="152"/>
+        <source>Not favourite</source>
+        <translation>Не улюблений</translation>
+    </message>
+    <message>
+        <location filename="../searchwindow.ui" line="60"/>
         <source>Starring</source>
         <translation>В ролях</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="86"/>
+        <location filename="../searchwindow.ui" line="91"/>
         <source>Producer</source>
         <translation>Продюсер</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="93"/>
+        <location filename="../searchwindow.ui" line="98"/>
         <source>Country</source>
         <translation>Держава</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="104"/>
+        <location filename="../searchwindow.cpp" line="15"/>
         <source>Year</source>
         <translation>Рік</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="129"/>
+        <location filename="../searchwindow.ui" line="179"/>
         <source>Keywords</source>
         <translation>Ключові слова</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="138"/>
+        <location filename="../searchwindow.ui" line="188"/>
         <source>Search</source>
         <translation>Пошук</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="148"/>
+        <location filename="../searchwindow.ui" line="198"/>
         <source>Result</source>
         <translation>Результат</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="166"/>
+        <location filename="../searchwindow.ui" line="234"/>
         <source>Total founded: 0</source>
         <translation>Всього знайдено: 0</translation>
     </message>
@@ -592,42 +590,42 @@
         <translation>Файл бази даних</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="50"/>
+        <location filename="../settingswindow.cpp" line="68"/>
         <source>Select database file</source>
         <translation>Вибір файла бази даних</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="52"/>
+        <location filename="../settingswindow.cpp" line="70"/>
         <source>Alexandra DB (*.adat)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="76"/>
+        <location filename="../settingswindow.cpp" line="116"/>
         <source>&lt;Auto&gt;</source>
         <translation>&lt;Авто&gt;</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="96"/>
+        <location filename="../settingswindow.cpp" line="136"/>
         <source>&lt;Follow system style&gt;</source>
         <translation>&lt;Дотримуватися системного стилю&gt;</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="97"/>
+        <location filename="../settingswindow.cpp" line="137"/>
         <source>Icon only</source>
         <translation>Тільки зображення</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="98"/>
+        <location filename="../settingswindow.cpp" line="138"/>
         <source>Text only</source>
         <translation>Тільки текст</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="99"/>
+        <location filename="../settingswindow.cpp" line="139"/>
         <source>Text beside icon</source>
         <translation>Текст поряд із зображеннями</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="100"/>
+        <location filename="../settingswindow.cpp" line="140"/>
         <source>Text under icon</source>
         <translation>Текст під зображеннями</translation>
     </message>
