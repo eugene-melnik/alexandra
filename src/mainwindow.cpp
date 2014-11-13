@@ -126,14 +126,14 @@ void MainWindow::ConfigureSubwindows()
     connect( actionAboutQt, SIGNAL( triggered() ), aboutWindow, SLOT( AboutQt() ) );
 
     // Add film window
-    addFilmWindow = new AddFilmWindow( this );
+    addFilmWindow = new AddFilmWindow( settings, this );
     connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
     connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
 
     connect( addFilmWindow, SIGNAL( Done(Film) ), twFilms, SLOT( AppendFilm(Film) ) );
 
     // Edit film window
-    editFilmWindow = new EditFilmWindow( this );
+    editFilmWindow = new EditFilmWindow( settings, this );
     connect( actionEdit, SIGNAL( triggered() ), this, SLOT( ShowEditFilmWindow() ) );
     connect( toolbar, SIGNAL( actionEdit() ), this, SLOT( ShowEditFilmWindow() ) );
 

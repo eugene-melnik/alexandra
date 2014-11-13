@@ -8,7 +8,7 @@ class EditFilmWindow : public AddFilmWindow
     Q_OBJECT
 
     public:
-        EditFilmWindow( QWidget* parent = nullptr );
+        EditFilmWindow( QSettings* s, QWidget* parent = nullptr );
 
     public slots:
         void show( const Film* f );

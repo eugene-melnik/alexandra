@@ -56,7 +56,7 @@ void SettingsWindow::SetDefaultExternalPlayer()
 #ifdef Q_OS_LINUX
     eExternalPlayer->setText( "xdg-open" );
 #else
-    eExternalPlayer->clear();
+    eExternalPlayer->clear(); // dummy
 #endif
 }
 

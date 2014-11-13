@@ -4,8 +4,10 @@
 #include <QFileDialog>
 #include <QFileInfo>
 
-AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
+AddFilmWindow::AddFilmWindow( QSettings* s, QWidget* parent ) : QDialog( parent )
 {
+    settings = s;
+
     setupUi( this );
     bOpenFile->setFocus();
 
@@ -22,23 +24,37 @@ void AddFilmWindow::showEvent( QShowEvent* event)
 
 void AddFilmWindow::OpenFilmFileClicked()
 {
+    QString lastFilmPath = settings->value( "Application/LastFilmPath", "." ).toString();
+
     QFileInfo fileName = QFileDialog::getOpenFileName( this,
                          tr( "Select film" ),
-                         ".",
+                         lastFilmPath,
                          tr( "Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)" ) );
 
-    eFilmFileName->setText( fileName.absoluteFilePath() );
-    eTitle->setText( fileName.baseName() );
+    if( fileName.isFile() ) {
+        eFilmFileName->setText( fileName.absoluteFilePath() );
+        eTitle->setText( fileName.baseName() );
+
+        settings->setValue( "Application/LastFilmPath", fileName.absolutePath() );
+        settings->sync();
+    }
 }
 
 void AddFilmWindow::OpenPosterFileClicked()
 {
-    QString fileName = QFileDialog::getOpenFileName( this,
-                       tr( "Select image" ),
-                       ".",
-                       tr( "Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)" ) );
+    QString lastPosterPath = settings->value( "Application/LastPosterPath", "." ).toString();
 
-    ePosterFileName->setText( fileName );
+    QFileInfo fileName = QFileDialog::getOpenFileName( this,
+                         tr( "Select image" ),
+                         lastPosterPath,
+                         tr( "Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)" ) );
+
+    if( fileName.isFile() ) {
+        ePosterFileName->setText( fileName.absoluteFilePath() );
+
+        settings->setValue( "Application/LastPosterPath", fileName.absolutePath() );
+        settings->sync();
+    }
 }
 
 void AddFilmWindow::OkButtonClicked()

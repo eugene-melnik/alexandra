@@ -2,7 +2,7 @@
 
 #include <QProcessEnvironment>
 
-EditFilmWindow::EditFilmWindow( QWidget* parent ) : AddFilmWindow( parent )
+EditFilmWindow::EditFilmWindow( QSettings* s, QWidget* parent ) : AddFilmWindow( s, parent )
 {
     setWindowTitle( tr( "Edit film" ) );
 }
