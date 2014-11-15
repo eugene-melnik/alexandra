@@ -23,7 +23,6 @@ class FilmsList : public QTableWidget
 
         int GetNumberOfFilms() const;
         const Film* GetFilmAt( int i ) const;
-        const Film* GetFilmByTitle( const QString& t ) const;
 
         const Film* GetCurrentFilm() const;
         const QString& GetCurrentFilmTitle() const;
@@ -49,9 +48,23 @@ class FilmsList : public QTableWidget
         void DatabaseChanged();
 
     private:
+        void SetCursorOnRow( int row );
+
+        // Variables
         QList<Film> films;
-        const Film* currentFilm;
+        Film* currentFilm;
         bool isDatabaseChanged;
+
+        // Structures and enumerations
+        enum ColumnIndexes {
+            ViewedColumn    = 0,
+            FavouriteColumn = 1,
+            TitleColumn     = 2,
+            YearColumn      = 3,
+            GenreColumn     = 4,
+            DirectorColumn  = 5,
+            RatingColumn    = 6
+        };
 };
 
 #endif // FILMSLIST_H
