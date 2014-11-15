@@ -49,10 +49,11 @@ void FilmsList::LoadSettings( QSettings* s )
 {
     // Columns' width
     setColumnWidth( 0, s->value( "FilmList/CW0", 20 ).toInt() );
-    setColumnWidth( 1, s->value( "FilmList/CW1", 150 ).toInt() );
-    setColumnWidth( 2, s->value( "FilmList/CW2", 50 ).toInt() );
-    setColumnWidth( 3, s->value( "FilmList/CW3", 110 ).toInt() );
+    setColumnWidth( 1, s->value( "FilmList/CW1", 20 ).toInt() );
+    setColumnWidth( 2, s->value( "FilmList/CW2", 150 ).toInt() );
+    setColumnWidth( 3, s->value( "FilmList/CW3", 50 ).toInt() );
     setColumnWidth( 4, s->value( "FilmList/CW4", 110 ).toInt() );
+    setColumnWidth( 5, s->value( "FilmList/CW5", 110 ).toInt() );
 }
 
 void FilmsList::SaveSettings( QSettings* s ) const
@@ -63,6 +64,7 @@ void FilmsList::SaveSettings( QSettings* s ) const
     s->setValue( "FilmList/CW2", columnWidth(2) );
     s->setValue( "FilmList/CW3", columnWidth(3) );
     s->setValue( "FilmList/CW4", columnWidth(4) );
+    s->setValue( "FilmList/CW5", columnWidth(5) );
 }
 
 int FilmsList::GetNumberOfFilms() const
@@ -179,6 +181,7 @@ void FilmsList::SetCurrentIsViewed( bool b )
     for( int i = 0; i < films.size(); i++ ) {
         if( films[i].GetTitle() == currentFilm->GetTitle() ) {
             films[i].SetIsViewed( b );
+            setItem( currentRow(), 0, new QTableWidgetItem( films[i].GetIsViewedSign() ) );
             isDatabaseChanged = true;
             return;
         }
@@ -191,7 +194,7 @@ void FilmsList::SetCurrentIsFavourite( bool b )
     for( int i = 0; i < films.size(); i++ ) {
         if( films[i].GetTitle() == currentFilm->GetTitle() ) {
             films[i].SetIsFavourite( b );
-            setItem( currentRow(), 0, new QTableWidgetItem( b ? "+" : "-" ) );
+            setItem( currentRow(), 1, new QTableWidgetItem( films[i].GetIsFavouriteSign() ) );
             isDatabaseChanged = true;
             return;
         }
@@ -200,7 +203,7 @@ void FilmsList::SetCurrentIsFavourite( bool b )
 
 void FilmsList::ItemSelected( QTableWidgetItem* i )
 {
-    QString selectedFilmTitle = item( i->row(), 1 )->text();
+    QString selectedFilmTitle = item( i->row(), 2 )->text();
     currentFilm = GetFilmByTitle( selectedFilmTitle );
     emit FilmSelected( currentFilm );
 }
@@ -212,7 +215,8 @@ void FilmsList::UpdateFilmsTable()
 
     // Configure columns
     QStringList colNames;
-    colNames << tr( "+" )
+    colNames << tr( "V" )
+             << tr( "F" )
              << tr( "Title" )
              << tr( "Year" )
              << tr( "Genre" )
@@ -228,29 +232,33 @@ void FilmsList::UpdateFilmsTable()
     {
         const Film& f = films.at( row );
 
+        // Viewed
+        QTableWidgetItem* viewed = new QTableWidgetItem( f.GetIsViewedSign() );
+        setItem( row, 0, viewed );
+
         // Favourite
         QTableWidgetItem* favourite = new QTableWidgetItem( f.GetIsFavouriteSign() );
-        setItem( row, 0, favourite );
+        setItem( row, 1, favourite );
 
         // Title
         QTableWidgetItem* title = new QTableWidgetItem( f.GetTitle() );
-        setItem( row, 1, title );
+        setItem( row, 2, title );
 
         // Year
         QTableWidgetItem* year = new QTableWidgetItem( f.GetYearStr() );
-        setItem( row, 2, year );
+        setItem( row, 3, year );
 
         // Genre
         QTableWidgetItem* genre = new QTableWidgetItem( f.GetGenre() );
-        setItem( row, 3, genre );
+        setItem( row, 4, genre );
 
         // Director
         QTableWidgetItem* director = new QTableWidgetItem( f.GetDirector() );
-        setItem( row, 4, director );
+        setItem( row, 5, director );
 
         // Rating
         QTableWidgetItem* rating = new QTableWidgetItem( f.GetRatingStr() );
-        setItem( row, 5, rating);
+        setItem( row, 6, rating);
     }
 
     // Select first film

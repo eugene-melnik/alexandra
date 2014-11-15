@@ -174,6 +174,11 @@ bool Film::GetIsViewed() const
     return( isViewed );
 }
 
+QString Film::GetIsViewedSign() const
+{
+    return( isViewed ? "+" : "-" );
+}
+
 bool Film::GetIsFavourite() const
 {
     return( isFavourite );
@@ -181,11 +186,7 @@ bool Film::GetIsFavourite() const
 
 QString Film::GetIsFavouriteSign() const
 {
-    if( isFavourite ) {
-        return( "+" );
-    } else {
-        return( "-" );
-    }
+    return( isFavourite ? "+" : "-" );
 }
 
 /*

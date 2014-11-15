@@ -62,7 +62,7 @@
            <number>0</number>
           </property>
           <property name="columnCount">
-           <number>6</number>
+           <number>7</number>
           </property>
           <attribute name="horizontalHeaderHighlightSections">
            <bool>false</bool>
@@ -79,6 +79,7 @@
           <attribute name="verticalHeaderDefaultSectionSize">
            <number>20</number>
           </attribute>
+          <column/>
           <column/>
           <column/>
           <column/>

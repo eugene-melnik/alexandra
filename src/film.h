@@ -38,6 +38,7 @@ class Film
         const QPixmap& GetPoster() const;
 
         bool GetIsViewed() const;
+        QString GetIsViewedSign() const;
         bool GetIsFavourite() const;
         QString GetIsFavouriteSign() const;
 
