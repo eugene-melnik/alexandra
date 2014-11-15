@@ -81,8 +81,9 @@ void MainWindow::FilmSelected( const Film* f )
     lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->GetStarring() ) );
     lRating->setText( tr( "<b>Rating:</b> %1" ).arg( f->GetRatingStr() ) );
     lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->GetDescription() ) );
-    bFavourite->setChecked( f->GetIsFavourite() );
+
     bViewed->setChecked( f->GetIsViewed() );
+    bFavourite->setChecked( f->GetIsFavourite() );
 
     QPixmap p = f->GetPoster();
 
@@ -100,6 +101,8 @@ void MainWindow::PlayFilm()
 {
     QProcess player;
     player.startDetached( externalPlayer + " \"" + twFilms->GetCurrentFilmFileName() +"\"" );
+
+    twFilms->SetCurrentIsViewed( true );
 }
 
 void MainWindow::UpdateStatusBar()
@@ -118,6 +121,8 @@ void MainWindow::ConfigureSubwindows()
     connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateStatusBar() ) );
     connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
 
+    connect( bViewed, SIGNAL( clicked(bool) ), twFilms, SLOT( SetCurrentIsViewed(bool) ) );
+    connect( bFavourite, SIGNAL( clicked(bool) ), twFilms, SLOT( SetCurrentIsFavourite(bool) ) );
     connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
 
     // About and About Qt windows

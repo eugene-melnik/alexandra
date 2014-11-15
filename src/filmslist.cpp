@@ -173,6 +173,31 @@ void FilmsList::SelectRandomFilm()
     }
 }
 
+void FilmsList::SetCurrentIsViewed( bool b )
+{
+    // fix this too
+    for( int i = 0; i < films.size(); i++ ) {
+        if( films[i].GetTitle() == currentFilm->GetTitle() ) {
+            films[i].SetIsViewed( b );
+            isDatabaseChanged = true;
+            return;
+        }
+    }
+}
+
+void FilmsList::SetCurrentIsFavourite( bool b )
+{
+    // and this...
+    for( int i = 0; i < films.size(); i++ ) {
+        if( films[i].GetTitle() == currentFilm->GetTitle() ) {
+            films[i].SetIsFavourite( b );
+            setItem( currentRow(), 0, new QTableWidgetItem( b ? "+" : "-" ) );
+            isDatabaseChanged = true;
+            return;
+        }
+    }
+}
+
 void FilmsList::ItemSelected( QTableWidgetItem* i )
 {
     QString selectedFilmTitle = item( i->row(), 1 )->text();

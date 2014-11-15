@@ -62,7 +62,9 @@ QDataStream& operator << ( QDataStream& out, const Film& f )
         << f.starring
         << f.description
         << f.rating
-        << f.poster;
+        << f.poster
+        << f.isViewed
+        << f.isFavourite;
 
     return( out );
 }
@@ -81,7 +83,9 @@ QDataStream& operator >> ( QDataStream& in, Film& f )
        >> f.starring
        >> f.description
        >> f.rating
-       >> f.poster;
+       >> f.poster
+       >> f.isViewed
+       >> f.isFavourite;
 
     return( in );
 }

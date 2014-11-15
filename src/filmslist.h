@@ -38,6 +38,9 @@ class FilmsList : public QTableWidget
         void EditCurrentFilm( Film f );
         void SelectRandomFilm();
 
+        void SetCurrentIsViewed( bool b );
+        void SetCurrentIsFavourite( bool b );
+
         void ItemSelected( QTableWidgetItem* i );
         void UpdateFilmsTable();
 
