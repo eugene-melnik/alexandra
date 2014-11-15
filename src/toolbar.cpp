@@ -40,6 +40,11 @@ ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
     connect( tbaExit, SIGNAL( triggered() ), this, SLOT( actionExitTriggered() ) );
 }
 
+void ToolBar::LoadSettings( QSettings* s )
+{
+    setToolButtonStyle( (Qt::ToolButtonStyle)s->value( "MainWindow/ToolbarStyle", Qt::ToolButtonFollowStyle ).toInt() );
+}
+
 void ToolBar::actionAddTriggered()
 {
     emit actionAdd();

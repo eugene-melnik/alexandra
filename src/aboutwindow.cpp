@@ -10,7 +10,7 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     setupUi( this );
 
     lAppName->setText( Alexandra::appNameGui );
-    lAppVersion->setText( tr( "version %1 (build date: %2)" ).arg( Alexandra::appVersionFull, QString( __DATE__ ) ) );
+    lAppVersion->setText( tr( "version %1 (build date: %2)" ).arg( Alexandra::appVersionFull, Alexandra::appBuildDate ) );
 
     lQtVersion->setText( tr( "<b>Qt version:</b> %1" ).arg( QT_VERSION_STR ) );
     lAuthor->setText( tr( "<b>Author(s):</b> %1" ).arg( Alexandra::appAuthor ) );

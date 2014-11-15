@@ -22,7 +22,9 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
 
     private slots:
         void OkButtonClicked();
+
         void SetDefaultExternalPlayer();
+
         void OpenDatabaseFile();
         void SelectColorUnavailable();
 
@@ -30,7 +32,20 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void ConfigureApplicationTab();
         void ConfigureDatabaseTab();
 
+        // Variables
         QSettings* settings;
+
+        // Constants
+        typedef struct {
+            QString name;
+            Qt::ToolButtonStyle style;
+        } ToolStyle;
+
+        const QList<ToolStyle> toolStyles = { { tr("Icon only"),            Qt::ToolButtonIconOnly },
+                                              { tr("Text only"),            Qt::ToolButtonTextOnly },
+                                              { tr("Text beside icon"),     Qt::ToolButtonTextBesideIcon },
+                                              { tr("Text under icon"),      Qt::ToolButtonTextUnderIcon },
+                                              { tr("<Follow system style>"),Qt::ToolButtonFollowStyle } };
 };
 
 #endif // SETTINGSWINDOW_H

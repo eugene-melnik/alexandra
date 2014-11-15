@@ -2,6 +2,7 @@
 #define TOOLBAR_H
 
 #include <QToolBar>
+#include <QSettings>
 
 class ToolBar : public QToolBar
 {
@@ -9,6 +10,8 @@ class ToolBar : public QToolBar
 
     public:
         ToolBar( QWidget* parent = nullptr );
+
+        void LoadSettings( QSettings* s );
 
     signals:
         void actionAdd();

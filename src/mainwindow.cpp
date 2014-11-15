@@ -47,6 +47,7 @@ void MainWindow::closeEvent( QCloseEvent* event )
 void MainWindow::SettingsChanged()
 {
     SetNames();
+    toolbar->LoadSettings( settings );
     twFilms->LoadDatabase( databaseFileName );
 }
 

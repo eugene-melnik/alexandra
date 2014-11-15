@@ -33,6 +33,7 @@ void SettingsWindow::showEvent( QShowEvent* event )
 void SettingsWindow::OkButtonClicked()
 {
     // application tab
+    settings->setValue( "MainWindow/ToolbarStyle", toolStyles[ cbToolbarStyle->currentIndex() ].style  );
     settings->setValue( "Application/ExternalPlayer", eExternalPlayer->text() );
     // database tab
     settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
@@ -96,22 +97,13 @@ void SettingsWindow::ConfigureApplicationTab()
     cbStyle->clear(); // dummy
 
     // Toolbar style ComboBox
-    typedef struct {
-        QString name;
-        Qt::ToolButtonStyle style;
-    } ToolStyle;
-
-    const QList<ToolStyle> toolStyles = { { tr("<Follow system style>"),Qt::ToolButtonFollowStyle },
-                                          { tr("Icon only"),            Qt::ToolButtonIconOnly },
-                                          { tr("Text only"),            Qt::ToolButtonTextOnly },
-                                          { tr("Text beside icon"),     Qt::ToolButtonTextBesideIcon },
-                                          { tr("Text under icon"),      Qt::ToolButtonTextUnderIcon } };
-
     cbToolbarStyle->clear();
 
     foreach( ToolStyle toolStyle, toolStyles ) {
         cbToolbarStyle->addItem( toolStyle.name );
     }
+
+    cbToolbarStyle->setCurrentIndex( settings->value( "MainWindow/ToolbarStyle", (int)Qt::ToolButtonFollowStyle ).toInt() );
 }
 
 /*************************************************************************************************
