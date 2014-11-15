@@ -52,7 +52,8 @@ class FilmsList : public QTableWidget
 
         // Variables
         QList<Film> films;
-        Film* currentFilm;
+        Film* currentFilm = nullptr;
+        QSettings* settings = nullptr;
         bool isDatabaseChanged;
 
         // Structures and enumerations

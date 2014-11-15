@@ -16,9 +16,6 @@ SettingsWindow::SettingsWindow( QSettings* s, QWidget* parent ) : QDialog( paren
     connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
     // database tab
     connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
-    // filmslist tab
-    connect( bSelectColorViewed, SIGNAL( clicked() ), this, SLOT( SelectColorViewed() ) );
-    connect( bSelectColorFavourite, SIGNAL( clicked() ), this, SLOT( SelectColorFavourite() ) );
     connect( bSelectColorUnavailable, SIGNAL( clicked() ), this, SLOT( SelectColorUnavailable() ) );
 }
 
@@ -26,7 +23,6 @@ void SettingsWindow::showEvent( QShowEvent* event )
 {
     ConfigureApplicationTab();
     ConfigureDatabaseTab();
-    ConfigureFilmslistTab();
     event->accept();
 }
 
@@ -40,10 +36,7 @@ void SettingsWindow::OkButtonClicked()
     settings->setValue( "Application/ExternalPlayer", eExternalPlayer->text() );
     // database tab
     settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
-    // filmslist tab
-    settings->setValue( "FilmList/HighlightViewed", cHighlightViewed->isChecked() );
-    settings->setValue( "FilmList/HighlightFavourite", cHighlightFavourite->isChecked() );
-    settings->setValue( "FilmList/HighlightUnavailable", cHighlightUnavailable->isChecked() );
+    settings->setValue( "FilmList/CheckFilesOnStartup", cCheckFilesAtStartup->isChecked() );
 
     // save settings
     close();
@@ -74,28 +67,12 @@ void SettingsWindow::OpenDatabaseFile()
     }
 }
 
-void SettingsWindow::SelectColorViewed()
-{
-    // TODO
-    QColor oldColor = settings->value( "FilmList/ViewedColor" ).toUInt();
-    QColor newColor = QColorDialog::getColor( oldColor, this );
-    settings->setValue( "FilmList/ViewedColor", newColor.rgba() );
-}
-
-void SettingsWindow::SelectColorFavourite()
-{
-    // TODO
-    QColor oldColor = settings->value( "FilmList/FavouriteColor" ).toUInt();
-    QColor newColor = QColorDialog::getColor( oldColor, this );
-    settings->setValue( "FilmList/FavouriteColor", newColor.rgba() );
-}
-
 void SettingsWindow::SelectColorUnavailable()
 {
-    // TODO
-    QColor oldColor = settings->value( "FilmList/UnavailableColor" ).toUInt();
+    // FIX when close button press
+    QColor oldColor = settings->value( "FilmList/UnavailableFileColor", QColor( "red" ).toRgb() ).toUInt();
     QColor newColor = QColorDialog::getColor( oldColor, this );
-    settings->setValue( "FilmList/UnavailableColor", newColor.rgba() );
+    settings->setValue( "FilmList/UnavailableFileColor", newColor.rgba() );
 }
 
 /*************************************************************************************************
@@ -106,12 +83,7 @@ void SettingsWindow::ConfigureApplicationTab()
 {
     eExternalPlayer->setText( settings->value( "Application/ExternalPlayer" ).toString() );
 
-    ConfigureLanguageCB();
-    ConfigureToolbarStyleCB();
-}
-
-void SettingsWindow::ConfigureLanguageCB()
-{
+    // Language ComboBox
     cbLanguage->clear();
     cbLanguage->addItem( tr( "<Auto>" ) );
 
@@ -119,15 +91,11 @@ void SettingsWindow::ConfigureLanguageCB()
     {
         cbLanguage->addItem( locale.title );
     }
-}
 
-void SettingsWindow::ConfigureStyleCB()
-{
-    cbStyle->clear();
-}
+    // Style ComboBox
+    cbStyle->clear(); // dummy
 
-void SettingsWindow::ConfigureToolbarStyleCB()
-{
+    // Toolbar style ComboBox
     typedef struct {
         QString name;
         Qt::ToolButtonStyle style;
@@ -141,8 +109,7 @@ void SettingsWindow::ConfigureToolbarStyleCB()
 
     cbToolbarStyle->clear();
 
-    foreach( ToolStyle toolStyle, toolStyles )
-    {
+    foreach( ToolStyle toolStyle, toolStyles ) {
         cbToolbarStyle->addItem( toolStyle.name );
     }
 }
@@ -154,15 +121,5 @@ void SettingsWindow::ConfigureToolbarStyleCB()
 void SettingsWindow::ConfigureDatabaseTab()
 {
     eDatabaseFile->setText( settings->value( "Application/DatabaseFile" ).toString() );
-}
-
-/*************************************************************************************************
- *  "Filmslist" tab settings                                                                      *
-  *************************************************************************************************/
-
-void SettingsWindow::ConfigureFilmslistTab()
-{
-    cHighlightViewed->setChecked( settings->value( "FilmList/HighlightViewed", false ).toBool() );
-    cHighlightFavourite->setChecked( settings->value( "FilmList/HighlightFavourite", false ).toBool() );
-    cHighlightUnavailable->setChecked( settings->value( "FilmList/HighlightUnavailable", false ).toBool() );
+    cCheckFilesAtStartup->setChecked( settings->value( "FilmList/CheckFilesOnStartup", false ).toBool() );
 }

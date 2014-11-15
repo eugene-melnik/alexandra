@@ -85,6 +85,7 @@ void MainWindow::FilmSelected( const Film* f )
     bViewed->setChecked( f->GetIsViewed() );
     bFavourite->setChecked( f->GetIsFavourite() );
 
+    // Poster
     QPixmap p = f->GetPoster();
 
     if( p.isNull() ){
@@ -94,7 +95,11 @@ void MainWindow::FilmSelected( const Film* f )
     p = p.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
     lPosterImage->setPixmap( p );
 
+    // Technical information
     lTechInformation->setText( f->GetFileName() ); // dummy
+
+    // Play button
+    bPlay->setEnabled( QFileInfo( f->GetFileName() ).exists() );
 }
 
 void MainWindow::PlayFilm()

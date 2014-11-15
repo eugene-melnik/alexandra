@@ -24,19 +24,11 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void OkButtonClicked();
         void SetDefaultExternalPlayer();
         void OpenDatabaseFile();
-        void SelectColorViewed();
-        void SelectColorFavourite();
         void SelectColorUnavailable();
 
     private:
         void ConfigureApplicationTab();
-        void ConfigureLanguageCB();
-        void ConfigureStyleCB();
-        void ConfigureToolbarStyleCB();
-
         void ConfigureDatabaseTab();
-
-        void ConfigureFilmslistTab();
 
         QSettings* settings;
 };

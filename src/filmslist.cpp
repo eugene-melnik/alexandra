@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <QDataStream>
+#include <QFileInfo>
 #include <QFile>
 
 FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
@@ -47,6 +48,8 @@ void FilmsList::SaveDatabase( QString databaseFileName )
 
 void FilmsList::LoadSettings( QSettings* s )
 {
+    settings = s;
+
     // Columns' width
     setColumnWidth( ViewedColumn, s->value( "FilmList/CW0", 20 ).toInt() );
     setColumnWidth( FavouriteColumn, s->value( "FilmList/CW1", 20 ).toInt() );
@@ -198,6 +201,9 @@ void FilmsList::UpdateFilmsTable()
     setHorizontalHeaderLabels( colNames );
 
     // Configure rows
+    bool highlightUnavailable = settings->value( "FilmList/CheckFilesOnStartup", false ).toBool();
+    QColor unavailableColor = settings->value( "FilmList/UnavailableFileColor", QColor( "red" ).toRgb() ).toInt();
+
     setRowCount( this->GetNumberOfFilms() );
 
     for( int row = 0; row < rowCount(); row++ )
@@ -231,6 +237,17 @@ void FilmsList::UpdateFilmsTable()
         // Rating
         QTableWidgetItem* rating = new QTableWidgetItem( f.GetRatingStr() );
         setItem( row, RatingColumn, rating);
+
+        // Highlighting
+        if( highlightUnavailable && !QFileInfo( f.GetFileName() ).exists() ) {
+            viewed->setBackgroundColor( unavailableColor );
+            favourite->setBackgroundColor( unavailableColor );
+            title->setBackgroundColor( unavailableColor );
+            year->setBackgroundColor( unavailableColor );
+            genre->setBackgroundColor( unavailableColor );
+            director->setBackgroundColor( unavailableColor );
+            rating->setBackgroundColor( unavailableColor );
+        }
     }
 
     // Select first film

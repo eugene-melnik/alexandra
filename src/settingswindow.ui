@@ -194,7 +194,7 @@
       <attribute name="title">
        <string>Database</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QHBoxLayout" name="hl3">
          <item>
@@ -217,11 +217,22 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="cCheckFilesAtStartup">
-         <property name="text">
-          <string>Checking availability of files at startup</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QCheckBox" name="cCheckFilesAtStartup">
+           <property name="text">
+            <string>Checking availability of files at startup</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bSelectColorUnavailable">
+           <property name="text">
+            <string>Select color</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <spacer name="vs2">
@@ -232,93 +243,6 @@
           <size>
            <width>20</width>
            <height>118</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tabFilmsList">
-      <attribute name="title">
-       <string>Films list</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <item>
-        <layout class="QHBoxLayout" name="hl4">
-         <item>
-          <layout class="QVBoxLayout" name="vl3">
-           <item>
-            <widget class="QCheckBox" name="cHighlightViewed">
-             <property name="text">
-              <string>Highlight the viewed films</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="cHighlightFavourite">
-             <property name="text">
-              <string>Highlight the favourite films</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="cHighlightUnavailable">
-             <property name="text">
-              <string>Highlight the unavailable films</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="vl4">
-           <item>
-            <widget class="QPushButton" name="bSelectColorViewed">
-             <property name="text">
-              <string>Select color</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="bSelectColorFavourite">
-             <property name="text">
-              <string>Select color</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="bSelectColorUnavailable">
-             <property name="text">
-              <string>Select color</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="hs2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="vs3">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>75</height>
           </size>
          </property>
         </spacer>
