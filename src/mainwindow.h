@@ -33,6 +33,7 @@
 
 #include <QCloseEvent>
 #include <QMainWindow>
+#include <QProcess>
 #include <QSettings>
 #include <QString>
 
@@ -55,6 +56,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         void FilmSelected( const Film* f );
         void PlayFilm();
+        void PlayerStarted();
+        void PlayerClosed();
 
         void UpdateStatusBar();
 
@@ -74,9 +77,10 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         SettingsWindow* settingsWindow = nullptr;
 
         // Variables
-        QSettings* settings;
+        QSettings* settings = nullptr;
         QString databaseFileName;
-        QString externalPlayer;
+        QString externalPlayerName;
+        QProcess* externalPlayer = nullptr;
 };
 
 #endif // MAINWINDOW_H

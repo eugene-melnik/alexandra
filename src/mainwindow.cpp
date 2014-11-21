@@ -25,7 +25,6 @@
 #include <QFileInfo>
 #include <QLabel>
 #include <QMessageBox>
-#include <QProcess>
 #include <QProcessEnvironment>
 #include <QPushButton>
 #include <QSettings>
@@ -34,6 +33,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
     // Data
     settings = new QSettings( Alexandra::appName, "configuration" );
+    externalPlayer = new QProcess( this );
 
     // Interface
     setupUi( this );
@@ -127,9 +127,23 @@ void MainWindow::FilmSelected( const Film* f )
 
 void MainWindow::PlayFilm()
 {
-    QProcess player;
-    player.startDetached( externalPlayer + " \"" + twFilms->GetCurrentFilmFileName() +"\"" );
+    if( externalPlayer->state() == QProcess::NotRunning ) {
+        externalPlayer->start( externalPlayerName + " \"" + twFilms->GetCurrentFilmFileName() +"\"" );
+    } else {
+        externalPlayer->close();
+    }
+}
 
+void MainWindow::PlayerStarted()
+{
+    twFilms->setEnabled( false );
+    bPlay->setText( tr( "STOP" ) );
+}
+
+void MainWindow::PlayerClosed()
+{
+    twFilms->setEnabled( true );
+    bPlay->setText( tr( "PLAY" ) );
     bViewed->setChecked( true );
     bViewed->clicked( true );
 }
@@ -153,6 +167,9 @@ void MainWindow::ConfigureSubwindows()
     connect( bViewed, SIGNAL( clicked(bool) ), twFilms, SLOT( SetCurrentIsViewed(bool) ) );
     connect( bFavourite, SIGNAL( clicked(bool) ), twFilms, SLOT( SetCurrentIsFavourite(bool) ) );
     connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
+
+    connect( externalPlayer, SIGNAL( started() ), this, SLOT( PlayerStarted() ) );
+    connect( externalPlayer, SIGNAL( finished(int) ), this, SLOT( PlayerClosed() ) );
 
     // About and About Qt windows
     aboutWindow = new AboutWindow( this );
@@ -223,16 +240,16 @@ void MainWindow::SetNames()
     }
 
     /// Set external player
-    externalPlayer = settings->value( "Application/ExternalPlayer" ).toString();
+    externalPlayerName = settings->value( "Application/ExternalPlayer" ).toString();
 
-    if( externalPlayer.isEmpty() )
+    if( externalPlayerName.isEmpty() )
     {
 #ifdef Q_OS_LINUX
-        externalPlayer = "xdg-open";
+        externalPlayerName = "xdg-open";
 #else
         externalPlayer.clear();
 #endif
-        settings->setValue( "Application/ExternalPlayer", externalPlayer );
+        settings->setValue( "Application/ExternalPlayer", externalPlayerName );
         settings->sync();
     }
 }
