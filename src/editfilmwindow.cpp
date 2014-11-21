@@ -61,4 +61,6 @@ void EditFilmWindow::show( const Film* f )
     eProducer->setText( f->GetProducer() );
     tStarring->setPlainText( f->GetStarring() );
     tDescription->setPlainText( f->GetDescription() );
+    cIsViewed->setChecked( f->GetIsViewed() );
+    cIsFavourite->setChecked( f->GetIsFavourite() );
 }

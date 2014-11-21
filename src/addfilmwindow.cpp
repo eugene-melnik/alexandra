@@ -109,6 +109,8 @@ void AddFilmWindow::OkButtonClicked()
     f.SetProducer( eProducer->text() );
     f.SetStarring( tStarring->toPlainText() );
     f.SetDescription( tDescription->toPlainText() );
+    f.SetIsViewed( cIsViewed->isChecked() );
+    f.SetIsFavourite( cIsFavourite->isChecked() );
 
     close();
     emit Done( f );

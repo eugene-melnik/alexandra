@@ -10,13 +10,13 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>530</height>
+    <height>535</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>600</width>
-    <height>530</height>
+    <height>535</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="hl1">
      <item>
       <widget class="QLabel" name="labelFile">
        <property name="minimumSize">
@@ -47,8 +47,14 @@
      </item>
      <item>
       <widget class="QLineEdit" name="eFilmFileName">
+       <property name="text">
+        <string notr="true"/>
+       </property>
        <property name="maxLength">
         <number>3000</number>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
        <property name="placeholderText">
         <string notr="true">...</string>
@@ -66,12 +72,15 @@
        <property name="text">
         <string>Open</string>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="hl2">
      <item>
       <widget class="QLabel" name="labelPoster">
        <property name="minimumSize">
@@ -87,8 +96,14 @@
      </item>
      <item>
       <widget class="QLineEdit" name="ePosterFileName">
+       <property name="text">
+        <string notr="true"/>
+       </property>
        <property name="maxLength">
         <number>3000</number>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
        <property name="placeholderText">
         <string notr="true">...</string>
@@ -111,14 +126,14 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line">
+    <widget class="Line" name="l">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="hl3">
      <item>
       <widget class="QLabel" name="labelOriginalTitle">
        <property name="minimumSize">
@@ -145,7 +160,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="hl4">
      <item>
       <widget class="QLabel" name="labelTitle">
        <property name="minimumSize">
@@ -172,7 +187,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <layout class="QHBoxLayout" name="hl5">
      <item>
       <widget class="QLabel" name="labelTagline">
        <property name="minimumSize">
@@ -199,7 +214,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <layout class="QHBoxLayout" name="hl6">
      <item>
       <widget class="QLabel" name="labelYear">
        <property name="minimumSize">
@@ -236,7 +251,7 @@
       </widget>
      </item>
      <item>
-      <widget class="Line" name="line_2">
+      <widget class="Line" name="l1">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -262,7 +277,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_7">
+    <layout class="QHBoxLayout" name="hl7">
      <item>
       <widget class="QLabel" name="labelGenre">
        <property name="minimumSize">
@@ -287,7 +302,7 @@
       </widget>
      </item>
      <item>
-      <widget class="Line" name="line_4">
+      <widget class="Line" name="l2">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -363,7 +378,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_8">
+    <layout class="QHBoxLayout" name="hl8">
      <item>
       <widget class="QLabel" name="labelDirector">
        <property name="minimumSize">
@@ -390,7 +405,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_9">
+    <layout class="QHBoxLayout" name="hl9">
      <item>
       <widget class="QLabel" name="labelProducer">
        <property name="minimumSize">
@@ -417,7 +432,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_10">
+    <layout class="QHBoxLayout" name="hl10">
      <item>
       <widget class="QLabel" name="labelStarring">
        <property name="minimumSize">
@@ -437,14 +452,14 @@
         <string>Actors, comma separated</string>
        </property>
        <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOn</enum>
+        <enum>Qt::ScrollBarAsNeeded</enum>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_11">
+    <layout class="QHBoxLayout" name="hl11">
      <item>
       <widget class="QLabel" name="labelDescription">
        <property name="minimumSize">
@@ -464,31 +479,69 @@
         <string>A summary of the plot</string>
        </property>
        <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOn</enum>
+        <enum>Qt::ScrollBarAsNeeded</enum>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line_3">
+    <widget class="Line" name="l0">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-     <property name="centerButtons">
-      <bool>false</bool>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="hl12">
+     <item>
+      <widget class="QCheckBox" name="cIsViewed">
+       <property name="text">
+        <string>Is viewed</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="l3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="cIsFavourite">
+       <property name="text">
+        <string>Is favourite</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+       <property name="centerButtons">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
