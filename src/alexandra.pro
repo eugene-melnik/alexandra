@@ -9,7 +9,6 @@ QMAKE_CXXFLAGS += -std=c++11
 
 HEADERS += aboutwindow.h \
            addfilmwindow.h \
-           alexandra.h \
            editfilmwindow.h \
            film.h \
            filmslist.h \
