@@ -28,18 +28,19 @@
 #include <QProcessEnvironment>
 #include <QPushButton>
 #include <QSettings>
+#include <QStatusBar>
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
+    // Interface
+    setupUi( this );
+    setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
+
     // Data
     settings = new QSettings( Alexandra::appName, "configuration" );
     externalPlayer = new QProcess( this );
 
-    // Interface
-    setupUi( this );
-    setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
     ConfigureSubwindows();
-
     LoadSettings();
     SettingsChanged();
 }
@@ -54,6 +55,7 @@ MainWindow::~MainWindow()
 
     // Variables
     delete settings;
+    delete externalPlayer;
 }
 
 void MainWindow::closeEvent( QCloseEvent* event )
@@ -144,16 +146,18 @@ void MainWindow::PlayerClosed()
 {
     twFilms->setEnabled( true );
     bPlay->setText( tr( "PLAY" ) );
-    bViewed->setChecked( true );
-    bViewed->clicked( true );
+
+    if( !bViewed->isChecked() ) {
+        bViewed->setChecked( true );
+        bViewed->clicked( true );
+    }
 }
 
 void MainWindow::UpdateStatusBar()
 {
-    statusbar->showMessage( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
-                            .arg( twFilms->GetNumberOfFilms() )
-                            .arg( twFilms->GetIsViewedCount() )
-                            .arg( twFilms->GetIsFavouriteCount() ) );
+    statusbar->Show( twFilms->GetNumberOfFilms(),
+                     twFilms->GetIsViewedCount(),
+                     twFilms->GetIsFavouriteCount() );
 }
 
 void MainWindow::ConfigureSubwindows()

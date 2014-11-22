@@ -16,6 +16,7 @@ HEADERS += aboutwindow.h \
            searchwindow.h \
            settingswindow.h \
            toolbar.h \
+           statusbar.h \
            version.h
 
 SOURCES += aboutwindow.cpp \
@@ -27,6 +28,7 @@ SOURCES += aboutwindow.cpp \
            mainwindow.cpp \
            searchwindow.cpp \
            settingswindow.cpp \
+           statusbar.cpp \
            toolbar.cpp
 
 FORMS += aboutwindow.ui \

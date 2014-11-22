@@ -560,7 +560,7 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="StatusBar" name="statusbar"/>
   <action name="actionExit">
    <property name="icon">
     <iconset resource="icons/icons.qrc">
@@ -568,6 +568,9 @@
    </property>
    <property name="text">
     <string>E&amp;xit</string>
+   </property>
+   <property name="statusTip">
+    <string>Exit the program and save all data</string>
    </property>
    <property name="shortcut">
     <string notr="true">Ctrl+Q</string>
@@ -594,6 +597,9 @@
    </property>
    <property name="text">
     <string>Show toolbar</string>
+   </property>
+   <property name="statusTip">
+    <string>Show or hide the toolbar</string>
    </property>
    <property name="shortcut">
     <string notr="true">Ctrl+T</string>
@@ -694,6 +700,11 @@
    <class>FilmsList</class>
    <extends>QTableWidget</extends>
    <header>filmslist.h</header>
+  </customwidget>
+  <customwidget>
+   <class>StatusBar</class>
+   <extends>QStatusBar</extends>
+   <header>statusbar.h</header>
   </customwidget>
  </customwidgets>
  <resources>
