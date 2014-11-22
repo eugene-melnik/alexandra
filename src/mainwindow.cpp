@@ -94,7 +94,7 @@ void MainWindow::RemoveFilm()
 
 void MainWindow::ShowFirstStepWizard()
 {
-    lFilmTitle->setText( tr( "Database if empty!" ) );
+    lFilmTitle->setText( tr( "Database is empty!" ) );
     lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
 
     lOriginalTitle->clear();
