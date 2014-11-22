@@ -92,6 +92,27 @@ void MainWindow::RemoveFilm()
     }
 }
 
+void MainWindow::ShowFirstStepWizard()
+{
+    lFilmTitle->setText( tr( "Database if empty!" ) );
+    lOriginalTitle->clear();
+    lTagline->clear();
+    lGenre->clear();
+    lYear->clear();
+    lCountry->clear();
+    lDirector->clear();
+    lProducer->clear();
+    lStarring->clear();
+    lRating->clear();
+    lDescription->clear();
+    repaint(); // Need for removing the artifacts
+
+    QMessageBox::information( this,
+                              tr( "Database is empty!"),
+                              tr( "You can add your films in menu \"Films\"→\"Add film\" or choose "
+                                  "an another database in menu \"Edit\"→\"Settings\"→\"Database\"" ) );
+}
+
 void MainWindow::FilmSelected( const Film* f )
 {
     // Main information
@@ -165,6 +186,7 @@ void MainWindow::ConfigureSubwindows()
     // Main window
     connect( toolbar, SIGNAL( actionExit() ), this, SLOT( close() ) );
 
+    connect( twFilms, SIGNAL( DatabaseIsEmpty() ), this, SLOT( ShowFirstStepWizard() ) );
     connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateStatusBar() ) );
     connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
 

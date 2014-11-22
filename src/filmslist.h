@@ -64,6 +64,7 @@ class FilmsList : public QTableWidget
         void UpdateFilmsTable();
 
     signals:
+        void DatabaseIsEmpty();
         void FilmSelected( const Film* );
         void DatabaseChanged();
 

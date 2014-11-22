@@ -51,6 +51,11 @@ void FilmsList::LoadDatabase( QString databaseFileName )
     dbFile.close();
     currentFilm = nullptr;
     emit DatabaseChanged();
+
+    if( films.isEmpty() ) {
+        isDatabaseChanged = true;
+        emit DatabaseIsEmpty();
+    }
 }
 
 void FilmsList::SaveDatabase( QString databaseFileName )
@@ -124,6 +129,10 @@ void FilmsList::RemoveCurrentFilm()
     isDatabaseChanged = true;
     currentFilm = nullptr;
     emit DatabaseChanged();
+
+    if( films.isEmpty() ) {
+        emit DatabaseIsEmpty();
+    }
 }
 
 int FilmsList::GetIsViewedCount() const

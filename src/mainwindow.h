@@ -54,7 +54,9 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void ShowEditFilmWindow();
         void RemoveFilm();
 
+        void ShowFirstStepWizard();
         void FilmSelected( const Film* f );
+
         void PlayFilm();
         void PlayerStarted();
         void PlayerClosed();
