@@ -95,6 +95,8 @@ void MainWindow::RemoveFilm()
 void MainWindow::ShowFirstStepWizard()
 {
     lFilmTitle->setText( tr( "Database if empty!" ) );
+    lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
+
     lOriginalTitle->clear();
     lTagline->clear();
     lGenre->clear();
@@ -105,12 +107,14 @@ void MainWindow::ShowFirstStepWizard()
     lStarring->clear();
     lRating->clear();
     lDescription->clear();
+    lTechInformation->clear();
+
     repaint(); // Need for removing the artifacts
 
     QMessageBox::information( this,
                               tr( "Database is empty!"),
                               tr( "You can add your films in menu \"Films\"→\"Add film\" or choose "
-                                  "an another database in menu \"Edit\"→\"Settings\"→\"Database\"" ) );
+                                  "an another database in \"Edit\"→\"Settings\"→\"Database\"." ) );
 }
 
 void MainWindow::FilmSelected( const Film* f )
@@ -132,7 +136,7 @@ void MainWindow::FilmSelected( const Film* f )
     bFavourite->setChecked( f->GetIsFavourite() );
 
     // Poster
-    QPixmap p = f->GetPoster();
+    QPixmap p( postersFolderName + "/" + f->GetPosterName() );
 
     if( p.isNull() ) {
         p.load( ":/standart-poster" );
@@ -142,7 +146,7 @@ void MainWindow::FilmSelected( const Film* f )
     lPosterImage->setPixmap( p );
 
     // Technical information
-    lTechInformation->setText( f->GetFileName() ); // dummy
+    lTechInformation->setText( QString( "%1GiB" ).arg( QFileInfo( f->GetFileName() ).size() / (1024*1024*1024) ) ); // dummy
 
     // Play button
     bPlay->setEnabled( QFileInfo( f->GetFileName() ).exists() );
@@ -256,7 +260,6 @@ void MainWindow::SetNames()
         databaseFileName += "/" + Alexandra::appName + "/database.adat";
 
         settings->setValue( "Application/DatabaseFile", databaseFileName );
-        settings->sync();
     }
 
     // Creating database directory (if not exists)
@@ -264,6 +267,19 @@ void MainWindow::SetNames()
 
     if( !QDir().exists( databaseDir ) ) {
         QDir().mkdir( databaseDir );
+    }
+
+    /// Set posters' folder name
+    postersFolderName = settings->value( "FilmList/PostersFolder" ).toString();
+
+    if( postersFolderName.isEmpty() ) {
+        postersFolderName = databaseDir + "/posters";
+        settings->setValue( "FilmList/PostersFolder", postersFolderName );
+    }
+
+    // Creating posters' directory (if not exists)
+    if( !QDir().exists( postersFolderName ) ) {
+        QDir().mkdir( postersFolderName );
     }
 
     /// Set external player
@@ -277,8 +293,9 @@ void MainWindow::SetNames()
         externalPlayer.clear();
 #endif
         settings->setValue( "Application/ExternalPlayer", externalPlayerName );
-        settings->sync();
     }
+
+    settings->sync();
 }
 
 void MainWindow::LoadSettings()

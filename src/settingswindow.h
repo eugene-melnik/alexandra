@@ -48,6 +48,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
 
         void OpenDatabaseFile();
         void SelectColorUnavailable();
+        void OpenPostersFolder();
 
     private:
         void ConfigureApplicationTab();

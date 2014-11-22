@@ -28,28 +28,15 @@
 EditFilmWindow::EditFilmWindow( QSettings* s, QWidget* parent ) : AddFilmWindow( s, parent )
 {
     setWindowTitle( tr( "Edit film" ) );
+    settings = s;
 }
 
 void EditFilmWindow::show( const Film* f )
 {
-    // Magic manipulations with poster image :)
-    QString posterFileName( "alexandra-poster.png" );
-
-#if defined( Q_OS_LINUX )
-    posterFileName = "/tmp/" + posterFileName;
-#elif defined( Q_OS_WIN32 )
-    posterFileName = QProcessEnvironment::systemEnvironment().value( "TEMP" ) + "\\" + posterFileName;
-#endif
-
-    if( !f->GetPoster().save( posterFileName ) ) {
-        // If poster doesn't exists
-        posterFileName.clear();
-    }
-
-    QWidget::show();
+    AddFilmWindow::show();
 
     eFilmFileName->setText( f->GetFileName() );
-    ePosterFileName->setText( posterFileName );
+    ePosterFileName->setText( settings->value( "FilmList/PostersFolder" ).toString() + "/" + f->GetPosterName() );
     eTitle->setText( f->GetTitle() );
     eOriginalTitle->setText( f->GetOriginalTitle() );
     eTagline->setText( f->GetTagline() );

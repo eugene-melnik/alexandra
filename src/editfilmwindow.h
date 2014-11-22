@@ -34,6 +34,9 @@ class EditFilmWindow : public AddFilmWindow
 
     public slots:
         void show( const Film* f );
+
+    private:
+        QSettings* settings = nullptr;
 };
 
 #endif // EDITFILMWINDOW_H

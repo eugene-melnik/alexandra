@@ -81,6 +81,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         // Variables
         QSettings* settings = nullptr;
         QString databaseFileName;
+        QString postersFolderName;
         QString externalPlayerName;
         QProcess* externalPlayer = nullptr;
 };

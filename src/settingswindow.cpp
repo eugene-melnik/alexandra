@@ -40,6 +40,8 @@ SettingsWindow::SettingsWindow( QSettings* s, QWidget* parent ) : QDialog( paren
     // database tab
     connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
     connect( bSelectColorUnavailable, SIGNAL( clicked() ), this, SLOT( SelectColorUnavailable() ) );
+    connect( bOpenPostersFolder, SIGNAL( clicked() ), this, SLOT( OpenPostersFolder() ) );
+    connect( cScalePoster, SIGNAL( toggled(bool) ), sbScaleToHeight, SLOT( setEnabled(bool) ) );
 }
 
 void SettingsWindow::showEvent( QShowEvent* event )
@@ -61,6 +63,8 @@ void SettingsWindow::OkButtonClicked()
     // database tab
     settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
     settings->setValue( "FilmList/CheckFilesOnStartup", cCheckFilesAtStartup->isChecked() );
+    settings->setValue( "FilmList/PostersFolder", ePostersFolder->text() );
+    settings->setValue( "FilmList/ScalePosters", cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
 
     // save settings
     close();
@@ -81,7 +85,8 @@ void SettingsWindow::OpenDatabaseFile()
 {
     QFileInfo currentPath( eDatabaseFile->text() );
 
-    QString databaseFileName = QFileDialog::getOpenFileName( this,
+    QString databaseFileName = QFileDialog::getOpenFileName(
+                               this,
                                tr( "Select database file" ),
                                currentPath.absoluteFilePath(),
                                tr( "Alexandra DB (*.adat)" ) );
@@ -97,6 +102,18 @@ void SettingsWindow::SelectColorUnavailable()
     QColor oldColor = settings->value( "FilmList/UnavailableFileColor", QColor( "red" ).toRgb() ).toUInt();
     QColor newColor = QColorDialog::getColor( oldColor, this );
     settings->setValue( "FilmList/UnavailableFileColor", newColor.rgba() );
+}
+
+void SettingsWindow::OpenPostersFolder()
+{
+    QString newFolder = QFileDialog::getExistingDirectory(
+                        this,
+                        tr( "Select posters' folder" ),
+                        ePostersFolder->text() );
+
+    if( !newFolder.isEmpty() ) {
+        ePostersFolder->setText( newFolder );
+    }
 }
 
 /*************************************************************************************************
@@ -137,4 +154,16 @@ void SettingsWindow::ConfigureDatabaseTab()
 {
     eDatabaseFile->setText( settings->value( "Application/DatabaseFile" ).toString() );
     cCheckFilesAtStartup->setChecked( settings->value( "FilmList/CheckFilesOnStartup", false ).toBool() );
+    ePostersFolder->setText( settings->value( "FilmList/PostersFolder" ).toString() );
+
+    int s = settings->value( "FilmList/ScalePosters", 0 ).toInt();
+
+    if( s == 0 ) {
+        cScalePoster->setChecked( false );
+        sbScaleToHeight->setEnabled( false );
+    } else {
+        cScalePoster->setChecked( true );
+        sbScaleToHeight->setEnabled( true );
+        sbScaleToHeight->setValue( s );
+    }
 }

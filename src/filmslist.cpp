@@ -125,6 +125,11 @@ const QString& FilmsList::GetCurrentFilmFileName() const
 
 void FilmsList::RemoveCurrentFilm()
 {
+    // Remove poster image
+    QString posterFileName = settings->value( "FilmList/PostersFolder" ).toString() + "/" + currentFilm->GetPosterName();
+    QFile( posterFileName ).remove();
+
+    // Remove record from database
     films.removeOne( *currentFilm );
     isDatabaseChanged = true;
     currentFilm = nullptr;
@@ -211,12 +216,8 @@ void FilmsList::ItemSelected( QTableWidgetItem* i )
 
     for( QList<Film>::iterator f = films.begin(); f < films.end(); f++ ) {
         if( f->GetTitle() == selectedFilmTitle ) {
-            if( ( currentFilm == nullptr ) ||
-                ( f->GetTitle() != currentFilm->GetTitle() ) )  // This film is already selected
-            {
-                currentFilm = &(*f);
-                emit FilmSelected( currentFilm );
-            }
+            currentFilm = &(*f);
+            emit FilmSelected( currentFilm );
         }
     }
 }

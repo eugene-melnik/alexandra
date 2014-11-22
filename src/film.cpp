@@ -44,7 +44,7 @@ Film::Film( const Film& other )
     starring = other.starring;
     description = other.description;
     rating = other.rating;
-    poster = other.poster;
+    posterName = other.posterName;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;
 }
@@ -82,7 +82,7 @@ QDataStream& operator << ( QDataStream& out, const Film& f )
         << f.starring
         << f.description
         << f.rating
-        << f.poster
+        << f.posterName
         << f.isViewed
         << f.isFavourite;
 
@@ -103,7 +103,7 @@ QDataStream& operator >> ( QDataStream& in, Film& f )
        >> f.starring
        >> f.description
        >> f.rating
-       >> f.poster
+       >> f.posterName
        >> f.isViewed
        >> f.isFavourite;
 
@@ -184,9 +184,9 @@ QString Film::GetRatingStr() const
     return( QString( "%1/10" ).arg( rating ) );
 }
 
-const QPixmap& Film::GetPoster() const
+const QString& Film::GetPosterName() const
 {
-    return( poster );
+    return( posterName );
 }
 
 bool Film::GetIsViewed() const
@@ -287,14 +287,9 @@ bool Film::SetRatingFromStr( const QString& s )
     return( ok );
 }
 
-void Film::SetPoster( const QPixmap& p )
+void Film::SetPosterName( const QString& s )
 {
-    poster = p;
-}
-
-bool Film::SetPosterFromFile( const QString& s )
-{
-    return( poster.load( s ) );
+    posterName = s;
 }
 
 void Film::SetIsViewed( bool b )
@@ -321,7 +316,7 @@ void Film::SetNewData( const Film& other )
     starring = other.starring;
     description = other.description;
     rating = other.rating;
-    poster = other.poster;
+    posterName = other.posterName;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;
 }

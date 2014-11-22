@@ -21,6 +21,7 @@
 #include "addfilmwindow.h"
 
 #include <QComboBox>
+#include <QCryptographicHash>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QLineEdit>
@@ -82,6 +83,7 @@ void AddFilmWindow::OpenPosterFileClicked()
 
 void AddFilmWindow::OkButtonClicked()
 {
+    // Checking necessary fields
     if( eFilmFileName->text().isEmpty() )
     {
         QMessageBox::information( this, tr( "Adding film" ), tr( "You must choose file on the disk." ) );
@@ -95,9 +97,9 @@ void AddFilmWindow::OkButtonClicked()
         return;
     }
 
+    // Text data
     Film f;
     f.SetFileName( eFilmFileName->text() );
-    f.SetPosterFromFile( ePosterFileName->text() );
     f.SetTitle( eTitle->text() );
     f.SetOriginalTitle( eOriginalTitle->text() );
     f.SetTagline( eTagline->text() );
@@ -111,6 +113,33 @@ void AddFilmWindow::OkButtonClicked()
     f.SetDescription( tDescription->toPlainText() );
     f.SetIsViewed( cIsViewed->isChecked() );
     f.SetIsFavourite( cIsFavourite->isChecked() );
+
+    // Manipulations with poster
+    QString posterFileName = ePosterFileName->text();
+    QString postersFolder = settings->value( "FilmList/PostersFolder" ).toString();
+    int newHeight = settings->value( "FilmList/ScalePosters", 0 ).toInt();
+
+    if( QFileInfo( ePosterFileName->text() ).absolutePath() == postersFolder ) {
+        // If poster is already in posters' folder
+        f.SetPosterName( QFileInfo( posterFileName ).fileName() );
+    } else {
+        QPixmap p( posterFileName );
+
+        // Scale to height
+        if( (newHeight != 0) && (newHeight < p.height()) ) {
+            p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
+        }
+
+        // Move to posters' folder
+        QString newPosterFileName = postersFolder + "/"
+                    + QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() + ".png" );
+
+        if( p.save( newPosterFileName ) ) {
+            f.SetPosterName( QFileInfo( newPosterFileName ).fileName() );
+        } else {
+            emit PosterMovingError();
+        }
+    }
 
     close();
     emit Done( f );
@@ -126,6 +155,7 @@ void AddFilmWindow::ClearFields()
     eYear->clear();
     eCountry->clear();
     eGenre->clear();
+    cbRating->setCurrentIndex( 0 );
     eDirector->clear();
     eProducer->clear();
     tStarring->clear();

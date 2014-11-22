@@ -22,7 +22,6 @@
 #define FILM_H
 
 #include <QDataStream>
-#include <QPixmap>
 #include <QString>
 
 class Film
@@ -55,7 +54,7 @@ class Film
         const QString& GetDescription() const;
         quint8 GetRating() const;
         QString GetRatingStr() const;
-        const QPixmap& GetPoster() const;
+        const QString& GetPosterName() const;
 
         bool GetIsViewed() const;
         QString GetIsViewedSign() const;
@@ -77,8 +76,7 @@ class Film
         void SetDescription( const QString& s );
         void SetRating( quint8 n );
         bool SetRatingFromStr( const QString& s );
-        void SetPoster( const QPixmap& p );
-        bool SetPosterFromFile( const QString& s );
+        void SetPosterName( const QString& s );
 
         void SetIsViewed( bool b );
         void SetIsFavourite( bool b );
@@ -98,7 +96,7 @@ class Film
         QString starring;
         QString description;
         quint8  rating;
-        QPixmap poster;
+        QString posterName;
 
         bool isViewed;
         bool isFavourite;

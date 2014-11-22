@@ -40,6 +40,7 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
         void showEvent( QShowEvent* event );
 
     signals:
+        void PosterMovingError();
         void Done( Film f );
 
     private slots:
