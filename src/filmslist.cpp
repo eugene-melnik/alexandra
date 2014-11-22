@@ -49,6 +49,7 @@ void FilmsList::LoadDatabase( QString databaseFileName )
     }
 
     dbFile.close();
+    currentFilm = nullptr;
     emit DatabaseChanged();
 }
 
@@ -121,7 +122,7 @@ void FilmsList::RemoveCurrentFilm()
 {
     films.removeOne( *currentFilm );
     isDatabaseChanged = true;
-
+    currentFilm = nullptr;
     emit DatabaseChanged();
 }
 
@@ -184,6 +185,7 @@ void FilmsList::SetCurrentIsViewed( bool b )
     currentFilm->SetIsViewed( b );
     setItem( currentRow(), ViewedColumn, new QTableWidgetItem( currentFilm->GetIsViewedSign() ) );
     isDatabaseChanged = true;
+    emit DatabaseChanged();
 }
 
 void FilmsList::SetCurrentIsFavourite( bool b )
@@ -191,6 +193,7 @@ void FilmsList::SetCurrentIsFavourite( bool b )
     currentFilm->SetIsFavourite( b );
     setItem( currentRow(), FavouriteColumn, new QTableWidgetItem( currentFilm->GetIsFavouriteSign() ) );
     isDatabaseChanged = true;
+    emit DatabaseChanged();
 }
 
 void FilmsList::ItemSelected( QTableWidgetItem* i )
@@ -199,14 +202,25 @@ void FilmsList::ItemSelected( QTableWidgetItem* i )
 
     for( QList<Film>::iterator f = films.begin(); f < films.end(); f++ ) {
         if( f->GetTitle() == selectedFilmTitle ) {
-            currentFilm = &(*f);
-            emit FilmSelected( currentFilm );
+            if( ( currentFilm == nullptr ) ||
+                ( f->GetTitle() != currentFilm->GetTitle() ) )  // This film is already selected
+            {
+                currentFilm = &(*f);
+                emit FilmSelected( currentFilm );
+            }
         }
     }
 }
 
 void FilmsList::UpdateFilmsTable()
 {
+    // Saving selected row
+    int selectedRow = 0;
+
+    if( rowCount() != 0 ) {
+        selectedRow = currentRow();
+    }
+
     // Clear old data
     clear();
 
@@ -272,13 +286,16 @@ void FilmsList::UpdateFilmsTable()
         }
     }
 
-    // Select first film
-    SetCursorOnRow( 0 );
+    // Restore selection
+    SetCursorOnRow( selectedRow );
 }
 
 void FilmsList::SetCursorOnRow( int row )
 {
     if( rowCount() != 0 ) {
+        if( row >= rowCount() ) {
+            row = 0;
+        }
         itemClicked( item( row, 0 ) );
         setCurrentItem( item( row, 0 ) ); // FIXME: fix this shi~
     }
