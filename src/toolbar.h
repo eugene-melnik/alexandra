@@ -21,6 +21,7 @@
 #ifndef TOOLBAR_H
 #define TOOLBAR_H
 
+#include <QAction>
 #include <QToolBar>
 #include <QSettings>
 
@@ -30,8 +31,11 @@ class ToolBar : public QToolBar
 
     public:
         ToolBar( QWidget* parent = nullptr );
+        ~ToolBar();
 
         void LoadSettings( QSettings* s );
+
+        void SetEditFunctionsEnabled( bool b );
 
     signals:
         void actionAdd();
@@ -48,6 +52,14 @@ class ToolBar : public QToolBar
         void actionRandomTriggered();
         void actionSearchTriggered();
         void actionExitTriggered();
+
+    private:
+        QAction* tbaAdd = nullptr;
+        QAction* tbaEdit = nullptr;
+        QAction* tbaRemove = nullptr;
+        QAction* tbaRandom = nullptr;
+        QAction* tbaSearch = nullptr;
+        QAction* tbaExit = nullptr;
 };
 
 #endif // TOOLBAR_H

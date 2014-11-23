@@ -52,6 +52,10 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void SettingsChanged();
         void DatabaseSettingsChanged();
 
+        void DatabaseChanged();
+        void DatabaseReadError();
+        void DatabaseIsReadonly();
+
         void ShowEditFilmWindow();
         void RemoveFilm();
 
@@ -67,6 +71,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
     private:
         // Additional functions
         void ConfigureSubwindows();
+        void ClearTextFields();
 
         void SetNames();
         void LoadSettings();

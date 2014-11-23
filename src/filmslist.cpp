@@ -39,28 +39,43 @@ FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
 
 void FilmsList::LoadDatabase( QString databaseFileName )
 {
-    QFile dbFile( databaseFileName );
     films.clear();
+    QFile dbFile( databaseFileName );
 
     if( dbFile.open( QIODevice::ReadOnly ) )
     {
+        // Reading from file
         QDataStream stream( &dbFile );
         stream >> films;
+
+        currentFilm = nullptr;
+        emit DatabaseChanged();
+
+        if( films.isEmpty() )  // Database is empty
+        {
+            isDatabaseChanged = true;
+            emit DatabaseIsEmpty();
+        }
+
+        if( !QFileInfo( databaseFileName ).isWritable() )   // Database is readonly
+        {
+            emit DatabaseIsReadonly();
+        }
+    }
+    else // Database is unavailable for reading
+    {
+        currentFilm = nullptr;
+        emit DatabaseChanged();
+        emit DatabaseReadError();
     }
 
     dbFile.close();
-    currentFilm = nullptr;
-    emit DatabaseChanged();
-
-    if( films.isEmpty() ) {
-        isDatabaseChanged = true;
-        emit DatabaseIsEmpty();
-    }
 }
 
 void FilmsList::SaveDatabase( QString databaseFileName )
 {
-    if( isDatabaseChanged ) {
+    if( isDatabaseChanged )
+    {
         QFile dbFile( databaseFileName );
 
         if( dbFile.open( QIODevice::WriteOnly ) )
@@ -79,23 +94,23 @@ void FilmsList::LoadSettings( QSettings* s )
     settings = s;
 
     // Columns' width
-    setColumnWidth( ViewedColumn, s->value( "FilmList/CW0", 20 ).toInt() );
-    setColumnWidth( FavouriteColumn, s->value( "FilmList/CW1", 20 ).toInt() );
-    setColumnWidth( TitleColumn, s->value( "FilmList/CW2", 150 ).toInt() );
-    setColumnWidth( YearColumn, s->value( "FilmList/CW3", 50 ).toInt() );
-    setColumnWidth( GenreColumn, s->value( "FilmList/CW4", 110 ).toInt() );
-    setColumnWidth( DirectorColumn, s->value( "FilmList/CW5", 110 ).toInt() );
+    setColumnWidth( ViewedColumn, s->value( "FilmList/ViewedColumnWidth", 20 ).toInt() );
+    setColumnWidth( FavouriteColumn, s->value( "FilmList/FavouriteColumnWidth", 20 ).toInt() );
+    setColumnWidth( TitleColumn, s->value( "FilmList/TitleColumnWidth", 150 ).toInt() );
+    setColumnWidth( YearColumn, s->value( "FilmList/YearColumnWidth", 50 ).toInt() );
+    setColumnWidth( GenreColumn, s->value( "FilmList/GenreColumnWidth", 110 ).toInt() );
+    setColumnWidth( DirectorColumn, s->value( "FilmList/DirectorColumnWidth", 110 ).toInt() );
 }
 
 void FilmsList::SaveSettings( QSettings* s ) const
 {
     // Columns' width
-    s->setValue( "FilmList/CW0", columnWidth( ViewedColumn )  );
-    s->setValue( "FilmList/CW1", columnWidth( FavouriteColumn ) );
-    s->setValue( "FilmList/CW2", columnWidth( TitleColumn ) );
-    s->setValue( "FilmList/CW3", columnWidth( YearColumn ) );
-    s->setValue( "FilmList/CW4", columnWidth( GenreColumn ) );
-    s->setValue( "FilmList/CW5", columnWidth( DirectorColumn ) );
+    s->setValue( "FilmList/ViewedColumnWidth", columnWidth( ViewedColumn )  );
+    s->setValue( "FilmList/FavouriteColumnWidth", columnWidth( FavouriteColumn ) );
+    s->setValue( "FilmList/TitleColumnWidth", columnWidth( TitleColumn ) );
+    s->setValue( "FilmList/YearColumnWidth", columnWidth( YearColumn ) );
+    s->setValue( "FilmList/GenreColumnWidth", columnWidth( GenreColumn ) );
+    s->setValue( "FilmList/DirectorColumnWidth", columnWidth( DirectorColumn ) );
 }
 
 int FilmsList::GetNumberOfFilms() const

@@ -7,6 +7,10 @@ CONFIG += qt warn_on debug
 QMAKE_CXXFLAGS += -std=c++11
 #LIBS += -lmediainfo -lz -lpthread -lzen -lpthread -lstdc++
 
+#release {
+#  QMAKE_CXXFLAGS += -flto
+#}
+
 HEADERS += aboutwindow.h \
            addfilmwindow.h \
            editfilmwindow.h \

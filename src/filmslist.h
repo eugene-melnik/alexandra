@@ -64,7 +64,11 @@ class FilmsList : public QTableWidget
         void UpdateFilmsTable();
 
     signals:
+        void DatabaseReadError();
+        void DatabaseIsWrong();
         void DatabaseIsEmpty();
+        void DatabaseIsReadonly();
+
         void FilmSelected( const Film* );
         void DatabaseChanged();
 

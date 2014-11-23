@@ -78,6 +78,38 @@ void MainWindow::DatabaseSettingsChanged()
     twFilms->LoadDatabase( databaseFileName );
 }
 
+void MainWindow::DatabaseChanged()
+{
+    actionAdd->setEnabled( true );
+    actionEdit->setEnabled( true );
+    actionRemove->setEnabled( true );
+    toolbar->SetEditFunctionsEnabled( true );
+    UpdateStatusBar();
+}
+
+void MainWindow::DatabaseReadError()
+{
+    ClearTextFields();
+    lFilmTitle->setText( tr( "Error reading the database!" ) );
+
+    QMessageBox::critical( this,
+                           tr( "Database" ),
+                           tr( "Error reading the database! Check the permissions or choose another "
+                               "database file in \"Edit\"→\"Settings\"→\"Database\"." ) );
+}
+
+void MainWindow::DatabaseIsReadonly()
+{
+    actionAdd->setEnabled( false );
+    actionEdit->setEnabled( false );
+    actionRemove->setEnabled( false );
+    toolbar->SetEditFunctionsEnabled( false );
+
+    QMessageBox::information( this,
+                              tr( "Database" ),
+                              tr( "Database is readonly! Editing functions are disabled." ) );
+}
+
 void MainWindow::ShowEditFilmWindow()
 {
     editFilmWindow->show( twFilms->GetCurrentFilm() );
@@ -97,22 +129,8 @@ void MainWindow::RemoveFilm()
 
 void MainWindow::ShowFirstStepWizard()
 {
+    ClearTextFields();
     lFilmTitle->setText( tr( "Database is empty!" ) );
-    lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
-
-    lOriginalTitle->clear();
-    lTagline->clear();
-    lGenre->clear();
-    lYear->clear();
-    lCountry->clear();
-    lDirector->clear();
-    lProducer->clear();
-    lStarring->clear();
-    lRating->clear();
-    lDescription->clear();
-    lTechInformation->clear();
-
-    repaint(); // Need for removing the artifacts
 
     QMessageBox::information( this,
                               tr( "Database is empty!"),
@@ -193,8 +211,10 @@ void MainWindow::ConfigureSubwindows()
     // Main window
     connect( toolbar, SIGNAL( actionExit() ), this, SLOT( close() ) );
 
+    connect( twFilms, SIGNAL( DatabaseReadError() ), this, SLOT( DatabaseReadError() ) );
+    connect( twFilms, SIGNAL( DatabaseIsReadonly() ), this, SLOT( DatabaseIsReadonly() ) );
     connect( twFilms, SIGNAL( DatabaseIsEmpty() ), this, SLOT( ShowFirstStepWizard() ) );
-    connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateStatusBar() ) );
+    connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( DatabaseChanged() ) );
     connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
 
     connect( bViewed, SIGNAL( clicked(bool) ), twFilms, SLOT( SetCurrentIsViewed(bool) ) );
@@ -245,6 +265,24 @@ void MainWindow::ConfigureSubwindows()
     connect( actionRandom, SIGNAL( triggered() ), twFilms, SLOT( SelectRandomFilm() ) );
 }
 
+void MainWindow::ClearTextFields()
+{
+    lFilmTitle->clear();
+    lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
+    lOriginalTitle->clear();
+    lTagline->clear();
+    lGenre->clear();
+    lYear->clear();
+    lCountry->clear();
+    lDirector->clear();
+    lProducer->clear();
+    lStarring->clear();
+    lRating->clear();
+    lDescription->clear();
+    lTechInformation->clear();
+    repaint(); // Need for removing the artifacts
+}
+
 void MainWindow::SetNames()
 {
     /// Set database filename
@@ -266,11 +304,17 @@ void MainWindow::SetNames()
         settings->setValue( "Application/DatabaseFile", databaseFileName );
     }
 
-    // Creating database directory (if not exists)
+    // Creating database directory and database file (if not exists)
     QString databaseDir = QFileInfo( databaseFileName ).absolutePath();
 
     if( !QDir().exists( databaseDir ) ) {
         QDir().mkdir( databaseDir );
+    }
+
+    if( !QFileInfo( databaseFileName ).exists() ) {
+        QFile f( databaseFileName );
+        f.open( QIODevice::WriteOnly );
+        f.close();
     }
 
     /// Set posters' folder name

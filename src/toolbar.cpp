@@ -20,7 +20,6 @@
 
 #include "toolbar.h"
 
-#include <QAction>
 #include <QIcon>
 
 ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
@@ -28,43 +27,60 @@ ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
     setContextMenuPolicy( Qt::PreventContextMenu ); // Disable context menu
 
     // Add film
-    QAction* tbaAdd = new QAction( QIcon( ":/tool/add" ), tr( "Add" ), this );
+    tbaAdd = new QAction( QIcon( ":/tool/add" ), tr( "Add" ), this );
     addAction( tbaAdd );
     connect( tbaAdd, SIGNAL( triggered() ), this, SLOT( actionAddTriggered() ) );
 
     // Edit film
-    QAction* tbaEdit = new QAction( QIcon( ":/tool/edit" ), tr( "Edit" ), this );
+    tbaEdit = new QAction( QIcon( ":/tool/edit" ), tr( "Edit" ), this );
     addAction( tbaEdit );
     connect( tbaEdit, SIGNAL( triggered() ), this, SLOT( actionEditTriggered() ) );
 
     // Remove film
-    QAction* tbaRemove = new QAction( QIcon( ":/tool/delete" ), tr( "Remove" ), this );
+    tbaRemove = new QAction( QIcon( ":/tool/delete" ), tr( "Remove" ), this );
     addAction( tbaRemove );
     connect( tbaRemove, SIGNAL( triggered() ), this, SLOT( actionRemoveTriggered() ) );
 
     addSeparator();
 
     // Random
-    QAction* tbaRandom = new QAction( QIcon( ":/tool/random" ), tr( "Random" ), this );
+    tbaRandom = new QAction( QIcon( ":/tool/random" ), tr( "Random" ), this );
     addAction( tbaRandom );
     connect( tbaRandom, SIGNAL( triggered() ), this, SLOT( actionRandomTriggered() ) );
 
     // Search
-    QAction* tbaSearch = new QAction( QIcon( ":/tool/find" ), tr( "Search" ), this );
+    tbaSearch = new QAction( QIcon( ":/tool/find" ), tr( "Search" ), this );
     addAction( tbaSearch );
     connect( tbaSearch, SIGNAL( triggered() ), this, SLOT( actionSearchTriggered() ) );
 
     addSeparator();
 
     // Exit
-    QAction* tbaExit = new QAction( QIcon( ":/action/exit" ), tr( "Exit" ), this );
+    tbaExit = new QAction( QIcon( ":/action/exit" ), tr( "Exit" ), this );
     addAction( tbaExit );
     connect( tbaExit, SIGNAL( triggered() ), this, SLOT( actionExitTriggered() ) );
+}
+
+ToolBar::~ToolBar()
+{
+    delete tbaAdd;
+    delete tbaEdit;
+    delete tbaRemove;
+    delete tbaRandom;
+    delete tbaSearch;
+    delete tbaExit;
 }
 
 void ToolBar::LoadSettings( QSettings* s )
 {
     setToolButtonStyle( (Qt::ToolButtonStyle)s->value( "MainWindow/ToolbarStyle", Qt::ToolButtonFollowStyle ).toInt() );
+}
+
+void ToolBar::SetEditFunctionsEnabled( bool b )
+{
+    tbaAdd->setEnabled( b );
+    tbaEdit->setEnabled( b );
+    tbaRemove->setEnabled( b );
 }
 
 void ToolBar::actionAddTriggered()

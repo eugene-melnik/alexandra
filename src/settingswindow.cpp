@@ -76,8 +76,8 @@ void SettingsWindow::OkButtonClicked()
         settings->setValue( "FilmList/CheckFilesOnStartup", cCheckFilesAtStartup->isChecked() );
         settings->setValue( "FilmList/PostersFolder", ePostersFolder->text() );
         settings->setValue( "FilmList/ScalePosters", cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
-
         settings->sync();
+
         emit SettingsChanged();
 
         if( isDatabaseSettingsChanged ) {
@@ -204,11 +204,11 @@ void SettingsWindow::ReconfigureApplicationTab()
 void SettingsWindow::ConfigureDatabaseTab()
 {
     // Signals
-    connect( eDatabaseFile, SIGNAL( textEdited(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
+    connect( eDatabaseFile, SIGNAL( textChanged(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
     connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
     connect( cCheckFilesAtStartup, SIGNAL( toggled(bool) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( bSelectColorUnavailable, SIGNAL( clicked() ), this, SLOT( SelectColorUnavailable() ) );
-    connect( ePostersFolder, SIGNAL( textEdited(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
+    connect( ePostersFolder, SIGNAL( textChanged(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
     connect( bOpenPostersFolder, SIGNAL( clicked() ), this, SLOT( OpenPostersFolder() ) );
     connect( cScalePoster, SIGNAL( toggled(bool) ), sbScaleToHeight, SLOT( setEnabled(bool) ) );
     connect( cScalePoster, SIGNAL( toggled(bool) ), this,  SLOT( SetIsSettingsChanged() ) );
