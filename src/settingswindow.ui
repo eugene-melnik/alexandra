@@ -175,7 +175,7 @@
          <item>
           <widget class="QPushButton" name="bExternalPlayerDefault">
            <property name="text">
-            <string notr="true">Default</string>
+            <string>Default</string>
            </property>
           </widget>
          </item>
