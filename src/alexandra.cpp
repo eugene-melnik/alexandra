@@ -28,7 +28,7 @@
 int main( int argc, char** argv )
 {
     // Create seed for the random
-    qsrand( QTime::currentTime().msec() );
+    qsrand( QTime::currentTime().msecsSinceStartOfDay() );
 
     // Configure application
     QApplication::setOrganizationName( Alexandra::orgName );
