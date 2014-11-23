@@ -324,6 +324,19 @@ void FilmsList::UpdateFilmsTable()
     SetCursorOnRow( selectedRow );
 }
 
+void FilmsList::FilterBy( QString s )
+{
+    UpdateFilmsTable();
+
+    if( (rowCount() != 0) && !s.isEmpty() ) {
+        for( int row = 0; row < rowCount(); row++ ) {
+            if( !item( row, TitleColumn )->text().contains( s, Qt::CaseInsensitive ) ) {
+                removeRow( row-- );
+            }
+        }
+    }
+}
+
 void FilmsList::SetCursorOnRow( int row )
 {
     if( rowCount() != 0 ) {

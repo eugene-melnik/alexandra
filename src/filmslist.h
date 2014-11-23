@@ -63,6 +63,8 @@ class FilmsList : public QTableWidget
         void ItemSelected( QTableWidgetItem* i );
         void UpdateFilmsTable();
 
+        void FilterBy( QString s );
+
     signals:
         void DatabaseReadError();
         void DatabaseIsWrong();

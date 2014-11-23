@@ -24,6 +24,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMessageBox>
 #include <QProcessEnvironment>
 #include <QPushButton>
@@ -35,6 +36,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     // Interface
     setupUi( this );
     setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
+    eFilter->setFocus();
 
     // Data
     settings = new QSettings( Alexandra::appName, "configuration" );
@@ -216,6 +218,8 @@ void MainWindow::ConfigureSubwindows()
     connect( twFilms, SIGNAL( DatabaseIsEmpty() ), this, SLOT( ShowFirstStepWizard() ) );
     connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( DatabaseChanged() ) );
     connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
+
+    connect( eFilter, SIGNAL( textChanged(QString) ), twFilms, SLOT( FilterBy(QString) ) );
 
     connect( bViewed, SIGNAL( clicked(bool) ), twFilms, SLOT( SetCurrentIsViewed(bool) ) );
     connect( bFavourite, SIGNAL( clicked(bool) ), twFilms, SLOT( SetCurrentIsFavourite(bool) ) );
