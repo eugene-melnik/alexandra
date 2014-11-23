@@ -25,6 +25,8 @@
 
 ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
 {
+    setContextMenuPolicy( Qt::PreventContextMenu ); // Disable context menu
+
     // Add film
     QAction* tbaAdd = new QAction( QIcon( ":/tool/add" ), tr( "Add" ), this );
     addAction( tbaAdd );
