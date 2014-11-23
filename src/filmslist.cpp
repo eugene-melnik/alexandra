@@ -113,11 +113,6 @@ void FilmsList::SaveSettings( QSettings* s ) const
     s->setValue( "FilmList/DirectorColumnWidth", columnWidth( DirectorColumn ) );
 }
 
-const QList<Film>* FilmsList::GetFilmsList() const
-{
-    return( &films );
-}
-
 int FilmsList::GetNumberOfFilms() const
 {
     return( films.size() );
