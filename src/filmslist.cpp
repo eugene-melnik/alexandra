@@ -113,6 +113,11 @@ void FilmsList::SaveSettings( QSettings* s ) const
     s->setValue( "FilmList/DirectorColumnWidth", columnWidth( DirectorColumn ) );
 }
 
+const QList<Film>* FilmsList::GetFilmsList() const
+{
+    return( &films );
+}
+
 int FilmsList::GetNumberOfFilms() const
 {
     return( films.size() );
@@ -183,6 +188,15 @@ int FilmsList::GetIsFavouriteCount() const
 
 void FilmsList::AppendFilm( Film f )
 {
+    // Checking for film with the same title
+    foreach( Film ff, films ) {
+        if( ff.GetTitle() == f.GetTitle() ) {
+            f.SetTitle( f.GetTitle() + tr( " [another one]" ) );
+            break;
+        }
+    }
+
+    // Adding
     films.append( f );
     std::sort( films.begin(), films.end() );
     isDatabaseChanged = true;

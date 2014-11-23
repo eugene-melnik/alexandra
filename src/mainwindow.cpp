@@ -235,7 +235,6 @@ void MainWindow::ConfigureSubwindows()
     connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
 
     connect( addFilmWindow, SIGNAL( Done(Film) ), twFilms, SLOT( AppendFilm(Film) ) );
-    connect( addFilmWindow, SIGNAL( Done(Film) ), this, SLOT( UpdateStatusBar() ) );
 
     // Edit film window
     editFilmWindow = new EditFilmWindow( settings, this );

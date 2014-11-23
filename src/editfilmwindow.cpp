@@ -35,8 +35,12 @@ void EditFilmWindow::show( const Film* f )
 {
     AddFilmWindow::show();
 
+    if( !f->GetPosterName().isEmpty() ) {
+        ePosterFileName->setText( settings->value( "FilmList/PostersFolder" ).toString()
+                                  + "/" + f->GetPosterName() );
+    }
+
     eFilmFileName->setText( f->GetFileName() );
-    ePosterFileName->setText( settings->value( "FilmList/PostersFolder" ).toString() + "/" + f->GetPosterName() );
     eTitle->setText( f->GetTitle() );
     eOriginalTitle->setText( f->GetOriginalTitle() );
     eTagline->setText( f->GetTagline() );
