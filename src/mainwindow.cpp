@@ -42,7 +42,6 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 
     ConfigureSubwindows();
     LoadSettings();
-    SettingsChanged();
 }
 
 MainWindow::~MainWindow()
@@ -72,6 +71,10 @@ void MainWindow::SettingsChanged()
 {
     SetNames();
     toolbar->LoadSettings( settings );
+}
+
+void MainWindow::DatabaseSettingsChanged()
+{
     twFilms->LoadDatabase( databaseFileName );
 }
 
@@ -235,6 +238,7 @@ void MainWindow::ConfigureSubwindows()
     connect( actionSettings, SIGNAL( triggered() ), settingsWindow, SLOT( show() ) );
 
     connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( SettingsChanged() ) );
+    connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( DatabaseSettingsChanged() ) );
 
     // Random film
     connect( toolbar, SIGNAL( actionRandom() ), twFilms, SLOT( SelectRandomFilm() ) );
@@ -301,12 +305,16 @@ void MainWindow::SetNames()
 void MainWindow::LoadSettings()
 {
     // Main window settings
+    SetNames();
+
     restoreGeometry( settings->value( "MainWindow/Geometry" ).toByteArray() );
     restoreState( settings->value( "MainWindow/State" ).toByteArray() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
 
-    // Table settings
+    // Widgets' settings
+    toolbar->LoadSettings( settings );
     twFilms->LoadSettings( settings );
+    twFilms->LoadDatabase( databaseFileName );
 }
 
 void MainWindow::SaveSettings()

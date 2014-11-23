@@ -50,6 +50,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
     private slots:
         void SettingsChanged();
+        void DatabaseSettingsChanged();
 
         void ShowEditFilmWindow();
         void RemoveFilm();

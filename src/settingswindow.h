@@ -39,10 +39,14 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void showEvent( QShowEvent* event );
 
     signals:
+        void DatabaseSettingsChanged();
         void SettingsChanged();
 
     private slots:
         void OkButtonClicked();
+        void SetIsSettingsChanged();
+        void SetIsNeedReboot();
+        void SetIsDatabaseSettingsChanged();
 
         void SetDefaultExternalPlayer();
 
@@ -52,10 +56,15 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
 
     private:
         void ConfigureApplicationTab();
+        void ReconfigureApplicationTab();
         void ConfigureDatabaseTab();
+        void ReconfigureDatabaseTab();
 
         // Variables
         QSettings* settings;
+        bool isSettingsChanged;
+        bool isDatabaseSettingsChanged;
+        bool isNeedReboot;
 
         // Constants
         typedef struct {

@@ -27,27 +27,26 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QLineEdit>
+#include <QMessageBox>
 
 SettingsWindow::SettingsWindow( QSettings* s, QWidget* parent ) : QDialog( parent )
 {
     settings = s;
 
-    // window
     setupUi( this );
     connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
-    // application tab
-    connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
-    // database tab
-    connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
-    connect( bSelectColorUnavailable, SIGNAL( clicked() ), this, SLOT( SelectColorUnavailable() ) );
-    connect( bOpenPostersFolder, SIGNAL( clicked() ), this, SLOT( OpenPostersFolder() ) );
-    connect( cScalePoster, SIGNAL( toggled(bool) ), sbScaleToHeight, SLOT( setEnabled(bool) ) );
+
+    ConfigureApplicationTab();
+    ConfigureDatabaseTab();
 }
 
 void SettingsWindow::showEvent( QShowEvent* event )
 {
-    ConfigureApplicationTab();
-    ConfigureDatabaseTab();
+    isSettingsChanged = false;
+    isNeedReboot = false;
+
+    ReconfigureApplicationTab();
+    ReconfigureDatabaseTab();
     event->accept();
 }
 
@@ -55,22 +54,56 @@ void SettingsWindow::showEvent( QShowEvent* event )
  *  Events' handlers (slots)                                                                      *
   *************************************************************************************************/
 
+// Window
+
 void SettingsWindow::OkButtonClicked()
 {
-    // application tab
-    settings->setValue( "MainWindow/ToolbarStyle", toolStyles[ cbToolbarStyle->currentIndex() ].style  );
-    settings->setValue( "Application/ExternalPlayer", eExternalPlayer->text() );
-    // database tab
-    settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
-    settings->setValue( "FilmList/CheckFilesOnStartup", cCheckFilesAtStartup->isChecked() );
-    settings->setValue( "FilmList/PostersFolder", ePostersFolder->text() );
-    settings->setValue( "FilmList/ScalePosters", cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
+    // Show reboot message (if necessary)
+    if( isNeedReboot ) {
+        QMessageBox::information( this, tr( "Settings" ), tr( "For taking all settings, restart the application." ) );
+    }
 
-    // save settings
+    // Hide window
     close();
-    settings->sync();
-    emit SettingsChanged();
+
+    // Saving settings
+    if( isSettingsChanged ) {
+        // application tab
+        settings->setValue( "MainWindow/ToolbarStyle", toolStyles[ cbToolbarStyle->currentIndex() ].style  );
+        settings->setValue( "Application/ExternalPlayer", eExternalPlayer->text() );
+        // database tab
+        settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
+        settings->setValue( "FilmList/CheckFilesOnStartup", cCheckFilesAtStartup->isChecked() );
+        settings->setValue( "FilmList/PostersFolder", ePostersFolder->text() );
+        settings->setValue( "FilmList/ScalePosters", cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
+
+        settings->sync();
+        emit SettingsChanged();
+
+        if( isDatabaseSettingsChanged ) {
+            emit DatabaseSettingsChanged();
+        }
+    }
 }
+
+void SettingsWindow::SetIsSettingsChanged()
+{
+    isSettingsChanged = true;
+}
+
+void SettingsWindow::SetIsNeedReboot()
+{
+    SetIsSettingsChanged();
+    isNeedReboot = true;
+}
+
+void SettingsWindow::SetIsDatabaseSettingsChanged()
+{
+    SetIsSettingsChanged();
+    isDatabaseSettingsChanged = true;
+}
+
+// Application tab
 
 void SettingsWindow::SetDefaultExternalPlayer()
 {
@@ -80,6 +113,8 @@ void SettingsWindow::SetDefaultExternalPlayer()
     eExternalPlayer->clear(); // dummy
 #endif
 }
+
+// Database tab
 
 void SettingsWindow::OpenDatabaseFile()
 {
@@ -98,10 +133,14 @@ void SettingsWindow::OpenDatabaseFile()
 
 void SettingsWindow::SelectColorUnavailable()
 {
-    // FIX when close button press
-    QColor oldColor = settings->value( "FilmList/UnavailableFileColor", QColor( "red" ).toRgb() ).toUInt();
+    QColor oldColor = settings->value( "FilmList/UnavailableFileColor", qRgb( 0xff, 0xc0, 0xc0 ) ).toUInt();
     QColor newColor = QColorDialog::getColor( oldColor, this );
-    settings->setValue( "FilmList/UnavailableFileColor", newColor.rgba() );
+
+    // If cancel button pressed
+    if( newColor.isValid() ) {
+        settings->setValue( "FilmList/UnavailableFileColor", newColor.rgba() );
+        isDatabaseSettingsChanged = true;
+    }
 }
 
 void SettingsWindow::OpenPostersFolder()
@@ -122,7 +161,12 @@ void SettingsWindow::OpenPostersFolder()
 
 void SettingsWindow::ConfigureApplicationTab()
 {
-    eExternalPlayer->setText( settings->value( "Application/ExternalPlayer" ).toString() );
+    // Signals
+    connect( cbLanguage, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
+    connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
+    connect( cbToolbarStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( eExternalPlayer, SIGNAL( textEdited(QString) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
 
     // Language ComboBox
     cbLanguage->clear();
@@ -143,6 +187,13 @@ void SettingsWindow::ConfigureApplicationTab()
         cbToolbarStyle->addItem( toolStyle.name );
     }
 
+}
+
+void SettingsWindow::ReconfigureApplicationTab()
+{
+    isSettingsChanged = false;
+
+    eExternalPlayer->setText( settings->value( "Application/ExternalPlayer" ).toString() );
     cbToolbarStyle->setCurrentIndex( settings->value( "MainWindow/ToolbarStyle", (int)Qt::ToolButtonFollowStyle ).toInt() );
 }
 
@@ -152,6 +203,22 @@ void SettingsWindow::ConfigureApplicationTab()
 
 void SettingsWindow::ConfigureDatabaseTab()
 {
+    // Signals
+    connect( eDatabaseFile, SIGNAL( textEdited(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
+    connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
+    connect( cCheckFilesAtStartup, SIGNAL( toggled(bool) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( bSelectColorUnavailable, SIGNAL( clicked() ), this, SLOT( SelectColorUnavailable() ) );
+    connect( ePostersFolder, SIGNAL( textEdited(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
+    connect( bOpenPostersFolder, SIGNAL( clicked() ), this, SLOT( OpenPostersFolder() ) );
+    connect( cScalePoster, SIGNAL( toggled(bool) ), sbScaleToHeight, SLOT( setEnabled(bool) ) );
+    connect( cScalePoster, SIGNAL( toggled(bool) ), this,  SLOT( SetIsSettingsChanged() ) );
+    connect( sbScaleToHeight, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+}
+
+void SettingsWindow::ReconfigureDatabaseTab()
+{
+    isDatabaseSettingsChanged = false;
+
     eDatabaseFile->setText( settings->value( "Application/DatabaseFile" ).toString() );
     cCheckFilesAtStartup->setChecked( settings->value( "FilmList/CheckFilesOnStartup", false ).toBool() );
     ePostersFolder->setText( settings->value( "FilmList/PostersFolder" ).toString() );

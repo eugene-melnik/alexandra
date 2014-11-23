@@ -248,7 +248,7 @@ void FilmsList::UpdateFilmsTable()
 
     // Configure rows
     bool highlightUnavailable = settings->value( "FilmList/CheckFilesOnStartup", false ).toBool();
-    QColor unavailableColor = settings->value( "FilmList/UnavailableFileColor", QColor( "red" ).toRgb() ).toInt();
+    QColor unavailableColor = settings->value( "FilmList/UnavailableFileColor", qRgb( 0xff, 0xc0, 0xc0 ) ).toInt();
 
     setRowCount( this->GetNumberOfFilms() );
 
