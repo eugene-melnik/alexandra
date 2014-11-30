@@ -77,6 +77,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void LoadSettings();
         void SaveSettings();
 
+        void SetEditFunctionsEnabled( bool b );
+
         // Subwindows
         AboutWindow* aboutWindow = nullptr;
         AddFilmWindow* addFilmWindow = nullptr;

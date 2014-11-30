@@ -82,10 +82,7 @@ void MainWindow::DatabaseSettingsChanged()
 
 void MainWindow::DatabaseChanged()
 {
-    actionAdd->setEnabled( true );
-    actionEdit->setEnabled( true );
-    actionRemove->setEnabled( true );
-    toolbar->SetEditFunctionsEnabled( true );
+    SetEditFunctionsEnabled( true );
     UpdateStatusBar();
 }
 
@@ -102,10 +99,7 @@ void MainWindow::DatabaseReadError()
 
 void MainWindow::DatabaseIsReadonly()
 {
-    actionAdd->setEnabled( false );
-    actionEdit->setEnabled( false );
-    actionRemove->setEnabled( false );
-    toolbar->SetEditFunctionsEnabled( false );
+    SetEditFunctionsEnabled( false );
 
     QMessageBox::information( this,
                               tr( "Database" ),
@@ -195,7 +189,7 @@ void MainWindow::PlayerClosed()
     twFilms->setEnabled( true );
     bPlay->setText( tr( "PLAY" ) );
 
-    if( !bViewed->isChecked() ) {
+    if( bViewed->isEnabled() && !bViewed->isChecked() ) {
         bViewed->setChecked( true );
         bViewed->clicked( true );
     }
@@ -374,4 +368,16 @@ void MainWindow::SaveSettings()
     twFilms->SaveSettings( settings );
 
     settings->sync();
+}
+
+void MainWindow::SetEditFunctionsEnabled( bool b )
+{
+    toolbar->SetEditFunctionsEnabled( b );
+
+    actionAdd->setEnabled( b );
+    actionEdit->setEnabled( b );
+    actionRemove->setEnabled( b );
+
+    bViewed->setEnabled( b );
+    bFavourite->setEnabled( b );
 }
