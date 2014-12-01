@@ -69,6 +69,12 @@ void SettingsWindow::OkButtonClicked()
     // Saving settings
     if( isSettingsChanged ) {
         // application tab
+        if( cbStyle->currentIndex() == 0 ) {
+            settings->setValue( "Application/Style", "" );
+        } else {
+            settings->setValue( "Application/Style", cbStyle->currentText() );
+        }
+
         settings->setValue( "MainWindow/ToolbarStyle", toolStyles[ cbToolbarStyle->currentIndex() ].style  );
         settings->setValue( "Application/ExternalPlayer", eExternalPlayer->text() );
         // database tab
@@ -169,20 +175,20 @@ void SettingsWindow::ConfigureApplicationTab()
     connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
 
     // Language ComboBox
-    cbLanguage->clear();
     cbLanguage->addItem( tr( "<Auto>" ) );
 
-    foreach( Alexandra::Locale locale, Alexandra::supportedLocales )
-    {
+    foreach( Alexandra::Locale locale, Alexandra::supportedLocales ) {
         cbLanguage->addItem( locale.title );
     }
 
     // Style ComboBox
-    cbStyle->clear(); // dummy
+    cbStyle->addItem( tr( "<Default>" ) );
+
+    foreach( QString style, appStyles ) {
+        cbStyle->addItem( style );
+    }
 
     // Toolbar style ComboBox
-    cbToolbarStyle->clear();
-
     foreach( ToolStyle toolStyle, toolStyles ) {
         cbToolbarStyle->addItem( toolStyle.name );
     }
@@ -192,6 +198,14 @@ void SettingsWindow::ConfigureApplicationTab()
 void SettingsWindow::ReconfigureApplicationTab()
 {
     isSettingsChanged = false;
+
+    QString appStyle = settings->value( "Application/Style" ).toString();
+
+    if( appStyle.isEmpty() ) {
+        cbStyle->setCurrentIndex( 0 );
+    } else {
+        cbStyle->setCurrentIndex( appStyles.indexOf( appStyle ) + 1 );
+    }
 
     eExternalPlayer->setText( settings->value( "Application/ExternalPlayer" ).toString() );
     cbToolbarStyle->setCurrentIndex( settings->value( "MainWindow/ToolbarStyle", (int)Qt::ToolButtonFollowStyle ).toInt() );

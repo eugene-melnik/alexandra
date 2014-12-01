@@ -77,6 +77,13 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
                                               { tr("Text beside icon"),     Qt::ToolButtonTextBesideIcon },
                                               { tr("Text under icon"),      Qt::ToolButtonTextUnderIcon },
                                               { tr("<Follow system style>"),Qt::ToolButtonFollowStyle } };
+
+        const QList<QString> appStyles = { "CDE",
+                                           "Cleanlooks",
+                                           "GTK+",
+                                           "Motif",
+                                           "Plastique",
+                                           "Windows" };
 };
 
 #endif // SETTINGSWINDOW_H

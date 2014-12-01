@@ -345,6 +345,8 @@ void MainWindow::SetNames()
 
 void MainWindow::LoadSettings()
 {
+    QApplication::setStyle( settings->value( "Application/Style" ).toString() );
+
     // Main window settings
     SetNames();
 
