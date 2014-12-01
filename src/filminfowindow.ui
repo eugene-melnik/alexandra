@@ -2,18 +2,134 @@
 <ui version="4.0">
  <class>FilmInfoWindow</class>
  <widget class="QDialog" name="FilmInfoWindow">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
+    <width>640</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
     <width>400</width>
     <height>300</height>
-   </rect>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Technical information</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="icons/icons.qrc">
+    <normaloff>:/window/about</normaloff>:/window/about</iconset>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QPlainTextEdit" name="eTechInfo">
+     <property name="font">
+      <font>
+       <family>Monospace</family>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="lineWrapMode">
+      <enum>QPlainTextEdit::NoWrap</enum>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hl1">
+     <item>
+      <widget class="QPushButton" name="bCopyToClipboard">
+       <property name="text">
+        <string>&amp;Copy to clipboard</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="hs1">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Close</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
- <resources/>
- <connections/>
+ <resources>
+  <include location="icons/icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>FilmInfoWindow</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>245</x>
+     <y>394</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>245</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bCopyToClipboard</sender>
+   <signal>clicked()</signal>
+   <receiver>eTechInfo</receiver>
+   <slot>selectAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bCopyToClipboard</sender>
+   <signal>clicked()</signal>
+   <receiver>eTechInfo</receiver>
+   <slot>copy()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

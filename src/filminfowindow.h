@@ -25,6 +25,7 @@
 
 #include <MediaInfo/MediaInfo.h>
 #include <QDialog>
+#include <QString>
 
 class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
 {
@@ -34,14 +35,14 @@ class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
         FilmInfoWindow( QWidget* parent = nullptr );
         ~FilmInfoWindow();
 
-        void SetCurrentFile( const QString& fileName );
+        void SetCurrentFile( const QString& f );
         const QString& GetShortTechInfo() const;
 
     private:
         void LoadShortInfo();
+        void LoadFullInfo();
 
         MediaInfoLib::MediaInfo* mi = nullptr;
-
         QString shortInfo;
         QString fullInfo;
 };

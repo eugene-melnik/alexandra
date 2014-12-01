@@ -20,6 +20,8 @@
 
 #include "filminfowindow.h"
 
+#include <QPlainTextEdit>
+#include <QPushButton>
 #include <ZenLib/Ztring.h>
 
 // Thanks to Mediainfo project :)
@@ -41,9 +43,10 @@ FilmInfoWindow::~FilmInfoWindow()
     delete mi;
 }
 
-void FilmInfoWindow::SetCurrentFile( const QString& fileName )
+void FilmInfoWindow::SetCurrentFile( const QString& f )
 {
-    mi->Open( QString2wstring( fileName ) );
+    mi->Open( QString2wstring( f ) );
+    LoadFullInfo();
     LoadShortInfo();
     mi->Close();
 }
@@ -55,10 +58,21 @@ const QString &FilmInfoWindow::GetShortTechInfo() const
 
 void FilmInfoWindow::LoadShortInfo()
 {
+    // First line
     shortInfo = wstring2QString( mi->Get( MediaInfoLib::Stream_General, 0, __T( "Format" ) ).c_str() ) + " | ";
-    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_General, 0, __T( "FileSize/String3" ) ).c_str() ) + "<br/>";
+    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_General, 0, __T( "FileSize/String3" ) ).c_str() ) + " | ";
+    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_General, 0, __T( "OverallBitRate/String" ) ).c_str() ) + "<br/>";
+    // Second line
     shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_Video, 0, __T( "Width" ) ).c_str() ) + "&times;";
     shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_Video, 0, __T( "Height" ) ).c_str() ) + " px | ";
     shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_Video, 0, __T( "FrameRate/String" ) ).c_str() ) + "<br/>";
-    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_Video, 0, __T( "Duration/String" ) ).c_str() );
+    // Third line
+    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_General, 0, __T( "Duration/String" ) ).c_str() );
+}
+
+void FilmInfoWindow::LoadFullInfo()
+{
+    mi->Option( __T( "Complete" ) );
+    fullInfo = wstring2QString( mi->Inform().c_str() );
+    eTechInfo->setPlainText( fullInfo );
 }

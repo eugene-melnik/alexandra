@@ -6,7 +6,7 @@ QT = core gui widgets
 CONFIG += qt warn_on debug
 QMAKE_CXXFLAGS += -std=c++11
 DEFINES += UNICODE
-LIBS += -lmediainfo -lzen #-lpthread -lz -lpthread -lstdc++
+LIBS += -lmediainfo -lzen
 
 #release {
 #  QMAKE_CXXFLAGS += -flto
