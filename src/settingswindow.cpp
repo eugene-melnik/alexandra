@@ -197,8 +197,6 @@ void SettingsWindow::ConfigureApplicationTab()
 
 void SettingsWindow::ReconfigureApplicationTab()
 {
-    isSettingsChanged = false;
-
     QString appStyle = settings->value( "Application/Style" ).toString();
 
     if( appStyle.isEmpty() ) {
@@ -209,6 +207,9 @@ void SettingsWindow::ReconfigureApplicationTab()
 
     eExternalPlayer->setText( settings->value( "Application/ExternalPlayer" ).toString() );
     cbToolbarStyle->setCurrentIndex( settings->value( "MainWindow/ToolbarStyle", (int)Qt::ToolButtonFollowStyle ).toInt() );
+
+    isNeedReboot = false;
+    isSettingsChanged = false;
 }
 
 /*************************************************************************************************
@@ -231,8 +232,6 @@ void SettingsWindow::ConfigureDatabaseTab()
 
 void SettingsWindow::ReconfigureDatabaseTab()
 {
-    isDatabaseSettingsChanged = false;
-
     eDatabaseFile->setText( settings->value( "Application/DatabaseFile" ).toString() );
     cCheckFilesAtStartup->setChecked( settings->value( "FilmList/CheckFilesOnStartup", false ).toBool() );
     ePostersFolder->setText( settings->value( "FilmList/PostersFolder" ).toString() );
@@ -247,4 +246,6 @@ void SettingsWindow::ReconfigureDatabaseTab()
         sbScaleToHeight->setEnabled( true );
         sbScaleToHeight->setValue( s );
     }
+
+    isDatabaseSettingsChanged = false;
 }
