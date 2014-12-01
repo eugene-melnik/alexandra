@@ -17,7 +17,7 @@ namespace Alexandra
 
         const quint8 major = 0;
         const quint8 minor = 9;
-        const quint8 fix = 3;
+        const quint8 fix = 4;
         const QString appVersionFull = QString( "%1.%2.%3" ).arg( major ).arg( minor ).arg( fix );
         const QString appBuildDate = QString( __DATE__ );
 

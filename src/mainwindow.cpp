@@ -30,6 +30,7 @@
 #include <QPushButton>
 #include <QSettings>
 #include <QStatusBar>
+#include <string>
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
@@ -151,6 +152,7 @@ void MainWindow::FilmSelected( const Film* f )
 
     bViewed->setChecked( f->GetIsViewed() );
     bFavourite->setChecked( f->GetIsFavourite() );
+    lTechInformation->clear();
 
     // Poster
     QPixmap p( postersFolderName + "/" + f->GetPosterName() );
@@ -161,12 +163,20 @@ void MainWindow::FilmSelected( const Film* f )
 
     p = p.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
     lPosterImage->setPixmap( p );
+    repaint();
 
-    // Technical information
-    lTechInformation->setText( QString( "%1GiB" ).arg( QFileInfo( f->GetFileName() ).size() / (1024*1024*1024) ) ); // dummy
-
-    // Play button
-    bPlay->setEnabled( QFileInfo( f->GetFileName() ).exists() );
+    // Buttons and technical information
+    if( QFileInfo( f->GetFileName() ).exists() ) {
+        // File exists
+        bTechInformation->setEnabled( true );
+        bPlay->setEnabled( true );
+        filmInfoWindow->SetCurrentFile( f->GetFileName() );
+        lTechInformation->setText( filmInfoWindow->GetShortTechInfo() );
+    } else {
+        // File doesn't exists
+        bTechInformation->setEnabled( false );
+        bPlay->setEnabled( false );
+    }
 }
 
 void MainWindow::PlayFilm()
@@ -240,6 +250,10 @@ void MainWindow::ConfigureSubwindows()
     connect( toolbar, SIGNAL( actionEdit() ), this, SLOT( ShowEditFilmWindow() ) );
 
     connect( editFilmWindow, SIGNAL( Done(Film) ), twFilms, SLOT( EditCurrentFilm(Film) ) );
+
+    // FilmInfo window
+    filmInfoWindow = new FilmInfoWindow( this );
+    connect( bTechInformation, SIGNAL( clicked() ), filmInfoWindow, SLOT( show() ) );
 
     // Remove film
     connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );

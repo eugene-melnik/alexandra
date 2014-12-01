@@ -28,6 +28,7 @@
 #include "aboutwindow.h"
 #include "addfilmwindow.h"
 #include "editfilmwindow.h"
+#include "filminfowindow.h"
 #include "searchwindow.h"
 #include "settingswindow.h"
 
@@ -83,6 +84,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         AboutWindow* aboutWindow = nullptr;
         AddFilmWindow* addFilmWindow = nullptr;
         EditFilmWindow* editFilmWindow = nullptr;
+        FilmInfoWindow* filmInfoWindow = nullptr;
         SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
 

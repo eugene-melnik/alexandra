@@ -5,7 +5,8 @@ QT = core gui widgets
 
 CONFIG += qt warn_on debug
 QMAKE_CXXFLAGS += -std=c++11
-#LIBS += -lmediainfo -lz -lpthread -lzen -lpthread -lstdc++
+DEFINES += UNICODE
+LIBS += -lmediainfo -lzen #-lpthread -lz -lpthread -lstdc++
 
 #release {
 #  QMAKE_CXXFLAGS += -flto
@@ -15,8 +16,9 @@ HEADERS += aboutwindow.h \
            addfilmwindow.h \
            editfilmwindow.h \
            film.h \
+           filminfowindow.h \
            filmslist.h \
-           mainwindow.h \
+           mainwindow.h \           
            searchwindow.h \
            settingswindow.h \
            statusbar.h \
@@ -28,6 +30,7 @@ SOURCES += aboutwindow.cpp \
            alexandra.cpp \
            editfilmwindow.cpp \
            film.cpp \
+           filminfowindow.cpp \
            filmslist.cpp \
            mainwindow.cpp \
            searchwindow.cpp \
@@ -37,6 +40,7 @@ SOURCES += aboutwindow.cpp \
 
 FORMS += aboutwindow.ui \
          addfilmwindow.ui \
+         filminfowindow.ui \
          mainwindow.ui \
          searchwindow.ui \
          settingswindow.ui
