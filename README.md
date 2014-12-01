@@ -27,12 +27,14 @@
 ###### Add film window (and Edit film window)
 ![Add and Edit film window](/doc/screenshots/03_AddEditFilmWindow.png "Add and Edit film window")
 
-###### Remove film window
-![Remove film window](/doc/screenshots/04_RemoveFilmWindow.png "Remove film window")
+###### Messages
+![Messages](/doc/screenshots/04_Messages.png "Messages")
 
-###### Search window
-![Search window](/doc/screenshots/05_SearchWindow.png "Search window")
+###### Filtering and Search window
+![Filtering and Search window](/doc/screenshots/05_SearchWindow.png "Filtering and Search window")
 
 ###### Preferences window
 ![Preferences window](/doc/screenshots/06_PreferencesWindow.png "Preferences window")
 
+###### Technical information window
+![Technical information window](/doc/screenshots/07_TechnicalInfo.png "Technical information window")
