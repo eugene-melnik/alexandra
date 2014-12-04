@@ -470,9 +470,6 @@
              <property name="text">
               <string>PLAY</string>
              </property>
-             <property name="shortcut">
-              <string>Alt+Return</string>
-             </property>
             </widget>
            </item>
           </layout>
@@ -620,7 +617,7 @@
     <string>&amp;Add film...</string>
    </property>
    <property name="shortcut">
-    <string notr="true">A</string>
+    <string notr="true">Ctrl+A</string>
    </property>
   </action>
   <action name="actionEdit">
@@ -632,7 +629,7 @@
     <string>Edit film...</string>
    </property>
    <property name="shortcut">
-    <string notr="true">E</string>
+    <string notr="true">Ctrl+E</string>
    </property>
   </action>
   <action name="actionRemove">
@@ -644,7 +641,7 @@
     <string>Remove film</string>
    </property>
    <property name="shortcut">
-    <string>Del</string>
+    <string notr="true">Ctrl+Del</string>
    </property>
   </action>
   <action name="actionRandom">
@@ -656,7 +653,7 @@
     <string>&amp;Random</string>
    </property>
    <property name="shortcut">
-    <string notr="true">R</string>
+    <string notr="true">Ctrl+R</string>
    </property>
   </action>
   <action name="actionSearch">
@@ -668,7 +665,7 @@
     <string>&amp;Search...</string>
    </property>
    <property name="shortcut">
-    <string notr="true">S</string>
+    <string notr="true">Ctrl+F</string>
    </property>
   </action>
   <action name="actionAboutQt">
