@@ -389,7 +389,7 @@
               <widget class="QPushButton" name="bViewed">
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
+                 <width>70</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -397,7 +397,17 @@
                 <string>Is viewed</string>
                </property>
                <property name="text">
-                <string notr="true">v</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset resource="icons/icons.qrc">
+                 <normaloff>:/action/viewed</normaloff>:/action/viewed</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
                <property name="checkable">
                 <bool>true</bool>
@@ -411,7 +421,7 @@
               <widget class="QPushButton" name="bFavourite">
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
+                 <width>70</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -419,7 +429,17 @@
                 <string>Is added to favourites</string>
                </property>
                <property name="text">
-                <string notr="true">+</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset resource="icons/icons.qrc">
+                 <normaloff>:/action/favourite</normaloff>:/action/favourite</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
                <property name="checkable">
                 <bool>true</bool>
@@ -433,7 +453,7 @@
               <widget class="QPushButton" name="bTechInformation">
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
+                 <width>70</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -441,7 +461,17 @@
                 <string>Show technical information</string>
                </property>
                <property name="text">
-                <string notr="true">i</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset resource="icons/icons.qrc">
+                 <normaloff>:/window/about</normaloff>:/window/about</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
                <property name="autoDefault">
                 <bool>false</bool>
@@ -469,6 +499,16 @@
              </property>
              <property name="text">
               <string>PLAY</string>
+             </property>
+             <property name="icon">
+              <iconset resource="icons/icons.qrc">
+               <normaloff>:/action/play</normaloff>:/action/play</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
              </property>
             </widget>
            </item>
