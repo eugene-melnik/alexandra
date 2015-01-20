@@ -1,7 +1,7 @@
 TARGET = alexandra
 TEMPLATE = app
 
-QT = core gui widgets
+QT = core gui widgets concurrent
 
 CONFIG += qt warn_on debug
 QMAKE_CXXFLAGS += -std=c++11

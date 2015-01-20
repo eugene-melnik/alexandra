@@ -63,10 +63,7 @@ MainWindow::~MainWindow()
 void MainWindow::closeEvent( QCloseEvent* event )
 {
     hide();
-
     SaveSettings();
-    twFilms->SaveDatabase( databaseFileName );
-
     event->accept();
 }
 
@@ -83,6 +80,7 @@ void MainWindow::DatabaseSettingsChanged()
 
 void MainWindow::DatabaseChanged()
 {
+    twFilms->SaveDatabase( databaseFileName );
     SetEditFunctionsEnabled( true );
     UpdateStatusBar();
 }

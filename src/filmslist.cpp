@@ -22,6 +22,7 @@
 #include "version.h"
 
 #include <algorithm>
+#include <QtConcurrentRun>
 #include <QDataStream>
 #include <QFile>
 #include <QFileInfo>
@@ -74,18 +75,8 @@ void FilmsList::LoadDatabase( QString databaseFileName )
 
 void FilmsList::SaveDatabase( QString databaseFileName )
 {
-    if( isDatabaseChanged )
-    {
-        QFile dbFile( databaseFileName );
-
-        if( dbFile.open( QIODevice::WriteOnly ) )
-        {
-            QDataStream stream( &dbFile );
-            stream << films;
-        }
-
-        dbFile.close();
-        isDatabaseChanged = false;
+    if( isDatabaseChanged ) {
+        QtConcurrent::run( this, &FilmsList::SaveDatabaseConcurrent, databaseFileName );
     }
 }
 
@@ -346,4 +337,18 @@ void FilmsList::SetCursorOnRow( int row )
         itemClicked( item( row, 0 ) );
         setCurrentItem( item( row, 0 ) ); // FIXME: fix this shi~
     }
+}
+
+void FilmsList::SaveDatabaseConcurrent( QString databaseFileName )
+{
+    QFile dbFile( databaseFileName );
+
+    if( dbFile.open( QIODevice::WriteOnly ) )
+    {
+        QDataStream stream( &dbFile );
+        stream << films;
+    }
+
+    dbFile.close();
+    isDatabaseChanged = false;
 }

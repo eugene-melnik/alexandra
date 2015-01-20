@@ -76,6 +76,7 @@ class FilmsList : public QTableWidget
 
     private:
         void SetCursorOnRow( int row );
+        void SaveDatabaseConcurrent( QString databaseFileName );
 
         // Variables
         QList<Film> films;
