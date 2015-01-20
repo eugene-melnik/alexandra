@@ -20,6 +20,7 @@
 
 #include "addfilmwindow.h"
 
+#include <QCheckBox>
 #include <QComboBox>
 #include <QCryptographicHash>
 #include <QFileDialog>
@@ -163,4 +164,6 @@ void AddFilmWindow::ClearFields()
     eProducer->clear();
     tStarring->clear();
     tDescription->clear();
+    cIsViewed->setChecked( false );
+    cIsFavourite->setChecked( false );
 }
