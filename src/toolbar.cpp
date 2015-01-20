@@ -24,51 +24,18 @@
 
 ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
 {
-    setContextMenuPolicy( Qt::PreventContextMenu ); // Disable context menu
+    // Disable context menu
+    setContextMenuPolicy( Qt::PreventContextMenu );
 
-    // Add film
-    tbaAdd = new QAction( QIcon( ":/tool/add" ), tr( "Add" ), this );
-    addAction( tbaAdd );
-    connect( tbaAdd, SIGNAL( triggered() ), this, SLOT( actionAddTriggered() ) );
-
-    // Edit film
-    tbaEdit = new QAction( QIcon( ":/tool/edit" ), tr( "Edit" ), this );
-    addAction( tbaEdit );
-    connect( tbaEdit, SIGNAL( triggered() ), this, SLOT( actionEditTriggered() ) );
-
-    // Remove film
-    tbaRemove = new QAction( QIcon( ":/tool/delete" ), tr( "Remove" ), this );
-    addAction( tbaRemove );
-    connect( tbaRemove, SIGNAL( triggered() ), this, SLOT( actionRemoveTriggered() ) );
-
+    // Items
+    tbaAdd = addAction( QIcon( ":/tool/add" ), tr( "Add" ), this, SLOT( actionAddTriggered()) );
+    tbaEdit = addAction( QIcon( ":/tool/edit" ), tr( "Edit" ), this, SLOT( actionEditTriggered() ) );
+    tbaRemove = addAction( QIcon( ":/tool/delete" ), tr( "Remove" ), this, SLOT( actionRemoveTriggered() ) );
     addSeparator();
-
-    // Random
-    tbaRandom = new QAction( QIcon( ":/tool/random" ), tr( "Random" ), this );
-    addAction( tbaRandom );
-    connect( tbaRandom, SIGNAL( triggered() ), this, SLOT( actionRandomTriggered() ) );
-
-    // Search
-    tbaSearch = new QAction( QIcon( ":/tool/find" ), tr( "Search" ), this );
-    addAction( tbaSearch );
-    connect( tbaSearch, SIGNAL( triggered() ), this, SLOT( actionSearchTriggered() ) );
-
+    tbaRandom = addAction( QIcon( ":/tool/random" ), tr( "Random" ), this, SLOT( actionRandomTriggered() ) );
+    tbaSearch = addAction( QIcon( ":/tool/find" ), tr( "Search" ), this, SLOT( actionSearchTriggered() ) );
     addSeparator();
-
-    // Exit
-    tbaExit = new QAction( QIcon( ":/action/exit" ), tr( "Exit" ), this );
-    addAction( tbaExit );
-    connect( tbaExit, SIGNAL( triggered() ), this, SLOT( actionExitTriggered() ) );
-}
-
-ToolBar::~ToolBar()
-{
-    delete tbaAdd;
-    delete tbaEdit;
-    delete tbaRemove;
-    delete tbaRandom;
-    delete tbaSearch;
-    delete tbaExit;
+    tbaExit = addAction( QIcon( ":/action/exit" ), tr( "Exit" ), this, SLOT( actionExitTriggered() ) );
 }
 
 void ToolBar::LoadSettings( QSettings* s )

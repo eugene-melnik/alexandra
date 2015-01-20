@@ -31,7 +31,6 @@ class ToolBar : public QToolBar
 
     public:
         ToolBar( QWidget* parent = nullptr );
-        ~ToolBar();
 
         void LoadSettings( QSettings* s );
 
