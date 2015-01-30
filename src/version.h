@@ -17,7 +17,7 @@ namespace Alexandra
 
         const quint8 major = 0;
         const quint8 minor = 9;
-        const quint8 fix = 4;
+        const quint8 fix = 5;
         const QString appVersionFull = QString( "%1.%2.%3" ).arg( major ).arg( minor ).arg( fix );
         const QString appBuildDate = QString( __DATE__ );
 
@@ -27,7 +27,8 @@ namespace Alexandra
             QString translator;
         } Locale;
 
-        const QList<Locale> supportedLocales = { { "English",    "en_US", appAuthor },
+        const QList<Locale> supportedLocales = { { "Czech",      "cs_CZ", "Pavel Fric (pfri@users.sf.net)" },
+                                                 { "English",    "en_US", appAuthor },
                                                  { "Russian",    "ru_RU", appAuthor },
                                                  { "Ukrainian",  "uk_UA", appAuthor } };
 }

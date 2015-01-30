@@ -45,7 +45,8 @@ FORMS += aboutwindow.ui \
          searchwindow.ui \
          settingswindow.ui
 
-TRANSLATIONS += lang/alexandra-ru.ts \
+TRANSLATIONS += lang/alexandra-cs.ts \
+                lang/alexandra-ru.ts \
                 lang/alexandra-uk.ts
 
 RESOURCES = lang/lang.qrc \
