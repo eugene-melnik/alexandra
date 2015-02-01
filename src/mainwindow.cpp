@@ -347,7 +347,7 @@ void MainWindow::SetNames()
 #ifdef Q_OS_LINUX
         externalPlayerName = "xdg-open";
 #else
-        externalPlayer.clear();
+        externalPlayerName.clear();
 #endif
         settings->setValue( "Application/ExternalPlayer", externalPlayerName );
     }

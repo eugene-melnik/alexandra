@@ -23,9 +23,16 @@
 
 #include "ui_filminfowindow.h"
 
-#include <MediaInfo/MediaInfo.h>
 #include <QDialog>
 #include <QString>
+
+#ifdef Q_OS_LINUX
+    #include <MediaInfo/MediaInfo.h>
+    #define MediaInfoNameSpace MediaInfoLib
+#elif defined(Q_OS_WIN32)
+    #include "MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
+#endif // MEDIAINFO_LIBRARY
 
 class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
 {
@@ -42,7 +49,7 @@ class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
         void LoadShortInfo();
         void LoadFullInfo();
 
-        MediaInfoLib::MediaInfo* mi = nullptr;
+        MediaInfoNameSpace::MediaInfo* mi = nullptr;
         QString shortInfo;
         QString fullInfo;
 };

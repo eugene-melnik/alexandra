@@ -34,7 +34,7 @@ FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
 
-    mi = new MediaInfoLib::MediaInfo();
+    mi = new MediaInfoNameSpace::MediaInfo();
     mi->Option( __T( "CharSet" ), __T( "UTF-8" ) );
 }
 
@@ -59,15 +59,15 @@ const QString &FilmInfoWindow::GetShortTechInfo() const
 void FilmInfoWindow::LoadShortInfo()
 {
     // First line
-    shortInfo = wstring2QString( mi->Get( MediaInfoLib::Stream_General, 0, __T( "Format" ) ).c_str() ) + " | ";
-    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_General, 0, __T( "FileSize/String3" ) ).c_str() ) + " | ";
-    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_General, 0, __T( "OverallBitRate/String" ) ).c_str() ) + "<br/>";
+    shortInfo = wstring2QString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Format" ) ).c_str() ) + " | ";
+    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "FileSize/String3" ) ).c_str() ) + " | ";
+    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "OverallBitRate/String" ) ).c_str() ) + "<br/>";
     // Second line
-    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_Video, 0, __T( "Width" ) ).c_str() ) + "&times;";
-    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_Video, 0, __T( "Height" ) ).c_str() ) + " px | ";
-    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_Video, 0, __T( "FrameRate/String" ) ).c_str() ) + "<br/>";
+    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "Width" ) ).c_str() ) + "&times;";
+    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "Height" ) ).c_str() ) + " px | ";
+    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "FrameRate/String" ) ).c_str() ) + "<br/>";
     // Third line
-    shortInfo += wstring2QString( mi->Get( MediaInfoLib::Stream_General, 0, __T( "Duration/String" ) ).c_str() );
+    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Duration/String" ) ).c_str() );
 }
 
 void FilmInfoWindow::LoadFullInfo()
