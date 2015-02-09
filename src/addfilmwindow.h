@@ -39,6 +39,8 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
     protected:
         void showEvent( QShowEvent* event );
 
+        QString filmId;
+
     signals:
         void PosterMovingError();
         void Done( Film f );

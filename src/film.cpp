@@ -26,12 +26,14 @@
 
 Film::Film()
 {
+    isPosterExists = false;
     isViewed = false;
     isFavourite = false;
 }
 
 Film::Film( const Film& other )
 {
+    id = other.id;
     fileName = other.fileName;
     title = other.title;
     originalTitle = other.originalTitle;
@@ -44,8 +46,8 @@ Film::Film( const Film& other )
     starring = other.starring;
     description = other.description;
     rating = other.rating;
-    posterName = other.posterName;
     tags = other.tags;
+    isPosterExists = other.isPosterExists;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;
 }
@@ -69,9 +71,15 @@ bool Film::operator == ( const Film& other ) const
     return( title == other.title );
 }
 
+const QString &Film::GetId() const
+{
+    return( id );
+}
+
 QDataStream& operator << ( QDataStream& out, const Film& f )
 {
-    out << f.fileName
+    out << f.id
+        << f.fileName
         << f.title
         << f.originalTitle
         << f.tagline
@@ -83,8 +91,8 @@ QDataStream& operator << ( QDataStream& out, const Film& f )
         << f.starring
         << f.description
         << f.rating
-        << f.posterName
         << f.tags
+        << f.isPosterExists
         << f.isViewed
         << f.isFavourite;
 
@@ -93,7 +101,8 @@ QDataStream& operator << ( QDataStream& out, const Film& f )
 
 QDataStream& operator >> ( QDataStream& in, Film& f )
 {
-    in >> f.fileName
+    in >> f.id
+       >> f.fileName
        >> f.title
        >> f.originalTitle
        >> f.tagline
@@ -105,8 +114,8 @@ QDataStream& operator >> ( QDataStream& in, Film& f )
        >> f.starring
        >> f.description
        >> f.rating
-       >> f.posterName
        >> f.tags
+       >> f.isPosterExists
        >> f.isViewed
        >> f.isFavourite;
 
@@ -187,14 +196,14 @@ QString Film::GetRatingStr() const
     return( QString( "%1/10" ).arg( rating ) );
 }
 
-const QString& Film::GetPosterName() const
-{
-    return( posterName );
-}
-
 const QString &Film::GetTags() const
 {
     return( tags );
+}
+
+bool Film::GetIsPosterExists() const
+{
+    return( isPosterExists );
 }
 
 bool Film::GetIsViewed() const
@@ -220,6 +229,11 @@ QString Film::GetIsFavouriteSign() const
 /*************************************************************************************************
  *  Setters                                                                                       *
   *************************************************************************************************/
+
+void Film::SetId( const QString &s )
+{
+    id = s;
+}
 
 void Film::SetFileName( const QString& s )
 {
@@ -295,14 +309,14 @@ bool Film::SetRatingFromStr( const QString& s )
     return( ok );
 }
 
-void Film::SetPosterName( const QString& s )
-{
-    posterName = s;
-}
-
 void Film::SetTags( const QString &s )
 {
     tags = s;
+}
+
+void Film::SetIsPosterExists( bool b )
+{
+    isPosterExists = b;
 }
 
 void Film::SetIsViewed( bool b )
@@ -330,7 +344,7 @@ void Film::SetNewData( const Film& other )
     description = other.description;
     tags = other.tags;
     rating = other.rating;
-    posterName = other.posterName;
+    isPosterExists = other.isPosterExists;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;
 }

@@ -154,7 +154,7 @@ void MainWindow::FilmSelected( const Film* f )
     lTechInformation->clear();
 
     // Poster
-    QPixmap p( postersFolderName + "/" + f->GetPosterName() );
+    QPixmap p( postersFolderName + "/" + f->GetId() + ".png" );
 
     if( p.isNull() ) {
         p.load( ":/standart-poster" );

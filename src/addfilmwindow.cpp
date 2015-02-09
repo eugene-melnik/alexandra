@@ -43,6 +43,7 @@ AddFilmWindow::AddFilmWindow( QSettings* s, QWidget* parent ) : QDialog( parent 
 
 void AddFilmWindow::showEvent( QShowEvent* event)
 {
+    filmId = QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() );
     ClearFields();
     event->accept();
 }
@@ -100,6 +101,7 @@ void AddFilmWindow::OkButtonClicked()
 
     // Text data
     Film f;
+    f.SetId( filmId );
     f.SetFileName( eFilmFileName->text() );
     f.SetTitle( eTitle->text() );
     f.SetOriginalTitle( eOriginalTitle->text() );
@@ -119,14 +121,13 @@ void AddFilmWindow::OkButtonClicked()
     // Manipulations with poster
     QString posterFileName = ePosterFileName->text();
 
-    if( !posterFileName.isEmpty() ) {
+    if( !posterFileName.isEmpty() )
+    {
         QString postersFolder = settings->value( "FilmList/PostersFolder" ).toString();
         int newHeight = settings->value( "FilmList/ScalePosters", 0 ).toInt();
 
-        if( QFileInfo( ePosterFileName->text() ).absolutePath() == postersFolder ) {
-            // If poster is already in posters' folder
-            f.SetPosterName( QFileInfo( posterFileName ).fileName() );
-        } else {
+        if( !( QFileInfo( ePosterFileName->text() ).absolutePath() == postersFolder ) )
+        {
             QPixmap p( posterFileName );
 
             // Scale to height
@@ -135,15 +136,16 @@ void AddFilmWindow::OkButtonClicked()
             }
 
             // Move to posters' folder
-            QString newPosterFileName = postersFolder + "/"
-                        + QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() ) + ".png";
+            QString newPosterFileName = postersFolder + "/" + f.GetId() + ".png";
 
-            if( p.save( newPosterFileName ) ) {
-                f.SetPosterName( QFileInfo( newPosterFileName ).fileName() );
-            } else {
+            if( !p.save( newPosterFileName ) )
+            {
+                f.SetIsPosterExists( false );
                 emit PosterMovingError();
             }
         }
+
+        f.SetIsPosterExists( true );
     }
 
     close();

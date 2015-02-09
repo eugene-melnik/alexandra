@@ -59,9 +59,6 @@
        <property name="placeholderText">
         <string notr="true">...</string>
        </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
-       </property>
       </widget>
      </item>
      <item>
@@ -107,9 +104,6 @@
        </property>
        <property name="placeholderText">
         <string notr="true">...</string>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -272,6 +266,9 @@
        <property name="maxLength">
         <number>200</number>
        </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -298,6 +295,9 @@
        </property>
        <property name="maxLength">
         <number>200</number>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -400,6 +400,9 @@
        <property name="maxLength">
         <number>200</number>
        </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -426,6 +429,9 @@
        </property>
        <property name="maxLength">
         <number>500</number>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -504,6 +510,9 @@
       <widget class="QLineEdit" name="eTags">
        <property name="maxLength">
         <number>500</number>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

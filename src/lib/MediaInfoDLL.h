@@ -322,7 +322,7 @@ extern "C"
     typedef size_t (__stdcall *MEDIAINFOLIST_Count_Get)(void*, size_t, MediaInfo_stream_C StreamKind, size_t StreamNumber);
     static MEDIAINFOLIST_Count_Get MediaInfoList_Count_Get;
     typedef size_t (__stdcall *MEDIAINFO_Count_Get_Files)(void*);
-    static MEDIAINFO_Count_Get_Files MediaInfo_Count_Get_Files;
+//    static MEDIAINFO_Count_Get_Files MediaInfo_Count_Get_Files;
     typedef size_t (__stdcall *MEDIAINFOLIST_Count_Get_Files)(void*);
     static MEDIAINFOLIST_Count_Get_Files MediaInfoList_Count_Get_Files;
 

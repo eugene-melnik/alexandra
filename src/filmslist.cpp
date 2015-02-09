@@ -132,7 +132,7 @@ const QString& FilmsList::GetCurrentFilmFileName() const
 void FilmsList::RemoveCurrentFilm()
 {
     // Remove poster image
-    QString posterFileName = settings->value( "FilmList/PostersFolder" ).toString() + "/" + currentFilm->GetPosterName();
+    QString posterFileName = settings->value( "FilmList/PostersFolder" ).toString() + "/" + currentFilm->GetId() + ".png";
     QFile( posterFileName ).remove();
 
     // Remove record from database

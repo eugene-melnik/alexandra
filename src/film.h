@@ -40,6 +40,7 @@ class Film
         friend QDataStream& operator >> ( QDataStream& in, Film& f );
 
         // Getters
+        const QString& GetId() const;
         const QString& GetFileName() const;
         const QString& GetTitle() const;
         const QString& GetOriginalTitle() const;
@@ -54,15 +55,16 @@ class Film
         const QString& GetDescription() const;
         quint8 GetRating() const;
         QString GetRatingStr() const;
-        const QString& GetPosterName() const;
         const QString& GetTags() const;
 
+        bool GetIsPosterExists() const;
         bool GetIsViewed() const;
         QString GetIsViewedSign() const;
         bool GetIsFavourite() const;
         QString GetIsFavouriteSign() const;
 
         // Setters
+        void SetId( const QString& s );
         void SetFileName( const QString& s );
         void SetTitle( const QString& s );
         void SetOriginalTitle( const QString& s );
@@ -77,15 +79,16 @@ class Film
         void SetDescription( const QString& s );
         void SetRating( quint8 n );
         bool SetRatingFromStr( const QString& s );
-        void SetPosterName( const QString& s );
         void SetTags( const QString& s );
 
+        void SetIsPosterExists( bool b );
         void SetIsViewed( bool b );
         void SetIsFavourite( bool b );
 
         void SetNewData( const Film& other );
 
     private:
+        QString id;
         QString fileName;
         QString title;
         QString originalTitle;
@@ -98,9 +101,9 @@ class Film
         QString starring;
         QString description;
         quint8  rating;
-        QString posterName;
         QString tags;
 
+        bool isPosterExists;
         bool isViewed;
         bool isFavourite;
 };

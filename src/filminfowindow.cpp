@@ -22,13 +22,6 @@
 
 #include <QPlainTextEdit>
 #include <QPushButton>
-#include <ZenLib/Ztring.h>
-
-// Thanks to Mediainfo project :)
-#define wstring2QString(_DATA) \
-    QString::fromUtf8(ZenLib::Ztring(_DATA).To_UTF8().c_str())
-#define QString2wstring(_DATA) \
-    ZenLib::Ztring().From_UTF8(_DATA.toUtf8())
 
 FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
 {
@@ -45,7 +38,7 @@ FilmInfoWindow::~FilmInfoWindow()
 
 void FilmInfoWindow::SetCurrentFile( const QString& f )
 {
-    mi->Open( QString2wstring( f ) );
+    mi->Open( MediaInfoNameSpace::String( f.toStdWString() ) );
     LoadFullInfo();
     LoadShortInfo();
     mi->Close();
@@ -59,20 +52,20 @@ const QString &FilmInfoWindow::GetShortTechInfo() const
 void FilmInfoWindow::LoadShortInfo()
 {
     // First line
-    shortInfo = wstring2QString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Format" ) ).c_str() ) + " | ";
-    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "FileSize/String3" ) ).c_str() ) + " | ";
-    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "OverallBitRate/String" ) ).c_str() ) + "<br/>";
+    shortInfo =  QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Format" ) ) ) + " | ";
+    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "FileSize/String3" ) ) ) + " | ";
+    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "OverallBitRate/String" ) ) ) + "<br/>";
     // Second line
-    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "Width" ) ).c_str() ) + "&times;";
-    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "Height" ) ).c_str() ) + " px | ";
-    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "FrameRate/String" ) ).c_str() ) + "<br/>";
+    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "Width" ) ) ) + "&times;";
+    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "Height" ) ) ) + " px | ";
+    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "FrameRate/String" ) ) ) + "<br/>";
     // Third line
-    shortInfo += wstring2QString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Duration/String" ) ).c_str() );
+    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Duration/String" ) ) );
 }
 
 void FilmInfoWindow::LoadFullInfo()
 {
     mi->Option( __T( "Complete" ) );
-    fullInfo = wstring2QString( mi->Inform().c_str() );
+    fullInfo = QString::fromStdWString( mi->Inform() );
     eTechInfo->setPlainText( fullInfo );
 }
