@@ -18,8 +18,8 @@ LIBS += -lz -lpthread -lstdc++
 
 linux:LIBS += -lmediainfo
 
-win32:LIBS += $$PWD\lib\MediaInfo.dll
-win32:INCLUDEPATH += $$PWD\lib\
+win32:LIBS += $$PWD\..\lib\MediaInfo.dll
+win32:INCLUDEPATH += $$PWD\..\lib\
 
 HEADERS += aboutwindow.h \
            addfilmwindow.h \
