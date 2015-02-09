@@ -15,7 +15,11 @@ QMAKE_CXXFLAGS += -std=c++11 #-flto
 DEFINES += _UNICODE UNICODE
 
 LIBS += -lz -lpthread -lstdc++
-linux:LIBS += -lmediainfo -lzen
+
+linux:LIBS += -lmediainfo
+
+win32:LIBS += $$PWD\lib\MediaInfo.dll
+win32:INCLUDEPATH += $$PWD\lib\
 
 HEADERS += aboutwindow.h \
            addfilmwindow.h \
@@ -57,29 +61,3 @@ TRANSLATIONS += lang/alexandra-cs.ts \
 RESOURCES = lang/lang.qrc \
             icons/icons.qrc \
             images/images.qrc
-
- ###################################################################
-#                                                                   #
-#  "Crutches" for Windows                                           #
-#                                                                   #
- ###################################################################
-
-win32:LIBS += $$PWD\lib\MediaInfo.dll
-win32:INCLUDEPATH += $$PWD\lib\
-
-win32:HEADERS += ZenLib/Conf.h \
-                 ZenLib/File.h \
-                 ZenLib/int128u.h \
-                 ZenLib/MemoryDebug.h \
-                 ZenLib/Utils.h \
-                 ZenLib/Ztring.h \
-                 ZenLib/ZtringList.h
-
-win32:SOURCES += ZenLib/Conf.cpp \
-                 ZenLib/File.cpp \
-                 ZenLib/int128u.cpp \
-                 ZenLib/MemoryDebug.cpp \
-                 ZenLib/Utils.cpp \
-                 ZenLib/Ztring.cpp \
-                 ZenLib/ZtringList.cpp
-
