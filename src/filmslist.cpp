@@ -51,6 +51,7 @@ void FilmsList::LoadDatabase( QString databaseFileName )
 
         currentFilm = nullptr;
         emit DatabaseChanged();
+        SetCursorOnRow( settings->value( "FilmList/CurrentRow" ).toInt() );
 
         if( films.isEmpty() )  // Database is empty
         {
@@ -102,6 +103,9 @@ void FilmsList::SaveSettings( QSettings* s ) const
     s->setValue( "FilmList/YearColumnWidth", columnWidth( YearColumn ) );
     s->setValue( "FilmList/GenreColumnWidth", columnWidth( GenreColumn ) );
     s->setValue( "FilmList/DirectorColumnWidth", columnWidth( DirectorColumn ) );
+
+    // Current row
+    s->setValue( "FilmList/CurrentRow", currentRow() );
 }
 
 int FilmsList::GetNumberOfFilms() const
