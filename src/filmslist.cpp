@@ -178,20 +178,12 @@ int FilmsList::GetIsFavouriteCount() const
 
 void FilmsList::AppendFilm( Film f )
 {
-    // Checking for film with the same title
-    foreach( Film ff, films ) {
-        if( ff.GetTitle() == f.GetTitle() ) {
-            f.SetTitle( f.GetTitle() + tr( " [another one]" ) );
-            break;
-        }
-    }
-
-    // Adding
     films.append( f );
     std::sort( films.begin(), films.end() );
     isDatabaseChanged = true;
 
     emit DatabaseChanged();
+    SetCursorOnFilm( f.GetTitle() );
 }
 
 void FilmsList::EditCurrentFilm( Film f )
@@ -340,6 +332,16 @@ void FilmsList::SetCursorOnRow( int row )
         }
         itemClicked( item( row, 0 ) );
         setCurrentItem( item( row, 0 ) ); // FIXME: fix this shi~
+    }
+}
+
+void FilmsList::SetCursorOnFilm( const QString& title )
+{
+    for( int row = 0; row < rowCount(); row++ ) {
+        if( item( row, TitleColumn )->text() == title ) {
+            SetCursorOnRow( row );
+            return;
+        }
     }
 }
 
