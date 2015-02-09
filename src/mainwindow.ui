@@ -290,6 +290,16 @@
               </widget>
              </item>
              <item>
+              <widget class="QLabel" name="lTags">
+               <property name="text">
+                <string notr="true">&lt;tags&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
               <spacer name="vsCenter">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>

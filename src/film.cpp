@@ -45,6 +45,7 @@ Film::Film( const Film& other )
     description = other.description;
     rating = other.rating;
     posterName = other.posterName;
+    tags = other.tags;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;
 }
@@ -83,6 +84,7 @@ QDataStream& operator << ( QDataStream& out, const Film& f )
         << f.description
         << f.rating
         << f.posterName
+        << f.tags
         << f.isViewed
         << f.isFavourite;
 
@@ -104,6 +106,7 @@ QDataStream& operator >> ( QDataStream& in, Film& f )
        >> f.description
        >> f.rating
        >> f.posterName
+       >> f.tags
        >> f.isViewed
        >> f.isFavourite;
 
@@ -187,6 +190,11 @@ QString Film::GetRatingStr() const
 const QString& Film::GetPosterName() const
 {
     return( posterName );
+}
+
+const QString &Film::GetTags() const
+{
+    return( tags );
 }
 
 bool Film::GetIsViewed() const
@@ -292,6 +300,11 @@ void Film::SetPosterName( const QString& s )
     posterName = s;
 }
 
+void Film::SetTags( const QString &s )
+{
+    tags = s;
+}
+
 void Film::SetIsViewed( bool b )
 {
     isViewed = b;
@@ -315,6 +328,7 @@ void Film::SetNewData( const Film& other )
     producer = other.producer;
     starring = other.starring;
     description = other.description;
+    tags = other.tags;
     rating = other.rating;
     posterName = other.posterName;
     isViewed = other.isViewed;

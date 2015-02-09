@@ -147,6 +147,7 @@ void MainWindow::FilmSelected( const Film* f )
     lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->GetStarring() ) );
     lRating->setText( tr( "<b>Rating:</b> %1" ).arg( f->GetRatingStr() ) );
     lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->GetDescription() ) );
+    lTags->setText( tr( "<b>Tags:</b> %1" ).arg( f->GetTags() ) );
 
     bViewed->setChecked( f->GetIsViewed() );
     bFavourite->setChecked( f->GetIsFavourite() );

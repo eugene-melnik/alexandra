@@ -153,12 +153,17 @@
         <translation>Shrnutí děje, zápletka</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="500"/>
+        <location filename="../addfilmwindow.ui" line="499"/>
+        <source>Tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="524"/>
         <source>Is viewed</source>
         <translation>Zhlédnuto</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="514"/>
+        <location filename="../addfilmwindow.ui" line="538"/>
         <source>Is favourite</source>
         <translation>Oblíbený</translation>
     </message>
@@ -276,109 +281,109 @@
         <translation>&lt;Pište pro hledání&gt;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="397"/>
+        <location filename="../mainwindow.ui" line="407"/>
         <source>Is viewed</source>
         <translation>Zhlédnuto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="429"/>
+        <location filename="../mainwindow.ui" line="439"/>
         <source>Is added to favourites</source>
         <translation>Přidán do oblíbených</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="461"/>
+        <location filename="../mainwindow.ui" line="471"/>
         <source>Show technical information</source>
         <translation>Ukázat technické údaje</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="498"/>
+        <location filename="../mainwindow.ui" line="508"/>
         <source>Open film in external player</source>
         <translation>Otevřít film ve vnějším přehrávači</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="501"/>
-        <location filename="../mainwindow.cpp" line="198"/>
+        <location filename="../mainwindow.ui" line="511"/>
+        <location filename="../mainwindow.cpp" line="199"/>
         <source>PLAY</source>
         <translation>PŘEHRÁT</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="548"/>
+        <location filename="../mainwindow.ui" line="558"/>
         <source>&amp;File</source>
         <translation>&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="554"/>
+        <location filename="../mainwindow.ui" line="564"/>
         <source>&amp;Help</source>
         <translation>Nápo&amp;věda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="561"/>
+        <location filename="../mainwindow.ui" line="571"/>
         <source>&amp;Edit</source>
         <translation>Úp&amp;ravy</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="569"/>
+        <location filename="../mainwindow.ui" line="579"/>
         <source>Fil&amp;ms</source>
         <translation>Fil&amp;my</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="601"/>
+        <location filename="../mainwindow.ui" line="611"/>
         <source>E&amp;xit</source>
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="604"/>
+        <location filename="../mainwindow.ui" line="614"/>
         <source>Exit the program and save all data</source>
         <translation>Ukončit program a uložit všechna data</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="616"/>
+        <location filename="../mainwindow.ui" line="626"/>
         <source>&amp;About...</source>
         <translation>&amp;O programu...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="630"/>
+        <location filename="../mainwindow.ui" line="640"/>
         <source>Show toolbar</source>
         <translation>Ukázat nástrojový pruh</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="633"/>
+        <location filename="../mainwindow.ui" line="643"/>
         <source>Show or hide the toolbar</source>
         <translation>Ukázat nebo skrýt nástrojový pruh</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="645"/>
+        <location filename="../mainwindow.ui" line="655"/>
         <source>Settings...</source>
         <translation>Nastavení...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="657"/>
+        <location filename="../mainwindow.ui" line="667"/>
         <source>&amp;Add film...</source>
         <translation>&amp;Přidat film...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="669"/>
+        <location filename="../mainwindow.ui" line="679"/>
         <source>Edit film...</source>
         <translation>Upravit film...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="681"/>
+        <location filename="../mainwindow.ui" line="691"/>
         <location filename="../mainwindow.cpp" line="116"/>
         <source>Remove film</source>
         <translation>Odstranit film</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="693"/>
+        <location filename="../mainwindow.ui" line="703"/>
         <source>&amp;Random</source>
         <translation>&amp;Náhodný</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="705"/>
+        <location filename="../mainwindow.ui" line="715"/>
         <source>&amp;Search...</source>
         <translation>&amp;Hledat...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="717"/>
+        <location filename="../mainwindow.ui" line="727"/>
         <source>About Qt...</source>
         <translation>O Qt...</translation>
     </message>
@@ -470,7 +475,12 @@
         <translation>&lt;b&gt;Popis:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="192"/>
+        <location filename="../mainwindow.cpp" line="150"/>
+        <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="193"/>
         <source>STOP</source>
         <translation>ZASTAVIT</translation>
     </message>
@@ -488,50 +498,55 @@
         <translation>Hledat v</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="40"/>
+        <location filename="../searchwindow.ui" line="50"/>
         <location filename="../searchwindow.cpp" line="34"/>
         <source>Title</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="50"/>
+        <location filename="../searchwindow.ui" line="60"/>
         <location filename="../searchwindow.cpp" line="36"/>
         <source>Genre</source>
         <translation>Žánr</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="60"/>
+        <location filename="../searchwindow.ui" line="70"/>
         <source>Starring</source>
         <translation>V hlavní roli</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="70"/>
+        <location filename="../searchwindow.ui" line="108"/>
         <source>Description</source>
         <translation>Popis</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="81"/>
+        <location filename="../searchwindow.ui" line="84"/>
         <location filename="../searchwindow.cpp" line="37"/>
         <source>Director</source>
         <translation>Režisér</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="91"/>
+        <location filename="../searchwindow.ui" line="40"/>
+        <source>Tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../searchwindow.ui" line="94"/>
         <source>Producer</source>
         <translation>Výrobce</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="98"/>
+        <location filename="../searchwindow.ui" line="101"/>
         <source>Country</source>
         <translation>Země</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="123"/>
+        <location filename="../searchwindow.ui" line="120"/>
         <source>Status</source>
         <translation>Stav</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="131"/>
+        <location filename="../searchwindow.ui" line="128"/>
         <source>Viewed</source>
         <translation>Zhlédnuto</translation>
     </message>
@@ -541,32 +556,32 @@
         <translation>Nezhlédnuto</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="145"/>
+        <location filename="../searchwindow.ui" line="148"/>
         <source>Favourite</source>
         <translation>Oblíbený</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="152"/>
+        <location filename="../searchwindow.ui" line="158"/>
         <source>Not favourite</source>
         <translation>Neoblíbený</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="179"/>
+        <location filename="../searchwindow.ui" line="188"/>
         <source>Keywords</source>
         <translation>Klíčová slova</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="188"/>
+        <location filename="../searchwindow.ui" line="197"/>
         <source>Search</source>
         <translation>Hledat</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="198"/>
+        <location filename="../searchwindow.ui" line="207"/>
         <source>Result</source>
         <translation>Výsledek</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="234"/>
+        <location filename="../searchwindow.ui" line="243"/>
         <source>Total founded: 0</source>
         <translation>Celkem nalezeno: 0</translation>
     </message>

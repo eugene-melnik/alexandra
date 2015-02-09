@@ -35,6 +35,16 @@
         <item>
          <layout class="QVBoxLayout" name="vl1">
           <item>
+           <widget class="QCheckBox" name="checkBox_5">
+            <property name="text">
+             <string>Tags</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="cTitle">
             <property name="text">
              <string>Title</string>
@@ -64,13 +74,6 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QCheckBox" name="cDescription">
-            <property name="text">
-             <string>Description</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
         <item>
@@ -81,7 +84,7 @@
              <string>Director</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -100,17 +103,11 @@
            </widget>
           </item>
           <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+           <widget class="QCheckBox" name="cDescription">
+            <property name="text">
+             <string>Description</string>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
+           </widget>
           </item>
          </layout>
         </item>
@@ -130,12 +127,18 @@
             <property name="text">
              <string>Viewed</string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="QCheckBox" name="checkBox">
             <property name="text">
              <string>Not viewed</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -144,12 +147,18 @@
             <property name="text">
              <string>Favourite</string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="QCheckBox" name="checkBox_4">
             <property name="text">
              <string>Not favourite</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

@@ -112,6 +112,7 @@ void AddFilmWindow::OkButtonClicked()
     f.SetProducer( eProducer->text() );
     f.SetStarring( tStarring->toPlainText() );
     f.SetDescription( tDescription->toPlainText() );
+    f.SetTags( eTags->text() );
     f.SetIsViewed( cIsViewed->isChecked() );
     f.SetIsFavourite( cIsFavourite->isChecked() );
 
@@ -164,6 +165,7 @@ void AddFilmWindow::ClearFields()
     eProducer->clear();
     tStarring->clear();
     tDescription->clear();
+    eTags->clear();
     cIsViewed->setChecked( false );
     cIsFavourite->setChecked( false );
 }

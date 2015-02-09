@@ -153,12 +153,17 @@
         <translation>Короткий переказ сюжету</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="500"/>
+        <location filename="../addfilmwindow.ui" line="499"/>
+        <source>Tags</source>
+        <translation>Мітки</translation>
+    </message>
+    <message>
+        <location filename="../addfilmwindow.ui" line="524"/>
         <source>Is viewed</source>
         <translation>Переглянутий</translation>
     </message>
     <message>
-        <location filename="../addfilmwindow.ui" line="514"/>
+        <location filename="../addfilmwindow.ui" line="538"/>
         <source>Is favourite</source>
         <translation>Улюблений</translation>
     </message>
@@ -276,109 +281,109 @@
         <translation>&lt;введіть для пошуку&gt;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="397"/>
+        <location filename="../mainwindow.ui" line="407"/>
         <source>Is viewed</source>
         <translation>Переглянутий</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="429"/>
+        <location filename="../mainwindow.ui" line="439"/>
         <source>Is added to favourites</source>
         <translation>Доданий до обраного</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="461"/>
+        <location filename="../mainwindow.ui" line="471"/>
         <source>Show technical information</source>
         <translation>Показати технічну інформацію</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="498"/>
+        <location filename="../mainwindow.ui" line="508"/>
         <source>Open film in external player</source>
         <translation>Відтворити фільм у зовнішньому програвачі</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="501"/>
-        <location filename="../mainwindow.cpp" line="198"/>
+        <location filename="../mainwindow.ui" line="511"/>
+        <location filename="../mainwindow.cpp" line="199"/>
         <source>PLAY</source>
         <translation>ВІДТВОРИТИ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="548"/>
+        <location filename="../mainwindow.ui" line="558"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="554"/>
+        <location filename="../mainwindow.ui" line="564"/>
         <source>&amp;Help</source>
         <translation>&amp;Допомога</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="561"/>
+        <location filename="../mainwindow.ui" line="571"/>
         <source>&amp;Edit</source>
         <translation>&amp;Правка</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="569"/>
+        <location filename="../mainwindow.ui" line="579"/>
         <source>Fil&amp;ms</source>
         <translation>Філь&amp;ми</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="601"/>
+        <location filename="../mainwindow.ui" line="611"/>
         <source>E&amp;xit</source>
         <translation>В&amp;ихід</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="604"/>
+        <location filename="../mainwindow.ui" line="614"/>
         <source>Exit the program and save all data</source>
         <translation>Вийти з программи зі збереженням усієї інформації</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="616"/>
+        <location filename="../mainwindow.ui" line="626"/>
         <source>&amp;About...</source>
         <translation>П&amp;ро програму...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="630"/>
+        <location filename="../mainwindow.ui" line="640"/>
         <source>Show toolbar</source>
         <translation>Показати панель інструментів</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="633"/>
+        <location filename="../mainwindow.ui" line="643"/>
         <source>Show or hide the toolbar</source>
         <translation>Показати або приховати панель інструментів</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="645"/>
+        <location filename="../mainwindow.ui" line="655"/>
         <source>Settings...</source>
         <translation>Налаштування...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="657"/>
+        <location filename="../mainwindow.ui" line="667"/>
         <source>&amp;Add film...</source>
         <translation>&amp;Додати фільм...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="669"/>
+        <location filename="../mainwindow.ui" line="679"/>
         <source>Edit film...</source>
         <translation>Редагувати фільм...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="681"/>
+        <location filename="../mainwindow.ui" line="691"/>
         <location filename="../mainwindow.cpp" line="116"/>
         <source>Remove film</source>
         <translation>Видалити фільм</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="693"/>
+        <location filename="../mainwindow.ui" line="703"/>
         <source>&amp;Random</source>
         <translation>&amp;Випадковий</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="705"/>
+        <location filename="../mainwindow.ui" line="715"/>
         <source>&amp;Search...</source>
         <translation>П&amp;ошук...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="717"/>
+        <location filename="../mainwindow.ui" line="727"/>
         <source>About Qt...</source>
         <translation>Про Qt...</translation>
     </message>
@@ -470,7 +475,12 @@
         <translation>&lt;b&gt;Опис:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="192"/>
+        <location filename="../mainwindow.cpp" line="150"/>
+        <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Мітки:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="193"/>
         <source>STOP</source>
         <translation>Зупинити</translation>
     </message>
@@ -488,35 +498,40 @@
         <translation>Шукати в</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="40"/>
+        <location filename="../searchwindow.ui" line="50"/>
         <location filename="../searchwindow.cpp" line="34"/>
         <source>Title</source>
         <translation>Назва</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="50"/>
+        <location filename="../searchwindow.ui" line="60"/>
         <location filename="../searchwindow.cpp" line="36"/>
         <source>Genre</source>
         <translation>Жанр</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="70"/>
+        <location filename="../searchwindow.ui" line="108"/>
         <source>Description</source>
         <translation>Опис</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="81"/>
+        <location filename="../searchwindow.ui" line="84"/>
         <location filename="../searchwindow.cpp" line="37"/>
         <source>Director</source>
         <translation>Режисер</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="123"/>
+        <location filename="../searchwindow.ui" line="40"/>
+        <source>Tags</source>
+        <translation>Мітки</translation>
+    </message>
+    <message>
+        <location filename="../searchwindow.ui" line="120"/>
         <source>Status</source>
         <translation>Стан</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="131"/>
+        <location filename="../searchwindow.ui" line="128"/>
         <source>Viewed</source>
         <translation>Переглянуто</translation>
     </message>
@@ -526,27 +541,27 @@
         <translation>Не переглянуто</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="145"/>
+        <location filename="../searchwindow.ui" line="148"/>
         <source>Favourite</source>
         <translation>Улюблений</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="152"/>
+        <location filename="../searchwindow.ui" line="158"/>
         <source>Not favourite</source>
         <translation>Не улюблений</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="60"/>
+        <location filename="../searchwindow.ui" line="70"/>
         <source>Starring</source>
         <translation>В ролях</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="91"/>
+        <location filename="../searchwindow.ui" line="94"/>
         <source>Producer</source>
         <translation>Продюсер</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="98"/>
+        <location filename="../searchwindow.ui" line="101"/>
         <source>Country</source>
         <translation>Держава</translation>
     </message>
@@ -556,22 +571,22 @@
         <translation>Рік</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="179"/>
+        <location filename="../searchwindow.ui" line="188"/>
         <source>Keywords</source>
         <translation>Ключові слова</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="188"/>
+        <location filename="../searchwindow.ui" line="197"/>
         <source>Search</source>
         <translation>Пошук</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="198"/>
+        <location filename="../searchwindow.ui" line="207"/>
         <source>Result</source>
         <translation>Результат</translation>
     </message>
     <message>
-        <location filename="../searchwindow.ui" line="234"/>
+        <location filename="../searchwindow.ui" line="243"/>
         <source>Total founded: 0</source>
         <translation>Всього знайдено: 0</translation>
     </message>

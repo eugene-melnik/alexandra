@@ -55,6 +55,7 @@ class Film
         quint8 GetRating() const;
         QString GetRatingStr() const;
         const QString& GetPosterName() const;
+        const QString& GetTags() const;
 
         bool GetIsViewed() const;
         QString GetIsViewedSign() const;
@@ -77,6 +78,7 @@ class Film
         void SetRating( quint8 n );
         bool SetRatingFromStr( const QString& s );
         void SetPosterName( const QString& s );
+        void SetTags( const QString& s );
 
         void SetIsViewed( bool b );
         void SetIsFavourite( bool b );
@@ -97,6 +99,7 @@ class Film
         QString description;
         quint8  rating;
         QString posterName;
+        QString tags;
 
         bool isViewed;
         bool isFavourite;
