@@ -29,7 +29,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 
-SettingsWindow::SettingsWindow( QSettings* s, QWidget* parent ) : QDialog( parent )
+SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent ) : QDialog( parent )
 {
     settings = s;
 
@@ -70,18 +70,18 @@ void SettingsWindow::OkButtonClicked()
     if( isSettingsChanged ) {
         // application tab
         if( cbStyle->currentIndex() == 0 ) {
-            settings->setValue( "Application/Style", "" );
+            settings->SetApplicationStyle( "" );
         } else {
-            settings->setValue( "Application/Style", cbStyle->currentText() );
+            settings->SetApplicationStyle( cbStyle->currentText() );
         }
 
-        settings->setValue( "MainWindow/ToolbarStyle", toolStyles[ cbToolbarStyle->currentIndex() ].style  );
-        settings->setValue( "Application/ExternalPlayer", eExternalPlayer->text() );
+        settings->SetMainWindowToolbarStyle( toolStyles[ cbToolbarStyle->currentIndex() ].style  );
+        settings->SetApplicationExternalPlayer( eExternalPlayer->text() );
         // database tab
-        settings->setValue( "Application/DatabaseFile", eDatabaseFile->text() );
-        settings->setValue( "FilmList/CheckFilesOnStartup", cCheckFilesAtStartup->isChecked() );
-        settings->setValue( "FilmList/PostersFolder", ePostersFolder->text() );
-        settings->setValue( "FilmList/ScalePosters", cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
+        settings->SetApplicationDatabaseFile( eDatabaseFile->text() );
+        settings->SetFilmsListCheckFilesOnStartup( cCheckFilesAtStartup->isChecked() );
+        settings->SetFilmsListPostersDir( ePostersFolder->text() );
+        settings->SetFilmsListScalePosters( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
         settings->sync();
 
         emit SettingsChanged();
@@ -139,12 +139,12 @@ void SettingsWindow::OpenDatabaseFile()
 
 void SettingsWindow::SelectColorUnavailable()
 {
-    QColor oldColor = settings->value( "FilmList/UnavailableFileColor", qRgb( 0xff, 0xc0, 0xc0 ) ).toUInt();
+    QColor oldColor = settings->GetFilmsListUnavailableFileColor();
     QColor newColor = QColorDialog::getColor( oldColor, this );
 
     // If cancel button pressed
     if( newColor.isValid() ) {
-        settings->setValue( "FilmList/UnavailableFileColor", newColor.rgba() );
+        settings->SetFilmsListUnavailableFileColor( newColor.rgba() );
         isDatabaseSettingsChanged = true;
     }
 }
@@ -197,7 +197,7 @@ void SettingsWindow::ConfigureApplicationTab()
 
 void SettingsWindow::ReconfigureApplicationTab()
 {
-    QString appStyle = settings->value( "Application/Style" ).toString();
+    QString appStyle = settings->GetApplicationStyle();
 
     if( appStyle.isEmpty() ) {
         cbStyle->setCurrentIndex( 0 );
@@ -205,8 +205,8 @@ void SettingsWindow::ReconfigureApplicationTab()
         cbStyle->setCurrentIndex( appStyles.indexOf( appStyle ) + 1 );
     }
 
-    eExternalPlayer->setText( settings->value( "Application/ExternalPlayer" ).toString() );
-    cbToolbarStyle->setCurrentIndex( settings->value( "MainWindow/ToolbarStyle", (int)Qt::ToolButtonFollowStyle ).toInt() );
+    eExternalPlayer->setText( settings->GetApplicationExternalPlayer() );
+    cbToolbarStyle->setCurrentIndex( settings->GetMainWindowToolbarStyle() );
 
     isNeedReboot = false;
     isSettingsChanged = false;
@@ -232,11 +232,11 @@ void SettingsWindow::ConfigureDatabaseTab()
 
 void SettingsWindow::ReconfigureDatabaseTab()
 {
-    eDatabaseFile->setText( settings->value( "Application/DatabaseFile" ).toString() );
-    cCheckFilesAtStartup->setChecked( settings->value( "FilmList/CheckFilesOnStartup", false ).toBool() );
-    ePostersFolder->setText( settings->value( "FilmList/PostersFolder" ).toString() );
+    eDatabaseFile->setText( settings->GetApplicationDatabaseFile() );
+    cCheckFilesAtStartup->setChecked( settings->GetFilmsListCheckFilesOnStartup() );
+    ePostersFolder->setText( settings->GetFilmsListPostersDir() );
 
-    int s = settings->value( "FilmList/ScalePosters", 0 ).toInt();
+    int s = settings->GetFilmsListScalePosters();
 
     if( s == 0 ) {
         cScalePoster->setChecked( false );

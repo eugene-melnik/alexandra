@@ -23,6 +23,7 @@ win32:INCLUDEPATH += $$PWD\..\lib\
 
 HEADERS += aboutwindow.h \
            addfilmwindow.h \
+           alexandrasettings.h \
            editfilmwindow.h \
            film.h \
            filminfowindow.h \
@@ -37,6 +38,7 @@ HEADERS += aboutwindow.h \
 SOURCES += aboutwindow.cpp \
            addfilmwindow.cpp \
            alexandra.cpp \
+           alexandrasettings.cpp \
            editfilmwindow.cpp \
            film.cpp \
            filminfowindow.cpp \

@@ -27,6 +27,7 @@
 
 #include "aboutwindow.h"
 #include "addfilmwindow.h"
+#include "alexandrasettings.h"
 #include "editfilmwindow.h"
 #include "filminfowindow.h"
 #include "searchwindow.h"
@@ -35,7 +36,6 @@
 #include <QCloseEvent>
 #include <QMainWindow>
 #include <QProcess>
-#include <QSettings>
 #include <QString>
 
 class MainWindow : public QMainWindow, public Ui::MainWindow
@@ -89,7 +89,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         SettingsWindow* settingsWindow = nullptr;
 
         // Variables
-        QSettings* settings = nullptr;
+        AlexandraSettings* settings = nullptr;
         QString databaseFileName;
         QString postersFolderName;
         QString externalPlayerName;

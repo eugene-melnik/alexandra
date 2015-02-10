@@ -23,10 +23,10 @@
 
 #include "ui_addfilmwindow.h"
 
+#include "alexandrasettings.h"
 #include "film.h"
 
 #include <QDialog>
-#include <QSettings>
 #include <QShowEvent>
 
 class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
@@ -34,7 +34,7 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
     Q_OBJECT
 
     public:
-        AddFilmWindow( QSettings* settings, QWidget* parent = nullptr );
+        AddFilmWindow( AlexandraSettings* settings, QWidget* parent = nullptr );
 
     protected:
         void showEvent( QShowEvent* event );
@@ -53,7 +53,7 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
     private:
         void ClearFields();
 
-        QSettings* settings = nullptr;
+        AlexandraSettings* settings = nullptr;
 };
 
 #endif // ADDFILMWINDOW_H

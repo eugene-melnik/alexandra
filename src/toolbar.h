@@ -23,7 +23,8 @@
 
 #include <QAction>
 #include <QToolBar>
-#include <QSettings>
+
+#include "alexandrasettings.h"
 
 class ToolBar : public QToolBar
 {
@@ -32,7 +33,7 @@ class ToolBar : public QToolBar
     public:
         ToolBar( QWidget* parent = nullptr );
 
-        void LoadSettings( QSettings* s );
+        void LoadSettings( const AlexandraSettings* s );
 
         void SetEditFunctionsEnabled( bool b );
 

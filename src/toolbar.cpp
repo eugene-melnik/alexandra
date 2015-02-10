@@ -38,9 +38,9 @@ ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
     tbaExit = addAction( QIcon( ":/action/exit" ), tr( "Exit" ), this, SLOT( actionExitTriggered() ) );
 }
 
-void ToolBar::LoadSettings( QSettings* s )
+void ToolBar::LoadSettings( const AlexandraSettings* s )
 {
-    setToolButtonStyle( (Qt::ToolButtonStyle)s->value( "MainWindow/ToolbarStyle", Qt::ToolButtonFollowStyle ).toInt() );
+    setToolButtonStyle( (Qt::ToolButtonStyle) s->GetMainWindowToolbarStyle() );
 }
 
 void ToolBar::SetEditFunctionsEnabled( bool b )

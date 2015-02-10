@@ -23,8 +23,9 @@
 
 #include "ui_settingswindow.h"
 
+#include "alexandrasettings.h"
+
 #include <QDialog>
-#include <QSettings>
 #include <QShowEvent>
 #include <QString>
 
@@ -33,7 +34,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
     Q_OBJECT
 
     public:
-        SettingsWindow( QSettings* s, QWidget* parent = nullptr );
+        SettingsWindow( AlexandraSettings* s, QWidget* parent = nullptr );
 
     protected:
         void showEvent( QShowEvent* event );
@@ -61,7 +62,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void ReconfigureDatabaseTab();
 
         // Variables
-        QSettings* settings;
+        AlexandraSettings* settings;
         bool isSettingsChanged;
         bool isDatabaseSettingsChanged;
         bool isNeedReboot;

@@ -51,7 +51,7 @@ void FilmsList::LoadDatabase( QString databaseFileName )
 
         currentFilm = nullptr;
         emit DatabaseChanged();
-        SetCursorOnRow( settings->value( "FilmList/CurrentRow" ).toInt() );
+        SetCursorOnRow( settings->GetFilmsListCurrentRow() );
 
         if( films.isEmpty() )  // Database is empty
         {
@@ -81,31 +81,31 @@ void FilmsList::SaveDatabase( QString databaseFileName )
     }
 }
 
-void FilmsList::LoadSettings( QSettings* s )
+void FilmsList::LoadSettings( AlexandraSettings* s )
 {
     settings = s;
 
     // Columns' width
-    setColumnWidth( ViewedColumn, s->value( "FilmList/ViewedColumnWidth", 20 ).toInt() );
-    setColumnWidth( FavouriteColumn, s->value( "FilmList/FavouriteColumnWidth", 20 ).toInt() );
-    setColumnWidth( TitleColumn, s->value( "FilmList/TitleColumnWidth", 150 ).toInt() );
-    setColumnWidth( YearColumn, s->value( "FilmList/YearColumnWidth", 50 ).toInt() );
-    setColumnWidth( GenreColumn, s->value( "FilmList/GenreColumnWidth", 110 ).toInt() );
-    setColumnWidth( DirectorColumn, s->value( "FilmList/DirectorColumnWidth", 110 ).toInt() );
+    setColumnWidth( ViewedColumn, s->GetFilmsListColumnViewedW() );
+    setColumnWidth( FavouriteColumn, s->GetFilmsListColumnFavouriteW() );
+    setColumnWidth( TitleColumn, s->GetFilmsListColumnTitleW() );
+    setColumnWidth( YearColumn, s->GetFilmsListColumnYearW() );
+    setColumnWidth( GenreColumn, s->GetFilmsListColumnGenreW() );
+    setColumnWidth( DirectorColumn, s->GetFilmsListColumnDirectorW() );
 }
 
-void FilmsList::SaveSettings( QSettings* s ) const
+void FilmsList::SaveSettings( AlexandraSettings* s ) const
 {
     // Columns' width
-    s->setValue( "FilmList/ViewedColumnWidth", columnWidth( ViewedColumn )  );
-    s->setValue( "FilmList/FavouriteColumnWidth", columnWidth( FavouriteColumn ) );
-    s->setValue( "FilmList/TitleColumnWidth", columnWidth( TitleColumn ) );
-    s->setValue( "FilmList/YearColumnWidth", columnWidth( YearColumn ) );
-    s->setValue( "FilmList/GenreColumnWidth", columnWidth( GenreColumn ) );
-    s->setValue( "FilmList/DirectorColumnWidth", columnWidth( DirectorColumn ) );
+    s->SetFilmsListColumnViewedW( columnWidth( ViewedColumn )  );
+    s->SetFilmsListColumnFavouriteW( columnWidth( FavouriteColumn ) );
+    s->SetFilmsListColumnTitleW( columnWidth( TitleColumn ) );
+    s->SetFilmsListColumnYearW( columnWidth( YearColumn ) );
+    s->SetFilmsListColumnGenreW( columnWidth( GenreColumn ) );
+    s->SetFilmsListColumnDirectorW( columnWidth( DirectorColumn ) );
 
     // Current row
-    s->setValue( "FilmList/CurrentRow", currentRow() );
+    s->SetFilmsListCurrentRow( currentRow() );
 }
 
 int FilmsList::GetNumberOfFilms() const
@@ -136,7 +136,7 @@ const QString& FilmsList::GetCurrentFilmFileName() const
 void FilmsList::RemoveCurrentFilm()
 {
     // Remove poster image
-    QString posterFileName = settings->value( "FilmList/PostersFolder" ).toString() + "/" + currentFilm->GetId() + ".png";
+    QString posterFileName = settings->GetFilmsListPostersDir() + "/" + currentFilm->GetId() + ".png";
     QFile( posterFileName ).remove();
 
     // Remove record from database
@@ -258,8 +258,8 @@ void FilmsList::UpdateFilmsTable()
     setHorizontalHeaderLabels( colNames );
 
     // Configure rows
-    bool highlightUnavailable = settings->value( "FilmList/CheckFilesOnStartup", false ).toBool();
-    QColor unavailableColor = settings->value( "FilmList/UnavailableFileColor", qRgb( 0xff, 0xc0, 0xc0 ) ).toInt();
+    bool highlightUnavailable = settings->GetFilmsListCheckFilesOnStartup();
+    QColor unavailableColor = settings->GetFilmsListUnavailableFileColor();
 
     setRowCount( this->GetNumberOfFilms() );
 

@@ -22,10 +22,10 @@
 #define FILMSLIST_H
 
 #include <QList>
-#include <QSettings>
 #include <QString>
 #include <QTableWidget>
 
+#include "alexandrasettings.h"
 #include "film.h"
 
 class FilmsList : public QTableWidget
@@ -38,8 +38,8 @@ class FilmsList : public QTableWidget
         void LoadDatabase( QString databaseFileName );
         void SaveDatabase( QString databaseFileName );
 
-        void LoadSettings( QSettings* s );
-        void SaveSettings( QSettings* s ) const;
+        void LoadSettings( AlexandraSettings* s );
+        void SaveSettings( AlexandraSettings* s ) const;
 
         int GetNumberOfFilms() const;
         const Film* GetFilmAt( int i ) const;
@@ -82,7 +82,7 @@ class FilmsList : public QTableWidget
         // Variables
         QList<Film> films;
         Film* currentFilm = nullptr;
-        QSettings* settings = nullptr;
+        AlexandraSettings* settings = nullptr;
         bool isDatabaseChanged;
 
         // Structures and enumerations

@@ -22,21 +22,20 @@
 #define EDITFILMWINDOW_H
 
 #include "addfilmwindow.h"
-
-#include <QSettings>
+#include "alexandrasettings.h"
 
 class EditFilmWindow : public AddFilmWindow
 {
     Q_OBJECT
 
     public:
-        EditFilmWindow( QSettings* s, QWidget* parent = nullptr );
+        EditFilmWindow( AlexandraSettings* s, QWidget* parent = nullptr );
 
     public slots:
         void show( const Film* f );
 
     private:
-        QSettings* settings = nullptr;
+        AlexandraSettings* settings = nullptr;
 };
 
 #endif // EDITFILMWINDOW_H

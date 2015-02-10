@@ -28,7 +28,6 @@
 #include <QMessageBox>
 #include <QProcessEnvironment>
 #include <QPushButton>
-#include <QSettings>
 #include <QStatusBar>
 #include <string>
 
@@ -40,7 +39,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     eFilter->setFocus();
 
     // Data
-    settings = new QSettings( Alexandra::appName, "configuration" );
+    settings = new AlexandraSettings( Alexandra::appName, "configuration", this );
     externalPlayer = new QProcess( this );
 
     ConfigureSubwindows();
@@ -296,7 +295,7 @@ void MainWindow::ClearTextFields()
 void MainWindow::SetNames()
 {
     /// Set database filename
-    databaseFileName = settings->value( "Application/DatabaseFile" ).toString();
+    databaseFileName = settings->GetApplicationDatabaseFile();
 
     if( databaseFileName.isEmpty() )
     {
@@ -311,7 +310,7 @@ void MainWindow::SetNames()
 #endif
         databaseFileName += "/" + Alexandra::appName + "/database.adat";
 
-        settings->setValue( "Application/DatabaseFile", databaseFileName );
+        settings->SetApplicationDatabaseFile( databaseFileName );
     }
 
     // Creating database directory and database file (if not exists)
@@ -328,11 +327,11 @@ void MainWindow::SetNames()
     }
 
     /// Set posters' folder name
-    postersFolderName = settings->value( "FilmList/PostersFolder" ).toString();
+    postersFolderName = settings->GetFilmsListPostersDir();
 
     if( postersFolderName.isEmpty() ) {
         postersFolderName = databaseDir + "/posters";
-        settings->setValue( "FilmList/PostersFolder", postersFolderName );
+        settings->SetFilmsListPostersDir( postersFolderName );
     }
 
     // Creating posters' directory (if not exists)
@@ -341,7 +340,7 @@ void MainWindow::SetNames()
     }
 
     /// Set external player
-    externalPlayerName = settings->value( "Application/ExternalPlayer" ).toString();
+    externalPlayerName = settings->GetApplicationExternalPlayer();
 
     if( externalPlayerName.isEmpty() )
     {
@@ -350,7 +349,7 @@ void MainWindow::SetNames()
 #else
         externalPlayerName.clear();
 #endif
-        settings->setValue( "Application/ExternalPlayer", externalPlayerName );
+        settings->SetApplicationExternalPlayer( externalPlayerName );
     }
 
     settings->sync();
@@ -358,13 +357,13 @@ void MainWindow::SetNames()
 
 void MainWindow::LoadSettings()
 {
-    QApplication::setStyle( settings->value( "Application/Style" ).toString() );
+    QApplication::setStyle( settings->GetApplicationStyle() );
 
     // Main window settings
     SetNames();
 
-    restoreGeometry( settings->value( "MainWindow/Geometry" ).toByteArray() );
-    restoreState( settings->value( "MainWindow/State" ).toByteArray() );
+    restoreGeometry( settings->GetMainWindowGeometry() );
+    restoreState( settings->GetMainWindowState() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
 
     // Widgets' settings
@@ -376,8 +375,8 @@ void MainWindow::LoadSettings()
 void MainWindow::SaveSettings()
 {
     // Main window settings
-    settings->setValue( "MainWindow/State", saveState() );
-    settings->setValue( "MainWindow/Geometry", saveGeometry() );
+    settings->SetMainWindowState( saveState() );
+    settings->SetMainWindowGeometry( saveGeometry() );
 
     // Table settings
     twFilms->SaveSettings( settings );

@@ -29,7 +29,7 @@
 #include <QMessageBox>
 #include <QPlainTextEdit>
 
-AddFilmWindow::AddFilmWindow( QSettings* s, QWidget* parent ) : QDialog( parent )
+AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog( parent )
 {
     settings = s;
 
@@ -50,7 +50,7 @@ void AddFilmWindow::showEvent( QShowEvent* event)
 
 void AddFilmWindow::OpenFilmFileClicked()
 {
-    QString lastFilmPath = settings->value( "Application/LastFilmPath", "." ).toString();
+    QString lastFilmPath = settings->GetApplicationLastFilmPath();
 
     QFileInfo fileName = QFileDialog::getOpenFileName( this,
                          tr( "Select film" ),
@@ -61,14 +61,14 @@ void AddFilmWindow::OpenFilmFileClicked()
         eFilmFileName->setText( fileName.absoluteFilePath() );
         eTitle->setText( fileName.baseName() );
 
-        settings->setValue( "Application/LastFilmPath", fileName.absolutePath() );
+        settings->SetApplicationLastFilmPath( fileName.absolutePath() );
         settings->sync();
     }
 }
 
 void AddFilmWindow::OpenPosterFileClicked()
 {
-    QString lastPosterPath = settings->value( "Application/LastPosterPath", "." ).toString();
+    QString lastPosterPath = settings->GetApplicationLastPosterPath();
 
     QFileInfo fileName = QFileDialog::getOpenFileName( this,
                          tr( "Select image" ),
@@ -78,7 +78,7 @@ void AddFilmWindow::OpenPosterFileClicked()
     if( fileName.isFile() ) {
         ePosterFileName->setText( fileName.absoluteFilePath() );
 
-        settings->setValue( "Application/LastPosterPath", fileName.absolutePath() );
+        settings->SetApplicationLastPosterPath( fileName.absolutePath() );
         settings->sync();
     }
 }
@@ -123,8 +123,8 @@ void AddFilmWindow::OkButtonClicked()
 
     if( !posterFileName.isEmpty() )
     {
-        QString postersFolder = settings->value( "FilmList/PostersFolder" ).toString();
-        int newHeight = settings->value( "FilmList/ScalePosters", 0 ).toInt();
+        QString postersFolder = settings->GetFilmsListPostersDir();
+        int newHeight = settings->GetFilmsListScalePosters();
 
         if( !( QFileInfo( ePosterFileName->text() ).absolutePath() == postersFolder ) )
         {

@@ -25,7 +25,7 @@
 #include <QPlainTextEdit>
 #include <QProcessEnvironment>
 
-EditFilmWindow::EditFilmWindow( QSettings* s, QWidget* parent ) : AddFilmWindow( s, parent )
+EditFilmWindow::EditFilmWindow( AlexandraSettings* s, QWidget* parent ) : AddFilmWindow( s, parent )
 {
     setWindowTitle( tr( "Edit film" ) );
     settings = s;
@@ -36,8 +36,7 @@ void EditFilmWindow::show( const Film* f )
     AddFilmWindow::show();
 
     if( f->GetIsPosterExists() ) {
-        ePosterFileName->setText( settings->value( "FilmList/PostersFolder" ).toString()
-                                  + "/" + f->GetId() + ".png" );
+        ePosterFileName->setText( settings->GetFilmsListPostersDir() + "/" + f->GetId() + ".png" );
     }
 
     filmId = f->GetId();
