@@ -293,6 +293,7 @@ void MainWindow::ClearTextFields()
     lStarring->clear();
     lRating->clear();
     lDescription->clear();
+    lTags->clear();
     lTechInformation->clear();
     repaint(); // Need for removing the artifacts
 }
