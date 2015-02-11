@@ -40,18 +40,17 @@ class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
 
     public:
         FilmInfoWindow( QWidget* parent = nullptr );
-        ~FilmInfoWindow();
-
         void SetCurrentFile( const QString& f );
-        const QString& GetShortTechInfo() const;
+
+    signals:
+        void ShortInfoLoaded( QString shortInfo );
+        void FullInfoLoaded( QString shortInfo );
+
+    private slots:
+        void ShowFullInfo( QString s );
 
     private:
-        void LoadShortInfo();
-        void LoadFullInfo();
-
-        MediaInfoNameSpace::MediaInfo* mi = nullptr;
-        QString shortInfo;
-        QString fullInfo;
+        void LoadInfo( const QString& f );
 };
 
 #endif // FILMINFOWINDOW_H

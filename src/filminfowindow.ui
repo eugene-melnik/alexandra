@@ -44,6 +44,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="placeholderText">
+      <string>Loading...</string>
+     </property>
     </widget>
    </item>
    <item>

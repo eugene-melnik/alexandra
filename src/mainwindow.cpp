@@ -150,7 +150,7 @@ void MainWindow::FilmSelected( const Film* f )
 
     bViewed->setChecked( f->GetIsViewed() );
     bFavourite->setChecked( f->GetIsFavourite() );
-    lTechInformation->clear();
+    lTechInformation->setText( "—" );
 
     // Poster
     QPixmap p( postersFolderName + "/" + f->GetId() + ".png" );
@@ -161,20 +161,23 @@ void MainWindow::FilmSelected( const Film* f )
 
     p = p.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
     lPosterImage->setPixmap( p );
-    repaint();
 
     // Buttons and technical information
     if( QFileInfo( f->GetFileName() ).exists() ) {
         // File exists
-        bTechInformation->setEnabled( true );
-        bPlay->setEnabled( true );
         filmInfoWindow->SetCurrentFile( f->GetFileName() );
-        lTechInformation->setText( filmInfoWindow->GetShortTechInfo() );
+        bPlay->setEnabled( true );
     } else {
         // File doesn't exists
         bTechInformation->setEnabled( false );
         bPlay->setEnabled( false );
     }
+}
+
+void MainWindow::ShowShortInfo( QString s )
+{
+    lTechInformation->setText( s );
+    bTechInformation->setEnabled( true );
 }
 
 void MainWindow::PlayFilm()
@@ -252,6 +255,8 @@ void MainWindow::ConfigureSubwindows()
     // FilmInfo window
     filmInfoWindow = new FilmInfoWindow( this );
     connect( bTechInformation, SIGNAL( clicked() ), filmInfoWindow, SLOT( show() ) );
+
+    connect( filmInfoWindow, SIGNAL( ShortInfoLoaded(QString) ), this, SLOT( ShowShortInfo(QString) ) );
 
     // Remove film
     connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );
