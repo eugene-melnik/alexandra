@@ -206,6 +206,11 @@ bool Film::GetIsPosterExists() const
     return( isPosterExists );
 }
 
+QString Film::GetPosterName() const
+{
+    return( GetId() + ".png" );
+}
+
 bool Film::GetIsViewed() const
 {
     return( isViewed );

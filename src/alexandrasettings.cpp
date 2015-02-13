@@ -196,7 +196,7 @@ void AlexandraSettings::SetFilmsListCurrentRow( int n )
 
 void AlexandraSettings::SetFilmsListPostersDir( const QString& s )
 {
-    setValue( "FilmsList/PostersFolder", s );
+    setValue( "FilmsList/PostersDir", s );
 }
 
 void AlexandraSettings::SetFilmsListScalePosters( int n )

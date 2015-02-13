@@ -58,6 +58,7 @@ class Film
         const QString& GetTags() const;
 
         bool GetIsPosterExists() const;
+        QString GetPosterName() const;
         bool GetIsViewed() const;
         QString GetIsViewedSign() const;
         bool GetIsFavourite() const;
