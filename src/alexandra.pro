@@ -9,17 +9,20 @@ TARGET = alexandra
 TEMPLATE = app
 
 QT = core gui widgets concurrent
-
-CONFIG += qt warn_on debug
-QMAKE_CXXFLAGS += -std=c++11 #-flto
+CONFIG += qt warn_on thread debug
+QMAKE_CXXFLAGS += -std=c++11
 DEFINES += _UNICODE UNICODE
 
-LIBS += -lz -lpthread -lstdc++
-
+LIBS += -lstdc++ -lpthread
 linux:LIBS += -lmediainfo
-
 win32:LIBS += $$PWD\..\lib\MediaInfo.dll
 win32:INCLUDEPATH += $$PWD\..\lib\
+
+DESTDIR = ./
+MOC_DIR = ./tmp/moc
+OBJECTS_DIR = ./tmp/obj
+RCC_DIR = ./tmp/rcc
+UI_DIR = ./tmp/ui
 
 HEADERS += aboutwindow.h \
            addfilmwindow.h \
@@ -56,10 +59,10 @@ FORMS += aboutwindow.ui \
          searchwindow.ui \
          settingswindow.ui
 
-TRANSLATIONS += lang/alexandra-cs.ts \
-                lang/alexandra-ru.ts \
-                lang/alexandra-uk.ts
+TRANSLATIONS += ../lang/alexandra-cs.ts \
+                ../lang/alexandra-ru.ts \
+                ../lang/alexandra-uk.ts
 
-RESOURCES = lang/lang.qrc \
-            icons/icons.qrc \
-            images/images.qrc
+RESOURCES = icons.qrc \
+            images.qrc \
+            lang.qrc

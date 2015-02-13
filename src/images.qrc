@@ -1,0 +1,13 @@
+<!DOCTYPE RCC><RCC version="1.0">
+  <qresource prefix="cats">
+    <file alias="1">../images/cats/1.png</file>
+    <file alias="2">../images/cats/2.png</file>
+    <file alias="3">../images/cats/3.png</file>
+    <file alias="4">../images/cats/4.png</file>
+    <file alias="5">../images/cats/5.png</file>
+    <file alias="6">../images/cats/6.png</file>
+  </qresource>
+  <qresource>
+    <file alias="standart-poster">../images/standart-poster.png</file>
+  </qresource>
+</RCC>

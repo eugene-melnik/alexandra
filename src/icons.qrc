@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/window">
+        <file alias="settings">../icons/window-settings.png</file>
+        <file alias="about">../icons/window-about.png</file>
+        <file alias="about-qt">../icons/window-about-qt.png</file>
+        <file alias="main">../icons/window-main.png</file>
+    </qresource>
+    <qresource prefix="/action">
+        <file alias="exit">../icons/action-exit.png</file>
+        <file alias="favourite">../icons/action-favourite.png</file>
+        <file alias="viewed">../icons/action-viewed.png</file>
+        <file alias="play">../icons/action-play.png</file>
+    </qresource>
+    <qresource prefix="/tool">
+        <file alias="add">../icons/tool-add.png</file>
+        <file alias="delete">../icons/tool-delete.png</file>
+        <file alias="edit">../icons/tool-edit.png</file>
+        <file alias="find">../icons/tool-find.png</file>
+        <file alias="random">../icons/tool-random.png</file>
+    </qresource>
+</RCC>
