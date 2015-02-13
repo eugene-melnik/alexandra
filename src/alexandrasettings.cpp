@@ -94,7 +94,7 @@ int AlexandraSettings::GetFilmsListColumnDirectorW() const
 
 int AlexandraSettings::GetFilmsListCurrentRow() const
 {
-    return( value( "FilmsList/CurrentRow" ).toInt() );
+    return( value( "FilmsList/CurrentRow", 0 ).toInt() );
 }
 
 QString AlexandraSettings::GetFilmsListPostersDir() const

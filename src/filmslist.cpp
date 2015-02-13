@@ -51,7 +51,6 @@ void FilmsList::LoadDatabase( QString databaseFileName )
 
         currentFilm = nullptr;
         emit DatabaseChanged();
-        SetCursorOnRow( settings->GetFilmsListCurrentRow() );
 
         if( films.isEmpty() )  // Database is empty
         {
@@ -236,10 +235,10 @@ void FilmsList::ItemSelected( QTableWidgetItem* i )
 void FilmsList::UpdateFilmsTable()
 {
     // Saving selected row
-    int selectedRow = 0;
+    int selectedRow = currentRow();
 
-    if( rowCount() != 0 ) {
-        selectedRow = currentRow();
+    if( selectedRow == -1 ) {
+        selectedRow = settings->GetFilmsListCurrentRow();
     }
 
     // Clear old data
@@ -326,12 +325,14 @@ void FilmsList::FilterBy( QString s )
 
 void FilmsList::SetCursorOnRow( int row )
 {
-    if( rowCount() != 0 ) {
+    if( ( rowCount() != 0 ) && ( row >= 0 ) )
+    {
         if( row >= rowCount() ) {
             row = 0;
         }
+
+        setCurrentCell( row, 0 );
         itemClicked( item( row, 0 ) );
-        setCurrentItem( item( row, 0 ) ); // FIXME: fix this shi~
     }
 }
 
