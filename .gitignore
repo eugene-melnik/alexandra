@@ -1,4 +1,6 @@
 src/alexandra
+src/alexandra.exe
 src/alexandra.pro.user
 src/Makefile
 src/tmp
+src/windows/alexandra*.exe

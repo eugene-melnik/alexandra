@@ -17,6 +17,7 @@ LIBS += -lstdc++ -lpthread
 linux:LIBS += -lmediainfo
 win32:LIBS += $$PWD\..\lib\MediaInfo.dll
 win32:INCLUDEPATH += $$PWD\..\lib\
+win32:RC_FILE = window-icon.rc
 
 DESTDIR = ./
 MOC_DIR = ./tmp/moc
