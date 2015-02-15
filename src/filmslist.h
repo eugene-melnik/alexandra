@@ -3,7 +3,7 @@
  *  file: filmslist.h                                                                             *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014 Eugene Melnik <jeka7js@gmail.com>                                          *
+ *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -43,6 +43,7 @@ class FilmsList : public QTableWidget
 
         int GetNumberOfFilms() const;
         const Film* GetFilmAt( int i ) const;
+        const QList<Film>* GetFilmsList() const;
 
         const Film* GetCurrentFilm() const;
         const QString& GetCurrentFilmTitle() const;
@@ -60,6 +61,7 @@ class FilmsList : public QTableWidget
         void SetCurrentIsViewed( bool b );
         void SetCurrentIsFavourite( bool b );
 
+        void SelectFilm( const QString& title );
         void ItemSelected( QTableWidgetItem* i );
         void UpdateFilmsTable();
 

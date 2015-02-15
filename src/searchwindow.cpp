@@ -3,7 +3,7 @@
  *  file: searchwindow.cpp                                                                        *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014 Eugene Melnik <jeka7js@gmail.com>                                          *
+ *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -20,22 +20,148 @@
 
 #include "searchwindow.h"
 
+#include <QMessageBox>
 #include <QStringList>
 
-SearchWindow::SearchWindow( QWidget* parent ) : QDialog( parent )
+SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
+    eKeywords->setFocus();
+    connect( bSearch, SIGNAL( clicked() ), this, SLOT( Search() ) );
+    connect( bOk, SIGNAL( clicked() ), this, SLOT( OkButtonClicked() ) );
+    connect( twResult, SIGNAL( itemDoubleClicked(QTableWidgetItem*) ), this, SLOT( OkButtonClicked() ) );
+
+    films = f;
     ConfigureTable();
+}
+
+void SearchWindow::Search()
+{
+    if( eKeywords->text().isEmpty() ) {
+        QMessageBox::information( this, tr( "Search" ), tr( "Nothing to search. Input keyword first." ) );
+        return;
+    }
+
+    QStringList words = eKeywords->text().split( " " );
+
+    foreach( const QString& word, words )
+    {
+        foreach( Film film, *films )
+        {
+            if( cTitle->isChecked() && film.GetTitle().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+
+            if( cTags->isChecked() && film.GetTags().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+
+            if( cGenre->isChecked() && film.GetGenre().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+
+            if( cStarring->isChecked() && film.GetStarring().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+
+            if( cDirector->isChecked() && film.GetDirector().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+
+            if( cProducer->isChecked() && film.GetProducer().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+
+            if( cCountry->isChecked() && film.GetCountry().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+
+            if( cDescription->isChecked() && film.GetDescription().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+        }
+    }
+
+    founded.sort();
+    founded.unique();
+
+    if( founded.empty() ) {
+        QMessageBox::information( this, tr( "Search" ), tr( "Nothing was found." ) );
+    } else {
+        UpdateTable( founded );
+    }
+}
+
+void SearchWindow::OkButtonClicked()
+{
+    if( twResult->rowCount() != 0 ) {
+        emit FilmSelected( twResult->item( twResult->currentRow(), TitleColumn )->text() );
+    }
+
+    close();
 }
 
 void SearchWindow::ConfigureTable()
 {
     QStringList colNames;
     colNames << tr( "Title" )
-             << tr( "Year" )
              << tr( "Genre" )
-             << tr( "Director" );
+             << tr( "Year" )
+             << tr( "Director" )
+             << tr( "Producer" )
+             << tr( "Country" )
+             << tr( "Rating" );
 
     twResult->setColumnCount( colNames.size() );
     twResult->setHorizontalHeaderLabels( colNames );
+}
+
+void SearchWindow::UpdateTable( std::list<Film>& founded )
+{
+    // Clear old data
+    twResult->clear();
+
+    // Configure columns
+    ConfigureTable();
+    twResult->setRowCount( founded.size() );
+    lTotalFounded->setText( QString::number( founded.size() ) );
+
+    // Configure rows
+    int row = 0;
+
+    foreach( const Film f, founded )
+    {
+        // Title
+        QTableWidgetItem* title = new QTableWidgetItem( f.GetTitle() );
+        twResult->setItem( row, TitleColumn, title );
+        twResult->setColumnWidth( TitleColumn, 130 );
+
+        // Genre
+        QTableWidgetItem* genre = new QTableWidgetItem( f.GetGenre() );
+        twResult->setItem( row, GenreColumn, genre );
+        twResult->setColumnWidth( GenreColumn, 100 );
+
+        // Year
+        QTableWidgetItem* year = new QTableWidgetItem( f.GetYearStr() );
+        twResult->setItem( row, YearColumn, year );
+        twResult->setColumnWidth( YearColumn, 45 );
+
+        // Director
+        QTableWidgetItem* director = new QTableWidgetItem( f.GetDirector() );
+        twResult->setItem( row, DirectorColumn, director );
+        twResult->setColumnWidth( DirectorColumn, 120 );
+
+        // Producer
+        QTableWidgetItem* producer = new QTableWidgetItem( f.GetProducer() );
+        twResult->setItem( row, ProducerColumn, producer);
+        twResult->setColumnWidth( ProducerColumn, 120 );
+
+        // Country
+        QTableWidgetItem* country = new QTableWidgetItem( f.GetCountry() );
+        twResult->setItem( row, CountryColumn, country);
+        twResult->setColumnWidth( CountryColumn, 80 );
+
+        // Rating
+        QTableWidgetItem* rating = new QTableWidgetItem( f.GetRatingStr() );
+        twResult->setItem( row, RatingColumn, rating);
+
+        row++;
+    }
+
+    if( !founded.empty() ) {
+        twResult->setCurrentCell( 0, 0);
+        founded.clear();
+    }
 }

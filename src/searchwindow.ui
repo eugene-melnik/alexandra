@@ -9,9 +9,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>400</height>
+    <width>700</width>
+    <height>450</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>450</width>
+    <height>320</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Search film</string>
@@ -23,7 +29,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
@@ -33,17 +39,7 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <layout class="QVBoxLayout" name="vl1">
-          <item>
-           <widget class="QCheckBox" name="checkBox_5">
-            <property name="text">
-             <string>Tags</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
            <widget class="QCheckBox" name="cTitle">
             <property name="text">
@@ -55,7 +51,21 @@
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="cGebre">
+           <widget class="QCheckBox" name="cTags">
+            <property name="text">
+             <string>Tags</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QCheckBox" name="cGenre">
             <property name="text">
              <string>Genre</string>
             </property>
@@ -77,14 +87,14 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="vl2">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QCheckBox" name="cDirector">
             <property name="text">
              <string>Director</string>
             </property>
             <property name="checked">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -93,12 +103,22 @@
             <property name="text">
              <string>Producer</string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QCheckBox" name="cCountry">
             <property name="text">
              <string>Country</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -106,59 +126,6 @@
            <widget class="QCheckBox" name="cDescription">
             <property name="text">
              <string>Description</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox">
-       <property name="title">
-        <string>Status</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QCheckBox" name="checkBox_2">
-            <property name="text">
-             <string>Viewed</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox">
-            <property name="text">
-             <string>Not viewed</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox_3">
-            <property name="text">
-             <string>Favourite</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox_4">
-            <property name="text">
-             <string>Not favourite</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -196,6 +163,9 @@
         <property name="text">
          <string>Search</string>
         </property>
+        <property name="default">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
      </layout>
@@ -209,6 +179,9 @@
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
        <widget class="QTableWidget" name="twResult">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
         <property name="alternatingRowColors">
          <bool>true</bool>
         </property>
@@ -218,14 +191,23 @@
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
         </property>
+        <property name="verticalScrollMode">
+         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        </property>
+        <property name="horizontalScrollMode">
+         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        </property>
         <property name="sortingEnabled">
          <bool>true</bool>
         </property>
         <property name="columnCount">
-         <number>5</number>
+         <number>7</number>
         </property>
         <attribute name="horizontalHeaderStretchLastSection">
          <bool>true</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
         </attribute>
         <attribute name="verticalHeaderDefaultSectionSize">
          <number>20</number>
@@ -235,30 +217,69 @@
         <column/>
         <column/>
         <column/>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="lTotalFounded">
-        <property name="text">
-         <string>Total founded: 0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
+        <column/>
+        <column/>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
-     </property>
-     <property name="centerButtons">
-      <bool>false</bool>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="labelTotalFounded">
+       <property name="text">
+        <string>Total founded: </string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lTotalFounded">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bClose">
+       <property name="text">
+        <string>&amp;Close</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bOk">
+       <property name="text">
+        <string>&amp;Ok</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -267,18 +288,18 @@
  </resources>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
+   <sender>bClose</sender>
+   <signal>clicked()</signal>
    <receiver>SearchWindow</receiver>
-   <slot>reject()</slot>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>274</x>
-     <y>377</y>
+     <x>164</x>
+     <y>414</y>
     </hint>
     <hint type="destinationlabel">
-     <x>274</x>
-     <y>199</y>
+     <x>349</x>
+     <y>224</y>
     </hint>
    </hints>
   </connection>

@@ -3,7 +3,7 @@
  *  file: filmslist.cpp                                                                           *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014 Eugene Melnik <jeka7js@gmail.com>                                          *
+ *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -119,6 +119,11 @@ const Film* FilmsList::GetFilmAt( int i ) const
     return( &films.at( i ) );
 }
 
+const QList<Film>* FilmsList::GetFilmsList() const
+{
+    return( &films );
+}
+
 const Film* FilmsList::GetCurrentFilm() const
 {
     return( currentFilm );
@@ -220,6 +225,11 @@ void FilmsList::SetCurrentIsFavourite( bool b )
     setItem( currentRow(), FavouriteColumn, new QTableWidgetItem( currentFilm->GetIsFavouriteSign() ) );
     isDatabaseChanged = true;
     emit DatabaseChanged();
+}
+
+void FilmsList::SelectFilm( const QString& title )
+{
+    SetCursorOnFilm( title );
 }
 
 void FilmsList::ItemSelected( QTableWidgetItem* i )

@@ -3,7 +3,7 @@
  *  file: mainwindow.cpp                                                                          *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014 Eugene Melnik <jeka7js@gmail.com>                                          *
+ *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -225,6 +225,7 @@ void MainWindow::ConfigureSubwindows()
     connect( twFilms, SIGNAL( DatabaseIsEmpty() ), this, SLOT( ShowFirstStepWizard() ) );
     connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( DatabaseChanged() ) );
     connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
+    connect( twFilms, SIGNAL( itemDoubleClicked(QTableWidgetItem*) ), this, SLOT( PlayFilm() ) );
 
     connect( eFilter, SIGNAL( textChanged(QString) ), twFilms, SLOT( FilterBy(QString) ) );
 
@@ -265,9 +266,11 @@ void MainWindow::ConfigureSubwindows()
     connect( toolbar, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
 
     // Search window
-    searchWindow = new SearchWindow( this );
+    searchWindow = new SearchWindow( twFilms->GetFilmsList(), this );
     connect( actionSearch, SIGNAL( triggered() ), searchWindow, SLOT( show() ) );
     connect( toolbar, SIGNAL( actionSearch() ), searchWindow, SLOT( show() ) );
+
+    connect( searchWindow, SIGNAL( FilmSelected(QString) ), twFilms, SLOT( SelectFilm(QString) ) );
 
     // Settings window
     settingsWindow = new SettingsWindow( settings, this );
