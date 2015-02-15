@@ -104,7 +104,9 @@ void FilmsList::SaveSettings( AlexandraSettings* s ) const
     s->SetFilmsListColumnDirectorW( columnWidth( DirectorColumn ) );
 
     // Current row
-    s->SetFilmsListCurrentRow( currentRow() );
+    if( currentFilm != nullptr ) {
+        s->SetFilmsListCurrentFilm( currentFilm->GetTitle() );
+    }
 }
 
 int FilmsList::GetNumberOfFilms() const
@@ -237,17 +239,13 @@ void FilmsList::UpdateFilmsTable()
     // Saving selected row
     int selectedRow = currentRow();
 
-    if( selectedRow == -1 ) {
-        selectedRow = settings->GetFilmsListCurrentRow();
-    }
-
     // Clear old data
     clear();
 
     // Configure columns
     QStringList colNames;
-    colNames << tr( "V" )
-             << tr( "F" )
+    colNames << tr( "V" )  // TODO: tooltips
+             << tr( "F" )  //
              << tr( "Title" )
              << tr( "Year" )
              << tr( "Genre" )
@@ -307,7 +305,11 @@ void FilmsList::UpdateFilmsTable()
     }
 
     // Restore selection
-    SetCursorOnRow( selectedRow );
+    if( selectedRow == -1 ) {
+        SetCursorOnFilm( settings->GetFilmsListCurrentFilm() );
+    } else {
+        SetCursorOnRow( selectedRow );
+    }
 }
 
 void FilmsList::FilterBy( QString s )
@@ -344,6 +346,8 @@ void FilmsList::SetCursorOnFilm( const QString& title )
             return;
         }
     }
+
+    SetCursorOnRow( 0 );
 }
 
 void FilmsList::SaveDatabaseConcurrent( QString databaseFileName )

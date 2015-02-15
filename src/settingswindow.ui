@@ -23,7 +23,7 @@
    <string>Settings</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons/icons.qrc">
+   <iconset resource="icons.qrc">
     <normaloff>:/window/settings</normaloff>:/window/settings</iconset>
   </property>
   <property name="modal">
@@ -414,7 +414,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="icons/icons.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections>
   <connection>

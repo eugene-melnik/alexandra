@@ -17,7 +17,7 @@
    <string>Search film</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons/icons.qrc">
+   <iconset resource="icons.qrc">
     <normaloff>:/tool/find</normaloff>:/tool/find</iconset>
   </property>
   <property name="modal">
@@ -263,7 +263,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="icons/icons.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections>
   <connection>

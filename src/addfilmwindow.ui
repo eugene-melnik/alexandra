@@ -23,7 +23,7 @@
    <string>Add film</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons/icons.qrc">
+   <iconset resource="icons.qrc">
     <normaloff>:/tool/add</normaloff>:/tool/add</iconset>
   </property>
   <property name="modal">
@@ -579,7 +579,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="icons/icons.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections>
   <connection>

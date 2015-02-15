@@ -48,7 +48,7 @@ class AlexandraSettings : public QSettings
         int     GetFilmsListColumnYearW() const;
         int     GetFilmsListColumnGenreW() const;
         int     GetFilmsListColumnDirectorW() const;
-        int     GetFilmsListCurrentRow() const;
+        QString GetFilmsListCurrentFilm() const;
         QString GetFilmsListPostersDir() const;
         int     GetFilmsListScalePosters() const;
         QRgb    GetFilmsListUnavailableFileColor() const;
@@ -72,7 +72,7 @@ class AlexandraSettings : public QSettings
         void SetFilmsListColumnYearW( int n );
         void SetFilmsListColumnGenreW( int n );
         void SetFilmsListColumnDirectorW( int n );
-        void SetFilmsListCurrentRow( int n );
+        void SetFilmsListCurrentFilm( const QString& s );
         void SetFilmsListPostersDir( const QString& s );
         void SetFilmsListScalePosters( int n );
         void SetFilmsListUnavailableFileColor( QRgb c );

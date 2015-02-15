@@ -192,12 +192,14 @@ void MainWindow::PlayFilm()
 void MainWindow::PlayerStarted()
 {
     twFilms->setEnabled( false );
+    eFilter->setEnabled( false );
     bPlay->setText( tr( "STOP" ) );
 }
 
 void MainWindow::PlayerClosed()
 {
     twFilms->setEnabled( true );
+    eFilter->setEnabled( true );
     bPlay->setText( tr( "PLAY" ) );
 
     if( bViewed->isEnabled() && !bViewed->isChecked() ) {

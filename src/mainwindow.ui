@@ -20,7 +20,7 @@
    <string notr="true"/>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons/icons.qrc">
+   <iconset resource="icons.qrc">
     <normaloff>:/window/main</normaloff>:/window/main</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -410,7 +410,7 @@
                 <string notr="true"/>
                </property>
                <property name="icon">
-                <iconset resource="icons/icons.qrc">
+                <iconset resource="icons.qrc">
                  <normaloff>:/action/viewed</normaloff>:/action/viewed</iconset>
                </property>
                <property name="iconSize">
@@ -442,7 +442,7 @@
                 <string notr="true"/>
                </property>
                <property name="icon">
-                <iconset resource="icons/icons.qrc">
+                <iconset resource="icons.qrc">
                  <normaloff>:/action/favourite</normaloff>:/action/favourite</iconset>
                </property>
                <property name="iconSize">
@@ -474,7 +474,7 @@
                 <string notr="true"/>
                </property>
                <property name="icon">
-                <iconset resource="icons/icons.qrc">
+                <iconset resource="icons.qrc">
                  <normaloff>:/window/about</normaloff>:/window/about</iconset>
                </property>
                <property name="iconSize">
@@ -511,7 +511,7 @@
               <string>PLAY</string>
              </property>
              <property name="icon">
-              <iconset resource="icons/icons.qrc">
+              <iconset resource="icons.qrc">
                <normaloff>:/action/play</normaloff>:/action/play</iconset>
              </property>
              <property name="iconSize">
@@ -604,7 +604,7 @@
   <widget class="StatusBar" name="statusbar"/>
   <action name="actionExit">
    <property name="icon">
-    <iconset resource="icons/icons.qrc">
+    <iconset resource="icons.qrc">
      <normaloff>:/action/exit</normaloff>:/action/exit</iconset>
    </property>
    <property name="text">
@@ -619,7 +619,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="icons/icons.qrc">
+    <iconset resource="icons.qrc">
      <normaloff>:/window/about</normaloff>:/window/about</iconset>
    </property>
    <property name="text">
@@ -648,7 +648,7 @@
   </action>
   <action name="actionSettings">
    <property name="icon">
-    <iconset resource="icons/icons.qrc">
+    <iconset resource="icons.qrc">
      <normaloff>:/window/settings</normaloff>:/window/settings</iconset>
    </property>
    <property name="text">
@@ -660,7 +660,7 @@
   </action>
   <action name="actionAdd">
    <property name="icon">
-    <iconset resource="icons/icons.qrc">
+    <iconset resource="icons.qrc">
      <normaloff>:/tool/add</normaloff>:/tool/add</iconset>
    </property>
    <property name="text">
@@ -672,7 +672,7 @@
   </action>
   <action name="actionEdit">
    <property name="icon">
-    <iconset resource="icons/icons.qrc">
+    <iconset resource="icons.qrc">
      <normaloff>:/tool/edit</normaloff>:/tool/edit</iconset>
    </property>
    <property name="text">
@@ -684,7 +684,7 @@
   </action>
   <action name="actionRemove">
    <property name="icon">
-    <iconset resource="icons/icons.qrc">
+    <iconset resource="icons.qrc">
      <normaloff>:/tool/delete</normaloff>:/tool/delete</iconset>
    </property>
    <property name="text">
@@ -696,7 +696,7 @@
   </action>
   <action name="actionRandom">
    <property name="icon">
-    <iconset resource="icons/icons.qrc">
+    <iconset resource="icons.qrc">
      <normaloff>:/tool/random</normaloff>:/tool/random</iconset>
    </property>
    <property name="text">
@@ -708,7 +708,7 @@
   </action>
   <action name="actionSearch">
    <property name="icon">
-    <iconset resource="icons/icons.qrc">
+    <iconset resource="icons.qrc">
      <normaloff>:/tool/find</normaloff>:/tool/find</iconset>
    </property>
    <property name="text">
@@ -720,7 +720,7 @@
   </action>
   <action name="actionAboutQt">
    <property name="icon">
-    <iconset resource="icons/icons.qrc">
+    <iconset resource="icons.qrc">
      <normaloff>:/window/about-qt</normaloff>:/window/about-qt</iconset>
    </property>
    <property name="text">
@@ -749,7 +749,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="icons/icons.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections>
   <connection>

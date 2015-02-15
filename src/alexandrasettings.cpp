@@ -92,9 +92,9 @@ int AlexandraSettings::GetFilmsListColumnDirectorW() const
     return( value( "FilmsList/ColumnDirectorW", defaultValue ).toInt() );
 }
 
-int AlexandraSettings::GetFilmsListCurrentRow() const
+QString AlexandraSettings::GetFilmsListCurrentFilm() const
 {
-    return( value( "FilmsList/CurrentRow", 0 ).toInt() );
+    return( value( "FilmsList/CurrentFilm", "" ).toString() );
 }
 
 QString AlexandraSettings::GetFilmsListPostersDir() const
@@ -189,9 +189,9 @@ void AlexandraSettings::SetFilmsListColumnDirectorW( int n )
     setValue( "FilmsList/ColumnDirectorW", n );
 }
 
-void AlexandraSettings::SetFilmsListCurrentRow( int n )
+void AlexandraSettings::SetFilmsListCurrentFilm( const QString& s )
 {
-    setValue( "FilmsList/CurrentRow", n);
+    setValue( "FilmsList/CurrentFilm", s );
 }
 
 void AlexandraSettings::SetFilmsListPostersDir( const QString& s )

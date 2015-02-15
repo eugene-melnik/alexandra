@@ -23,7 +23,7 @@
    <string>Technical information</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons/icons.qrc">
+   <iconset resource="icons.qrc">
     <normaloff>:/window/about</normaloff>:/window/about</iconset>
   </property>
   <property name="modal">
@@ -83,7 +83,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="icons/icons.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections>
   <connection>
