@@ -325,9 +325,9 @@ void FilmsList::FilterBy( QString s )
 
 void FilmsList::SetCursorOnRow( int row )
 {
-    if( ( rowCount() != 0 ) && ( row >= 0 ) )
+    if( ( rowCount() != 0 ) )
     {
-        if( row >= rowCount() ) {
+        if( row >= rowCount() || ( row < 0 ) ) {
             row = 0;
         }
 
