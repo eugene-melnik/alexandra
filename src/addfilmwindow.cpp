@@ -123,11 +123,16 @@ void AddFilmWindow::OkButtonClicked()
 
     if( !posterFileName.isEmpty() )
     {
-        QString postersFolder = settings->GetFilmsListPostersDir();
+        QString postersDir = settings->GetFilmsListPostersDir();
         int newHeight = settings->GetFilmsListScalePosters();
 
-        if( !( QFileInfo( ePosterFileName->text() ).absolutePath() == postersFolder ) )
+        if( !( QFileInfo( ePosterFileName->text() ).absolutePath() == postersDir ) )
         {
+            // Creating posters' directory if not exists
+            if( !QDir().exists( postersDir ) ) {
+                QDir().mkdir( postersDir );
+            }
+
             QPixmap p( posterFileName );
 
             // Scale to height
@@ -136,7 +141,7 @@ void AddFilmWindow::OkButtonClicked()
             }
 
             // Move to posters' folder
-            QString newPosterFileName = postersFolder + "/" + f.GetId() + ".png";
+            QString newPosterFileName = postersDir + "/" + f.GetPosterName();
 
             if( !p.save( newPosterFileName ) )
             {

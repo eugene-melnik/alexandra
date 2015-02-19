@@ -35,8 +35,8 @@ class FilmsList : public QTableWidget
     public:
         FilmsList( QWidget* parent = nullptr );
 
-        void LoadDatabase( QString databaseFileName );
-        void SaveDatabase( QString databaseFileName );
+        void LoadDatabase();
+        void SaveDatabase();
 
         void LoadSettings( AlexandraSettings* s );
         void SaveSettings( AlexandraSettings* s ) const;

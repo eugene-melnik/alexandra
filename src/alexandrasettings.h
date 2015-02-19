@@ -29,9 +29,7 @@
 class AlexandraSettings : public QSettings
 {
     public:
-        AlexandraSettings( const QString& organization,
-                           const QString& application = QString(),
-                           QObject* parent = nullptr );
+        AlexandraSettings( QObject* parent = nullptr );
 
         // Get //
 

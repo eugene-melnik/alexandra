@@ -55,12 +55,12 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         void DatabaseChanged();
         void DatabaseReadError();
+        void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 
         void ShowEditFilmWindow();
         void RemoveFilm();
 
-        void ShowFirstStepWizard();
         void FilmSelected( const Film* f );
         void ShowShortInfo( QString s );
 
@@ -75,11 +75,12 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void ConfigureSubwindows();
         void ClearTextFields();
 
-        void SetNames();
         void LoadSettings();
         void SaveSettings();
 
-        void SetEditFunctionsEnabled( bool b );
+        void SetAllFunctionsEnabled( bool b );
+        void SetEmptyMode( bool b = true );
+        void SetReadOnlyMode( bool b = true );
 
         // Subwindows
         AboutWindow* aboutWindow = nullptr;
@@ -91,9 +92,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         // Variables
         AlexandraSettings* settings = nullptr;
-        QString databaseFileName;
-        QString postersFolderName;
-        QString externalPlayerName;
         QProcess* externalPlayer = nullptr;
 };
 

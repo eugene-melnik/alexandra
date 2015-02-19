@@ -35,7 +35,9 @@ class ToolBar : public QToolBar
 
         void LoadSettings( const AlexandraSettings* s );
 
-        void SetEditFunctionsEnabled( bool b );
+        void SetAllFunctionsEnabled( bool b );
+        void SetEmptyDatabaseMode( bool b );
+        void SetReadOnlyMode( bool b );
 
     signals:
         void actionAdd();

@@ -24,6 +24,7 @@
 #include <algorithm>
 #include <QtConcurrentRun>
 #include <QDataStream>
+#include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QStringList>
@@ -38,10 +39,16 @@ FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
     connect( this, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateFilmsTable() ) );
 }
 
-void FilmsList::LoadDatabase( QString databaseFileName )
+void FilmsList::LoadDatabase()
 {
     films.clear();
-    QFile dbFile( databaseFileName );
+    QFile dbFile( settings->GetApplicationDatabaseFile() );
+
+    if( !dbFile.exists() ) {
+        emit DatabaseChanged();
+        emit DatabaseIsEmpty();
+        return;
+    }
 
     if( dbFile.open( QIODevice::ReadOnly ) )
     {
@@ -58,7 +65,7 @@ void FilmsList::LoadDatabase( QString databaseFileName )
             emit DatabaseIsEmpty();
         }
 
-        if( !QFileInfo( databaseFileName ).isWritable() )   // Database is readonly
+        if( !QFileInfo( settings->GetApplicationDatabaseFile() ).isWritable() )   // Database is readonly
         {
             emit DatabaseIsReadonly();
         }
@@ -73,10 +80,11 @@ void FilmsList::LoadDatabase( QString databaseFileName )
     dbFile.close();
 }
 
-void FilmsList::SaveDatabase( QString databaseFileName )
+void FilmsList::SaveDatabase()
 {
-    if( isDatabaseChanged ) {
-        QtConcurrent::run( this, &FilmsList::SaveDatabaseConcurrent, databaseFileName );
+    if( isDatabaseChanged )
+    {
+        QtConcurrent::run( this, &FilmsList::SaveDatabaseConcurrent, settings->GetApplicationDatabaseFile() );
     }
 }
 
@@ -201,14 +209,17 @@ void FilmsList::EditCurrentFilm( Film f )
 
 void FilmsList::SelectRandomFilm()
 {
-    int n;
+    if( films.size() > 1 )
+    {
+        int n;
 
-    do {
-        n = qrand() % rowCount();
+        do {
+            n = qrand() % rowCount();
+        }
+        while( n == currentRow() );
+
+        SetCursorOnRow( n );
     }
-    while( n == currentRow() );
-
-    SetCursorOnRow( n );
 }
 
 void FilmsList::SetCurrentIsViewed( bool b )
@@ -368,6 +379,14 @@ void FilmsList::SetCursorOnFilm( const QString& title )
 void FilmsList::SaveDatabaseConcurrent( QString databaseFileName )
 {
     QFile dbFile( databaseFileName );
+
+    if( !dbFile.exists() ) {
+        QString databaseDir = QFileInfo( databaseFileName ).absolutePath();
+
+        if( !QDir().exists( databaseDir ) ) {
+            QDir().mkdir( databaseDir );
+        }
+    }
 
     if( dbFile.open( QIODevice::WriteOnly ) )
     {

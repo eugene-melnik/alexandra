@@ -43,11 +43,28 @@ void ToolBar::LoadSettings( const AlexandraSettings* s )
     setToolButtonStyle( (Qt::ToolButtonStyle) s->GetMainWindowToolbarStyle() );
 }
 
-void ToolBar::SetEditFunctionsEnabled( bool b )
+void ToolBar::SetAllFunctionsEnabled( bool b )
 {
     tbaAdd->setEnabled( b );
     tbaEdit->setEnabled( b );
     tbaRemove->setEnabled( b );
+    tbaRandom->setEnabled( b );
+    tbaSearch->setEnabled( b );
+}
+
+void ToolBar::SetEmptyDatabaseMode( bool b )
+{
+    tbaEdit->setDisabled( b );
+    tbaRemove->setDisabled( b );
+    tbaRandom->setDisabled( b );
+    tbaSearch->setDisabled( b );
+}
+
+void ToolBar::SetReadOnlyMode( bool b )
+{
+    tbaAdd->setDisabled( b );
+    tbaEdit->setDisabled( b );
+    tbaRemove->setDisabled( b );
 }
 
 void ToolBar::actionAddTriggered()

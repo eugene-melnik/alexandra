@@ -21,15 +21,12 @@
 #include "mainwindow.h"
 #include "version.h"
 
-#include <QDir>
 #include <QFileInfo>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
-#include <QProcessEnvironment>
 #include <QPushButton>
 #include <QStatusBar>
-#include <string>
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
@@ -39,11 +36,13 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     eFilter->setFocus();
 
     // Data
-    settings = new AlexandraSettings( Alexandra::appName, "configuration", this );
+    settings = new AlexandraSettings( this );
     externalPlayer = new QProcess( this );
 
     ConfigureSubwindows();
     LoadSettings();
+
+    twFilms->LoadDatabase();
 }
 
 MainWindow::~MainWindow()
@@ -68,24 +67,26 @@ void MainWindow::closeEvent( QCloseEvent* event )
 
 void MainWindow::SettingsChanged()
 {
-    SetNames();
+    QApplication::setStyle( settings->GetApplicationStyle() );
     toolbar->LoadSettings( settings );
+    twFilms->LoadSettings( settings );
 }
 
 void MainWindow::DatabaseSettingsChanged()
 {
-    twFilms->LoadDatabase( databaseFileName );
+    twFilms->LoadDatabase();
 }
 
 void MainWindow::DatabaseChanged()
 {
-    twFilms->SaveDatabase( databaseFileName );
-    SetEditFunctionsEnabled( true );
+    twFilms->SaveDatabase();
+    SetAllFunctionsEnabled( true );
     UpdateStatusBar();
 }
 
 void MainWindow::DatabaseReadError()
 {
+    SetAllFunctionsEnabled( false );
     ClearTextFields();
     lFilmTitle->setText( tr( "Error reading the database!" ) );
 
@@ -95,9 +96,22 @@ void MainWindow::DatabaseReadError()
                                "database file in \"Edit\"→\"Settings\"→\"Database\"." ) );
 }
 
+void MainWindow::DatabaseIsEmpty()
+{
+    SetEmptyMode();
+
+    ClearTextFields();
+    lFilmTitle->setText( tr( "Database is empty!" ) );
+
+    QMessageBox::information( this,
+                              tr( "Database is empty!"),
+                              tr( "You can add your films in menu \"Films\"→\"Add film\" or choose "
+                                  "an another database in \"Edit\"→\"Settings\"→\"Database\"." ) );
+}
+
 void MainWindow::DatabaseIsReadonly()
 {
-    SetEditFunctionsEnabled( false );
+    SetReadOnlyMode();
 
     QMessageBox::information( this,
                               tr( "Database" ),
@@ -121,17 +135,6 @@ void MainWindow::RemoveFilm()
     }
 }
 
-void MainWindow::ShowFirstStepWizard()
-{
-    ClearTextFields();
-    lFilmTitle->setText( tr( "Database is empty!" ) );
-
-    QMessageBox::information( this,
-                              tr( "Database is empty!"),
-                              tr( "You can add your films in menu \"Films\"→\"Add film\" or choose "
-                                  "an another database in \"Edit\"→\"Settings\"→\"Database\"." ) );
-}
-
 void MainWindow::FilmSelected( const Film* f )
 {
     // Main information
@@ -153,7 +156,7 @@ void MainWindow::FilmSelected( const Film* f )
     lTechInformation->setText( "—" );
 
     // Poster
-    QPixmap p( postersFolderName + "/" + f->GetId() + ".png" );
+    QPixmap p( settings->GetFilmsListPostersDir() + "/" + f->GetPosterName() );
 
     if( p.isNull() ) {
         p.load( ":/standart-poster" );
@@ -183,7 +186,7 @@ void MainWindow::ShowShortInfo( QString s )
 void MainWindow::PlayFilm()
 {
     if( externalPlayer->state() == QProcess::NotRunning ) {
-        externalPlayer->start( externalPlayerName + " \"" + twFilms->GetCurrentFilmFileName() +"\"" );
+        externalPlayer->start( settings->GetApplicationExternalPlayer() + " \"" + twFilms->GetCurrentFilmFileName() +"\"" );
     } else {
         externalPlayer->close();
     }
@@ -222,7 +225,7 @@ void MainWindow::ConfigureSubwindows()
 
     connect( twFilms, SIGNAL( DatabaseReadError() ), this, SLOT( DatabaseReadError() ) );
     connect( twFilms, SIGNAL( DatabaseIsReadonly() ), this, SLOT( DatabaseIsReadonly() ) );
-    connect( twFilms, SIGNAL( DatabaseIsEmpty() ), this, SLOT( ShowFirstStepWizard() ) );
+    connect( twFilms, SIGNAL( DatabaseIsEmpty() ), this, SLOT( DatabaseIsEmpty() ) );
     connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( DatabaseChanged() ) );
     connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
     connect( twFilms, SIGNAL( itemDoubleClicked(QTableWidgetItem*) ), this, SLOT( PlayFilm() ) );
@@ -303,76 +306,11 @@ void MainWindow::ClearTextFields()
     repaint(); // Need for removing the artifacts
 }
 
-void MainWindow::SetNames()
-{
-    /// Set database filename
-    databaseFileName = settings->GetApplicationDatabaseFile();
-
-    if( databaseFileName.isEmpty() )
-    {
-#ifdef Q_OS_LINUX
-        databaseFileName = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
-
-        if( databaseFileName.isEmpty() ) {
-            databaseFileName = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
-        }
-#elif defined( Q_OS_WIN32 )
-        databaseFileName = QProcessEnvironment::systemEnvironment().value( "APPDATA" );
-#endif
-        databaseFileName += "/" + Alexandra::appName + "/database.adat";
-
-        settings->SetApplicationDatabaseFile( databaseFileName );
-    }
-
-    // Creating database directory and database file (if not exists)
-    QString databaseDir = QFileInfo( databaseFileName ).absolutePath();
-
-    if( !QDir().exists( databaseDir ) ) {
-        QDir().mkdir( databaseDir );
-    }
-
-    if( !QFileInfo( databaseFileName ).exists() ) {
-        QFile f( databaseFileName );
-        f.open( QIODevice::WriteOnly );
-        f.close();
-    }
-
-    /// Set posters' folder name
-    postersFolderName = settings->GetFilmsListPostersDir();
-
-    if( postersFolderName.isEmpty() ) {
-        postersFolderName = databaseDir + "/posters";
-        settings->SetFilmsListPostersDir( postersFolderName );
-    }
-
-    // Creating posters' directory (if not exists)
-    if( !QDir().exists( postersFolderName ) ) {
-        QDir().mkdir( postersFolderName );
-    }
-
-    /// Set external player
-    externalPlayerName = settings->GetApplicationExternalPlayer();
-
-    if( externalPlayerName.isEmpty() )
-    {
-#ifdef Q_OS_LINUX
-        externalPlayerName = "xdg-open";
-#else
-        externalPlayerName.clear();
-#endif
-        settings->SetApplicationExternalPlayer( externalPlayerName );
-    }
-
-    settings->sync();
-}
-
 void MainWindow::LoadSettings()
 {
     QApplication::setStyle( settings->GetApplicationStyle() );
 
     // Main window settings
-    SetNames();
-
     restoreGeometry( settings->GetMainWindowGeometry() );
     restoreState( settings->GetMainWindowState() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
@@ -380,7 +318,6 @@ void MainWindow::LoadSettings()
     // Widgets' settings
     toolbar->LoadSettings( settings );
     twFilms->LoadSettings( settings );
-    twFilms->LoadDatabase( databaseFileName );
 }
 
 void MainWindow::SaveSettings()
@@ -395,14 +332,45 @@ void MainWindow::SaveSettings()
     settings->sync();
 }
 
-void MainWindow::SetEditFunctionsEnabled( bool b )
+void MainWindow::SetAllFunctionsEnabled( bool b )
 {
-    toolbar->SetEditFunctionsEnabled( b );
+    toolbar->SetAllFunctionsEnabled( b );
 
     actionAdd->setEnabled( b );
     actionEdit->setEnabled( b );
     actionRemove->setEnabled( b );
+    actionRandom->setEnabled( b );
+    actionSearch->setEnabled( b );
 
     bViewed->setEnabled( b );
     bFavourite->setEnabled( b );
+    bTechInformation->setEnabled( b );
+    bPlay->setEnabled( b );
+}
+
+void MainWindow::SetEmptyMode( bool b )
+{
+    toolbar->SetEmptyDatabaseMode( b );
+
+    actionEdit->setDisabled( b );
+    actionRemove->setDisabled( b );
+    actionRandom->setDisabled( b );
+    actionSearch->setDisabled( b );
+
+    bViewed->setDisabled( b );
+    bFavourite->setDisabled( b );
+    bTechInformation->setDisabled( b );
+    bPlay->setDisabled( b );
+}
+
+void MainWindow::SetReadOnlyMode( bool b )
+{
+    toolbar->SetReadOnlyMode( b );
+
+    actionAdd->setDisabled( b );
+    actionEdit->setDisabled( b );
+    actionRemove->setDisabled( b );
+
+    bViewed->setDisabled( b );
+    bFavourite->setDisabled( b );
 }

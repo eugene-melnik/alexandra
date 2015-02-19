@@ -18,22 +18,78 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include <alexandrasettings.h>
+#include "alexandrasettings.h"
+#include "version.h"
 
-AlexandraSettings::AlexandraSettings( const QString& organization, const QString& application, QObject* parent ) :
-    QSettings( organization, application, parent )
-{ }
+#include <QFileInfo>
+#include <QProcessEnvironment>
+
+AlexandraSettings::AlexandraSettings( QObject* parent )
+    : QSettings( Alexandra::appName, "configuration", parent )
+{
+    // Set database filename
+
+    QString databaseFileName = GetApplicationDatabaseFile();
+
+    if( databaseFileName.isEmpty() )
+    {
+#ifdef Q_OS_LINUX
+        databaseFileName = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
+
+        if( databaseFileName.isEmpty() ) {
+            databaseFileName = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
+        }
+#elif defined( Q_OS_WIN32 )
+        databaseFileName = QProcessEnvironment::systemEnvironment().value( "APPDATA" );
+#endif
+        databaseFileName += "/" + Alexandra::appName + "/database.adat";
+
+        SetApplicationDatabaseFile( databaseFileName );
+    }
+
+    // Set posters' directory name
+
+    QString postersFolderName = GetFilmsListPostersDir();
+    QString databaseDir = QFileInfo( databaseFileName ).absolutePath();
+
+    if( postersFolderName.isEmpty() )
+    {
+        postersFolderName = databaseDir + "/posters";
+        SetFilmsListPostersDir( postersFolderName );
+    }
+
+    // Set external player
+
+    QString externalPlayerName = GetApplicationExternalPlayer();
+
+    if( externalPlayerName.isEmpty() )
+    {
+#ifdef Q_OS_LINUX
+        externalPlayerName = "xdg-open";
+#else
+        externalPlayerName.clear();
+#endif
+        SetApplicationExternalPlayer( externalPlayerName );
+    }
+
+    sync();
+}
 
 // Get //
 
 QString AlexandraSettings::GetApplicationDatabaseFile() const
 {
-    return( value( "Application/DatabaseFile" ).toString() );
+    return( value( "Application/DatabaseFile", "" ).toString() );
 }
 
 QString AlexandraSettings::GetApplicationExternalPlayer() const
 {
-    return( value( "Application/ExternalPlayer" ).toString() );
+    QString s = value( "Application/ExternalPlayer", "" ).toString();
+#ifdef Q_OS_WIN32
+    s = "\"" + s + "\"";
+#endif
+
+    return( s );
 }
 
 QString AlexandraSettings::GetApplicationLastFilmPath() const
@@ -53,7 +109,7 @@ QString AlexandraSettings::GetApplicationStyle() const
 
 bool AlexandraSettings::GetFilmsListCheckFilesOnStartup() const
 {
-    return( value( "FilmsList/CheckFilesOnStartup", false ).toBool() );
+    return( value( "FilmsList/CheckFilesOnStartup", true ).toBool() );
 }
 
 int AlexandraSettings::GetFilmsListColumnViewedW() const
@@ -99,12 +155,12 @@ QString AlexandraSettings::GetFilmsListCurrentFilm() const
 
 QString AlexandraSettings::GetFilmsListPostersDir() const
 {
-    return( value( "FilmsList/PostersDir" ).toString() );
+    return( value( "FilmsList/PostersDir", "" ).toString() );
 }
 
 int AlexandraSettings::GetFilmsListScalePosters() const
 {
-    return( value( "FilmsList/ScalePosters", 0 ).toInt() );
+    return( value( "FilmsList/ScalePosters", 600 ).toInt() );
 }
 
 QRgb AlexandraSettings::GetFilmsListUnavailableFileColor() const

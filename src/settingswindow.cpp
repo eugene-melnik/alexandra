@@ -169,7 +169,7 @@ void SettingsWindow::ConfigureApplicationTab()
 {
     // Signals
     connect( cbLanguage, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
-    connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
+    connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( cbToolbarStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( eExternalPlayer, SIGNAL( textEdited(QString) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
