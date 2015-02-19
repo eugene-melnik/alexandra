@@ -1,6 +1,6 @@
 #define MyAppName "Alexandra Video Library"
 #define MyAppNameShort "Alexandra"
-#define MyAppVersion "0.9.5"
+#define MyAppVersion "0.9.7"
 #define MyAppPublisher "The Higggs Development"
 #define MyAppURL "https://sourceforge.net/projects/alexandra-qt/"
 #define MyAppExeName "alexandra.exe"
