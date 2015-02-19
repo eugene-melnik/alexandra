@@ -32,9 +32,6 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTabWidget" name="twMain">
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
      <widget class="QWidget" name="tabApplication">
       <attribute name="title">
        <string>Application</string>

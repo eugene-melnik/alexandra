@@ -30,13 +30,22 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
 
+    // Base information
     lAppName->setText( Alexandra::appNameGui );
     lAppVersion->setText( tr( "version %1 (build date: %2)" ).arg( Alexandra::appVersionFull, Alexandra::appBuildDate ) );
+    lQtVersion->setText( QT_VERSION_STR );
+    lAuthor->setText( Alexandra::appAuthor );
+    lLicense->setText( Alexandra::appLicense );
 
-    lQtVersion->setText( tr( "<b>Qt version:</b> %1" ).arg( QT_VERSION_STR ) );
-    lAuthor->setText( tr( "<b>Author(s):</b> %1" ).arg( Alexandra::appAuthor ) );
-    lLicense->setText( tr( "<b>License:</b> %1" ).arg( Alexandra::appLicense ) );
-    lAddress->setText( tr( "<b>Address:</b> <a href=\"%1\">Github</a>" ).arg( Alexandra::appAddress ) );
+    // Translators
+    QString t;
+
+    foreach( Alexandra::Locale loc, Alexandra::supportedLocales )
+    {
+        t += loc.selfTitle + " (" + loc.name + ")\t" + loc.translator + "\n\n";
+    }
+
+    tTranslators->setText( t );
 }
 
 void AboutWindow::AboutQt()
