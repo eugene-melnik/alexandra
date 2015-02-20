@@ -22,7 +22,7 @@ LicenseFile=..\LICENSE
 ;InfoBeforeFile=..\README.md
 OutputDir=.\
 OutputBaseFilename=alexandra-{#MyAppVersion}-win32-setup
-SetupIconFile=..\icons\windows\main24.ico
+SetupIconFile=..\src\win-icon.ico
 Compression=lzma2/ultra
 SolidCompression=yes
 

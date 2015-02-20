@@ -186,7 +186,11 @@ void MainWindow::ShowShortInfo( QString s )
 void MainWindow::PlayFilm()
 {
     if( externalPlayer->state() == QProcess::NotRunning ) {
+#ifdef Q_OS_WIN32
+        externalPlayer->start( "\"" + settings->GetApplicationExternalPlayer() + "\" \"" + twFilms->GetCurrentFilmFileName() +"\"" );
+#else
         externalPlayer->start( settings->GetApplicationExternalPlayer() + " \"" + twFilms->GetCurrentFilmFileName() +"\"" );
+#endif
     } else {
         externalPlayer->close();
     }

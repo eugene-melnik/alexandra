@@ -115,6 +115,8 @@ void SettingsWindow::SetDefaultExternalPlayer()
 {
 #ifdef Q_OS_LINUX
     eExternalPlayer->setText( "xdg-open" );
+#elif defined(Q_OS_WIN32)
+    eExternalPlayer->setText( "C:\\Program Files\\Windows Media Player\\wmplayer.exe" );
 #else
     eExternalPlayer->clear(); // dummy
 #endif

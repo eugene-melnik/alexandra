@@ -66,6 +66,8 @@ AlexandraSettings::AlexandraSettings( QObject* parent )
     {
 #ifdef Q_OS_LINUX
         externalPlayerName = "xdg-open";
+#elif defined(Q_OS_WIN32)
+        externalPlayerName = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
 #else
         externalPlayerName.clear();
 #endif
@@ -84,12 +86,7 @@ QString AlexandraSettings::GetApplicationDatabaseFile() const
 
 QString AlexandraSettings::GetApplicationExternalPlayer() const
 {
-    QString s = value( "Application/ExternalPlayer", "" ).toString();
-#ifdef Q_OS_WIN32
-    s = "\"" + s + "\"";
-#endif
-
-    return( s );
+    return( value( "Application/ExternalPlayer", "" ).toString() );
 }
 
 QString AlexandraSettings::GetApplicationLastFilmPath() const
