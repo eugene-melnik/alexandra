@@ -210,6 +210,9 @@
                <property name="text">
                 <string notr="true">&lt;tagline&gt;</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+               </property>
                <property name="wordWrap">
                 <bool>true</bool>
                </property>
@@ -219,6 +222,9 @@
               <widget class="QLabel" name="lGenre">
                <property name="text">
                 <string notr="true">&lt;genre&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
@@ -230,12 +236,18 @@
                <property name="text">
                 <string notr="true">&lt;year&gt;</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lCountry">
                <property name="text">
                 <string notr="true">&lt;country&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
@@ -247,6 +259,9 @@
                <property name="text">
                 <string notr="true">&lt;director&gt;</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+               </property>
                <property name="wordWrap">
                 <bool>true</bool>
                </property>
@@ -256,6 +271,9 @@
               <widget class="QLabel" name="lProducer">
                <property name="text">
                 <string notr="true">&lt;producer&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
@@ -267,6 +285,9 @@
                <property name="text">
                 <string notr="true">&lt;starring&gt;</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+               </property>
                <property name="wordWrap">
                 <bool>true</bool>
                </property>
@@ -277,12 +298,18 @@
                <property name="text">
                 <string notr="true">&lt;rating&gt;</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lDescription">
                <property name="text">
                 <string notr="true">&lt;description&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
@@ -293,6 +320,9 @@
               <widget class="QLabel" name="lTags">
                <property name="text">
                 <string notr="true">&lt;tags&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
