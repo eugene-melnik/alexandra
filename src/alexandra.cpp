@@ -22,6 +22,7 @@
 #include "version.h"
 
 #include <QApplication>
+#include <QTextCodec>
 #include <QTranslator>
 #include <QTime>
 
@@ -38,6 +39,8 @@ int main( int argc, char** argv )
     QApplication alexandra( argc, argv );
 
     // Translation loading
+    QTextCodec::setCodecForLocale( QTextCodec::codecForName( "utf8" ) );
+
     QTranslator* translator = new QTranslator();
     translator->load( ":/lang/alexandra-locale.qm" );
     alexandra.installTranslator( translator );

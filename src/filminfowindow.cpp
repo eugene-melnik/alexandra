@@ -47,8 +47,10 @@ void FilmInfoWindow::LoadInfo( const QString& f )
     mi->Option( __T( "CharSet" ), __T( "UTF-8" ) );
     mi->Open( MediaInfoNameSpace::String( f.toStdWString() ) );
 
+    QThread::sleep(4);
+
     // First line of the Short info
-    QString shortInfo =  QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Format" ) ) ) + " | ";
+    QString shortInfo = QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Format" ) ) ) + " | ";
     shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "FileSize/String3" ) ) ) + " | ";
     shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "OverallBitRate/String" ) ) ) + "<br/>";
     // Second line...

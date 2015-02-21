@@ -166,13 +166,14 @@ void MainWindow::FilmSelected( const Film* f )
     lPosterImage->setPixmap( p );
 
     // Buttons and technical information
+    bTechInformation->setEnabled( false );
+
     if( QFileInfo( f->GetFileName() ).exists() ) {
         // File exists
         filmInfoWindow->SetCurrentFile( f->GetFileName() );
         bPlay->setEnabled( true );
     } else {
         // File doesn't exists
-        bTechInformation->setEnabled( false );
         bPlay->setEnabled( false );
     }
 }
