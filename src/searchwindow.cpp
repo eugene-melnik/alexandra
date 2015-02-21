@@ -72,10 +72,10 @@ void SearchWindow::Search()
             if( cDescription->isChecked() && film.GetDescription().contains( word, Qt::CaseInsensitive ) )
                 founded.push_back( film );
         }
-    }
 
-    founded.sort();
-    founded.unique();
+        founded.sort();
+        founded.unique();
+    }
 
     if( founded.empty() ) {
         QMessageBox::information( this, tr( "Search" ), tr( "Nothing was found." ) );
