@@ -369,6 +369,7 @@ void FilmsList::EraseDatabase()
 
         films.clear();
 
+        currentFilm = nullptr;
         isDatabaseChanged = true;
         emit DatabaseChanged();
 
