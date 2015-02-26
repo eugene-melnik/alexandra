@@ -37,6 +37,7 @@ FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
 
     connect( this, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( ItemSelected(QTableWidgetItem*) ) );   // mouse click
     connect( this, SIGNAL( itemActivated(QTableWidgetItem*) ), this, SLOT( ItemSelected(QTableWidgetItem*) ) ); // Enter key press
+    connect( this, SIGNAL( customContextMenuRequested(QPoint) ), this, SLOT( SetCursorOnCurrentRow() ) );
     connect( this, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateFilmsTable() ) );
 }
 
@@ -377,6 +378,11 @@ void FilmsList::EraseDatabase()
                                   tr( "Erase database" ),
                                   tr( "Done!" ) );
     }
+}
+
+void FilmsList::SetCursorOnCurrentRow()
+{
+    SetCursorOnRow( currentRow() );
 }
 
 void FilmsList::SetCursorOnRow( int row )

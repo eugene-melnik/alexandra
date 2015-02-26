@@ -24,7 +24,9 @@
 #include <QFileInfo>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMenu>
 #include <QMessageBox>
+#include <QPoint>
 #include <QPushButton>
 #include <QStatusBar>
 
@@ -128,11 +130,62 @@ void MainWindow::RemoveFilm()
     int res = QMessageBox::question( this,
                                      tr( "Remove film" ),
                                      tr( "Are you sure to remove \"%1\"?" ).arg( twFilms->GetCurrentFilmTitle() ),
-                                     QMessageBox::Yes, QMessageBox::No );
+                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
     if( res == QMessageBox::Yes ) {
         twFilms->RemoveCurrentFilm();
     }
+}
+
+void MainWindow::RemoveFile()
+{
+    int res = QMessageBox::question( this,
+                                     tr( "Remove file" ),
+                                     tr( "Are you sure to remove file \"%1\"?" ).arg( twFilms->GetCurrentFilmFileName() ),
+                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+    if( res == QMessageBox::Yes ) {
+        if( QFile( twFilms->GetCurrentFilmFileName() ).remove() == true ) {
+            twFilms->RemoveCurrentFilm();
+        } else {
+            QMessageBox::warning( this,
+                                  tr( "Remove file" ),
+                                  tr( "Unable to remove file \"%1\"!" ).arg( twFilms->GetCurrentFilmFileName() ) );
+        }
+    }
+}
+
+void MainWindow::ShowFilmContextMenu( QPoint p )
+{
+    QMenu contextMenu;
+
+    // Play
+    contextMenu.addAction( QIcon( ":/action/play"), tr( "Play" ), this, SLOT( PlayFilm() ) );
+    // Separator
+    contextMenu.addSeparator();
+    // IsViewed
+    QAction* a = contextMenu.addAction( tr( "Is viewed" ) );
+    a->setCheckable( true );
+    a->setChecked( twFilms->GetCurrentFilm()->GetIsViewed() );
+    connect( a, SIGNAL( toggled(bool) ), twFilms, SLOT( SetCurrentIsViewed(bool) ) );
+    // IsFavourite
+    a = contextMenu.addAction( tr( "Is favourite" ) );
+    a->setCheckable( true );
+    a->setChecked( twFilms->GetCurrentFilm()->GetIsFavourite() );
+    connect( a, SIGNAL( toggled(bool) ), twFilms, SLOT( SetCurrentIsFavourite(bool) ) );
+    // Separator
+    contextMenu.addSeparator();
+    // Edit
+    contextMenu.addAction( QIcon( ":/tool/edit" ), tr( "Edit" ), this, SLOT( ShowEditFilmWindow() ) );
+    // Remove
+    contextMenu.addAction( QIcon( ":/tool/delete" ), tr( "Remove" ), this, SLOT( RemoveFilm() ) );
+    // Separator
+    contextMenu.addSeparator();
+    // Remove file
+    contextMenu.addAction( tr( "Remove file" ), this, SLOT( RemoveFile() ) );
+
+    QPoint pos = twFilms->viewport()->mapToGlobal( p );
+    contextMenu.exec( pos );
 }
 
 void MainWindow::FilmSelected( const Film* f )
@@ -234,6 +287,7 @@ void MainWindow::ConfigureSubwindows()
     connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( DatabaseChanged() ) );
     connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
     connect( twFilms, SIGNAL( itemDoubleClicked(QTableWidgetItem*) ), this, SLOT( PlayFilm() ) );
+    connect( twFilms, SIGNAL( customContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
 
     connect( eFilter, SIGNAL( textChanged(QString) ), twFilms, SLOT( FilterBy(QString) ) );
 

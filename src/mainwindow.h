@@ -60,7 +60,9 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         void ShowEditFilmWindow();
         void RemoveFilm();
+        void RemoveFile();
 
+        void ShowFilmContextMenu( QPoint p );
         void FilmSelected( const Film* f );
         void ShowShortInfo( QString s );
 

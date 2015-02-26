@@ -78,6 +78,9 @@ class FilmsList : public QTableWidget
         void FilmSelected( const Film* );
         void DatabaseChanged();
 
+    private slots:
+        void SetCursorOnCurrentRow();
+
     private:
         void SetCursorOnRow( int row );
         void SetCursorOnFilm( const QString& title );
