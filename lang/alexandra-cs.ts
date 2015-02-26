@@ -349,7 +349,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="544"/>
-        <location filename="../src/mainwindow.cpp" line="262"/>
+        <location filename="../src/mainwindow.cpp" line="264"/>
         <source>PLAY</source>
         <translation>PŘEHRÁT</translation>
     </message>
@@ -494,7 +494,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="143"/>
         <location filename="../src/mainwindow.cpp" line="152"/>
-        <location filename="../src/mainwindow.cpp" line="183"/>
+        <location filename="../src/mainwindow.cpp" line="185"/>
         <source>Remove file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -509,62 +509,62 @@
         <translation type="unfinished">Oblíbený</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="193"/>
+        <location filename="../src/mainwindow.cpp" line="195"/>
         <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Původní název:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="194"/>
+        <location filename="../src/mainwindow.cpp" line="196"/>
         <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Zkrácený obsah:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="195"/>
+        <location filename="../src/mainwindow.cpp" line="197"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Žánr:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="196"/>
+        <location filename="../src/mainwindow.cpp" line="198"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Rok:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="197"/>
+        <location filename="../src/mainwindow.cpp" line="199"/>
         <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Země:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="198"/>
+        <location filename="../src/mainwindow.cpp" line="200"/>
         <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Režisér:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="199"/>
+        <location filename="../src/mainwindow.cpp" line="201"/>
         <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Výrobce:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="200"/>
+        <location filename="../src/mainwindow.cpp" line="202"/>
         <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;V hlavní roli:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="201"/>
+        <location filename="../src/mainwindow.cpp" line="203"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Hodnocení:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="202"/>
+        <location filename="../src/mainwindow.cpp" line="204"/>
         <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Popis:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="203"/>
+        <location filename="../src/mainwindow.cpp" line="205"/>
         <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="255"/>
+        <location filename="../src/mainwindow.cpp" line="257"/>
         <source>STOP</source>
         <translation>ZASTAVIT</translation>
     </message>
@@ -684,7 +684,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="23"/>
         <location filename="../src/settingswindow.cpp" line="63"/>
-        <location filename="../src/settingswindow.cpp" line="143"/>
+        <location filename="../src/settingswindow.cpp" line="157"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
@@ -715,60 +715,65 @@
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="171"/>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="178"/>
         <source>Default</source>
         <translation>Výchozí</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="194"/>
+        <location filename="../src/settingswindow.ui" line="201"/>
         <source>Database</source>
         <translation>Databáze</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="202"/>
+        <location filename="../src/settingswindow.ui" line="209"/>
         <source>Database file</source>
         <translation>Soubor s databází</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="222"/>
-        <location filename="../src/settingswindow.ui" line="353"/>
+        <location filename="../src/settingswindow.ui" line="229"/>
+        <location filename="../src/settingswindow.ui" line="360"/>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="255"/>
-        <location filename="../src/settingswindow.cpp" line="169"/>
-        <location filename="../src/settingswindow.cpp" line="180"/>
+        <location filename="../src/settingswindow.ui" line="262"/>
+        <location filename="../src/settingswindow.cpp" line="183"/>
+        <location filename="../src/settingswindow.cpp" line="194"/>
         <source>Create database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="295"/>
+        <location filename="../src/settingswindow.ui" line="302"/>
         <source>Checking availability of files at startup</source>
         <translation>Ověření dostupnosti souborů při spuštění</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="315"/>
+        <location filename="../src/settingswindow.ui" line="322"/>
         <source>Select color</source>
         <translation>Vybrat barvu</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="271"/>
-        <location filename="../src/settingswindow.cpp" line="194"/>
+        <location filename="../src/settingswindow.ui" line="278"/>
+        <location filename="../src/settingswindow.cpp" line="208"/>
         <source>Erase database</source>
         <translation>Vymazat databázi</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="333"/>
+        <location filename="../src/settingswindow.ui" line="340"/>
         <source>Posters&apos; folder</source>
         <translation>Složka s plakáty</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="364"/>
+        <location filename="../src/settingswindow.ui" line="371"/>
         <source>Scale poster to height</source>
         <translation>Změnit velikost plakátu na výšku</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="400"/>
+        <location filename="../src/settingswindow.ui" line="407"/>
         <source>px</source>
         <translation>px</translation>
     </message>
@@ -778,68 +783,83 @@
         <translation>Aby se všechna nastavení uvedla v život, spusťte program znovu.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="132"/>
+        <location filename="../src/settingswindow.cpp" line="115"/>
+        <source>Select external player</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.cpp" line="118"/>
+        <source>Executable files (*.exe)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.cpp" line="120"/>
+        <source>Executable files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.cpp" line="146"/>
         <source>Select database file</source>
         <translation>Vybrat soubor s databází</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="134"/>
-        <location filename="../src/settingswindow.cpp" line="171"/>
+        <location filename="../src/settingswindow.cpp" line="148"/>
+        <location filename="../src/settingswindow.cpp" line="185"/>
         <source>Alexandra DB (*.adat)</source>
         <translation>Alexandra DB (*.adat)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="144"/>
+        <location filename="../src/settingswindow.cpp" line="158"/>
         <source>Would you like to set the catalog of posters is &quot;%1&quot;?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="181"/>
+        <location filename="../src/settingswindow.cpp" line="195"/>
         <source>Would you like to set the catalog of posters next to the database file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="195"/>
+        <location filename="../src/settingswindow.cpp" line="209"/>
         <source>Are you sure you want to erase the database and posters?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="206"/>
+        <location filename="../src/settingswindow.cpp" line="220"/>
         <source>Select posters&apos; folder</source>
         <translation>Vybrat složku s plakáty</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="228"/>
+        <location filename="../src/settingswindow.cpp" line="243"/>
         <source>&lt;Auto&gt;</source>
         <translation>&lt;Automaticky&gt;</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="235"/>
+        <location filename="../src/settingswindow.cpp" line="250"/>
         <source>&lt;Default&gt;</source>
         <translation>&lt;Výchozí&gt;</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="79"/>
+        <location filename="../src/settingswindow.h" line="80"/>
         <source>Icon only</source>
         <translation>Pouze ikona</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="80"/>
+        <location filename="../src/settingswindow.h" line="81"/>
         <source>Text only</source>
         <translation>Pouze text</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="81"/>
+        <location filename="../src/settingswindow.h" line="82"/>
         <source>Text beside icon</source>
         <translation>Text vedle ikony</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="82"/>
+        <location filename="../src/settingswindow.h" line="83"/>
         <source>Text under icon</source>
         <translation>Text pod ikonou</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="83"/>
+        <location filename="../src/settingswindow.h" line="84"/>
         <source>&lt;Follow system style&gt;</source>
         <translation>&lt;Držet se stylu systému&gt;</translation>
     </message>

@@ -109,6 +109,22 @@ void SettingsWindow::SetIsDatabaseSettingsChanged()
     isDatabaseSettingsChanged = true;
 }
 
+void SettingsWindow::SelectExternalPlayer()
+{
+    QString externalPlayer = QFileDialog::getOpenFileName( this,
+                                                           tr( "Select external player" ),
+                                                           eExternalPlayer->text(),
+#ifdef Q_OS_WIN32
+                                                           tr( "Executable files (*.exe)" ) );
+#else
+                                                           tr( "Executable files (*)" ) );
+#endif
+
+    if( !externalPlayer.isEmpty() ) {
+        eExternalPlayer->setText( externalPlayer );
+    }
+}
+
 // Application tab
 
 void SettingsWindow::SetDefaultExternalPlayer()
@@ -126,11 +142,9 @@ void SettingsWindow::SetDefaultExternalPlayer()
 
 void SettingsWindow::OpenDatabaseFile()
 {
-    QFileInfo currentPath( eDatabaseFile->text() );
-
     QString databaseFileName = QFileDialog::getOpenFileName( this,
                                                              tr( "Select database file" ),
-                                                             currentPath.absoluteFilePath(),
+                                                             eDatabaseFile->text(),
                                                              tr( "Alexandra DB (*.adat)" ) );
 
     if( !databaseFileName.isEmpty() ) {
@@ -221,7 +235,8 @@ void SettingsWindow::ConfigureApplicationTab()
     connect( cbLanguage, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
     connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( cbToolbarStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( eExternalPlayer, SIGNAL( textEdited(QString) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( eExternalPlayer, SIGNAL( textChanged(QString) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( bSelectExternalPlayer, SIGNAL( clicked() ), this, SLOT( SelectExternalPlayer() ) );
     connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
 
     // Language ComboBox

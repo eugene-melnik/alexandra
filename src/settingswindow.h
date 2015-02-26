@@ -50,6 +50,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void SetIsNeedReboot();
         void SetIsDatabaseSettingsChanged();
 
+        void SelectExternalPlayer();
         void SetDefaultExternalPlayer();
 
         void OpenDatabaseFile();
