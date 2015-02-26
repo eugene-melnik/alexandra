@@ -474,7 +474,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="153"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
-        <translation>Не удалось удали файл &quot;%1&quot;!</translation>
+        <translation>Не удалось удалить файл &quot;%1&quot;!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="163"/>
