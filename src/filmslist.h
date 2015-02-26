@@ -39,7 +39,7 @@ class FilmsList : public QTableWidget
         void SaveDatabase();
 
         void LoadSettings( AlexandraSettings* s );
-        void SaveSettings( AlexandraSettings* s ) const;
+        void SaveSettings() const;
 
         int GetNumberOfFilms() const;
         const Film* GetFilmAt( int i ) const;
@@ -66,6 +66,8 @@ class FilmsList : public QTableWidget
         void UpdateFilmsTable();
 
         void FilterBy( QString s );
+
+        void EraseDatabase();
 
     signals:
         void DatabaseReadError();

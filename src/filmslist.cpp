@@ -27,6 +27,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QMessageBox>
 #include <QStringList>
 #include <QTableWidgetItem>
 
@@ -42,6 +43,7 @@ FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
 void FilmsList::LoadDatabase()
 {
     films.clear();
+    currentFilm = nullptr;
     QFile dbFile( settings->GetApplicationDatabaseFile() );
 
     if( !dbFile.exists() ) {
@@ -56,7 +58,6 @@ void FilmsList::LoadDatabase()
         QDataStream stream( &dbFile );
         stream >> films;
 
-        currentFilm = nullptr;
         emit DatabaseChanged();
 
         if( films.isEmpty() )  // Database is empty
@@ -101,19 +102,19 @@ void FilmsList::LoadSettings( AlexandraSettings* s )
     setColumnWidth( DirectorColumn, s->GetFilmsListColumnDirectorW() );
 }
 
-void FilmsList::SaveSettings( AlexandraSettings* s ) const
+void FilmsList::SaveSettings() const
 {
     // Columns' width
-    s->SetFilmsListColumnViewedW( columnWidth( ViewedColumn )  );
-    s->SetFilmsListColumnFavouriteW( columnWidth( FavouriteColumn ) );
-    s->SetFilmsListColumnTitleW( columnWidth( TitleColumn ) );
-    s->SetFilmsListColumnYearW( columnWidth( YearColumn ) );
-    s->SetFilmsListColumnGenreW( columnWidth( GenreColumn ) );
-    s->SetFilmsListColumnDirectorW( columnWidth( DirectorColumn ) );
+    settings->SetFilmsListColumnViewedW( columnWidth( ViewedColumn )  );
+    settings->SetFilmsListColumnFavouriteW( columnWidth( FavouriteColumn ) );
+    settings->SetFilmsListColumnTitleW( columnWidth( TitleColumn ) );
+    settings->SetFilmsListColumnYearW( columnWidth( YearColumn ) );
+    settings->SetFilmsListColumnGenreW( columnWidth( GenreColumn ) );
+    settings->SetFilmsListColumnDirectorW( columnWidth( DirectorColumn ) );
 
     // Current row
     if( currentFilm != nullptr ) {
-        s->SetFilmsListCurrentFilm( currentFilm->GetTitle() );
+        settings->SetFilmsListCurrentFilm( currentFilm->GetTitle() );
     }
 }
 
@@ -348,6 +349,32 @@ void FilmsList::FilterBy( QString s )
         }
 
         SetCursorOnRow( 0 );
+    }
+}
+
+void FilmsList::EraseDatabase()
+{
+    if( films.isEmpty() ) {
+        QMessageBox::information( this,
+                                  tr( "Erase database" ),
+                                  tr( "Nothing to erase." ) );
+    } else {
+        QString postersDir = settings->GetFilmsListPostersDir();
+
+        foreach( Film f, films ) {
+            if( f.GetIsPosterExists() == true ) {
+                QFile( postersDir + "/" + f.GetPosterName() ).remove();
+            }
+        }
+
+        films.clear();
+
+        isDatabaseChanged = true;
+        emit DatabaseChanged();
+
+        QMessageBox::information( this,
+                                  tr( "Erase database" ),
+                                  tr( "Done!" ) );
     }
 }
 

@@ -42,6 +42,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
     signals:
         void DatabaseSettingsChanged();
         void SettingsChanged();
+        void EraseDatabase();
 
     private slots:
         void OkButtonClicked();
@@ -53,6 +54,8 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
 
         void OpenDatabaseFile();
         void SelectColorUnavailable();
+        void CreateDatabase();
+        void EraseDatabaseQuestion();
         void OpenPostersFolder();
 
     private:

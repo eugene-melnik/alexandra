@@ -118,7 +118,7 @@ void SettingsWindow::SetDefaultExternalPlayer()
 #elif defined(Q_OS_WIN32)
     eExternalPlayer->setText( "C:\\Program Files\\Windows Media Player\\wmplayer.exe" );
 #else
-    eExternalPlayer->clear(); // dummy
+    eExternalPlayer->clear();
 #endif
 }
 
@@ -128,14 +128,26 @@ void SettingsWindow::OpenDatabaseFile()
 {
     QFileInfo currentPath( eDatabaseFile->text() );
 
-    QString databaseFileName = QFileDialog::getOpenFileName(
-                               this,
-                               tr( "Select database file" ),
-                               currentPath.absoluteFilePath(),
-                               tr( "Alexandra DB (*.adat)" ) );
+    QString databaseFileName = QFileDialog::getOpenFileName( this,
+                                                             tr( "Select database file" ),
+                                                             currentPath.absoluteFilePath(),
+                                                             tr( "Alexandra DB (*.adat)" ) );
 
     if( !databaseFileName.isEmpty() ) {
         eDatabaseFile->setText( databaseFileName );
+
+        QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
+
+        if( QDir( postersDir ).exists() ) {
+            int res = QMessageBox::question( this,
+                                             tr( "Settings" ),
+                                             tr( "Would you like to set the catalog of posters is \"%1\"?" ).arg( postersDir ),
+                                             QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+            if( res == QMessageBox::Yes ) {
+                ePostersFolder->setText( postersDir );
+            }
+        }
     }
 }
 
@@ -151,12 +163,48 @@ void SettingsWindow::SelectColorUnavailable()
     }
 }
 
+void SettingsWindow::CreateDatabase()
+{
+    QString databaseFileName = QFileDialog::getSaveFileName( this,
+                                                             tr( "Create database" ),
+                                                             "database.adat",
+                                                             tr( "Alexandra DB (*.adat)" ) );
+
+    if( !databaseFileName.isEmpty() ) {
+        eDatabaseFile->setText( databaseFileName );
+
+        QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
+
+        if( !QDir( postersDir ).exists() ) {
+            int res = QMessageBox::question( this,
+                                             tr( "Create database" ),
+                                             tr( "Would you like to set the catalog of posters next to the database file?" ),
+                                             QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+            if( res == QMessageBox::Yes ) {
+                ePostersFolder->setText( postersDir );
+            }
+        }
+    }
+}
+
+void SettingsWindow::EraseDatabaseQuestion()
+{
+    int res = QMessageBox::warning( this,
+                                    tr( "Erase database" ),
+                                    tr( "Are you sure you want to erase the database and posters?" ),
+                                    QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+    if( res == QMessageBox::Yes ) {
+        emit EraseDatabase();
+    }
+}
+
 void SettingsWindow::OpenPostersFolder()
 {
-    QString newFolder = QFileDialog::getExistingDirectory(
-                        this,
-                        tr( "Select posters' folder" ),
-                        ePostersFolder->text() );
+    QString newFolder = QFileDialog::getExistingDirectory( this,
+                                                           tr( "Select posters' folder" ),
+                                                           ePostersFolder->text() );
 
     if( !newFolder.isEmpty() ) {
         ePostersFolder->setText( newFolder );
@@ -225,6 +273,8 @@ void SettingsWindow::ConfigureDatabaseTab()
     connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
     connect( cCheckFilesAtStartup, SIGNAL( toggled(bool) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( bSelectColorUnavailable, SIGNAL( clicked() ), this, SLOT( SelectColorUnavailable() ) );
+    connect( bCreateDatabase, SIGNAL( clicked() ), this, SLOT( CreateDatabase() ) );
+    connect( bEraseDatabase, SIGNAL( clicked() ), this, SLOT( EraseDatabaseQuestion() ) );
     connect( ePostersFolder, SIGNAL( textChanged(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
     connect( bOpenPostersFolder, SIGNAL( clicked() ), this, SLOT( OpenPostersFolder() ) );
     connect( cScalePoster, SIGNAL( toggled(bool) ), sbScaleToHeight, SLOT( setEnabled(bool) ) );

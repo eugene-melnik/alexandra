@@ -286,6 +286,7 @@ void MainWindow::ConfigureSubwindows()
 
     connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( SettingsChanged() ) );
     connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( DatabaseSettingsChanged() ) );
+    connect( settingsWindow, SIGNAL( EraseDatabase() ), twFilms, SLOT( EraseDatabase() ) );
 
     // Random film
     connect( toolbar, SIGNAL( actionRandom() ), twFilms, SLOT( SelectRandomFilm() ) );
@@ -332,7 +333,7 @@ void MainWindow::SaveSettings()
     settings->SetMainWindowGeometry( saveGeometry() );
 
     // Table settings
-    twFilms->SaveSettings( settings );
+    twFilms->SaveSettings();
 
     settings->sync();
 }

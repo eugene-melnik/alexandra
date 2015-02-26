@@ -226,25 +226,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hl4">
-         <item>
-          <widget class="QCheckBox" name="cCheckFilesAtStartup">
-           <property name="text">
-            <string>Checking availability of files at startup</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="bSelectColorUnavailable">
-           <property name="text">
-            <string>Select color</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="hl6">
+        <layout class="QHBoxLayout" name="hl3_2">
          <item>
           <spacer name="hs2">
            <property name="orientation">
@@ -259,10 +241,23 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="bEraseDatabase">
-           <property name="enabled">
-            <bool>false</bool>
+          <widget class="QPushButton" name="bCreateDatabase">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 200, 0);</string>
+           </property>
+           <property name="text">
+            <string>Create database</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bEraseDatabase">
            <property name="minimumSize">
             <size>
              <width>150</width>
@@ -289,6 +284,37 @@
             </size>
            </property>
           </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hl4">
+         <item>
+          <widget class="QCheckBox" name="cCheckFilesAtStartup">
+           <property name="text">
+            <string>Checking availability of files at startup</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="hs5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bSelectColorUnavailable">
+           <property name="text">
+            <string>Select color</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
