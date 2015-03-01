@@ -69,6 +69,8 @@ void SettingsWindow::OkButtonClicked()
     // Saving settings
     if( isSettingsChanged ) {
         // application tab
+        settings->SetApplicationLocaleIndex( cbLanguage->currentIndex() - 1 );
+
         if( cbStyle->currentIndex() == 0 ) {
             settings->SetApplicationStyle( "" );
         } else {
@@ -240,15 +242,11 @@ void SettingsWindow::ConfigureApplicationTab()
     connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
 
     // Language ComboBox
-    cbLanguage->addItem( tr( "<Auto>" ) );
-
     foreach( Alexandra::Locale locale, Alexandra::supportedLocales ) {
-        cbLanguage->addItem( locale.title );
+        cbLanguage->addItem( locale.title + " (" + locale.name + ")" );
     }
 
     // Style ComboBox
-    cbStyle->addItem( tr( "<Default>" ) );
-
     foreach( QString style, appStyles ) {
         cbStyle->addItem( style );
     }
@@ -262,6 +260,8 @@ void SettingsWindow::ConfigureApplicationTab()
 
 void SettingsWindow::ReconfigureApplicationTab()
 {
+    cbLanguage->setCurrentIndex( settings->GetApplicationLocaleIndex() + 1 );
+
     QString appStyle = settings->GetApplicationStyle();
 
     if( appStyle.isEmpty() ) {

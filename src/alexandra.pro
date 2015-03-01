@@ -62,8 +62,8 @@ FORMS += aboutwindow.ui \
          settingswindow.ui
 
 TRANSLATIONS += ../lang/alexandra-cs.ts \
-                ../lang/alexandra-ru.ts \
-                ../lang/alexandra-uk.ts
+                ../lang/alexandra-ru_RU.ts \
+                ../lang/alexandra-uk_UA.ts
 
 RESOURCES = icons.qrc \
             images.qrc \

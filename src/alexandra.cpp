@@ -18,13 +18,37 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "alexandrasettings.h"
 #include "mainwindow.h"
 #include "version.h"
 
 #include <QApplication>
+#include <QLocale>
 #include <QTextCodec>
 #include <QTranslator>
 #include <QTime>
+
+void LoadLocale( QApplication* app )
+{
+    AlexandraSettings s;
+    int currentLocaleIndex = s.GetApplicationLocaleIndex();
+
+    QString locale;
+
+    if( currentLocaleIndex == -1 ) {
+        locale = QLocale::system().name();
+    } else {
+        locale = Alexandra::supportedLocales[ currentLocaleIndex ].name;
+    }
+
+    QTranslator* translator = new QTranslator( app );
+    translator->load( QString( ":/lang/alexandra-%1.qm" ).arg( locale ) );
+    app->installTranslator( translator );
+
+    QTranslator* qt_translator = new QTranslator( app );
+    qt_translator->load( QString( ":/lang/qt-%1.qm" ).arg( locale ) );
+    app->installTranslator( qt_translator );
+}
 
 int main( int argc, char** argv )
 {
@@ -40,13 +64,7 @@ int main( int argc, char** argv )
 
     // Translation loading
     QTextCodec::setCodecForLocale( QTextCodec::codecForName( "utf8" ) );
-
-    QTranslator* translator = new QTranslator();
-    translator->load( ":/lang/alexandra-locale.qm" );
-    alexandra.installTranslator( translator );
-    QTranslator* qt_translator = new QTranslator();
-    qt_translator->load( ":/lang/qt-locale.qm" );
-    alexandra.installTranslator( qt_translator );
+    LoadLocale( &alexandra );
 
     // Run
     MainWindow* mainWindow = new MainWindow();

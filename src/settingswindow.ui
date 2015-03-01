@@ -102,15 +102,17 @@
           <layout class="QVBoxLayout" name="vl2">
            <item>
             <widget class="QComboBox" name="cbLanguage">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
              <property name="minimumSize">
               <size>
                <width>220</width>
                <height>0</height>
               </size>
              </property>
+             <item>
+              <property name="text">
+               <string>&lt;Auto&gt;</string>
+              </property>
+             </item>
             </widget>
            </item>
            <item>
@@ -124,6 +126,11 @@
                <height>0</height>
               </size>
              </property>
+             <item>
+              <property name="text">
+               <string>&lt;Default&gt;</string>
+              </property>
+             </item>
             </widget>
            </item>
            <item>

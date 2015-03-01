@@ -99,6 +99,11 @@ QString AlexandraSettings::GetApplicationLastPosterPath() const
     return( value( "Application/LastPosterPath", "." ).toString() );
 }
 
+int AlexandraSettings::GetApplicationLocaleIndex() const
+{
+    return( value( "Application/Locale", -1 ).toInt() );
+}
+
 QString AlexandraSettings::GetApplicationStyle() const
 {
     return( value( "Application/Style" ).toString() );
@@ -200,6 +205,11 @@ void AlexandraSettings::SetApplicationLastFilmPath( const QString& s )
 void AlexandraSettings::SetApplicationLastPosterPath( const QString& s )
 {
     setValue( "Application/LastPosterPath", s );
+}
+
+void AlexandraSettings::SetApplicationLocaleIndex( int n )
+{
+    setValue( "Application/Locale", n );
 }
 
 void AlexandraSettings::SetApplicationStyle( const QString& s )

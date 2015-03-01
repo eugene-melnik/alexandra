@@ -37,6 +37,7 @@ class AlexandraSettings : public QSettings
         QString GetApplicationExternalPlayer() const;
         QString GetApplicationLastFilmPath() const;
         QString GetApplicationLastPosterPath() const;
+        int     GetApplicationLocaleIndex() const;
         QString GetApplicationStyle() const;
 
         bool    GetFilmsListCheckFilesOnStartup() const;
@@ -61,6 +62,7 @@ class AlexandraSettings : public QSettings
         void SetApplicationExternalPlayer( const QString& s );
         void SetApplicationLastFilmPath( const QString& s );
         void SetApplicationLastPosterPath( const QString& s );
+        void SetApplicationLocaleIndex( int n );
         void SetApplicationStyle( const QString& s );
 
         void SetFilmsListCheckFilesOnStartup( bool b );
