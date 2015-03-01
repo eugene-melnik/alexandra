@@ -26,6 +26,7 @@
 
 Film::Film()
 {
+    viewsCounter = 0;
     isPosterExists = false;
     isViewed = false;
     isFavourite = false;
@@ -34,6 +35,7 @@ Film::Film()
 Film::Film( const Film& other )
 {
     id = other.id;
+    section = other.section;
     fileName = other.fileName;
     title = other.title;
     originalTitle = other.originalTitle;
@@ -44,9 +46,13 @@ Film::Film( const Film& other )
     director = other.director;
     producer = other.producer;
     starring = other.starring;
+    budget = other.budget;
     description = other.description;
     rating = other.rating;
+    ageRestrictions = other.ageRestrictions;
     tags = other.tags;
+    additionalText = other.additionalText;
+    viewsCounter = other.viewsCounter;
     isPosterExists = other.isPosterExists;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;
@@ -79,6 +85,7 @@ const QString &Film::GetId() const
 QDataStream& operator << ( QDataStream& out, const Film& f )
 {
     out << f.id
+        << f.section
         << f.fileName
         << f.title
         << f.originalTitle
@@ -89,9 +96,13 @@ QDataStream& operator << ( QDataStream& out, const Film& f )
         << f.director
         << f.producer
         << f.starring
+        << f.budget
         << f.description
         << f.rating
+        << f.ageRestrictions
         << f.tags
+        << f.additionalText
+        << f.viewsCounter
         << f.isPosterExists
         << f.isViewed
         << f.isFavourite;
@@ -102,6 +113,7 @@ QDataStream& operator << ( QDataStream& out, const Film& f )
 QDataStream& operator >> ( QDataStream& in, Film& f )
 {
     in >> f.id
+       >> f.section
        >> f.fileName
        >> f.title
        >> f.originalTitle
@@ -112,9 +124,13 @@ QDataStream& operator >> ( QDataStream& in, Film& f )
        >> f.director
        >> f.producer
        >> f.starring
+       >> f.budget
        >> f.description
        >> f.rating
+       >> f.ageRestrictions
        >> f.tags
+       >> f.additionalText
+       >> f.viewsCounter
        >> f.isPosterExists
        >> f.isViewed
        >> f.isFavourite;
@@ -336,6 +352,7 @@ void Film::SetIsFavourite( bool b )
 
 void Film::SetNewData( const Film& other )
 {
+    section = other.section;
     fileName = other.fileName;
     title = other.title;
     originalTitle = other.originalTitle;
@@ -346,9 +363,13 @@ void Film::SetNewData( const Film& other )
     director = other.director;
     producer = other.producer;
     starring = other.starring;
+    budget = other.budget;
     description = other.description;
-    tags = other.tags;
     rating = other.rating;
+    ageRestrictions = other.ageRestrictions;
+    tags = other.tags;
+    additionalText = other.additionalText;
+    viewsCounter = other.viewsCounter;
     isPosterExists = other.isPosterExists;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;

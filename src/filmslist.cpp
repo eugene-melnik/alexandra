@@ -57,6 +57,11 @@ void FilmsList::LoadDatabase()
     {
         // Reading from file
         QDataStream stream( &dbFile );
+        QString databaseHeader;
+        quint8 databaseVersion;
+
+        stream >> databaseHeader;
+        stream >> databaseVersion;
         stream >> films;
 
         emit DatabaseChanged();
@@ -425,6 +430,9 @@ void FilmsList::SaveDatabaseConcurrent( QString databaseFileName )
     if( dbFile.open( QIODevice::WriteOnly ) )
     {
         QDataStream stream( &dbFile );
+
+        stream << Alexandra::databaseHeader;
+        stream << Alexandra::databaseVersion;
         stream << films;
     }
 

@@ -90,6 +90,7 @@ class Film
 
     private:
         QString id;
+        quint8  section;
         QString fileName;
         QString title;
         QString originalTitle;
@@ -100,9 +101,14 @@ class Film
         QString director;
         QString producer;
         QString starring;
+        double  budget;
         QString description;
         quint8  rating;
+        QString ageRestrictions;
         QString tags;
+        QString additionalText;
+
+        quint16 viewsCounter;
 
         bool isPosterExists;
         bool isViewed;

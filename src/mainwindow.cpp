@@ -34,7 +34,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
     // Interface
     setupUi( this );
-    setWindowTitle( QString( "%1 v%2" ).arg( Alexandra::appNameGui, Alexandra::appVersionFull ) );
+    setWindowTitle( Alexandra::appNameGui );
     eFilter->setFocus();
 
     // Data
@@ -279,6 +279,11 @@ void MainWindow::UpdateStatusBar()
 
 void MainWindow::ConfigureSubwindows()
 {
+    // Splashscreen
+    splashScreen = new SplashScreen();
+    splashScreen->show();
+    connect( twFilms, SIGNAL( DatabaseChanged() ), splashScreen, SLOT( Close() ) );
+
     // Main window
     connect( toolbar, SIGNAL( actionExit() ), this, SLOT( close() ) );
 
@@ -342,12 +347,6 @@ void MainWindow::ConfigureSubwindows()
     connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( SettingsChanged() ) );
     connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( DatabaseSettingsChanged() ) );
     connect( settingsWindow, SIGNAL( EraseDatabase() ), twFilms, SLOT( EraseDatabase() ) );
-
-    // Splashscreen
-    splashScreen = new SplashScreen();
-    splashScreen->show();
-
-    connect( twFilms, SIGNAL( DatabaseChanged() ), splashScreen, SLOT( Close() ) );
 
     // Random film
     connect( toolbar, SIGNAL( actionRandom() ), twFilms, SLOT( SelectRandomFilm() ) );

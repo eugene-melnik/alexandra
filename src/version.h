@@ -15,11 +15,14 @@ namespace Alexandra
         const QString orgName = "Eugene Melnik";
         const QString orgDomain = "eugene.melnik.com";
 
-        const quint8 major = 0;
-        const quint8 minor = 9;
-        const quint8 fix = 8;
+        const quint8 major = 1;
+        const quint8 minor = 0;
+        const quint8 fix = 0;
         const QString appVersionFull = QString( "%1.%2.%3" ).arg( major ).arg( minor ).arg( fix );
         const QString appBuildDate = QString( __DATE__ );
+
+        const quint8 databaseVersion = 0x10;
+        const QString databaseHeader = appNameGui + " Database";
 
         typedef struct {
             QString title;
