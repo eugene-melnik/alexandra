@@ -1,4 +1,5 @@
-<!DOCTYPE RCC><RCC version="1.0">
+<!DOCTYPE RCC>
+<RCC version="1.0">
   <qresource prefix="cats">
     <file alias="1">../images/cats/1.png</file>
     <file alias="2">../images/cats/2.png</file>
@@ -9,5 +10,6 @@
   </qresource>
   <qresource>
     <file alias="standart-poster">../images/standart-poster.png</file>
+    <file alias="splash-bg">../images/splash-bg.png</file>
   </qresource>
 </RCC>

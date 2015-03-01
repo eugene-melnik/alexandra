@@ -32,6 +32,7 @@
 #include "filminfowindow.h"
 #include "searchwindow.h"
 #include "settingswindow.h"
+#include "splashscreen.h"
 
 #include <QCloseEvent>
 #include <QMainWindow>
@@ -91,6 +92,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         FilmInfoWindow* filmInfoWindow = nullptr;
         SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
+        SplashScreen* splashScreen = nullptr;
 
         // Variables
         AlexandraSettings* settings = nullptr;

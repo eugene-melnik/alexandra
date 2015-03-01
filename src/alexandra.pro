@@ -9,9 +9,11 @@ TARGET = alexandra
 TEMPLATE = app
 
 QT = core gui widgets concurrent
-CONFIG += qt warn_on thread debug
-QMAKE_CXXFLAGS += -std=c++11
+CONFIG += qt warn_on thread release
 DEFINES += _UNICODE UNICODE
+QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS_RELEASE -= -O2
+QMAKE_CXXFLAGS_RELEASE += -Ofast -flto
 
 LIBS += -lstdc++ -lpthread
 linux:LIBS += -lmediainfo
@@ -26,7 +28,8 @@ OBJECTS_DIR = ./tmp/obj
 RCC_DIR = ./tmp/rcc
 UI_DIR = ./tmp/ui
 
-HEADERS += aboutwindow.h \
+HEADERS += effects/effectdropshadow.h \
+           aboutwindow.h \
            addfilmwindow.h \
            alexandrasettings.h \
            editfilmwindow.h \
@@ -36,11 +39,13 @@ HEADERS += aboutwindow.h \
            mainwindow.h \           
            searchwindow.h \
            settingswindow.h \
+           splashscreen.h \
            statusbar.h \
            toolbar.h \
            version.h
 
-SOURCES += aboutwindow.cpp \
+SOURCES += effects/effectdropshadow.cpp \
+           aboutwindow.cpp \
            addfilmwindow.cpp \
            alexandra.cpp \
            alexandrasettings.cpp \
@@ -51,6 +56,7 @@ SOURCES += aboutwindow.cpp \
            mainwindow.cpp \
            searchwindow.cpp \
            settingswindow.cpp \
+           splashscreen.cpp \
            statusbar.cpp \
            toolbar.cpp
 
@@ -59,7 +65,8 @@ FORMS += aboutwindow.ui \
          filminfowindow.ui \
          mainwindow.ui \
          searchwindow.ui \
-         settingswindow.ui
+         settingswindow.ui \
+         splashscreen.ui
 
 TRANSLATIONS += ../lang/alexandra-cs.ts \
                 ../lang/alexandra-ru_RU.ts \

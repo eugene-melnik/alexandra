@@ -10,6 +10,7 @@ namespace Alexandra
         const QString appNameGui = "Alexandra Video Library";
         const QString appAuthor = "Eugene Melnik <jeka7js@gmail.com>";
         const QString appLicense = "GNU GPL v2";
+        const QString appWebsite = "http://alexandra-qt.sourceforge.net/";
 
         const QString orgName = "Eugene Melnik";
         const QString orgDomain = "eugene.melnik.com";
