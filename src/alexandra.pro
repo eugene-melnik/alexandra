@@ -9,7 +9,7 @@ TARGET = alexandra
 TEMPLATE = app
 
 QT = core gui widgets concurrent
-CONFIG += qt warn_on thread release
+CONFIG += qt warn_on thread debug
 DEFINES += _UNICODE UNICODE
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS_RELEASE -= -O2
@@ -41,6 +41,8 @@ HEADERS += effects/effectdropshadow.h \
            settingswindow.h \
            splashscreen.h \
            statusbar.h \
+           tablegridmodel.h \
+           tablelistmodel.h \
            toolbar.h \
            version.h
 
@@ -58,6 +60,8 @@ SOURCES += effects/effectdropshadow.cpp \
            settingswindow.cpp \
            splashscreen.cpp \
            statusbar.cpp \
+           tablegridmodel.cpp \
+           tablelistmodel.cpp \
            toolbar.cpp
 
 FORMS += aboutwindow.ui \
