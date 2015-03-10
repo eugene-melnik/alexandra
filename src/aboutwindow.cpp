@@ -18,9 +18,11 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "effects/effectdropshadow.h"
 #include "aboutwindow.h"
 #include "version.h"
 
+#include <QColor>
 #include <QLabel>
 #include <QMessageBox>
 #include <QPixmap>
@@ -40,8 +42,7 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     // Translators
     QString t;
 
-    foreach( Alexandra::Locale loc, Alexandra::supportedLocales )
-    {
+    foreach( Alexandra::Locale loc, Alexandra::supportedLocales ) {
         t += loc.selfTitle + " (" + loc.name + ") -- " + loc.translator + "\n\n";
     }
 
@@ -57,5 +58,12 @@ void AboutWindow::showEvent( QShowEvent* event )
 {
     // Random image from resources
     image->setPixmap( QPixmap( QString( ":/cats/%1" ).arg( rand() % 6 + 1 ) ) );
+
+    // Random color
+    QColor color( rand()%255, 255, rand()%255 );
+    lAppName->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAppName ) );
+    lAppVersion->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAppVersion ) );
+    image->setGraphicsEffect( new EffectDropShadow( 0, 0, color, image ) );
+
     event->accept();
 }
