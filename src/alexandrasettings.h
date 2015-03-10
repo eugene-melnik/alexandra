@@ -54,6 +54,7 @@ class AlexandraSettings : public QSettings
 
         QByteArray GetMainWindowGeometry() const;
         QByteArray GetMainWindowState() const;
+        QByteArray GetMainWindowSplitterState() const;
         int        GetMainWindowToolbarStyle() const;
 
         // Set //
@@ -79,6 +80,7 @@ class AlexandraSettings : public QSettings
 
         void SetMainWindowGeometry( const QByteArray& a );
         void SetMainWindowState( const QByteArray& a );
+        void SetMainWindowSplitterState( const QByteArray& a );
         void SetMainWindowToolbarStyle( int n );
 };
 

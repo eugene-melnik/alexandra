@@ -180,6 +180,11 @@ QByteArray AlexandraSettings::GetMainWindowState() const
     return( value( "MainWindow/State" ).toByteArray() );
 }
 
+QByteArray AlexandraSettings::GetMainWindowSplitterState() const
+{
+    return( value( "MainWindow/SplitterState" ).toByteArray() );
+}
+
 int AlexandraSettings::GetMainWindowToolbarStyle() const
 {
     return( value( "MainWindow/ToolbarStyle", Qt::ToolButtonFollowStyle ).toInt() );
@@ -280,6 +285,11 @@ void AlexandraSettings::SetMainWindowGeometry( const QByteArray& a )
 void AlexandraSettings::SetMainWindowState( const QByteArray& a )
 {
     setValue( "MainWindow/State", a );
+}
+
+void AlexandraSettings::SetMainWindowSplitterState( const QByteArray& a )
+{
+    setValue( "MainWindow/SplitterState", a );
 }
 
 void AlexandraSettings::SetMainWindowToolbarStyle( int n )

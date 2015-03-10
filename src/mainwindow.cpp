@@ -379,6 +379,7 @@ void MainWindow::LoadSettings()
     // Main window settings
     restoreGeometry( settings->GetMainWindowGeometry() );
     restoreState( settings->GetMainWindowState() );
+    mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
 
     // Widgets' settings
@@ -391,6 +392,7 @@ void MainWindow::SaveSettings()
     // Main window settings
     settings->SetMainWindowState( saveState() );
     settings->SetMainWindowGeometry( saveGeometry() );
+    settings->SetMainWindowSplitterState( mainSplitter->saveState() );
 
     // Table settings
     twFilms->SaveSettings();
