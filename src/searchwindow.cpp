@@ -26,13 +26,14 @@
 SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
+    ConfigureTable();
     eKeywords->setFocus();
+
     connect( bSearch, SIGNAL( clicked() ), this, SLOT( Search() ) );
     connect( bOk, SIGNAL( clicked() ), this, SLOT( OkButtonClicked() ) );
     connect( twResult, SIGNAL( itemDoubleClicked(QTableWidgetItem*) ), this, SLOT( OkButtonClicked() ) );
 
     films = f;
-    ConfigureTable();
 }
 
 void SearchWindow::Search()
@@ -111,14 +112,10 @@ void SearchWindow::ConfigureTable()
 void SearchWindow::UpdateTable( std::list<Film>& founded )
 {
     // Clear old data
-    twResult->clear();
-
-    // Configure columns
-    ConfigureTable();
-    twResult->setRowCount( founded.size() );
-    lTotalFounded->setText( QString::number( founded.size() ) );
+    twResult->clearContents();
 
     // Configure rows
+    twResult->setRowCount( founded.size() );
     int row = 0;
 
     foreach( const Film f, founded )
@@ -159,6 +156,8 @@ void SearchWindow::UpdateTable( std::list<Film>& founded )
 
         row++;
     }
+
+    lTotalFounded->setText( QString::number( founded.size() ) );
 
     if( !founded.empty() ) {
         twResult->setCurrentCell( 0, 0);
