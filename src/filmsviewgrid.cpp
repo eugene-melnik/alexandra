@@ -8,14 +8,16 @@
 FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QTableWidget( parent )
 {
     // Appearance
+    setContextMenuPolicy( Qt::CustomContextMenu );
     setEditTriggers( QAbstractItemView::NoEditTriggers );
     setGridStyle( Qt::NoPen );
     setHorizontalScrollMode( QAbstractItemView::ScrollPerPixel );
-    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
     setSelectionBehavior( QAbstractItemView::SelectItems );
+    setSelectionMode( QAbstractItemView::SingleSelection );
+    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
 
     horizontalHeader()->setVisible( false );
-    horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    horizontalHeader()->setSectionResizeMode( QHeaderView::Stretch );
 
     verticalHeader()->setVisible( false );
 
@@ -23,6 +25,7 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QTableWidget( parent )
     connect( this, SIGNAL( cellClicked(int,int) ), this, SLOT( ItemClickedSlot(int,int) ) );
     connect( this, SIGNAL( cellActivated(int,int) ), this, SLOT( ItemClickedSlot(int,int) ) );
     connect( this, SIGNAL( cellDoubleClicked(int,int) ), this, SLOT( ItemDoubleClickedSlot(int,int) ) );
+    connect( this, SIGNAL( customContextMenuRequested(QPoint) ), this, SLOT( ContextMenuRequestedSlot(QPoint) ) );
 }
 
 void FilmsViewGrid::LoadSettings( AlexandraSettings* s )
@@ -132,8 +135,11 @@ void FilmsViewGrid::SetCurrentItemIndex( int i )
             i = 0;
         }
 
-        setCurrentCell( i / columnCount(), i % columnCount() );
-        cellClicked( i / columnCount(), i % columnCount() );
+        int row = i / columnCount();
+        int column = i % columnCount();
+        setCurrentCell( row, column );
+        cellClicked( row, column );
+
         resizeColumnsToContents();
         resizeRowsToContents();
     }
@@ -165,5 +171,14 @@ void FilmsViewGrid::ItemDoubleClickedSlot( int row, int column )
         FilmViewGridItem* item = dynamic_cast<FilmViewGridItem*>( widget );
 
         emit ItemDoubleClicked( item->GetTitle() );
+    }
+}
+
+void FilmsViewGrid::ContextMenuRequestedSlot( QPoint p )
+{
+    if( itemsCount > 0 )
+    {
+        SetCurrentItemIndex( GetCurrentItemIndex() );
+        emit ContextMenuRequested( p );
     }
 }

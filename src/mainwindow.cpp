@@ -36,16 +36,17 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     eFilter->setFocus();
 
     // Data
-    settings = new AlexandraSettings( this );
+    contextMenu = new FilmsViewContextMenu( this );
     externalPlayer = new QProcess( this );
+    settings = new AlexandraSettings( this );
     filmsList = new FilmsList( settings, this );
 
     SetupFilmsView();
     SetupWindows();
     LoadSettings();
 
-    filmsList->LoadFromFile( settings->GetDatabaseFilePath() ); // FIXME: double ShowFilmInformation()
-    filmsView->SelectItem( settings->GetCurrentFilmTitle() );   //        call at startup
+    filmsList->LoadFromFile( settings->GetDatabaseFilePath() );
+    filmsView->SelectItem( settings->GetCurrentFilmTitle() );
 }
 
 MainWindow::~MainWindow()
@@ -63,6 +64,7 @@ MainWindow::~MainWindow()
     delete externalPlayer;
     delete filmsList;
     delete filmsView;
+    delete contextMenu;
 }
 
 void MainWindow::closeEvent( QCloseEvent* event )
@@ -201,6 +203,12 @@ void MainWindow::ShowFilmInformation()
     lPosterImage->setPixmap( p );
 }
 
+void MainWindow::ShowFilmContextMenu( QPoint p )
+{
+    contextMenu->SetState( filmsList->GetCurrentFilm() );
+    contextMenu->exec( dynamic_cast<QWidget*>( filmsView )->mapToGlobal( p ) );
+}
+
 void MainWindow::ShowShortTechnicalInfo( QString info )
 {
     lTechInformation->setText( info );
@@ -258,6 +266,28 @@ void MainWindow::RemoveFilm()
     if( res == QMessageBox::Yes )
     {
         filmsList->RemoveCurrentFilm();
+    }
+}
+
+void MainWindow::RemoveFile()
+{
+    int res = QMessageBox::question( this,
+                                     tr( "Remove file" ),
+                                     tr( "Are you sure to remove file \"%1\"?" ).arg( filmsList->GetCurrentFilmFileName() ),
+                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+    if( res == QMessageBox::Yes )
+    {
+        if( QFile( filmsList->GetCurrentFilmFileName() ).remove() == true )
+        {
+            filmsList->RemoveCurrentFilm();
+        }
+        else
+        {
+            QMessageBox::warning( this,
+                                  tr( "Remove file" ),
+                                  tr( "Unable to remove file \"%1\"!" ).arg( filmsList->GetCurrentFilmFileName() ) );
+        }
     }
 }
 
@@ -357,6 +387,7 @@ void MainWindow::SetupFilmsView()
     connect( view, SIGNAL( ItemClicked(QString) ), filmsList, SLOT( SetCurrentFilm(QString) ) );
     connect( view, SIGNAL( ItemClicked(QString) ), this, SLOT( ShowFilmInformation() ) );
     connect( view, SIGNAL( ItemDoubleClicked(QString) ), this, SLOT( PlayFilm() ) );
+    connect( view, SIGNAL( ContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
 
     filmsView = dynamic_cast<AbstractFilmsView*>( view );
     vlLeft->insertWidget( 0, view );
@@ -379,8 +410,11 @@ void MainWindow::SetupWindows()
     connect( filmsList, SIGNAL( DatabaseIsEmpty() ), this, SLOT( DatabaseIsEmpty() ) );
 
     connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
+    connect( contextMenu, SIGNAL( actionPlay() ), this, SLOT( PlayFilm() ) );
     connect( bViewed, SIGNAL( clicked(bool) ), filmsList, SLOT( SetCurrentFilmIsViewed(bool) ) );
+    connect( contextMenu, SIGNAL( actionIsViewed(bool) ), filmsList, SLOT( SetCurrentFilmIsViewed(bool) ) );
     connect( bFavourite, SIGNAL( clicked(bool) ), filmsList, SLOT( SetCurrentFilmIsFavourite(bool) ) );
+    connect( contextMenu, SIGNAL( actionIsFavourite(bool) ), filmsList, SLOT( SetCurrentFilmIsFavourite(bool) ) );
 
     connect( eFilter, SIGNAL( textChanged(QString) ), this, SLOT( FilmsFilter(QString) ) );
 
@@ -407,17 +441,23 @@ void MainWindow::SetupWindows()
 
     connect( actionEdit, SIGNAL( triggered() ), this, SLOT( EditFilm() ) );
     connect( toolbar, SIGNAL( actionEdit() ), this, SLOT( EditFilm() ) );
+    connect( contextMenu, SIGNAL( actionEdit() ), this, SLOT( EditFilm() ) );
 
     connect( editFilmWindow, SIGNAL( Done(Film) ), filmsList, SLOT( ChangeCurrentFilm(Film) ) );
 
     // Remove film dialog
     connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );
     connect( toolbar, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
+    connect( contextMenu, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
+
+    // Remove file
+    connect( contextMenu, SIGNAL( actionRemoveFile() ), this, SLOT( RemoveFile() ) );
 
     // Film info window
     filmInfoWindow = new FilmInfoWindow( this );
 
     connect( bTechInformation, SIGNAL( clicked() ), filmInfoWindow, SLOT( show() ) );
+    connect( contextMenu, SIGNAL( actionShowInfo() ), filmInfoWindow, SLOT( show() ) );
 
     connect( filmInfoWindow, SIGNAL( ShortInfoLoaded(QString) ), this, SLOT( ShowShortTechnicalInfo(QString) ) );
 
@@ -437,7 +477,7 @@ void MainWindow::SetupWindows()
 
     connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( ReloadSettings() ) );
     connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( ReloadDatabase() ) );
-    ///connect( settingsWindow, SIGNAL( EraseDatabase() ), tableFilms, SLOT( EraseDatabase() ) );
+    //connect( settingsWindow, SIGNAL( EraseDatabase() ), tableFilms, SLOT( EraseDatabase() ) );//TODO
 
     // Random film
     connect( actionRandom, SIGNAL( triggered() ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectRandomItem() ) );

@@ -28,6 +28,7 @@
 #include "editfilmwindow.h"
 #include "filminfowindow.h"
 #include "filmslist.h"
+#include "filmsviewcontextmenu.h"
 #include "searchwindow.h"
 #include "settingswindow.h"
 #include "splashscreen.h"
@@ -35,6 +36,7 @@
 
 #include <QCloseEvent>
 #include <QMainWindow>
+#include <QPoint>
 #include <QProcess>
 #include <QString>
 
@@ -63,6 +65,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         void ShowFilms();
         void ShowFilmInformation();
+        void ShowFilmContextMenu( QPoint p );
         void ShowShortTechnicalInfo( QString info );
 
         void PlayFilm();
@@ -71,6 +74,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         void EditFilm();
         void RemoveFilm();
+        void RemoveFile();
 
         void FilmsFilter( QString key );
 
@@ -97,9 +101,11 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         SplashScreen* splashScreen = nullptr;
 
         // Variables
+        AbstractFilmsView* filmsView = nullptr;
+        FilmsViewContextMenu* contextMenu = nullptr;
+
         AlexandraSettings* settings = nullptr;
         FilmsList* filmsList = nullptr;
-        AbstractFilmsView* filmsView = nullptr;
         QProcess* externalPlayer = nullptr;
 };
 

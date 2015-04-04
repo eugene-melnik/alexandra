@@ -30,6 +30,7 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
     setEditTriggers( QAbstractItemView::NoEditTriggers );
     setHorizontalScrollMode( QAbstractItemView::ScrollPerPixel );
     setSelectionBehavior( QAbstractItemView::SelectRows );
+    setSelectionMode( QAbstractItemView::SingleSelection );
     setShowGrid( false );
     setSortingEnabled( true );
     setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
@@ -46,11 +47,13 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
     connect( this, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( ItemClickedSlot(QTableWidgetItem*) ) );
     connect( this, SIGNAL( itemActivated(QTableWidgetItem*) ), this, SLOT( ItemClickedSlot(QTableWidgetItem*) ) );
     connect( this, SIGNAL( itemDoubleClicked(QTableWidgetItem*) ), this, SLOT( ItemDoubleClickedSlot(QTableWidgetItem*) ) );
+    connect( this, SIGNAL( customContextMenuRequested(QPoint) ), this, SLOT( ContextMenuRequestedSlot(QPoint) ) );
 
     // Columns setup
     setColumnCount( colNames.size() );
 
-    for( int i = 0; i < columnCount(); i++ ) {
+    for( int i = 0; i < columnCount(); i++ )
+    {
         QTableWidgetItem* item = new QTableWidgetItem( colNames.at(i) );
         item->setToolTip( colTooltips.at(i) );
         setHorizontalHeaderItem( i, item );
@@ -193,13 +196,16 @@ int FilmsViewList::GetCurrentItemIndex() const
 
 void FilmsViewList::SetCurrentItemIndex( int i )
 {
-    if( (i >= rowCount()) || (i < 0) )
+    if( rowCount() > 0 )
     {
-        i = 0;
-    }
+        if( (i >= rowCount()) || (i < 0) )
+        {
+            i = 0;
+        }
 
-    setCurrentCell( i, 0 );
-    itemClicked( item( i, 0 ) );
+        setCurrentCell( i, 0 );
+        itemClicked( item( i, 0 ) );
+    }
 }
 
 void FilmsViewList::ItemClickedSlot( QTableWidgetItem* item )
@@ -210,4 +216,13 @@ void FilmsViewList::ItemClickedSlot( QTableWidgetItem* item )
 void FilmsViewList::ItemDoubleClickedSlot( QTableWidgetItem* item )
 {
     emit ItemDoubleClicked( this->item( item->row(), TitleColumn )->text() );
+}
+
+void FilmsViewList::ContextMenuRequestedSlot( QPoint p )
+{
+    if( rowCount() > 0 )
+    {
+        SetCurrentItemIndex( GetCurrentItemIndex() );
+        emit ContextMenuRequested( p );
+    }
 }

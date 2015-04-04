@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmsviewgriditem.h                                                                     *
+ *  file: filmsviewcontextmenu.h                                                                  *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,28 +18,45 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSVIEWGRIDITEM_H
-#define FILMSVIEWGRIDITEM_H
+#ifndef FILMSVIEWCONTEXTMENU_H
+#define FILMSVIEWCONTEXTMENU_H
 
-#include <QLabel>
-#include <QWidget>
+#include <QAction>
+#include <QMenu>
 
-#include "alexandrasettings.h"
 #include "film.h"
 
-class FilmViewGridItem : public QWidget
+class FilmsViewContextMenu : public QMenu
 {
     Q_OBJECT
 
     public:
-        FilmViewGridItem( const Film* film, AlexandraSettings* s, QWidget* parent = nullptr );
+        FilmsViewContextMenu( QWidget* parent = nullptr );
 
-        QString GetTitle() const;
+        void SetState( const Film* film );
+
+    signals:
+        void actionPlay();
+        void actionShowInfo();
+        void actionIsViewed( bool );
+        void actionIsFavourite( bool );
+        void actionEdit();
+        void actionRemove();
+        void actionRemoveFile();
+
+    private slots:
+        void actionPlaySlot();
+        void actionShowInfoSlot();
+        void actionIsViewedSlot( bool b );
+        void actionIsFavouriteSlot( bool b );
+        void actionEditSlot();
+        void actionRemoveSlot();
+        void actionRemoveFileSlot();
 
     private:
-        QString titleText;
-        QLabel* poster = nullptr;
-        QLabel* title = nullptr;
+        QAction* cmaIsViewed = nullptr;
+        QAction* cmaIsFavourite = nullptr;
 };
 
-#endif // FILMSVIEWGRIDITEM_H
+#endif // FILMSVIEWCONTEXTMENU_H
+

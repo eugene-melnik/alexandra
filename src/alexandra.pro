@@ -5,8 +5,8 @@
 #                                                                   #
  ###################################################################
 
-CONFIG += release
-#CONFIG += debug
+#CONFIG += release
+CONFIG += debug
 
 TARGET = alexandra
 TEMPLATE = app
@@ -40,6 +40,7 @@ HEADERS += effects/effectdropshadow.h \
            film.h \
            filminfowindow.h \
            filmslist.h \
+           filmsviewcontextmenu.h \
            filmsviewgrid.h \
            filmsviewgriditem.h \
            filmsviewlist.h \
@@ -60,6 +61,7 @@ SOURCES += effects/effectdropshadow.cpp \
            film.cpp \
            filminfowindow.cpp \
            filmslist.cpp \
+           filmsviewcontextmenu.cpp \
            filmsviewgrid.cpp \
            filmsviewgriditem.cpp \
            filmsviewlist.cpp \

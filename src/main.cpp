@@ -28,8 +28,6 @@
 #include <QTranslator>
 #include <QTime>
 
-#include<QDebug>
-
 void LoadLocale( QApplication* app )
 {
     AlexandraSettings s;
@@ -57,10 +55,6 @@ void LoadLocale( QApplication* app )
 
 int main( int argc, char** argv )
 {
-
-QTime a;
-a.start();
-
     // Create seed for the random
     qsrand( QTime::currentTime().msecsSinceStartOfDay() );
 
@@ -78,8 +72,6 @@ a.start();
     // Run
     MainWindow* mainWindow = new MainWindow();
     mainWindow->show();
-
-qDebug()<<"Startup time ="<<a.elapsed()<<"msec";// BUG
 
     return( alexandra.exec() );
 }

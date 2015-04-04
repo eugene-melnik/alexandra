@@ -38,10 +38,12 @@ class FilmsViewGrid : public QTableWidget, public AbstractFilmsView
     private slots:
         void ItemClickedSlot( int row, int column );
         void ItemDoubleClickedSlot( int row, int column );
+        void ContextMenuRequestedSlot( QPoint p );
 
     signals:
         void ItemClicked( QString );
         void ItemDoubleClicked( QString );
+        void ContextMenuRequested( QPoint );
 
     private:
         AlexandraSettings* settings = nullptr;

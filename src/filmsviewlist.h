@@ -22,6 +22,7 @@
 #define FILMSVIEWLIST_H
 
 #include <QColor>
+#include <QPoint>
 #include <QStringList>
 #include <QTableWidget>
 #include <QTableWidgetItem>
@@ -59,10 +60,12 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
     private slots:
         void ItemClickedSlot( QTableWidgetItem* item );
         void ItemDoubleClickedSlot( QTableWidgetItem* item );
+        void ContextMenuRequestedSlot( QPoint p );
 
     signals:
         void ItemClicked( QString );
         void ItemDoubleClicked( QString );
+        void ContextMenuRequested( QPoint );
 
     private:
         enum Columns {

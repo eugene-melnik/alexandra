@@ -53,6 +53,7 @@ class AbstractFilmsView
 //    signals:
 //        void ItemClicked( QString );
 //        void ItemDoubleClicked( QString );
+//        void ContextMenuRequested( QPoint );
 };
 
 #endif // ABSTRACTFILMSVIEW_H
