@@ -33,7 +33,18 @@ StatusBar::~StatusBar()
     delete text;
 }
 
-void StatusBar::Show( int total, int viewed, int favourite )
+void StatusBar::ShowLoading()
+{
+    text->setText( tr( "Loading..." ) );
+    repaint();
+}
+
+void StatusBar::ShowFounded( int founded )
+{
+    text->setText( tr( "Founded: %1" ).arg( founded ) );
+}
+
+void StatusBar::ShowTotal( int total, int viewed, int favourite )
 {
     text->setText( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
                    .arg( total )

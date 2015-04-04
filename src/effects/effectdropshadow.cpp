@@ -31,7 +31,15 @@ EffectDropShadow::EffectDropShadow( QObject* parent )
 EffectDropShadow::EffectDropShadow( qreal offsetX, qreal offsetY, const QColor& color, QObject* parent )
     : QGraphicsDropShadowEffect( parent )
 {
-    this->setColor( QColor( color ) );
-    this->setBlurRadius( 5 );
     this->setOffset( offsetX, offsetY );
+    this->setBlurRadius( 5 );
+    this->setColor( QColor(color) );
+}
+
+EffectDropShadow::EffectDropShadow( qreal offsetX, qreal offsetY, qreal blurRadius, const QColor& color, QObject *parent )
+    : QGraphicsDropShadowEffect( parent )
+{
+    this->setOffset( offsetX, offsetY );
+    this->setBlurRadius( blurRadius );
+    this->setColor( QColor(color) );
 }

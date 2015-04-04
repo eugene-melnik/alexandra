@@ -29,8 +29,11 @@ class EffectDropShadow : public QGraphicsDropShadowEffect
     public:
         EffectDropShadow( QObject* parent = nullptr );
 
-        EffectDropShadow( qreal offsetX,
-                          qreal offsetY,
+        EffectDropShadow( qreal offsetX, qreal offsetY,
+                          const QColor& color = QColor( "black" ),
+                          QObject* parent = nullptr );
+
+        EffectDropShadow( qreal offsetX, qreal offsetY, qreal blurRadius,
                           const QColor& color = QColor( "black" ),
                           QObject* parent = nullptr );
 };

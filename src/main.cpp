@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: alexandra.cpp                                                                           *
+ *  file: main.cpp                                                                                *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -28,6 +28,8 @@
 #include <QTranslator>
 #include <QTime>
 
+#include<QDebug>
+
 void LoadLocale( QApplication* app )
 {
     AlexandraSettings s;
@@ -35,9 +37,12 @@ void LoadLocale( QApplication* app )
 
     QString locale;
 
-    if( currentLocaleIndex == -1 ) {
+    if( currentLocaleIndex == -1 )
+    {
         locale = QLocale::system().name();
-    } else {
+    }
+    else
+    {
         locale = Alexandra::supportedLocales[ currentLocaleIndex ].name;
     }
 
@@ -52,6 +57,10 @@ void LoadLocale( QApplication* app )
 
 int main( int argc, char** argv )
 {
+
+QTime a;
+a.start();
+
     // Create seed for the random
     qsrand( QTime::currentTime().msecsSinceStartOfDay() );
 
@@ -69,5 +78,8 @@ int main( int argc, char** argv )
     // Run
     MainWindow* mainWindow = new MainWindow();
     mainWindow->show();
+
+qDebug()<<"Startup time ="<<a.elapsed()<<"msec";// BUG
+
     return( alexandra.exec() );
 }

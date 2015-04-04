@@ -31,68 +31,18 @@
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QWidget" name="layoutWidget">
-       <layout class="QVBoxLayout" name="vlLeft" stretch="0,0">
+       <layout class="QVBoxLayout" name="vlLeft" stretch="0">
         <property name="sizeConstraint">
          <enum>QLayout::SetDefaultConstraint</enum>
         </property>
         <item>
-         <widget class="FilmsList" name="twFilms">
-          <property name="contextMenuPolicy">
-           <enum>Qt::CustomContextMenu</enum>
-          </property>
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
-          <property name="selectionMode">
-           <enum>QAbstractItemView::SingleSelection</enum>
-          </property>
-          <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
-          </property>
-          <property name="verticalScrollMode">
-           <enum>QAbstractItemView::ScrollPerPixel</enum>
-          </property>
-          <property name="horizontalScrollMode">
-           <enum>QAbstractItemView::ScrollPerPixel</enum>
-          </property>
-          <property name="sortingEnabled">
-           <bool>true</bool>
-          </property>
-          <property name="rowCount">
-           <number>0</number>
-          </property>
-          <property name="columnCount">
-           <number>7</number>
-          </property>
-          <attribute name="horizontalHeaderHighlightSections">
-           <bool>false</bool>
-          </attribute>
-          <attribute name="horizontalHeaderMinimumSectionSize">
-           <number>20</number>
-          </attribute>
-          <attribute name="horizontalHeaderStretchLastSection">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <attribute name="verticalHeaderDefaultSectionSize">
-           <number>20</number>
-          </attribute>
-          <column/>
-          <column/>
-          <column/>
-          <column/>
-          <column/>
-          <column/>
-          <column/>
-         </widget>
-        </item>
-        <item>
          <widget class="QLineEdit" name="eFilter">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Type keyword for filtering films list</string>
           </property>
@@ -176,7 +126,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>386</width>
+             <width>469</width>
              <height>393</height>
             </rect>
            </property>
@@ -441,9 +391,6 @@
              <property name="checkable">
               <bool>true</bool>
              </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
             </widget>
            </item>
            <item>
@@ -471,9 +418,6 @@
               </size>
              </property>
              <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
               <bool>true</bool>
              </property>
             </widget>
@@ -755,11 +699,6 @@
    <header>toolbar.h</header>
   </customwidget>
   <customwidget>
-   <class>FilmsList</class>
-   <extends>QTableWidget</extends>
-   <header>filmslist.h</header>
-  </customwidget>
-  <customwidget>
    <class>StatusBar</class>
    <extends>QStatusBar</extends>
    <header>statusbar.h</header>
@@ -798,22 +737,6 @@
     <hint type="destinationlabel">
      <x>399</x>
      <y>30</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>eFilter</sender>
-   <signal>returnPressed()</signal>
-   <receiver>twFilms</receiver>
-   <slot>setFocus()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>179</x>
-     <y>454</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>179</x>
-     <y>242</y>
     </hint>
    </hints>
   </connection>

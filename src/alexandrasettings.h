@@ -33,24 +33,32 @@ class AlexandraSettings : public QSettings
 
         // Get //
 
-        QString GetApplicationDatabaseFile() const;
-        QString GetApplicationExternalPlayer() const;
-        QString GetApplicationLastFilmPath() const;
-        QString GetApplicationLastPosterPath() const;
+        QString GetDatabaseFilePath() const;
+        QString GetExternalPlayer() const;
+        QString GetLastFilmPath() const;
+        QString GetLastPosterPath() const;
         int     GetApplicationLocaleIndex() const;
-        QString GetApplicationStyle() const;
+        QString GetApplicationStyleName() const;
 
-        bool    GetFilmsListCheckFilesOnStartup() const;
-        int     GetFilmsListColumnViewedW() const;
-        int     GetFilmsListColumnFavouriteW() const;
-        int     GetFilmsListColumnTitleW() const;
-        int     GetFilmsListColumnYearW() const;
-        int     GetFilmsListColumnGenreW() const;
-        int     GetFilmsListColumnDirectorW() const;
-        QString GetFilmsListCurrentFilm() const;
-        QString GetFilmsListPostersDir() const;
-        int     GetFilmsListScalePosters() const;
-        QRgb    GetFilmsListUnavailableFileColor() const;
+        int     GetFilmsViewMode() const;
+
+        bool    GetCheckFilesOnStartup() const;
+        int     GetColumnViewedWidth() const;
+        int     GetColumnFavouriteWidth() const;
+        int     GetColumnTitleWidth() const;
+        int     GetColumnYearWidth() const;
+        int     GetColumnGenreWidth() const;
+        int     GetColumnDirectorWidth() const;
+        QString GetCurrentFilmTitle() const;
+        QString GetPostersDirPath() const;
+        int     GetScalePosterToHeight() const;
+        QRgb    GetUnavailableFileColor() const;
+
+        int GetGridViewItemSize() const;
+        int GetGridViewTextSize() const;
+        int GetGridViewTextLength() const;
+        int GetGridViewColumnCount() const;
+        bool GetGridViewShowTooltip() const;
 
         QByteArray GetMainWindowGeometry() const;
         QByteArray GetMainWindowState() const;
@@ -59,24 +67,25 @@ class AlexandraSettings : public QSettings
 
         // Set //
 
-        void SetApplicationDatabaseFile( const QString& s );
-        void SetApplicationExternalPlayer( const QString& s );
-        void SetApplicationLastFilmPath( const QString& s );
-        void SetApplicationLastPosterPath( const QString& s );
+        void SetDatabaseFilePath( const QString& s );
+        void SetExternalPlayer( const QString& s );
+        void SetLastFilmPath( const QString& s );
+        void SetLastPosterPath( const QString& s );
         void SetApplicationLocaleIndex( int n );
-        void SetApplicationStyle( const QString& s );
+        void SetApplicationStyleName( const QString& s );
 
-        void SetFilmsListCheckFilesOnStartup( bool b );
-        void SetFilmsListColumnViewedW( int n );
-        void SetFilmsListColumnFavouriteW( int n );
-        void SetFilmsListColumnTitleW( int n );
-        void SetFilmsListColumnYearW( int n );
-        void SetFilmsListColumnGenreW( int n );
-        void SetFilmsListColumnDirectorW( int n );
-        void SetFilmsListCurrentFilm( const QString& s );
-        void SetFilmsListPostersDir( const QString& s );
-        void SetFilmsListScalePosters( int n );
-        void SetFilmsListUnavailableFileColor( QRgb c );
+        void SetFilmsViewMode( int n );
+        void SetCheckFilesOnStartup( bool b );
+        void SetColumnViewedWidth( int n );
+        void SetColumnFavouriteWidth( int n );
+        void SetColumnTitleWidth( int n );
+        void SetColumnYearWidth( int n );
+        void SetColumnGenreWidth( int n );
+        void SetColumnDirectorWidth( int n );
+        void SetCurrentFilmTitle( const QString& s );
+        void SetPostersDirPath( const QString& s );
+        void SetScalePostersToHeight( int n );
+        void SetUnavailableFileColor( QRgb c );
 
         void SetMainWindowGeometry( const QByteArray& a );
         void SetMainWindowState( const QByteArray& a );

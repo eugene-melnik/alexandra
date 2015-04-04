@@ -21,18 +21,17 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "ui_mainwindow.h"
-
-#include "filmslist.h"
-
 #include "aboutwindow.h"
+#include "abstractfilmsview.h"
 #include "addfilmwindow.h"
 #include "alexandrasettings.h"
 #include "editfilmwindow.h"
 #include "filminfowindow.h"
+#include "filmslist.h"
 #include "searchwindow.h"
 #include "settingswindow.h"
 #include "splashscreen.h"
+#include "ui_mainwindow.h"
 
 #include <QCloseEvent>
 #include <QMainWindow>
@@ -47,45 +46,48 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         MainWindow( QWidget* parent = nullptr );
         ~MainWindow();
 
+    signals:
+        void Shown();
+
     protected:
         void closeEvent( QCloseEvent* event );
 
     private slots:
-        void SettingsChanged();
-        void DatabaseSettingsChanged();
+        void SaveDatabase();
+        void ReloadDatabase();
+        void ReloadSettings();
 
-        void DatabaseChanged();
         void DatabaseReadError();
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 
-        void ShowEditFilmWindow();
-        void RemoveFilm();
-        void RemoveFile();
-
-        void ShowFilmContextMenu( QPoint p );
-        void FilmSelected( const Film* f );
-        void ShowShortInfo( QString s );
+        void ShowFilms();
+        void ShowFilmInformation();
+        void ShowShortTechnicalInfo( QString info );
 
         void PlayFilm();
         void PlayerStarted();
         void PlayerClosed();
 
-        void UpdateStatusBar();
+        void EditFilm();
+        void RemoveFilm();
+
+        void FilmsFilter( QString key );
 
     private:
         // Additional functions
-        void ConfigureSubwindows();
-        void ClearTextFields();
-
         void LoadSettings();
         void SaveSettings();
 
+        void SetupFilmsView();
+        void SetupWindows();
+
+        void ClearTextFields();
         void SetAllFunctionsEnabled( bool b );
         void SetEmptyMode( bool b = true );
         void SetReadOnlyMode( bool b = true );
 
-        // Subwindows
+        // Child windows
         AboutWindow* aboutWindow = nullptr;
         AddFilmWindow* addFilmWindow = nullptr;
         EditFilmWindow* editFilmWindow = nullptr;
@@ -96,6 +98,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         // Variables
         AlexandraSettings* settings = nullptr;
+        FilmsList* filmsList = nullptr;
+        AbstractFilmsView* filmsView = nullptr;
         QProcess* externalPlayer = nullptr;
 };
 

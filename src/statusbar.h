@@ -32,7 +32,9 @@ class StatusBar : public QStatusBar
         StatusBar( QWidget* parent = nullptr );
         ~StatusBar();
 
-        void Show( int total, int viewed, int favourite );
+        void ShowLoading();
+        void ShowFounded( int founded );
+        void ShowTotal( int total, int viewed, int favourite );
 
     private:
         QLabel* text = nullptr;

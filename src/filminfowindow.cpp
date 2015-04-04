@@ -30,39 +30,39 @@ FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
     connect( this, SIGNAL( FullInfoLoaded(QString) ), this, SLOT( ShowFullInfo(QString) ) );
 }
 
-void FilmInfoWindow::SetCurrentFile( const QString& f )
+void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )
 {
     eTechInfo->clear();
-    QtConcurrent::run( this, &FilmInfoWindow::LoadInfo, f );
+    QtConcurrent::run( this, &FilmInfoWindow::LoadTechnicalInfo, fileName );
+}
+
+void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
+{
+    loadInfoMutex.lock();
+    MediaInfo* mi = new MediaInfo( fileName );
+
+    // Short info
+    // First line of the Short info
+    QString shortInfo = mi->GetFormat() + " <b>|</b> ";
+    shortInfo += mi->GetFileSize() + " <b>|</b> ";
+    shortInfo += mi->GetOverallBitRate() + "<br/>";
+    // Second line...
+    shortInfo += mi->GetWidth() + "&times;";
+    shortInfo += mi->GetHeight() + " px <b>|</b> ";
+    shortInfo += mi->GetFrameRate() + "<br/>";
+    // Third line...
+    shortInfo += mi->GetDuration();
+
+    emit ShortInfoLoaded( shortInfo );
+
+    // Full info
+    emit FullInfoLoaded( mi->GetCompleteData() );
+
+    delete mi;
+    loadInfoMutex.unlock();
 }
 
 void FilmInfoWindow::ShowFullInfo( QString s )
 {
     eTechInfo->setPlainText( s );
-}
-
-void FilmInfoWindow::LoadInfo( const QString& f )
-{
-    MediaInfoNameSpace::MediaInfo* mi = new MediaInfoNameSpace::MediaInfo();
-    mi->Option( __T( "CharSet" ), __T( "UTF-8" ) );
-    mi->Open( MediaInfoNameSpace::String( f.toStdWString() ) );
-
-    // First line of the Short info
-    QString shortInfo = QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Format" ) ) ) + " <b>|</b> ";
-    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "FileSize/String3" ) ) ) + " <b>|</b> ";
-    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "OverallBitRate/String" ) ) ) + "<br/>";
-    // Second line...
-    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "Width" ) ) ) + "&times;";
-    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "Height" ) ) ) + " px <b>|</b> ";
-    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_Video, 0, __T( "FrameRate/String" ) ) ) + "<br/>";
-    // Third line...
-    shortInfo += QString::fromStdWString( mi->Get( MediaInfoNameSpace::Stream_General, 0, __T( "Duration/String" ) ) );
-    emit ShortInfoLoaded( shortInfo );
-
-    // Full info
-    mi->Option( __T( "Complete" ) );
-    emit FullInfoLoaded( QString::fromStdWString( mi->Inform() ) );
-
-    mi->Close();
-    delete mi;
 }

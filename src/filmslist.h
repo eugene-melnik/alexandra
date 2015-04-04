@@ -21,56 +21,58 @@
 #ifndef FILMSLIST_H
 #define FILMSLIST_H
 
-#include <QList>
-#include <QString>
-#include <QTableWidget>
-
 #include "alexandrasettings.h"
 #include "film.h"
 
-class FilmsList : public QTableWidget
+#include <QList>
+#include <QObject>
+#include <QMutex>
+#include <QString>
+
+class FilmsList : public QObject
 {
     Q_OBJECT
 
     public:
-        FilmsList( QWidget* parent = nullptr );
+        FilmsList( AlexandraSettings* s, QObject* parent = nullptr );
+        ~FilmsList();
 
-        void LoadDatabase();
-        void SaveDatabase();
+        void LoadFromFile( const QString& fileName );
+        void SaveToFile( const QString& fileName );
+        void SaveToFileAsync( const QString& fileName );
 
-        void LoadSettings( AlexandraSettings* s );
-        void SaveSettings() const;
-
-        int GetNumberOfFilms() const;
+    public slots:
+        int         GetNumberOfFilms() const;
         const Film* GetFilmAt( int i ) const;
+        const Film* GetFilmByTitle( QString title );
+
         const QList<Film>* GetFilmsList() const;
+        QList<Film>*       GetFilmsFilteredBy( const QString& key ) const;
 
         const Film* GetCurrentFilm() const;
-        const QString& GetCurrentFilmTitle() const;
-        const QString& GetCurrentFilmFileName() const;
-        void RemoveCurrentFilm();
+        QString GetCurrentFilmTitle() const;
+        QString GetCurrentFilmFileName() const;
 
+        int GetFilmsCount() const;
         int GetIsViewedCount() const;
         int GetIsFavouriteCount() const;
 
-    public slots:
-        void AppendFilm( Film f );
-        void EditCurrentFilm( Film f );
-        void SelectRandomFilm();
+        void AddFilm( Film film );
+        void AddFilm( const Film* film );
 
-        void SetCurrentIsViewed( bool b );
-        void SetCurrentIsFavourite( bool b );
+        void SetCurrentFilm( const QString& title );
+        void ChangeCurrentFilm( Film f );
+        void SetCurrentFilmIsViewed( bool b );
+        void SetCurrentFilmIsFavourite( bool b );
+        void IncCurrentFilmViewsCounter();
 
-        void SelectFilm( const QString& title );
-        void ItemSelected( QTableWidgetItem* i );
-        void UpdateFilmsTable();
+        void RemoveCurrentFilm();
 
-        void FilterBy( QString s );
-
-        void EraseDatabase();
+        //void EraseDatabase();
 
     signals:
         void DatabaseReadError();
+        void DatabaseWriteError();
         void DatabaseIsWrong();
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
@@ -78,30 +80,13 @@ class FilmsList : public QTableWidget
         void FilmSelected( const Film* );
         void DatabaseChanged();
 
-    private slots:
-        void SetCursorOnCurrentRow();
-
     private:
-        void SetCursorOnRow( int row );
-        void SetCursorOnFilm( const QString& title );
-        void SaveDatabaseConcurrent( QString databaseFileName );
-
         // Variables
-        QList<Film> films;
-        Film* currentFilm = nullptr;
         AlexandraSettings* settings = nullptr;
-        bool isDatabaseChanged;
-
-        // Structures and enumerations
-        enum ColumnIndexes {
-            ViewedColumn    = 0,
-            FavouriteColumn = 1,
-            TitleColumn     = 2,
-            YearColumn      = 3,
-            GenreColumn     = 4,
-            DirectorColumn  = 5,
-            RatingColumn    = 6
-        };
+        QList<Film>* films = nullptr;
+        Film* currentFilm = nullptr;
+        QMutex asyncSaveToFileMutex;
+        bool isDatabaseChanged = false;
 };
 
 #endif // FILMSLIST_H

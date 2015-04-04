@@ -247,6 +247,41 @@ QString Film::GetIsFavouriteSign() const
     return( isFavourite ? "+" : "-" );
 }
 
+#ifdef QT_DEBUG
+
+QString Film::DebugGetAllFields() const
+{
+    QString res = "\n-= Film Debug Info =-\n";
+
+    res += QString( "id: \"%1\"\n" ).arg( id );
+    res += QString( "section: \"%1\"\n" ).arg( section );
+    res += QString( "fileName: \"%1\"\n" ).arg( fileName );
+    res += QString( "title: \"%1\"\n" ).arg( title );
+    res += QString( "originalTitle: \"%1\"\n" ).arg( originalTitle );
+    res += QString( "tagline: \"%1\"\n" ).arg( tagline );
+    res += QString( "genre: \"%1\"\n" ).arg( genre );
+    res += QString( "country: \"%1\"\n" ).arg( country );
+    res += QString( "year: \"%1\"\n" ).arg( year );
+    res += QString( "director: \"%1\"\n" ).arg( director );
+    res += QString( "producer: \"%1\"\n" ).arg( producer );
+    res += QString( "starring: \"%1\"\n" ).arg( starring );
+    res += QString( "budget: \"%1\"\n" ).arg( budget );
+    res += QString( "description: \"%1\"\n" ).arg( description );
+    res += QString( "rating: \"%1\"\n" ).arg( rating );
+    res += QString( "ageRestrictions: \"%1\"\n" ).arg( ageRestrictions );
+    res += QString( "tags: \"%1\"\n" ).arg( tags );
+    res += QString( "additionalText: \"%1\"\n" ).arg( additionalText );
+    res += QString( "viewsCounter: \"%1\"\n" ).arg( viewsCounter );
+    res += QString( "isPosterExists: \"%1\"\n" ).arg( isPosterExists );
+    res += QString( "isViewed: \"%1\"\n" ).arg( isViewed );
+    res += QString( "isFavourite: \"%1\"\n" ).arg( isFavourite );
+    res += "-= End =-\n";
+
+    return( res );
+}
+
+#endif // QT_DEBUG
+
 /*************************************************************************************************
  *  Setters                                                                                       *
   *************************************************************************************************/
@@ -333,6 +368,11 @@ bool Film::SetRatingFromStr( const QString& s )
 void Film::SetTags( const QString &s )
 {
     tags = s;
+}
+
+void Film::IncViewsCounter()
+{
+    viewsCounter++;
 }
 
 void Film::SetIsPosterExists( bool b )

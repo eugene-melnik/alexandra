@@ -18,17 +18,15 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "filmsviewgrid.h"
+#include "filmsviewlist.h"
 #include "mainwindow.h"
 #include "version.h"
 
+#include <QColor>
 #include <QFileInfo>
-#include <QLabel>
 #include <QLineEdit>
-#include <QMenu>
 #include <QMessageBox>
-#include <QPoint>
-#include <QPushButton>
-#include <QStatusBar>
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 {
@@ -40,25 +38,31 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     // Data
     settings = new AlexandraSettings( this );
     externalPlayer = new QProcess( this );
+    filmsList = new FilmsList( settings, this );
 
-    ConfigureSubwindows();
+    SetupFilmsView();
+    SetupWindows();
     LoadSettings();
 
-    twFilms->LoadDatabase();
+    filmsList->LoadFromFile( settings->GetDatabaseFilePath() ); // FIXME: double ShowFilmInformation()
+    filmsView->SelectItem( settings->GetCurrentFilmTitle() );   //        call at startup
 }
 
 MainWindow::~MainWindow()
 {
-    // Subwindows
+    // Child windows
     delete aboutWindow;
-    delete addFilmWindow;
     delete editFilmWindow;
+    delete filmInfoWindow;
+    delete searchWindow;
     delete settingsWindow;
     delete splashScreen;
 
     // Variables
     delete settings;
     delete externalPlayer;
+    delete filmsList;
+    delete filmsView;
 }
 
 void MainWindow::closeEvent( QCloseEvent* event )
@@ -68,23 +72,23 @@ void MainWindow::closeEvent( QCloseEvent* event )
     event->accept();
 }
 
-void MainWindow::SettingsChanged()
+void MainWindow::SaveDatabase()
 {
-    QApplication::setStyle( settings->GetApplicationStyle() );
+    filmsList->SaveToFileAsync( settings->GetDatabaseFilePath() );
+}
+
+void MainWindow::ReloadDatabase()
+{
+    filmsList->LoadFromFile( settings->GetDatabaseFilePath() );
+    filmsView->SelectItem( settings->GetCurrentFilmTitle() );
+}
+
+void MainWindow::ReloadSettings()
+{
+    QApplication::setStyle( settings->GetApplicationStyleName() );
+    filmsView->ReloadSettings( settings );
     toolbar->LoadSettings( settings );
-    twFilms->LoadSettings( settings );
-}
-
-void MainWindow::DatabaseSettingsChanged()
-{
-    twFilms->LoadDatabase();
-}
-
-void MainWindow::DatabaseChanged()
-{
-    twFilms->SaveDatabase();
-    SetAllFunctionsEnabled( true );
-    UpdateStatusBar();
+    // TODO: right panel on/off
 }
 
 void MainWindow::DatabaseReadError()
@@ -121,76 +125,53 @@ void MainWindow::DatabaseIsReadonly()
                               tr( "Database is readonly! Editing functions are disabled." ) );
 }
 
-void MainWindow::ShowEditFilmWindow()
+void MainWindow::ShowFilms()
 {
-    editFilmWindow->show( twFilms->GetCurrentFilm() );
-}
+    statusbar->ShowLoading();
 
-void MainWindow::RemoveFilm()
-{
-    int res = QMessageBox::question( this,
-                                     tr( "Remove film" ),
-                                     tr( "Are you sure to remove \"%1\"?" ).arg( twFilms->GetCurrentFilmTitle() ),
-                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+    bool highlightUnavailable = settings->GetCheckFilesOnStartup();
+    QColor unavailableColor = settings->GetUnavailableFileColor();
 
-    if( res == QMessageBox::Yes ) {
-        twFilms->RemoveCurrentFilm();
-    }
-}
+    int currentIndex = filmsView->GetCurrentItemIndex();
+    filmsView->Clear();
 
-void MainWindow::RemoveFile()
-{
-    int res = QMessageBox::question( this,
-                                     tr( "Remove file" ),
-                                     tr( "Are you sure to remove file \"%1\"?" ).arg( twFilms->GetCurrentFilmFileName() ),
-                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+    const QList<Film>* films = filmsList->GetFilmsList();
 
-    if( res == QMessageBox::Yes ) {
-        if( QFile( twFilms->GetCurrentFilmFileName() ).remove() == true ) {
-            twFilms->RemoveCurrentFilm();
-        } else {
-            QMessageBox::warning( this,
-                                  tr( "Remove file" ),
-                                  tr( "Unable to remove file \"%1\"!" ).arg( twFilms->GetCurrentFilmFileName() ) );
+    for( int i = 0; i < films->size(); i++ )
+    {
+        const Film& film = films->at(i);
+
+        if( highlightUnavailable && !QFileInfo( film.GetFileName() ).exists() )
+        {
+            filmsView->AddItem( film, unavailableColor );
+        }
+        else
+        {
+            filmsView->AddItem( film );
         }
     }
+
+    statusbar->ShowTotal( filmsList->GetFilmsCount(), filmsList->GetIsViewedCount(), filmsList->GetIsFavouriteCount() );
+    filmsView->SetCurrentItemIndex( currentIndex );
+    emit Shown();
 }
 
-void MainWindow::ShowFilmContextMenu( QPoint p )
+void MainWindow::ShowFilmInformation()
 {
-    QMenu contextMenu;
+    const Film* f = filmsList->GetCurrentFilm();
 
-    // Play
-    contextMenu.addAction( QIcon( ":/action/play"), tr( "Play" ), this, SLOT( PlayFilm() ) );
-    // Separator
-    contextMenu.addSeparator();
-    // IsViewed
-    QAction* a = contextMenu.addAction( tr( "Is viewed" ) );
-    a->setCheckable( true );
-    a->setChecked( twFilms->GetCurrentFilm()->GetIsViewed() );
-    connect( a, SIGNAL( toggled(bool) ), twFilms, SLOT( SetCurrentIsViewed(bool) ) );
-    // IsFavourite
-    a = contextMenu.addAction( tr( "Is favourite" ) );
-    a->setCheckable( true );
-    a->setChecked( twFilms->GetCurrentFilm()->GetIsFavourite() );
-    connect( a, SIGNAL( toggled(bool) ), twFilms, SLOT( SetCurrentIsFavourite(bool) ) );
-    // Separator
-    contextMenu.addSeparator();
-    // Edit
-    contextMenu.addAction( QIcon( ":/tool/edit" ), tr( "Edit" ), this, SLOT( ShowEditFilmWindow() ) );
-    // Remove
-    contextMenu.addAction( QIcon( ":/tool/delete" ), tr( "Remove" ), this, SLOT( RemoveFilm() ) );
-    // Separator
-    contextMenu.addSeparator();
-    // Remove file
-    contextMenu.addAction( tr( "Remove file" ), this, SLOT( RemoveFile() ) );
+    // Buttons and technical information
+    bTechInformation->setEnabled( false );
 
-    QPoint pos = twFilms->viewport()->mapToGlobal( p );
-    contextMenu.exec( pos );
-}
+    if( QFileInfo( f->GetFileName() ).exists() ) {
+        // File exists
+        filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
+        bPlay->setEnabled( true );
+    } else {
+        // File doesn't exists
+        bPlay->setEnabled( false );
+    }
 
-void MainWindow::FilmSelected( const Film* f )
-{
     // Main information
     lFilmTitle->setText( f->GetTitle() );
     lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->GetOriginalTitle() ) );
@@ -210,7 +191,7 @@ void MainWindow::FilmSelected( const Film* f )
     lTechInformation->setText( "—" );
 
     // Poster
-    QPixmap p( settings->GetFilmsListPostersDir() + "/" + f->GetPosterName() );
+    QPixmap p( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
 
     if( p.isNull() ) {
         p.load( ":/standart-poster" );
@@ -218,33 +199,21 @@ void MainWindow::FilmSelected( const Film* f )
 
     p = p.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
     lPosterImage->setPixmap( p );
-
-    // Buttons and technical information
-    bTechInformation->setEnabled( false );
-
-    if( QFileInfo( f->GetFileName() ).exists() ) {
-        // File exists
-        filmInfoWindow->SetCurrentFile( f->GetFileName() );
-        bPlay->setEnabled( true );
-    } else {
-        // File doesn't exists
-        bPlay->setEnabled( false );
-    }
 }
 
-void MainWindow::ShowShortInfo( QString s )
+void MainWindow::ShowShortTechnicalInfo( QString info )
 {
-    lTechInformation->setText( s );
+    lTechInformation->setText( info );
     bTechInformation->setEnabled( true );
 }
 
 void MainWindow::PlayFilm()
 {
     if( externalPlayer->state() == QProcess::NotRunning ) {
-#ifdef Q_OS_WIN32
-        externalPlayer->start( "\"" + settings->GetApplicationExternalPlayer() + "\" \"" + twFilms->GetCurrentFilmFileName() +"\"" );
-#else
-        externalPlayer->start( settings->GetApplicationExternalPlayer() + " \"" + twFilms->GetCurrentFilmFileName() +"\"" );
+#ifdef Q_OS_LINUX
+        externalPlayer->start( settings->GetExternalPlayer() + " \"" + filmsList->GetCurrentFilmFileName() +"\"" );
+#elif defined(Q_OS_WIN32)
+        externalPlayer->start( "\"" + settings->GetApplicationExternalPlayer() + "\" \"" + filmsList->GetCurrentFilmFileName() +"\"" );
 #endif
     } else {
         externalPlayer->close();
@@ -253,104 +222,226 @@ void MainWindow::PlayFilm()
 
 void MainWindow::PlayerStarted()
 {
-    twFilms->setEnabled( false );
+    dynamic_cast<QWidget*>( filmsView )->setEnabled( false );
     eFilter->setEnabled( false );
     bPlay->setText( tr( "STOP" ) );
 }
 
 void MainWindow::PlayerClosed()
 {
-    twFilms->setEnabled( true );
+    dynamic_cast<QWidget*>( filmsView )->setEnabled( true );
     eFilter->setEnabled( true );
     bPlay->setText( tr( "PLAY" ) );
 
-    if( bViewed->isEnabled() && !bViewed->isChecked() ) {
+    filmsList->IncCurrentFilmViewsCounter();
+
+    if( bViewed->isEnabled() && !bViewed->isChecked() )
+    {
         bViewed->setChecked( true );
         bViewed->clicked( true );
     }
+
 }
 
-void MainWindow::UpdateStatusBar()
+void MainWindow::EditFilm()
 {
-    statusbar->Show( twFilms->GetNumberOfFilms(),
-                     twFilms->GetIsViewedCount(),
-                     twFilms->GetIsFavouriteCount() );
+    editFilmWindow->show( filmsList->GetCurrentFilm() );
 }
 
-void MainWindow::ConfigureSubwindows()
+void MainWindow::RemoveFilm()
+{
+    int res = QMessageBox::question( this,
+                                     tr( "Remove film" ),
+                                     tr( "Are you sure to remove \"%1\"?" ).arg( filmsList->GetCurrentFilmTitle() ),
+                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+    if( res == QMessageBox::Yes )
+    {
+        filmsList->RemoveCurrentFilm();
+    }
+}
+
+void MainWindow::FilmsFilter( QString key )
+{
+    statusbar->ShowLoading();
+
+    QList<Film>* films = filmsList->GetFilmsFilteredBy( key );
+
+    bool highlightUnavailable = settings->GetCheckFilesOnStartup();
+    QColor unavailableColor = settings->GetUnavailableFileColor();
+
+    filmsView->Clear();
+
+    for( int i = 0; i < films->size(); i++ )
+    {
+        const Film& film = films->at(i);
+
+        if( highlightUnavailable && !QFileInfo( film.GetFileName() ).exists() )
+        {
+            filmsView->AddItem( film, unavailableColor );
+        }
+        else
+        {
+            filmsView->AddItem( film );
+        }
+    }
+
+    if( films->size() == filmsList->GetNumberOfFilms() )
+    {
+        statusbar->ShowTotal( filmsList->GetFilmsCount(), filmsList->GetIsViewedCount(), filmsList->GetIsFavouriteCount() );
+    }
+    else
+    {
+        statusbar->ShowFounded( films->size() );
+    }
+
+    filmsView->SetCurrentItemIndex( 0 );
+    delete films;
+}
+
+void MainWindow::LoadSettings()
+{
+    QApplication::setStyle( settings->GetApplicationStyleName() );
+
+    // Main window
+    restoreGeometry( settings->GetMainWindowGeometry() );
+    restoreState( settings->GetMainWindowState() );
+    mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
+    actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
+
+    // Widgets
+    filmsView->LoadSettings( settings );
+    toolbar->LoadSettings( settings );
+}
+
+void MainWindow::SaveSettings()
+{
+    // Main window
+    settings->SetMainWindowState( saveState() );
+    settings->SetMainWindowGeometry( saveGeometry() );
+    settings->SetMainWindowSplitterState( mainSplitter->saveState() );
+
+    // Widgets
+    filmsView->SaveSettings( settings );
+
+    // Choosen film
+    settings->SetCurrentFilmTitle( filmsList->GetCurrentFilmTitle() );
+
+    settings->sync();
+}
+
+void MainWindow::SetupFilmsView()
+{
+    if( filmsView != nullptr )
+    {
+        delete filmsView;
+    }
+
+    QWidget* view = nullptr;
+
+    switch( settings->GetFilmsViewMode() )
+    {
+        case Alexandra::GridMode :
+        {
+            view = new FilmsViewGrid( this );
+            break;
+        }
+
+        // List view by default
+        default :
+        {
+            view = new FilmsViewList( this );
+        }
+    }
+
+    connect( view, SIGNAL( ItemClicked(QString) ), filmsList, SLOT( SetCurrentFilm(QString) ) );
+    connect( view, SIGNAL( ItemClicked(QString) ), this, SLOT( ShowFilmInformation() ) );
+    connect( view, SIGNAL( ItemDoubleClicked(QString) ), this, SLOT( PlayFilm() ) );
+
+    filmsView = dynamic_cast<AbstractFilmsView*>( view );
+    vlLeft->insertWidget( 0, view );
+}
+
+void MainWindow::SetupWindows()
 {
     // Splashscreen
     splashScreen = new SplashScreen();
     splashScreen->show();
-    connect( twFilms, SIGNAL( DatabaseChanged() ), splashScreen, SLOT( Close() ) );
+    connect( this, SIGNAL( Shown() ), splashScreen, SLOT( Close() ) );
 
     // Main window
     connect( toolbar, SIGNAL( actionExit() ), this, SLOT( close() ) );
 
-    connect( twFilms, SIGNAL( DatabaseReadError() ), this, SLOT( DatabaseReadError() ) );
-    connect( twFilms, SIGNAL( DatabaseIsReadonly() ), this, SLOT( DatabaseIsReadonly() ) );
-    connect( twFilms, SIGNAL( DatabaseIsEmpty() ), this, SLOT( DatabaseIsEmpty() ) );
-    connect( twFilms, SIGNAL( DatabaseChanged() ), this, SLOT( DatabaseChanged() ) );
-    connect( twFilms, SIGNAL( FilmSelected(const Film*) ), this, SLOT( FilmSelected(const Film*) ) );
-    connect( twFilms, SIGNAL( itemDoubleClicked(QTableWidgetItem*) ), this, SLOT( PlayFilm() ) );
-    connect( twFilms, SIGNAL( customContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
+    connect( filmsList, SIGNAL( DatabaseChanged() ), this, SLOT( SaveDatabase() ) );
+    connect( filmsList, SIGNAL( DatabaseChanged() ), this, SLOT( ShowFilms() ) );
+    connect( filmsList, SIGNAL( DatabaseReadError() ), this, SLOT( DatabaseReadError() ) );
+    connect( filmsList, SIGNAL( DatabaseIsReadonly() ), this, SLOT( DatabaseIsReadonly() ) );
+    connect( filmsList, SIGNAL( DatabaseIsEmpty() ), this, SLOT( DatabaseIsEmpty() ) );
 
-    connect( eFilter, SIGNAL( textChanged(QString) ), twFilms, SLOT( FilterBy(QString) ) );
-
-    connect( bViewed, SIGNAL( clicked(bool) ), twFilms, SLOT( SetCurrentIsViewed(bool) ) );
-    connect( bFavourite, SIGNAL( clicked(bool) ), twFilms, SLOT( SetCurrentIsFavourite(bool) ) );
     connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
+    connect( bViewed, SIGNAL( clicked(bool) ), filmsList, SLOT( SetCurrentFilmIsViewed(bool) ) );
+    connect( bFavourite, SIGNAL( clicked(bool) ), filmsList, SLOT( SetCurrentFilmIsFavourite(bool) ) );
+
+    connect( eFilter, SIGNAL( textChanged(QString) ), this, SLOT( FilmsFilter(QString) ) );
 
     connect( externalPlayer, SIGNAL( started() ), this, SLOT( PlayerStarted() ) );
     connect( externalPlayer, SIGNAL( finished(int) ), this, SLOT( PlayerClosed() ) );
 
-    // About and About Qt windows
+    // About window
     aboutWindow = new AboutWindow( this );
+
     connect( actionAbout, SIGNAL( triggered() ), aboutWindow, SLOT( show() ) );
     connect( actionAboutQt, SIGNAL( triggered() ), aboutWindow, SLOT( AboutQt() ) );
 
     // Add film window
     addFilmWindow = new AddFilmWindow( settings, this );
+
     connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
     connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
 
-    connect( addFilmWindow, SIGNAL( Done(Film) ), twFilms, SLOT( AppendFilm(Film) ) );
+    connect( addFilmWindow, SIGNAL( Done(Film) ), filmsList, SLOT( AddFilm(Film) ) );
+    connect( addFilmWindow, SIGNAL( Done(Film) ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectItem(Film) ) );
 
     // Edit film window
     editFilmWindow = new EditFilmWindow( settings, this );
-    connect( actionEdit, SIGNAL( triggered() ), this, SLOT( ShowEditFilmWindow() ) );
-    connect( toolbar, SIGNAL( actionEdit() ), this, SLOT( ShowEditFilmWindow() ) );
 
-    connect( editFilmWindow, SIGNAL( Done(Film) ), twFilms, SLOT( EditCurrentFilm(Film) ) );
+    connect( actionEdit, SIGNAL( triggered() ), this, SLOT( EditFilm() ) );
+    connect( toolbar, SIGNAL( actionEdit() ), this, SLOT( EditFilm() ) );
 
-    // FilmInfo window
-    filmInfoWindow = new FilmInfoWindow( this );
-    connect( bTechInformation, SIGNAL( clicked() ), filmInfoWindow, SLOT( show() ) );
+    connect( editFilmWindow, SIGNAL( Done(Film) ), filmsList, SLOT( ChangeCurrentFilm(Film) ) );
 
-    connect( filmInfoWindow, SIGNAL( ShortInfoLoaded(QString) ), this, SLOT( ShowShortInfo(QString) ) );
-
-    // Remove film
+    // Remove film dialog
     connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );
     connect( toolbar, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
 
+    // Film info window
+    filmInfoWindow = new FilmInfoWindow( this );
+
+    connect( bTechInformation, SIGNAL( clicked() ), filmInfoWindow, SLOT( show() ) );
+
+    connect( filmInfoWindow, SIGNAL( ShortInfoLoaded(QString) ), this, SLOT( ShowShortTechnicalInfo(QString) ) );
+
     // Search window
-    searchWindow = new SearchWindow( twFilms->GetFilmsList(), this );
+    searchWindow = new SearchWindow( filmsList->GetFilmsList(), this );
+
     connect( actionSearch, SIGNAL( triggered() ), searchWindow, SLOT( show() ) );
     connect( toolbar, SIGNAL( actionSearch() ), searchWindow, SLOT( show() ) );
 
-    connect( searchWindow, SIGNAL( FilmSelected(QString) ), twFilms, SLOT( SelectFilm(QString) ) );
+    connect( searchWindow, SIGNAL( FilmSelected(QString) ), filmsList, SLOT( SetCurrentFilm(QString) ) );
+    connect( searchWindow, SIGNAL( FilmSelected(QString) ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectItem(QString) ) );
 
     // Settings window
     settingsWindow = new SettingsWindow( settings, this );
+
     connect( actionSettings, SIGNAL( triggered() ), settingsWindow, SLOT( show() ) );
 
-    connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( SettingsChanged() ) );
-    connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( DatabaseSettingsChanged() ) );
-    connect( settingsWindow, SIGNAL( EraseDatabase() ), twFilms, SLOT( EraseDatabase() ) );
+    connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( ReloadSettings() ) );
+    connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( ReloadDatabase() ) );
+    ///connect( settingsWindow, SIGNAL( EraseDatabase() ), tableFilms, SLOT( EraseDatabase() ) );
 
     // Random film
-    connect( toolbar, SIGNAL( actionRandom() ), twFilms, SLOT( SelectRandomFilm() ) );
-    connect( actionRandom, SIGNAL( triggered() ), twFilms, SLOT( SelectRandomFilm() ) );
+    connect( actionRandom, SIGNAL( triggered() ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectRandomItem() ) );
+    connect( toolbar, SIGNAL( actionRandom() ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectRandomItem() ) );
 }
 
 void MainWindow::ClearTextFields()
@@ -370,34 +461,6 @@ void MainWindow::ClearTextFields()
     lTags->clear();
     lTechInformation->clear();
     repaint(); // Need for removing the artifacts
-}
-
-void MainWindow::LoadSettings()
-{
-    QApplication::setStyle( settings->GetApplicationStyle() );
-
-    // Main window settings
-    restoreGeometry( settings->GetMainWindowGeometry() );
-    restoreState( settings->GetMainWindowState() );
-    mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
-    actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
-
-    // Widgets' settings
-    toolbar->LoadSettings( settings );
-    twFilms->LoadSettings( settings );
-}
-
-void MainWindow::SaveSettings()
-{
-    // Main window settings
-    settings->SetMainWindowState( saveState() );
-    settings->SetMainWindowGeometry( saveGeometry() );
-    settings->SetMainWindowSplitterState( mainSplitter->saveState() );
-
-    // Table settings
-    twFilms->SaveSettings();
-
-    settings->sync();
 }
 
 void MainWindow::SetAllFunctionsEnabled( bool b )

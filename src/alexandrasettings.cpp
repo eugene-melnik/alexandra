@@ -29,14 +29,15 @@ AlexandraSettings::AlexandraSettings( QObject* parent )
 {
     // Set database filename
 
-    QString databaseFileName = GetApplicationDatabaseFile();
+    QString databaseFileName = GetDatabaseFilePath();
 
     if( databaseFileName.isEmpty() )
     {
 #ifdef Q_OS_LINUX
         databaseFileName = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
 
-        if( databaseFileName.isEmpty() ) {
+        if( databaseFileName.isEmpty() )
+        {
             databaseFileName = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
         }
 #elif defined( Q_OS_WIN32 )
@@ -44,23 +45,23 @@ AlexandraSettings::AlexandraSettings( QObject* parent )
 #endif
         databaseFileName += "/" + Alexandra::appName + "/database.adat";
 
-        SetApplicationDatabaseFile( databaseFileName );
+        SetDatabaseFilePath( databaseFileName );
     }
 
     // Set posters' directory name
 
-    QString postersFolderName = GetFilmsListPostersDir();
+    QString postersFolderName = GetPostersDirPath();
     QString databaseDir = QFileInfo( databaseFileName ).absolutePath();
 
     if( postersFolderName.isEmpty() )
     {
         postersFolderName = databaseDir + "/posters";
-        SetFilmsListPostersDir( postersFolderName );
+        SetPostersDirPath( postersFolderName );
     }
 
     // Set external player
 
-    QString externalPlayerName = GetApplicationExternalPlayer();
+    QString externalPlayerName = GetExternalPlayer();
 
     if( externalPlayerName.isEmpty() )
     {
@@ -68,10 +69,8 @@ AlexandraSettings::AlexandraSettings( QObject* parent )
         externalPlayerName = "xdg-open";
 #elif defined(Q_OS_WIN32)
         externalPlayerName = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
-#else
-        externalPlayerName.clear();
 #endif
-        SetApplicationExternalPlayer( externalPlayerName );
+        SetExternalPlayer( externalPlayerName );
     }
 
     sync();
@@ -79,22 +78,22 @@ AlexandraSettings::AlexandraSettings( QObject* parent )
 
 // Get //
 
-QString AlexandraSettings::GetApplicationDatabaseFile() const
+QString AlexandraSettings::GetDatabaseFilePath() const
 {
     return( value( "Application/DatabaseFile", "" ).toString() );
 }
 
-QString AlexandraSettings::GetApplicationExternalPlayer() const
+QString AlexandraSettings::GetExternalPlayer() const
 {
     return( value( "Application/ExternalPlayer", "" ).toString() );
 }
 
-QString AlexandraSettings::GetApplicationLastFilmPath() const
+QString AlexandraSettings::GetLastFilmPath() const
 {
     return( value( "Application/LastFilmPath", "." ).toString() );
 }
 
-QString AlexandraSettings::GetApplicationLastPosterPath() const
+QString AlexandraSettings::GetLastPosterPath() const
 {
     return( value( "Application/LastPosterPath", "." ).toString() );
 }
@@ -104,70 +103,100 @@ int AlexandraSettings::GetApplicationLocaleIndex() const
     return( value( "Application/Locale", -1 ).toInt() );
 }
 
-QString AlexandraSettings::GetApplicationStyle() const
+QString AlexandraSettings::GetApplicationStyleName() const
 {
     return( value( "Application/Style" ).toString() );
 }
 
-bool AlexandraSettings::GetFilmsListCheckFilesOnStartup() const
+int AlexandraSettings::GetFilmsViewMode() const
+{
+    return( value( "FilmsView/Mode", 0 ).toInt() );
+}
+
+bool AlexandraSettings::GetCheckFilesOnStartup() const
 {
     return( value( "FilmsList/CheckFilesOnStartup", true ).toBool() );
 }
 
-int AlexandraSettings::GetFilmsListColumnViewedW() const
+int AlexandraSettings::GetColumnViewedWidth() const
 {
     int defaultValue = 20;
     return( value( "FilmsList/ColumnViewedW", defaultValue ).toInt() );
 }
 
-int AlexandraSettings::GetFilmsListColumnFavouriteW() const
+int AlexandraSettings::GetColumnFavouriteWidth() const
 {
     int defaultValue = 20;
     return( value( "FilmsList/ColumnFavouriteW", defaultValue ).toInt() );
 }
 
-int AlexandraSettings::GetFilmsListColumnTitleW() const
+int AlexandraSettings::GetColumnTitleWidth() const
 {
     int defaultValue = 150;
     return( value( "FilmsList/ColumnTitleW", defaultValue ).toInt() );
 }
 
-int AlexandraSettings::GetFilmsListColumnYearW() const
+int AlexandraSettings::GetColumnYearWidth() const
 {
     int defaultValue = 50;
     return( value( "FilmsList/ColumnYearW", defaultValue ).toInt() );
 }
 
-int AlexandraSettings::GetFilmsListColumnGenreW() const
+int AlexandraSettings::GetColumnGenreWidth() const
 {
     int defaultValue = 110;
     return( value( "FilmsList/ColumnGenreW", defaultValue ).toInt() );
 }
 
-int AlexandraSettings::GetFilmsListColumnDirectorW() const
+int AlexandraSettings::GetColumnDirectorWidth() const
 {
     int defaultValue = 110;
     return( value( "FilmsList/ColumnDirectorW", defaultValue ).toInt() );
 }
 
-QString AlexandraSettings::GetFilmsListCurrentFilm() const
+QString AlexandraSettings::GetCurrentFilmTitle() const
 {
     return( value( "FilmsList/CurrentFilm", "" ).toString() );
 }
 
-QString AlexandraSettings::GetFilmsListPostersDir() const
+QString AlexandraSettings::GetPostersDirPath() const
 {
     return( value( "FilmsList/PostersDir", "" ).toString() );
 }
 
-int AlexandraSettings::GetFilmsListScalePosters() const
+int AlexandraSettings::GetScalePosterToHeight() const
 {
     return( value( "FilmsList/ScalePosters", 600 ).toInt() );
 }
 
-QRgb AlexandraSettings::GetFilmsListUnavailableFileColor() const
+QRgb AlexandraSettings::GetUnavailableFileColor() const
 {
     return( value( "FilmsList/UnavailableFileColor", qRgb( 0xff, 0xc0, 0xc0 ) ).toUInt() );
+}
+
+int AlexandraSettings::GetGridViewItemSize() const
+{
+    return( value( "GridView/ItemSize", 130 ).toInt() );
+}
+
+int AlexandraSettings::GetGridViewTextSize() const
+{
+    return( value( "GridView/TextSize", 12 ).toInt() );
+}
+
+int AlexandraSettings::GetGridViewTextLength() const
+{
+    return( value( "GridView/TextLength", 25 ).toInt() );
+}
+
+int AlexandraSettings::GetGridViewColumnCount() const
+{
+    return( value( "GridView/ColumnCount", 3 ).toInt() );
+}
+
+bool AlexandraSettings::GetGridViewShowTooltip() const
+{
+    return( value( "GridView/ShowTooltip", false ).toBool() );
 }
 
 QByteArray AlexandraSettings::GetMainWindowGeometry() const
@@ -192,22 +221,22 @@ int AlexandraSettings::GetMainWindowToolbarStyle() const
 
 // Set //
 
-void AlexandraSettings::SetApplicationDatabaseFile( const QString& s )
+void AlexandraSettings::SetDatabaseFilePath( const QString& s )
 {
     setValue( "Application/DatabaseFile", s );
 }
 
-void AlexandraSettings::SetApplicationExternalPlayer( const QString& s )
+void AlexandraSettings::SetExternalPlayer( const QString& s )
 {
     setValue( "Application/ExternalPlayer", s );
 }
 
-void AlexandraSettings::SetApplicationLastFilmPath( const QString& s )
+void AlexandraSettings::SetLastFilmPath( const QString& s )
 {
     setValue( "Application/LastFilmPath", s );
 }
 
-void AlexandraSettings::SetApplicationLastPosterPath( const QString& s )
+void AlexandraSettings::SetLastPosterPath( const QString& s )
 {
     setValue( "Application/LastPosterPath", s );
 }
@@ -217,62 +246,67 @@ void AlexandraSettings::SetApplicationLocaleIndex( int n )
     setValue( "Application/Locale", n );
 }
 
-void AlexandraSettings::SetApplicationStyle( const QString& s )
+void AlexandraSettings::SetApplicationStyleName( const QString& s )
 {
     setValue( "Application/Style", s );
 }
 
-void AlexandraSettings::SetFilmsListCheckFilesOnStartup( bool b )
+void AlexandraSettings::SetFilmsViewMode( int n )
+{
+    setValue( "FilmsView/Mode", n );
+}
+
+void AlexandraSettings::SetCheckFilesOnStartup( bool b )
 {
     setValue( "FilmsList/CheckFilesOnStartup", b );
 }
 
-void AlexandraSettings::SetFilmsListColumnViewedW( int n )
+void AlexandraSettings::SetColumnViewedWidth( int n )
 {
     setValue( "FilmsList/ColumnViewedW", n );
 }
 
-void AlexandraSettings::SetFilmsListColumnFavouriteW( int n )
+void AlexandraSettings::SetColumnFavouriteWidth( int n )
 {
     setValue( "FilmsList/ColumnFavouriteW", n );
 }
 
-void AlexandraSettings::SetFilmsListColumnTitleW( int n )
+void AlexandraSettings::SetColumnTitleWidth( int n )
 {
     setValue( "FilmsList/ColumnTitleW", n );
 }
 
-void AlexandraSettings::SetFilmsListColumnYearW( int n )
+void AlexandraSettings::SetColumnYearWidth( int n )
 {
     setValue( "FilmsList/ColumnYearW", n );
 }
 
-void AlexandraSettings::SetFilmsListColumnGenreW( int n )
+void AlexandraSettings::SetColumnGenreWidth( int n )
 {
     setValue( "FilmsList/ColumnGenreW", n );
 }
 
-void AlexandraSettings::SetFilmsListColumnDirectorW( int n )
+void AlexandraSettings::SetColumnDirectorWidth( int n )
 {
     setValue( "FilmsList/ColumnDirectorW", n );
 }
 
-void AlexandraSettings::SetFilmsListCurrentFilm( const QString& s )
+void AlexandraSettings::SetCurrentFilmTitle( const QString& s )
 {
     setValue( "FilmsList/CurrentFilm", s );
 }
 
-void AlexandraSettings::SetFilmsListPostersDir( const QString& s )
+void AlexandraSettings::SetPostersDirPath( const QString& s )
 {
     setValue( "FilmsList/PostersDir", s );
 }
 
-void AlexandraSettings::SetFilmsListScalePosters( int n )
+void AlexandraSettings::SetScalePostersToHeight( int n )
 {
     setValue( "FilmsList/ScalePosters", n );
 }
 
-void AlexandraSettings::SetFilmsListUnavailableFileColor( QRgb c )
+void AlexandraSettings::SetUnavailableFileColor( QRgb c )
 {
     setValue( "FilmsList/UnavailableFileColor", c );
 }

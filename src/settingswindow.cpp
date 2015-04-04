@@ -59,7 +59,8 @@ void SettingsWindow::showEvent( QShowEvent* event )
 void SettingsWindow::OkButtonClicked()
 {
     // Show reboot message (if necessary)
-    if( isNeedReboot ) {
+    if( isNeedReboot )
+    {
         QMessageBox::information( this, tr( "Settings" ), tr( "For taking all settings, restart the application." ) );
     }
 
@@ -67,28 +68,30 @@ void SettingsWindow::OkButtonClicked()
     close();
 
     // Saving settings
-    if( isSettingsChanged ) {
-        // application tab
+    if( isSettingsChanged )
+    {
+        // Application tab
         settings->SetApplicationLocaleIndex( cbLanguage->currentIndex() - 1 );
 
         if( cbStyle->currentIndex() == 0 ) {
-            settings->SetApplicationStyle( "" );
+            settings->SetApplicationStyleName( "" );
         } else {
-            settings->SetApplicationStyle( cbStyle->currentText() );
+            settings->SetApplicationStyleName( cbStyle->currentText() );
         }
 
         settings->SetMainWindowToolbarStyle( toolStyles[ cbToolbarStyle->currentIndex() ].style  );
-        settings->SetApplicationExternalPlayer( eExternalPlayer->text() );
-        // database tab
-        settings->SetApplicationDatabaseFile( eDatabaseFile->text() );
-        settings->SetFilmsListCheckFilesOnStartup( cCheckFilesAtStartup->isChecked() );
-        settings->SetFilmsListPostersDir( ePostersFolder->text() );
-        settings->SetFilmsListScalePosters( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
+        settings->SetExternalPlayer( eExternalPlayer->text() );
+        // Database tab
+        settings->SetDatabaseFilePath( eDatabaseFile->text() );
+        settings->SetCheckFilesOnStartup( cCheckFilesAtStartup->isChecked() );
+        settings->SetPostersDirPath( ePostersFolder->text() );
+        settings->SetScalePostersToHeight( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
         settings->sync();
 
         emit SettingsChanged();
 
-        if( isDatabaseSettingsChanged ) {
+        if( isDatabaseSettingsChanged )
+        {
             emit DatabaseSettingsChanged();
         }
     }
@@ -122,12 +125,13 @@ void SettingsWindow::SelectExternalPlayer()
                                                            tr( "Executable files (*)" ) );
 #endif
 
-    if( !externalPlayer.isEmpty() ) {
+    if( !externalPlayer.isEmpty() )
+    {
         eExternalPlayer->setText( externalPlayer );
     }
 }
 
-// Application tab
+    // Application tab
 
 void SettingsWindow::SetDefaultExternalPlayer()
 {
@@ -135,12 +139,10 @@ void SettingsWindow::SetDefaultExternalPlayer()
     eExternalPlayer->setText( "xdg-open" );
 #elif defined(Q_OS_WIN32)
     eExternalPlayer->setText( "C:\\Program Files\\Windows Media Player\\wmplayer.exe" );
-#else
-    eExternalPlayer->clear();
 #endif
 }
 
-// Database tab
+    // Database tab
 
 void SettingsWindow::OpenDatabaseFile()
 {
@@ -149,18 +151,21 @@ void SettingsWindow::OpenDatabaseFile()
                                                              eDatabaseFile->text(),
                                                              tr( "Alexandra DB (*.adat)" ) );
 
-    if( !databaseFileName.isEmpty() ) {
+    if( !databaseFileName.isEmpty() )
+    {
         eDatabaseFile->setText( databaseFileName );
 
         QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
 
-        if( QDir( postersDir ).exists() ) {
+        if( QDir( postersDir ).exists() )
+        {
             int res = QMessageBox::question( this,
                                              tr( "Settings" ),
                                              tr( "Would you like to set the catalog of posters is \"%1\"?" ).arg( postersDir ),
                                              QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
-            if( res == QMessageBox::Yes ) {
+            if( res == QMessageBox::Yes )
+            {
                 ePostersFolder->setText( postersDir );
             }
         }
@@ -169,12 +174,13 @@ void SettingsWindow::OpenDatabaseFile()
 
 void SettingsWindow::SelectColorUnavailable()
 {
-    QColor oldColor = settings->GetFilmsListUnavailableFileColor();
+    QColor oldColor = settings->GetUnavailableFileColor();
     QColor newColor = QColorDialog::getColor( oldColor, this );
 
     // If cancel button pressed
-    if( newColor.isValid() ) {
-        settings->SetFilmsListUnavailableFileColor( newColor.rgba() );
+    if( newColor.isValid() )
+    {
+        settings->SetUnavailableFileColor( newColor.rgba() );
         isDatabaseSettingsChanged = true;
     }
 }
@@ -186,18 +192,21 @@ void SettingsWindow::CreateDatabase()
                                                              "database.adat",
                                                              tr( "Alexandra DB (*.adat)" ) );
 
-    if( !databaseFileName.isEmpty() ) {
+    if( !databaseFileName.isEmpty() )
+    {
         eDatabaseFile->setText( databaseFileName );
 
         QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
 
-        if( !QDir( postersDir ).exists() ) {
+        if( !QDir( postersDir ).exists() )
+        {
             int res = QMessageBox::question( this,
                                              tr( "Create database" ),
                                              tr( "Would you like to set the catalog of posters next to the database file?" ),
                                              QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
-            if( res == QMessageBox::Yes ) {
+            if( res == QMessageBox::Yes )
+            {
                 ePostersFolder->setText( postersDir );
             }
         }
@@ -211,7 +220,8 @@ void SettingsWindow::EraseDatabaseQuestion()
                                     tr( "Are you sure you want to erase the database and posters?" ),
                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
-    if( res == QMessageBox::Yes ) {
+    if( res == QMessageBox::Yes )
+    {
         emit EraseDatabase();
     }
 }
@@ -222,7 +232,8 @@ void SettingsWindow::OpenPostersFolder()
                                                            tr( "Select posters' folder" ),
                                                            ePostersFolder->text() );
 
-    if( !newFolder.isEmpty() ) {
+    if( !newFolder.isEmpty() )
+    {
         ePostersFolder->setText( newFolder );
     }
 }
@@ -242,17 +253,20 @@ void SettingsWindow::ConfigureApplicationTab()
     connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
 
     // Language ComboBox
-    foreach( Alexandra::Locale locale, Alexandra::supportedLocales ) {
+    foreach( Alexandra::Locale locale, Alexandra::supportedLocales )
+    {
         cbLanguage->addItem( locale.title + " (" + locale.name + ")" );
     }
 
     // Style ComboBox
-    foreach( QString style, appStyles ) {
+    foreach( QString style, appStyles )
+    {
         cbStyle->addItem( style );
     }
 
     // Toolbar style ComboBox
-    foreach( ToolStyle toolStyle, toolStyles ) {
+    foreach( ToolStyle toolStyle, toolStyles )
+    {
         cbToolbarStyle->addItem( toolStyle.name );
     }
 
@@ -262,15 +276,18 @@ void SettingsWindow::ReconfigureApplicationTab()
 {
     cbLanguage->setCurrentIndex( settings->GetApplicationLocaleIndex() + 1 );
 
-    QString appStyle = settings->GetApplicationStyle();
+    QString appStyle = settings->GetApplicationStyleName();
 
-    if( appStyle.isEmpty() ) {
+    if( appStyle.isEmpty() )
+    {
         cbStyle->setCurrentIndex( 0 );
-    } else {
+    }
+    else
+    {
         cbStyle->setCurrentIndex( appStyles.indexOf( appStyle ) + 1 );
     }
 
-    eExternalPlayer->setText( settings->GetApplicationExternalPlayer() );
+    eExternalPlayer->setText( settings->GetExternalPlayer() );
     cbToolbarStyle->setCurrentIndex( settings->GetMainWindowToolbarStyle() );
 
     isNeedReboot = false;
@@ -299,16 +316,19 @@ void SettingsWindow::ConfigureDatabaseTab()
 
 void SettingsWindow::ReconfigureDatabaseTab()
 {
-    eDatabaseFile->setText( settings->GetApplicationDatabaseFile() );
-    cCheckFilesAtStartup->setChecked( settings->GetFilmsListCheckFilesOnStartup() );
-    ePostersFolder->setText( settings->GetFilmsListPostersDir() );
+    eDatabaseFile->setText( settings->GetDatabaseFilePath() );
+    cCheckFilesAtStartup->setChecked( settings->GetCheckFilesOnStartup() );
+    ePostersFolder->setText( settings->GetPostersDirPath() );
 
-    int s = settings->GetFilmsListScalePosters();
+    int s = settings->GetScalePosterToHeight();
 
-    if( s == 0 ) {
+    if( s == 0 )
+    {
         cScalePoster->setChecked( false );
         sbScaleToHeight->setEnabled( false );
-    } else {
+    }
+    else
+    {
         cScalePoster->setChecked( true );
         sbScaleToHeight->setEnabled( true );
         sbScaleToHeight->setValue( s );

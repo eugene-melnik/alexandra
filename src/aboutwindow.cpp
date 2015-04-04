@@ -42,7 +42,8 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     // Translators
     QString t;
 
-    foreach( Alexandra::Locale loc, Alexandra::supportedLocales ) {
+    foreach( Alexandra::Locale loc, Alexandra::supportedLocales )
+    {
         t += loc.selfTitle + " (" + loc.name + ") -- " + loc.translator + "\n\n";
     }
 

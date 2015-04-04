@@ -64,6 +64,10 @@ class Film
         bool GetIsFavourite() const;
         QString GetIsFavouriteSign() const;
 
+#ifdef QT_DEBUG
+        QString DebugGetAllFields() const;
+#endif // QT_DEBUG
+
         // Setters
         void SetId( const QString& s );
         void SetFileName( const QString& s );
@@ -82,6 +86,7 @@ class Film
         bool SetRatingFromStr( const QString& s );
         void SetTags( const QString& s );
 
+        void IncViewsCounter();
         void SetIsPosterExists( bool b );
         void SetIsViewed( bool b );
         void SetIsFavourite( bool b );
@@ -90,29 +95,29 @@ class Film
 
     private:
         QString id;
-        quint8  section;
+        quint8  section = 0;
         QString fileName;
         QString title;
         QString originalTitle;
         QString tagline;
         QString genre;
         QString country;
-        quint16 year;
+        quint16 year = 0;
         QString director;
         QString producer;
         QString starring;
-        double  budget;
+        double  budget = 0;
         QString description;
-        quint8  rating;
+        quint8  rating = 1;
         QString ageRestrictions;
         QString tags;
         QString additionalText;
 
-        quint16 viewsCounter;
+        quint16 viewsCounter = 0;
 
-        bool isPosterExists;
-        bool isViewed;
-        bool isFavourite;
+        bool isPosterExists = false;
+        bool isViewed = false;
+        bool isFavourite = false;
 };
 
 #endif // FILM_H

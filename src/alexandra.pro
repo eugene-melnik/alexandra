@@ -5,11 +5,14 @@
 #                                                                   #
  ###################################################################
 
+CONFIG += release
+#CONFIG += debug
+
 TARGET = alexandra
 TEMPLATE = app
 
 QT = core gui widgets concurrent
-CONFIG += qt warn_on thread debug
+CONFIG += qt warn_on thread
 DEFINES += _UNICODE UNICODE
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS_RELEASE -= -O2
@@ -30,38 +33,43 @@ UI_DIR = ./tmp/ui
 
 HEADERS += effects/effectdropshadow.h \
            aboutwindow.h \
+           abstractfilmsview.h \
            addfilmwindow.h \
            alexandrasettings.h \
            editfilmwindow.h \
            film.h \
            filminfowindow.h \
            filmslist.h \
-           mainwindow.h \           
+           filmsviewgrid.h \
+           filmsviewgriditem.h \
+           filmsviewlist.h \
+           mainwindow.h \
+           mediainfo.h \
            searchwindow.h \
            settingswindow.h \
            splashscreen.h \
            statusbar.h \
-           tablegridmodel.h \
-           tablelistmodel.h \
            toolbar.h \
            version.h
 
 SOURCES += effects/effectdropshadow.cpp \
            aboutwindow.cpp \
            addfilmwindow.cpp \
-           alexandra.cpp \
            alexandrasettings.cpp \
            editfilmwindow.cpp \
            film.cpp \
            filminfowindow.cpp \
            filmslist.cpp \
+           filmsviewgrid.cpp \
+           filmsviewgriditem.cpp \
+           filmsviewlist.cpp \
+           main.cpp \
            mainwindow.cpp \
+           mediainfo.cpp \
            searchwindow.cpp \
            settingswindow.cpp \
            splashscreen.cpp \
            statusbar.cpp \
-           tablegridmodel.cpp \
-           tablelistmodel.cpp \
            toolbar.cpp
 
 FORMS += aboutwindow.ui \

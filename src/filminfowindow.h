@@ -21,18 +21,12 @@
 #ifndef FILMINFOWINDOW_H
 #define FILMINFOWINDOW_H
 
+#include "mediainfo.h"
 #include "ui_filminfowindow.h"
 
 #include <QDialog>
+#include <QMutex>
 #include <QString>
-
-#ifdef Q_OS_LINUX
-    #include <MediaInfo/MediaInfo.h>
-    #define MediaInfoNameSpace MediaInfoLib
-#elif defined(Q_OS_WIN32)
-    #include "MediaInfoDLL.h"
-    #define MediaInfoNameSpace MediaInfoDLL
-#endif // MEDIAINFO_LIBRARY
 
 class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
 {
@@ -40,7 +34,8 @@ class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
 
     public:
         FilmInfoWindow( QWidget* parent = nullptr );
-        void SetCurrentFile( const QString& f );
+        void LoadTechnicalInfoAsync( const QString& fileName );
+        void LoadTechnicalInfo( const QString& fileName );
 
     signals:
         void ShortInfoLoaded( QString shortInfo );
@@ -50,7 +45,7 @@ class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
         void ShowFullInfo( QString s );
 
     private:
-        void LoadInfo( const QString& f );
+        QMutex loadInfoMutex;
 };
 
 #endif // FILMINFOWINDOW_H

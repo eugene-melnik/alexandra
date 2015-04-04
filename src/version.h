@@ -6,17 +6,20 @@
 
 namespace Alexandra
 {
+        // Main information
         const QString appName = "alexandra";
         const QString appNameGui = "Alexandra Video Library";
         const QString appAuthor = "Eugene Melnik <jeka7js@gmail.com>";
         const QString appLicense = "GNU GPL v2";
         const QString appWebsite = "http://alexandra-qt.sourceforge.net/";
 
+        // Author
         const QString orgName = "Eugene Melnik";
         const QString orgDomain = "eugene.melnik.com";
 
+        // Version
         const quint8 major = 1;
-        const quint8 minor = 0;
+        const quint8 minor = 1;
         const quint8 fix = 0;
         const QString appVersionFull = QString( "%1.%2.%3" ).arg( major ).arg( minor ).arg( fix );
         const QString appBuildDate = QString( __DATE__ );
@@ -24,6 +27,7 @@ namespace Alexandra
         const quint8 databaseVersion = 0x10;
         const QString databaseHeader = appNameGui + " Database";
 
+        // Locale
         typedef struct {
             QString title;
             QString selfTitle;
@@ -35,6 +39,12 @@ namespace Alexandra
                                                  { "English",    "English",     "en",    appAuthor },
                                                  { "Russian",    "Русский",     "ru_RU", appAuthor },
                                                  { "Ukrainian",  "Українська",  "uk_UA", appAuthor } };
+
+        // Modes
+        enum Modes {
+            ListMode,
+            GridMode
+        };
 }
 
 #endif // VERSION_H

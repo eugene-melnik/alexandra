@@ -36,7 +36,7 @@ void EditFilmWindow::show( const Film* f )
     AddFilmWindow::show();
 
     if( f->GetIsPosterExists() ) {
-        ePosterFileName->setText( settings->GetFilmsListPostersDir() + "/" + f->GetPosterName() );
+        ePosterFileName->setText( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
     }
 
     filmId = f->GetId();

@@ -21,122 +21,159 @@
 #include "filmslist.h"
 #include "version.h"
 
-#include <algorithm>
-#include <QtConcurrentRun>
 #include <QDataStream>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QStringList>
-#include <QTableWidgetItem>
+#include <QtConcurrentRun>
 
-FilmsList::FilmsList( QWidget* parent ) : QTableWidget( parent )
+#include<iostream>
+
+FilmsList::FilmsList( AlexandraSettings* s, QObject* parent ) : QObject( parent )
 {
-    isDatabaseChanged = false;
-
-    connect( this, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( ItemSelected(QTableWidgetItem*) ) );   // mouse click
-    connect( this, SIGNAL( itemActivated(QTableWidgetItem*) ), this, SLOT( ItemSelected(QTableWidgetItem*) ) ); // Enter key press
-    connect( this, SIGNAL( customContextMenuRequested(QPoint) ), this, SLOT( SetCursorOnCurrentRow() ) );
-    connect( this, SIGNAL( DatabaseChanged() ), this, SLOT( UpdateFilmsTable() ) );
+    settings = s;
+    films = new QList<Film>();
 }
 
-void FilmsList::LoadDatabase()
+FilmsList::~FilmsList()
 {
-    films.clear();
-    currentFilm = nullptr;
-    QFile dbFile( settings->GetApplicationDatabaseFile() );
+    delete films;
+}
 
-    if( !dbFile.exists() ) {
+void FilmsList::LoadFromFile( const QString& fileName )
+{
+    currentFilm = nullptr;
+    films->clear();
+
+    QFile file( fileName );
+
+    if( !file.exists() )
+    {
         emit DatabaseChanged();
         emit DatabaseIsEmpty();
         return;
     }
 
-    if( dbFile.open( QIODevice::ReadOnly ) )
+    if( file.open( QIODevice::ReadOnly ) )
     {
         // Reading from file
-        QDataStream stream( &dbFile );
+        QDataStream stream( &file );
         QString databaseHeader;
         quint8 databaseVersion;
 
         stream >> databaseHeader;
         stream >> databaseVersion;
-        stream >> films;
+        stream >> *films;
 
         emit DatabaseChanged();
 
-        if( films.isEmpty() )  // Database is empty
+        // Is Empty
+        if( films->isEmpty() )
         {
             isDatabaseChanged = true;
             emit DatabaseIsEmpty();
         }
 
-        if( !QFileInfo( settings->GetApplicationDatabaseFile() ).isWritable() )   // Database is readonly
+        // Is Readonly
+        if( !QFileInfo( fileName ).isWritable() )
         {
             emit DatabaseIsReadonly();
         }
     }
-    else // Database is unavailable for reading
+    else // Is Read Error
     {
-        currentFilm = nullptr;
         emit DatabaseChanged();
         emit DatabaseReadError();
     }
 
-    dbFile.close();
+    file.close();
 }
 
-void FilmsList::SaveDatabase()
+void FilmsList::SaveToFile( const QString& fileName )
 {
     if( isDatabaseChanged )
     {
-        QtConcurrent::run( this, &FilmsList::SaveDatabaseConcurrent, settings->GetApplicationDatabaseFile() );
+        asyncSaveToFileMutex.lock();
+
+        QFile file( fileName );
+
+        if( !file.exists() )
+        {
+            QString databaseDir = QFileInfo( fileName ).absolutePath();
+
+            if( !QDir().exists( databaseDir ) )
+            {
+                QDir().mkdir( databaseDir );
+            }
+        }
+
+        if( file.open( QIODevice::WriteOnly ) )
+        {
+            QDataStream stream( &file );
+
+            stream << Alexandra::databaseHeader;
+            stream << Alexandra::databaseVersion;
+            stream << *films;
+        }
+        else
+        {
+            emit DatabaseWriteError();
+        }
+
+        file.close();
+        isDatabaseChanged = false;
+
+        asyncSaveToFileMutex.unlock();
     }
 }
 
-void FilmsList::LoadSettings( AlexandraSettings* s )
+void FilmsList::SaveToFileAsync( const QString& fileName )
 {
-    settings = s;
-
-    // Columns' width
-    setColumnWidth( ViewedColumn, s->GetFilmsListColumnViewedW() );
-    setColumnWidth( FavouriteColumn, s->GetFilmsListColumnFavouriteW() );
-    setColumnWidth( TitleColumn, s->GetFilmsListColumnTitleW() );
-    setColumnWidth( YearColumn, s->GetFilmsListColumnYearW() );
-    setColumnWidth( GenreColumn, s->GetFilmsListColumnGenreW() );
-    setColumnWidth( DirectorColumn, s->GetFilmsListColumnDirectorW() );
-}
-
-void FilmsList::SaveSettings() const
-{
-    // Columns' width
-    settings->SetFilmsListColumnViewedW( columnWidth( ViewedColumn )  );
-    settings->SetFilmsListColumnFavouriteW( columnWidth( FavouriteColumn ) );
-    settings->SetFilmsListColumnTitleW( columnWidth( TitleColumn ) );
-    settings->SetFilmsListColumnYearW( columnWidth( YearColumn ) );
-    settings->SetFilmsListColumnGenreW( columnWidth( GenreColumn ) );
-    settings->SetFilmsListColumnDirectorW( columnWidth( DirectorColumn ) );
-
-    // Current row
-    if( currentFilm != nullptr ) {
-        settings->SetFilmsListCurrentFilm( currentFilm->GetTitle() );
-    }
+    QtConcurrent::run( this, &FilmsList::SaveToFile, fileName );
 }
 
 int FilmsList::GetNumberOfFilms() const
 {
-    return( films.size() );
+    return( films->size() );
 }
 
 const Film* FilmsList::GetFilmAt( int i ) const
 {
-    return( &films.at( i ) );
+    return( &(films->at(i)) );
+}
+
+const Film *FilmsList::GetFilmByTitle( QString title )
+{
+    for( int i = 0; i < films->size(); i++ )
+    {
+        if( films->at(i).GetTitle() == title )
+        {
+            return( &(films->at(i)) );
+        }
+    }
+
+    return( nullptr );
 }
 
 const QList<Film>* FilmsList::GetFilmsList() const
 {
-    return( &films );
+    return( films );
+}
+
+QList<Film>* FilmsList::GetFilmsFilteredBy( const QString& key ) const
+{
+    QList<Film>* f = new QList<Film>();
+
+    for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
+    {
+        if( i->GetTitle().contains( key, Qt::CaseInsensitive ) )
+        {
+            f->append( *i );
+        }
+    }
+
+    return( f );
 }
 
 const Film* FilmsList::GetCurrentFilm() const
@@ -144,298 +181,134 @@ const Film* FilmsList::GetCurrentFilm() const
     return( currentFilm );
 }
 
-const QString& FilmsList::GetCurrentFilmTitle() const
+QString FilmsList::GetCurrentFilmTitle() const
 {
-    return( currentFilm->GetTitle() );
+    if( currentFilm != nullptr )
+    {
+        return( currentFilm->GetTitle() );
+    }
+    else
+    {
+        return( "" );
+    }
 }
 
-const QString& FilmsList::GetCurrentFilmFileName() const
+QString FilmsList::GetCurrentFilmFileName() const
 {
     return( currentFilm->GetFileName() );
+}
+
+int FilmsList::GetFilmsCount() const
+{
+    return( films->size() );
+}
+
+int FilmsList::GetIsViewedCount() const
+{
+    int isViewedCount = 0;
+
+    for( QList<Film>::iterator f = films->begin(); f < films->end(); f++ )
+    {
+        if( f->GetIsViewed() )
+        {
+            isViewedCount++;
+        }
+    }
+
+    return( isViewedCount );
+}
+
+int FilmsList::GetIsFavouriteCount() const
+{
+    int isFavouriteCount = 0;
+
+    for( QList<Film>::iterator f = films->begin(); f < films->end(); f++ )
+    {
+        if( f->GetIsFavourite() )
+        {
+            isFavouriteCount++;
+        }
+    }
+
+    return( isFavouriteCount );
+}
+
+void FilmsList::AddFilm( Film film )
+{
+    films->append( film );
+    std::sort( films->begin(), films->end() );
+
+    isDatabaseChanged = true;
+    emit DatabaseChanged();
+}
+
+void FilmsList::AddFilm( const Film* film )
+{
+    AddFilm( *film );
+}
+
+void FilmsList::SetCurrentFilm( const QString& title )
+{
+    for( QList<Film>::iterator f = films->begin(); f < films->end(); f++ )
+    {
+        if( f->GetTitle() == title )
+        {
+            currentFilm = &(*f);
+            return;
+        }
+    }
+}
+
+void FilmsList::ChangeCurrentFilm( Film f )
+{
+    currentFilm->SetNewData( f );
+    isDatabaseChanged = true;
+    emit DatabaseChanged();
+    std::sort( films->begin(), films->end() );
+}
+
+void FilmsList::SetCurrentFilmIsViewed( bool b )
+{
+    currentFilm->SetIsViewed( b );
+    isDatabaseChanged = true;
+    emit DatabaseChanged();
+}
+
+void FilmsList::SetCurrentFilmIsFavourite( bool b )
+{
+    currentFilm->SetIsFavourite( b );
+    isDatabaseChanged = true;
+    emit DatabaseChanged();
+}
+
+void FilmsList::IncCurrentFilmViewsCounter()
+{
+    currentFilm->IncViewsCounter();
+    isDatabaseChanged = true;
 }
 
 void FilmsList::RemoveCurrentFilm()
 {
     // Remove poster image
-    QString posterFileName = settings->GetFilmsListPostersDir() + "/" + currentFilm->GetPosterName();
-    QFile( posterFileName ).remove();
+    if( currentFilm->GetIsPosterExists() == true )
+    {
+        QString posterFileName = settings->GetPostersDirPath() + "/" + currentFilm->GetPosterName();
+        QFile( posterFileName ).remove();
+    }
 
     // Remove record from database
-    films.removeOne( *currentFilm );
+    films->removeOne( *currentFilm );
     isDatabaseChanged = true;
     currentFilm = nullptr;
     emit DatabaseChanged();
 
-    if( films.isEmpty() ) {
+    if( films->isEmpty() )
+    {
         emit DatabaseIsEmpty();
     }
 }
 
-int FilmsList::GetIsViewedCount() const
-{
-    int res = 0;
-
-    foreach( Film f, films ) {
-        if( f.GetIsViewed() ) {
-            res++;
-        }
-    }
-
-    return( res );
-}
-
-int FilmsList::GetIsFavouriteCount() const
-{
-    int res = 0;
-
-    foreach( Film f, films ) {
-        if( f.GetIsFavourite() ) {
-            res++;
-        }
-    }
-
-    return( res );
-}
-
-void FilmsList::AppendFilm( Film f )
-{
-    films.append( f );
-    std::sort( films.begin(), films.end() );
-    isDatabaseChanged = true;
-
-    emit DatabaseChanged();
-    SetCursorOnFilm( f.GetTitle() );
-}
-
-void FilmsList::EditCurrentFilm( Film f )
-{
-    currentFilm->SetNewData( f );
-    isDatabaseChanged = true;
-    emit DatabaseChanged();
-}
-
-void FilmsList::SelectRandomFilm()
-{
-    if( films.size() > 1 )
-    {
-        int n;
-
-        do {
-            n = qrand() % rowCount();
-        }
-        while( n == currentRow() );
-
-        SetCursorOnRow( n );
-    }
-}
-
-void FilmsList::SetCurrentIsViewed( bool b )
-{
-    currentFilm->SetIsViewed( b );
-    setItem( currentRow(), ViewedColumn, new QTableWidgetItem( currentFilm->GetIsViewedSign() ) );
-    isDatabaseChanged = true;
-    emit DatabaseChanged();
-}
-
-void FilmsList::SetCurrentIsFavourite( bool b )
-{
-    currentFilm->SetIsFavourite( b );
-    setItem( currentRow(), FavouriteColumn, new QTableWidgetItem( currentFilm->GetIsFavouriteSign() ) );
-    isDatabaseChanged = true;
-    emit DatabaseChanged();
-}
-
-void FilmsList::SelectFilm( const QString& title )
-{
-    SetCursorOnFilm( title );
-}
-
-void FilmsList::ItemSelected( QTableWidgetItem* i )
-{
-    QString selectedFilmTitle = item( i->row(), TitleColumn )->text();
-
-    for( QList<Film>::iterator f = films.begin(); f < films.end(); f++ ) {
-        if( f->GetTitle() == selectedFilmTitle ) {
-            currentFilm = &(*f);
-            emit FilmSelected( currentFilm );
-        }
-    }
-}
-
-void FilmsList::UpdateFilmsTable()
-{
-    // Saving selected row
-    int selectedRow = currentRow();
-
-    // Clear old data
-    clear();
-
-    // Configure columns
-    QStringList colNames;
-    colNames << tr( "V" )  // TODO: tooltips
-             << tr( "F" )  //
-             << tr( "Title" )
-             << tr( "Year" )
-             << tr( "Genre" )
-             << tr( "Director" )
-             << tr( "Rating" );
-    setColumnCount( colNames.size() );
-    setHorizontalHeaderLabels( colNames );
-
-    // Configure rows
-    bool highlightUnavailable = settings->GetFilmsListCheckFilesOnStartup();
-    QColor unavailableColor = settings->GetFilmsListUnavailableFileColor();
-
-    setRowCount( this->GetNumberOfFilms() );
-
-    for( int row = 0; row < rowCount(); row++ )
-    {
-        const Film& f = films.at( row );
-
-        // Viewed
-        QTableWidgetItem* viewed = new QTableWidgetItem( f.GetIsViewedSign() );
-        setItem( row, ViewedColumn, viewed );
-
-        // Favourite
-        QTableWidgetItem* favourite = new QTableWidgetItem( f.GetIsFavouriteSign() );
-        setItem( row, FavouriteColumn, favourite );
-
-        // Title
-        QTableWidgetItem* title = new QTableWidgetItem( f.GetTitle() );
-        setItem( row, TitleColumn, title );
-
-        // Year
-        QTableWidgetItem* year = new QTableWidgetItem( f.GetYearStr() );
-        setItem( row, YearColumn, year );
-
-        // Genre
-        QTableWidgetItem* genre = new QTableWidgetItem( f.GetGenre() );
-        setItem( row, GenreColumn, genre );
-
-        // Director
-        QTableWidgetItem* director = new QTableWidgetItem( f.GetDirector() );
-        setItem( row, DirectorColumn, director );
-
-        // Rating
-        QTableWidgetItem* rating = new QTableWidgetItem( f.GetRatingStr() );
-        setItem( row, RatingColumn, rating);
-
-        // Highlighting
-        if( highlightUnavailable && !QFileInfo( f.GetFileName() ).exists() ) {
-            viewed->setBackgroundColor( unavailableColor );
-            favourite->setBackgroundColor( unavailableColor );
-            title->setBackgroundColor( unavailableColor );
-            year->setBackgroundColor( unavailableColor );
-            genre->setBackgroundColor( unavailableColor );
-            director->setBackgroundColor( unavailableColor );
-            rating->setBackgroundColor( unavailableColor );
-        }
-    }
-
-    // Restore selection
-    if( selectedRow == -1 ) {
-        SetCursorOnFilm( settings->GetFilmsListCurrentFilm() );
-    } else {
-        SetCursorOnRow( selectedRow );
-    }
-}
-
-void FilmsList::FilterBy( QString s )
-{
-    UpdateFilmsTable();
-
-    if( !s.isEmpty() )
-    {
-        if( (rowCount() != 0) && !s.isEmpty() ) {
-            for( int row = 0; row < rowCount(); row++ ) {
-                if( !item( row, TitleColumn )->text().contains( s, Qt::CaseInsensitive ) ) {
-                    removeRow( row-- );
-                }
-            }
-        }
-
-        SetCursorOnRow( 0 );
-    }
-}
-
-void FilmsList::EraseDatabase()
-{
-    if( films.isEmpty() ) {
-        QMessageBox::information( this,
-                                  tr( "Erase database" ),
-                                  tr( "Nothing to erase." ) );
-    } else {
-        QString postersDir = settings->GetFilmsListPostersDir();
-
-        foreach( Film f, films ) {
-            if( f.GetIsPosterExists() == true ) {
-                QFile( postersDir + "/" + f.GetPosterName() ).remove();
-            }
-        }
-
-        films.clear();
-
-        currentFilm = nullptr;
-        isDatabaseChanged = true;
-        emit DatabaseChanged();
-
-        QMessageBox::information( this,
-                                  tr( "Erase database" ),
-                                  tr( "Done!" ) );
-    }
-}
-
-void FilmsList::SetCursorOnCurrentRow()
-{
-    SetCursorOnRow( currentRow() );
-}
-
-void FilmsList::SetCursorOnRow( int row )
-{
-    if( ( rowCount() != 0 ) )
-    {
-        if( row >= rowCount() || ( row < 0 ) ) {
-            row = 0;
-        }
-
-        setCurrentCell( row, 0 );
-        itemClicked( item( row, 0 ) );
-    }
-}
-
-void FilmsList::SetCursorOnFilm( const QString& title )
-{
-    for( int row = 0; row < rowCount(); row++ ) {
-        if( item( row, TitleColumn )->text() == title ) {
-            SetCursorOnRow( row );
-            return;
-        }
-    }
-
-    SetCursorOnRow( 0 );
-}
-
-void FilmsList::SaveDatabaseConcurrent( QString databaseFileName )
-{
-    QFile dbFile( databaseFileName );
-
-    if( !dbFile.exists() ) {
-        QString databaseDir = QFileInfo( databaseFileName ).absolutePath();
-
-        if( !QDir().exists( databaseDir ) ) {
-            QDir().mkdir( databaseDir );
-        }
-    }
-
-    if( dbFile.open( QIODevice::WriteOnly ) )
-    {
-        QDataStream stream( &dbFile );
-
-        stream << Alexandra::databaseHeader;
-        stream << Alexandra::databaseVersion;
-        stream << films;
-    }
-
-    dbFile.close();
-    isDatabaseChanged = false;
-}
+//void FilmsList::EraseDatabase()
+//{
+//    //
+//}
