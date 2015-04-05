@@ -308,7 +308,21 @@ void FilmsList::RemoveCurrentFilm()
     }
 }
 
-//void FilmsList::EraseDatabase()
-//{
-//    //
-//}
+void FilmsList::EraseAll()
+{
+    QString postersDir = settings->GetPostersDirPath();
+
+    for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
+    {
+        if( i->GetIsPosterExists() == true )
+        {
+            QFile( postersDir + "/" + i->GetPosterName() ).remove();
+        }
+    }
+
+    films->clear();
+
+    currentFilm = nullptr;
+    isDatabaseChanged = true;
+    emit DatabaseChanged();
+}

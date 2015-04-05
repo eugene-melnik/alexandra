@@ -28,6 +28,8 @@
 #include <QFileInfo>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QRadioButton>
+#include <QSpinBox>
 
 SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent ) : QDialog( parent )
 {
@@ -36,17 +38,22 @@ SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent ) : QDialo
     setupUi( this );
     connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
 
+    ConfigureAppearanceTab();
     ConfigureApplicationTab();
     ConfigureDatabaseTab();
 }
 
 void SettingsWindow::showEvent( QShowEvent* event )
 {
+    ReconfigureAppearanceTab();
+    ReconfigureApplicationTab();
+    ReconfigureDatabaseTab();
+
+    isViewChanged = false;
+    isDatabaseSettingsChanged = false;
     isSettingsChanged = false;
     isNeedReboot = false;
 
-    ReconfigureApplicationTab();
-    ReconfigureDatabaseTab();
     event->accept();
 }
 
@@ -70,12 +77,36 @@ void SettingsWindow::OkButtonClicked()
     // Saving settings
     if( isSettingsChanged )
     {
+        // Appearance tab
+        if( rbListView->isChecked() )
+        {
+            settings->SetFilmsViewMode( Alexandra::ListMode );
+        }
+        else
+        {
+            settings->SetFilmsViewMode( Alexandra::GridMode );
+        }
+
+        settings->SetListFontSize( sbListFontSize->value() );
+        settings->SetListRowHeight( sbListRowHeight->value() );
+
+        settings->SetGridItemSize( sbGridImageSize->value() );
+        settings->SetGridFontSize( sbGridFontSize->value() );
+        settings->SetGridColumnCount( sbGridNumberOfColumns->value() );
+        settings->SetGridCutTextAfter( sbGridCutTextAfter->value() );
+        settings->SetGridShowTooltip( cShowTooltip->isChecked() );
+
+        settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
+
         // Application tab
         settings->SetApplicationLocaleIndex( cbLanguage->currentIndex() - 1 );
 
-        if( cbStyle->currentIndex() == 0 ) {
+        if( cbStyle->currentIndex() == 0 )
+        {
             settings->SetApplicationStyleName( "" );
-        } else {
+        }
+        else
+        {
             settings->SetApplicationStyleName( cbStyle->currentText() );
         }
 
@@ -94,12 +125,22 @@ void SettingsWindow::OkButtonClicked()
         {
             emit DatabaseSettingsChanged();
         }
+        if( isViewChanged )
+        {
+            emit ViewChanged();
+        }
     }
 }
 
 void SettingsWindow::SetIsSettingsChanged()
 {
     isSettingsChanged = true;
+}
+
+void SettingsWindow::SetIsViewChanged()
+{
+    SetIsSettingsChanged();
+    isViewChanged = true;
 }
 
 void SettingsWindow::SetIsNeedReboot()
@@ -239,6 +280,51 @@ void SettingsWindow::OpenPostersFolder()
 }
 
 /*************************************************************************************************
+ *  "Appearance" tab settings                                                                     *
+  *************************************************************************************************/
+
+void SettingsWindow::ConfigureAppearanceTab()
+{
+    connect( rbListView, SIGNAL( toggled(bool) ), this, SLOT( SetIsViewChanged() ) );
+    connect( sbListFontSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( sbListRowHeight, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+
+    connect( rbGridView, SIGNAL( toggled(bool) ), this, SLOT( SetIsViewChanged() ) );
+    connect( sbGridImageSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
+    connect( sbGridFontSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
+    connect( sbGridNumberOfColumns, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
+    connect( sbGridCutTextAfter, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
+    connect( cShowTooltip, SIGNAL( toggled(bool) ), this,  SLOT( SetIsViewChanged() ) );
+
+    connect( cShowRightPanel, SIGNAL( toggled(bool) ), this,  SLOT( SetIsSettingsChanged() ) );
+}
+
+void SettingsWindow::ReconfigureAppearanceTab()
+{
+    if( settings->GetFilmsViewMode() == Alexandra::ListMode )
+    {
+        rbListView->setChecked( true );
+    }
+    else // Alexandra::GridMode
+    {
+        rbGridView->setChecked( true );
+    }
+
+    // List view
+    sbListFontSize->setValue( settings->GetListFontSize() );
+    sbListRowHeight->setValue( settings->GetListRowHeight() );
+
+    // Grid view
+    sbGridImageSize->setValue( settings->GetGridItemSize() );
+    sbGridFontSize->setValue( settings->GetGridFontSize() );
+    sbGridNumberOfColumns->setValue( settings->GetGridColumnCount() );
+    sbGridCutTextAfter->setValue( settings->GetGridCutTextAfter() );
+    cShowTooltip->setChecked( settings->GetGridShowTooltip() );
+
+    cShowRightPanel->setChecked( settings->GetMainWindowShowRightPanel() );
+}
+
+/*************************************************************************************************
  *  "Application" tab settings                                                                    *
   *************************************************************************************************/
 
@@ -289,9 +375,6 @@ void SettingsWindow::ReconfigureApplicationTab()
 
     eExternalPlayer->setText( settings->GetExternalPlayer() );
     cbToolbarStyle->setCurrentIndex( settings->GetMainWindowToolbarStyle() );
-
-    isNeedReboot = false;
-    isSettingsChanged = false;
 }
 
 /*************************************************************************************************
@@ -309,7 +392,6 @@ void SettingsWindow::ConfigureDatabaseTab()
     connect( bEraseDatabase, SIGNAL( clicked() ), this, SLOT( EraseDatabaseQuestion() ) );
     connect( ePostersFolder, SIGNAL( textChanged(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
     connect( bOpenPostersFolder, SIGNAL( clicked() ), this, SLOT( OpenPostersFolder() ) );
-    connect( cScalePoster, SIGNAL( toggled(bool) ), sbScaleToHeight, SLOT( setEnabled(bool) ) );
     connect( cScalePoster, SIGNAL( toggled(bool) ), this,  SLOT( SetIsSettingsChanged() ) );
     connect( sbScaleToHeight, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
 }
@@ -320,9 +402,9 @@ void SettingsWindow::ReconfigureDatabaseTab()
     cCheckFilesAtStartup->setChecked( settings->GetCheckFilesOnStartup() );
     ePostersFolder->setText( settings->GetPostersDirPath() );
 
-    int s = settings->GetScalePosterToHeight();
+    int height = settings->GetScalePosterToHeight();
 
-    if( s == 0 )
+    if( height == 0 )
     {
         cScalePoster->setChecked( false );
         sbScaleToHeight->setEnabled( false );
@@ -331,8 +413,6 @@ void SettingsWindow::ReconfigureDatabaseTab()
     {
         cScalePoster->setChecked( true );
         sbScaleToHeight->setEnabled( true );
-        sbScaleToHeight->setValue( s );
+        sbScaleToHeight->setValue( height );
     }
-
-    isDatabaseSettingsChanged = false;
 }

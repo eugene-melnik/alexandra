@@ -174,27 +174,37 @@ QRgb AlexandraSettings::GetUnavailableFileColor() const
     return( value( "FilmsList/UnavailableFileColor", qRgb( 0xff, 0xc0, 0xc0 ) ).toUInt() );
 }
 
-int AlexandraSettings::GetGridViewItemSize() const
+int AlexandraSettings::GetListFontSize() const
+{
+    return( value( "ListView/FontSize", 12 ).toInt() );
+}
+
+int AlexandraSettings::GetListRowHeight() const
+{
+    return( value( "ListView/RowHeight", 20 ).toInt() );
+}
+
+int AlexandraSettings::GetGridItemSize() const
 {
     return( value( "GridView/ItemSize", 130 ).toInt() );
 }
 
-int AlexandraSettings::GetGridViewTextSize() const
+int AlexandraSettings::GetGridFontSize() const
 {
-    return( value( "GridView/TextSize", 12 ).toInt() );
+    return( value( "GridView/FontSize", 12 ).toInt() );
 }
 
-int AlexandraSettings::GetGridViewTextLength() const
+int AlexandraSettings::GetGridCutTextAfter() const
 {
-    return( value( "GridView/TextLength", 25 ).toInt() );
+    return( value( "GridView/CutTextAfter", 25 ).toInt() );
 }
 
-int AlexandraSettings::GetGridViewColumnCount() const
+int AlexandraSettings::GetGridColumnCount() const
 {
     return( value( "GridView/ColumnCount", 3 ).toInt() );
 }
 
-bool AlexandraSettings::GetGridViewShowTooltip() const
+bool AlexandraSettings::GetGridShowTooltip() const
 {
     return( value( "GridView/ShowTooltip", false ).toBool() );
 }
@@ -217,6 +227,11 @@ QByteArray AlexandraSettings::GetMainWindowSplitterState() const
 int AlexandraSettings::GetMainWindowToolbarStyle() const
 {
     return( value( "MainWindow/ToolbarStyle", Qt::ToolButtonFollowStyle ).toInt() );
+}
+
+bool AlexandraSettings::GetMainWindowShowRightPanel() const
+{
+    return( value( "MainWindow/ShowRightPanel", true ).toBool() );
 }
 
 // Set //
@@ -311,6 +326,41 @@ void AlexandraSettings::SetUnavailableFileColor( QRgb c )
     setValue( "FilmsList/UnavailableFileColor", c );
 }
 
+void AlexandraSettings::SetListFontSize( int n )
+{
+    setValue( "ListView/FontSize", n );
+}
+
+void AlexandraSettings::SetListRowHeight( int n )
+{
+    setValue( "ListView/RowHeight", n );
+}
+
+void AlexandraSettings::SetGridItemSize( int n )
+{
+    setValue( "GridView/ItemSize", n );
+}
+
+void AlexandraSettings::SetGridFontSize( int n )
+{
+    setValue( "GridView/FontSize", n );
+}
+
+void AlexandraSettings::SetGridCutTextAfter( int n )
+{
+    setValue( "GridView/CutTextAfter", n );
+}
+
+void AlexandraSettings::SetGridColumnCount( int n )
+{
+    setValue( "GridView/ColumnCount", n );
+}
+
+void AlexandraSettings::SetGridShowTooltip( bool b )
+{
+    setValue( "GridView/ShowTooltip", b );
+}
+
 void AlexandraSettings::SetMainWindowGeometry( const QByteArray& a )
 {
     setValue( "MainWindow/Geometry", a );
@@ -329,4 +379,9 @@ void AlexandraSettings::SetMainWindowSplitterState( const QByteArray& a )
 void AlexandraSettings::SetMainWindowToolbarStyle( int n )
 {
     setValue( "MainWindow/ToolbarStyle", n );
+}
+
+void AlexandraSettings::SetMainWindowShowRightPanel( bool b )
+{
+    setValue( "MainWindow/ShowRightPanel", b );
 }

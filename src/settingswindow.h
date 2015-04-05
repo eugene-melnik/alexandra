@@ -42,11 +42,13 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
     signals:
         void DatabaseSettingsChanged();
         void SettingsChanged();
+        void ViewChanged();
         void EraseDatabase();
 
     private slots:
         void OkButtonClicked();
         void SetIsSettingsChanged();
+        void SetIsViewChanged();
         void SetIsNeedReboot();
         void SetIsDatabaseSettingsChanged();
 
@@ -60,6 +62,8 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void OpenPostersFolder();
 
     private:
+        void ConfigureAppearanceTab();
+        void ReconfigureAppearanceTab();
         void ConfigureApplicationTab();
         void ReconfigureApplicationTab();
         void ConfigureDatabaseTab();
@@ -69,6 +73,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         AlexandraSettings* settings;
         bool isSettingsChanged;
         bool isDatabaseSettingsChanged;
+        bool isViewChanged;
         bool isNeedReboot;
 
         // Constants

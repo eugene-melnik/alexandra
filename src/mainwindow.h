@@ -56,8 +56,10 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
     private slots:
         void SaveDatabase();
+        void EraseDatabase();
         void ReloadDatabase();
         void ReloadSettings();
+        void ReloadView();
 
         void DatabaseReadError();
         void DatabaseIsEmpty();

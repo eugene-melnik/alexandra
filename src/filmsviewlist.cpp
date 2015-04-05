@@ -36,7 +36,6 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
     setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
 
     verticalHeader()->setVisible( false );
-    verticalHeader()->setDefaultSectionSize( 20 );
 
     horizontalHeader()->setHighlightSections( false );
     horizontalHeader()->setStretchLastSection( true );
@@ -68,11 +67,15 @@ void FilmsViewList::LoadSettings( AlexandraSettings* s )
     setColumnWidth( YearColumn, s->GetColumnYearWidth() );
     setColumnWidth( GenreColumn, s->GetColumnGenreWidth() );
     setColumnWidth( DirectorColumn, s->GetColumnDirectorWidth() );
+
+    verticalHeader()->setDefaultSectionSize( s->GetListRowHeight() );
+    setStyleSheet( QString( "font-size: %1px" ).arg( s->GetListFontSize() ) );
 }
 
-void FilmsViewList::ReloadSettings(AlexandraSettings *s)
+void FilmsViewList::ReloadSettings( AlexandraSettings *s )
 {
-    // TODO: fontsize, rowHeight
+    verticalHeader()->setDefaultSectionSize( s->GetListRowHeight() );
+    setStyleSheet( QString( "font-size: %1px" ).arg( s->GetListFontSize() ) );
 }
 
 void FilmsViewList::SaveSettings( AlexandraSettings* s ) const

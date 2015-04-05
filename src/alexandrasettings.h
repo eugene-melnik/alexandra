@@ -53,17 +53,20 @@ class AlexandraSettings : public QSettings
         QString GetPostersDirPath() const;
         int     GetScalePosterToHeight() const;
         QRgb    GetUnavailableFileColor() const;
+        int     GetListFontSize() const;
+        int     GetListRowHeight() const;
 
-        int GetGridViewItemSize() const;
-        int GetGridViewTextSize() const;
-        int GetGridViewTextLength() const;
-        int GetGridViewColumnCount() const;
-        bool GetGridViewShowTooltip() const;
+        int GetGridItemSize() const;
+        int GetGridFontSize() const;
+        int GetGridCutTextAfter() const;
+        int GetGridColumnCount() const;
+        bool GetGridShowTooltip() const;
 
         QByteArray GetMainWindowGeometry() const;
         QByteArray GetMainWindowState() const;
         QByteArray GetMainWindowSplitterState() const;
         int        GetMainWindowToolbarStyle() const;
+        bool       GetMainWindowShowRightPanel() const;
 
         // Set //
 
@@ -75,6 +78,7 @@ class AlexandraSettings : public QSettings
         void SetApplicationStyleName( const QString& s );
 
         void SetFilmsViewMode( int n );
+
         void SetCheckFilesOnStartup( bool b );
         void SetColumnViewedWidth( int n );
         void SetColumnFavouriteWidth( int n );
@@ -86,11 +90,20 @@ class AlexandraSettings : public QSettings
         void SetPostersDirPath( const QString& s );
         void SetScalePostersToHeight( int n );
         void SetUnavailableFileColor( QRgb c );
+        void SetListFontSize( int n );
+        void SetListRowHeight( int n );
+
+        void SetGridItemSize( int n );
+        void SetGridFontSize( int n );
+        void SetGridCutTextAfter( int n );
+        void SetGridColumnCount( int n );
+        void SetGridShowTooltip( bool b );
 
         void SetMainWindowGeometry( const QByteArray& a );
         void SetMainWindowState( const QByteArray& a );
         void SetMainWindowSplitterState( const QByteArray& a );
         void SetMainWindowToolbarStyle( int n );
+        void SetMainWindowShowRightPanel( bool b );
 };
 
 #endif // ALEXANDRASETTINGS_H

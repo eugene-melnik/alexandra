@@ -68,7 +68,7 @@ class FilmsList : public QObject
 
         void RemoveCurrentFilm();
 
-        //void EraseDatabase();
+        void EraseAll();
 
     signals:
         void DatabaseReadError();

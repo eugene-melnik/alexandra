@@ -31,12 +31,12 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QTableWidget( parent )
 void FilmsViewGrid::LoadSettings( AlexandraSettings* s )
 {
     settings = s;
-    setColumnCount( s->GetGridViewColumnCount() );
+    setColumnCount( s->GetGridColumnCount() );
 }
 
 void FilmsViewGrid::ReloadSettings( AlexandraSettings* s )
 {
-    setColumnCount( s->GetGridViewColumnCount() );
+    setColumnCount( s->GetGridColumnCount() );
 }
 
 void FilmsViewGrid::AddItem( const Film& film )

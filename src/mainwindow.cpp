@@ -79,6 +79,19 @@ void MainWindow::SaveDatabase()
     filmsList->SaveToFileAsync( settings->GetDatabaseFilePath() );
 }
 
+void MainWindow::EraseDatabase()
+{
+    if( filmsList->GetFilmsCount() == 0 )
+    {
+        QMessageBox::information( this, tr( "Erase database" ), tr( "Nothing to erase." ) );
+    }
+    else
+    {
+        filmsList->EraseAll();
+        QMessageBox::information( this, tr( "Erase database" ), tr( "Done!" ) );
+    }
+}
+
 void MainWindow::ReloadDatabase()
 {
     filmsList->LoadFromFile( settings->GetDatabaseFilePath() );
@@ -88,9 +101,16 @@ void MainWindow::ReloadDatabase()
 void MainWindow::ReloadSettings()
 {
     QApplication::setStyle( settings->GetApplicationStyleName() );
-    filmsView->ReloadSettings( settings );
+    wRight->setVisible( settings->GetMainWindowShowRightPanel() );
     toolbar->LoadSettings( settings );
-    // TODO: right panel on/off
+    filmsView->ReloadSettings( settings );
+}
+
+void MainWindow::ReloadView()
+{
+    SetupFilmsView();
+    filmsView->LoadSettings( settings );
+    ShowFilms();
 }
 
 void MainWindow::DatabaseReadError()
@@ -338,6 +358,7 @@ void MainWindow::LoadSettings()
     restoreState( settings->GetMainWindowState() );
     mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
+    wRight->setVisible( settings->GetMainWindowShowRightPanel() );
 
     // Widgets
     filmsView->LoadSettings( settings );
@@ -476,8 +497,9 @@ void MainWindow::SetupWindows()
     connect( actionSettings, SIGNAL( triggered() ), settingsWindow, SLOT( show() ) );
 
     connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( ReloadSettings() ) );
+    connect( settingsWindow, SIGNAL( ViewChanged() ), this, SLOT( ReloadView() ) );
     connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( ReloadDatabase() ) );
-    //connect( settingsWindow, SIGNAL( EraseDatabase() ), tableFilms, SLOT( EraseDatabase() ) );//TODO
+    connect( settingsWindow, SIGNAL( EraseDatabase() ), this, SLOT( EraseDatabase() ) );
 
     // Random film
     connect( actionRandom, SIGNAL( triggered() ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectRandomItem() ) );

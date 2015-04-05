@@ -42,8 +42,8 @@ namespace Alexandra
 
         // Modes
         enum Modes {
-            ListMode,
-            GridMode
+            ListMode = 0,
+            GridMode = 1
         };
 }
 

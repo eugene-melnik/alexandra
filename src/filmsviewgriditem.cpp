@@ -32,7 +32,7 @@ FilmViewGridItem::FilmViewGridItem( const Film* film, AlexandraSettings* s, QWid
     titleText = film->GetTitle();
 
     // Film information
-    if( s->GetGridViewShowTooltip() == true )
+    if( s->GetGridShowTooltip() == true )
     {
         QString tooltip = film->GetTitle() + "<br/>";
         tooltip += tr( "<b>Original title:</b> %1" ).arg( film->GetOriginalTitle() ) + "<br/>";
@@ -59,17 +59,17 @@ FilmViewGridItem::FilmViewGridItem( const Film* film, AlexandraSettings* s, QWid
         posterFilePath = ":/standart-poster";
     }
 
-    int itemSize = s->GetGridViewItemSize();
+    int itemSize = s->GetGridItemSize();
     poster->setPixmap( QPixmap( posterFilePath ).scaledToHeight( itemSize, Qt::SmoothTransformation ) );
     poster->setGraphicsEffect( new EffectDropShadow( 0, 0, 10, poster ) );
 
     // Film title
     title = new QLabel( this );
     title->setAlignment( Qt::AlignCenter );
-    title->setStyleSheet( QString( "font-size: %1px" ).arg( s->GetGridViewTextSize() ) );
+    title->setStyleSheet( QString( "font-size: %1px" ).arg( s->GetGridFontSize() ) );
     title->setWordWrap( true );
 
-    int textLenght = s->GetGridViewTextLength();
+    int textLenght = s->GetGridCutTextAfter();
 
     if( film->GetTitle().length() > textLenght )
     {
