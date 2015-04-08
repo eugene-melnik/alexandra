@@ -41,8 +41,8 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     settings = new AlexandraSettings( this );
     filmsList = new FilmsList( settings, this );
 
-    SetupFilmsView();
     SetupWindows();
+    SetupFilmsView();
     LoadSettings();
 
     filmsList->LoadFromFile( settings->GetDatabaseFilePath() );
@@ -405,10 +405,18 @@ void MainWindow::SetupFilmsView()
         }
     }
 
+    // Base signals
     connect( view, SIGNAL( ItemClicked(QString) ), filmsList, SLOT( SetCurrentFilm(QString) ) );
     connect( view, SIGNAL( ItemClicked(QString) ), this, SLOT( ShowFilmInformation() ) );
     connect( view, SIGNAL( ItemDoubleClicked(QString) ), this, SLOT( PlayFilm() ) );
     connect( view, SIGNAL( ContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
+    // Add film window
+    connect( addFilmWindow, SIGNAL( Done(Film) ), view, SLOT( SelectItem(Film) ) );
+    // Search window
+    connect( searchWindow, SIGNAL( FilmSelected(QString) ), view, SLOT( SelectItem(QString) ) );
+    // Random film function
+    connect( actionRandom, SIGNAL( triggered() ), view, SLOT( SelectRandomItem() ) );
+    connect( toolbar, SIGNAL( actionRandom() ), view, SLOT( SelectRandomItem() ) );
 
     filmsView = dynamic_cast<AbstractFilmsView*>( view );
     vlLeft->insertWidget( 0, view );
@@ -455,7 +463,6 @@ void MainWindow::SetupWindows()
     connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
 
     connect( addFilmWindow, SIGNAL( Done(Film) ), filmsList, SLOT( AddFilm(Film) ) );
-    connect( addFilmWindow, SIGNAL( Done(Film) ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectItem(Film) ) );
 
     // Edit film window
     editFilmWindow = new EditFilmWindow( settings, this );
@@ -489,7 +496,6 @@ void MainWindow::SetupWindows()
     connect( toolbar, SIGNAL( actionSearch() ), searchWindow, SLOT( show() ) );
 
     connect( searchWindow, SIGNAL( FilmSelected(QString) ), filmsList, SLOT( SetCurrentFilm(QString) ) );
-    connect( searchWindow, SIGNAL( FilmSelected(QString) ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectItem(QString) ) );
 
     // Settings window
     settingsWindow = new SettingsWindow( settings, this );
@@ -500,10 +506,6 @@ void MainWindow::SetupWindows()
     connect( settingsWindow, SIGNAL( ViewChanged() ), this, SLOT( ReloadView() ) );
     connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( ReloadDatabase() ) );
     connect( settingsWindow, SIGNAL( EraseDatabase() ), this, SLOT( EraseDatabase() ) );
-
-    // Random film
-    connect( actionRandom, SIGNAL( triggered() ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectRandomItem() ) );
-    connect( toolbar, SIGNAL( actionRandom() ), dynamic_cast<QWidget*>( filmsView ), SLOT( SelectRandomItem() ) );
 }
 
 void MainWindow::ClearTextFields()
