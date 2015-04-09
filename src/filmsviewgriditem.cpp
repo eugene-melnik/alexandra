@@ -49,9 +49,6 @@ FilmViewGridItem::FilmViewGridItem( const Film* film, AlexandraSettings* s, QWid
     }
 
     // Film poster
-    poster = new QLabel( this );
-    poster->setAlignment( Qt::AlignCenter );
-
     QString posterFilePath = s->GetPostersDirPath() + "/" + film->GetPosterName();
 
     if( !film->GetIsPosterExists() || !QFileInfo( posterFilePath ).exists() )
@@ -59,14 +56,14 @@ FilmViewGridItem::FilmViewGridItem( const Film* film, AlexandraSettings* s, QWid
         posterFilePath = ":/standart-poster";
     }
 
-    int itemSize = s->GetGridItemSize();
-    poster->setPixmap( QPixmap( posterFilePath ).scaledToHeight( itemSize, Qt::SmoothTransformation ) );
-    poster->setGraphicsEffect( new EffectDropShadow( 0, 0, 10, poster ) );
+    poster = new QLabel( this );
+    poster->setAlignment( Qt::AlignCenter );
+    poster->setGraphicsEffect( new EffectDropShadow( 0, 0, 10, "black", poster ) );
+    poster->setPixmap( QPixmap( posterFilePath ).scaledToHeight( s->GetGridItemSize(), Qt::SmoothTransformation ) );
 
     // Film title
     title = new QLabel( this );
     title->setAlignment( Qt::AlignCenter );
-    title->setStyleSheet( QString( "font-size: %1px" ).arg( s->GetGridFontSize() ) );
     title->setWordWrap( true );
 
     int textLenght = s->GetGridCutTextAfter();

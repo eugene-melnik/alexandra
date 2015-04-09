@@ -32,11 +32,13 @@ void FilmsViewGrid::LoadSettings( AlexandraSettings* s )
 {
     settings = s;
     setColumnCount( s->GetGridColumnCount() );
+    setStyleSheet( QString( "font-size: %1px" ).arg( s->GetGridFontSize() ) );
 }
 
 void FilmsViewGrid::ReloadSettings( AlexandraSettings* s )
 {
     setColumnCount( s->GetGridColumnCount() );
+    setStyleSheet( QString( "font-size: %1px" ).arg( s->GetGridFontSize() ) );
 }
 
 void FilmsViewGrid::AddItem( const Film& film )

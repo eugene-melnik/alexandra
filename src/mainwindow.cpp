@@ -185,11 +185,14 @@ void MainWindow::ShowFilmInformation()
     // Buttons and technical information
     bTechInformation->setEnabled( false );
 
-    if( QFileInfo( f->GetFileName() ).exists() ) {
+    if( QFileInfo( f->GetFileName() ).exists() )
+    {
         // File exists
         filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
         bPlay->setEnabled( true );
-    } else {
+    }
+    else
+    {
         // File doesn't exists
         bPlay->setEnabled( false );
     }
@@ -215,7 +218,8 @@ void MainWindow::ShowFilmInformation()
     // Poster
     QPixmap p( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
 
-    if( p.isNull() ) {
+    if( p.isNull() )
+    {
         p.load( ":/standart-poster" );
     }
 
@@ -237,13 +241,16 @@ void MainWindow::ShowShortTechnicalInfo( QString info )
 
 void MainWindow::PlayFilm()
 {
-    if( externalPlayer->state() == QProcess::NotRunning ) {
+    if( externalPlayer->state() == QProcess::NotRunning )
+    {
 #ifdef Q_OS_LINUX
         externalPlayer->start( settings->GetExternalPlayer() + " \"" + filmsList->GetCurrentFilmFileName() +"\"" );
 #elif defined(Q_OS_WIN32)
-        externalPlayer->start( "\"" + settings->GetApplicationExternalPlayer() + "\" \"" + filmsList->GetCurrentFilmFileName() +"\"" );
+        externalPlayer->start( "\"" + settings->GetExternalPlayer() + "\" \"" + filmsList->GetCurrentFilmFileName() +"\"" );
 #endif
-    } else {
+    }
+    else
+    {
         externalPlayer->close();
     }
 }

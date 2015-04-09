@@ -54,6 +54,7 @@ void SettingsWindow::showEvent( QShowEvent* event )
     isSettingsChanged = false;
     isNeedReboot = false;
 
+    twMain->setCurrentIndex( 0 );
     event->accept();
 }
 
@@ -291,7 +292,7 @@ void SettingsWindow::ConfigureAppearanceTab()
 
     connect( rbGridView, SIGNAL( toggled(bool) ), this, SLOT( SetIsViewChanged() ) );
     connect( sbGridImageSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
-    connect( sbGridFontSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
+    connect( sbGridFontSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( sbGridNumberOfColumns, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
     connect( sbGridCutTextAfter, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
     connect( cShowTooltip, SIGNAL( toggled(bool) ), this,  SLOT( SetIsViewChanged() ) );
