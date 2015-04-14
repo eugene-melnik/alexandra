@@ -28,6 +28,7 @@
 #include <QObject>
 #include <QMutex>
 #include <QString>
+#include <QStringList>
 
 class FilmsList : public QObject
 {
@@ -49,6 +50,8 @@ class FilmsList : public QObject
         const QList<Film>* GetFilmsList() const;
         QList<Film>*       GetFilmsFilteredBy( const QString& key ) const;
 
+        QStringList* GetFilmsFileNames() const;
+
         const Film* GetCurrentFilm() const;
         QString GetCurrentFilmTitle() const;
         QString GetCurrentFilmFileName() const;
@@ -59,6 +62,7 @@ class FilmsList : public QObject
 
         void AddFilm( Film film );
         void AddFilm( const Film* film );
+        void AddFilms( const QList<Film>* newFilms );
 
         void SetCurrentFilm( const QString& title );
         void ChangeCurrentFilm( Film f );

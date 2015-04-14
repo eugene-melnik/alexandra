@@ -28,8 +28,6 @@
 #include <QMessageBox>
 #include <QtConcurrentRun>
 
-#include<iostream>
-
 FilmsList::FilmsList( AlexandraSettings* s, QObject* parent ) : QObject( parent )
 {
     settings = s;
@@ -176,6 +174,18 @@ QList<Film>* FilmsList::GetFilmsFilteredBy( const QString& key ) const
     return( f );
 }
 
+QStringList* FilmsList::GetFilmsFileNames() const
+{
+    QStringList* res = new QStringList();
+
+    for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
+    {
+        *res << i->GetFileName();
+    }
+
+    return( res );
+}
+
 const Film* FilmsList::GetCurrentFilm() const
 {
     return( currentFilm );
@@ -245,6 +255,15 @@ void FilmsList::AddFilm( Film film )
 void FilmsList::AddFilm( const Film* film )
 {
     AddFilm( *film );
+}
+
+void FilmsList::AddFilms( const QList<Film>* newFilms )
+{
+    *films += *newFilms;
+    std::sort( films->begin(), films->end() );
+
+    isDatabaseChanged = true;
+    emit DatabaseChanged();
 }
 
 void FilmsList::SetCurrentFilm( const QString& title )

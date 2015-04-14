@@ -55,6 +55,7 @@ MainWindow::~MainWindow()
     delete aboutWindow;
     delete editFilmWindow;
     delete filmInfoWindow;
+    delete filmScannerWindow;
     delete searchWindow;
     delete settingsWindow;
     delete splashScreen;
@@ -318,6 +319,11 @@ void MainWindow::RemoveFile()
     }
 }
 
+void MainWindow::FilmScanner()
+{
+    filmScannerWindow->show( filmsList->GetFilmsFileNames() );
+}
+
 void MainWindow::FilmsFilter( QString key )
 {
     statusbar->ShowLoading();
@@ -513,6 +519,13 @@ void MainWindow::SetupWindows()
     connect( settingsWindow, SIGNAL( ViewChanged() ), this, SLOT( ReloadView() ) );
     connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( ReloadDatabase() ) );
     connect( settingsWindow, SIGNAL( EraseDatabase() ), this, SLOT( EraseDatabase() ) );
+
+    // Film scanner window
+    filmScannerWindow = new FilmScannerWindow( this );
+
+    connect( actionFilmScanner, SIGNAL( triggered() ), this, SLOT( FilmScanner() ) );
+
+    connect( filmScannerWindow, SIGNAL( AddFilms(const QList<Film>*) ), filmsList, SLOT( AddFilms(const QList<Film>*) ) );
 }
 
 void MainWindow::ClearTextFields()

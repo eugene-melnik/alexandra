@@ -4,6 +4,8 @@
         <file alias="about">../icons/window-about.png</file>
         <file alias="about-qt">../icons/window-about-qt.png</file>
         <file alias="main">../icons/window-main.png</file>
+        <file alias="film-scanner">../icons/film-scanner.png</file>
+        <file alias="film-statistic">../icons/film-statistic.png</file>
     </qresource>
     <qresource prefix="/action">
         <file alias="exit">../icons/action-exit.png</file>

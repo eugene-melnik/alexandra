@@ -28,6 +28,7 @@
 #include "editfilmwindow.h"
 #include "filminfowindow.h"
 #include "filmslist.h"
+#include "filmscannerwindow.h"
 #include "filmsviewcontextmenu.h"
 #include "searchwindow.h"
 #include "settingswindow.h"
@@ -77,6 +78,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void EditFilm();
         void RemoveFilm();
         void RemoveFile();
+        void FilmScanner();
 
         void FilmsFilter( QString key );
 
@@ -98,6 +100,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         AddFilmWindow* addFilmWindow = nullptr;
         EditFilmWindow* editFilmWindow = nullptr;
         FilmInfoWindow* filmInfoWindow = nullptr;
+        FilmScannerWindow* filmScannerWindow = nullptr;
         SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
         SplashScreen* splashScreen = nullptr;
