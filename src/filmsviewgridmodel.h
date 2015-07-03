@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmsviewgriditem.h                                                                     *
+ *  file: filmsviewgridmodel.h                                                                    *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,28 +18,43 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSVIEWGRIDITEM_H
-#define FILMSVIEWGRIDITEM_H
+#ifndef FILMSVIEWGRIDMODEL_H
+#define FILMSVIEWGRIDMODEL_H
 
-#include <QLabel>
-#include <QWidget>
+#include <QAbstractListModel>
+#include <QColor>
+#include <QList>
+#include <QPixmap>
+#include <QString>
 
 #include "alexandrasettings.h"
 #include "film.h"
 
-class FilmViewGridItem : public QWidget
+class FilmViewGridModel : public QAbstractListModel
 {
     Q_OBJECT
 
     public:
-        FilmViewGridItem( const Film* film, AlexandraSettings* s, QWidget* parent = nullptr );
+        FilmViewGridModel( AlexandraSettings* s, QObject* parent = nullptr );
 
-        QString GetTitle() const;
+        void AppendItem( const Film& film, QColor background );
+        void SetItem( int n, const Film& film, QColor background );
+        void Clear();
+        void RemoveRow( int row );
+
+        int GetItemIndexByTitle( QString title );
+        QString GetItemTitle( int n );
+
+        int rowCount( const QModelIndex& parent = QModelIndex() ) const;
+        QVariant data( const QModelIndex& index, int role ) const;
 
     private:
-        QString titleText;
-        QLabel* poster = nullptr;
-        QLabel* title = nullptr;
+        AlexandraSettings* settings = nullptr;
+
+        QList<QString> itemTitle;
+        QList<QPixmap> itemImage;
+        QList<QString> itemToolTip;
+        QList<QColor>  itemBackground;
 };
 
-#endif // FILMSVIEWGRIDITEM_H
+#endif // FILMSVIEWGRIDMODEL_H

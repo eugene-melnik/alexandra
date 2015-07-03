@@ -43,10 +43,10 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
     horizontalHeader()->setMinimumSectionSize( 20 );
 
     // Signals
-    connect( this, SIGNAL( itemClicked(QTableWidgetItem*) ), this, SLOT( ItemClickedSlot(QTableWidgetItem*) ) );
-    connect( this, SIGNAL( itemActivated(QTableWidgetItem*) ), this, SLOT( ItemClickedSlot(QTableWidgetItem*) ) );
-    connect( this, SIGNAL( itemDoubleClicked(QTableWidgetItem*) ), this, SLOT( ItemDoubleClickedSlot(QTableWidgetItem*) ) );
-    connect( this, SIGNAL( customContextMenuRequested(QPoint) ), this, SLOT( ContextMenuRequestedSlot(QPoint) ) );
+    connect( this, &FilmsViewList::itemClicked, this, &FilmsViewList::ItemClickedSlot );
+    connect( this, &FilmsViewList::itemActivated, this, &FilmsViewList::ItemClickedSlot );
+    connect( this, &FilmsViewList::itemDoubleClicked, this, &FilmsViewList::ItemDoubleClickedSlot );
+    connect( this, &FilmsViewList::customContextMenuRequested, this, &FilmsViewList::ContextMenuRequestedSlot );
 
     // Columns setup
     setColumnCount( colNames.size() );
@@ -88,50 +88,44 @@ void FilmsViewList::SaveSettings( AlexandraSettings* s ) const
     s->SetColumnDirectorWidth( columnWidth( DirectorColumn ) );
 }
 
-void FilmsViewList::AddItem( const Film& film )
+int FilmsViewList::AddItem( const Film& film, QColor background )
 {
     int currentRow = GetItemsCount();
 
     setRowCount( currentRow + 1 );
-    SetItem( currentRow, &film );
+    SetItem( currentRow, film, background );
+
+    return( currentRow );
 }
 
-void FilmsViewList::AddItem( const Film& film, QColor background )
-{
-    int currentRow = GetItemsCount();
-
-    setRowCount( currentRow + 1 );
-    SetItem( currentRow, &film, background );
-}
-
-void FilmsViewList::SetItem( int n, const Film* film, QColor background )
+void FilmsViewList::SetItem( int n, const Film& film, QColor background )
 {
     // Viewed
-    QTableWidgetItem* viewed = new QTableWidgetItem( film->GetIsViewedSign() );
+    QTableWidgetItem* viewed = new QTableWidgetItem( film.GetIsViewedSign() );
     setItem( n, ViewedColumn, viewed );
 
     // Favourite
-    QTableWidgetItem* favourite = new QTableWidgetItem( film->GetIsFavouriteSign() );
+    QTableWidgetItem* favourite = new QTableWidgetItem( film.GetIsFavouriteSign() );
     setItem( n, FavouriteColumn, favourite );
 
     // Title
-    QTableWidgetItem* title = new QTableWidgetItem( film->GetTitle() );
+    QTableWidgetItem* title = new QTableWidgetItem( film.GetTitle() );
     setItem( n, TitleColumn, title );
 
     // Year
-    QTableWidgetItem* year = new QTableWidgetItem( film->GetYearStr() );
+    QTableWidgetItem* year = new QTableWidgetItem( film.GetYearStr() );
     setItem( n, YearColumn, year );
 
     // Genre
-    QTableWidgetItem* genre = new QTableWidgetItem( film->GetGenre() );
+    QTableWidgetItem* genre = new QTableWidgetItem( film.GetGenre() );
     setItem( n, GenreColumn, genre );
 
     // Director
-    QTableWidgetItem* director = new QTableWidgetItem( film->GetDirector() );
+    QTableWidgetItem* director = new QTableWidgetItem( film.GetDirector() );
     setItem( n, DirectorColumn, director );
 
     // Rating
-    QTableWidgetItem* rating = new QTableWidgetItem( film->GetRatingStr() );
+    QTableWidgetItem* rating = new QTableWidgetItem( film.GetRatingStr() );
     setItem( n, RatingColumn, rating );
 
     if( background.isValid() )
@@ -144,6 +138,21 @@ void FilmsViewList::SetItem( int n, const Film* film, QColor background )
         director->setBackgroundColor( background );
         rating->setBackgroundColor( background );
     }
+}
+
+void FilmsViewList::SetCurrentItemTo( const Film film )
+{
+    SetItem( GetCurrentItemIndex(), film );
+}
+
+void FilmsViewList::RemoveItem( int n )
+{
+    removeRow( n );
+}
+
+void FilmsViewList::RemoveCurrentItem()
+{
+    RemoveItem( GetCurrentItemIndex() );
 }
 
 void FilmsViewList::Clear()

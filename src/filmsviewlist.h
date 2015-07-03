@@ -43,9 +43,12 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
         void ReloadSettings( AlexandraSettings* s );
         void SaveSettings( AlexandraSettings* s ) const;
 
-        void AddItem( const Film& film );
-        void AddItem( const Film& film, QColor background );
-        void SetItem( int n, const Film* film, QColor background = QColor() );
+        int AddItem( const Film& film, QColor background = QColor() );
+        void SetItem( int n, const Film& film, QColor background = QColor() );
+        void SetCurrentItemTo( const Film film );
+
+        void RemoveItem( int n );
+        void RemoveCurrentItem();
         void Clear();
 
         void SelectItem( Film film );

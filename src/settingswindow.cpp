@@ -36,7 +36,7 @@ SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent ) : QDialo
     settings = s;
 
     setupUi( this );
-    connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
+    connect( buttonBox, &QDialogButtonBox::accepted, this, &SettingsWindow::OkButtonClicked );
 
     ConfigureAppearanceTab();
     ConfigureApplicationTab();
@@ -286,18 +286,18 @@ void SettingsWindow::OpenPostersFolder()
 
 void SettingsWindow::ConfigureAppearanceTab()
 {
-    connect( rbListView, SIGNAL( toggled(bool) ), this, SLOT( SetIsViewChanged() ) );
+    connect( rbListView, &QRadioButton::toggled, this, &SettingsWindow::SetIsViewChanged );
     connect( sbListFontSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( sbListRowHeight, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
 
-    connect( rbGridView, SIGNAL( toggled(bool) ), this, SLOT( SetIsViewChanged() ) );
+    connect( rbGridView, &QRadioButton::toggled, this, &SettingsWindow::SetIsViewChanged );
     connect( sbGridImageSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
     connect( sbGridFontSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( sbGridNumberOfColumns, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
     connect( sbGridCutTextAfter, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
-    connect( cShowTooltip, SIGNAL( toggled(bool) ), this,  SLOT( SetIsViewChanged() ) );
+    connect( cShowTooltip, &QCheckBox::toggled, this, &SettingsWindow::SetIsViewChanged );
 
-    connect( cShowRightPanel, SIGNAL( toggled(bool) ), this,  SLOT( SetIsSettingsChanged() ) );
+    connect( cShowRightPanel, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
 }
 
 void SettingsWindow::ReconfigureAppearanceTab()
@@ -335,9 +335,9 @@ void SettingsWindow::ConfigureApplicationTab()
     connect( cbLanguage, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
     connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( cbToolbarStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( eExternalPlayer, SIGNAL( textChanged(QString) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( bSelectExternalPlayer, SIGNAL( clicked() ), this, SLOT( SelectExternalPlayer() ) );
-    connect( bExternalPlayerDefault, SIGNAL( clicked() ), this, SLOT( SetDefaultExternalPlayer() ) );
+    connect( eExternalPlayer, &QLineEdit::textChanged, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( bSelectExternalPlayer, &QPushButton::clicked, this, &SettingsWindow::SelectExternalPlayer );
+    connect( bExternalPlayerDefault, &QPushButton::clicked, this, &SettingsWindow::SetDefaultExternalPlayer );
 
     // Language ComboBox
     foreach( Alexandra::Locale locale, Alexandra::supportedLocales )
@@ -385,15 +385,15 @@ void SettingsWindow::ReconfigureApplicationTab()
 void SettingsWindow::ConfigureDatabaseTab()
 {
     // Signals
-    connect( eDatabaseFile, SIGNAL( textChanged(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
-    connect( bOpenDatabaseFile, SIGNAL( clicked() ), this, SLOT( OpenDatabaseFile() ) );
-    connect( cCheckFilesAtStartup, SIGNAL( toggled(bool) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( bSelectColorUnavailable, SIGNAL( clicked() ), this, SLOT( SelectColorUnavailable() ) );
-    connect( bCreateDatabase, SIGNAL( clicked() ), this, SLOT( CreateDatabase() ) );
-    connect( bEraseDatabase, SIGNAL( clicked() ), this, SLOT( EraseDatabaseQuestion() ) );
-    connect( ePostersFolder, SIGNAL( textChanged(QString) ), this, SLOT( SetIsDatabaseSettingsChanged() ) );
-    connect( bOpenPostersFolder, SIGNAL( clicked() ), this, SLOT( OpenPostersFolder() ) );
-    connect( cScalePoster, SIGNAL( toggled(bool) ), this,  SLOT( SetIsSettingsChanged() ) );
+    connect( eDatabaseFile, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDatabaseSettingsChanged );
+    connect( bOpenDatabaseFile, &QPushButton::clicked, this, &SettingsWindow::OpenDatabaseFile );
+    connect( cCheckFilesAtStartup, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( bSelectColorUnavailable, &QPushButton::clicked, this, &SettingsWindow::SelectColorUnavailable );
+    connect( bCreateDatabase, &QPushButton::clicked, this, &SettingsWindow::CreateDatabase );
+    connect( bEraseDatabase, &QPushButton::clicked, this, &SettingsWindow::EraseDatabaseQuestion );
+    connect( ePostersFolder, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDatabaseSettingsChanged );
+    connect( bOpenPostersFolder, &QPushButton::clicked, this, &SettingsWindow::OpenPostersFolder );
+    connect( cScalePoster, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
     connect( sbScaleToHeight, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
 }
 

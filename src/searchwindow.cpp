@@ -21,6 +21,7 @@
 #include "searchwindow.h"
 
 #include <QMessageBox>
+#include <QPushButton>
 #include <QStringList>
 
 SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent ) : QDialog( parent )
@@ -29,9 +30,9 @@ SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent ) : QDialog( p
     ConfigureTable();
     eKeywords->setFocus();
 
-    connect( bSearch, SIGNAL( clicked() ), this, SLOT( Search() ) );
-    connect( bOk, SIGNAL( clicked() ), this, SLOT( OkButtonClicked() ) );
-    connect( twResult, SIGNAL( itemDoubleClicked(QTableWidgetItem*) ), this, SLOT( OkButtonClicked() ) );
+    connect( bSearch, &QPushButton::clicked, this, &SearchWindow::Search );
+    connect( bOk, &QPushButton::clicked, this, &SearchWindow::OkButtonClicked );
+    connect( twResult, &QTableWidget::itemDoubleClicked, this, &SearchWindow::OkButtonClicked );
 
     films = f;
 }

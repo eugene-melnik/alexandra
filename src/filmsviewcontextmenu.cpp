@@ -34,12 +34,12 @@ FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
     // IsViewed
     cmaIsViewed = addAction( tr( "Is viewed" ) );
     cmaIsViewed->setCheckable( true );
-    connect( cmaIsViewed, SIGNAL( triggered(bool) ), this, SLOT( actionIsViewedSlot(bool) ) );
+    connect( cmaIsViewed, &QAction::triggered, this, &FilmsViewContextMenu::actionIsViewedSlot );
 
     // IsFavourite
     cmaIsFavourite = addAction( tr( "Is favourite" ) );
     cmaIsFavourite->setCheckable( true );
-    connect( cmaIsFavourite, SIGNAL( triggered(bool) ), this, SLOT( actionIsFavouriteSlot(bool) ) );
+    connect( cmaIsFavourite, &QAction::triggered, this, &FilmsViewContextMenu::actionIsFavouriteSlot );
 
     // Separator
     addSeparator();

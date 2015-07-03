@@ -27,7 +27,7 @@
 FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
-    connect( this, SIGNAL( FullInfoLoaded(QString) ), this, SLOT( ShowFullInfo(QString) ) );
+    connect( this, &FilmInfoWindow::FullInfoLoaded, this, &FilmInfoWindow::ShowFullInfo );
 }
 
 void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )

@@ -10,19 +10,19 @@ FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
 
-    connect( bSelectDirectory, SIGNAL( clicked() ), this, SLOT( SelectDirectory() ) );
-    connect( bScan, SIGNAL( clicked() ), this, SLOT( Scan() ) );
+    connect( bSelectDirectory, &QPushButton::clicked, this, &FilmScannerWindow::SelectDirectory );
+    connect( bScan, &QPushButton::clicked, this, &FilmScannerWindow::Scan );
 
-    connect( twFounded, SIGNAL( clicked(QModelIndex) ), this, SLOT( CalculateSelected() ) );
+    connect( twFounded, &QTableWidget::clicked, this, &FilmScannerWindow::CalculateSelected );
 
-    connect( bSelectAll, SIGNAL( clicked() ), this, SLOT( SelectAll() ) );
-    connect( bSelectAll, SIGNAL( clicked() ), this, SLOT( CalculateSelected() ) );
-    connect( bUnselectAll, SIGNAL( clicked() ), this, SLOT( UnselectAll() ) );
-    connect( bUnselectAll, SIGNAL( clicked() ), this, SLOT( CalculateSelected() ) );
-    connect( bInvertSelection, SIGNAL( clicked() ), this, SLOT( InvertSelection() ) );
-    connect( bInvertSelection, SIGNAL( clicked() ), this, SLOT( CalculateSelected() ) );
+    connect( bSelectAll, &QPushButton::clicked, this, &FilmScannerWindow::SelectAll );
+    connect( bSelectAll, &QPushButton::clicked, this, &FilmScannerWindow::CalculateSelected );
+    connect( bUnselectAll, &QPushButton::clicked, this, &FilmScannerWindow::UnselectAll );
+    connect( bUnselectAll, &QPushButton::clicked, this, &FilmScannerWindow::CalculateSelected );
+    connect( bInvertSelection, &QPushButton::clicked, this, &FilmScannerWindow::InvertSelection );
+    connect( bInvertSelection, &QPushButton::clicked, this, &FilmScannerWindow::CalculateSelected );
 
-    connect( buttonBox, SIGNAL( accepted() ), this, SLOT( AddSelected() ) );
+    connect( buttonBox, &QDialogButtonBox::accepted, this, &FilmScannerWindow::AddSelected );
 }
 
 void FilmScannerWindow::show( QStringList* l )

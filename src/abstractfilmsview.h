@@ -36,9 +36,13 @@ class AbstractFilmsView
         virtual void ReloadSettings( AlexandraSettings* s ) = 0;
         virtual void SaveSettings( AlexandraSettings* s ) const = 0;
 
-        virtual void AddItem( const Film& film ) = 0;
-        virtual void AddItem( const Film& film, QColor background ) = 0;
-        virtual void SetItem( int n, const Film* film, QColor background ) = 0;
+        virtual int AddItem( const Film& film, QColor background = QColor() ) = 0;
+
+        virtual void SetItem( int n, const Film& film, QColor background = QColor() ) = 0;
+        virtual void SetCurrentItemTo( const Film film ) = 0;
+
+        virtual void RemoveItem( int n ) = 0;
+        virtual void RemoveCurrentItem() = 0;
         virtual void Clear() = 0;
 
         virtual void SelectItem( Film film ) = 0;

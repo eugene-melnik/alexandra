@@ -43,7 +43,7 @@ HEADERS += effects/effectdropshadow.h \
            filmslist.h \
            filmsviewcontextmenu.h \
            filmsviewgrid.h \
-           filmsviewgriditem.h \
+           filmsviewgridmodel.h \
            filmsviewlist.h \
            mainwindow.h \
            mediainfo.h \
@@ -65,7 +65,7 @@ SOURCES += effects/effectdropshadow.cpp \
            filmslist.cpp \
            filmsviewcontextmenu.cpp \
            filmsviewgrid.cpp \
-           filmsviewgriditem.cpp \
+           filmsviewgridmodel.cpp \
            filmsviewlist.cpp \
            main.cpp \
            mainwindow.cpp \

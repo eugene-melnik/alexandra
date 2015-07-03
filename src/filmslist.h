@@ -61,7 +61,6 @@ class FilmsList : public QObject
         int GetIsFavouriteCount() const;
 
         void AddFilm( Film film );
-        void AddFilm( const Film* film );
         void AddFilms( const QList<Film>* newFilms );
 
         void SetCurrentFilm( const QString& title );
@@ -81,8 +80,9 @@ class FilmsList : public QObject
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 
-        void FilmSelected( const Film* );
+        void DatabaseLoaded();
         void DatabaseChanged();
+        void FilmSelected( const Film* );
 
     private:
         // Variables

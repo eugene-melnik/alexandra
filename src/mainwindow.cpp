@@ -294,6 +294,7 @@ void MainWindow::RemoveFilm()
     if( res == QMessageBox::Yes )
     {
         filmsList->RemoveCurrentFilm();
+        filmsView->RemoveCurrentItem();
     }
 }
 
@@ -424,7 +425,10 @@ void MainWindow::SetupFilmsView()
     connect( view, SIGNAL( ItemDoubleClicked(QString) ), this, SLOT( PlayFilm() ) );
     connect( view, SIGNAL( ContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
     // Add film window
+    connect( addFilmWindow, SIGNAL( Done(Film) ), view, SLOT( AddItem(Film) ) );
     connect( addFilmWindow, SIGNAL( Done(Film) ), view, SLOT( SelectItem(Film) ) );
+    // Edit film window
+    connect( editFilmWindow, SIGNAL( Done(Film) ), view, SLOT( SetCurrentItemTo(Film) ) );
     // Search window
     connect( searchWindow, SIGNAL( FilmSelected(QString) ), view, SLOT( SelectItem(QString) ) );
     // Random film function
@@ -440,92 +444,92 @@ void MainWindow::SetupWindows()
     // Splashscreen
     splashScreen = new SplashScreen();
     splashScreen->show();
-    connect( this, SIGNAL( Shown() ), splashScreen, SLOT( Close() ) );
+    connect( this, &MainWindow::Shown, splashScreen, &SplashScreen::Close );
 
     // Main window
-    connect( toolbar, SIGNAL( actionExit() ), this, SLOT( close() ) );
+    connect( toolbar, &ToolBar::actionExit, this, &MainWindow::close );
 
-    connect( filmsList, SIGNAL( DatabaseChanged() ), this, SLOT( SaveDatabase() ) );
-    connect( filmsList, SIGNAL( DatabaseChanged() ), this, SLOT( ShowFilms() ) );
-    connect( filmsList, SIGNAL( DatabaseReadError() ), this, SLOT( DatabaseReadError() ) );
-    connect( filmsList, SIGNAL( DatabaseIsReadonly() ), this, SLOT( DatabaseIsReadonly() ) );
-    connect( filmsList, SIGNAL( DatabaseIsEmpty() ), this, SLOT( DatabaseIsEmpty() ) );
+    connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::ShowFilms );
+    connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::SaveDatabase );
+    connect( filmsList, &FilmsList::DatabaseReadError, this, &MainWindow::DatabaseReadError );
+    connect( filmsList, &FilmsList::DatabaseIsReadonly, this, &MainWindow::DatabaseIsReadonly );
+    connect( filmsList, &FilmsList::DatabaseIsEmpty, this, &MainWindow::DatabaseIsEmpty );
 
-    connect( bPlay, SIGNAL( clicked() ), this, SLOT( PlayFilm() ) );
-    connect( contextMenu, SIGNAL( actionPlay() ), this, SLOT( PlayFilm() ) );
-    connect( bViewed, SIGNAL( clicked(bool) ), filmsList, SLOT( SetCurrentFilmIsViewed(bool) ) );
-    connect( contextMenu, SIGNAL( actionIsViewed(bool) ), filmsList, SLOT( SetCurrentFilmIsViewed(bool) ) );
-    connect( bFavourite, SIGNAL( clicked(bool) ), filmsList, SLOT( SetCurrentFilmIsFavourite(bool) ) );
-    connect( contextMenu, SIGNAL( actionIsFavourite(bool) ), filmsList, SLOT( SetCurrentFilmIsFavourite(bool) ) );
+    connect( bPlay, &QPushButton::clicked, this, &MainWindow::PlayFilm );
+    connect( contextMenu, &FilmsViewContextMenu::actionPlay, this, &MainWindow::PlayFilm );
+    connect( bViewed, &QPushButton::clicked, filmsList, &FilmsList::SetCurrentFilmIsViewed );
+    connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, filmsList, &FilmsList::SetCurrentFilmIsViewed );
+    connect( bFavourite, &QPushButton::clicked, filmsList, &FilmsList::SetCurrentFilmIsFavourite );
+    connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, filmsList, &FilmsList::SetCurrentFilmIsFavourite );
 
-    connect( eFilter, SIGNAL( textChanged(QString) ), this, SLOT( FilmsFilter(QString) ) );
+    connect( eFilter, &QLineEdit::textChanged, this, &MainWindow::FilmsFilter );
 
-    connect( externalPlayer, SIGNAL( started() ), this, SLOT( PlayerStarted() ) );
+    connect( externalPlayer, &QProcess::started, this, &MainWindow::PlayerStarted );
     connect( externalPlayer, SIGNAL( finished(int) ), this, SLOT( PlayerClosed() ) );
 
     // About window
     aboutWindow = new AboutWindow( this );
 
-    connect( actionAbout, SIGNAL( triggered() ), aboutWindow, SLOT( show() ) );
-    connect( actionAboutQt, SIGNAL( triggered() ), aboutWindow, SLOT( AboutQt() ) );
+    connect( actionAbout, &QAction::triggered, aboutWindow, &AboutWindow::show );
+    connect( actionAboutQt, &QAction::triggered, aboutWindow, &AboutWindow::AboutQt );
 
     // Add film window
     addFilmWindow = new AddFilmWindow( settings, this );
 
-    connect( actionAdd, SIGNAL( triggered() ), addFilmWindow, SLOT( show() ) );
-    connect( toolbar, SIGNAL( actionAdd() ), addFilmWindow, SLOT( show() ) );
+    connect( actionAdd, &QAction::triggered, addFilmWindow, &AddFilmWindow::show );
+    connect( toolbar, &ToolBar::actionAdd, addFilmWindow, &AddFilmWindow::show );
 
-    connect( addFilmWindow, SIGNAL( Done(Film) ), filmsList, SLOT( AddFilm(Film) ) );
+    connect( addFilmWindow, &AddFilmWindow::Done, filmsList, &FilmsList::AddFilm );
 
     // Edit film window
     editFilmWindow = new EditFilmWindow( settings, this );
 
-    connect( actionEdit, SIGNAL( triggered() ), this, SLOT( EditFilm() ) );
-    connect( toolbar, SIGNAL( actionEdit() ), this, SLOT( EditFilm() ) );
-    connect( contextMenu, SIGNAL( actionEdit() ), this, SLOT( EditFilm() ) );
+    connect( actionEdit, &QAction::triggered, this, &MainWindow::EditFilm );
+    connect( toolbar, &ToolBar::actionEdit, this, &MainWindow::EditFilm );
+    connect( contextMenu, &FilmsViewContextMenu::actionEdit, this, &MainWindow::EditFilm );
 
-    connect( editFilmWindow, SIGNAL( Done(Film) ), filmsList, SLOT( ChangeCurrentFilm(Film) ) );
+    connect( editFilmWindow, &EditFilmWindow::Done, filmsList, &FilmsList::ChangeCurrentFilm );
 
     // Remove film dialog
-    connect( actionRemove, SIGNAL( triggered() ), this, SLOT( RemoveFilm() ) );
-    connect( toolbar, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
-    connect( contextMenu, SIGNAL( actionRemove() ), this, SLOT( RemoveFilm() ) );
+    connect( actionRemove, &QAction::triggered, this, &MainWindow::RemoveFilm );
+    connect( toolbar, &ToolBar::actionRemove, this, &MainWindow::RemoveFilm );
+    connect( contextMenu, &FilmsViewContextMenu::actionRemove, this, &MainWindow::RemoveFilm );
 
     // Remove file
-    connect( contextMenu, SIGNAL( actionRemoveFile() ), this, SLOT( RemoveFile() ) );
+    connect( contextMenu, &FilmsViewContextMenu::actionRemoveFile, this, &MainWindow::RemoveFile );
 
     // Film info window
     filmInfoWindow = new FilmInfoWindow( this );
 
-    connect( bTechInformation, SIGNAL( clicked() ), filmInfoWindow, SLOT( show() ) );
-    connect( contextMenu, SIGNAL( actionShowInfo() ), filmInfoWindow, SLOT( show() ) );
+    connect( bTechInformation, &QPushButton::clicked, filmInfoWindow, &FilmInfoWindow::show );
+    connect( contextMenu, &FilmsViewContextMenu::actionShowInfo, filmInfoWindow, &FilmInfoWindow::show );
 
-    connect( filmInfoWindow, SIGNAL( ShortInfoLoaded(QString) ), this, SLOT( ShowShortTechnicalInfo(QString) ) );
+    connect( filmInfoWindow, &FilmInfoWindow::ShortInfoLoaded, this, &MainWindow::ShowShortTechnicalInfo );
 
     // Search window
     searchWindow = new SearchWindow( filmsList->GetFilmsList(), this );
 
-    connect( actionSearch, SIGNAL( triggered() ), searchWindow, SLOT( show() ) );
-    connect( toolbar, SIGNAL( actionSearch() ), searchWindow, SLOT( show() ) );
+    connect( actionSearch, &QAction::triggered, searchWindow, &SearchWindow::show );
+    connect( toolbar, &ToolBar::actionSearch, searchWindow, &SearchWindow::show );
 
-    connect( searchWindow, SIGNAL( FilmSelected(QString) ), filmsList, SLOT( SetCurrentFilm(QString) ) );
+    connect( searchWindow, &SearchWindow::FilmSelected, filmsList, &FilmsList::SetCurrentFilm );
 
     // Settings window
     settingsWindow = new SettingsWindow( settings, this );
 
-    connect( actionSettings, SIGNAL( triggered() ), settingsWindow, SLOT( show() ) );
+    connect( actionSettings, &QAction::triggered, settingsWindow, &SettingsWindow::show );
 
-    connect( settingsWindow, SIGNAL( SettingsChanged() ), this, SLOT( ReloadSettings() ) );
-    connect( settingsWindow, SIGNAL( ViewChanged() ), this, SLOT( ReloadView() ) );
-    connect( settingsWindow, SIGNAL( DatabaseSettingsChanged() ), this, SLOT( ReloadDatabase() ) );
-    connect( settingsWindow, SIGNAL( EraseDatabase() ), this, SLOT( EraseDatabase() ) );
+    connect( settingsWindow, &SettingsWindow::SettingsChanged, this, &MainWindow::ReloadSettings );
+    connect( settingsWindow, &SettingsWindow::ViewChanged, this, &MainWindow::ReloadView );
+    connect( settingsWindow, &SettingsWindow::DatabaseSettingsChanged, this, &MainWindow::ReloadDatabase );
+    connect( settingsWindow, &SettingsWindow::EraseDatabase, this, &MainWindow::EraseDatabase );
 
     // Film scanner window
     filmScannerWindow = new FilmScannerWindow( this );
 
-    connect( actionFilmScanner, SIGNAL( triggered() ), this, SLOT( FilmScanner() ) );
+    connect( actionFilmScanner, &QAction::triggered, this, &MainWindow::FilmScanner );
 
-    connect( filmScannerWindow, SIGNAL( AddFilms(const QList<Film>*) ), filmsList, SLOT( AddFilms(const QList<Film>*) ) );
+    connect( filmScannerWindow, &FilmScannerWindow::AddFilms, filmsList, &FilmsList::AddFilms );
 }
 
 void MainWindow::ClearTextFields()

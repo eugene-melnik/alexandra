@@ -48,7 +48,7 @@ void FilmsList::LoadFromFile( const QString& fileName )
 
     if( !file.exists() )
     {
-        emit DatabaseChanged();
+        emit DatabaseLoaded();
         emit DatabaseIsEmpty();
         return;
     }
@@ -64,7 +64,7 @@ void FilmsList::LoadFromFile( const QString& fileName )
         stream >> databaseVersion;
         stream >> *films;
 
-        emit DatabaseChanged();
+        emit DatabaseLoaded();
 
         // Is Empty
         if( films->isEmpty() )
@@ -81,7 +81,7 @@ void FilmsList::LoadFromFile( const QString& fileName )
     }
     else // Is Read Error
     {
-        emit DatabaseChanged();
+        emit DatabaseLoaded();
         emit DatabaseReadError();
     }
 
@@ -252,11 +252,6 @@ void FilmsList::AddFilm( Film film )
     emit DatabaseChanged();
 }
 
-void FilmsList::AddFilm( const Film* film )
-{
-    AddFilm( *film );
-}
-
 void FilmsList::AddFilms( const QList<Film>* newFilms )
 {
     *films += *newFilms;
@@ -343,5 +338,7 @@ void FilmsList::EraseAll()
 
     currentFilm = nullptr;
     isDatabaseChanged = true;
+
+    emit DatabaseLoaded();
     emit DatabaseChanged();
 }

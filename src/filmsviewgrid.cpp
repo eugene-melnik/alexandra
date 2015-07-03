@@ -1,81 +1,97 @@
+/*************************************************************************************************
+ *                                                                                                *
+ *  file: filmsviewgrid.cpp                                                                       *
+ *                                                                                                *
+ *  Alexandra Video Library                                                                       *
+ *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *                                                                                                *
+ *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
+ *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
+ *  the License, or (at your option) any later version.                                           *
+ *                                                                                                *
+ *  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;     *
+ *  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     *
+ *  See the GNU General Public License for more details.                                          *
+ *                                                                                                *
+ *  You should have received a copy of the GNU General Public License along with this program.    *
+ *  If not, see <http://www.gnu.org/licenses/>.                                                   *
+ *                                                                                                *
+  *************************************************************************************************/
 
 #include "filmsviewgrid.h"
-#include "filmsviewgriditem.h"
 
+#include <QBrush>
 #include <QHeaderView>
 #include <QPalette>
 
-FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QTableWidget( parent )
+#include<QDebug>
+#include<QTime>
+#include<QListView>
+#include<QStringListModel>
+#include<QScrollBar>
+
+FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
 {
     // Appearance
     setContextMenuPolicy( Qt::CustomContextMenu );
-    setEditTriggers( QAbstractItemView::NoEditTriggers );
-    setGridStyle( Qt::NoPen );
-    setHorizontalScrollMode( QAbstractItemView::ScrollPerPixel );
-    setSelectionBehavior( QAbstractItemView::SelectItems );
-    setSelectionMode( QAbstractItemView::SingleSelection );
+    setResizeMode( QListView::Adjust );
+    setViewMode( QListView::IconMode );
+    setWrapping( true );
+
     setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
-
-    horizontalHeader()->setVisible( false );
-    horizontalHeader()->setSectionResizeMode( QHeaderView::Stretch );
-
-    verticalHeader()->setVisible( false );
+    verticalScrollBar()->setSingleStep( 1 );
 
     // Signals
-    connect( this, SIGNAL( cellClicked(int,int) ), this, SLOT( ItemClickedSlot(int,int) ) );
-    connect( this, SIGNAL( cellActivated(int,int) ), this, SLOT( ItemClickedSlot(int,int) ) );
-    connect( this, SIGNAL( cellDoubleClicked(int,int) ), this, SLOT( ItemDoubleClickedSlot(int,int) ) );
-    connect( this, SIGNAL( customContextMenuRequested(QPoint) ), this, SLOT( ContextMenuRequestedSlot(QPoint) ) );
+    connect( this, &FilmsViewGrid::clicked, this, &FilmsViewGrid::ItemClickedSlot );
+    connect( this, &FilmsViewGrid::activated, this, &FilmsViewGrid::ItemClickedSlot );
+    connect( this, &FilmsViewGrid::doubleClicked, this, &FilmsViewGrid::ItemDoubleClickedSlot );
+    connect( this, &FilmsViewGrid::customContextMenuRequested, this, &FilmsViewGrid::ContextMenuRequestedSlot );
 }
 
 void FilmsViewGrid::LoadSettings( AlexandraSettings* s )
 {
     settings = s;
-    setColumnCount( s->GetGridColumnCount() );
     setStyleSheet( QString( "font-size: %1px" ).arg( s->GetGridFontSize() ) );
+
+    model = new FilmViewGridModel( settings, this );
+    setModel( model );
 }
 
 void FilmsViewGrid::ReloadSettings( AlexandraSettings* s )
 {
-    setColumnCount( s->GetGridColumnCount() );
     setStyleSheet( QString( "font-size: %1px" ).arg( s->GetGridFontSize() ) );
 }
 
-void FilmsViewGrid::AddItem( const Film& film )
+int FilmsViewGrid::AddItem( const Film& film, QColor background )
 {
-    setRowCount( (itemsCount + 1) / columnCount() + 1 );
-    SetItem( itemsCount++, &film );
+    model->AppendItem( film, background );
+    return( GetItemsCount() - 1 );
 }
 
-void FilmsViewGrid::AddItem( const Film& film, QColor background )
+void FilmsViewGrid::SetItem( int n, const Film& film, QColor background )
 {
-    setRowCount( (itemsCount + 1) / columnCount() + 1 );
-    SetItem( itemsCount++, &film,background );
+    model->SetItem( n, film, background );
 }
 
-void FilmsViewGrid::SetItem( int n, const Film* film, QColor background )
+void FilmsViewGrid::SetCurrentItemTo( const Film film )
 {
-    FilmViewGridItem* item = new FilmViewGridItem( film, settings, this );
+    SetItem( GetCurrentItemIndex(), film );
+}
 
-    if( background.isValid() )
-    {
-        QPalette pal( palette() );
-        pal.setColor( QPalette::Background, background );
-        item->setBackgroundRole(QPalette::Background);
-        item->setAutoFillBackground( true );
-        item->setPalette( pal );
-    }
+void FilmsViewGrid::RemoveItem( int n )
+{
+    model->RemoveRow( n );
+    SetCurrentItemIndex( n );
+}
 
-    int row = n / columnCount();
-    int column = n % columnCount();
-    setCellWidget( row, column, item );
+void FilmsViewGrid::RemoveCurrentItem()
+{
+    RemoveItem( GetCurrentItemIndex() );
 }
 
 void FilmsViewGrid::Clear()
 {
-    clearContents();
-    itemsCount = 0;
-    setRowCount( itemsCount );
+    model->Clear();
 }
 
 void FilmsViewGrid::SelectItem( Film film )
@@ -85,30 +101,18 @@ void FilmsViewGrid::SelectItem( Film film )
 
 void FilmsViewGrid::SelectItem( QString title )
 {
-    for( int i = 0; i < itemsCount; i++ )
-    {
-        QWidget* widget = cellWidget( i / columnCount(), i % columnCount() );
-        FilmViewGridItem* item = dynamic_cast<FilmViewGridItem*>( widget );
-
-        if( item->GetTitle() == title )
-        {
-            SetCurrentItemIndex( i );
-            return;
-        }
-    }
-
-    SetCurrentItemIndex( 0 );
+    SetCurrentItemIndex( model->GetItemIndexByTitle( title ) );
 }
 
 void FilmsViewGrid::SelectRandomItem()
 {
-    if( itemsCount > 0 )
+    if( GetItemsCount() > 0 )
     {
         int n;
 
         do
         {
-            n = qrand() % rowCount();
+            n = qrand() % model->rowCount();
         }
         while( n == GetCurrentItemIndex() );
 
@@ -118,67 +122,45 @@ void FilmsViewGrid::SelectRandomItem()
 
 int FilmsViewGrid::GetItemsCount() const
 {
-    return( itemsCount );
+    return( model->rowCount() );
 }
 
 int FilmsViewGrid::GetCurrentItemIndex() const
 {
-    int row = currentIndex().row();
-    int column = currentIndex().column();
-    return( row * columnCount() + column );
+    return( currentIndex().row() );
 }
 
 void FilmsViewGrid::SetCurrentItemIndex( int i )
 {
-    if( itemsCount > 0 )
+    if( GetItemsCount() > 0 )
     {
-        if( (i > itemsCount) || (i < 0) )
+        if( i < 0 )
         {
             i = 0;
         }
+        else if( i >= GetItemsCount() )
+        {
+            i = GetItemsCount() - 1;
+        }
 
-        int row = i / columnCount();
-        int column = i % columnCount();
-        setCurrentCell( row, column );
-        cellClicked( row, column );
-
-        resizeColumnsToContents();
-        resizeRowsToContents();
+        setCurrentIndex( model->index( i, 0 ) );
+        clicked( model->index( i, 0 ) );
     }
 }
 
-void FilmsViewGrid::ItemClickedSlot( int row, int column )
+void FilmsViewGrid::ItemClickedSlot( QModelIndex i )
 {
-    int itemIndex = row * columnCount() + column;
-
-    if( itemIndex >= itemsCount )
-    {
-        itemIndex = itemsCount - 1;
-        SetCurrentItemIndex( itemIndex );
-    }
-
-    QWidget* widget = cellWidget( itemIndex / columnCount(), itemIndex % columnCount() );
-    FilmViewGridItem* item = dynamic_cast<FilmViewGridItem*>( widget );
-
-    emit ItemClicked( item->GetTitle() );
+    emit ItemClicked( model->GetItemTitle( i.row() ) );
 }
 
-void FilmsViewGrid::ItemDoubleClickedSlot( int row, int column )
+void FilmsViewGrid::ItemDoubleClickedSlot( QModelIndex i )
 {
-    int itemIndex = row * columnCount() + column;
-
-    if( itemIndex < itemsCount )
-    {
-        QWidget* widget = cellWidget( itemIndex / columnCount(), itemIndex % columnCount() );
-        FilmViewGridItem* item = dynamic_cast<FilmViewGridItem*>( widget );
-
-        emit ItemDoubleClicked( item->GetTitle() );
-    }
+    emit ItemDoubleClicked( model->GetItemTitle( i.row() ) );
 }
 
 void FilmsViewGrid::ContextMenuRequestedSlot( QPoint p )
 {
-    if( itemsCount > 0 )
+    if( GetItemsCount() > 0 )
     {
         SetCurrentItemIndex( GetCurrentItemIndex() );
         emit ContextMenuRequested( p );

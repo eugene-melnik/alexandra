@@ -23,6 +23,7 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QCryptographicHash>
+#include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QLineEdit>
@@ -36,9 +37,9 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog(
 
     settings = s;
 
-    connect( bOpenFile, SIGNAL( clicked() ), this, SLOT( OpenFilmFileClicked() ) );
-    connect( bOpenPoster, SIGNAL( clicked() ), this, SLOT( OpenPosterFileClicked() ) );
-    connect( buttonBox, SIGNAL( accepted() ), this, SLOT( OkButtonClicked() ) );
+    connect( bOpenFile, &QPushButton::clicked, this, &AddFilmWindow::OpenFilmFileClicked );
+    connect( bOpenPoster, &QPushButton::clicked, this, &AddFilmWindow::OpenPosterFileClicked );
+    connect( buttonBox, &QDialogButtonBox::accepted, this, &AddFilmWindow::OkButtonClicked );
 }
 
 void AddFilmWindow::showEvent( QShowEvent* event)

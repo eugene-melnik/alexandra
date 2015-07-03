@@ -1,15 +1,35 @@
+/*************************************************************************************************
+ *                                                                                                *
+ *  file: filmsviewgrid.h                                                                         *
+ *                                                                                                *
+ *  Alexandra Video Library                                                                       *
+ *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *                                                                                                *
+ *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
+ *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
+ *  the License, or (at your option) any later version.                                           *
+ *                                                                                                *
+ *  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;     *
+ *  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     *
+ *  See the GNU General Public License for more details.                                          *
+ *                                                                                                *
+ *  You should have received a copy of the GNU General Public License along with this program.    *
+ *  If not, see <http://www.gnu.org/licenses/>.                                                   *
+ *                                                                                                *
+  *************************************************************************************************/
 
 #ifndef FILMSVIEWGRID_H
 #define FILMSVIEWGRID_H
 
 #include <QColor>
-#include <QTableWidget>
+#include <QListView>
 
 #include "abstractfilmsview.h"
 #include "alexandrasettings.h"
 #include "film.h"
+#include "filmsviewgridmodel.h"
 
-class FilmsViewGrid : public QTableWidget, public AbstractFilmsView
+class FilmsViewGrid : public QListView, public AbstractFilmsView
 {
     Q_OBJECT
 
@@ -21,9 +41,12 @@ class FilmsViewGrid : public QTableWidget, public AbstractFilmsView
         void ReloadSettings( AlexandraSettings* s );
         void SaveSettings( AlexandraSettings* s ) const { Q_UNUSED(s) }
 
-        void AddItem( const Film& film );
-        void AddItem( const Film& film, QColor background );
-        void SetItem( int n, const Film* film, QColor background = QColor() );
+        int AddItem( const Film& film, QColor background = QColor() );
+        void SetItem( int n, const Film& film, QColor background = QColor() );
+        void SetCurrentItemTo( const Film film );
+
+        void RemoveItem( int n );
+        void RemoveCurrentItem();
         void Clear();
 
         void SelectItem( Film film );
@@ -36,8 +59,8 @@ class FilmsViewGrid : public QTableWidget, public AbstractFilmsView
         void SetCurrentItemIndex( int i );
 
     private slots:
-        void ItemClickedSlot( int row, int column );
-        void ItemDoubleClickedSlot( int row, int column );
+        void ItemClickedSlot( QModelIndex i );
+        void ItemDoubleClickedSlot( QModelIndex i );
         void ContextMenuRequestedSlot( QPoint p );
 
     signals:
@@ -47,7 +70,7 @@ class FilmsViewGrid : public QTableWidget, public AbstractFilmsView
 
     private:
         AlexandraSettings* settings = nullptr;
-        int itemsCount = 0;
+        FilmViewGridModel* model = nullptr;
 };
 
 #endif // FILMSVIEWGRID_H
