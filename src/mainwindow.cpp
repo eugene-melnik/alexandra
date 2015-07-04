@@ -525,11 +525,12 @@ void MainWindow::SetupWindows()
     connect( settingsWindow, &SettingsWindow::EraseDatabase, this, &MainWindow::EraseDatabase );
 
     // Film scanner window
-    filmScannerWindow = new FilmScannerWindow( this );
+    filmScannerWindow = new FilmScannerWindow( settings, this );
 
     connect( actionFilmScanner, &QAction::triggered, this, &MainWindow::FilmScanner );
 
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, filmsList, &FilmsList::AddFilms );
+    connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::ShowFilms );
 }
 
 void MainWindow::ClearTextFields()

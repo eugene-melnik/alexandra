@@ -66,6 +66,8 @@ class AlexandraSettings : public QSettings
         int        GetMainWindowToolbarStyle() const;
         bool       GetMainWindowShowRightPanel() const;
 
+        QString GetFilmsScannerLastDir() const;
+
         // Set //
 
         void SetDatabaseFilePath( const QString& s );
@@ -100,6 +102,8 @@ class AlexandraSettings : public QSettings
         void SetMainWindowSplitterState( const QByteArray& a );
         void SetMainWindowToolbarStyle( int n );
         void SetMainWindowShowRightPanel( bool b );
+
+        void SetFilmsScannerLastDir( const QString& s );
 };
 
 #endif // ALEXANDRASETTINGS_H

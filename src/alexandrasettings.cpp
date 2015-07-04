@@ -224,6 +224,11 @@ bool AlexandraSettings::GetMainWindowShowRightPanel() const
     return( value( "MainWindow/ShowRightPanel", true ).toBool() );
 }
 
+QString AlexandraSettings::GetFilmsScannerLastDir() const
+{
+    return( value( "FilmsScanner/LastDir", "" ).toString() );
+}
+
 // Set //
 
 void AlexandraSettings::SetDatabaseFilePath( const QString& s )
@@ -364,4 +369,9 @@ void AlexandraSettings::SetMainWindowToolbarStyle( int n )
 void AlexandraSettings::SetMainWindowShowRightPanel( bool b )
 {
     setValue( "MainWindow/ShowRightPanel", b );
+}
+
+void AlexandraSettings::SetFilmsScannerLastDir( const QString& s )
+{
+    setValue( "FilmsScanner/LastDir", s );
 }
