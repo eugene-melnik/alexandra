@@ -93,8 +93,6 @@ void SettingsWindow::OkButtonClicked()
 
         settings->SetGridItemSize( sbGridImageSize->value() );
         settings->SetGridFontSize( sbGridFontSize->value() );
-        settings->SetGridColumnCount( sbGridNumberOfColumns->value() );
-        settings->SetGridCutTextAfter( sbGridCutTextAfter->value() );
         settings->SetGridShowTooltip( cShowTooltip->isChecked() );
 
         settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
@@ -293,8 +291,6 @@ void SettingsWindow::ConfigureAppearanceTab()
     connect( rbGridView, &QRadioButton::toggled, this, &SettingsWindow::SetIsViewChanged );
     connect( sbGridImageSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
     connect( sbGridFontSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( sbGridNumberOfColumns, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
-    connect( sbGridCutTextAfter, SIGNAL( valueChanged(int) ), this, SLOT( SetIsViewChanged() ) );
     connect( cShowTooltip, &QCheckBox::toggled, this, &SettingsWindow::SetIsViewChanged );
 
     connect( cShowRightPanel, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
@@ -318,8 +314,6 @@ void SettingsWindow::ReconfigureAppearanceTab()
     // Grid view
     sbGridImageSize->setValue( settings->GetGridItemSize() );
     sbGridFontSize->setValue( settings->GetGridFontSize() );
-    sbGridNumberOfColumns->setValue( settings->GetGridColumnCount() );
-    sbGridCutTextAfter->setValue( settings->GetGridCutTextAfter() );
     cShowTooltip->setChecked( settings->GetGridShowTooltip() );
 
     cShowRightPanel->setChecked( settings->GetMainWindowShowRightPanel() );

@@ -194,16 +194,6 @@ int AlexandraSettings::GetGridFontSize() const
     return( value( "GridView/FontSize", 12 ).toInt() );
 }
 
-int AlexandraSettings::GetGridCutTextAfter() const
-{
-    return( value( "GridView/CutTextAfter", 25 ).toInt() );
-}
-
-int AlexandraSettings::GetGridColumnCount() const
-{
-    return( value( "GridView/ColumnCount", 3 ).toInt() );
-}
-
 bool AlexandraSettings::GetGridShowTooltip() const
 {
     return( value( "GridView/ShowTooltip", false ).toBool() );
@@ -344,16 +334,6 @@ void AlexandraSettings::SetGridItemSize( int n )
 void AlexandraSettings::SetGridFontSize( int n )
 {
     setValue( "GridView/FontSize", n );
-}
-
-void AlexandraSettings::SetGridCutTextAfter( int n )
-{
-    setValue( "GridView/CutTextAfter", n );
-}
-
-void AlexandraSettings::SetGridColumnCount( int n )
-{
-    setValue( "GridView/ColumnCount", n );
 }
 
 void AlexandraSettings::SetGridShowTooltip( bool b )

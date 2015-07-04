@@ -58,8 +58,6 @@ class AlexandraSettings : public QSettings
 
         int GetGridItemSize() const;
         int GetGridFontSize() const;
-        int GetGridCutTextAfter() const;
-        int GetGridColumnCount() const;
         bool GetGridShowTooltip() const;
 
         QByteArray GetMainWindowGeometry() const;
@@ -95,8 +93,6 @@ class AlexandraSettings : public QSettings
 
         void SetGridItemSize( int n );
         void SetGridFontSize( int n );
-        void SetGridCutTextAfter( int n );
-        void SetGridColumnCount( int n );
         void SetGridShowTooltip( bool b );
 
         void SetMainWindowGeometry( const QByteArray& a );
