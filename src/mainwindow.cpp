@@ -24,6 +24,7 @@
 #include "version.h"
 
 #include <QColor>
+#include <QCompleter>
 #include <QFileInfo>
 #include <QLineEdit>
 #include <QMessageBox>
@@ -325,6 +326,23 @@ void MainWindow::FilmScanner()
     filmScannerWindow->show( filmsList->GetFilmsFileNames() );
 }
 
+void MainWindow::SetupCompleter()
+{
+    delete eFilter->completer();
+
+    const QList<Film>* films = filmsList->GetFilmsList();
+    QStringList words;
+
+    for( int i = 0; i < films->size(); i++ )
+    {
+        words.append( films->at(i).GetTitle() );
+    }
+
+    QCompleter* c = new QCompleter( words, this );
+    c->setCaseSensitivity( Qt::CaseInsensitive );
+    eFilter->setCompleter( c );
+}
+
 void MainWindow::FilmsFilter( QString key )
 {
     statusbar->ShowLoading();
@@ -463,6 +481,8 @@ void MainWindow::SetupWindows()
     connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, filmsList, &FilmsList::SetCurrentFilmIsFavourite );
 
     connect( eFilter, &QLineEdit::textChanged, this, &MainWindow::FilmsFilter );
+    connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::SetupCompleter );
+    connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::SetupCompleter );
 
     connect( externalPlayer, &QProcess::started, this, &MainWindow::PlayerStarted );
     connect( externalPlayer, SIGNAL( finished(int) ), this, SLOT( PlayerClosed() ) );
@@ -535,8 +555,9 @@ void MainWindow::SetupWindows()
 
 void MainWindow::ClearTextFields()
 {
+    lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( lPosterImage->maximumWidth(),
+                                                                           Qt::SmoothTransformation ) );
     lFilmTitle->clear();
-    lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation ) );
     lOriginalTitle->clear();
     lTagline->clear();
     lGenre->clear();
@@ -549,6 +570,7 @@ void MainWindow::ClearTextFields()
     lDescription->clear();
     lTags->clear();
     lTechInformation->clear();
+
     repaint(); // Need for removing the artifacts
 }
 

@@ -80,6 +80,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void RemoveFile();
         void FilmScanner();
 
+        void SetupCompleter();
         void FilmsFilter( QString key );
 
     private:
