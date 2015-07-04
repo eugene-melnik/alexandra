@@ -39,7 +39,8 @@ SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent ) : QDialog( p
 
 void SearchWindow::Search()
 {
-    if( eKeywords->text().isEmpty() ) {
+    if( eKeywords->text().isEmpty() )
+    {
         QMessageBox::information( this, tr( "Search" ), tr( "Nothing to search. Input keyword first." ) );
         return;
     }
@@ -79,16 +80,18 @@ void SearchWindow::Search()
         founded.unique();
     }
 
-    if( founded.empty() ) {
+    if( founded.empty() )
+    {
         QMessageBox::information( this, tr( "Search" ), tr( "Nothing was found." ) );
-    } else {
-        UpdateTable( founded );
     }
+
+    UpdateTable( founded );
 }
 
 void SearchWindow::OkButtonClicked()
 {
-    if( twResult->rowCount() != 0 ) {
+    if( twResult->rowCount() != 0 )
+    {
         emit FilmSelected( twResult->item( twResult->currentRow(), TitleColumn )->text() );
     }
 
