@@ -84,6 +84,8 @@ void FilmViewGridModel::Clear()
     itemTitle.clear();
     itemToolTip.clear();
     itemBackground.clear();
+
+    emit layoutChanged(); // update the layout
 }
 
 void FilmViewGridModel::RemoveRow( int row )

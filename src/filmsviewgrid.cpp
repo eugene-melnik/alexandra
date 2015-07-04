@@ -24,12 +24,6 @@
 #include <QHeaderView>
 #include <QPalette>
 
-#include<QDebug>
-#include<QTime>
-#include<QListView>
-#include<QStringListModel>
-#include<QScrollBar>
-
 FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
 {
     // Appearance
@@ -38,8 +32,7 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
     setViewMode( QListView::IconMode );
     setWrapping( true );
 
-    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
-    verticalScrollBar()->setSingleStep( 1 );
+    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF
 
     // Signals
     connect( this, &FilmsViewGrid::clicked, this, &FilmsViewGrid::ItemClickedSlot );
