@@ -5,8 +5,8 @@
 #                                                                   #
  ###################################################################
 
-#CONFIG += release
-CONFIG += debug
+CONFIG += release
+#CONFIG += debug
 
 TARGET = alexandra
 TEMPLATE = app
@@ -51,6 +51,7 @@ HEADERS += effects/effectdropshadow.h \
            settingswindow.h \
            splashscreen.h \
            statusbar.h \
+           timecounter.h \
            toolbar.h \
            version.h
 
@@ -74,6 +75,7 @@ SOURCES += effects/effectdropshadow.cpp \
            settingswindow.cpp \
            splashscreen.cpp \
            statusbar.cpp \
+           timecounter.cpp \
            toolbar.cpp
 
 FORMS += aboutwindow.ui \

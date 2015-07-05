@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: mediainfo.h                                                                             *
+ *  file: timecounter.h                                                                           *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,41 +18,32 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef MEDIAINFO_H
-#define MEDIAINFO_H
+#ifndef TIMECOUNTER_H
+#define TIMECOUNTER_H
 
-#include <QString>
 #include <QTime>
 
-#ifdef Q_OS_LINUX
-    #include <MediaInfo/MediaInfo.h>
-    #define MI MediaInfoLib
-#elif defined(Q_OS_WIN32)
-    #include "MediaInfoDLL.h"
-    #define MI MediaInfoDLL
-#endif // MEDIAINFO_LIBRARY
-
-class MediaInfo
+class TimeCounter
 {
     public:
-        MediaInfo();
-        MediaInfo( QString fileName );
-        ~MediaInfo();
+        TimeCounter();
+        TimeCounter( quint16 h, quint16 m, quint16 s, quint16 ms = 0 );
+        TimeCounter( quint16 d, quint16 h, quint16 m, quint16 s, quint16 ms = 0 );
+        TimeCounter( const QTime& t );
+        TimeCounter( const TimeCounter& t );
 
-        QString GetFormat() const;
-        QString GetFileSize() const;
-        QString GetOverallBitRate() const;
-        QString GetWidth() const;
-        QString GetHeight() const;
-        QString GetFrameRate() const;
-        QString GetDuration() const;
-        QTime   GetDurationTime() const;
-        QString GetCompleteData() const;
+        void Add( const TimeCounter& t );
+        void Add( const QTime& t );
 
-        QString GetLibraryVersion() const;
+        QString ToString();
+        QString ToStringWithMs();
 
     private:
-        MI::MediaInfo* mi = nullptr;
+        quint16 days;
+        quint16 hours;
+        quint16 minutes;
+        quint16 seconds;
+        quint16 mseconds;
 };
 
-#endif // MEDIAINFO_H
+#endif // TIMECOUNTER_H

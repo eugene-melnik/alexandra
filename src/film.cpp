@@ -217,6 +217,11 @@ const QString &Film::GetTags() const
     return( tags );
 }
 
+int Film::GetViewsCounter() const
+{
+    return( viewsCounter );
+}
+
 bool Film::GetIsPosterExists() const
 {
     return( isPosterExists );

@@ -57,6 +57,7 @@ class Film
         QString GetRatingStr() const;
         const QString& GetTags() const;
 
+        int GetViewsCounter() const;
         bool GetIsPosterExists() const;
         QString GetPosterName() const;
         bool GetIsViewed() const;

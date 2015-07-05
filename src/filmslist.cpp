@@ -304,6 +304,7 @@ void FilmsList::IncCurrentFilmViewsCounter()
 {
     currentFilm->IncViewsCounter();
     isDatabaseChanged = true;
+    emit DatabaseChanged();
 }
 
 void FilmsList::RemoveCurrentFilm()
