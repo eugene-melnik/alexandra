@@ -62,7 +62,12 @@ void FilmsList::LoadFromFile( const QString& fileName )
 
         stream >> databaseHeader;
         stream >> databaseVersion;
-        stream >> *films;
+
+        if( databaseHeader == Alexandra::databaseHeader
+                && databaseVersion == Alexandra::databaseVersion ) // need to optimize
+        {
+            stream >> *films;
+        }
 
         emit DatabaseLoaded();
 

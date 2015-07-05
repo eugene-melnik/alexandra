@@ -24,6 +24,8 @@
 #include <QCheckBox>
 #include <QColorDialog>
 #include <QComboBox>
+#include <QDataStream>
+#include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QLineEdit>
@@ -111,6 +113,7 @@ void SettingsWindow::OkButtonClicked()
 
         settings->SetMainWindowToolbarStyle( toolStyles[ cbToolbarStyle->currentIndex() ].style  );
         settings->SetExternalPlayer( eExternalPlayer->text() );
+
         // Database tab
         settings->SetDatabaseFilePath( eDatabaseFile->text() );
         settings->SetCheckFilesOnStartup( cCheckFilesAtStartup->isChecked() );
@@ -193,6 +196,30 @@ void SettingsWindow::OpenDatabaseFile()
 
     if( !databaseFileName.isEmpty() )
     {
+        QFile file( databaseFileName );
+
+        if( file.open( QIODevice::ReadOnly ) )
+        {
+            // Reading from file
+            QDataStream stream( &file );
+            QString databaseHeader;
+            quint8 databaseVersion;
+
+            stream >> databaseHeader;
+            stream >> databaseVersion;
+            file.close();
+
+            if( databaseHeader != Alexandra::databaseHeader
+                    || databaseVersion != Alexandra::databaseVersion )
+            {
+                QMessageBox::warning( this,
+                                      tr( "Database" ),
+                                      tr( "Not a database file or incorrect version!" ) );
+                return;
+            }
+
+        }
+
         eDatabaseFile->setText( databaseFileName );
 
         QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
