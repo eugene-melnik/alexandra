@@ -54,6 +54,8 @@ class FilmsViewContextMenu : public QMenu
         void actionRemoveFileSlot();
 
     private:
+        QAction* cmaPlay = nullptr;
+        QAction* cmaShowInfo = nullptr;
         QAction* cmaIsViewed = nullptr;
         QAction* cmaIsFavourite = nullptr;
 };

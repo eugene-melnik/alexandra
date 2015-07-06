@@ -244,6 +244,8 @@ void MainWindow::ShowShortTechnicalInfo( QString info )
 
 void MainWindow::PlayFilm()
 {
+    if( !bPlay->isEnabled() ) return;
+
     if( externalPlayer->state() == QProcess::NotRunning )
     {
 #ifdef Q_OS_LINUX
@@ -468,6 +470,7 @@ void MainWindow::SetupWindows()
     // Splashscreen
     splashScreen = new SplashScreen();
     splashScreen->show();
+
     connect( this, &MainWindow::Shown, splashScreen, &SplashScreen::Close );
 
     // Main window

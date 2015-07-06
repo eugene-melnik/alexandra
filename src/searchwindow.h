@@ -21,13 +21,12 @@
 #ifndef SEARCHWINDOW_H
 #define SEARCHWINDOW_H
 
+#include "film.h"
 #include "ui_searchwindow.h"
 
 #include <list>
 #include <QDialog>
 #include <QList>
-
-#include <film.h>
 
 class SearchWindow : public QDialog, public Ui::SearchWindow
 {

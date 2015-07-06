@@ -25,11 +25,10 @@
 #include <QMessageBox>
 #include <QTableWidgetItem>
 
-FilmScannerWindow::FilmScannerWindow( AlexandraSettings* s, QWidget* parent ) : QDialog( parent )
+FilmScannerWindow::FilmScannerWindow( AlexandraSettings* s, QWidget* parent )
+    : QDialog( parent ), settings( s )
 {
     setupUi( this );
-
-    settings = s;
 
     connect( bSelectDirectory, &QPushButton::clicked, this, &FilmScannerWindow::SelectDirectory );
     connect( bScan, &QPushButton::clicked, this, &FilmScannerWindow::Scan );
@@ -217,11 +216,14 @@ void FilmScannerWindow::AddSelected()
         {
             QString fileName = twFounded->item( i, 0 )->text();
 
+            // Creating film
             Film f;
             f.SetFileName( fileName );
             f.SetTitle( QFileInfo( fileName ).fileName() );
-
             newFilms->append( f );
+
+            // Adding to the existing films
+            existsFileNames->append( fileName );
         }
     }
 

@@ -20,13 +20,15 @@
 
 #include "filmsviewcontextmenu.h"
 
+#include <QFileInfo>
+
 FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
 {
     // Play
-    addAction( QIcon( ":/action/play"), tr( "Play" ), this, SLOT( actionPlaySlot() ) );
+    cmaPlay = addAction( QIcon( ":/action/play"), tr( "Play" ), this, SLOT( actionPlaySlot() ) );
 
     // Show technical information
-    addAction( QIcon( ":/window/about"), tr( "Show technical information" ), this, SLOT( actionShowInfoSlot() ) );
+    cmaShowInfo = addAction( QIcon( ":/window/about"), tr( "Show technical information" ), this, SLOT( actionShowInfoSlot() ) );
 
     // Separator
     addSeparator();
@@ -59,6 +61,17 @@ FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
 
 void FilmsViewContextMenu::SetState( const Film* film )
 {
+    if( QFileInfo( film->GetFileName() ).exists() )
+    {
+        cmaPlay->setEnabled( true );
+        cmaShowInfo->setEnabled( true );
+    }
+    else
+    {
+        cmaPlay->setEnabled( false );
+        cmaShowInfo->setEnabled( false );
+    }
+
     cmaIsViewed->setChecked( film->GetIsViewed() );
     cmaIsFavourite->setChecked( film->GetIsFavourite() );
 }

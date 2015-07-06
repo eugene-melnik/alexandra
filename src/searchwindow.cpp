@@ -24,7 +24,8 @@
 #include <QPushButton>
 #include <QStringList>
 
-SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent ) : QDialog( parent )
+SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent )
+    : QDialog( parent ), films( f )
 {
     setupUi( this );
     ConfigureTable();
@@ -33,8 +34,6 @@ SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent ) : QDialog( p
     connect( bSearch, &QPushButton::clicked, this, &SearchWindow::Search );
     connect( bOk, &QPushButton::clicked, this, &SearchWindow::OkButtonClicked );
     connect( twResult, &QTableWidget::itemDoubleClicked, this, &SearchWindow::OkButtonClicked );
-
-    films = f;
 }
 
 void SearchWindow::Search()
