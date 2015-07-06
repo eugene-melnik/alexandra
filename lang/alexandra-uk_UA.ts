@@ -266,7 +266,7 @@
         <location filename="../src/filmscannerwindow.ui" line="23"/>
         <location filename="../src/filmscannerwindow.cpp" line="91"/>
         <location filename="../src/filmscannerwindow.cpp" line="114"/>
-        <location filename="../src/filmscannerwindow.cpp" line="230"/>
+        <location filename="../src/filmscannerwindow.cpp" line="233"/>
         <source>Film scanner</source>
         <translation>Сканер фільмів</translation>
     </message>
@@ -341,7 +341,7 @@
         <translation>Нічого не знайдено.</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.cpp" line="231"/>
+        <location filename="../src/filmscannerwindow.cpp" line="234"/>
         <source>First select the files to add.</source>
         <translation>Спочатку оберіть файли для додавання.</translation>
     </message>
@@ -402,37 +402,37 @@
 <context>
     <name>FilmsViewContextMenu</name>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="26"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="28"/>
         <source>Play</source>
         <translation>Відтворити</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="29"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="31"/>
         <source>Show technical information</source>
         <translation>Показати технічну інформацію</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="35"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="37"/>
         <source>Is viewed</source>
         <translation>Переглянутий</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="40"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="42"/>
         <source>Is favourite</source>
         <translation>Улюблений</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="48"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="50"/>
         <source>Edit</source>
         <translation>Редагувати</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="51"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="53"/>
         <source>Remove</source>
         <translation>Видалити</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="57"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="59"/>
         <source>Remove file</source>
         <translation>Видалити файл</translation>
     </message>
@@ -524,7 +524,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="474"/>
-        <location filename="../src/mainwindow.cpp" line="272"/>
+        <location filename="../src/mainwindow.cpp" line="274"/>
         <source>PLAY</source>
         <translation>ВІДТВОРИТИ</translation>
     </message>
@@ -595,7 +595,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="660"/>
-        <location filename="../src/mainwindow.cpp" line="292"/>
+        <location filename="../src/mainwindow.cpp" line="294"/>
         <source>Remove film</source>
         <translation>Видалити фільм</translation>
     </message>
@@ -646,7 +646,7 @@
         <translation>База даних доступна тільки для читання! Функції редагування вимкнені.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="293"/>
+        <location filename="../src/mainwindow.cpp" line="295"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Ви впевнені, що хочете видалити &quot;%1&quot;?</translation>
     </message>
@@ -678,18 +678,18 @@
         <translation>Ви можете додати свої фільмі в меню &quot;Фільми&quot;→&quot;Додати фільм&quot; або виберіть іншу базу даних в &quot;Правка&quot;→&quot;Налаштування&quot;→&quot;База даних&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="320"/>
+        <location filename="../src/mainwindow.cpp" line="322"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Не вдалося видалити файл &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="306"/>
-        <location filename="../src/mainwindow.cpp" line="319"/>
+        <location filename="../src/mainwindow.cpp" line="308"/>
+        <location filename="../src/mainwindow.cpp" line="321"/>
         <source>Remove file</source>
         <translation>Видалити файл</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="307"/>
+        <location filename="../src/mainwindow.cpp" line="309"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Ви впевнені, що хочете видалити файл &quot;%1&quot;?</translation>
     </message>
@@ -749,7 +749,7 @@
         <translation>&lt;b&gt;Мітки:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="265"/>
+        <location filename="../src/mainwindow.cpp" line="267"/>
         <source>STOP</source>
         <translation>Зупинити</translation>
     </message>
@@ -1247,16 +1247,25 @@
     </message>
     <message>
         <location filename="../src/toolbar.cpp" line="35"/>
+        <source>Film scanner</source>
+        <translation>Сканер фільмів</translation>
+    </message>
+    <message>
+        <source>Moved films</source>
+        <translation type="obsolete">Переміщені фільми</translation>
+    </message>
+    <message>
+        <location filename="../src/toolbar.cpp" line="37"/>
         <source>Random</source>
         <translation>Випадковий</translation>
     </message>
     <message>
-        <location filename="../src/toolbar.cpp" line="36"/>
+        <location filename="../src/toolbar.cpp" line="38"/>
         <source>Search</source>
         <translation>Пошук</translation>
     </message>
     <message>
-        <location filename="../src/toolbar.cpp" line="38"/>
+        <location filename="../src/toolbar.cpp" line="40"/>
         <source>Exit</source>
         <translation>Вихід</translation>
     </message>

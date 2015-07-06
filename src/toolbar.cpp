@@ -32,6 +32,8 @@ ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
     tbaEdit = addAction( QIcon( ":/tool/edit" ), tr( "Edit" ), this, SLOT( actionEditTriggered() ) );
     tbaRemove = addAction( QIcon( ":/tool/delete" ), tr( "Remove" ), this, SLOT( actionRemoveTriggered() ) );
     addSeparator();
+    tbaFilmScanner = addAction( QIcon( ":/window/film-scanner" ), tr( "Film scanner" ), this, SLOT( actionFilmScannerTriggered() ) );
+    addSeparator();
     tbaRandom = addAction( QIcon( ":/tool/random" ), tr( "Random" ), this, SLOT( actionRandomTriggered() ) );
     tbaSearch = addAction( QIcon( ":/tool/find" ), tr( "Search" ), this, SLOT( actionSearchTriggered() ) );
     addSeparator();
@@ -80,6 +82,11 @@ void ToolBar::actionEditTriggered()
 void ToolBar::actionRemoveTriggered()
 {
     emit actionRemove();
+}
+
+void ToolBar::actionFilmScannerTriggered()
+{
+    emit actionFilmScanner();
 }
 
 void ToolBar::actionRandomTriggered()

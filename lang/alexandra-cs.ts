@@ -266,7 +266,7 @@
         <location filename="../src/filmscannerwindow.ui" line="23"/>
         <location filename="../src/filmscannerwindow.cpp" line="91"/>
         <location filename="../src/filmscannerwindow.cpp" line="114"/>
-        <location filename="../src/filmscannerwindow.cpp" line="230"/>
+        <location filename="../src/filmscannerwindow.cpp" line="233"/>
         <source>Film scanner</source>
         <translation type="unfinished"></translation>
     </message>
@@ -341,7 +341,7 @@
         <translation>Nic nebylo nalezeno.</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.cpp" line="231"/>
+        <location filename="../src/filmscannerwindow.cpp" line="234"/>
         <source>First select the files to add.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -402,37 +402,37 @@
 <context>
     <name>FilmsViewContextMenu</name>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="26"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="28"/>
         <source>Play</source>
         <translation>Přehrát</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="29"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="31"/>
         <source>Show technical information</source>
         <translation>Ukázat technické údaje</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="35"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="37"/>
         <source>Is viewed</source>
         <translation>Zhlédnuto</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="40"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="42"/>
         <source>Is favourite</source>
         <translation>Oblíbený</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="48"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="50"/>
         <source>Edit</source>
         <translation>Upravit</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="51"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="53"/>
         <source>Remove</source>
         <translation>Odstranit</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="57"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="59"/>
         <source>Remove file</source>
         <translation>Odstranit soubor</translation>
     </message>
@@ -524,7 +524,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="474"/>
-        <location filename="../src/mainwindow.cpp" line="272"/>
+        <location filename="../src/mainwindow.cpp" line="274"/>
         <source>PLAY</source>
         <translation>PŘEHRÁT</translation>
     </message>
@@ -595,7 +595,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="660"/>
-        <location filename="../src/mainwindow.cpp" line="292"/>
+        <location filename="../src/mainwindow.cpp" line="294"/>
         <source>Remove film</source>
         <translation>Odstranit film</translation>
     </message>
@@ -641,7 +641,7 @@
         <translation>Databáze je pouze pro čtení! Úpravy jsou zakázány.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="293"/>
+        <location filename="../src/mainwindow.cpp" line="295"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Jste si jistý, že chcete odstranit &quot;%1&quot;?</translation>
     </message>
@@ -678,18 +678,18 @@
         <translation>Filmy přidejte v nabídce Filmy → Přidat film, nebo vyberte jiný soubor s databází v Úpravy → Nastavení → Databáze.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="320"/>
+        <location filename="../src/mainwindow.cpp" line="322"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Nelze odstranit soubor &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="306"/>
-        <location filename="../src/mainwindow.cpp" line="319"/>
+        <location filename="../src/mainwindow.cpp" line="308"/>
+        <location filename="../src/mainwindow.cpp" line="321"/>
         <source>Remove file</source>
         <translation>Odstranit soubor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="307"/>
+        <location filename="../src/mainwindow.cpp" line="309"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Jste si jistý, že chcete odstranit &quot;%1&quot;?</translation>
     </message>
@@ -749,7 +749,7 @@
         <translation>&lt;b&gt;Značky:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="265"/>
+        <location filename="../src/mainwindow.cpp" line="267"/>
         <source>STOP</source>
         <translation>ZASTAVIT</translation>
     </message>
@@ -1247,16 +1247,21 @@
     </message>
     <message>
         <location filename="../src/toolbar.cpp" line="35"/>
+        <source>Film scanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/toolbar.cpp" line="37"/>
         <source>Random</source>
         <translation>Náhodný</translation>
     </message>
     <message>
-        <location filename="../src/toolbar.cpp" line="36"/>
+        <location filename="../src/toolbar.cpp" line="38"/>
         <source>Search</source>
         <translation>Hledat</translation>
     </message>
     <message>
-        <location filename="../src/toolbar.cpp" line="38"/>
+        <location filename="../src/toolbar.cpp" line="40"/>
         <source>Exit</source>
         <translation>Ukončit</translation>
     </message>

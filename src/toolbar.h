@@ -43,6 +43,7 @@ class ToolBar : public QToolBar
         void actionAdd();
         void actionEdit();
         void actionRemove();
+        void actionFilmScanner();
         void actionRandom();
         void actionSearch();
         void actionExit();
@@ -51,6 +52,7 @@ class ToolBar : public QToolBar
         void actionAddTriggered();
         void actionEditTriggered();
         void actionRemoveTriggered();
+        void actionFilmScannerTriggered();
         void actionRandomTriggered();
         void actionSearchTriggered();
         void actionExitTriggered();
@@ -59,6 +61,7 @@ class ToolBar : public QToolBar
         QAction* tbaAdd = nullptr;
         QAction* tbaEdit = nullptr;
         QAction* tbaRemove = nullptr;
+        QAction* tbaFilmScanner = nullptr;
         QAction* tbaRandom = nullptr;
         QAction* tbaSearch = nullptr;
         QAction* tbaExit = nullptr;

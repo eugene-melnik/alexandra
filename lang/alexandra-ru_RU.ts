@@ -266,7 +266,7 @@
         <location filename="../src/filmscannerwindow.ui" line="23"/>
         <location filename="../src/filmscannerwindow.cpp" line="91"/>
         <location filename="../src/filmscannerwindow.cpp" line="114"/>
-        <location filename="../src/filmscannerwindow.cpp" line="230"/>
+        <location filename="../src/filmscannerwindow.cpp" line="233"/>
         <source>Film scanner</source>
         <translation>Сканер фильмов</translation>
     </message>
@@ -341,7 +341,7 @@
         <translation>Ничего не найдено.</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.cpp" line="231"/>
+        <location filename="../src/filmscannerwindow.cpp" line="234"/>
         <source>First select the files to add.</source>
         <translation>Сначала выберите файлы для добавления.</translation>
     </message>
@@ -402,37 +402,37 @@
 <context>
     <name>FilmsViewContextMenu</name>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="26"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="28"/>
         <source>Play</source>
         <translation>Воспроизвести</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="29"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="31"/>
         <source>Show technical information</source>
         <translation>Показать техническую информацию</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="35"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="37"/>
         <source>Is viewed</source>
         <translation>Просмотрен</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="40"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="42"/>
         <source>Is favourite</source>
         <translation>Избранный</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="48"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="50"/>
         <source>Edit</source>
         <translation>Изменить</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="51"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="53"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewcontextmenu.cpp" line="57"/>
+        <location filename="../src/filmsviewcontextmenu.cpp" line="59"/>
         <source>Remove file</source>
         <translation>Удалить файл</translation>
     </message>
@@ -524,7 +524,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="474"/>
-        <location filename="../src/mainwindow.cpp" line="272"/>
+        <location filename="../src/mainwindow.cpp" line="274"/>
         <source>PLAY</source>
         <translation>Воспроизвести</translation>
     </message>
@@ -595,7 +595,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="660"/>
-        <location filename="../src/mainwindow.cpp" line="292"/>
+        <location filename="../src/mainwindow.cpp" line="294"/>
         <source>Remove film</source>
         <translation>Удалить фильм</translation>
     </message>
@@ -646,7 +646,7 @@
         <translation>База данных доступна только для чтания! Функции редактирования отключены.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="293"/>
+        <location filename="../src/mainwindow.cpp" line="295"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Вы уверены, что хотите удалить &quot;%1&quot;?</translation>
     </message>
@@ -678,18 +678,18 @@
         <translation>Вы можете добавить ваши фильмы в меню &quot;Фильмы&quot;→&quot;Добавить фильм&quot; или выберите другую базу данных в &quot;Правка&quot;→&quot;Настройки&quot;→&quot;База данных&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="320"/>
+        <location filename="../src/mainwindow.cpp" line="322"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Не удалось удалить файл &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="306"/>
-        <location filename="../src/mainwindow.cpp" line="319"/>
+        <location filename="../src/mainwindow.cpp" line="308"/>
+        <location filename="../src/mainwindow.cpp" line="321"/>
         <source>Remove file</source>
         <translation>Удалить файл</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="307"/>
+        <location filename="../src/mainwindow.cpp" line="309"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Вы уверены, что хотите удалить файл &quot;%1&quot;?</translation>
     </message>
@@ -749,7 +749,7 @@
         <translation>&lt;b&gt;Теги:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="265"/>
+        <location filename="../src/mainwindow.cpp" line="267"/>
         <source>STOP</source>
         <translation>Остановить</translation>
     </message>
@@ -1247,16 +1247,25 @@
     </message>
     <message>
         <location filename="../src/toolbar.cpp" line="35"/>
+        <source>Film scanner</source>
+        <translation>Сканер фильмов</translation>
+    </message>
+    <message>
+        <source>Moved films</source>
+        <translation type="obsolete">Перемещенные фильмы</translation>
+    </message>
+    <message>
+        <location filename="../src/toolbar.cpp" line="37"/>
         <source>Random</source>
         <translation>Случайный</translation>
     </message>
     <message>
-        <location filename="../src/toolbar.cpp" line="36"/>
+        <location filename="../src/toolbar.cpp" line="38"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="../src/toolbar.cpp" line="38"/>
+        <location filename="../src/toolbar.cpp" line="40"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>

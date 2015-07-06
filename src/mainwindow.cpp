@@ -557,6 +557,7 @@ void MainWindow::SetupWindows()
     filmScannerWindow = new FilmScannerWindow( settings, this );
 
     connect( actionFilmScanner, &QAction::triggered, this, &MainWindow::FilmScanner );
+    connect( toolbar, &ToolBar::actionFilmScanner, this, &MainWindow::FilmScanner );
 
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, filmsList, &FilmsList::AddFilms );
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::ShowFilms );
