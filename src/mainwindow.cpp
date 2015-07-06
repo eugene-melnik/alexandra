@@ -57,6 +57,7 @@ MainWindow::~MainWindow()
     delete editFilmWindow;
     delete filmInfoWindow;
     delete filmScannerWindow;
+    delete movedFilmsWindow;
     delete searchWindow;
     delete settingsWindow;
     delete splashScreen;
@@ -326,6 +327,11 @@ void MainWindow::FilmScanner()
     filmScannerWindow->show( filmsList->GetFilmsFileNames() );
 }
 
+void MainWindow::MovedFilms()
+{
+    movedFilmsWindow->show( filmsList->GetUnavailableFilms() );
+}
+
 void MainWindow::SetupCompleter()
 {
     delete eFilter->completer();
@@ -551,6 +557,14 @@ void MainWindow::SetupWindows()
 
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, filmsList, &FilmsList::AddFilms );
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::ShowFilms );
+
+    // Moved films window
+    movedFilmsWindow = new MovedFilmsWindow( settings, this );
+
+    connect( actionMovedFilms, &QAction::triggered, this, &MainWindow::MovedFilms );
+
+    connect( movedFilmsWindow, &MovedFilmsWindow::FilmsMoved, this, &MainWindow::ShowFilms );
+    connect( movedFilmsWindow, &MovedFilmsWindow::FilmsMoved, filmsList, &FilmsList::FilmsMoved );
 }
 
 void MainWindow::ClearTextFields()

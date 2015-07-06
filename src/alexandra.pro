@@ -5,8 +5,8 @@
 #                                                                   #
  ###################################################################
 
-CONFIG += release
-#CONFIG += debug
+#CONFIG += release
+CONFIG += debug
 
 TARGET = alexandra
 TEMPLATE = app
@@ -47,6 +47,7 @@ HEADERS += effects/effectdropshadow.h \
            filmsviewlist.h \
            mainwindow.h \
            mediainfo.h \
+           movedfilmswindow.h \
            searchwindow.h \
            settingswindow.h \
            splashscreen.h \
@@ -71,6 +72,7 @@ SOURCES += effects/effectdropshadow.cpp \
            main.cpp \
            mainwindow.cpp \
            mediainfo.cpp \
+           movedfilmswindow.cpp \
            searchwindow.cpp \
            settingswindow.cpp \
            splashscreen.cpp \
@@ -83,6 +85,7 @@ FORMS += aboutwindow.ui \
          filminfowindow.ui \
          filmscannerwindow.ui \
          mainwindow.ui \
+         movedfilmswindow.ui \
          searchwindow.ui \
          settingswindow.ui \
          splashscreen.ui

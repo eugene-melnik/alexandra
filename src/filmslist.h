@@ -50,7 +50,8 @@ class FilmsList : public QObject
         const QList<Film>* GetFilmsList() const;
         QList<Film>*       GetFilmsFilteredBy( const QString& key ) const;
 
-        QStringList* GetFilmsFileNames() const;
+        QStringList*  GetFilmsFileNames() const;
+        QList<Film*>* GetUnavailableFilms();
 
         const Film* GetCurrentFilm() const;
         QString GetCurrentFilmTitle() const;
@@ -70,6 +71,7 @@ class FilmsList : public QObject
         void IncCurrentFilmViewsCounter();
 
         void RemoveCurrentFilm();
+        void FilmsMoved();
 
         void EraseAll();
 

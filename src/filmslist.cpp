@@ -191,6 +191,21 @@ QStringList* FilmsList::GetFilmsFileNames() const
     return( res );
 }
 
+QList<Film*>* FilmsList::GetUnavailableFilms()
+{
+    QList<Film*>* f = new QList<Film*>();
+
+    for( QList<Film>::iterator iter = films->begin(); iter < films->end(); iter++ )
+    {
+        if( !QFileInfo( iter->GetFileName() ).exists() )
+        {
+            f->append( &(*iter) );
+        }
+    }
+
+    return( f );
+}
+
 const Film* FilmsList::GetCurrentFilm() const
 {
     return( currentFilm );
@@ -328,6 +343,12 @@ void FilmsList::RemoveCurrentFilm()
     }
 }
 
+void FilmsList::FilmsMoved()
+{
+    isDatabaseChanged = true;
+    emit DatabaseChanged();
+}
+
 void FilmsList::EraseAll()
 {
     QString postersDir = settings->GetPostersDirPath();
@@ -347,4 +368,5 @@ void FilmsList::EraseAll()
 
     emit DatabaseLoaded();
     emit DatabaseChanged();
+    emit DatabaseIsEmpty();
 }

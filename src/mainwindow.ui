@@ -20,7 +20,7 @@
    <string notr="true"/>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="icons.qrc">
     <normaloff>:/window/main</normaloff>:/window/main</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -551,6 +551,7 @@
      <string>&amp;Tools</string>
     </property>
     <addaction name="actionFilmScanner"/>
+    <addaction name="actionMovedFilms"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -705,6 +706,15 @@
    </property>
    <property name="text">
     <string>Film scanner</string>
+   </property>
+  </action>
+  <action name="actionMovedFilms">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/window/moved-films</normaloff>:/window/moved-films</iconset>
+   </property>
+   <property name="text">
+    <string>Moved films</string>
    </property>
   </action>
  </widget>
