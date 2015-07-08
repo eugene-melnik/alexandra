@@ -115,7 +115,21 @@ void MainWindow::ReloadDatabase()
 
 void MainWindow::ReloadSettings()
 {
-    QApplication::setStyle( settings->GetApplicationStyleName() );
+    QString style = settings->GetApplicationStyleName();
+
+    if( style == tr( "Theme" ) )
+    {
+        QFile f( Alexandra::themes[ settings->GetApplicationThemeIndex() ].path + "style.qss" );
+        f.open( QFile::ReadOnly );
+        setStyleSheet( QLatin1String( f.readAll() ) );
+        f.close();
+    }
+    else
+    {
+        setStyleSheet( "" );
+        QApplication::setStyle( style );
+    }
+
     wRight->setVisible( settings->GetMainWindowShowRightPanel() );
     toolbar->LoadSettings( settings );
     filmsView->ReloadSettings( settings );
@@ -403,7 +417,19 @@ void MainWindow::FilmsFilter( QString key )
 
 void MainWindow::LoadSettings()
 {
-    QApplication::setStyle( settings->GetApplicationStyleName() );
+    QString style = settings->GetApplicationStyleName();
+
+    if( style == tr( "Theme" ) )
+    {
+        QFile f( Alexandra::themes[ settings->GetApplicationThemeIndex() ].path + "style.qss" );
+        f.open( QFile::ReadOnly );
+        setStyleSheet( QLatin1String( f.readAll() ) );
+        f.close();
+    }
+    else
+    {
+        QApplication::setStyle( style );
+    }
 
     // Main window
     restoreGeometry( settings->GetMainWindowGeometry() );

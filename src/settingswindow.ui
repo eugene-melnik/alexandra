@@ -375,6 +375,13 @@
                </widget>
               </item>
               <item>
+               <widget class="QLabel" name="labelSpacer1">
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QLabel" name="labelToolbarStyle">
                 <property name="minimumSize">
                  <size>
@@ -435,6 +442,13 @@
                   <string>&lt;Default&gt;</string>
                  </property>
                 </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cbTheme">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item>

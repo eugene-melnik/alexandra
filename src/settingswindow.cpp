@@ -111,6 +111,8 @@ void SettingsWindow::OkButtonClicked()
             settings->SetApplicationStyleName( cbStyle->currentText() );
         }
 
+        settings->SetApplicationThemeIndex( cbTheme->currentIndex() );
+
         settings->SetMainWindowToolbarStyle( toolStyles[ cbToolbarStyle->currentIndex() ].style  );
         settings->SetExternalPlayer( eExternalPlayer->text() );
 
@@ -155,6 +157,18 @@ void SettingsWindow::SetIsDatabaseSettingsChanged()
 {
     SetIsSettingsChanged();
     isDatabaseSettingsChanged = true;
+}
+
+void SettingsWindow::StyleChanged()
+{
+    if( cbStyle->currentIndex() == 1 ) // "Theme"
+    {
+        cbTheme->setEnabled( true );
+    }
+    else
+    {
+        cbTheme->setEnabled( false );
+    }
 }
 
 void SettingsWindow::SelectExternalPlayer()
@@ -355,6 +369,7 @@ void SettingsWindow::ConfigureApplicationTab()
     // Signals
     connect( cbLanguage, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
     connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( StyleChanged() ) );
     connect( cbToolbarStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( eExternalPlayer, &QLineEdit::textChanged, this, &SettingsWindow::SetIsSettingsChanged );
     connect( bSelectExternalPlayer, &QPushButton::clicked, this, &SettingsWindow::SelectExternalPlayer );
@@ -372,18 +387,25 @@ void SettingsWindow::ConfigureApplicationTab()
         cbStyle->addItem( style );
     }
 
+    // Theme ComboBox
+    foreach( Alexandra::Theme theme, Alexandra::themes )
+    {
+        cbTheme->addItem( theme.name );
+    }
+
     // Toolbar style ComboBox
     foreach( ToolStyle toolStyle, toolStyles )
     {
         cbToolbarStyle->addItem( toolStyle.name );
     }
-
 }
 
 void SettingsWindow::ReconfigureApplicationTab()
 {
+    // Language ComboBox
     cbLanguage->setCurrentIndex( settings->GetApplicationLocaleIndex() + 1 );
 
+    // Style ComboBox
     QString appStyle = settings->GetApplicationStyleName();
 
     if( appStyle.isEmpty() )
@@ -392,11 +414,16 @@ void SettingsWindow::ReconfigureApplicationTab()
     }
     else
     {
-        cbStyle->setCurrentIndex( appStyles.indexOf( appStyle ) + 1 );
+        cbStyle->setCurrentIndex( appStyles.indexOf( appStyle ) + 1 ); // skeep "Default"
     }
 
-    eExternalPlayer->setText( settings->GetExternalPlayer() );
+    // Themes ComboBox
+    cbTheme->setCurrentIndex( settings->GetApplicationThemeIndex() );
+
+    // Toolbar style ComboBox
     cbToolbarStyle->setCurrentIndex( settings->GetMainWindowToolbarStyle() );
+
+    eExternalPlayer->setText( settings->GetExternalPlayer() );
 }
 
 /*************************************************************************************************

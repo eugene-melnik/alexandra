@@ -127,7 +127,7 @@
              <x>0</x>
              <y>0</y>
              <width>469</width>
-             <height>393</height>
+             <height>391</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -511,7 +511,7 @@
      <x>0</x>
      <y>0</y>
      <width>950</width>
-     <height>24</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -726,7 +726,7 @@
     <string>Show fullscreen</string>
    </property>
    <property name="shortcut">
-    <string>F11</string>
+    <string notr="true">F11</string>
    </property>
   </action>
  </widget>

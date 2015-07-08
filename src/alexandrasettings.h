@@ -39,6 +39,7 @@ class AlexandraSettings : public QSettings
         QString GetLastPosterPath() const;
         int     GetApplicationLocaleIndex() const;
         QString GetApplicationStyleName() const;
+        int     GetApplicationThemeIndex() const;
 
         int     GetFilmsViewMode() const;
 
@@ -77,6 +78,7 @@ class AlexandraSettings : public QSettings
         void SetLastPosterPath( const QString& s );
         void SetApplicationLocaleIndex( int n );
         void SetApplicationStyleName( const QString& s );
+        void SetApplicationThemeIndex( int n );
 
         void SetFilmsViewMode( int n );
 

@@ -27,7 +27,7 @@ namespace Alexandra
         const quint8 databaseVersion = 0x10;
         const QString databaseHeader = appNameGui + " Database";
 
-        // Locale
+        // Locales
         typedef struct {
             QString title;
             QString selfTitle;
@@ -45,6 +45,14 @@ namespace Alexandra
             ListMode = 0,
             GridMode = 1
         };
+
+        // Themes
+        typedef struct {
+            QString name;
+            QString path;
+        } Theme;
+
+        const QList<Theme> themes = { { "QDarkStyleSheet (Colin Duquesnoy)", ":/qdarkstyle/" } };
 }
 
 #endif // VERSION_H

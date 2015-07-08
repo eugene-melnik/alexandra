@@ -97,3 +97,6 @@ TRANSLATIONS += ../lang/alexandra-cs.ts \
 RESOURCES = icons.qrc \
             images.qrc \
             lang.qrc
+
+# Stylesheets
+RESOURCES += ../styles/qdarkstylesheet/style.qrc

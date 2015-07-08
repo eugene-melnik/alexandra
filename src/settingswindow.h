@@ -52,6 +52,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void SetIsNeedReboot();
         void SetIsDatabaseSettingsChanged();
 
+        void StyleChanged();
         void SelectExternalPlayer();
         void SetDefaultExternalPlayer();
 
@@ -88,7 +89,8 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
                                               { tr("Text under icon"),      Qt::ToolButtonTextUnderIcon },
                                               { tr("<Follow system style>"),Qt::ToolButtonFollowStyle } };
 
-        const QList<QString> appStyles = { "CDE",
+        const QList<QString> appStyles = { tr( "Theme" ),
+                                           "CDE",
                                            "Cleanlooks",
                                            "GTK+",
                                            "Motif",

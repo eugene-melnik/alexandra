@@ -108,6 +108,11 @@ QString AlexandraSettings::GetApplicationStyleName() const
     return( value( "Application/Style" ).toString() );
 }
 
+int AlexandraSettings::GetApplicationThemeIndex() const
+{
+    return( value( "Application/ThemeIndex" ).toInt() );
+}
+
 int AlexandraSettings::GetFilmsViewMode() const
 {
     return( value( "FilmsView/Mode", 0 ).toInt() );
@@ -266,6 +271,11 @@ void AlexandraSettings::SetApplicationStyleName( const QString& s )
     setValue( "Application/Style", s );
 }
 
+void AlexandraSettings::SetApplicationThemeIndex( int n )
+{
+    setValue( "Application/ThemeIndex", n );
+}
+
 void AlexandraSettings::SetFilmsViewMode( int n )
 {
     setValue( "FilmsView/Mode", n );
@@ -376,7 +386,7 @@ void AlexandraSettings::SetMainWindowShowRightPanel( bool b )
     setValue( "MainWindow/ShowRightPanel", b );
 }
 
-void AlexandraSettings::SetMainWindowIsFullscreen(bool b)
+void AlexandraSettings::SetMainWindowIsFullscreen( bool b )
 {
     setValue( "MainWindow/IsFullScreen", b );
 }
