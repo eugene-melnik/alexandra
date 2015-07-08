@@ -1,5 +1,5 @@
 ### Alexandra Video library
-#### v1.1
+#### v1.2
 
 ===
 
@@ -9,7 +9,7 @@
 
 **Libraries:** libmediainfo
 
-**IDE:** QtCreator 3.2
+**IDE:** QtCreator 3.4
 
 ===
 
