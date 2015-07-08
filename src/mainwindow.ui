@@ -531,6 +531,7 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
+    <addaction name="actionShowFullscreen"/>
     <addaction name="actionShowToolbar"/>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
@@ -715,6 +716,17 @@
    </property>
    <property name="text">
     <string>Moved films</string>
+   </property>
+  </action>
+  <action name="actionShowFullscreen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show fullscreen</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
    </property>
   </action>
  </widget>

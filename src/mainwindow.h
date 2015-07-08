@@ -57,6 +57,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void closeEvent( QCloseEvent* event );
 
     private slots:
+        void ShowFullScreen( bool isFullScreen );
+
         void SaveDatabase();
         void EraseDatabase();
         void ReloadDatabase();

@@ -224,6 +224,11 @@ bool AlexandraSettings::GetMainWindowShowRightPanel() const
     return( value( "MainWindow/ShowRightPanel", true ).toBool() );
 }
 
+bool AlexandraSettings::GetMainWindowIsFullscreen() const
+{
+    return( value( "MainWindow/IsFullScreen", false ).toBool() );
+}
+
 QString AlexandraSettings::GetFilmsScannerLastDir() const
 {
     return( value( "FilmsScanner/LastDir", "" ).toString() );
@@ -369,6 +374,11 @@ void AlexandraSettings::SetMainWindowToolbarStyle( int n )
 void AlexandraSettings::SetMainWindowShowRightPanel( bool b )
 {
     setValue( "MainWindow/ShowRightPanel", b );
+}
+
+void AlexandraSettings::SetMainWindowIsFullscreen(bool b)
+{
+    setValue( "MainWindow/IsFullScreen", b );
 }
 
 void AlexandraSettings::SetFilmsScannerLastDir( const QString& s )

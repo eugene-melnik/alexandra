@@ -77,6 +77,18 @@ void MainWindow::closeEvent( QCloseEvent* event )
     event->accept();
 }
 
+void MainWindow::ShowFullScreen( bool isFullScreen )
+{
+    if( isFullScreen )
+    {
+        showFullScreen();
+    }
+    else
+    {
+        showNormal();
+    }
+}
+
 void MainWindow::SaveDatabase()
 {
     filmsList->SaveToFileAsync( settings->GetDatabaseFilePath() );
@@ -397,6 +409,8 @@ void MainWindow::LoadSettings()
     restoreGeometry( settings->GetMainWindowGeometry() );
     restoreState( settings->GetMainWindowState() );
     mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
+    ShowFullScreen( settings->GetMainWindowIsFullscreen() );
+    actionShowFullscreen->setChecked( isFullScreen() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
     wRight->setVisible( settings->GetMainWindowShowRightPanel() );
 
@@ -411,6 +425,7 @@ void MainWindow::SaveSettings()
     settings->SetMainWindowState( saveState() );
     settings->SetMainWindowGeometry( saveGeometry() );
     settings->SetMainWindowSplitterState( mainSplitter->saveState() );
+    settings->SetMainWindowIsFullscreen( isFullScreen() );
 
     // Widgets
     filmsView->SaveSettings( settings );
@@ -474,6 +489,7 @@ void MainWindow::SetupWindows()
     connect( this, &MainWindow::Shown, splashScreen, &SplashScreen::Close );
 
     // Main window
+    connect( actionShowFullscreen, &QAction::toggled, this, &MainWindow::ShowFullScreen );
     connect( toolbar, &ToolBar::actionExit, this, &MainWindow::close );
 
     connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::ShowFilms );
