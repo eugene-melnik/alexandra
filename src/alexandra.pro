@@ -5,8 +5,8 @@
 #                                                                   #
  ###################################################################
 
-CONFIG += release
-#CONFIG += debug
+#CONFIG += release
+CONFIG += debug
 
 TARGET = alexandra
 TEMPLATE = app
@@ -99,4 +99,5 @@ RESOURCES = icons.qrc \
             lang.qrc
 
 # Stylesheets
-RESOURCES += ../styles/qdarkstylesheet/style.qrc
+RESOURCES += ../styles/alexandraflat/alexandraflat.qrc \
+             ../styles/qdarkstylesheet/qdarkstylesheet.qrc

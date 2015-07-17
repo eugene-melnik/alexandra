@@ -52,7 +52,8 @@ namespace Alexandra
             QString path;
         } Theme;
 
-        const QList<Theme> themes = { { "QDarkStyleSheet (Colin Duquesnoy)", ":/qdarkstyle/" } };
+        const QList<Theme> themes = { { "Alexandra Flat TESTING", ":/alexandraflat/" },
+                                      { "QDarkStyleSheet (Colin Duquesnoy)", ":/qdarkstyle/" } };
 }
 
 #endif // VERSION_H
