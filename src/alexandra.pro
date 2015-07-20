@@ -99,5 +99,5 @@ RESOURCES = icons.qrc \
             lang.qrc
 
 # Stylesheets
-RESOURCES += ../styles/alexandraflat/alexandraflat.qrc \
+RESOURCES += ../styles/alexandraflat-rainforest/alexandraflat-rainforest.qrc \
              ../styles/qdarkstylesheet/qdarkstylesheet.qrc

@@ -61,8 +61,8 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
         void SetCurrentItemIndex( int i );
 
     private slots:
-        void ItemClickedSlot( QTableWidgetItem* item );
-        void ItemDoubleClickedSlot( QTableWidgetItem* item );
+        void ItemClickedSlot();
+        void ItemDoubleClickedSlot();
         void ContextMenuRequestedSlot( QPoint p );
 
     signals:

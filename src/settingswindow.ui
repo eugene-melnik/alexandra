@@ -539,6 +539,9 @@
             </item>
             <item>
              <widget class="QLineEdit" name="eDatabaseFile">
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
+              </property>
               <property name="text">
                <string notr="true"/>
               </property>
@@ -672,6 +675,9 @@
             </item>
             <item>
              <widget class="QLineEdit" name="ePostersFolder">
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
+              </property>
               <property name="text">
                <string notr="true"/>
               </property>

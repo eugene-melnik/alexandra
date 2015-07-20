@@ -61,10 +61,10 @@ void AboutWindow::showEvent( QShowEvent* event )
     image->setPixmap( QPixmap( QString( ":/cats/%1" ).arg( rand() % 6 + 1 ) ) );
 
     // Random color
-    QColor color( rand()%255, 255, rand()%255 );
-    lAppName->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAppName ) );
-    lAppVersion->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAppVersion ) );
-    image->setGraphicsEffect( new EffectDropShadow( 0, 0, color, image ) );
+//    QColor color( rand()%255, 255, rand()%255 );
+//    lAppName->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAppName ) );
+//    lAppVersion->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAppVersion ) );
+//    image->setGraphicsEffect( new EffectDropShadow( 0, 0, color, image ) );
 
     event->accept();
 }

@@ -20,7 +20,7 @@ namespace Alexandra
         // Version
         const quint8 major = 1;
         const quint8 minor = 2;
-        const quint8 fix = 0;
+        const quint8 fix = 2;
         const QString appVersionFull = QString( "%1.%2.%3" ).arg( major ).arg( minor ).arg( fix );
         const QString appBuildDate = QString( __DATE__ );
 
@@ -52,7 +52,7 @@ namespace Alexandra
             QString path;
         } Theme;
 
-        const QList<Theme> themes = { { "Alexandra Flat TESTING", ":/alexandraflat/" },
+        const QList<Theme> themes = { { "Alexandra Flat - Rainforest", ":/alexandraflat-rainforest/" },
                                       { "QDarkStyleSheet (Colin Duquesnoy)", ":/qdarkstyle/" } };
 }
 

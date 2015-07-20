@@ -97,9 +97,7 @@
            <font>
             <pointsize>16</pointsize>
             <weight>75</weight>
-            <italic>false</italic>
             <bold>true</bold>
-            <underline>false</underline>
            </font>
           </property>
           <property name="text">

@@ -43,8 +43,8 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
     horizontalHeader()->setMinimumSectionSize( 20 );
 
     // Signals
-    connect( this, &FilmsViewList::itemClicked, this, &FilmsViewList::ItemClickedSlot );
-    connect( this, &FilmsViewList::itemActivated, this, &FilmsViewList::ItemClickedSlot );
+    connect( this, &FilmsViewList::itemSelectionChanged, this, &FilmsViewList::ItemClickedSlot );
+    connect( this, &FilmsViewList::itemActivated, this, &FilmsViewList::ItemDoubleClickedSlot );
     connect( this, &FilmsViewList::itemDoubleClicked, this, &FilmsViewList::ItemDoubleClickedSlot );
     connect( this, &FilmsViewList::customContextMenuRequested, this, &FilmsViewList::ContextMenuRequestedSlot );
 
@@ -102,10 +102,12 @@ void FilmsViewList::SetItem( int n, const Film& film, QColor background )
 {
     // Viewed
     QTableWidgetItem* viewed = new QTableWidgetItem( film.GetIsViewedSign() );
+    viewed->setTextAlignment( Qt::AlignCenter );
     setItem( n, ViewedColumn, viewed );
 
     // Favourite
     QTableWidgetItem* favourite = new QTableWidgetItem( film.GetIsFavouriteSign() );
+    favourite->setTextAlignment( Qt::AlignCenter );
     setItem( n, FavouriteColumn, favourite );
 
     // Title
@@ -114,6 +116,7 @@ void FilmsViewList::SetItem( int n, const Film& film, QColor background )
 
     // Year
     QTableWidgetItem* year = new QTableWidgetItem( film.GetYearStr() );
+    year->setTextAlignment( Qt::AlignCenter );
     setItem( n, YearColumn, year );
 
     // Genre
@@ -126,6 +129,7 @@ void FilmsViewList::SetItem( int n, const Film& film, QColor background )
 
     // Rating
     QTableWidgetItem* rating = new QTableWidgetItem( film.GetRatingStr() );
+    rating->setTextAlignment( Qt::AlignCenter );
     setItem( n, RatingColumn, rating );
 
     if( background.isValid() )
@@ -220,14 +224,14 @@ void FilmsViewList::SetCurrentItemIndex( int i )
     }
 }
 
-void FilmsViewList::ItemClickedSlot( QTableWidgetItem* item )
+void FilmsViewList::ItemClickedSlot()
 {
-    emit ItemClicked( this->item( item->row(), TitleColumn )->text() );
+    emit ItemClicked( this->item( currentRow(), TitleColumn )->text() );
 }
 
-void FilmsViewList::ItemDoubleClickedSlot( QTableWidgetItem* item )
+void FilmsViewList::ItemDoubleClickedSlot()
 {
-    emit ItemDoubleClicked( this->item( item->row(), TitleColumn )->text() );
+    emit ItemDoubleClicked( this->item( currentRow(), TitleColumn )->text() );
 }
 
 void FilmsViewList::ContextMenuRequestedSlot( QPoint p )

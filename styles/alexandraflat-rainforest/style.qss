@@ -1,0 +1,553 @@
+/*
+ * Alexandra Video Library
+ * Flat (Rainforest) Qt Stylesheet
+ * Based on QDarkStyleSheet theme by Colin Duquesnoy
+ */
+
+/* Main settings */
+QMenuBar,
+QToolBar,
+QStatusBar,
+QWidget {
+  background: transparent;
+  border: 0;
+  color: lightgrey;
+  outline: none;
+}
+
+QMainWindow,
+QDialog {
+  background-color: #222;
+}
+
+QToolTip {
+  background-color: white;
+  opacity: 230;
+  padding: 2px;
+  border: 0;
+  color: black;
+}
+
+QSizeGrip {
+  image: url(:/alexandraflat-rainforest/rc/sizegrip.png);
+  width: 12px;
+  height: 12px;
+}
+
+/* Tab widget */
+QTabWidget::pane {
+  background: #222;
+  border: 1px solid #555;
+  padding: 3px;
+}
+
+QTabBar::tab:top {
+  background: #242422;
+  color: grey;
+  padding: 5px;
+}
+
+QTabBar::tab:top:selected {
+  color: white;
+  background-color: #196247;
+}
+
+QTabBar::tab:top:!selected:hover {
+  background-color: #255257;
+}
+
+/* Tool bar */
+QToolBar::handle:horizontal {
+  image: url(:/alexandraflat-rainforest/rc/Hmovetoolbar.png);
+}
+
+QToolBar::handle:vertical {
+  image: url(:/alexandraflat-rainforest/rc/Vmovetoolbar.png);
+}
+
+QToolBar::separator:horizontal {
+  image: url(:/alexandraflat-rainforest/rc/Hsepartoolbar.png);
+}
+
+QToolBar::separator:vertical {
+  image: url(:/alexandraflat-rainforest/rc/Vsepartoolbars.png);
+}
+
+QToolButton {
+  padding: 3px;
+}
+
+QToolButton:hover {
+  background-color: #255257;
+}
+
+QToolButton:checked,
+QToolButton:pressed {
+  border: 1px solid #222;
+}
+
+/* Tables */
+QTableView {
+  background-color: #252525;
+  alternate-background-color: #292929;
+}
+
+QTableView::item:selected:active,
+QListView::item:selected:active,
+QWidget:item:selected {
+  background: #196247;
+  color: white;
+}
+
+QHeaderView::section {
+  background-color: #18845a;
+  border: 1px solid #222;
+  padding: 3px 1px;
+  color: white;
+}
+
+QHeaderView::section::horizontal::first,
+QHeaderView::section::horizontal::only-one {
+  border-left: 1px solid #222;
+}
+
+QHeaderView::section::horizontal {
+  border-left: transparent;
+}
+
+QHeaderView::section:checked { /* ? */
+  background-color: #5A5959;
+  color: white;
+}
+
+/* Menu bar */
+QMenuBar::item {
+  background: transparent;
+}
+
+QMenuBar::item:selected {
+  background-color: #255257;
+}
+
+/* Menu */
+QMenu {
+  background-color: #232323;
+  color: white;
+}
+
+QMenu::icon {
+  margin: 5px;
+}
+
+QMenu::item {
+  padding: 3px 5px 3px 26px;
+}
+
+QMenu::item:selected {
+  background-color: #255257;
+}
+
+QMenu::separator {
+  height: 1px;
+  background: #292929;
+  margin: 3px 10px;
+}
+
+QMenu::indicator {
+  margin: 1px 0 0 4px;
+  width: 16px;
+  height: 16px;
+}
+
+/* Check box in menu */
+QMenu::indicator:non-exclusive:unchecked {
+  image: url(:/qdarkstyle/rc/checkbox_unchecked.png);
+}
+
+QMenu::indicator:non-exclusive:unchecked:selected {
+  image: url(:/qdarkstyle/rc/checkbox_unchecked_disabled.png);
+}
+
+QMenu::indicator:non-exclusive:checked {
+  image: url(:/qdarkstyle/rc/checkbox_checked.png);
+}
+
+QMenu::indicator:non-exclusive:checked:selected {
+  image: url(:/qdarkstyle/rc/checkbox_checked_disabled.png);
+}
+
+/* Buttons */
+QPushButton {
+  min-width: 45px;
+  background-color: #1d7f59;
+  padding: 5px 8px;
+  color: white;
+}
+
+QPushButton:hover,
+QPushButton:checked:hover {
+  background-color: #1b8e63;
+}
+
+QPushButton:focus,
+QPushButton:checked {
+  background-color: #176649;
+}
+
+/* Edits */
+QLineEdit,
+QPlainTextEdit {
+  background-color: #333;
+  padding: 2px;
+}
+
+QLineEdit:focus,
+QPlainTextEdit:focus {
+  border: 1px solid #555;
+}
+
+QComboBox {
+  background-color: #333;
+  selection-background-color: #3d8ec9;
+  padding: 2px 2px 2px 8px;
+  min-width: 75px;
+}
+
+QComboBox:disabled,
+QAbstractSpinBox:disabled {
+  background-color: #252525;
+}
+
+QComboBox::drop-down {
+  subcontrol-origin: padding;
+  subcontrol-position: top right;
+  width: 15px;
+  border-left: 0;
+}
+
+QComboBox::down-arrow {
+  image: url(:/alexandraflat-rainforest/rc/down_arrow_disabled.png);
+}
+
+QComboBox::down-arrow:on,
+QComboBox::down-arrow:hover,
+QComboBox::down-arrow:focus {
+  image: url(:/alexandraflat-rainforest/rc/down_arrow.png);
+}
+
+QComboBox:on {
+  background-color: #626873;
+  padding-top: 3px;
+  padding-left: 4px;
+  selection-background-color: #4a4a4a;
+}
+
+QAbstractSpinBox {
+  min-width: 75px;
+  background-color: #333;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+QAbstractSpinBox:up-button {
+  background-color: transparent;
+  subcontrol-origin: border;
+  subcontrol-position: center right;
+}
+
+QAbstractSpinBox:down-button {
+  background-color: transparent;
+  subcontrol-origin: border;
+  subcontrol-position: center left;
+}
+
+QAbstractSpinBox::up-arrow,
+QAbstractSpinBox::up-arrow:disabled,
+QAbstractSpinBox::up-arrow:off {
+  image: url(:/alexandraflat-rainforest/rc/up_arrow_disabled.png);
+  width: 10px;
+  height: 10px;
+}
+
+QAbstractSpinBox::up-arrow:hover {
+  image: url(:/alexandraflat-rainforest/rc/up_arrow.png);
+}
+
+QAbstractSpinBox::down-arrow,
+QAbstractSpinBox::down-arrow:disabled,
+QAbstractSpinBox::down-arrow:off {
+  image: url(:/alexandraflat-rainforest/rc/down_arrow_disabled.png);
+  width: 10px;
+  height: 10px;
+}
+
+QAbstractSpinBox::down-arrow:hover {
+  image: url(:/alexandraflat-rainforest/rc/down_arrow.png);
+}
+
+/* Group box */
+QGroupBox {
+  border: 1px solid #333;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+QGroupBox::title {
+  subcontrol-origin: margin;
+  subcontrol-position: top center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 15px;
+}
+
+/* Check box */
+QCheckBox {
+  spacing: 5px;
+  outline: none;
+  margin-bottom: 2px;
+}
+
+QCheckBox:disabled {
+  color: #777777;
+}
+
+QCheckBox::indicator,
+QGroupBox::indicator {
+  width: 18px;
+  height: 18px;
+}
+
+QGroupBox::indicator {
+  margin-left: 2px;
+}
+
+QCheckBox::indicator:unchecked,
+QCheckBox::indicator:unchecked:hover,
+QGroupBox::indicator:unchecked,
+QGroupBox::indicator:unchecked:hover {
+  image: url(:/alexandraflat-rainforest/rc/checkbox_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:focus,
+QCheckBox::indicator:unchecked:pressed,
+QGroupBox::indicator:unchecked:focus,
+QGroupBox::indicator:unchecked:pressed {
+  border: none;
+  image: url(:/alexandraflat-rainforest/rc/checkbox_unchecked_focus.png);
+}
+
+QCheckBox::indicator:checked,
+QCheckBox::indicator:checked:hover,
+QGroupBox::indicator:checked,
+QGroupBox::indicator:checked:hover {
+  image: url(:/alexandraflat-rainforest/rc/checkbox_checked.png);
+}
+
+QCheckBox::indicator:checked:focus,
+QCheckBox::indicator:checked:pressed,
+QGroupBox::indicator:checked:focus,
+QGroupBox::indicator:checked:pressed {
+  border: none;
+  image: url(:/alexandraflat-rainforest/rc/checkbox_checked_focus.png);
+}
+
+QCheckBox::indicator:indeterminate,
+QCheckBox::indicator:indeterminate:hover,
+QCheckBox::indicator:indeterminate:pressed
+QGroupBox::indicator:indeterminate,
+QGroupBox::indicator:indeterminate:hover,
+QGroupBox::indicator:indeterminate:pressed {
+  image: url(:/alexandraflat-rainforest/rc/checkbox_indeterminate.png);
+}
+
+QCheckBox::indicator:indeterminate:focus,
+QGroupBox::indicator:indeterminate:focus {
+  image: url(:/alexandraflat-rainforest/rc/checkbox_indeterminate_focus.png);
+}
+
+QCheckBox::indicator:checked:disabled,
+QGroupBox::indicator:checked:disabled {
+  image: url(:/alexandraflat-rainforest/rc/checkbox_checked_disabled.png);
+}
+
+QCheckBox::indicator:unchecked:disabled,
+QGroupBox::indicator:unchecked:disabled {
+  image: url(:/alexandraflat-rainforest/rc/checkbox_unchecked_disabled.png);
+}
+
+QRadioButton {
+  spacing: 5px;
+  outline: none;
+  margin-bottom: 2px;
+}
+
+QRadioButton::indicator {
+  width: 21px;
+  height: 21px;
+}
+
+QRadioButton::indicator:unchecked,
+QRadioButton::indicator:unchecked:hover {
+  image: url(:/alexandraflat-rainforest/rc/radio_unchecked.png);
+}
+
+QRadioButton::indicator:unchecked:focus,
+QRadioButton::indicator:unchecked:pressed {
+  border: none;
+  outline: none;
+  image: url(:/alexandraflat-rainforest/rc/radio_unchecked_focus.png);
+}
+
+QRadioButton::indicator:checked,
+QRadioButton::indicator:checked:hover {
+  border: none;
+  outline: none;
+  image: url(:/alexandraflat-rainforest/rc/radio_checked.png);
+}
+
+QRadioButton::indicator:checked:focus,
+QRadioButton::indicato::menu-arrowr:checked:pressed {
+  border: none;
+  outline: none;
+  image: url(:/alexandraflat-rainforest/rc/radio_checked_focus.png);
+}
+
+QRadioButton::indicator:indeterminate,
+QRadioButton::indicator:indeterminate:hover,
+QRadioButton::indicator:indeterminate:pressed {
+  image: url(:/alexandraflat-rainforest/rc/radio_indeterminate.png);
+}
+
+QRadioButton::indicator:checked:disabled {
+  outline: none;
+  image: url(:/alexandraflat-rainforest/rc/radio_checked_disabled.png);
+}
+
+QRadioButton::indicator:unchecked:disabled {
+  image: url(:/alexandraflat-rainforest/rc/radio_unchecked_disabled.png);
+}
+
+/* scroll bars */
+QScrollBar:horizontal {
+  height: 15px;
+  margin: 3px 15px 3px 15px;
+  border: 1px transparent #2A2929;
+  background-color: #2A2929;
+}
+
+QScrollBar::handle:horizontal {
+  background-color: #605F5F;
+  min-width: 5px;
+}
+
+QScrollBar::add-line:horizontal {
+  margin: 0px 3px 0px 3px;
+  border-image: url(:/alexandraflat-rainforest/rc/right_arrow_disabled.png);
+  width: 10px;
+  height: 10px;
+  subcontrol-position: right;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+  margin: 0px 3px 0px 3px;
+  border-image: url(:/alexandraflat-rainforest/rc/left_arrow_disabled.png);
+  height: 10px;
+  width: 10px;
+  subcontrol-position: left;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:horizontal:hover,
+QScrollBar::add-line:horizontal:on {
+  border-image: url(:/alexandraflat-rainforest/rc/right_arrow.png);
+  height: 10px;
+  width: 10px;
+  subcontrol-position: right;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal:hover,
+QScrollBar::sub-line:horizontal:on {
+  border-image: url(:/alexandraflat-rainforest/rc/left_arrow.png);
+  height: 10px;
+  width: 10px;
+  subcontrol-position: left;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:horizontal,
+QScrollBar::down-arrow:horizontal {
+  background: none;
+}
+
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {
+  background: none;
+}
+
+QScrollBar:vertical {
+  background-color: #2A2929;
+  width: 15px;
+  margin: 15px 3px 15px 3px;
+  border: 1px transparent #2A2929;
+}
+
+QScrollBar::handle:vertical {
+  background-color: #605F5F;
+  min-height: 5px;
+}
+
+QScrollBar::sub-line:vertical {
+  margin: 3px 0px 3px 0px;
+  border-image: url(:/alexandraflat-rainforest/rc/up_arrow_disabled.png);
+  height: 10px;
+  width: 10px;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical {
+  margin: 3px 0px 3px 0px;
+  border-image: url(:/alexandraflat-rainforest/rc/down_arrow_disabled.png);
+  height: 10px;
+  width: 10px;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical:hover,
+QScrollBar::sub-line:vertical:on {
+  border-image: url(:/alexandraflat-rainforest/rc/up_arrow.png);
+  height: 10px;
+  width: 10px;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical:hover,
+QScrollBar::add-line:vertical:on {
+  border-image: url(:/alexandraflat-rainforest/rc/down_arrow.png);
+  height: 10px;
+  width: 10px;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical,
+QScrollBar::down-arrow:vertical {
+  background: none;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+  background: none;
+}
+
+/* Lines */
+QFrame[height="3"],
+QFrame[width="3"] {
+  border: 0;
+  background-color: #333;
+}
+

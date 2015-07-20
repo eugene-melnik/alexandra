@@ -34,7 +34,6 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     // Interface
     setupUi( this );
     setWindowTitle( Alexandra::appNameGui );
-    eFilter->setFocus();
 
     // Data
     contextMenu = new FilmsViewContextMenu( this );
@@ -121,7 +120,7 @@ void MainWindow::ReloadSettings()
     {
         QFile f( Alexandra::themes[ settings->GetApplicationThemeIndex() ].path + "style.qss" );
         f.open( QFile::ReadOnly );
-        setStyleSheet( QLatin1String( f.readAll() ) );
+        qApp->setStyleSheet( QString::fromUtf8( f.readAll() ) );
         f.close();
     }
     else
@@ -423,7 +422,7 @@ void MainWindow::LoadSettings()
     {
         QFile f( Alexandra::themes[ settings->GetApplicationThemeIndex() ].path + "style.qss" );
         f.open( QFile::ReadOnly );
-        setStyleSheet( QLatin1String( f.readAll() ) );
+        qApp->setStyleSheet( QString::fromUtf8( f.readAll() ) );
         f.close();
     }
     else
@@ -504,6 +503,7 @@ void MainWindow::SetupFilmsView()
 
     filmsView = dynamic_cast<AbstractFilmsView*>( view );
     vlLeft->insertWidget( 0, view );
+    view->setFocus();
 }
 
 void MainWindow::SetupWindows()
