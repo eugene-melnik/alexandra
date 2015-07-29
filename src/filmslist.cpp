@@ -99,6 +99,8 @@ void FilmsList::SaveToFile( const QString& fileName )
     {
         asyncSaveToFileMutex.lock();
 
+        std::sort( films->begin(), films->end() );
+
         QFile file( fileName );
 
         if( !file.exists() )
@@ -275,7 +277,6 @@ void FilmsList::AddFilm( Film film )
 void FilmsList::AddFilms( const QList<Film>* newFilms )
 {
     *films += *newFilms;
-    std::sort( films->begin(), films->end() );
 
     isDatabaseChanged = true;
     emit DatabaseChanged();
@@ -298,7 +299,6 @@ void FilmsList::ChangeCurrentFilm( Film f )
     currentFilm->SetNewData( f );
     isDatabaseChanged = true;
     emit DatabaseChanged();
-    std::sort( films->begin(), films->end() );
 }
 
 void FilmsList::SetCurrentFilmIsViewed( bool b )

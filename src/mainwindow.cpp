@@ -46,6 +46,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     LoadSettings();
 
     filmsList->LoadFromFile( settings->GetDatabaseFilePath() );
+    filmsList->SetCurrentFilm( settings->GetCurrentFilmTitle() );
     filmsView->SelectItem( settings->GetCurrentFilmTitle() );
 }
 
@@ -125,8 +126,8 @@ void MainWindow::ReloadSettings()
     }
     else
     {
-        setStyleSheet( "" );
-        QApplication::setStyle( style );
+        qApp->setStyleSheet( "" );
+        qApp->setStyle( style );
     }
 
     wRight->setVisible( settings->GetMainWindowShowRightPanel() );
@@ -139,6 +140,11 @@ void MainWindow::ReloadView()
     SetupFilmsView();
     filmsView->LoadSettings( settings );
     ShowFilms();
+}
+
+void MainWindow::DatabaseIsLoaded()
+{
+    SetAllFunctionsEnabled( true );
 }
 
 void MainWindow::DatabaseReadError()
@@ -209,6 +215,12 @@ void MainWindow::ShowFilms()
 void MainWindow::ShowFilmInformation()
 {
     const Film* f = filmsList->GetCurrentFilm();
+
+    if( f == nullptr )
+    {
+        DatabaseIsEmpty();
+        return;
+    }
 
     // Buttons and technical information
     bTechInformation->setEnabled( false );
@@ -427,7 +439,7 @@ void MainWindow::LoadSettings()
     }
     else
     {
-        QApplication::setStyle( style );
+        qApp->setStyle( style );
     }
 
     // Main window
@@ -508,28 +520,34 @@ void MainWindow::SetupFilmsView()
 
 void MainWindow::SetupWindows()
 {
-    // Splashscreen
+    /// Splashscreen
     splashScreen = new SplashScreen();
     splashScreen->show();
 
     connect( this, &MainWindow::Shown, splashScreen, &SplashScreen::Close );
 
-    // Main window
+    /// Main window
     connect( actionShowFullscreen, &QAction::toggled, this, &MainWindow::ShowFullScreen );
     connect( toolbar, &ToolBar::actionExit, this, &MainWindow::close );
 
     connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::ShowFilms );
+    connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::DatabaseIsLoaded );
     connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::SaveDatabase );
     connect( filmsList, &FilmsList::DatabaseReadError, this, &MainWindow::DatabaseReadError );
     connect( filmsList, &FilmsList::DatabaseIsReadonly, this, &MainWindow::DatabaseIsReadonly );
     connect( filmsList, &FilmsList::DatabaseIsEmpty, this, &MainWindow::DatabaseIsEmpty );
 
+    // Play button
     connect( bPlay, &QPushButton::clicked, this, &MainWindow::PlayFilm );
     connect( contextMenu, &FilmsViewContextMenu::actionPlay, this, &MainWindow::PlayFilm );
+    // Viewed button
     connect( bViewed, &QPushButton::clicked, filmsList, &FilmsList::SetCurrentFilmIsViewed );
     connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, filmsList, &FilmsList::SetCurrentFilmIsViewed );
+    connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, this, &MainWindow::ShowFilmInformation );
+    // Favourite button
     connect( bFavourite, &QPushButton::clicked, filmsList, &FilmsList::SetCurrentFilmIsFavourite );
     connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, filmsList, &FilmsList::SetCurrentFilmIsFavourite );
+    connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, this, &MainWindow::ShowFilmInformation );
 
     connect( eFilter, &QLineEdit::textChanged, this, &MainWindow::FilmsFilter );
     connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::SetupCompleter );
@@ -538,21 +556,22 @@ void MainWindow::SetupWindows()
     connect( externalPlayer, &QProcess::started, this, &MainWindow::PlayerStarted );
     connect( externalPlayer, SIGNAL( finished(int) ), this, SLOT( PlayerClosed() ) );
 
-    // About window
+    /// About window
     aboutWindow = new AboutWindow( this );
 
     connect( actionAbout, &QAction::triggered, aboutWindow, &AboutWindow::show );
     connect( actionAboutQt, &QAction::triggered, aboutWindow, &AboutWindow::AboutQt );
 
-    // Add film window
+    /// Add film window
     addFilmWindow = new AddFilmWindow( settings, this );
 
     connect( actionAdd, &QAction::triggered, addFilmWindow, &AddFilmWindow::show );
     connect( toolbar, &ToolBar::actionAdd, addFilmWindow, &AddFilmWindow::show );
 
     connect( addFilmWindow, &AddFilmWindow::Done, filmsList, &FilmsList::AddFilm );
+    connect( addFilmWindow, &AddFilmWindow::Done, this, &MainWindow::DatabaseIsLoaded );
 
-    // Edit film window
+    /// Edit film window
     editFilmWindow = new EditFilmWindow( settings, this );
 
     connect( actionEdit, &QAction::triggered, this, &MainWindow::EditFilm );
@@ -560,16 +579,17 @@ void MainWindow::SetupWindows()
     connect( contextMenu, &FilmsViewContextMenu::actionEdit, this, &MainWindow::EditFilm );
 
     connect( editFilmWindow, &EditFilmWindow::Done, filmsList, &FilmsList::ChangeCurrentFilm );
+    connect( editFilmWindow, &EditFilmWindow::Done, this, &MainWindow::ShowFilmInformation );
 
-    // Remove film dialog
+    /// Remove film dialog
     connect( actionRemove, &QAction::triggered, this, &MainWindow::RemoveFilm );
     connect( toolbar, &ToolBar::actionRemove, this, &MainWindow::RemoveFilm );
     connect( contextMenu, &FilmsViewContextMenu::actionRemove, this, &MainWindow::RemoveFilm );
 
-    // Remove file
+    /// Remove file
     connect( contextMenu, &FilmsViewContextMenu::actionRemoveFile, this, &MainWindow::RemoveFile );
 
-    // Film info window
+    /// Film info window
     filmInfoWindow = new FilmInfoWindow( this );
 
     connect( bTechInformation, &QPushButton::clicked, filmInfoWindow, &FilmInfoWindow::show );
@@ -577,7 +597,7 @@ void MainWindow::SetupWindows()
 
     connect( filmInfoWindow, &FilmInfoWindow::ShortInfoLoaded, this, &MainWindow::ShowShortTechnicalInfo );
 
-    // Search window
+    /// Search window
     searchWindow = new SearchWindow( filmsList->GetFilmsList(), this );
 
     connect( actionSearch, &QAction::triggered, searchWindow, &SearchWindow::show );
@@ -585,7 +605,7 @@ void MainWindow::SetupWindows()
 
     connect( searchWindow, &SearchWindow::FilmSelected, filmsList, &FilmsList::SetCurrentFilm );
 
-    // Settings window
+    /// Settings window
     settingsWindow = new SettingsWindow( settings, this );
 
     connect( actionSettings, &QAction::triggered, settingsWindow, &SettingsWindow::show );
@@ -595,7 +615,7 @@ void MainWindow::SetupWindows()
     connect( settingsWindow, &SettingsWindow::DatabaseSettingsChanged, this, &MainWindow::ReloadDatabase );
     connect( settingsWindow, &SettingsWindow::EraseDatabase, this, &MainWindow::EraseDatabase );
 
-    // Film scanner window
+    /// Film scanner window
     filmScannerWindow = new FilmScannerWindow( settings, this );
 
     connect( actionFilmScanner, &QAction::triggered, this, &MainWindow::FilmScanner );
@@ -604,7 +624,7 @@ void MainWindow::SetupWindows()
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, filmsList, &FilmsList::AddFilms );
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::ShowFilms );
 
-    // Moved films window
+    /// Moved films window
     movedFilmsWindow = new MovedFilmsWindow( settings, this );
 
     connect( actionMovedFilms, &QAction::triggered, this, &MainWindow::MovedFilms );

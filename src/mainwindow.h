@@ -65,6 +65,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void ReloadSettings();
         void ReloadView();
 
+        void DatabaseIsLoaded();
         void DatabaseReadError();
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();

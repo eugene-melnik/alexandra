@@ -226,7 +226,12 @@ void FilmsViewList::SetCurrentItemIndex( int i )
 
 void FilmsViewList::ItemClickedSlot()
 {
-    emit ItemClicked( this->item( currentRow(), TitleColumn )->text() );
+    QTableWidgetItem* currentItem = this->item( currentRow(), TitleColumn );
+
+    if( currentItem != nullptr )
+    {
+        emit ItemClicked( currentItem->text() );
+    }
 }
 
 void FilmsViewList::ItemDoubleClickedSlot()
