@@ -43,15 +43,15 @@ void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
 
     // Short info
     // First line of the Short info
-    QString shortInfo = mi->GetFormat() + " <b>|</b> ";
-    shortInfo += mi->GetFileSize() + " <b>|</b> ";
+    QString shortInfo = mi->GetFormat() + " &bull;  ";
+    shortInfo += mi->GetFileSize() + " &bull;  ";
     shortInfo += mi->GetOverallBitRate() + "<br/>";
     // Second line...
     shortInfo += mi->GetWidth() + "&times;";
-    shortInfo += mi->GetHeight() + " px <b>|</b> ";
-    shortInfo += mi->GetFrameRate() + "<br/>";
+    shortInfo += mi->GetHeight() + " " + tr( "px" ) + " &bull;  ";
+    shortInfo += mi->GetFrameRate() + " " + tr( "fps" ) + "<br/>";
     // Third line...
-    shortInfo += mi->GetDuration();
+    shortInfo += tr( "Duration" ) + " &mdash; " + mi->GetDuration();
 
     emit ShortInfoLoaded( shortInfo );
 

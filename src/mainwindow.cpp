@@ -317,7 +317,6 @@ void MainWindow::PlayerClosed()
         bViewed->setChecked( true );
         bViewed->clicked( true );
     }
-
 }
 
 void MainWindow::EditFilm()

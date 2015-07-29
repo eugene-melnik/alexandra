@@ -20,6 +20,8 @@
 
 #include "mediainfo.h"
 
+#include <QStringList>
+
 MediaInfo::MediaInfo()
 {
     mi = new MI::MediaInfo();
@@ -66,12 +68,12 @@ QString MediaInfo::GetHeight() const
 
 QString MediaInfo::GetFrameRate() const
 {
-    return( QString::fromStdWString( mi->Get( MI::Stream_Video, 0, __T( "FrameRate/String" ) ) ) );
+    return( QString::fromStdWString( mi->Get( MI::Stream_Video, 0, __T( "FrameRate" ) ) ) );
 }
 
 QString MediaInfo::GetDuration() const
 {
-    return( QString::fromStdWString( mi->Get( MI::Stream_General, 0, __T( "Duration/String" ) ) ) );
+    return( QString::fromStdWString( mi->Get( MI::Stream_General, 0, __T( "Duration/String3" ) ) ).split(".").at(0) ); // without mseconds
 }
 
 QTime MediaInfo::GetDurationTime() const
