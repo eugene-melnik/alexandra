@@ -218,7 +218,6 @@ void MainWindow::ShowFilmInformation()
 
     if( f == nullptr )
     {
-        DatabaseIsEmpty();
         return;
     }
 

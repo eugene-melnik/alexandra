@@ -5,8 +5,8 @@
 #                                                                   #
  ###################################################################
 
-#CONFIG += release
-CONFIG += debug
+CONFIG += release
+#CONFIG += debug
 
 TARGET = alexandra
 TEMPLATE = app
