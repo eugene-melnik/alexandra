@@ -4,6 +4,8 @@
     <!-- Czech -->
     <file alias="alexandra-cs.qm">../lang/alexandra-cs.qm</file>
     <file alias="qt-cs.qm">../lang/qt-cs.qm</file>
+    <!-- French -->
+    <file alias="alexandra-fr.qm">../lang/alexandra-fr.qm</file>
     <!-- Russian -->
     <file alias="alexandra-ru_RU.qm">../lang/alexandra-ru_RU.qm</file>
     <file alias="qt-ru_RU.qm">../lang/qt-ru_RU.qm</file>

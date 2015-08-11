@@ -36,6 +36,7 @@ namespace Alexandra
         } Locale;
 
         const QList<Locale> supportedLocales = { { "Czech",      "Čeština",     "cs",    "Pavel Fric <pfri@users.sf.net>" },
+                                                 { "French",     "Français",    "fr",    "David Geiger <david.david@mageialinux-online.org>, Adrien Daugabel <adrien.d@mageialinux-online.org>" },
                                                  { "English",    "English",     "en",    appAuthor },
                                                  { "Russian",    "Русский",     "ru_RU", appAuthor },
                                                  { "Ukrainian",  "Українська",  "uk_UA", appAuthor } };
