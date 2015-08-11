@@ -11,7 +11,7 @@
 AppId={{DBAF1834-C3A1-4884-A639-045750269A5C}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL="http://sourceforge.net/projects/alexandra-qt/support/"
@@ -19,7 +19,7 @@ AppUpdatesURL="http://alexandra-qt.sourceforge.net/en/download/"
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 LicenseFile=..\LICENSE
-;InfoBeforeFile=..\README.md
+InfoBeforeFile=..\README.md
 OutputDir=.\
 OutputBaseFilename=alexandra-{#MyAppVersion}-win32-setup
 SetupIconFile=..\src\win-icon.ico
@@ -39,6 +39,9 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 [Files]
 Source: "..\src\alexandra.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\lib\MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\qt-mini-deploy\platforms\qminimal.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
+Source: "C:\qt-mini-deploy\platforms\qoffscreen.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
+Source: "C:\qt-mini-deploy\platforms\qwindows.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
 Source: "C:\qt-mini-deploy\icudt52.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\qt-mini-deploy\icuin52.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\qt-mini-deploy\icuuc52.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -48,9 +51,6 @@ Source: "C:\qt-mini-deploy\libwinpthread-1.dll"; DestDir: "{app}"; Flags: ignore
 Source: "C:\qt-mini-deploy\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\qt-mini-deploy\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\qt-mini-deploy\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\qt-mini-deploy\qminimal.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\qt-mini-deploy\qoffscreen.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\qt-mini-deploy\qwindows.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

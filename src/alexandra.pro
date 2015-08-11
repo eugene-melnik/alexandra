@@ -91,6 +91,7 @@ FORMS += aboutwindow.ui \
          splashscreen.ui
 
 TRANSLATIONS += ../lang/alexandra-cs.ts \
+                ../lang/alexandra-fr.ts \
                 ../lang/alexandra-ru_RU.ts \
                 ../lang/alexandra-uk_UA.ts
 
@@ -101,3 +102,17 @@ RESOURCES = icons.qrc \
 # Stylesheets
 RESOURCES += ../styles/alexandraflat-rainforest/alexandraflat-rainforest.qrc \
              ../styles/qdarkstylesheet/qdarkstylesheet.qrc
+
+# Install
+target.path = /usr/bin/
+
+desktop_file.files = ../linux/alexandra.desktop
+desktop_file.path = /usr/share/applications/
+
+icon_png.files = ../linux/alexandra.svg
+icon_png.path = /usr/share/icons/
+
+icon_svg.files = ../linux/alexandra.svg
+icon_svg.path = /usr/share/icons/hicolor/scalable/apps/
+
+INSTALLS = target desktop_file icon_png icon_svg

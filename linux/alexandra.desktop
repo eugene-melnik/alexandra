@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+Name=Alexandra
+GenericName=Video Library
+Exec=alexandra
+Icon=alexandra
+Categories=AudioVideo;Video;Qt
+Comment=Organize your video library
+
+# Translations
+GenericName[ru]=Видеотека
+Comment[ru]=Организуй свою видеотеку
+
+GenericName[ru]=Відеотека
+Comment[ru]=Організуй свою відеотеку
+
