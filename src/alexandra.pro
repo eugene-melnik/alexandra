@@ -109,7 +109,7 @@ target.path = /usr/bin/
 desktop_file.files = ../linux/alexandra.desktop
 desktop_file.path = /usr/share/applications/
 
-icon_png.files = ../linux/alexandra.svg
+icon_png.files = ../linux/alexandra.png
 icon_png.path = /usr/share/icons/
 
 icon_svg.files = ../linux/alexandra.svg

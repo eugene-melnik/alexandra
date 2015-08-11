@@ -4,11 +4,13 @@ Name=Alexandra
 GenericName=Video Library
 Exec=alexandra
 Icon=alexandra
-Categories=AudioVideo;Video;Qt
+Categories=AudioVideo;Video;Qt;
 Comment=Organize your video library
 
 # Translations
+GenericName[fr]=Vidéothèque
 GenericName[ru]=Видеотека
+Comment[fr]=Organise votre vidéothèque
 Comment[ru]=Организуй свою видеотеку
 
 GenericName[ru]=Відеотека
