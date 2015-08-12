@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: timecounter.h                                                                           *
+ *  file: statisticswindow.h                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,33 +18,39 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef TIMECOUNTER_H
-#define TIMECOUNTER_H
+#ifndef STATISTICSWINDOW_H
+#define STATISTICSWINDOW_H
 
-#include <QTime>
+#include "film.h"
+#include "ui_statisticswindow.h"
 
-class TimeCounter
+#include <QCloseEvent>
+#include <QDialog>
+#include <QList>
+
+class StatisticsWindow : public QDialog, public Ui::StatisticsWindow
 {
+    Q_OBJECT
+
     public:
-        TimeCounter();
-        TimeCounter( quint16 h, quint16 m, quint16 s, quint16 ms = 0 );
-        TimeCounter( quint16 d, quint16 h, quint16 m, quint16 s, quint16 ms = 0 );
-        TimeCounter( const QTime& t );
-        TimeCounter( const TimeCounter& t );
+        StatisticsWindow( QWidget* parent = nullptr );
 
-        void Add( const TimeCounter& t );
-        void Add( const QTime& t );
+        void show( const QList<Film>* films );
 
-        QString ToString();
-        QString ToStringWithDays();
-        QString ToStringWithMs();
+    signals:
+        void ResetStatistics();
+
+    protected:
+        void closeEvent( QCloseEvent* event );
 
     private:
-        quint16 days;
-        quint16 hours;
-        quint16 minutes;
-        quint16 seconds;
-        quint16 mseconds;
+        void Reset();
 };
 
-#endif // TIMECOUNTER_H
+typedef struct
+{
+    int viewsCount;
+    QString filmTitle;
+} TopFilm;
+
+#endif // STATISTICSWINDOW_H

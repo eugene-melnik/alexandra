@@ -51,6 +51,7 @@ HEADERS += effects/effectdropshadow.h \
            searchwindow.h \
            settingswindow.h \
            splashscreen.h \
+           statisticswindow.h \
            statusbar.h \
            timecounter.h \
            toolbar.h \
@@ -76,6 +77,7 @@ SOURCES += effects/effectdropshadow.cpp \
            searchwindow.cpp \
            settingswindow.cpp \
            splashscreen.cpp \
+           statisticswindow.cpp \
            statusbar.cpp \
            timecounter.cpp \
            toolbar.cpp
@@ -88,7 +90,8 @@ FORMS += aboutwindow.ui \
          movedfilmswindow.ui \
          searchwindow.ui \
          settingswindow.ui \
-         splashscreen.ui
+         splashscreen.ui \
+         statisticswindow.ui
 
 TRANSLATIONS += ../lang/alexandra-cs.ts \
                 ../lang/alexandra-fr.ts \

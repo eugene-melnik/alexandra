@@ -99,11 +99,21 @@ void TimeCounter::Add( const QTime& t )
 
 QString TimeCounter::ToString()
 {
+    QString result = QString( "%1:%2:%3" )
+            .arg( days * 24 + hours )
+            .arg( minutes, 2, 10, QChar('0') ) // equal to "%02d"
+            .arg( seconds, 2, 10, QChar('0') );
+
+    return( result );
+}
+
+QString TimeCounter::ToStringWithDays()
+{
     QString result = QString( "%1/%2:%3:%4" )
             .arg( days )
-            .arg( hours )
-            .arg( minutes )
-            .arg( seconds );
+            .arg( hours, 2, 10, QChar('0') )
+            .arg( minutes, 2, 10, QChar('0') )
+            .arg( seconds, 2, 10, QChar('0') );
 
     return( result );
 }
@@ -112,10 +122,10 @@ QString TimeCounter::ToStringWithMs()
 {
     QString result = QString( "%1/%2:%3:%4.%5" )
             .arg( days )
-            .arg( hours )
-            .arg( minutes )
-            .arg( seconds )
-            .arg( mseconds );
+            .arg( hours, 2, 10, QChar('0') )
+            .arg( minutes, 2, 10, QChar('0') )
+            .arg( seconds, 2, 10, QChar('0') )
+            .arg( mseconds, 2, 10, QChar('0') );
 
     return( result );
 }

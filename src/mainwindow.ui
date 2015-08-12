@@ -551,6 +551,8 @@
     </property>
     <addaction name="actionFilmScanner"/>
     <addaction name="actionMovedFilms"/>
+    <addaction name="separator"/>
+    <addaction name="actionStatistics"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -725,6 +727,15 @@
    </property>
    <property name="shortcut">
     <string notr="true">F11</string>
+   </property>
+  </action>
+  <action name="actionStatistics">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/window/film-statistic</normaloff>:/window/film-statistic</iconset>
+   </property>
+   <property name="text">
+    <string>Statistics</string>
    </property>
   </action>
  </widget>

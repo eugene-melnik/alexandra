@@ -88,6 +88,7 @@ class Film
         void SetTags( const QString& s );
 
         void IncViewsCounter();
+        void SetViewCounter( int count );
         void SetIsPosterExists( bool b );
         void SetIsViewed( bool b );
         void SetIsFavourite( bool b );

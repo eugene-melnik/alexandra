@@ -370,3 +370,17 @@ void FilmsList::EraseAll()
     emit DatabaseChanged();
     emit DatabaseIsEmpty();
 }
+
+void FilmsList::ResetViews()
+{
+    for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
+    {
+        i->SetIsViewed( false );
+        i->SetViewCounter( 0 );
+    }
+
+    isDatabaseChanged = true;
+
+    emit DatabaseLoaded();
+    emit DatabaseChanged();
+}

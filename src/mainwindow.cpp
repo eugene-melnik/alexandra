@@ -107,6 +107,12 @@ void MainWindow::EraseDatabase()
     }
 }
 
+void MainWindow::ResetStatistics()
+{
+    filmsList->ResetViews();
+    QMessageBox::information( this, tr( "Reset statistics" ), tr( "Done!" ) );
+}
+
 void MainWindow::ReloadDatabase()
 {
     filmsList->LoadFromFile( settings->GetDatabaseFilePath() );
@@ -369,6 +375,11 @@ void MainWindow::MovedFilms()
     movedFilmsWindow->show( filmsList->GetUnavailableFilms() );
 }
 
+void MainWindow::Statistics()
+{
+    statisticsWindow->show( filmsList->GetFilmsList() );
+}
+
 void MainWindow::SetupCompleter()
 {
     delete eFilter->completer();
@@ -629,6 +640,13 @@ void MainWindow::SetupWindows()
 
     connect( movedFilmsWindow, &MovedFilmsWindow::FilmsMoved, this, &MainWindow::ShowFilms );
     connect( movedFilmsWindow, &MovedFilmsWindow::FilmsMoved, filmsList, &FilmsList::FilmsMoved );
+
+    /// Statistic window
+    statisticsWindow = new StatisticsWindow( this );
+
+    connect( actionStatistics, &QAction::triggered, this, &MainWindow::Statistics );
+
+    connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
 }
 
 void MainWindow::ClearTextFields()

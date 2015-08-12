@@ -34,6 +34,7 @@
 #include "searchwindow.h"
 #include "settingswindow.h"
 #include "splashscreen.h"
+#include "statisticswindow.h"
 #include "ui_mainwindow.h"
 
 #include <QCloseEvent>
@@ -61,6 +62,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         void SaveDatabase();
         void EraseDatabase();
+        void ResetStatistics();
         void ReloadDatabase();
         void ReloadSettings();
         void ReloadView();
@@ -84,6 +86,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void RemoveFile();
         void FilmScanner();
         void MovedFilms();
+        void Statistics();
 
         void SetupCompleter();
         void FilmsFilter( QString key );
@@ -111,6 +114,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
         SplashScreen* splashScreen = nullptr;
+        StatisticsWindow* statisticsWindow = nullptr;
 
         // Variables
         AbstractFilmsView* filmsView = nullptr;

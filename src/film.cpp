@@ -380,6 +380,11 @@ void Film::IncViewsCounter()
     viewsCounter++;
 }
 
+void Film::SetViewCounter( int count )
+{
+    viewsCounter = count;
+}
+
 void Film::SetIsPosterExists( bool b )
 {
     isPosterExists = b;

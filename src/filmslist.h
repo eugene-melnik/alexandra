@@ -74,6 +74,7 @@ class FilmsList : public QObject
         void FilmsMoved();
 
         void EraseAll();
+        void ResetViews();
 
     signals:
         void DatabaseReadError();
