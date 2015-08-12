@@ -8,11 +8,12 @@ Categories=AudioVideo;Video;Qt;
 Comment=Organize your video library
 
 # Translations
-GenericName[fr]=Vidéothèque
 GenericName[ru]=Видеотека
-Comment[fr]=Organise votre vidéothèque
 Comment[ru]=Организуй свою видеотеку
 
-GenericName[ru]=Відеотека
-Comment[ru]=Організуй свою відеотеку
+GenericName[fr]=Vidéothèque
+Comment[fr]=Organise votre vidéothèque
+
+GenericName[uk]=Відеотека
+Comment[uk]=Організуй свою відеотеку
 
