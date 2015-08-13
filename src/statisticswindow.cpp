@@ -83,6 +83,8 @@ void StatisticsWindow::show( const QList<Film>* films )
         lwMostPopularFilms->insertItem( 0, itemText );
     }
 
+    // Show
+    tabWidget->setCurrentIndex( 0 ); // activate first tab
     QDialog::show();
 }
 
@@ -103,4 +105,6 @@ void StatisticsWindow::Reset()
     {
         emit ResetStatistics();
     }
+
+    close();
 }

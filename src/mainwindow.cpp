@@ -213,7 +213,7 @@ void MainWindow::ShowFilms()
         }
     }
 
-    statusbar->ShowTotal( filmsList->GetFilmsCount(), filmsList->GetIsViewedCount(), filmsList->GetIsFavouriteCount() );
+    StatusbarShowTotal();
     filmsView->SetCurrentItemIndex( currentIndex );
     emit Shown();
 }
@@ -320,7 +320,6 @@ void MainWindow::PlayerClosed()
     if( bViewed->isEnabled() && !bViewed->isChecked() )
     {
         bViewed->setChecked( true );
-        bViewed->clicked( true );
     }
 }
 
@@ -424,7 +423,7 @@ void MainWindow::FilmsFilter( QString key )
 
     if( films->size() == filmsList->GetNumberOfFilms() )
     {
-        statusbar->ShowTotal( filmsList->GetFilmsCount(), filmsList->GetIsViewedCount(), filmsList->GetIsFavouriteCount() );
+        StatusbarShowTotal();
     }
     else
     {
@@ -433,6 +432,16 @@ void MainWindow::FilmsFilter( QString key )
 
     filmsView->SetCurrentItemIndex( 0 );
     delete films;
+}
+
+void MainWindow::UpdateCurrentFilm()
+{
+    filmsView->SetCurrentItemTo( *filmsList->GetCurrentFilm() );
+}
+
+void MainWindow::StatusbarShowTotal()
+{
+    statusbar->ShowTotal( filmsList->GetFilmsCount(), filmsList->GetIsViewedCount(), filmsList->GetIsFavouriteCount() );
 }
 
 void MainWindow::LoadSettings()
@@ -541,7 +550,11 @@ void MainWindow::SetupWindows()
 
     connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::ShowFilms );
     connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::DatabaseIsLoaded );
+
     connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::SaveDatabase );
+    connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::UpdateCurrentFilm );
+    connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::StatusbarShowTotal );
+
     connect( filmsList, &FilmsList::DatabaseReadError, this, &MainWindow::DatabaseReadError );
     connect( filmsList, &FilmsList::DatabaseIsReadonly, this, &MainWindow::DatabaseIsReadonly );
     connect( filmsList, &FilmsList::DatabaseIsEmpty, this, &MainWindow::DatabaseIsEmpty );

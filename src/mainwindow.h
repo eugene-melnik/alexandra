@@ -90,6 +90,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         void SetupCompleter();
         void FilmsFilter( QString key );
+        void UpdateCurrentFilm();
+        void StatusbarShowTotal();
 
     private:
         // Additional functions

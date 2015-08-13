@@ -317,6 +317,7 @@ void FilmsList::SetCurrentFilmIsFavourite( bool b )
 
 void FilmsList::IncCurrentFilmViewsCounter()
 {
+    currentFilm->SetIsViewed( true );
     currentFilm->IncViewsCounter();
     isDatabaseChanged = true;
     emit DatabaseChanged();
