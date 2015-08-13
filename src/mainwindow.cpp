@@ -436,7 +436,10 @@ void MainWindow::FilmsFilter( QString key )
 
 void MainWindow::UpdateCurrentFilm()
 {
-    filmsView->SetCurrentItemTo( *filmsList->GetCurrentFilm() );
+    if( filmsList->GetCurrentFilm() != nullptr )
+    {
+        filmsView->SetCurrentItemTo( *filmsList->GetCurrentFilm() );
+    }
 }
 
 void MainWindow::StatusbarShowTotal()
