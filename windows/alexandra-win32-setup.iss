@@ -22,13 +22,14 @@ LicenseFile=..\LICENSE
 InfoBeforeFile=..\README.md
 OutputDir=.\
 OutputBaseFilename=alexandra-{#MyAppVersion}-win32-setup
-SetupIconFile=..\src\win-icon.ico
+SetupIconFile=.\win-icon.ico
 Compression=lzma2/ultra
 SolidCompression=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
+Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
