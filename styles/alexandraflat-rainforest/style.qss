@@ -87,7 +87,7 @@ QToolButton:pressed {
 }
 
 /* Tables */
-QTableView {
+QTableView, QListView {
   background-color: #252525;
   alternate-background-color: #292929;
 }
