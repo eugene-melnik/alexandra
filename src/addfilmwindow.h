@@ -26,8 +26,8 @@
 #include "alexandrasettings.h"
 #include "film.h"
 
+#include <QCloseEvent>
 #include <QDialog>
-#include <QShowEvent>
 
 class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
 {
@@ -36,8 +36,10 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
     public:
         AddFilmWindow( AlexandraSettings* settings, QWidget* parent = nullptr );
 
+        void show();
+
     protected:
-        void showEvent( QShowEvent* event );
+        void closeEvent( QCloseEvent* event );
 
         QString filmId;
 

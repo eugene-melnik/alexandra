@@ -42,9 +42,14 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog(
     connect( buttonBox, &QDialogButtonBox::accepted, this, &AddFilmWindow::OkButtonClicked );
 }
 
-void AddFilmWindow::showEvent( QShowEvent* event)
+void AddFilmWindow::show()
 {
+    QDialog::show();
     filmId = QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() );
+}
+
+void AddFilmWindow::closeEvent(QCloseEvent *event)
+{
     ClearFields();
     event->accept();
 }
@@ -58,7 +63,8 @@ void AddFilmWindow::OpenFilmFileClicked()
                          lastFilmPath,
                          tr( "Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)" ) );
 
-    if( fileName.isFile() ) {
+    if( fileName.isFile() )
+    {
         eFilmFileName->setText( fileName.absoluteFilePath() );
         eTitle->setText( fileName.baseName() );
 
@@ -76,7 +82,8 @@ void AddFilmWindow::OpenPosterFileClicked()
                          lastPosterPath,
                          tr( "Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)" ) );
 
-    if( fileName.isFile() ) {
+    if( fileName.isFile() )
+    {
         ePosterFileName->setText( fileName.absoluteFilePath() );
 
         settings->SetLastPosterPath( fileName.absolutePath() );

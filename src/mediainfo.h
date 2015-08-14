@@ -39,6 +39,8 @@ class MediaInfo
         MediaInfo( QString fileName );
         ~MediaInfo();
 
+        bool IsOpened() const;
+
         QString GetFormat() const;
         QString GetFileSize() const;
         QString GetOverallBitRate() const;
@@ -53,6 +55,7 @@ class MediaInfo
 
     private:
         MI::MediaInfo* mi = nullptr;
+        bool isOpened = false;
 };
 
 #endif // MEDIAINFO_H

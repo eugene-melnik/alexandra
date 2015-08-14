@@ -660,6 +660,7 @@ void MainWindow::SetupWindows()
 
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, filmsList, &FilmsList::AddFilms );
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::ShowFilms );
+    connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::DatabaseIsLoaded );
 
     /// Moved films window
     movedFilmsWindow = new MovedFilmsWindow( settings, this );

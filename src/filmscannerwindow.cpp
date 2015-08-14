@@ -20,6 +20,7 @@
 
 #include "filmscannerwindow.h"
 
+#include <QCryptographicHash>
 #include <QDir>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -218,6 +219,7 @@ void FilmScannerWindow::AddSelected()
 
             // Creating film
             Film f;
+            f.SetId( QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() ) );
             f.SetFileName( fileName );
             f.SetTitle( QFileInfo( fileName ).fileName() );
             newFilms->append( f );

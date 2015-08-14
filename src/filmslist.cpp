@@ -28,6 +28,8 @@
 #include <QMessageBox>
 #include <QtConcurrentRun>
 
+#include<QDebug>
+
 FilmsList::FilmsList( AlexandraSettings* s, QObject* parent ) : QObject( parent )
 {
     settings = s;
@@ -64,7 +66,7 @@ void FilmsList::LoadFromFile( const QString& fileName )
         stream >> databaseVersion;
 
         if( databaseHeader == Alexandra::databaseHeader
-                && databaseVersion == Alexandra::databaseVersion ) // need to optimize
+                && databaseVersion == Alexandra::databaseVersion )
         {
             stream >> *films;
         }

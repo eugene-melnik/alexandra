@@ -32,13 +32,22 @@ MediaInfo::MediaInfo( QString fileName )
 {
     mi = new MI::MediaInfo();
     mi->Option( __T( "CharSet" ), __T( "UTF-8" ) );
-    mi->Open( MI::String( fileName.toStdWString() ) );
+
+    if( mi->Open( MI::String( fileName.toStdWString() ) ) == 1 )
+    {
+        isOpened = true;
+    }
 }
 
 MediaInfo::~MediaInfo()
 {
     mi->Close();
     delete mi;
+}
+
+bool MediaInfo::IsOpened() const
+{
+    return( isOpened );
 }
 
 QString MediaInfo::GetFormat() const

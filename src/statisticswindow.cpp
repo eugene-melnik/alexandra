@@ -38,6 +38,7 @@ void StatisticsWindow::show( const QList<Film>* films )
     int viewedFilms = 0;
     int totalViewsCount = 0;
     TimeCounter wastedTime;
+    bool allFilesOk = true;
 
     QList<TopFilm> topFilms;
     int topFilmsCount = 0;
@@ -55,9 +56,16 @@ void StatisticsWindow::show( const QList<Film>* films )
                 // Wasted time
                 MediaInfo f( i->GetFileName() );
 
-                for( int j = i->GetViewsCounter(); j > 0; j-- )
+                if( f.IsOpened() )
                 {
-                    wastedTime.Add( f.GetDurationTime() );
+                    for( int j = i->GetViewsCounter(); j > 0; j-- )
+                    {
+                        wastedTime.Add( f.GetDurationTime() );
+                    }
+                }
+                else
+                {
+                    allFilesOk = false;
                 }
 
                 // Most popular
@@ -73,8 +81,14 @@ void StatisticsWindow::show( const QList<Film>* films )
     lTotalViews->setText( QString::number( totalViewsCount ) );
     lWastedTime->setText( wastedTime.ToString() );
 
+    if( !allFilesOk )
+    {
+        lWastedTime->setText( lWastedTime->text() + " (?)" );
+        lWastedTime->setToolTip( tr( "The calculation is incorrect, because some files are not available." ) );
+    }
+
     // Most popular
-    auto TopFilmLessThen = [] ( TopFilm a, TopFilm b ) { return( a.viewsCount < b.viewsCount ); };
+    auto TopFilmLessThen = [] ( TopFilm a, TopFilm b ) { return( a.viewsCount < b.viewsCount ); }; // lambda :)
     std::sort( topFilms.begin(), topFilms.end(), TopFilmLessThen );
 
     for( int i = 0; i < topFilmsCount; i++ )
@@ -84,13 +98,15 @@ void StatisticsWindow::show( const QList<Film>* films )
     }
 
     // Show
-    tabWidget->setCurrentIndex( 0 ); // activate first tab
     QDialog::show();
 }
 
 void StatisticsWindow::closeEvent( QCloseEvent* event )
 {
+    tabWidget->setCurrentIndex( 0 ); // activate first tab
     lwMostPopularFilms->clear();
+    lWastedTime->setToolTip( "" );
+
     event->accept();
 }
 
