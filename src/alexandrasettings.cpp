@@ -21,7 +21,9 @@
 #include "alexandrasettings.h"
 #include "version.h"
 
+#include <QApplication>
 #include <QFileInfo>
+#include <QFont>
 #include <QProcessEnvironment>
 
 AlexandraSettings::AlexandraSettings( QObject* parent )
@@ -101,6 +103,11 @@ QString AlexandraSettings::GetLastPosterPath() const
 int AlexandraSettings::GetApplicationLocaleIndex() const
 {
     return( value( "Application/Locale", -1 ).toInt() );
+}
+
+QString AlexandraSettings::GetApplicationFont() const
+{
+    return( value( "Application/Font", qApp->font().toString() ).toString() );
 }
 
 QString AlexandraSettings::GetApplicationStyleName() const
@@ -264,6 +271,11 @@ void AlexandraSettings::SetLastPosterPath( const QString& s )
 void AlexandraSettings::SetApplicationLocaleIndex( int n )
 {
     setValue( "Application/Locale", n );
+}
+
+void AlexandraSettings::SetApplicationFont( QString s )
+{
+    setValue( "Application/Font", s );
 }
 
 void AlexandraSettings::SetApplicationStyleName( const QString& s )

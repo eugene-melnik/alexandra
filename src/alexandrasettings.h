@@ -23,6 +23,7 @@
 
 #include <QByteArray>
 #include <QColor>
+#include <QFont>
 #include <QSettings>
 #include <QString>
 
@@ -38,6 +39,7 @@ class AlexandraSettings : public QSettings
         QString GetLastFilmPath() const;
         QString GetLastPosterPath() const;
         int     GetApplicationLocaleIndex() const;
+        QString GetApplicationFont() const;
         QString GetApplicationStyleName() const;
         int     GetApplicationThemeIndex() const;
 
@@ -77,6 +79,7 @@ class AlexandraSettings : public QSettings
         void SetLastFilmPath( const QString& s );
         void SetLastPosterPath( const QString& s );
         void SetApplicationLocaleIndex( int n );
+        void SetApplicationFont( QString s );
         void SetApplicationStyleName( const QString& s );
         void SetApplicationThemeIndex( int n );
 

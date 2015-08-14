@@ -53,6 +53,8 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void SetIsDatabaseSettingsChanged();
 
         void StyleChanged();
+        void SelectFont();
+        void SelectFontDefault();
         void SelectExternalPlayer();
         void SetDefaultExternalPlayer();
 

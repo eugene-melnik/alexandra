@@ -28,6 +28,8 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QFontDatabase>
+#include <QFontDialog>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QRadioButton>
@@ -101,6 +103,7 @@ void SettingsWindow::OkButtonClicked()
 
         // Application tab
         settings->SetApplicationLocaleIndex( cbLanguage->currentIndex() - 1 );
+        settings->SetApplicationFont( bFontSelect->font().toString() );
 
         if( cbStyle->currentIndex() == 0 )
         {
@@ -163,12 +166,34 @@ void SettingsWindow::StyleChanged()
 {
     if( cbStyle->currentIndex() == 1 ) // "Theme"
     {
+        labelTheme->setEnabled( true );
         cbTheme->setEnabled( true );
     }
     else
     {
+        labelTheme->setEnabled( false );
         cbTheme->setEnabled( false );
     }
+}
+
+void SettingsWindow::SelectFont()
+{
+    bool isFontSelected;
+    QFont newFont = QFontDialog::getFont( &isFontSelected, bFontSelect->font(), this );
+
+    if( isFontSelected )
+    {
+        bFontSelect->setFont( newFont );
+        bFontSelect->setText( newFont.family() + QString( " %1" ).arg( newFont.pointSize() ) );
+        SetIsSettingsChanged();
+    }
+}
+
+void SettingsWindow::SelectFontDefault()
+{
+    QFont defaultFont = QFontDatabase::systemFont( QFontDatabase::GeneralFont );
+    bFontSelect->setFont( defaultFont );
+    bFontSelect->setText( defaultFont.family() + QString( " %1" ).arg( defaultFont.pointSize() ) );
 }
 
 void SettingsWindow::SelectExternalPlayer()
@@ -368,6 +393,9 @@ void SettingsWindow::ConfigureApplicationTab()
 {
     // Signals
     connect( cbLanguage, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
+    connect( bFontSelect, &QPushButton::clicked, this, &SettingsWindow::SelectFont );
+    connect( bFontSelectDefault, &QPushButton::clicked, this, &SettingsWindow::SelectFontDefault );
+    connect( bFontSelectDefault, &QPushButton::clicked, this, &SettingsWindow::SetIsSettingsChanged );
     connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( StyleChanged() ) );
     connect( cbTheme, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
@@ -405,6 +433,12 @@ void SettingsWindow::ReconfigureApplicationTab()
 {
     // Language ComboBox
     cbLanguage->setCurrentIndex( settings->GetApplicationLocaleIndex() + 1 );
+
+    // Font
+    QFont oldFont;
+    oldFont.fromString( settings->GetApplicationFont() );
+    bFontSelect->setText( oldFont.family() + QString( " %1" ).arg( oldFont.pointSize() ) );
+    bFontSelect->setFont( oldFont );
 
     // Style ComboBox
     QString appStyle = settings->GetApplicationStyleName();

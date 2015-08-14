@@ -121,6 +121,12 @@ void MainWindow::ReloadDatabase()
 
 void MainWindow::ReloadSettings()
 {
+    // Font
+    QFont newFont;
+    newFont.fromString( settings->GetApplicationFont() );
+    qApp->setFont( newFont );
+
+    // Style
     QString style = settings->GetApplicationStyleName();
 
     if( style == tr( "Theme" ) )
@@ -449,6 +455,12 @@ void MainWindow::StatusbarShowTotal()
 
 void MainWindow::LoadSettings()
 {
+    // Font
+    QFont font;
+    font.fromString( settings->GetApplicationFont() );
+    qApp->setFont( font );
+
+    // Style
     QString style = settings->GetApplicationStyleName();
 
     if( style == tr( "Theme" ) )
