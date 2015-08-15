@@ -28,8 +28,6 @@
 #include <QMessageBox>
 #include <QtConcurrentRun>
 
-#include<QDebug>
-
 FilmsList::FilmsList( AlexandraSettings* s, QObject* parent ) : QObject( parent )
 {
     settings = s;

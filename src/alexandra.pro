@@ -5,8 +5,8 @@
 #                                                                   #
  ###################################################################
 
-CONFIG += release
-#CONFIG += debug
+#CONFIG += release
+CONFIG += debug
 
 TARGET = alexandra
 TEMPLATE = app
@@ -103,7 +103,8 @@ RESOURCES = icons.qrc \
             lang.qrc
 
 # Stylesheets
-RESOURCES += ../styles/alexandraflat-rainforest/alexandraflat-rainforest.qrc \
+RESOURCES += ../styles/alexandraflat-coast/alexandraflat-coast.qrc \
+             ../styles/alexandraflat-rainforest/alexandraflat-rainforest.qrc \
              ../styles/qdarkstylesheet/qdarkstylesheet.qrc
 
 # Install

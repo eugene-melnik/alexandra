@@ -53,7 +53,8 @@ namespace Alexandra
             QString path;
         } Theme;
 
-        const QList<Theme> themes = { { "Alexandra Flat - Rainforest", ":/alexandraflat-rainforest/" },
+        const QList<Theme> themes = { { "Alexandra Flat - Coast", ":/alexandraflat-coast/" },
+                                      { "Alexandra Flat - Rainforest", ":/alexandraflat-rainforest/" },
                                       { "QDarkStyleSheet (Colin Duquesnoy)", ":/qdarkstyle/" } };
 }
 
