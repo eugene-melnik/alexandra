@@ -512,6 +512,9 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::PreventContextMenu</enum>
+   </property>
    <widget class="QMenu" name="menu_File">
     <property name="title">
      <string>&amp;File</string>

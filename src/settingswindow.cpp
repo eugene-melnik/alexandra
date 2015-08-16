@@ -302,6 +302,15 @@ void SettingsWindow::CreateDatabase()
     {
         eDatabaseFile->setText( databaseFileName );
 
+        // Remove file if exists
+        QFile newDb( databaseFileName );
+
+        if( newDb.exists() )
+        {
+            newDb.remove();
+        }
+
+        // Posters dir
         QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
 
         if( !QDir( postersDir ).exists() )
@@ -316,6 +325,8 @@ void SettingsWindow::CreateDatabase()
                 ePostersFolder->setText( postersDir );
             }
         }
+
+        SetIsDatabaseSettingsChanged();
     }
 }
 

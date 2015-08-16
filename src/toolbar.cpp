@@ -50,6 +50,7 @@ void ToolBar::SetAllFunctionsEnabled( bool b )
     tbaAdd->setEnabled( b );
     tbaEdit->setEnabled( b );
     tbaRemove->setEnabled( b );
+    tbaFilmScanner->setEnabled( b );
     tbaRandom->setEnabled( b );
     tbaSearch->setEnabled( b );
 }
@@ -67,6 +68,7 @@ void ToolBar::SetReadOnlyMode( bool b )
     tbaAdd->setDisabled( b );
     tbaEdit->setDisabled( b );
     tbaRemove->setDisabled( b );
+    tbaFilmScanner->setDisabled( b );
 }
 
 void ToolBar::actionAddTriggered()

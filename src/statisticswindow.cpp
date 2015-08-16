@@ -58,9 +58,11 @@ void StatisticsWindow::show( const QList<Film>* films )
 
                 if( f.IsOpened() )
                 {
+                    TimeCounter duration( f.GetDurationTime() );
+
                     for( int j = i->GetViewsCounter(); j > 0; j-- )
                     {
-                        wastedTime.Add( f.GetDurationTime() );
+                        wastedTime.Add( duration );
                     }
                 }
                 else
@@ -84,7 +86,7 @@ void StatisticsWindow::show( const QList<Film>* films )
     if( !allFilesOk )
     {
         lWastedTime->setText( lWastedTime->text() + " (?)" );
-        lWastedTime->setToolTip( tr( "The calculation is incorrect, because some files are not available." ) );
+        lWastedTime->setToolTip( tr( "The calculation is not accurate, because some files are not available." ) );
     }
 
     // Most popular

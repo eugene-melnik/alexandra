@@ -479,7 +479,6 @@ void MainWindow::LoadSettings()
     restoreGeometry( settings->GetMainWindowGeometry() );
     restoreState( settings->GetMainWindowState() );
     mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
-    ShowFullScreen( settings->GetMainWindowIsFullscreen() );
     actionShowFullscreen->setChecked( isFullScreen() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
     wRight->setVisible( settings->GetMainWindowShowRightPanel() );
@@ -495,7 +494,6 @@ void MainWindow::SaveSettings()
     settings->SetMainWindowState( saveState() );
     settings->SetMainWindowGeometry( saveGeometry() );
     settings->SetMainWindowSplitterState( mainSplitter->saveState() );
-    settings->SetMainWindowIsFullscreen( isFullScreen() );
 
     // Widgets
     filmsView->SaveSettings( settings );
@@ -538,8 +536,6 @@ void MainWindow::SetupFilmsView()
     // Add film window
     connect( addFilmWindow, SIGNAL( Done(Film) ), view, SLOT( AddItem(Film) ) );
     connect( addFilmWindow, SIGNAL( Done(Film) ), view, SLOT( SelectItem(Film) ) );
-    // Edit film window
-    connect( editFilmWindow, SIGNAL( Done(Film) ), view, SLOT( SetCurrentItemTo(Film) ) );
     // Search window
     connect( searchWindow, SIGNAL( FilmSelected(QString) ), view, SLOT( SelectItem(QString) ) );
     // Random film function
@@ -709,6 +705,10 @@ void MainWindow::SetAllFunctionsEnabled( bool b )
     actionRandom->setEnabled( b );
     actionSearch->setEnabled( b );
 
+    actionFilmScanner->setEnabled( b );
+    actionMovedFilms->setEnabled( b );
+    actionStatistics->setEnabled( b );
+
     bViewed->setEnabled( b );
     bFavourite->setEnabled( b );
     bTechInformation->setEnabled( b );
@@ -724,6 +724,9 @@ void MainWindow::SetEmptyMode( bool b )
     actionRandom->setDisabled( b );
     actionSearch->setDisabled( b );
 
+    actionMovedFilms->setDisabled( b );
+    actionStatistics->setDisabled( b );
+
     bViewed->setDisabled( b );
     bFavourite->setDisabled( b );
     bTechInformation->setDisabled( b );
@@ -737,6 +740,10 @@ void MainWindow::SetReadOnlyMode( bool b )
     actionAdd->setDisabled( b );
     actionEdit->setDisabled( b );
     actionRemove->setDisabled( b );
+
+    actionFilmScanner->setDisabled( b );
+    actionMovedFilms->setDisabled( b );
+    actionStatistics->setDisabled( b );
 
     bViewed->setDisabled( b );
     bFavourite->setDisabled( b );
