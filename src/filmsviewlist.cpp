@@ -115,9 +115,13 @@ void FilmsViewList::SetItem( int n, const Film& film, QColor background )
     setItem( n, TitleColumn, title );
 
     // Year
-    QTableWidgetItem* year = new QTableWidgetItem( film.GetYearStr() );
-    year->setTextAlignment( Qt::AlignCenter );
-    setItem( n, YearColumn, year );
+    QTableWidgetItem* year;
+    if( film.GetYear() != 0 )
+    {
+        year = new QTableWidgetItem( film.GetYearStr() );
+        year->setTextAlignment( Qt::AlignCenter );
+        setItem( n, YearColumn, year );
+    }
 
     // Genre
     QTableWidgetItem* genre = new QTableWidgetItem( film.GetGenre() );
@@ -128,10 +132,15 @@ void FilmsViewList::SetItem( int n, const Film& film, QColor background )
     setItem( n, DirectorColumn, director );
 
     // Rating
-    QTableWidgetItem* rating = new QTableWidgetItem( film.GetRatingStr() );
-    rating->setTextAlignment( Qt::AlignCenter );
-    setItem( n, RatingColumn, rating );
+    QTableWidgetItem* rating;
+    if( film.GetRating() > 1 )
+    {
+        rating = new QTableWidgetItem( film.GetRatingStr() );
+        rating->setTextAlignment( Qt::AlignCenter );
+        setItem( n, RatingColumn, rating );
+    }
 
+    // Background for unavailable files
     if( background.isValid() )
     {
         viewed->setBackgroundColor( background );

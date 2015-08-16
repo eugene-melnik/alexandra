@@ -59,6 +59,11 @@
         <translation>Alexandra Video Library est gratuit, il n&apos;y a pas de vente ou autres revenus. Vous pouvez donner pour encourager l&apos;auteur et l&apos;aider à développer le projet. Merci !</translation>
     </message>
     <message>
+        <location filename="../src/aboutwindow.ui" line="337"/>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Fermer</translation>
+    </message>
+    <message>
         <location filename="../src/aboutwindow.cpp" line="37"/>
         <source>version %1 (build date: %2)</source>
         <translation>version %1 (date du build : %2)</translation>
@@ -84,6 +89,9 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="73"/>
         <location filename="../src/addfilmwindow.ui" line="119"/>
+        <location filename="../src/addfilmwindow.cpp" line="50"/>
+        <location filename="../src/addfilmwindow.cpp" line="81"/>
+        <location filename="../src/addfilmwindow.cpp" line="115"/>
         <source>Open</source>
         <translation>Ouvrir</translation>
     </message>
@@ -198,38 +206,63 @@
         <translation>Favori</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="62"/>
+        <location filename="../src/addfilmwindow.ui" line="570"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.ui" line="577"/>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="65"/>
         <source>Select film</source>
         <translation>Sélectionner un film</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="64"/>
+        <location filename="../src/addfilmwindow.cpp" line="67"/>
         <source>Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</source>
         <translation>Fichiers Vidéo (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="81"/>
+        <location filename="../src/addfilmwindow.cpp" line="86"/>
         <source>Select image</source>
         <translation>Sélectionner une image</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="83"/>
+        <location filename="../src/addfilmwindow.cpp" line="88"/>
         <source>Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</source>
         <translation>Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="99"/>
-        <location filename="../src/addfilmwindow.cpp" line="105"/>
+        <location filename="../src/addfilmwindow.cpp" line="93"/>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="106"/>
+        <source>Clear poster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="106"/>
+        <source>Remove image file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="124"/>
+        <location filename="../src/addfilmwindow.cpp" line="130"/>
         <source>Adding film</source>
         <translation>Ajout du film</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="99"/>
+        <location filename="../src/addfilmwindow.cpp" line="124"/>
         <source>You must choose file on the disk.</source>
         <translation>Vous devez choisir un fichier sur le disque.</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="105"/>
+        <location filename="../src/addfilmwindow.cpp" line="130"/>
         <source>Field &quot;Title&quot; can&apos;t be empty.</source>
         <translation>Le champ &quot;Titre&quot; ne peut pas être vide.</translation>
     </message>
@@ -240,6 +273,16 @@
         <location filename="../src/editfilmwindow.cpp" line="30"/>
         <source>Edit film</source>
         <translation>Éditer le film</translation>
+    </message>
+    <message>
+        <location filename="../src/editfilmwindow.cpp" line="41"/>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/editfilmwindow.cpp" line="45"/>
+        <source>Open</source>
+        <translation>Ouvrir</translation>
     </message>
 </context>
 <context>
@@ -258,6 +301,11 @@
         <location filename="../src/filminfowindow.ui" line="58"/>
         <source>&amp;Copy to clipboard</source>
         <translation>&amp;Copier dans le presse-papier</translation>
+    </message>
+    <message>
+        <location filename="../src/filminfowindow.ui" line="78"/>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Fermer</translation>
     </message>
     <message>
         <location filename="../src/filminfowindow.cpp" line="51"/>
@@ -341,6 +389,20 @@
         <translation>Sélectionné :</translation>
     </message>
     <message>
+        <location filename="../src/filmscannerwindow.ui" line="257"/>
+        <source>&amp;Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filmscannerwindow.ui" line="264"/>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Fermer</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="obsolete">Ajouter</translation>
+    </message>
+    <message>
         <location filename="../src/filmscannerwindow.cpp" line="74"/>
         <source>Select directory for scanning</source>
         <translation>Sélectionner un dossier à explorer</translation>
@@ -364,52 +426,57 @@
 <context>
     <name>FilmViewGridModel</name>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="61"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="63"/>
         <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Titre original :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="62"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="66"/>
+        <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
+        <translation type="unfinished">&lt;b&gt;Slogan :&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../src/filmsviewgridmodel.cpp" line="69"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="63"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="72"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Année :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="64"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="75"/>
         <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Pays :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="65"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="78"/>
         <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Réalisateur :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="66"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="81"/>
         <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Producteur(s) :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="67"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="84"/>
         <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Avec :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="68"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="87"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Note :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="69"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="90"/>
         <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Description :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="70"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="93"/>
         <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Étiquettes :&lt;/b&gt; %1</translation>
     </message>
@@ -539,9 +606,9 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="472"/>
-        <location filename="../src/mainwindow.cpp" line="322"/>
-        <source>PLAY</source>
-        <translation>LECTURE</translation>
+        <location filename="../src/mainwindow.cpp" line="351"/>
+        <source>&amp;PLAY</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="520"/>
@@ -610,7 +677,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="664"/>
-        <location filename="../src/mainwindow.cpp" line="340"/>
+        <location filename="../src/mainwindow.cpp" line="372"/>
         <source>Remove film</source>
         <translation>Supprimer le film</translation>
     </message>
@@ -673,7 +740,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="132"/>
-        <location filename="../src/mainwindow.cpp" line="466"/>
+        <location filename="../src/mainwindow.cpp" line="499"/>
         <source>Theme</source>
         <translation>Thème</translation>
     </message>
@@ -710,83 +777,83 @@
         <translation>La base de données est en lecture seule ! Les fonctions d&apos;édition sont désactivées.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="253"/>
+        <location filename="../src/mainwindow.cpp" line="258"/>
         <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Titre original :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="254"/>
+        <location filename="../src/mainwindow.cpp" line="261"/>
         <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Slogan :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="255"/>
+        <location filename="../src/mainwindow.cpp" line="264"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="256"/>
+        <location filename="../src/mainwindow.cpp" line="267"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Année :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="257"/>
+        <location filename="../src/mainwindow.cpp" line="270"/>
         <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Pays :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="258"/>
+        <location filename="../src/mainwindow.cpp" line="273"/>
         <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Réalisateur :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="259"/>
+        <location filename="../src/mainwindow.cpp" line="276"/>
         <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Producteur(s) :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="260"/>
+        <location filename="../src/mainwindow.cpp" line="279"/>
         <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Avec :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="261"/>
+        <location filename="../src/mainwindow.cpp" line="282"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Note :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="262"/>
+        <location filename="../src/mainwindow.cpp" line="285"/>
         <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Description :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="263"/>
+        <location filename="../src/mainwindow.cpp" line="288"/>
         <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Étiquettes :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="315"/>
+        <location filename="../src/mainwindow.cpp" line="344"/>
         <source>STOP</source>
         <translation>STOP</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="341"/>
+        <location filename="../src/mainwindow.cpp" line="373"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Êtes vous sûr de supprimer &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="354"/>
-        <location filename="../src/mainwindow.cpp" line="367"/>
+        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="400"/>
         <source>Remove file</source>
         <translation>Supprimer le fichier</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="355"/>
+        <location filename="../src/mainwindow.cpp" line="387"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Êtes vous sûr de supprimer le fichier &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="368"/>
+        <location filename="../src/mainwindow.cpp" line="401"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Impossible de supprimer le fichier &quot;%1&quot; !</translation>
     </message>
@@ -797,7 +864,7 @@
         <location filename="../src/movedfilmswindow.ui" line="17"/>
         <location filename="../src/movedfilmswindow.cpp" line="86"/>
         <location filename="../src/movedfilmswindow.cpp" line="107"/>
-        <location filename="../src/movedfilmswindow.cpp" line="215"/>
+        <location filename="../src/movedfilmswindow.cpp" line="219"/>
         <source>Moved films</source>
         <translation>Films déplacés</translation>
     </message>
@@ -857,6 +924,16 @@
         <translation>Sélectionné :</translation>
     </message>
     <message>
+        <location filename="../src/movedfilmswindow.ui" line="252"/>
+        <source>&amp;Move</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/movedfilmswindow.ui" line="259"/>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Fermer</translation>
+    </message>
+    <message>
         <location filename="../src/movedfilmswindow.cpp" line="71"/>
         <source>Select directory for scanning</source>
         <translation>Sélectionner un répertoire à analyser</translation>
@@ -872,9 +949,9 @@
         <translation>Rien n&apos;a été trouvé.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="216"/>
-        <source>First select the files to add.</source>
-        <translation>Sélectionner d&apos;abord les fichiers à ajouter.</translation>
+        <location filename="../src/movedfilmswindow.cpp" line="220"/>
+        <source>First select the files to move.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -963,8 +1040,8 @@
     </message>
     <message>
         <location filename="../src/searchwindow.ui" line="275"/>
-        <source>&amp;Ok</source>
-        <translation>&amp;OK</translation>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/searchwindow.cpp" line="43"/>
@@ -1107,6 +1184,16 @@
         <translation>Sélectionner</translation>
     </message>
     <message>
+        <location filename="../src/settingswindow.ui" line="814"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="821"/>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/settingswindow.ui" line="448"/>
         <location filename="../src/settingswindow.ui" line="524"/>
         <source>Default</source>
@@ -1133,13 +1220,13 @@
     <message>
         <location filename="../src/settingswindow.ui" line="617"/>
         <location filename="../src/settingswindow.cpp" line="297"/>
-        <location filename="../src/settingswindow.cpp" line="310"/>
+        <location filename="../src/settingswindow.cpp" line="319"/>
         <source>Create database</source>
         <translation>Créer une base de données</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="633"/>
-        <location filename="../src/settingswindow.cpp" line="325"/>
+        <location filename="../src/settingswindow.cpp" line="336"/>
         <source>Erase database</source>
         <translation>Supprimer la base de données</translation>
     </message>
@@ -1210,17 +1297,17 @@
         <translation>Voulez-vous définir le catalogue des affiches à &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="311"/>
+        <location filename="../src/settingswindow.cpp" line="320"/>
         <source>Would you like to set the catalog of posters next to the database file?</source>
         <translation>Voulez-vous définir le catalogue des affiches suivantes dans la base de données ?</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="326"/>
+        <location filename="../src/settingswindow.cpp" line="337"/>
         <source>Are you sure you want to erase the database and posters?</source>
         <translation>Êtes-vous sûr de vouloir supprimer la base de données et les affiches ?</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="338"/>
+        <location filename="../src/settingswindow.cpp" line="349"/>
         <source>Select posters&apos; folder</source>
         <translation>Sélectionner le dossier des affiches</translation>
     </message>
@@ -1316,6 +1403,11 @@
         <location filename="../src/statisticswindow.cpp" line="118"/>
         <source>Reset statistics</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/statisticswindow.ui" line="249"/>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Fermer</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.cpp" line="89"/>

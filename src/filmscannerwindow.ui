@@ -239,7 +239,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="hs4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -252,9 +252,16 @@
       </spacer>
      </item>
      <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <widget class="QPushButton" name="bAdd">
+       <property name="text">
+        <string>&amp;Add</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bClose">
+       <property name="text">
+        <string>&amp;Close</string>
        </property>
       </widget>
      </item>
@@ -267,18 +274,18 @@
  </resources>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
+   <sender>bClose</sender>
+   <signal>clicked()</signal>
    <receiver>FilmScannerWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>268</x>
-     <y>360</y>
+     <x>547</x>
+     <y>476</y>
     </hint>
     <hint type="destinationlabel">
-     <x>268</x>
-     <y>191</y>
+     <x>299</x>
+     <y>249</y>
     </hint>
    </hints>
   </connection>

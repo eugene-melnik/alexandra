@@ -73,9 +73,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Close</set>
+      <widget class="QPushButton" name="bClose">
+       <property name="text">
+        <string>&amp;Close</string>
        </property>
       </widget>
      </item>
@@ -87,22 +87,6 @@
   <include location="icons.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>FilmInfoWindow</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>245</x>
-     <y>394</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>245</x>
-     <y>208</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>bCopyToClipboard</sender>
    <signal>clicked()</signal>
@@ -132,6 +116,22 @@
     <hint type="destinationlabel">
      <x>319</x>
      <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bClose</sender>
+   <signal>clicked()</signal>
+   <receiver>FilmInfoWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>587</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>199</y>
     </hint>
    </hints>
   </connection>

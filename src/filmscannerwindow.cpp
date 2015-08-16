@@ -43,7 +43,7 @@ FilmScannerWindow::FilmScannerWindow( AlexandraSettings* s, QWidget* parent )
     connect( bInvertSelection, &QPushButton::clicked, this, &FilmScannerWindow::InvertSelection );
     connect( bInvertSelection, &QPushButton::clicked, this, &FilmScannerWindow::CalculateSelected );
 
-    connect( buttonBox, &QDialogButtonBox::accepted, this, &FilmScannerWindow::AddSelected );
+    connect( bAdd, &QPushButton::clicked, this, &FilmScannerWindow::AddSelected );
 }
 
 void FilmScannerWindow::show( QStringList* l )

@@ -59,6 +59,11 @@
         <translation>Alexandra Video Library является бесплатной программой без продаж или других доходов. Вы можете пожертвовать для поощрения автора и дать ему возможность продолжать развивать проект. Спасибо!</translation>
     </message>
     <message>
+        <location filename="../src/aboutwindow.ui" line="337"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Закрыть</translation>
+    </message>
+    <message>
         <location filename="../src/aboutwindow.cpp" line="37"/>
         <source>version %1 (build date: %2)</source>
         <translation>версия %1 (дата сборки: %2)</translation>
@@ -79,6 +84,9 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="73"/>
         <location filename="../src/addfilmwindow.ui" line="119"/>
+        <location filename="../src/addfilmwindow.cpp" line="50"/>
+        <location filename="../src/addfilmwindow.cpp" line="81"/>
+        <location filename="../src/addfilmwindow.cpp" line="115"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
@@ -198,38 +206,63 @@
         <translation>Избранный</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="62"/>
+        <location filename="../src/addfilmwindow.ui" line="570"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Закрыть</translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.ui" line="577"/>
+        <source>&amp;OK</source>
+        <translation>&amp;ОК</translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="65"/>
         <source>Select film</source>
         <translation>Выбрать фильм</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="64"/>
+        <location filename="../src/addfilmwindow.cpp" line="67"/>
         <source>Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</source>
         <translation>Видео файлы (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="81"/>
+        <location filename="../src/addfilmwindow.cpp" line="86"/>
         <source>Select image</source>
         <translation>Выбрать изображение</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="83"/>
+        <location filename="../src/addfilmwindow.cpp" line="88"/>
         <source>Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</source>
         <translation>Изображения (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="99"/>
-        <location filename="../src/addfilmwindow.cpp" line="105"/>
+        <location filename="../src/addfilmwindow.cpp" line="93"/>
+        <source>Clear</source>
+        <translation>Очистить</translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="106"/>
+        <source>Clear poster</source>
+        <translation>Очистить постер</translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="106"/>
+        <source>Remove image file?</source>
+        <translation>Удалить файл изображения?</translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="124"/>
+        <location filename="../src/addfilmwindow.cpp" line="130"/>
         <source>Adding film</source>
         <translation>Добавление фильма</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="99"/>
+        <location filename="../src/addfilmwindow.cpp" line="124"/>
         <source>You must choose file on the disk.</source>
         <translation>Необходимо выбрать файл на диске.</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="105"/>
+        <location filename="../src/addfilmwindow.cpp" line="130"/>
         <source>Field &quot;Title&quot; can&apos;t be empty.</source>
         <translation>Поле &quot;Название&quot; не может быть пустым.</translation>
     </message>
@@ -240,6 +273,16 @@
         <location filename="../src/editfilmwindow.cpp" line="30"/>
         <source>Edit film</source>
         <translation>Изменение фильма</translation>
+    </message>
+    <message>
+        <location filename="../src/editfilmwindow.cpp" line="41"/>
+        <source>Clear</source>
+        <translation>Очистить</translation>
+    </message>
+    <message>
+        <location filename="../src/editfilmwindow.cpp" line="45"/>
+        <source>Open</source>
+        <translation>Открыть</translation>
     </message>
 </context>
 <context>
@@ -258,6 +301,11 @@
         <location filename="../src/filminfowindow.ui" line="58"/>
         <source>&amp;Copy to clipboard</source>
         <translation>&amp;Копировать в буфер обмена</translation>
+    </message>
+    <message>
+        <location filename="../src/filminfowindow.ui" line="78"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Закрыть</translation>
     </message>
     <message>
         <location filename="../src/filminfowindow.cpp" line="51"/>
@@ -341,6 +389,16 @@
         <translation>Выбрано:</translation>
     </message>
     <message>
+        <location filename="../src/filmscannerwindow.ui" line="257"/>
+        <source>&amp;Add</source>
+        <translation>&amp;Добавить</translation>
+    </message>
+    <message>
+        <location filename="../src/filmscannerwindow.ui" line="264"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Закрыть</translation>
+    </message>
+    <message>
         <location filename="../src/filmscannerwindow.cpp" line="74"/>
         <source>Select directory for scanning</source>
         <translation>Выберите каталог для сканирования</translation>
@@ -364,52 +422,57 @@
 <context>
     <name>FilmViewGridModel</name>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="61"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="63"/>
         <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Оригинальное название:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="62"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="66"/>
+        <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Слоган:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../src/filmsviewgridmodel.cpp" line="69"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Жанр:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="63"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="72"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Год:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="64"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="75"/>
         <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Страна:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="65"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="78"/>
         <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Режиссер:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="66"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="81"/>
         <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Продюсер:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="67"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="84"/>
         <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;В ролях:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="68"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="87"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Оценка:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="69"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="90"/>
         <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Описание:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/filmsviewgridmodel.cpp" line="70"/>
+        <location filename="../src/filmsviewgridmodel.cpp" line="93"/>
         <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Теги:&lt;/b&gt; %1</translation>
     </message>
@@ -539,9 +602,9 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="472"/>
-        <location filename="../src/mainwindow.cpp" line="322"/>
-        <source>PLAY</source>
-        <translation>Воспроизвести</translation>
+        <location filename="../src/mainwindow.cpp" line="351"/>
+        <source>&amp;PLAY</source>
+        <translation>&amp;Воспроизвести</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="520"/>
@@ -610,7 +673,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="664"/>
-        <location filename="../src/mainwindow.cpp" line="340"/>
+        <location filename="../src/mainwindow.cpp" line="372"/>
         <source>Remove film</source>
         <translation>Удалить фильм</translation>
     </message>
@@ -671,7 +734,7 @@
         <translation>База данных доступна только для чтения! Функции редактирования отключены.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="341"/>
+        <location filename="../src/mainwindow.cpp" line="373"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Вы уверены, что хотите удалить &quot;%1&quot;?</translation>
     </message>
@@ -700,7 +763,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="132"/>
-        <location filename="../src/mainwindow.cpp" line="466"/>
+        <location filename="../src/mainwindow.cpp" line="499"/>
         <source>Theme</source>
         <translation>Тема</translation>
     </message>
@@ -710,23 +773,23 @@
         <translation>Вы можете добавить ваши фильмы в меню &quot;Фильмы&quot;→&quot;Добавить фильм&quot; или выберите другую базу данных в &quot;Правка&quot;→&quot;Настройки&quot;→&quot;База данных&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="368"/>
+        <location filename="../src/mainwindow.cpp" line="401"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Не удалось удалить файл &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="354"/>
-        <location filename="../src/mainwindow.cpp" line="367"/>
+        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="400"/>
         <source>Remove file</source>
         <translation>Удалить файл</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="355"/>
+        <location filename="../src/mainwindow.cpp" line="387"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Вы уверены, что хотите удалить файл &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="253"/>
+        <location filename="../src/mainwindow.cpp" line="258"/>
         <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Оригинальное название:&lt;/b&gt; %1</translation>
     </message>
@@ -736,57 +799,57 @@
         <translation>Сбросить статистику</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="254"/>
+        <location filename="../src/mainwindow.cpp" line="261"/>
         <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Слоган:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="255"/>
+        <location filename="../src/mainwindow.cpp" line="264"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Жанр:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="256"/>
+        <location filename="../src/mainwindow.cpp" line="267"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Год:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="257"/>
+        <location filename="../src/mainwindow.cpp" line="270"/>
         <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Страна:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="258"/>
+        <location filename="../src/mainwindow.cpp" line="273"/>
         <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Режиссер:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="259"/>
+        <location filename="../src/mainwindow.cpp" line="276"/>
         <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Продюсер:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="260"/>
+        <location filename="../src/mainwindow.cpp" line="279"/>
         <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;В ролях:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="261"/>
+        <location filename="../src/mainwindow.cpp" line="282"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Оценка:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="262"/>
+        <location filename="../src/mainwindow.cpp" line="285"/>
         <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Описание:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="263"/>
+        <location filename="../src/mainwindow.cpp" line="288"/>
         <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Теги:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="315"/>
+        <location filename="../src/mainwindow.cpp" line="344"/>
         <source>STOP</source>
         <translation>Остановить</translation>
     </message>
@@ -797,7 +860,7 @@
         <location filename="../src/movedfilmswindow.ui" line="17"/>
         <location filename="../src/movedfilmswindow.cpp" line="86"/>
         <location filename="../src/movedfilmswindow.cpp" line="107"/>
-        <location filename="../src/movedfilmswindow.cpp" line="215"/>
+        <location filename="../src/movedfilmswindow.cpp" line="219"/>
         <source>Moved films</source>
         <translation>Перемещенные фильмы</translation>
     </message>
@@ -857,6 +920,16 @@
         <translation>Выбрано:</translation>
     </message>
     <message>
+        <location filename="../src/movedfilmswindow.ui" line="252"/>
+        <source>&amp;Move</source>
+        <translation>&amp;Переместить</translation>
+    </message>
+    <message>
+        <location filename="../src/movedfilmswindow.ui" line="259"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Закрыть</translation>
+    </message>
+    <message>
         <location filename="../src/movedfilmswindow.cpp" line="71"/>
         <source>Select directory for scanning</source>
         <translation>Выберите каталог для сканирования</translation>
@@ -872,9 +945,9 @@
         <translation>Ничего не найдено.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="216"/>
-        <source>First select the files to add.</source>
-        <translation>Сначала выберите файлы для добавления.</translation>
+        <location filename="../src/movedfilmswindow.cpp" line="220"/>
+        <source>First select the files to move.</source>
+        <translation>Сначала выберите файлы для перемещения.</translation>
     </message>
 </context>
 <context>
@@ -918,7 +991,7 @@
     </message>
     <message>
         <location filename="../src/searchwindow.ui" line="275"/>
-        <source>&amp;Ok</source>
+        <source>&amp;OK</source>
         <translation>&amp;ОК</translation>
     </message>
     <message>
@@ -1088,6 +1161,16 @@
         <translation>Выбрать</translation>
     </message>
     <message>
+        <location filename="../src/settingswindow.ui" line="814"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Закрыть</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="821"/>
+        <source>&amp;OK</source>
+        <translation>&amp;ОК</translation>
+    </message>
+    <message>
         <location filename="../src/settingswindow.ui" line="448"/>
         <location filename="../src/settingswindow.ui" line="524"/>
         <source>Default</source>
@@ -1109,7 +1192,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="617"/>
         <location filename="../src/settingswindow.cpp" line="297"/>
-        <location filename="../src/settingswindow.cpp" line="310"/>
+        <location filename="../src/settingswindow.cpp" line="319"/>
         <source>Create database</source>
         <translation>Создать базу данных</translation>
     </message>
@@ -1120,7 +1203,7 @@
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="633"/>
-        <location filename="../src/settingswindow.cpp" line="325"/>
+        <location filename="../src/settingswindow.cpp" line="336"/>
         <source>Erase database</source>
         <translation>Очистить базу данных</translation>
     </message>
@@ -1200,17 +1283,17 @@
         <translation>Хотите установить каталогом постеров &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="311"/>
+        <location filename="../src/settingswindow.cpp" line="320"/>
         <source>Would you like to set the catalog of posters next to the database file?</source>
         <translation>Хотите установить каталог постеров рядом с файлом базы данных?</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="326"/>
+        <location filename="../src/settingswindow.cpp" line="337"/>
         <source>Are you sure you want to erase the database and posters?</source>
         <translation>Вы уверены, что хотите очистить базу данных и постеры?</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="338"/>
+        <location filename="../src/settingswindow.cpp" line="349"/>
         <source>Select posters&apos; folder</source>
         <translation>Выберите каталог изображений</translation>
     </message>
@@ -1316,6 +1399,11 @@
         <location filename="../src/statisticswindow.cpp" line="118"/>
         <source>Reset statistics</source>
         <translation>Сбросить статистику</translation>
+    </message>
+    <message>
+        <location filename="../src/statisticswindow.ui" line="249"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Закрыть</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.cpp" line="89"/>

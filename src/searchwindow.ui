@@ -247,7 +247,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="hs0">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -272,7 +272,7 @@
      <item>
       <widget class="QPushButton" name="bOk">
        <property name="text">
-        <string>&amp;Ok</string>
+        <string>&amp;OK</string>
        </property>
        <property name="autoDefault">
         <bool>false</bool>

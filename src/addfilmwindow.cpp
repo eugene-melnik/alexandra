@@ -41,12 +41,13 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog(
 
     connect( bOpenFile, &QPushButton::clicked, this, &AddFilmWindow::OpenFilmFileClicked );
     connect( bOpenPoster, &QPushButton::clicked, this, &AddFilmWindow::OpenPosterFileClicked );
-    connect( buttonBox, &QDialogButtonBox::accepted, this, &AddFilmWindow::OkButtonClicked );
+    connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::OkButtonClicked );
 }
 
 void AddFilmWindow::show()
 {
     QDialog::show();
+    bOpenPoster->setText( tr( "Open" ) );
     filmId = QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() );
 }
 

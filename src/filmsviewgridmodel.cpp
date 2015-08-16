@@ -58,16 +58,39 @@ void FilmViewGridModel::SetItem( int n, const Film& film, QColor background )
     if( settings->GetGridShowTooltip() == true )
     {
         tooltip = film.GetTitle() + "<br/>";
-        tooltip += tr( "<b>Original title:</b> %1" ).arg( film.GetOriginalTitle() ) + "<br/>";
-        tooltip += tr( "<b>Genre:</b> %1" ).arg( film.GetGenre() ) + "<br/>";
-        tooltip += tr( "<b>Year:</b> %1" ).arg( film.GetYearStr() ) + "<br/>";
-        tooltip += tr( "<b>Country:</b> %1" ).arg( film.GetCountry() ) + "<br/>";
-        tooltip += tr( "<b>Director:</b> %1" ).arg( film.GetDirector() ) + "<br/>";
-        tooltip += tr( "<b>Producer:</b> %1" ).arg( film.GetProducer() ) + "<br/>";
-        tooltip += tr( "<b>Starring:</b> %1" ).arg( film.GetStarring() ) + "<br/>";
-        tooltip += tr( "<b>Rating:</b> %1" ).arg( film.GetRatingStr() ) + "<br/>";
-        tooltip += tr( "<b>Description:</b> %1" ).arg( film.GetDescription() ) + "<br/>";
-        tooltip += tr( "<b>Tags:</b> %1" ).arg( film.GetTags() ) + "<br/>";
+
+        if( !film.GetOriginalTitle().isEmpty() )
+            tooltip += tr( "<b>Original title:</b> %1" ).arg( film.GetOriginalTitle() ) + "<br/>";
+
+        if( !film.GetTagline().isEmpty() )
+            tooltip += tr( "<b>Tagline:</b> %1" ).arg( film.GetTagline() ) + "<br/>";
+
+        if( !film.GetGenre().isEmpty() )
+            tooltip += tr( "<b>Genre:</b> %1" ).arg( film.GetGenre() ) + "<br/>";
+
+        if( film.GetYear() != 0 )
+            tooltip += tr( "<b>Year:</b> %1" ).arg( film.GetYearStr() ) + "<br/>";
+
+        if( !film.GetCountry().isEmpty() )
+            tooltip += tr( "<b>Country:</b> %1" ).arg( film.GetCountry() ) + "<br/>";
+
+        if( !film.GetDirector().isEmpty() )
+            tooltip += tr( "<b>Director:</b> %1" ).arg( film.GetDirector() ) + "<br/>";
+
+        if( !film.GetProducer().isEmpty() )
+            tooltip += tr( "<b>Producer:</b> %1" ).arg( film.GetProducer() ) + "<br/>";
+
+        if( !film.GetStarring().isEmpty() )
+            tooltip += tr( "<b>Starring:</b> %1" ).arg( film.GetStarring() ) + "<br/>";
+
+        if( film.GetRating() > 1 )
+            tooltip += tr( "<b>Rating:</b> %1" ).arg( film.GetRatingStr() ) + "<br/>";
+
+        if( !film.GetDescription().isEmpty() )
+            tooltip += tr( "<b>Description:</b> %1" ).arg( film.GetDescription() ) + "<br/>";
+
+        if( !film.GetTags().isEmpty() )
+            tooltip += tr( "<b>Tags:</b> %1" ).arg( film.GetTags() ) + "<br/>";
     }
 
     itemToolTip[ n ] = tooltip;

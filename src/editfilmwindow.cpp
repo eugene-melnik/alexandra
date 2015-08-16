@@ -40,6 +40,10 @@ void EditFilmWindow::show( const Film* f )
         ePosterFileName->setText( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
         bOpenPoster->setText( tr( "Clear" ) );
     }
+    else
+    {
+        bOpenPoster->setText( tr( "Open" ) );
+    }
 
     filmId = f->GetId();
     eFilmFileName->setText( f->GetFileName() );

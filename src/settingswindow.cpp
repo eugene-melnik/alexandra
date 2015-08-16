@@ -40,7 +40,7 @@ SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent ) : QDialo
     settings = s;
 
     setupUi( this );
-    connect( buttonBox, &QDialogButtonBox::accepted, this, &SettingsWindow::OkButtonClicked );
+    connect( bOk, &QPushButton::clicked, this, &SettingsWindow::OkButtonClicked );
 
     ConfigureAppearanceTab();
     ConfigureApplicationTab();

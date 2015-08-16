@@ -69,6 +69,7 @@ void FilmsList::LoadFromFile( const QString& fileName )
             stream >> *films;
         }
 
+        std::sort( films->begin(), films->end() );
         emit DatabaseLoaded();
 
         // Is Empty
@@ -98,8 +99,6 @@ void FilmsList::SaveToFile( const QString& fileName )
     if( isDatabaseChanged )
     {
         asyncSaveToFileMutex.lock();
-
-        std::sort( films->begin(), films->end() );
 
         QFile file( fileName );
 

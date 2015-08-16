@@ -219,8 +219,12 @@ void MainWindow::ShowFilms()
         }
     }
 
+    if( currentIndex > 0 )
+    {
+        filmsView->SetCurrentItemIndex( currentIndex );
+    }
+
     StatusbarShowTotal();
-    filmsView->SetCurrentItemIndex( currentIndex );
     emit Shown();
 }
 
@@ -250,21 +254,45 @@ void MainWindow::ShowFilmInformation()
 
     // Main information
     lFilmTitle->setText( f->GetTitle() );
-    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->GetOriginalTitle() ) );
-    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f->GetTagline() ) );
-    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f->GetGenre() ) );
-    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f->GetYear() ) );
-    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f->GetCountry() ) );
-    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f->GetDirector() ) );
-    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f->GetProducer() ) );
-    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->GetStarring() ) );
-    lRating->setText( tr( "<b>Rating:</b> %1" ).arg( f->GetRatingStr() ) );
-    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->GetDescription() ) );
-    lTags->setText( tr( "<b>Tags:</b> %1" ).arg( f->GetTags() ) );
 
+    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->GetOriginalTitle() ) );
+    lOriginalTitle->setVisible( !f->GetOriginalTitle().isEmpty() );
+
+    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f->GetTagline() ) );
+    lTagline->setVisible( !f->GetTagline().isEmpty() );
+
+    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f->GetGenre() ) );
+    lGenre->setVisible( !f->GetGenre().isEmpty() );
+
+    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f->GetYear() ) );
+    lYear->setVisible( f->GetYear() != 0 );
+
+    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f->GetCountry() ) );
+    lCountry->setVisible( !f->GetCountry().isEmpty() );
+
+    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f->GetDirector() ) );
+    lDirector->setVisible( !f->GetDirector().isEmpty() );
+
+    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f->GetProducer() ) );
+    lProducer->setVisible( !f->GetProducer().isEmpty() );
+
+    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->GetStarring() ) );
+    lStarring->setVisible( !f->GetStarring().isEmpty() );
+
+    lRating->setText( tr( "<b>Rating:</b> %1" ).arg( f->GetRatingStr() ) );
+    lRating->setVisible( f->GetRating() != 1 );
+
+    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->GetDescription() ) );
+    lDescription->setVisible( !f->GetDescription().isEmpty() );
+
+    lTags->setText( tr( "<b>Tags:</b> %1" ).arg( f->GetTags() ) );
+    lTags->setVisible( !f->GetTags().isEmpty() );
+
+    lTechInformation->setVisible( false );
+
+    // Buttons
     bViewed->setChecked( f->GetIsViewed() );
     bFavourite->setChecked( f->GetIsFavourite() );
-    lTechInformation->setText( "—" );
 
     // Poster
     QPixmap p( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
@@ -288,6 +316,7 @@ void MainWindow::ShowShortTechnicalInfo( QString info )
 {
     lTechInformation->setText( info );
     bTechInformation->setEnabled( true );
+    lTechInformation->setVisible( true );
 }
 
 void MainWindow::PlayFilm()
@@ -319,14 +348,17 @@ void MainWindow::PlayerClosed()
 {
     dynamic_cast<QWidget*>( filmsView )->setEnabled( true );
     eFilter->setEnabled( true );
-    bPlay->setText( tr( "PLAY" ) );
+    bPlay->setText( tr( "&PLAY" ) );
 
     filmsList->IncCurrentFilmViewsCounter();
 
     if( bViewed->isEnabled() && !bViewed->isChecked() )
     {
         bViewed->setChecked( true );
+        UpdateCurrentFilm();
     }
+
+    dynamic_cast<QWidget*>( filmsView )->setFocus(); // Focus on FilmsView
 }
 
 void MainWindow::EditFilm()
@@ -360,6 +392,7 @@ void MainWindow::RemoveFile()
         if( QFile( filmsList->GetCurrentFilmFileName() ).remove() == true )
         {
             filmsList->RemoveCurrentFilm();
+            filmsView->RemoveCurrentItem();
         }
         else
         {
@@ -563,7 +596,6 @@ void MainWindow::SetupWindows()
     connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::DatabaseIsLoaded );
 
     connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::SaveDatabase );
-    connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::UpdateCurrentFilm );
     connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::StatusbarShowTotal );
 
     connect( filmsList, &FilmsList::DatabaseReadError, this, &MainWindow::DatabaseReadError );
@@ -575,17 +607,21 @@ void MainWindow::SetupWindows()
     connect( contextMenu, &FilmsViewContextMenu::actionPlay, this, &MainWindow::PlayFilm );
     // Viewed button
     connect( bViewed, &QPushButton::clicked, filmsList, &FilmsList::SetCurrentFilmIsViewed );
+    connect( bViewed, &QPushButton::clicked, this, &MainWindow::UpdateCurrentFilm );
     connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, filmsList, &FilmsList::SetCurrentFilmIsViewed );
-    connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, this, &MainWindow::ShowFilmInformation );
+    connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, this, &MainWindow::UpdateCurrentFilm );
+    connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, bViewed, &QPushButton::setChecked );
     // Favourite button
     connect( bFavourite, &QPushButton::clicked, filmsList, &FilmsList::SetCurrentFilmIsFavourite );
+    connect( bFavourite, &QPushButton::clicked, this, &MainWindow::UpdateCurrentFilm );
     connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, filmsList, &FilmsList::SetCurrentFilmIsFavourite );
-    connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, this, &MainWindow::ShowFilmInformation );
-
+    connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, this, &MainWindow::UpdateCurrentFilm );
+    connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, bFavourite, &QPushButton::setChecked );
+    // Quick search input
     connect( eFilter, &QLineEdit::textChanged, this, &MainWindow::FilmsFilter );
     connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::SetupCompleter );
     connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::SetupCompleter );
-
+    // Player setup
     connect( externalPlayer, &QProcess::started, this, &MainWindow::PlayerStarted );
     connect( externalPlayer, SIGNAL( finished(int) ), this, SLOT( PlayerClosed() ) );
 
@@ -612,6 +648,7 @@ void MainWindow::SetupWindows()
     connect( contextMenu, &FilmsViewContextMenu::actionEdit, this, &MainWindow::EditFilm );
 
     connect( editFilmWindow, &EditFilmWindow::Done, filmsList, &FilmsList::ChangeCurrentFilm );
+    connect( editFilmWindow, &EditFilmWindow::Done, this, &MainWindow::UpdateCurrentFilm );
     connect( editFilmWindow, &EditFilmWindow::Done, this, &MainWindow::ShowFilmInformation );
 
     /// Remove film dialog

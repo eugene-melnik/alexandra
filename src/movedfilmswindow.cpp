@@ -41,7 +41,7 @@ MovedFilmsWindow::MovedFilmsWindow( AlexandraSettings* s, QWidget* parent )
     connect( bInvertSelection, &QPushButton::clicked, this, &MovedFilmsWindow::InvertSelection );
     connect( bInvertSelection, &QPushButton::clicked, this, &MovedFilmsWindow::CalculateSelected );
 
-    connect( buttonBox, &QDialogButtonBox::accepted, this, &MovedFilmsWindow::MoveSelected );
+    connect( bMove, &QPushButton::clicked, this, &MovedFilmsWindow::MoveSelected );
 }
 
 void MovedFilmsWindow::show( QList<Film*>* f )
@@ -117,16 +117,20 @@ void MovedFilmsWindow::Scan()
 
     for( QList<QString>::iterator i = fileNames->begin(); i < fileNames->end(); i++ )
     {
-        QString fileName = *i;
+        QString newFileNameFull = *i;
 
-        QTableWidgetItem* item = new QTableWidgetItem( fileName );
+        QTableWidgetItem* item = new QTableWidgetItem( newFileNameFull );
         item->setCheckState( Qt::Unchecked );
 
-        QString fn = QFileInfo( fileName ).fileName();
+        QString newFileName = QFileInfo( newFileNameFull ).fileName();
 
         for( int i = 0; i < films->size(); i++ )
         {
-            if( fn == QFileInfo( films->at(i)->GetFileName() ).fileName() )
+            QString unavailFileNameFull = films->at(i)->GetFileName();
+            QString unavailFileName = QFileInfo( unavailFileNameFull ).fileName();
+
+            if( newFileName == unavailFileName
+                    && newFileNameFull != unavailFileNameFull ) // Protection from multiple moving
             {
                 twFounded->setRowCount( twFounded->rowCount() + 1 );
                 twFounded->setItem( row++, 0, item );
@@ -213,7 +217,7 @@ void MovedFilmsWindow::MoveSelected()
     {
         QMessageBox::information( this,
                                   tr( "Moved films" ),
-                                  tr( "First select the files to add." ) );
+                                  tr( "First select the files to move." ) );
     }
     else
     {

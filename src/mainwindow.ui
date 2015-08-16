@@ -469,7 +469,7 @@
             <string>Open film in external player</string>
            </property>
            <property name="text">
-            <string>PLAY</string>
+            <string>&amp;PLAY</string>
            </property>
            <property name="icon">
             <iconset resource="icons.qrc">
