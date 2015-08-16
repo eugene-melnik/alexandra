@@ -1,7 +1,7 @@
 /*
  * Alexandra Video Library
  * Flat (Coast) Qt Stylesheet
- * Based on QDarkStyleSheet theme by Colin Duquesnoy
+ * Based on alexandraflat-coastSheet theme by Colin Duquesnoy
  */
 
 /* Main settings */
@@ -25,7 +25,7 @@ QToolTip {
   opacity: 230;
   padding: 2px;
   border: 0;
-  color: black;
+  color: #22455c;
 }
 
 QSizeGrip {
@@ -36,24 +36,23 @@ QSizeGrip {
 
 /* Tab widget */
 QTabWidget::pane {
-  background: #f9edd5;
-  border: 1px solid #555;
+  background-color: #fbf2df;
+  border: 1px solid #efdbb8;
   padding: 3px;
 }
 
 QTabBar::tab:top {
-  background: #242422;
-  color: grey;
+  background-color: #fbf2df;
   padding: 5px;
 }
 
 QTabBar::tab:top:selected {
+  background-color: #87cac3;
   color: white;
-  background-color: #4797cc;
 }
 
 QTabBar::tab:top:!selected:hover {
-  background-color: #efdbb8;
+  background-color: #4797cc;
 }
 
 /* Tool bar */
@@ -78,12 +77,17 @@ QToolButton {
 }
 
 QToolButton:hover {
-  background-color: #efdbb8;
+  background-color: #4797cc;
+  color: white;
 }
 
 QToolButton:checked,
 QToolButton:pressed {
   border: 1px solid #f9edd5;
+}
+
+QToolButton:disabled {
+  color: lightgrey;
 }
 
 /* Tables */
@@ -95,7 +99,7 @@ QTableView, QListView {
 QTableView::item:selected:active,
 QListView::item:selected:active,
 QWidget:item:selected {
-  background: #87cac3;
+  background-color: #87cac3;
   color: white;
 }
 
@@ -126,13 +130,13 @@ QMenuBar::item {
 }
 
 QMenuBar::item:selected {
-  background-color: #efdbb8;
+  background-color: #4797cc;
 }
 
 /* Menu */
 QMenu {
-  background-color: #232323;
-  color: white;
+  background-color: #fff6e5;
+  color: #22455c;
 }
 
 QMenu::icon {
@@ -144,12 +148,17 @@ QMenu::item {
 }
 
 QMenu::item:selected {
-  background-color: #efdbb8;
+  background-color: #4797cc;
+  color: white;
+}
+
+QMenu::item:disabled {
+  color: lightgrey;
 }
 
 QMenu::separator {
   height: 1px;
-  background: #292929;
+  background-color: #d1e2d2;
   margin: 3px 10px;
 }
 
@@ -161,19 +170,19 @@ QMenu::indicator {
 
 /* Check box in menu */
 QMenu::indicator:non-exclusive:unchecked {
-  image: url(:/qdarkstyle/rc/checkbox_unchecked.png);
+  image: url(:/alexandraflat-coast/rc/checkbox_unchecked.png);
 }
 
 QMenu::indicator:non-exclusive:unchecked:selected {
-  image: url(:/qdarkstyle/rc/checkbox_unchecked_disabled.png);
+  image: url(:/alexandraflat-coast/rc/checkbox_unchecked_disabled.png);
 }
 
 QMenu::indicator:non-exclusive:checked {
-  image: url(:/qdarkstyle/rc/checkbox_checked.png);
+  image: url(:/alexandraflat-coast/rc/checkbox_checked.png);
 }
 
 QMenu::indicator:non-exclusive:checked:selected {
-  image: url(:/qdarkstyle/rc/checkbox_checked_disabled.png);
+  image: url(:/alexandraflat-coast/rc/checkbox_checked_disabled.png);
 }
 
 /* Buttons */
@@ -185,37 +194,44 @@ QPushButton {
 }
 
 QPushButton:hover,
-QPushButton:checked:hover {
+QPushButton:checked:hover,
+QComboBox:hover {
   background-color: #83d2ca;
 }
 
 QPushButton:focus,
-QPushButton:checked {
-  background-color: #7fbab4;
+QPushButton:checked,
+QComboBox:focus {
+  background-color: #7fb4ae;
+}
+
+QPushButton:disabled {
+  color: lightgrey;
 }
 
 /* Edits */
 QLineEdit,
 QPlainTextEdit {
   background-color: #f3e5ce;
-  padding: 2px;
+  padding: 4px;
 }
 
 QLineEdit:focus,
 QPlainTextEdit:focus {
-  border: 1px solid #555;
+  border: 1px solid #87cac3;
 }
 
 QComboBox {
   background-color: #87cac3;
-  selection-background-color: #3d8ec9;
-  padding: 2px 2px 2px 8px;
+  selection-background-color: #4797cc;
+  padding: 3px 2px 3px 8px;
   min-width: 75px;
 }
 
 QComboBox:disabled,
 QAbstractSpinBox:disabled {
-  background-color: #252525;
+  background-color: #efdbb8;
+  color: lightgrey;
 }
 
 QComboBox::drop-down {
@@ -226,25 +242,19 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-  image: url(:/alexandraflat-coast/rc/down_arrow_disabled.png);
-}
-
-QComboBox::down-arrow:on,
-QComboBox::down-arrow:hover,
-QComboBox::down-arrow:focus {
   image: url(:/alexandraflat-coast/rc/down_arrow.png);
 }
 
 QComboBox:on {
-  background-color: #626873;
+  background-color: #fff6e5;
+  selection-background-color: #4797cc;
   padding-top: 3px;
   padding-left: 4px;
-  selection-background-color: #4a4a4a;
 }
 
 QAbstractSpinBox {
   min-width: 75px;
-  background-color: #333;
+  background-color: #87cac3;
   padding-top: 2px;
   padding-bottom: 2px;
 }
@@ -261,7 +271,12 @@ QAbstractSpinBox:down-button {
   subcontrol-position: center left;
 }
 
-QAbstractSpinBox::up-arrow,
+QAbstractSpinBox::up-arrow {
+  image: url(:/alexandraflat-coast/rc/up_arrow.png);
+  width: 10px;
+  height: 10px;
+}
+
 QAbstractSpinBox::up-arrow:disabled,
 QAbstractSpinBox::up-arrow:off {
   image: url(:/alexandraflat-coast/rc/up_arrow_disabled.png);
@@ -269,11 +284,12 @@ QAbstractSpinBox::up-arrow:off {
   height: 10px;
 }
 
-QAbstractSpinBox::up-arrow:hover {
-  image: url(:/alexandraflat-coast/rc/up_arrow.png);
+QAbstractSpinBox::down-arrow {
+  image: url(:/alexandraflat-coast/rc/down_arrow.png);
+  width: 10px;
+  height: 10px;
 }
 
-QAbstractSpinBox::down-arrow,
 QAbstractSpinBox::down-arrow:disabled,
 QAbstractSpinBox::down-arrow:off {
   image: url(:/alexandraflat-coast/rc/down_arrow_disabled.png);
@@ -281,13 +297,9 @@ QAbstractSpinBox::down-arrow:off {
   height: 10px;
 }
 
-QAbstractSpinBox::down-arrow:hover {
-  image: url(:/alexandraflat-coast/rc/down_arrow.png);
-}
-
 /* Group box */
 QGroupBox {
-  border: 1px solid #333;
+  border: 1px solid #efdbb8;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -307,8 +319,9 @@ QCheckBox {
   margin-bottom: 2px;
 }
 
-QCheckBox:disabled {
-  color: #777777;
+QCheckBox:disabled,
+QLabel:disabled {
+  color: lightgrey;
 }
 
 QCheckBox::indicator,
@@ -431,12 +444,12 @@ QRadioButton::indicator:unchecked:disabled {
 QScrollBar:horizontal {
   height: 15px;
   margin: 3px 15px 3px 15px;
-  border: 1px transparent #2A2929;
-  background-color: #2A2929;
+  border: 1px transparent #f3e5ce;
+  background-color: #f3e5ce;
 }
 
 QScrollBar::handle:horizontal {
-  background-color: #605F5F;
+  background-color: #d1e2d2;
   min-width: 5px;
 }
 
@@ -487,14 +500,14 @@ QScrollBar::sub-page:horizontal {
 }
 
 QScrollBar:vertical {
-  background-color: #2A2929;
+  background-color: #f3e5ce;
   width: 15px;
   margin: 15px 3px 15px 3px;
-  border: 1px transparent #2A2929;
+  border: 1px transparent #f3e5ce;
 }
 
 QScrollBar::handle:vertical {
-  background-color: #605F5F;
+  background-color: #d1e2d2;
   min-height: 5px;
 }
 
@@ -547,7 +560,6 @@ QScrollBar::sub-page:vertical {
 /* Lines */
 QFrame[height="3"],
 QFrame[width="3"] {
-  border: 0;
-  background-color: #333;
+  background-color: #d1e2d2;
 }
 

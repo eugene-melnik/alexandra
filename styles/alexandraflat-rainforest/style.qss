@@ -1,7 +1,7 @@
 /*
  * Alexandra Video Library
  * Flat (Rainforest) Qt Stylesheet
- * Based on QDarkStyleSheet theme by Colin Duquesnoy
+ * Based on alexandraflat-rainforestSheet theme by Colin Duquesnoy
  */
 
 /* Main settings */
@@ -36,13 +36,13 @@ QSizeGrip {
 
 /* Tab widget */
 QTabWidget::pane {
-  background: #222;
+  background-color: #222;
   border: 1px solid #555;
   padding: 3px;
 }
 
 QTabBar::tab:top {
-  background: #242422;
+  background-color: #242422;
   color: grey;
   padding: 5px;
 }
@@ -95,7 +95,7 @@ QTableView, QListView {
 QTableView::item:selected:active,
 QListView::item:selected:active,
 QWidget:item:selected {
-  background: #196247;
+  background-color: #196247;
   color: white;
 }
 
@@ -149,7 +149,7 @@ QMenu::item:selected {
 
 QMenu::separator {
   height: 1px;
-  background: #292929;
+  background-color: #292929;
   margin: 3px 10px;
 }
 
@@ -161,19 +161,19 @@ QMenu::indicator {
 
 /* Check box in menu */
 QMenu::indicator:non-exclusive:unchecked {
-  image: url(:/qdarkstyle/rc/checkbox_unchecked.png);
+  image: url(:/alexandraflat-rainforest/rc/checkbox_unchecked.png);
 }
 
 QMenu::indicator:non-exclusive:unchecked:selected {
-  image: url(:/qdarkstyle/rc/checkbox_unchecked_disabled.png);
+  image: url(:/alexandraflat-rainforest/rc/checkbox_unchecked_disabled.png);
 }
 
 QMenu::indicator:non-exclusive:checked {
-  image: url(:/qdarkstyle/rc/checkbox_checked.png);
+  image: url(:/alexandraflat-rainforest/rc/checkbox_checked.png);
 }
 
 QMenu::indicator:non-exclusive:checked:selected {
-  image: url(:/qdarkstyle/rc/checkbox_checked_disabled.png);
+  image: url(:/alexandraflat-rainforest/rc/checkbox_checked_disabled.png);
 }
 
 /* Buttons */
