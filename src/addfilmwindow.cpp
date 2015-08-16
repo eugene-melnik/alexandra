@@ -30,6 +30,8 @@
 #include <QMessageBox>
 #include <QPlainTextEdit>
 
+#include<QDebug>
+
 AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
@@ -48,7 +50,7 @@ void AddFilmWindow::show()
     filmId = QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() );
 }
 
-void AddFilmWindow::closeEvent(QCloseEvent *event)
+void AddFilmWindow::closeEvent( QCloseEvent* event )
 {
     ClearFields();
     event->accept();
@@ -75,19 +77,41 @@ void AddFilmWindow::OpenFilmFileClicked()
 
 void AddFilmWindow::OpenPosterFileClicked()
 {
-    QString lastPosterPath = settings->GetLastPosterPath();
-
-    QFileInfo fileName = QFileDialog::getOpenFileName( this,
-                         tr( "Select image" ),
-                         lastPosterPath,
-                         tr( "Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)" ) );
-
-    if( fileName.isFile() )
+    if( bOpenPoster->text() == tr( "Open" ) ) // Open poster
     {
-        ePosterFileName->setText( fileName.absoluteFilePath() );
+        QString lastPosterPath = settings->GetLastPosterPath();
 
-        settings->SetLastPosterPath( fileName.absolutePath() );
-        settings->sync();
+        QFileInfo fileName = QFileDialog::getOpenFileName( this,
+                             tr( "Select image" ),
+                             lastPosterPath,
+                             tr( "Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)" ) );
+
+        if( fileName.isFile() )
+        {
+            ePosterFileName->setText( fileName.absoluteFilePath() );
+            bOpenPoster->setText( tr( "Clear" ) );
+
+            settings->SetLastPosterPath( fileName.absolutePath() );
+            settings->sync();
+        }
+    }
+    else // Clear poster
+    {
+        QString posterPath = QFileInfo( ePosterFileName->text() ).path();
+        QString postersDirPath = settings->GetPostersDirPath();
+
+        if( posterPath == postersDirPath )
+        {
+            int res = QMessageBox::question( this, tr( "Clear poster" ), tr( "Remove image file?" ) );
+
+            if( res == QMessageBox::Yes )
+            {
+                QFile( ePosterFileName->text() ).remove();
+            }
+        }
+
+        ePosterFileName->clear();
+        bOpenPoster->setText( tr( "Open" ) );
     }
 }
 
