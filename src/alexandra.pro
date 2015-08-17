@@ -53,6 +53,7 @@ HEADERS += effects/effectdropshadow.h \
            settingswindow.h \
            splashscreen.h \
            statisticswindow.h \
+           statisticsworker.h \
            statusbar.h \
            timecounter.h \
            toolbar.h \
@@ -80,6 +81,7 @@ SOURCES += effects/effectdropshadow.cpp \
            settingswindow.cpp \
            splashscreen.cpp \
            statisticswindow.cpp \
+           statisticsworker.cpp \
            statusbar.cpp \
            timecounter.cpp \
            toolbar.cpp

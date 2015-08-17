@@ -41,9 +41,9 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="hl1">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <layout class="QVBoxLayout" name="vl1">
            <item>
             <widget class="QLabel" name="labelTotalFilmsInLibrary">
              <property name="text">
@@ -75,7 +75,7 @@
           </layout>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <layout class="QVBoxLayout" name="vl2">
            <item>
             <widget class="QLabel" name="lTotalFilmsInLibrary">
              <property name="text">
@@ -107,7 +107,7 @@
           </layout>
          </item>
          <item>
-          <spacer name="horizontalSpacer">
+          <spacer name="hs3">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -162,7 +162,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="labelNonono">
+        <widget class="QLabel" name="labelWarning">
          <property name="text">
           <string>Warning! This action will reset the counter of views and can not be undone.</string>
          </property>
@@ -172,7 +172,7 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="hs4">
          <item>
           <spacer name="hs1">
            <property name="orientation">
@@ -212,7 +212,7 @@
         </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="vs1">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -230,6 +230,13 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="labelLoading">
+       <property name="text">
+        <string>Loading...</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">

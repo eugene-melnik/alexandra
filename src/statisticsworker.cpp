@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: statisticswindow.h                                                                      *
+ *  file: statisticsworker.cpp                                                                    *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,46 +18,62 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef STATISTICSWINDOW_H
-#define STATISTICSWINDOW_H
-
-#include "film.h"
+#include "mediainfo.h"
 #include "statisticsworker.h"
-#include "timecounter.h"
-#include "ui_statisticswindow.h"
 
-#include <QCloseEvent>
-#include <QDialog>
-#include <QList>
+#include <QMetaType>
 
-class StatisticsWindow : public QDialog, public Ui::StatisticsWindow
+StatisticsWorker::StatisticsWorker() : QThread()
 {
-    Q_OBJECT
+    qRegisterMetaType<TimeCounter>( "TimeCounter" );
+}
 
-    public:
-        StatisticsWindow( QWidget* parent = nullptr );
-        ~StatisticsWindow();
+void StatisticsWorker::run()
+{
+    isTerminate = false;
 
-        void show( const QList<Film>* films );
+    // Calculations
+    int viewedFilms = 0;
+    int totalViewsCount = 0;
+    TimeCounter wastedTime;
+    bool allFilesOk = true;
 
-    signals:
-        void ResetStatistics();
+    QList<TopFilm>* topFilms = new QList<TopFilm>();
 
-    protected:
-        void reject() { close(); }
-        void closeEvent( QCloseEvent* event );
+    for( QList<Film>::const_iterator i = films->begin(); i < films->end(); i++ )
+    {
+        if( isTerminate ) return; // statistics window closed
 
-    private slots:
-        void ShowMainStatistics( int viewedFilms,
-                                 int totalViewsCount,
-                                 TimeCounter wastedTime,
-                                 bool allFilesOk,
-                                 QList<TopFilm>* topFilms );
+        if( i->GetIsViewed() )
+        {
+            viewedFilms++;
 
-        void Reset();
+            if( i->GetViewsCounter() != 0 )
+            {
+                totalViewsCount += i->GetViewsCounter();
 
-    private:
-        StatisticsWorker* statisticsWorker = nullptr;
-};
+                // Wasted time
+                MediaInfo f( i->GetFileName() );
 
-#endif // STATISTICSWINDOW_H
+                if( f.IsOpened() )
+                {
+                    TimeCounter duration( f.GetDurationTime() );
+
+                    for( int j = i->GetViewsCounter(); j > 0; j-- )
+                    {
+                        wastedTime.Add( duration );
+                    }
+                }
+                else
+                {
+                    allFilesOk = false;
+                }
+
+                // Most popular
+                topFilms->append( { i->GetViewsCounter(), i->GetTitle() } );
+            }
+        }
+    }
+
+    emit MainStatisticsLoaded( viewedFilms, totalViewsCount, wastedTime, allFilesOk, topFilms );
+}

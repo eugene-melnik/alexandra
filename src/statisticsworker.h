@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: statisticswindow.h                                                                      *
+ *  file: statisticsworker.h                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,46 +18,43 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef STATISTICSWINDOW_H
-#define STATISTICSWINDOW_H
+#ifndef STATISTICSWORKER_H
+#define STATISTICSWORKER_H
+
+#include <QList>
+#include <QThread>
 
 #include "film.h"
-#include "statisticsworker.h"
 #include "timecounter.h"
-#include "ui_statisticswindow.h"
 
-#include <QCloseEvent>
-#include <QDialog>
-#include <QList>
+typedef struct {
+    int viewsCount;
+    QString filmTitle;
+} TopFilm;
 
-class StatisticsWindow : public QDialog, public Ui::StatisticsWindow
+class StatisticsWorker : public QThread
 {
     Q_OBJECT
 
     public:
-        StatisticsWindow( QWidget* parent = nullptr );
-        ~StatisticsWindow();
+        StatisticsWorker();
 
-        void show( const QList<Film>* films );
+        void SetFilms( const QList<Film>* f ) { films = f; }
+        void Terminate() { isTerminate = true; }
 
     signals:
-        void ResetStatistics();
+        void MainStatisticsLoaded( int              /* viewedFilms */,
+                                   int              /* totalViewsCount */,
+                                   TimeCounter      /* wastedTime */,
+                                   bool             /* allFilesOk */,
+                                   QList<TopFilm>*  /* topFilms */ );
 
     protected:
-        void reject() { close(); }
-        void closeEvent( QCloseEvent* event );
-
-    private slots:
-        void ShowMainStatistics( int viewedFilms,
-                                 int totalViewsCount,
-                                 TimeCounter wastedTime,
-                                 bool allFilesOk,
-                                 QList<TopFilm>* topFilms );
-
-        void Reset();
+        void run() override;
 
     private:
-        StatisticsWorker* statisticsWorker = nullptr;
+        const QList<Film>* films;
+        bool isTerminate = false;
 };
 
-#endif // STATISTICSWINDOW_H
+#endif // STATISTICSWORKER_H

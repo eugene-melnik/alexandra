@@ -18,9 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "mediainfo.h"
 #include "statisticswindow.h"
-#include "timecounter.h"
 
 #include <algorithm>
 #include <QMessageBox>
@@ -29,56 +27,55 @@ StatisticsWindow::StatisticsWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
 
+    // Worker
+    statisticsWorker = new StatisticsWorker();
+    connect( statisticsWorker, &StatisticsWorker::MainStatisticsLoaded, this, &StatisticsWindow::ShowMainStatistics );
+
+    // Buttons
     connect( bReset, &QPushButton::clicked, this, &StatisticsWindow::Reset );
+}
+
+StatisticsWindow::~StatisticsWindow()
+{
+    delete statisticsWorker;
 }
 
 void StatisticsWindow::show( const QList<Film>* films )
 {
     // Calculations
-    int viewedFilms = 0;
-    int totalViewsCount = 0;
-    TimeCounter wastedTime;
-    bool allFilesOk = true;
+    statisticsWorker->SetFilms( films );
+    statisticsWorker->start();
 
-    QList<TopFilm> topFilms;
-    int topFilmsCount = 0;
+    // Show
+    lTotalFilmsInLibrary->setText( QString::number( films->size() ) );
+    labelLoading->show();
+    QDialog::show();
+}
 
-    for( QList<Film>::const_iterator i = films->begin(); i < films->end(); i++ )
+void StatisticsWindow::closeEvent( QCloseEvent* event )
+{
+    if( statisticsWorker->isRunning() )
     {
-        if( i->GetIsViewed() )
-        {
-            viewedFilms++;
-
-            if( i->GetViewsCounter() != 0 )
-            {
-                totalViewsCount += i->GetViewsCounter();
-
-                // Wasted time
-                MediaInfo f( i->GetFileName() );
-
-                if( f.IsOpened() )
-                {
-                    TimeCounter duration( f.GetDurationTime() );
-
-                    for( int j = i->GetViewsCounter(); j > 0; j-- )
-                    {
-                        wastedTime.Add( duration );
-                    }
-                }
-                else
-                {
-                    allFilesOk = false;
-                }
-
-                // Most popular
-                topFilms.append( { i->GetViewsCounter(), i->GetTitle() } );
-                topFilmsCount++;
-            }
-        }
+        statisticsWorker->Terminate();
     }
 
+    // Contents
+    tabWidget->setCurrentIndex( 0 ); // activate first tab
+    lwMostPopularFilms->clear();
+    lWastedTime->setToolTip( "" );
+
+    event->accept();
+}
+
+void StatisticsWindow::ShowMainStatistics( int viewedFilms,
+                                           int totalViewsCount,
+                                           TimeCounter wastedTime,
+                                           bool allFilesOk,
+                                           QList<TopFilm>* topFilms )
+{
+    labelLoading->hide();
+
     // Output
-    lTotalFilmsInLibrary->setText( QString::number( films->size() ) );
     lFilmsViewed->setText( QString::number( viewedFilms ) );
     lTotalViews->setText( QString::number( totalViewsCount ) );
     lWastedTime->setText( wastedTime.ToString() );
@@ -90,26 +87,16 @@ void StatisticsWindow::show( const QList<Film>* films )
     }
 
     // Most popular
-    auto TopFilmLessThen = [] ( TopFilm a, TopFilm b ) { return( a.viewsCount < b.viewsCount ); }; // lambda :)
-    std::sort( topFilms.begin(), topFilms.end(), TopFilmLessThen );
+    auto TopFilmLessThen = [] ( TopFilm a, TopFilm b ) { return( a.viewsCount < b.viewsCount ); };
+    std::sort( topFilms->begin(), topFilms->end(), TopFilmLessThen );
 
-    for( int i = 0; i < topFilmsCount; i++ )
+    for( int i = 0; i < topFilms->size(); i++ )
     {
-        QString itemText = QString( "(%1) " ).arg( topFilms.at(i).viewsCount ) + topFilms.at(i).filmTitle;
+        QString itemText = QString( "(%1) " ).arg( topFilms->at(i).viewsCount ) + topFilms->at(i).filmTitle;
         lwMostPopularFilms->insertItem( 0, itemText );
     }
 
-    // Show
-    QDialog::show();
-}
-
-void StatisticsWindow::closeEvent( QCloseEvent* event )
-{
-    tabWidget->setCurrentIndex( 0 ); // activate first tab
-    lwMostPopularFilms->clear();
-    lWastedTime->setToolTip( "" );
-
-    event->accept();
+    delete topFilms;
 }
 
 void StatisticsWindow::Reset()
