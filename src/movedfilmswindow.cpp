@@ -31,6 +31,11 @@ MovedFilmsWindow::MovedFilmsWindow( AlexandraSettings* s, QWidget* parent )
 {
     setupUi( this );
 
+    // Worker
+    filmScannerWorker = new FilmScannerWorker();
+    connect( filmScannerWorker, &FilmScannerWorker::Scanned, this, &MovedFilmsWindow::ShowFounded );
+
+    // Buttons
     connect( bSelectDirectory, &QPushButton::clicked, this, &MovedFilmsWindow::SelectDirectory );
     connect( bScan, &QPushButton::clicked, this, &MovedFilmsWindow::Scan );
 
@@ -44,6 +49,11 @@ MovedFilmsWindow::MovedFilmsWindow( AlexandraSettings* s, QWidget* parent )
     connect( bMove, &QPushButton::clicked, this, &MovedFilmsWindow::MoveSelected );
 }
 
+MovedFilmsWindow::~MovedFilmsWindow()
+{
+    delete filmScannerWorker;
+}
+
 void MovedFilmsWindow::show( QList<Film*>* f )
 {
     QDialog::show();
@@ -52,6 +62,13 @@ void MovedFilmsWindow::show( QList<Film*>* f )
 
 void MovedFilmsWindow::closeEvent( QCloseEvent* event )
 {
+    // Stop worker if scans
+    if( bScan->text() == tr( "Cancel" ) )
+    {
+        filmScannerWorker->Terminate();
+        bScan->setText( tr( "Scan" ) );
+    }
+
     // Clear contents
     eDirectory->clear();
     cSearchInSubdirs->setChecked( true );
@@ -59,7 +76,7 @@ void MovedFilmsWindow::closeEvent( QCloseEvent* event )
     twFounded->setRowCount( 0 );
     lTotalFounded->setText( "0" );
     lSelected->setText( "0" );
-
+    // Temporary data
     delete films;
 
     event->accept();
@@ -79,6 +96,16 @@ void MovedFilmsWindow::SelectDirectory()
 
 void MovedFilmsWindow::Scan()
 {
+    // If scans
+    if( bScan->text() == tr( "Cancel" ) )
+    {
+        filmScannerWorker->Cancel();
+        return;
+    }
+
+    twFounded->clearContents();
+    twFounded->setRowCount( 0 );
+
     // Messages
     if( eDirectory->text().isEmpty() )
     {
@@ -89,18 +116,20 @@ void MovedFilmsWindow::Scan()
     }
 
     // Scan
-    QString dir = eDirectory->text();
-    QList<QString>* fileNames = nullptr;
+    filmScannerWorker->SetIsRecursive( cSearchInSubdirs->isChecked() );
+    filmScannerWorker->SetDir( eDirectory->text() );
+    filmScannerWorker->start();
 
-    if( cSearchInSubdirs->isChecked() )
-    {
-        fileNames = ScanDirectoryRecursive( dir );
-    }
-    else
-    {
-        fileNames = ScanDirectory( dir );
-    }
+    // Flip button
+    bScan->setText( tr( "Cancel" ) );
+}
 
+void MovedFilmsWindow::ShowFounded(QList<QString> *fileNames)
+{
+    // Flip button
+    bScan->setText( tr( "Scan" ) );
+
+    // Messages
     if( fileNames->empty() )
     {
         QMessageBox::information( this,
@@ -110,9 +139,6 @@ void MovedFilmsWindow::Scan()
     }
 
     // Show
-    twFounded->clearContents();
-    twFounded->setRowCount( 0 );
-
     int row = 0;
 
     for( QList<QString>::iterator i = fileNames->begin(); i < fileNames->end(); i++ )
@@ -130,7 +156,7 @@ void MovedFilmsWindow::Scan()
             QString unavailFileName = QFileInfo( unavailFileNameFull ).fileName();
 
             if( newFileName == unavailFileName
-                    && newFileNameFull != unavailFileNameFull ) // Protection from multiple moving
+                    && newFileNameFull != unavailFileNameFull ) // FIXME: Protection from multiple moving
             {
                 twFounded->setRowCount( twFounded->rowCount() + 1 );
                 twFounded->setItem( row++, 0, item );
@@ -205,9 +231,8 @@ void MovedFilmsWindow::MoveSelected()
 
         if( item->checkState() == Qt::Checked )
         {
-            // Storing new pathes
+            // Saving new pathes
             newPathes.append( twFounded->item( i, 0 )->text() );
-
             // Removing checked rows
             twFounded->removeRow( i-- );
         }
@@ -244,45 +269,3 @@ void MovedFilmsWindow::MoveSelected()
     lTotalFounded->setText( QString::number( twFounded->rowCount() ) );
     lSelected->setText( "0" );
 }
-
-QList<QString>* MovedFilmsWindow::ScanDirectory( QString dir )
-{
-    QList<QString>* result = new QList<QString>();
-    QFileInfoList files = QDir( dir ).entryInfoList( filter );
-
-    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
-    {
-        result->append( i->absoluteFilePath() );
-    }
-
-    return( result );
-}
-
-QList<QString>* MovedFilmsWindow::ScanDirectoryRecursive( QString dir )
-{
-    QList<QString>* result = new QList<QString>();
-
-    // Scan subdirectories recursively
-    QFileInfoList files = QDir( dir ).entryInfoList();
-
-    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
-    {
-        if( i->isDir() && (i->fileName() != ".") && (i->fileName() != "..") )
-        {
-            QList<QString>* subdirFiles = ScanDirectoryRecursive( i->absoluteFilePath() );
-            result->append( *subdirFiles );
-            delete subdirFiles;
-        }
-    }
-
-    // Scan files
-    files = QDir( dir ).entryInfoList( filter );
-
-    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
-    {
-        result->append( i->absoluteFilePath() );
-    }
-
-    return( result );
-}
-

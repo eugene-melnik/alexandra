@@ -24,9 +24,11 @@
 #include <QCloseEvent>
 #include <QDialog>
 #include <QList>
+#include <QString>
 
 #include "alexandrasettings.h"
 #include "film.h"
+#include "filmscannerworker.h"
 #include "ui_movedfilmswindow.h"
 
 class MovedFilmsWindow : public QDialog, public Ui::MovedFilmsWindow
@@ -35,19 +37,21 @@ class MovedFilmsWindow : public QDialog, public Ui::MovedFilmsWindow
 
     public:
         MovedFilmsWindow( AlexandraSettings* s, QWidget* parent = nullptr );
+        ~MovedFilmsWindow();
 
         void show( QList<Film*>* f );
 
-    protected:
-        void closeEvent( QCloseEvent* event );
-
     signals:
         void FilmsMoved();
+
+    protected:
+        void closeEvent( QCloseEvent* event );
 
     private slots:
         void SelectDirectory();
 
         void Scan();
+        void ShowFounded( QList<QString>* fileNames );
 
         void SelectAll();
         void UnselectAll();
@@ -57,15 +61,9 @@ class MovedFilmsWindow : public QDialog, public Ui::MovedFilmsWindow
         void MoveSelected();
 
     private:
-        QList<QString>* ScanDirectory( QString dir );
-        QList<QString>* ScanDirectoryRecursive( QString dir );
-
         AlexandraSettings* settings = nullptr;
         QList<Film*>* films = nullptr;
-
-        const QStringList filter = { "*.avi", "*.flv", "*.m2ts", "*.m4v", "*.mkv", "*.mov",
-                                     "*.mp4", "*.mpeg", "*.mpg", "*.mts", "*.ogm", "*.ogv",
-                                     "*.rm", "*.ts", "*.wmv" };
+        FilmScannerWorker* filmScannerWorker = nullptr;
 };
 
 #endif // MOVEDFILMSWINDOW_H
