@@ -208,7 +208,7 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="570"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Закрыть</translation>
+        <translation>&amp;Отменить</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="577"/>
@@ -327,9 +327,9 @@
     <name>FilmScannerWindow</name>
     <message>
         <location filename="../src/filmscannerwindow.ui" line="23"/>
-        <location filename="../src/filmscannerwindow.cpp" line="92"/>
-        <location filename="../src/filmscannerwindow.cpp" line="115"/>
-        <location filename="../src/filmscannerwindow.cpp" line="235"/>
+        <location filename="../src/filmscannerwindow.cpp" line="117"/>
+        <location filename="../src/filmscannerwindow.cpp" line="149"/>
+        <location filename="../src/filmscannerwindow.cpp" line="268"/>
         <source>Film scanner</source>
         <translation>Сканер фильмов</translation>
     </message>
@@ -350,6 +350,8 @@
     </message>
     <message>
         <location filename="../src/filmscannerwindow.ui" line="92"/>
+        <location filename="../src/filmscannerwindow.cpp" line="72"/>
+        <location filename="../src/filmscannerwindow.cpp" line="143"/>
         <source>Scan</source>
         <translation>Сканировать</translation>
     </message>
@@ -399,22 +401,29 @@
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.cpp" line="74"/>
+        <location filename="../src/filmscannerwindow.cpp" line="69"/>
+        <location filename="../src/filmscannerwindow.cpp" line="103"/>
+        <location filename="../src/filmscannerwindow.cpp" line="130"/>
+        <source>Cancel</source>
+        <translation>Отменить</translation>
+    </message>
+    <message>
+        <location filename="../src/filmscannerwindow.cpp" line="91"/>
         <source>Select directory for scanning</source>
         <translation>Выберите каталог для сканирования</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.cpp" line="93"/>
+        <location filename="../src/filmscannerwindow.cpp" line="118"/>
         <source>First select the directory to scan.</source>
         <translation>Сначала выберите каталог для сканирования.</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.cpp" line="116"/>
+        <location filename="../src/filmscannerwindow.cpp" line="150"/>
         <source>Nothing was found.</source>
         <translation>Ничего не найдено.</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.cpp" line="236"/>
+        <location filename="../src/filmscannerwindow.cpp" line="269"/>
         <source>First select the files to add.</source>
         <translation>Сначала выберите файлы для добавления.</translation>
     </message>
@@ -858,9 +867,10 @@
     <name>MovedFilmsWindow</name>
     <message>
         <location filename="../src/movedfilmswindow.ui" line="17"/>
-        <location filename="../src/movedfilmswindow.cpp" line="86"/>
-        <location filename="../src/movedfilmswindow.cpp" line="107"/>
-        <location filename="../src/movedfilmswindow.cpp" line="219"/>
+        <location filename="../src/movedfilmswindow.cpp" line="64"/>
+        <location filename="../src/movedfilmswindow.cpp" line="123"/>
+        <location filename="../src/movedfilmswindow.cpp" line="146"/>
+        <location filename="../src/movedfilmswindow.cpp" line="254"/>
         <source>Moved films</source>
         <translation>Перемещенные фильмы</translation>
     </message>
@@ -881,6 +891,8 @@
     </message>
     <message>
         <location filename="../src/movedfilmswindow.ui" line="81"/>
+        <location filename="../src/movedfilmswindow.cpp" line="79"/>
+        <location filename="../src/movedfilmswindow.cpp" line="140"/>
         <source>Scan</source>
         <translation>Сканировать</translation>
     </message>
@@ -930,22 +942,34 @@
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="71"/>
+        <location filename="../src/movedfilmswindow.cpp" line="65"/>
+        <source>Nothing to move.</source>
+        <translation>Нечего перемещать.</translation>
+    </message>
+    <message>
+        <location filename="../src/movedfilmswindow.cpp" line="76"/>
+        <location filename="../src/movedfilmswindow.cpp" line="110"/>
+        <location filename="../src/movedfilmswindow.cpp" line="134"/>
+        <source>Cancel</source>
+        <translation>Отменить</translation>
+    </message>
+    <message>
+        <location filename="../src/movedfilmswindow.cpp" line="98"/>
         <source>Select directory for scanning</source>
         <translation>Выберите каталог для сканирования</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="87"/>
+        <location filename="../src/movedfilmswindow.cpp" line="124"/>
         <source>First select the directory to scan.</source>
         <translation>Сначала выберите каталог для сканирования.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="108"/>
+        <location filename="../src/movedfilmswindow.cpp" line="147"/>
         <source>Nothing was found.</source>
         <translation>Ничего не найдено.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="220"/>
+        <location filename="../src/movedfilmswindow.cpp" line="255"/>
         <source>First select the files to move.</source>
         <translation>Сначала выберите файлы для перемещения.</translation>
     </message>
@@ -1163,7 +1187,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="814"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Закрыть</translation>
+        <translation>&amp;Отменить</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="821"/>
@@ -1396,22 +1420,27 @@
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="195"/>
-        <location filename="../src/statisticswindow.cpp" line="118"/>
+        <location filename="../src/statisticswindow.cpp" line="105"/>
         <source>Reset statistics</source>
         <translation>Сбросить статистику</translation>
     </message>
     <message>
-        <location filename="../src/statisticswindow.ui" line="249"/>
+        <location filename="../src/statisticswindow.ui" line="236"/>
+        <source>Loading...</source>
+        <translation>Загрузка...</translation>
+    </message>
+    <message>
+        <location filename="../src/statisticswindow.ui" line="256"/>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../src/statisticswindow.cpp" line="89"/>
+        <location filename="../src/statisticswindow.cpp" line="86"/>
         <source>The calculation is not accurate, because some files are not available.</source>
         <translation>Вычисления не точны, так как некоторые файлы недоступны.</translation>
     </message>
     <message>
-        <location filename="../src/statisticswindow.cpp" line="119"/>
+        <location filename="../src/statisticswindow.cpp" line="106"/>
         <source>Are you sure?</source>
         <translation>Вы уверены?</translation>
     </message>
