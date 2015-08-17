@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmscannerwindow.h                                                                     *
+ *  file: filmscannerworker.h                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,53 +18,44 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSCANNERWINDOW_H
-#define FILMSCANNERWINDOW_H
+#ifndef FILMSCANNERWORKER_H
+#define FILMSCANNERWORKER_H
 
-#include <QCloseEvent>
-#include <QDialog>
 #include <QList>
 #include <QString>
+#include <QStringList>
+#include <QThread>
 
-#include "alexandrasettings.h"
-#include "film.h"
-#include "filmscannerworker.h"
-#include "ui_filmscannerwindow.h"
-
-class FilmScannerWindow : public QDialog, public Ui::FilmScannerWindow
+class FilmScannerWorker : public QThread
 {
     Q_OBJECT
 
     public:
-        FilmScannerWindow( AlexandraSettings* s, QWidget* parent = nullptr );
-        ~FilmScannerWindow();
+        void SetIsRecursive( bool b ) { isRecursive = b; }
+        void SetDir( const QString& d ) { dir = d; }
 
-        void show( QStringList* l );
+        void Cancel() { isCanceled = true; }
+        void Terminate() { isTerminated = true; isCanceled = true; }
 
     signals:
-        void AddFilms( const QList<Film>* );
+        void IncFoundedTotal();
+        void Scanned( QList<QString>* );
 
     protected:
-        void closeEvent( QCloseEvent* event );
-
-    private slots:
-        void SelectDirectory();
-
-        void Scan();
-        void IncFoundedTotal();
-        void ShowFounded( QList<QString>* fileNames );
-
-        void SelectAll();
-        void UnselectAll();
-        void InvertSelection();
-        void CalculateSelected();
-
-        void AddSelected();
+        void run() override;
 
     private:
-        AlexandraSettings* settings = nullptr;
-        QStringList* existsFileNames = nullptr;
-        FilmScannerWorker* filmScannerWorker = nullptr;
+        QList<QString>* ScanDirectory( QString dir );
+        QList<QString>* ScanDirectoryRecursive( QString dir );
+
+        QString dir;
+        bool isRecursive = false;
+        bool isCanceled;
+        bool isTerminated;
+
+        const QStringList filmFilesfilter = { "*.avi", "*.flv", "*.m2ts", "*.m4v", "*.mkv", "*.mov",
+                                              "*.mp4", "*.mpeg", "*.mpg", "*.mts", "*.ogm", "*.ogv",
+                                              "*.rm", "*.ts", "*.wmv" };
 };
 
-#endif // FILMSCANNERWINDOW_H
+#endif // FILMSCANNERWORKER_H

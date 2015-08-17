@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmscannerwindow.h                                                                     *
+ *  file: filmscannerworker.cpp                                                                   *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,53 +18,67 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSCANNERWINDOW_H
-#define FILMSCANNERWINDOW_H
-
-#include <QCloseEvent>
-#include <QDialog>
-#include <QList>
-#include <QString>
-
-#include "alexandrasettings.h"
-#include "film.h"
 #include "filmscannerworker.h"
-#include "ui_filmscannerwindow.h"
 
-class FilmScannerWindow : public QDialog, public Ui::FilmScannerWindow
+#include <QDir>
+#include <QFileInfo>
+
+void FilmScannerWorker::run()
 {
-    Q_OBJECT
+    isCanceled = false;
+    isTerminated = false;
 
-    public:
-        FilmScannerWindow( AlexandraSettings* s, QWidget* parent = nullptr );
-        ~FilmScannerWindow();
+    QList<QString>* result = new QList<QString>();
 
-        void show( QStringList* l );
+    if( isRecursive )
+    {
+        result = ScanDirectoryRecursive( dir );
+    }
+    else
+    {
+        result = ScanDirectory( dir );
+    }
 
-    signals:
-        void AddFilms( const QList<Film>* );
+    if( !isTerminated ) // If window isn't closed
+    {
+        emit Scanned( result );
+    }
+}
 
-    protected:
-        void closeEvent( QCloseEvent* event );
+QList<QString>* FilmScannerWorker::ScanDirectory( QString dir )
+{
+    QList<QString>* result = new QList<QString>();
+    QFileInfoList files = QDir( dir ).entryInfoList( filmFilesfilter );
 
-    private slots:
-        void SelectDirectory();
+    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
+    {
+        if( isCanceled ) break; // Scanning canceled
+        result->append( i->absoluteFilePath() );
+        emit IncFoundedTotal();
+    }
 
-        void Scan();
-        void IncFoundedTotal();
-        void ShowFounded( QList<QString>* fileNames );
+    return( result );
+}
 
-        void SelectAll();
-        void UnselectAll();
-        void InvertSelection();
-        void CalculateSelected();
+QList<QString>* FilmScannerWorker::ScanDirectoryRecursive( QString dir )
+{
+    // Scan files in directory
+    QList<QString>* result = ScanDirectory( dir );
 
-        void AddSelected();
+    // Scan files in subdirectories recursively
+    QFileInfoList files = QDir( dir ).entryInfoList();
 
-    private:
-        AlexandraSettings* settings = nullptr;
-        QStringList* existsFileNames = nullptr;
-        FilmScannerWorker* filmScannerWorker = nullptr;
-};
+    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
+    {
+        if( i->isDir() && (i->fileName() != ".") && (i->fileName() != "..") )
+        {
+            if( isCanceled ) break; // Scanning canceled
 
-#endif // FILMSCANNERWINDOW_H
+            QList<QString>* subdirFiles = ScanDirectoryRecursive( i->absoluteFilePath() );
+            result->append( *subdirFiles );
+            delete subdirFiles;
+        }
+    }
+
+    return( result );
+}
