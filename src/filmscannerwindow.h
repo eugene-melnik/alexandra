@@ -46,6 +46,7 @@ class FilmScannerWindow : public QDialog, public Ui::FilmScannerWindow
         void AddFilms( const QList<Film>* );
 
     protected:
+        void reject() { close(); }
         void closeEvent( QCloseEvent* event );
 
     private slots:

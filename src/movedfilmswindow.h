@@ -45,6 +45,7 @@ class MovedFilmsWindow : public QDialog, public Ui::MovedFilmsWindow
         void FilmsMoved();
 
     protected:
+        void reject() { close(); }
         void closeEvent( QCloseEvent* event );
 
     private slots:

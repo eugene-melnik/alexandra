@@ -56,8 +56,18 @@ MovedFilmsWindow::~MovedFilmsWindow()
 
 void MovedFilmsWindow::show( QList<Film*>* f )
 {
-    QDialog::show();
     films = f;
+
+    if( films->size() == 0 )
+    {
+        QMessageBox::information( dynamic_cast<QWidget*>( parent() ),
+                                  tr( "Moved films" ),
+                                  tr( "Nothing to move." ) );
+    }
+    else
+    {
+        QDialog::show();
+    }
 }
 
 void MovedFilmsWindow::closeEvent( QCloseEvent* event )
