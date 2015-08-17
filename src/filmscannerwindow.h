@@ -25,6 +25,7 @@
 #include <QDialog>
 #include <QList>
 #include <QString>
+#include <QStringList>
 
 #include "alexandrasettings.h"
 #include "film.h"

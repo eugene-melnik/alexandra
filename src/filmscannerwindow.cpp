@@ -79,7 +79,6 @@ void FilmScannerWindow::closeEvent( QCloseEvent* event )
     twFounded->setRowCount( 0 );
     lTotalFounded->setText( "0" );
     lSelected->setText( "0" );
-
     // Temporary data
     delete existsFileNames;
 
@@ -133,8 +132,9 @@ void FilmScannerWindow::Scan()
 
 void FilmScannerWindow::IncFoundedTotal()
 {
-    bool ok;
-    lTotalFounded->setText( QString::number( lTotalFounded->text().toInt(&ok) + 1 ) );
+    bool isOk;
+    int n = lTotalFounded->text().toInt( &isOk ) + 1;
+    if( isOk ) lTotalFounded->setText( QString::number( n ) );
 }
 
 void FilmScannerWindow::ShowFounded( QList<QString>* fileNames )

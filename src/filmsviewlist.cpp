@@ -115,12 +115,13 @@ void FilmsViewList::SetItem( int n, const Film& film, QColor background )
     setItem( n, TitleColumn, title );
 
     // Year
-    QTableWidgetItem* year;
+    QTableWidgetItem* year = new QTableWidgetItem();
+    setItem( n, YearColumn, year );
+
     if( film.GetYear() != 0 )
     {
-        year = new QTableWidgetItem( film.GetYearStr() );
         year->setTextAlignment( Qt::AlignCenter );
-        setItem( n, YearColumn, year );
+        year->setText( film.GetYearStr() );
     }
 
     // Genre
@@ -132,12 +133,13 @@ void FilmsViewList::SetItem( int n, const Film& film, QColor background )
     setItem( n, DirectorColumn, director );
 
     // Rating
-    QTableWidgetItem* rating;
+    QTableWidgetItem* rating = new QTableWidgetItem();
+    setItem( n, RatingColumn, rating );
+
     if( film.GetRating() > 1 )
     {
-        rating = new QTableWidgetItem( film.GetRatingStr() );
         rating->setTextAlignment( Qt::AlignCenter );
-        setItem( n, RatingColumn, rating );
+        rating->setText( film.GetRatingStr() );
     }
 
     // Background for unavailable files
