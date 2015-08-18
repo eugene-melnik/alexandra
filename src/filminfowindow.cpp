@@ -20,14 +20,16 @@
 
 #include "filminfowindow.h"
 
-#include <QtConcurrentRun>
+#include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QPushButton>
+#include <QtConcurrentRun>
 
 FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
     connect( this, &FilmInfoWindow::FullInfoLoaded, this, &FilmInfoWindow::ShowFullInfo );
+    connect( bCopyToClipboard, &QPushButton::clicked, this, &FilmInfoWindow::CopyToClipboard );
 }
 
 void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )
@@ -65,4 +67,11 @@ void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
 void FilmInfoWindow::ShowFullInfo( QString s )
 {
     eTechInfo->setPlainText( s );
+}
+
+void FilmInfoWindow::CopyToClipboard()
+{
+    eTechInfo->selectAll();
+    eTechInfo->copy();
+    QMessageBox::information( this, tr( "Technical information" ), tr( "Successfully copied." ) );
 }

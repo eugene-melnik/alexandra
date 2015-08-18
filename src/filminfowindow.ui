@@ -88,38 +88,6 @@
  </resources>
  <connections>
   <connection>
-   <sender>bCopyToClipboard</sender>
-   <signal>clicked()</signal>
-   <receiver>eTechInfo</receiver>
-   <slot>selectAll()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>73</x>
-     <y>376</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>182</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bCopyToClipboard</sender>
-   <signal>clicked()</signal>
-   <receiver>eTechInfo</receiver>
-   <slot>copy()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>73</x>
-     <y>376</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>182</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>bClose</sender>
    <signal>clicked()</signal>
    <receiver>FilmInfoWindow</receiver>

@@ -43,6 +43,7 @@ class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
 
     private slots:
         void ShowFullInfo( QString s );
+        void CopyToClipboard();
 
     private:
         QMutex loadInfoMutex;
