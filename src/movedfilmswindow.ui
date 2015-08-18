@@ -197,7 +197,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl3">
+    <layout class="QHBoxLayout" name="hl3" stretch="0,0,0,0,0,1,0,0,0">
      <item>
       <widget class="QLabel" name="labelTotalFounded">
        <property name="text">
@@ -234,13 +234,26 @@
       </widget>
      </item>
      <item>
+      <widget class="QProgressBar" name="progressBar">
+       <property name="maximum">
+        <number>0</number>
+       </property>
+       <property name="value">
+        <number>-1</number>
+       </property>
+       <property name="textVisible">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="hs4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
+         <width>5</width>
          <height>20</height>
         </size>
        </property>

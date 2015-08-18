@@ -59,6 +59,7 @@ FilmScannerWindow::~FilmScannerWindow()
 void FilmScannerWindow::show( QStringList* l )
 {
     existsFileNames = l;
+    progressBar->hide();
     eDirectory->setText( settings->GetFilmsScannerLastDir() );
 
     QDialog::show();
@@ -129,6 +130,7 @@ void FilmScannerWindow::Scan()
 
     // Flip button
     bScan->setText( tr( "Cancel" ) );
+    progressBar->show();
 }
 
 void FilmScannerWindow::IncFoundedTotal()
@@ -142,6 +144,7 @@ void FilmScannerWindow::ShowFounded( QList<QString>* fileNames )
 {
     // Flip button
     bScan->setText( tr( "Scan" ) );
+    progressBar->hide();
 
     // Messages
     if( fileNames->empty() )

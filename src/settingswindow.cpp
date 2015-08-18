@@ -313,17 +313,14 @@ void SettingsWindow::CreateDatabase()
         // Posters dir
         QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
 
-        if( !QDir( postersDir ).exists() )
-        {
-            int res = QMessageBox::question( this,
-                                             tr( "Create database" ),
-                                             tr( "Would you like to set the catalog of posters next to the database file?" ),
-                                             QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+        int res = QMessageBox::question( this,
+                                         tr( "Create database" ),
+                                         tr( "Would you like to set the catalog of posters next to the database file?" ),
+                                         QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes );
 
-            if( res == QMessageBox::Yes )
-            {
-                ePostersFolder->setText( postersDir );
-            }
+        if( res == QMessageBox::Yes )
+        {
+            ePostersFolder->setText( postersDir );
         }
 
         SetIsDatabaseSettingsChanged();

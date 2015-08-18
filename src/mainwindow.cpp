@@ -47,7 +47,6 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
 
     filmsList->LoadFromFile( settings->GetDatabaseFilePath() );
     filmsList->SetCurrentFilm( settings->GetCurrentFilmTitle() );
-    filmsView->SelectItem( settings->GetCurrentFilmTitle() );
 }
 
 MainWindow::~MainWindow()
@@ -222,6 +221,10 @@ void MainWindow::ShowFilms()
     if( currentIndex > 0 )
     {
         filmsView->SetCurrentItemIndex( currentIndex );
+    }
+    else
+    {
+        filmsView->SelectItem( settings->GetCurrentFilmTitle() );
     }
 
     StatusbarShowTotal();
@@ -542,6 +545,7 @@ void MainWindow::SetupFilmsView()
     if( filmsView != nullptr )
     {
         delete filmsView;
+        settings->SetCurrentFilmTitle( filmsList->GetCurrentFilmTitle() );
     }
 
     QWidget* view = nullptr;

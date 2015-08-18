@@ -48,7 +48,7 @@ void StatisticsWindow::show( const QList<Film>* films )
 
     // Show
     lTotalFilmsInLibrary->setText( QString::number( films->size() ) );
-    labelLoading->show();
+    progressBar->show();
     QDialog::show();
 }
 
@@ -73,7 +73,7 @@ void StatisticsWindow::ShowMainStatistics( int viewedFilms,
                                            bool allFilesOk,
                                            QList<TopFilm>* topFilms )
 {
-    labelLoading->hide();
+    progressBar->hide();
 
     // Output
     lFilmsViewed->setText( QString::number( viewedFilms ) );

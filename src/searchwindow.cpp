@@ -34,6 +34,9 @@ SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent )
     connect( bSearch, &QPushButton::clicked, this, &SearchWindow::Search );
     connect( bOk, &QPushButton::clicked, this, &SearchWindow::OkButtonClicked );
     connect( twResult, &QTableWidget::itemDoubleClicked, this, &SearchWindow::OkButtonClicked );
+
+    connect( bSelectAll, &QPushButton::clicked, this, &SearchWindow::SelectAll );
+    connect( bUnselectAll, &QPushButton::clicked, this, &SearchWindow::UnselectAll );
 }
 
 void SearchWindow::Search()
@@ -95,6 +98,18 @@ void SearchWindow::OkButtonClicked()
     }
 
     close();
+}
+
+void SearchWindow::SetOptionsIsChecked( bool isChecked )
+{
+    cTitle->setChecked( isChecked );
+    cTags->setChecked( isChecked );
+    cGenre->setChecked( isChecked );
+    cStarring->setChecked( isChecked );
+    cDirector->setChecked( isChecked );
+    cProducer->setChecked( isChecked );
+    cCountry->setChecked( isChecked );
+    cDescription->setChecked( isChecked );
 }
 
 void SearchWindow::ConfigureTable()
@@ -162,7 +177,8 @@ void SearchWindow::UpdateTable( std::list<Film>& founded )
 
     lTotalFounded->setText( QString::number( founded.size() ) );
 
-    if( !founded.empty() ) {
+    if( !founded.empty() )
+    {
         twResult->setCurrentCell( 0, 0);
         founded.clear();
     }

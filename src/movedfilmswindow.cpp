@@ -66,6 +66,7 @@ void MovedFilmsWindow::show( QList<Film*>* f )
     }
     else
     {
+        progressBar->hide();
         QDialog::show();
     }
 }
@@ -132,12 +133,14 @@ void MovedFilmsWindow::Scan()
 
     // Flip button
     bScan->setText( tr( "Cancel" ) );
+    progressBar->show();
 }
 
 void MovedFilmsWindow::ShowFounded(QList<QString> *fileNames)
 {
     // Flip button
     bScan->setText( tr( "Scan" ) );
+    progressBar->hide();
 
     // Messages
     if( fileNames->empty() )
@@ -166,7 +169,7 @@ void MovedFilmsWindow::ShowFounded(QList<QString> *fileNames)
             QString unavailFileName = QFileInfo( unavailFileNameFull ).fileName();
 
             if( newFileName == unavailFileName
-                    && newFileNameFull != unavailFileNameFull ) // FIXME: Protection from multiple moving
+                    && newFileNameFull != unavailFileNameFull ) // Protection from multiple moving
             {
                 twFounded->setRowCount( twFounded->rowCount() + 1 );
                 twFounded->setItem( row++, 0, item );

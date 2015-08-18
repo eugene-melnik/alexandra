@@ -26,26 +26,39 @@ StatusBar::StatusBar( QWidget* parent ) : QStatusBar( parent )
 
     text = new QLabel( this );
     addWidget( text );
+
+    progress = new QProgressBar( this );
+    progress->setAlignment( Qt::AlignCenter );
+    progress->setMaximum( 0 );
+    progress->hide();
+    addPermanentWidget( progress );
 }
 
 StatusBar::~StatusBar()
 {
     delete text;
+    delete progress;
 }
 
 void StatusBar::ShowLoading()
 {
+    progress->setMaximumHeight( height() / 2 );
+    progress->setMaximumWidth( 100 );
+    progress->show();
+
     text->setText( tr( "Loading..." ) );
     repaint();
 }
 
 void StatusBar::ShowFounded( int founded )
 {
+    progress->hide();
     text->setText( tr( "Founded: %1" ).arg( founded ) );
 }
 
 void StatusBar::ShowTotal( int total, int viewed, int favourite )
 {
+    progress->hide();
     text->setText( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
                    .arg( total )
                    .arg( viewed )

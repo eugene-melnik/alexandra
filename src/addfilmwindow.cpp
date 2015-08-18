@@ -69,8 +69,14 @@ void AddFilmWindow::OpenFilmFileClicked()
     if( fileName.isFile() )
     {
         eFilmFileName->setText( fileName.absoluteFilePath() );
-        ePosterFileName->setText( FilesExtensions().SearchForEponymousImage( fileName.absoluteFilePath() ) );
         eTitle->setText( fileName.completeBaseName() );
+
+        QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName.absoluteFilePath() );
+        if( !posterFileName.isEmpty() )
+        {
+            ePosterFileName->setText( posterFileName );
+            bOpenPoster->setText( tr( "Clear" ) );
+        }
 
         settings->SetLastFilmPath( fileName.absolutePath() );
         settings->sync();

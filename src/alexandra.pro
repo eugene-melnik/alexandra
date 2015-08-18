@@ -21,7 +21,7 @@ QMAKE_CXXFLAGS_RELEASE += -Ofast -flto
 LIBS += -lstdc++ -lpthread
 linux:LIBS += -lmediainfo
 
-win32:RC_FILE = $$PWD\win-meta.rc
+win32:RC_FILE = $$PWD\..\windows\win-meta.rc
 win32:LIBS += $$PWD\..\lib\MediaInfo.dll
 win32:INCLUDEPATH += $$PWD\..\lib\
 

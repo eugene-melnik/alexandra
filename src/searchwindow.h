@@ -42,6 +42,10 @@ class SearchWindow : public QDialog, public Ui::SearchWindow
         void Search();
         void OkButtonClicked();
 
+        void SetOptionsIsChecked( bool isChecked );
+        void SelectAll() { SetOptionsIsChecked( true ); }
+        void UnselectAll() { SetOptionsIsChecked( false ); }
+
     private:
         void ConfigureTable();
         void UpdateTable( std::list<Film>& founded );

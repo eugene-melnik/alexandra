@@ -29,9 +29,9 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5">
+  <layout class="QVBoxLayout" name="verticalLayout_7">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="hl1">
      <item>
       <widget class="QGroupBox" name="gbSearchIn">
        <property name="title">
@@ -39,7 +39,7 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
+         <layout class="QVBoxLayout" name="vl1">
           <item>
            <widget class="QCheckBox" name="cTitle">
             <property name="text">
@@ -63,7 +63,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QVBoxLayout" name="vl2">
           <item>
            <widget class="QCheckBox" name="cGenre">
             <property name="text">
@@ -87,7 +87,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QVBoxLayout" name="vl3">
           <item>
            <widget class="QCheckBox" name="cDirector">
             <property name="text">
@@ -111,7 +111,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <layout class="QVBoxLayout" name="vl4">
           <item>
            <widget class="QCheckBox" name="cCountry">
             <property name="text">
@@ -129,6 +129,24 @@
             </property>
             <property name="checked">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="vl5">
+          <item>
+           <widget class="QPushButton" name="bSelectAll">
+            <property name="text">
+             <string>Select all</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="bUnselectAll">
+            <property name="text">
+             <string>Unselect all</string>
             </property>
            </widget>
           </item>
@@ -225,7 +243,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="hl2">
      <item>
       <widget class="QLabel" name="labelTotalFounded">
        <property name="text">

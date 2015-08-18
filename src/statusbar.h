@@ -22,6 +22,7 @@
 #define STATUSBAR_H
 
 #include <QLabel>
+#include <QProgressBar>
 #include <QStatusBar>
 
 class StatusBar : public QStatusBar
@@ -38,6 +39,7 @@ class StatusBar : public QStatusBar
 
     private:
         QLabel* text = nullptr;
+        QProgressBar* progress = nullptr;
 };
 
 #endif // STATUSBAR_H
