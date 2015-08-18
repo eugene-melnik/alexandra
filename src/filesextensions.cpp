@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmscannerworker.cpp                                                                   *
+ *  file: filesextensions.cpp                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -19,68 +19,37 @@
   *************************************************************************************************/
 
 #include "filesextensions.h"
-#include "filmscannerworker.h"
 
-#include <QDir>
-#include <QFileInfo>
-
-void FilmScannerWorker::run()
+QString FilesExtensions::GetFilmExtensionsForFilter()
 {
-    isCanceled = false;
-    isTerminated = false;
+    QString res;
 
-    QList<QString>* result = new QList<QString>();
-
-    if( isRecursive )
+    for( auto i = videos.begin(); i < videos.end(); i++ )
     {
-        result = ScanDirectoryRecursive( dir );
-    }
-    else
-    {
-        result = ScanDirectory( dir );
+        res += *i + " ";
     }
 
-    if( !isTerminated ) // If window isn't closed
-    {
-        emit Scanned( result );
-    }
+    return( res );
 }
 
-QList<QString>* FilmScannerWorker::ScanDirectory( QString dir )
+QString FilesExtensions::GetImageExtensionsForFilter()
 {
-    QList<QString>* result = new QList<QString>();
-    QFileInfoList files = QDir( dir ).entryInfoList( FilesExtensions().GetFilmExtensionsForDirFilter() );
+    QString res;
 
-    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
+    for( auto i = images.begin(); i < images.end(); i++ )
     {
-        if( isCanceled ) break; // Scanning canceled
-
-        result->append( i->absoluteFilePath() );
-        emit IncFoundedTotal();
+        res += *i + " ";
     }
 
-    return( result );
+    return( res );
 }
 
-QList<QString>* FilmScannerWorker::ScanDirectoryRecursive( QString dir )
+const QStringList& FilesExtensions::GetFilmExtensionsForDirFilter()
 {
-    // Scan files in directory
-    QList<QString>* result = ScanDirectory( dir );
+    return( videos );
+}
 
-    // Scan files in subdirectories recursively
-    QFileInfoList files = QDir( dir ).entryInfoList();
-
-    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
-    {
-        if( i->isDir() && (i->fileName() != ".") && (i->fileName() != "..") )
-        {
-            if( isCanceled ) break; // Scanning canceled
-
-            QList<QString>* subdirFiles = ScanDirectoryRecursive( i->absoluteFilePath() );
-            result->append( *subdirFiles );
-            delete subdirFiles;
-        }
-    }
-
-    return( result );
+const QStringList &FilesExtensions::GetImageExtensionsForDirFilter()
+{
+    return( images );
 }

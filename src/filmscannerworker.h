@@ -52,10 +52,6 @@ class FilmScannerWorker : public QThread
         bool isRecursive = false;
         bool isCanceled;
         bool isTerminated;
-
-        const QStringList filmFilesfilter = { "*.avi", "*.flv", "*.m2ts", "*.m4v", "*.mkv", "*.mov",
-                                              "*.mp4", "*.mpeg", "*.mpg", "*.mts", "*.ogm", "*.ogv",
-                                              "*.rm", "*.ts", "*.wmv" };
 };
 
 #endif // FILMSCANNERWORKER_H

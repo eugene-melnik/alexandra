@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "addfilmwindow.h"
+#include "filesextensions.h"
 
 #include <QCheckBox>
 #include <QComboBox>
@@ -29,8 +30,6 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QPlainTextEdit>
-
-#include<QDebug>
 
 AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog( parent )
 {
@@ -64,7 +63,7 @@ void AddFilmWindow::OpenFilmFileClicked()
     QFileInfo fileName = QFileDialog::getOpenFileName( this,
                          tr( "Select film" ),
                          lastFilmPath,
-                         tr( "Video files (*.avi *.flv *.m2ts *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.mts *.ogm *.ogv *.rm *.ts *.wmv)" ) );
+                         tr( "Video files (%1)" ).arg( FilesExtensions().GetFilmExtensionsForFilter() ) );
 
     if( fileName.isFile() )
     {
@@ -85,7 +84,7 @@ void AddFilmWindow::OpenPosterFileClicked()
         QFileInfo fileName = QFileDialog::getOpenFileName( this,
                              tr( "Select image" ),
                              lastPosterPath,
-                             tr( "Images (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm)" ) );
+                             tr( "Images (%1)" ).arg( FilesExtensions().GetImageExtensionsForFilter() ) );
 
         if( fileName.isFile() )
         {

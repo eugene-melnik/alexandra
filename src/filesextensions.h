@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmscannerworker.cpp                                                                   *
+ *  file: filesextensions.h                                                                       *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,69 +18,29 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "filesextensions.h"
-#include "filmscannerworker.h"
+#ifndef FILESEXTENSIONS_H
+#define FILESEXTENSIONS_H
 
-#include <QDir>
-#include <QFileInfo>
+#include <QString>
+#include <QStringList>
 
-void FilmScannerWorker::run()
+class FilesExtensions
 {
-    isCanceled = false;
-    isTerminated = false;
+    public:
+        QString GetFilmExtensionsForFilter();
+        QString GetImageExtensionsForFilter();
 
-    QList<QString>* result = new QList<QString>();
+        const QStringList& GetFilmExtensionsForDirFilter();
+        const QStringList& GetImageExtensionsForDirFilter();
 
-    if( isRecursive )
-    {
-        result = ScanDirectoryRecursive( dir );
-    }
-    else
-    {
-        result = ScanDirectory( dir );
-    }
+    private:
+        const QStringList videos = { "*.avi",  "*.bik", "*.divx", "*.dv",  "*.flv",  "*.m1v",  "*.m2t",
+                                     "*.m2ts", "*.m2v", "*.m4v",  "*.mkv", "*.mov",  "*.mp4",  "*.mpv",
+                                     "*.mpeg", "*.mpg", "*.mts",  "*.ogm", "*.ogv",  "*.ogx",  "*.rm",
+                                     "*.ts",   "*.vcd", "*.vob",  "*.vp8", "*.webm", "*.wmv" };
 
-    if( !isTerminated ) // If window isn't closed
-    {
-        emit Scanned( result );
-    }
-}
+        const QStringList images = { "*.bmp", "*.gif", "*.jpg", "*.jpeg", "*.png",
+                                     "*.pbm", "*.pgm", "*.ppm", "*.xbm",  "*.xpm" };
+};
 
-QList<QString>* FilmScannerWorker::ScanDirectory( QString dir )
-{
-    QList<QString>* result = new QList<QString>();
-    QFileInfoList files = QDir( dir ).entryInfoList( FilesExtensions().GetFilmExtensionsForDirFilter() );
-
-    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
-    {
-        if( isCanceled ) break; // Scanning canceled
-
-        result->append( i->absoluteFilePath() );
-        emit IncFoundedTotal();
-    }
-
-    return( result );
-}
-
-QList<QString>* FilmScannerWorker::ScanDirectoryRecursive( QString dir )
-{
-    // Scan files in directory
-    QList<QString>* result = ScanDirectory( dir );
-
-    // Scan files in subdirectories recursively
-    QFileInfoList files = QDir( dir ).entryInfoList();
-
-    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
-    {
-        if( i->isDir() && (i->fileName() != ".") && (i->fileName() != "..") )
-        {
-            if( isCanceled ) break; // Scanning canceled
-
-            QList<QString>* subdirFiles = ScanDirectoryRecursive( i->absoluteFilePath() );
-            result->append( *subdirFiles );
-            delete subdirFiles;
-        }
-    }
-
-    return( result );
-}
+#endif // FILESEXTENSIONS_H
