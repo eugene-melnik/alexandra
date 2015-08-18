@@ -27,11 +27,13 @@
 class FilesExtensions
 {
     public:
-        QString GetFilmExtensionsForFilter();
-        QString GetImageExtensionsForFilter();
+        QString GetFilmExtensionsForFilter() const;
+        QString GetImageExtensionsForFilter() const;
 
-        const QStringList& GetFilmExtensionsForDirFilter();
-        const QStringList& GetImageExtensionsForDirFilter();
+        const QStringList& GetFilmExtensionsForDirFilter() const { return( videos ); }
+        const QStringList& GetImageExtensionsForDirFilter() const { return( images ); }
+
+        QString SearchForEponymousImage( QString fileName ) const;
 
     private:
         const QStringList videos = { "*.avi",  "*.bik", "*.divx", "*.dv",  "*.flv",  "*.m1v",  "*.m2t",

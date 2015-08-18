@@ -20,7 +20,10 @@
 
 #include "filesextensions.h"
 
-QString FilesExtensions::GetFilmExtensionsForFilter()
+#include <QDir>
+#include <QFileInfoList>
+
+QString FilesExtensions::GetFilmExtensionsForFilter() const
 {
     QString res;
 
@@ -32,7 +35,7 @@ QString FilesExtensions::GetFilmExtensionsForFilter()
     return( res );
 }
 
-QString FilesExtensions::GetImageExtensionsForFilter()
+QString FilesExtensions::GetImageExtensionsForFilter() const
 {
     QString res;
 
@@ -44,12 +47,24 @@ QString FilesExtensions::GetImageExtensionsForFilter()
     return( res );
 }
 
-const QStringList& FilesExtensions::GetFilmExtensionsForDirFilter()
+QString FilesExtensions::SearchForEponymousImage( QString fileName ) const
 {
-    return( videos );
-}
+    QFileInfo fileInfo( fileName );
+    QStringList filter( fileInfo.completeBaseName() + ".*" );
+    QFileInfoList eponymousFiles = QDir( fileInfo.absolutePath() ).entryInfoList( filter );
 
-const QStringList &FilesExtensions::GetImageExtensionsForDirFilter()
-{
-    return( images );
+    if( eponymousFiles.size() > 1 )
+    {
+        for( auto i = eponymousFiles.begin(); i < eponymousFiles.end(); i++)
+        {
+            QString extension = "*." + i->suffix();
+
+            if( images.contains( extension, Qt::CaseInsensitive ) )
+            {
+                return( i->absoluteFilePath() );
+            }
+        }
+    }
+
+    return( QString() );
 }

@@ -30,6 +30,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QPlainTextEdit>
+#include <QStringList>
 
 AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog( parent )
 {
@@ -68,7 +69,8 @@ void AddFilmWindow::OpenFilmFileClicked()
     if( fileName.isFile() )
     {
         eFilmFileName->setText( fileName.absoluteFilePath() );
-        eTitle->setText( fileName.baseName() );
+        ePosterFileName->setText( FilesExtensions().SearchForEponymousImage( fileName.absoluteFilePath() ) );
+        eTitle->setText( fileName.completeBaseName() );
 
         settings->SetLastFilmPath( fileName.absolutePath() );
         settings->sync();
@@ -155,20 +157,24 @@ void AddFilmWindow::OkButtonClicked()
 
     if( !posterFileName.isEmpty() )
     {
+        f.SetIsPosterExists( true );
+
         QString postersDir = settings->GetPostersDirPath();
         int newHeight = settings->GetScalePosterToHeight();
 
-        if( !( QFileInfo( ePosterFileName->text() ).absolutePath() == postersDir ) )
+        if( QFileInfo( posterFileName ).absolutePath() != postersDir )
         {
             // Creating posters' directory if not exists
-            if( !QDir().exists( postersDir ) ) {
+            if( !QDir().exists( postersDir ) )
+            {
                 QDir().mkdir( postersDir );
             }
 
             QPixmap p( posterFileName );
 
             // Scale to height
-            if( (newHeight != 0) && (newHeight < p.height()) ) {
+            if( newHeight != 0 && newHeight < p.height() )
+            {
                 p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
             }
 
@@ -181,8 +187,6 @@ void AddFilmWindow::OkButtonClicked()
                 emit PosterMovingError();
             }
         }
-
-        f.SetIsPosterExists( true );
     }
 
     close();

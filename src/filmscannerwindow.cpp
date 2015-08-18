@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "filmscannerwindow.h"
+#include "filesextensions.h"
 
 #include <QCryptographicHash>
 #include <QFileDialog>
@@ -255,9 +256,46 @@ void FilmScannerWindow::AddSelected()
             f.SetId( QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() ) );
             f.SetFileName( fileName );
             f.SetTitle( QFileInfo( fileName ).fileName() );
-            newFilms->append( f );
 
-            // Adding to the existing films
+            // Search for poster
+            QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName );
+
+            if( !posterFileName.isEmpty() )
+            {
+                f.SetIsPosterExists( true );
+
+                QString postersDir = settings->GetPostersDirPath();
+                int newHeight = settings->GetScalePosterToHeight();
+
+                if( QFileInfo( posterFileName ).absolutePath() != postersDir )
+                {
+                    // Creating posters' directory if not exists
+                    if( !QDir().exists( postersDir ) )
+                    {
+                        QDir().mkdir( postersDir );
+                    }
+
+                    QPixmap p( posterFileName );
+
+                    // Scale to height
+                    if( newHeight != 0 && newHeight < p.height() )
+                    {
+                        p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
+                    }
+
+                    // Move to posters' folder
+                    QString newPosterFileName = postersDir + "/" + f.GetPosterName();
+
+                    if( !p.save( newPosterFileName ) )
+                    {
+                        f.SetIsPosterExists( false );
+                    }
+                }
+            }
+
+            // Adding
+            newFilms->append( f );
+            // Adding to list of existing films
             existsFileNames->append( fileName );
         }
     }

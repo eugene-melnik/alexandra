@@ -28,6 +28,7 @@
 
 #include <QCloseEvent>
 #include <QDialog>
+#include <QString>
 
 class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
 {
