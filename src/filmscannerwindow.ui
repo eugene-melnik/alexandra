@@ -195,6 +195,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="cSearchForPoster">
+     <property name="text">
+      <string>Search for a poster withe the same filename like a film</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="Line" name="l3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

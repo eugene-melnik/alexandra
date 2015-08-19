@@ -261,37 +261,40 @@ void FilmScannerWindow::AddSelected()
             f.SetTitle( QFileInfo( fileName ).fileName() );
 
             // Search for poster
-            QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName );
-
-            if( !posterFileName.isEmpty() )
+            if( cSearchForPoster->isChecked() )
             {
-                f.SetIsPosterExists( true );
+                QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName );
 
-                QString postersDir = settings->GetPostersDirPath();
-                int newHeight = settings->GetScalePosterToHeight();
-
-                if( QFileInfo( posterFileName ).absolutePath() != postersDir )
+                if( !posterFileName.isEmpty() )
                 {
-                    // Creating posters' directory if not exists
-                    if( !QDir().exists( postersDir ) )
+                    f.SetIsPosterExists( true );
+
+                    QString postersDir = settings->GetPostersDirPath();
+                    int newHeight = settings->GetScalePosterToHeight();
+
+                    if( QFileInfo( posterFileName ).absolutePath() != postersDir )
                     {
-                        QDir().mkdir( postersDir );
-                    }
+                        // Creating posters' directory if not exists
+                        if( !QDir().exists( postersDir ) )
+                        {
+                            QDir().mkdir( postersDir );
+                        }
 
-                    QPixmap p( posterFileName );
+                        QPixmap p( posterFileName );
 
-                    // Scale to height
-                    if( newHeight != 0 && newHeight < p.height() )
-                    {
-                        p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
-                    }
+                        // Scale to height
+                        if( newHeight != 0 && newHeight < p.height() )
+                        {
+                            p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
+                        }
 
-                    // Move to posters' folder
-                    QString newPosterFileName = postersDir + "/" + f.GetPosterName();
+                        // Move to posters' folder
+                        QString newPosterFileName = postersDir + "/" + f.GetPosterName();
 
-                    if( !p.save( newPosterFileName ) )
-                    {
-                        f.SetIsPosterExists( false );
+                        if( !p.save( newPosterFileName ) )
+                        {
+                            f.SetIsPosterExists( false );
+                        }
                     }
                 }
             }
