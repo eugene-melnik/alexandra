@@ -20,6 +20,7 @@
 
 #include "effects/effectdropshadow.h"
 #include "aboutwindow.h"
+#include "mediainfo.h"
 #include "version.h"
 
 #include <QColor>
@@ -36,6 +37,14 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     lAppName->setText( Alexandra::appNameGui );
     lAppVersion->setText( tr( "version %1 (build date: %2)" ).arg( Alexandra::appVersionFull, Alexandra::appBuildDate ) );
     lQtVersion->setText( QT_VERSION_STR );
+#ifdef __VERSION__
+    lGccVersion->setText( __VERSION__ );
+#else
+    labelGccVersion->hide();
+    lGccVersion->hide();
+#endif
+    lMIVersion->setText( MediaInfo::GetLibraryVersion() );
+
     lAuthor->setText( Alexandra::appAuthor );
     lLicense->setText( Alexandra::appLicense );
 

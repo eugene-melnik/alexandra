@@ -9,20 +9,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
-    <height>360</height>
+    <width>480</width>
+    <height>410</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>520</width>
-    <height>360</height>
+    <width>480</width>
+    <height>410</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>520</width>
-    <height>360</height>
+    <width>480</width>
+    <height>410</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -38,11 +38,14 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
      <widget class="QWidget" name="tabApplication">
       <attribute name="title">
        <string>Application</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <layout class="QVBoxLayout" name="vl1">
          <item>
@@ -116,14 +119,13 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="labelSpacer1">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
           <layout class="QHBoxLayout" name="hl1">
+           <property name="topMargin">
+            <number>5</number>
+           </property>
+           <property name="bottomMargin">
+            <number>10</number>
+           </property>
            <item>
             <layout class="QVBoxLayout" name="vl3">
              <item>
@@ -139,6 +141,74 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QLabel" name="labelGccVersion">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>GCC version:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelMIVersion">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>MediaInfo version:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="vl4">
+             <item>
+              <widget class="QLabel" name="lQtVersion">
+               <property name="text">
+                <string notr="true">&lt;qtversion&gt;</string>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::PlainText</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lGccVersion">
+               <property name="text">
+                <string notr="true">&lt;gccversion&gt;</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lMIVersion">
+               <property name="text">
+                <string notr="true">&lt;miversion&gt;</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hl3">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>10</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="vl5">
              <item>
               <widget class="QLabel" name="labelAuthor">
                <property name="font">
@@ -168,17 +238,7 @@
             </layout>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="vl4">
-             <item>
-              <widget class="QLabel" name="lQtVersion">
-               <property name="text">
-                <string notr="true">&lt;qtversion&gt;</string>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-              </widget>
-             </item>
+            <layout class="QVBoxLayout" name="vl6">
              <item>
               <widget class="QLabel" name="lAuthor">
                <property name="text">
@@ -283,6 +343,9 @@
          <property name="text">
           <string>Alexandra Video Library is freeware, there are no sales or other revenues. Thus you can donate to encourage the author and to enable him to continue developing the project. Thank you!</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+         </property>
          <property name="wordWrap">
           <bool>true</bool>
          </property>
@@ -302,7 +365,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;WMU: U405971895065&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600; text-decoration: underline;&quot;&gt;PayPal:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;amp;business=jeka7js%40gmail.com&amp;amp;lc=US&amp;amp;item_name=Donation%20to%20Alexandra%20Video%20Library&amp;amp;item_number=U02&amp;amp;button_subtype=services&amp;amp;no_note=0&amp;amp;no_shipping=0&amp;amp;currency_code=USD&amp;amp;bn=PP-BuyNowBF%3abtn_donate_LG.gif%3aNonHostedGuest&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;jeka7js@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;amp;hosted_button_id=2B7PDE5XW3KXJ&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;jeka7js@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600; text-decoration: underline;&quot;&gt;Skrill:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://account.skrill.com/&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;jeka7js@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -317,7 +380,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="hl2">
      <item>
       <spacer name="hs2">
        <property name="orientation">

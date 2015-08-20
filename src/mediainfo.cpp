@@ -97,7 +97,8 @@ QString MediaInfo::GetCompleteData() const
     return( QString::fromStdWString( mi->Inform() ) );
 }
 
-QString MediaInfo::GetLibraryVersion() const
+QString MediaInfo::GetLibraryVersion()
 {
-    return( QString::fromStdWString( mi->Option( __T( "Info_Version" ) ) ) );
+    MI::MediaInfo mi;
+    return( QString::fromStdWString( mi.Option( __T( "Info_Version" ) ) ) );
 }

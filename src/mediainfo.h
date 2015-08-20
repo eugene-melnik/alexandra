@@ -51,7 +51,7 @@ class MediaInfo
         QTime   GetDurationTime() const;
         QString GetCompleteData() const;
 
-        QString GetLibraryVersion() const;
+        static QString GetLibraryVersion();
 
     private:
         MI::MediaInfo* mi = nullptr;
