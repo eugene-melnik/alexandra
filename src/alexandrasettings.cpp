@@ -178,7 +178,7 @@ QString AlexandraSettings::GetPostersDirPath() const
 
 QString AlexandraSettings::GetPosterSavingFormat() const
 {
-    return( value( "FilmsList/PosterSavingFormat", "" ).toString() );
+    return( value( "FilmsList/PosterSavingFormat", "png" ).toString() );
 }
 
 int AlexandraSettings::GetPosterSavingQuality() const
