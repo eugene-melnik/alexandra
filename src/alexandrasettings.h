@@ -54,6 +54,8 @@ class AlexandraSettings : public QSettings
         int     GetColumnDirectorWidth() const;
         QString GetCurrentFilmTitle() const;
         QString GetPostersDirPath() const;
+        QString GetPosterSavingFormat() const;
+        int     GetPosterSavingQuality() const;
         int     GetScalePosterToHeight() const;
         QRgb    GetUnavailableFileColor() const;
         int     GetListFontSize() const;
@@ -70,6 +72,8 @@ class AlexandraSettings : public QSettings
         bool       GetMainWindowShowRightPanel() const;
 
         QString GetFilmsScannerLastDir() const;
+
+        QString GetShortcutPlay() const;
 
         // Set //
 
@@ -93,6 +97,8 @@ class AlexandraSettings : public QSettings
         void SetColumnDirectorWidth( int n );
         void SetCurrentFilmTitle( const QString& s );
         void SetPostersDirPath( const QString& s );
+        void SetPosterSavingFormat( const QString& s );
+        void SetPosterSavingQuality( int n );
         void SetScalePostersToHeight( int n );
         void SetUnavailableFileColor( QRgb c );
         void SetListFontSize( int n );
@@ -109,6 +115,8 @@ class AlexandraSettings : public QSettings
         void SetMainWindowShowRightPanel( bool b );
 
         void SetFilmsScannerLastDir( const QString& s );
+
+        void SetShortcutPlay( const QString& s );
 };
 
 #endif // ALEXANDRASETTINGS_H

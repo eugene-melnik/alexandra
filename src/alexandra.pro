@@ -16,7 +16,7 @@ CONFIG += qt warn_on thread
 DEFINES += _UNICODE UNICODE
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -Ofast -flto
+QMAKE_CXXFLAGS_RELEASE += -Ofast 
 
 LIBS += -lstdc++ -lpthread
 linux:LIBS += -lmediainfo

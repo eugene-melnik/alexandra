@@ -30,6 +30,7 @@
 #include <QFileInfo>
 #include <QFontDatabase>
 #include <QFontDialog>
+#include <QKeySequenceEdit>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QRadioButton>
@@ -44,14 +45,14 @@ SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent ) : QDialo
 
     ConfigureAppearanceTab();
     ConfigureApplicationTab();
-    ConfigureDatabaseTab();
+    ConfigureShortcutsTab();
 }
 
-void SettingsWindow::showEvent( QShowEvent* event )
+void SettingsWindow::show()
 {
     ReconfigureAppearanceTab();
     ReconfigureApplicationTab();
-    ReconfigureDatabaseTab();
+    ReconfigureShortcutsTab();
 
     isViewChanged = false;
     isDatabaseSettingsChanged = false;
@@ -59,7 +60,7 @@ void SettingsWindow::showEvent( QShowEvent* event )
     isNeedReboot = false;
 
     twMain->setCurrentIndex( 0 );
-    event->accept();
+    QDialog::show();
 }
 
 /*************************************************************************************************
@@ -83,26 +84,6 @@ void SettingsWindow::OkButtonClicked()
     if( isSettingsChanged )
     {
         // Appearance tab
-        if( rbListView->isChecked() )
-        {
-            settings->SetFilmsViewMode( Alexandra::ListMode );
-        }
-        else
-        {
-            settings->SetFilmsViewMode( Alexandra::GridMode );
-        }
-
-        settings->SetListFontSize( sbListFontSize->value() );
-        settings->SetListRowHeight( sbListRowHeight->value() );
-
-        settings->SetGridItemSize( sbGridImageSize->value() );
-        settings->SetGridFontSize( sbGridFontSize->value() );
-        settings->SetGridShowTooltip( cShowTooltip->isChecked() );
-
-        settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
-
-        // Application tab
-        settings->SetApplicationLocaleIndex( cbLanguage->currentIndex() - 1 );
         settings->SetApplicationFont( bFontSelect->font().toString() );
 
         if( cbStyle->currentIndex() == 0 )
@@ -115,17 +96,40 @@ void SettingsWindow::OkButtonClicked()
         }
 
         settings->SetApplicationThemeIndex( cbTheme->currentIndex() );
-
         settings->SetMainWindowToolbarStyle( toolStyles[ cbToolbarStyle->currentIndex() ].style  );
+
+        if( rbListView->isChecked() )
+        {
+            settings->SetFilmsViewMode( Alexandra::ListMode );
+            settings->SetListFontSize( sbListFontSize->value() );
+            settings->SetListRowHeight( sbListRowHeight->value() );
+        }
+        else
+        {
+            settings->SetFilmsViewMode( Alexandra::GridMode );
+            settings->SetGridItemSize( sbGridImageSize->value() );
+            settings->SetGridFontSize( sbGridFontSize->value() );
+            settings->SetGridShowTooltip( cShowTooltip->isChecked() );
+        }
+
+        settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
+
+        // Application tab
+        settings->SetApplicationLocaleIndex( cbLanguage->currentIndex() - 1 );
         settings->SetExternalPlayer( eExternalPlayer->text() );
 
-        // Database tab
         settings->SetDatabaseFilePath( eDatabaseFile->text() );
         settings->SetCheckFilesOnStartup( cCheckFilesAtStartup->isChecked() );
-        settings->SetPostersDirPath( ePostersFolder->text() );
-        settings->SetScalePostersToHeight( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
-        settings->sync();
 
+        settings->SetPostersDirPath( ePostersFolder->text() );
+        settings->SetPosterSavingFormat( savingFormats[ cbSavingFormat->currentIndex() ].format );
+        settings->SetPosterSavingQuality( savingFormats[ cbSavingFormat->currentIndex() ].quality );
+        settings->SetScalePostersToHeight( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
+
+        // Shortcuts tab
+        settings->SetShortcutPlay( ksePlay->keySequence().toString() );
+
+        settings->sync();
         emit SettingsChanged();
 
         if( isDatabaseSettingsChanged )
@@ -137,29 +141,6 @@ void SettingsWindow::OkButtonClicked()
             emit ViewChanged();
         }
     }
-}
-
-void SettingsWindow::SetIsSettingsChanged()
-{
-    isSettingsChanged = true;
-}
-
-void SettingsWindow::SetIsViewChanged()
-{
-    SetIsSettingsChanged();
-    isViewChanged = true;
-}
-
-void SettingsWindow::SetIsNeedReboot()
-{
-    SetIsSettingsChanged();
-    isNeedReboot = true;
-}
-
-void SettingsWindow::SetIsDatabaseSettingsChanged()
-{
-    SetIsSettingsChanged();
-    isDatabaseSettingsChanged = true;
 }
 
 void SettingsWindow::StyleChanged()
@@ -315,7 +296,7 @@ void SettingsWindow::CreateDatabase()
 
         int res = QMessageBox::question( this,
                                          tr( "Create database" ),
-                                         tr( "Would you like to set the catalog of posters next to the database file?" ),
+                                         tr( "Would you like to set the directory for posters next to the database file?" ),
                                          QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes );
 
         if( res == QMessageBox::Yes )
@@ -358,6 +339,16 @@ void SettingsWindow::OpenPostersFolder()
 
 void SettingsWindow::ConfigureAppearanceTab()
 {
+    // Global
+    connect( bFontSelect, &QPushButton::clicked, this, &SettingsWindow::SelectFont );
+    connect( bFontSelectDefault, &QPushButton::clicked, this, &SettingsWindow::SelectFontDefault );
+    connect( bFontSelectDefault, &QPushButton::clicked, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( StyleChanged() ) );
+    connect( cbTheme, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( cbToolbarStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+
+    // View mode
     connect( rbListView, &QRadioButton::toggled, this, &SettingsWindow::SetIsViewChanged );
     connect( sbListFontSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( sbListRowHeight, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
@@ -368,10 +359,53 @@ void SettingsWindow::ConfigureAppearanceTab()
     connect( cShowTooltip, &QCheckBox::toggled, this, &SettingsWindow::SetIsViewChanged );
 
     connect( cShowRightPanel, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
+
+    // Style ComboBox
+    foreach( QString style, appStyles )
+    {
+        cbStyle->addItem( style );
+    }
+
+    // Theme ComboBox
+    foreach( Alexandra::Theme theme, Alexandra::themes )
+    {
+        cbTheme->addItem( theme.name );
+    }
+
+    // Toolbar style ComboBox
+    foreach( ToolStyle toolStyle, toolStyles )
+    {
+        cbToolbarStyle->addItem( toolStyle.name );
+    }
 }
 
 void SettingsWindow::ReconfigureAppearanceTab()
 {
+    // Font
+    QFont oldFont;
+    oldFont.fromString( settings->GetApplicationFont() );
+    bFontSelect->setText( oldFont.family() + QString( " %1" ).arg( oldFont.pointSize() ) );
+    bFontSelect->setFont( oldFont );
+
+    // Style ComboBox
+    QString appStyle = settings->GetApplicationStyleName();
+
+    if( appStyle.isEmpty() )
+    {
+        cbStyle->setCurrentIndex( 0 );
+    }
+    else
+    {
+        cbStyle->setCurrentIndex( appStyles.indexOf( appStyle ) + 1 ); // skeep "Default"
+    }
+
+    // Themes ComboBox
+    cbTheme->setCurrentIndex( settings->GetApplicationThemeIndex() );
+
+    // Toolbar style ComboBox
+    cbToolbarStyle->setCurrentIndex( settings->GetMainWindowToolbarStyle() );
+
+    // View mode
     if( settings->GetFilmsViewMode() == Alexandra::ListMode )
     {
         rbListView->setChecked( true );
@@ -399,18 +433,28 @@ void SettingsWindow::ReconfigureAppearanceTab()
 
 void SettingsWindow::ConfigureApplicationTab()
 {
-    // Signals
+    // Language
     connect( cbLanguage, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
-    connect( bFontSelect, &QPushButton::clicked, this, &SettingsWindow::SelectFont );
-    connect( bFontSelectDefault, &QPushButton::clicked, this, &SettingsWindow::SelectFontDefault );
-    connect( bFontSelectDefault, &QPushButton::clicked, this, &SettingsWindow::SetIsSettingsChanged );
-    connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( cbStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( StyleChanged() ) );
-    connect( cbTheme, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( cbToolbarStyle, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+
+    // Player
     connect( eExternalPlayer, &QLineEdit::textChanged, this, &SettingsWindow::SetIsSettingsChanged );
     connect( bSelectExternalPlayer, &QPushButton::clicked, this, &SettingsWindow::SelectExternalPlayer );
     connect( bExternalPlayerDefault, &QPushButton::clicked, this, &SettingsWindow::SetDefaultExternalPlayer );
+
+    // Database
+    connect( eDatabaseFile, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDatabaseSettingsChanged );
+    connect( bOpenDatabaseFile, &QPushButton::clicked, this, &SettingsWindow::OpenDatabaseFile );
+    connect( cCheckFilesAtStartup, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( bSelectColorUnavailable, &QPushButton::clicked, this, &SettingsWindow::SelectColorUnavailable );
+    connect( bCreateDatabase, &QPushButton::clicked, this, &SettingsWindow::CreateDatabase );
+    connect( bEraseDatabase, &QPushButton::clicked, this, &SettingsWindow::EraseDatabaseQuestion );
+
+    // Posters
+    connect( ePostersFolder, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDatabaseSettingsChanged );
+    connect( bOpenPostersFolder, &QPushButton::clicked, this, &SettingsWindow::OpenPostersFolder );
+    connect( cScalePoster, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
+    connect( sbScaleToHeight, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( cbSavingFormat, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
 
     // Language ComboBox
     foreach( Alexandra::Locale locale, Alexandra::supportedLocales )
@@ -418,80 +462,25 @@ void SettingsWindow::ConfigureApplicationTab()
         cbLanguage->addItem( locale.title + " (" + locale.name + ")" );
     }
 
-    // Style ComboBox
-    foreach( QString style, appStyles )
+    // Saving format ComboBox
+    foreach( PosterFormat f, savingFormats )
     {
-        cbStyle->addItem( style );
+        cbSavingFormat->addItem( f.title );
     }
 
-    // Theme ComboBox
-    foreach( Alexandra::Theme theme, Alexandra::themes )
-    {
-        cbTheme->addItem( theme.name );
-    }
-
-    // Toolbar style ComboBox
-    foreach( ToolStyle toolStyle, toolStyles )
-    {
-        cbToolbarStyle->addItem( toolStyle.name );
-    }
 }
 
 void SettingsWindow::ReconfigureApplicationTab()
 {
-    // Language ComboBox
     cbLanguage->setCurrentIndex( settings->GetApplicationLocaleIndex() + 1 );
 
-    // Font
-    QFont oldFont;
-    oldFont.fromString( settings->GetApplicationFont() );
-    bFontSelect->setText( oldFont.family() + QString( " %1" ).arg( oldFont.pointSize() ) );
-    bFontSelect->setFont( oldFont );
-
-    // Style ComboBox
-    QString appStyle = settings->GetApplicationStyleName();
-
-    if( appStyle.isEmpty() )
-    {
-        cbStyle->setCurrentIndex( 0 );
-    }
-    else
-    {
-        cbStyle->setCurrentIndex( appStyles.indexOf( appStyle ) + 1 ); // skeep "Default"
-    }
-
-    // Themes ComboBox
-    cbTheme->setCurrentIndex( settings->GetApplicationThemeIndex() );
-
-    // Toolbar style ComboBox
-    cbToolbarStyle->setCurrentIndex( settings->GetMainWindowToolbarStyle() );
-
     eExternalPlayer->setText( settings->GetExternalPlayer() );
-}
 
-/*************************************************************************************************
- *  "Database" tab settings                                                                       *
-  *************************************************************************************************/
-
-void SettingsWindow::ConfigureDatabaseTab()
-{
-    // Signals
-    connect( eDatabaseFile, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDatabaseSettingsChanged );
-    connect( bOpenDatabaseFile, &QPushButton::clicked, this, &SettingsWindow::OpenDatabaseFile );
-    connect( cCheckFilesAtStartup, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
-    connect( bSelectColorUnavailable, &QPushButton::clicked, this, &SettingsWindow::SelectColorUnavailable );
-    connect( bCreateDatabase, &QPushButton::clicked, this, &SettingsWindow::CreateDatabase );
-    connect( bEraseDatabase, &QPushButton::clicked, this, &SettingsWindow::EraseDatabaseQuestion );
-    connect( ePostersFolder, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDatabaseSettingsChanged );
-    connect( bOpenPostersFolder, &QPushButton::clicked, this, &SettingsWindow::OpenPostersFolder );
-    connect( cScalePoster, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
-    connect( sbScaleToHeight, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-}
-
-void SettingsWindow::ReconfigureDatabaseTab()
-{
+    // Database
     eDatabaseFile->setText( settings->GetDatabaseFilePath() );
     cCheckFilesAtStartup->setChecked( settings->GetCheckFilesOnStartup() );
+
+    // Posters
     ePostersFolder->setText( settings->GetPostersDirPath() );
 
     int height = settings->GetScalePosterToHeight();
@@ -507,4 +496,34 @@ void SettingsWindow::ReconfigureDatabaseTab()
         sbScaleToHeight->setEnabled( true );
         sbScaleToHeight->setValue( height );
     }
+
+    // Saving format
+    QString savedFormat = settings->GetPosterSavingFormat();
+    int savedQuality = settings->GetPosterSavingQuality();
+
+    for( int i = 0; i < savingFormats.size(); i++ )
+    {
+        if( savingFormats[i].format == savedFormat
+                && savingFormats[i].quality == savedQuality )
+        {
+            cbSavingFormat->setCurrentIndex( i );
+            break;
+        }
+    }
+}
+
+/*************************************************************************************************
+ *  "Shortcuts" tab settings                                                                      *
+  *************************************************************************************************/
+
+void SettingsWindow::ConfigureShortcutsTab()
+{
+    connect( ksePlay, &QKeySequenceEdit::keySequenceChanged, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( bDefaultPlayShortcut, &QPushButton::clicked, this, &SettingsWindow::SetShortcutPlayDefault );
+    connect( bDefaultPlayShortcut, &QPushButton::clicked, this, &SettingsWindow::SetIsSettingsChanged );
+}
+
+void SettingsWindow::ReconfigureShortcutsTab()
+{
+    ksePlay->setKeySequence( QKeySequence( settings->GetShortcutPlay() ) );
 }

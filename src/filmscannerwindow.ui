@@ -197,7 +197,7 @@
    <item>
     <widget class="QCheckBox" name="cSearchForPoster">
      <property name="text">
-      <string>Search for a poster withe the same filename like a film</string>
+      <string>Search for a poster with the same filename</string>
      </property>
      <property name="checked">
       <bool>true</bool>

@@ -21,6 +21,7 @@
 #include "filmscannerwindow.h"
 #include "filesextensions.h"
 
+#include <string>
 #include <QCryptographicHash>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -245,6 +246,8 @@ void FilmScannerWindow::CalculateSelected()
 void FilmScannerWindow::AddSelected()
 {
     QList<Film>* newFilms = new QList<Film>();
+    std::string format = settings->GetPosterSavingFormat().toStdString();
+    int quality = settings->GetPosterSavingQuality();
 
     for( int i = 0; i < twFounded->rowCount(); i++ )
     {
@@ -291,7 +294,7 @@ void FilmScannerWindow::AddSelected()
                         // Move to posters' folder
                         QString newPosterFileName = postersDir + "/" + f.GetPosterName();
 
-                        if( !p.save( newPosterFileName ) )
+                        if( !p.save( newPosterFileName, format.c_str(), quality ) )
                         {
                             f.SetIsPosterExists( false );
                         }

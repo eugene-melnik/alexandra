@@ -44,7 +44,6 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
 
     // Signals
     connect( this, &FilmsViewList::itemSelectionChanged, this, &FilmsViewList::ItemClickedSlot );
-    connect( this, &FilmsViewList::itemActivated, this, &FilmsViewList::ItemDoubleClickedSlot );
     connect( this, &FilmsViewList::itemDoubleClicked, this, &FilmsViewList::ItemDoubleClickedSlot );
     connect( this, &FilmsViewList::customContextMenuRequested, this, &FilmsViewList::ContextMenuRequestedSlot );
 
@@ -69,13 +68,13 @@ void FilmsViewList::LoadSettings( AlexandraSettings* s )
     setColumnWidth( DirectorColumn, s->GetColumnDirectorWidth() );
 
     verticalHeader()->setDefaultSectionSize( s->GetListRowHeight() );
-    setStyleSheet( QString( "font-size: %1px" ).arg( s->GetListFontSize() ) );
+    setStyleSheet( QString( "font-size: %1pt" ).arg( s->GetListFontSize() ) );
 }
 
 void FilmsViewList::ReloadSettings( AlexandraSettings *s )
 {
     verticalHeader()->setDefaultSectionSize( s->GetListRowHeight() );
-    setStyleSheet( QString( "font-size: %1px" ).arg( s->GetListFontSize() ) );
+    setStyleSheet( QString( "font-size: %1pt" ).arg( s->GetListFontSize() ) );
 }
 
 void FilmsViewList::SaveSettings( AlexandraSettings* s ) const

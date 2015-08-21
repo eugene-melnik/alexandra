@@ -133,37 +133,37 @@ bool AlexandraSettings::GetCheckFilesOnStartup() const
 int AlexandraSettings::GetColumnViewedWidth() const
 {
     int defaultValue = 20;
-    return( value( "FilmsList/ColumnViewedW", defaultValue ).toInt() );
+    return( value( "ListView/ColumnViewedW", defaultValue ).toInt() );
 }
 
 int AlexandraSettings::GetColumnFavouriteWidth() const
 {
     int defaultValue = 20;
-    return( value( "FilmsList/ColumnFavouriteW", defaultValue ).toInt() );
+    return( value( "ListView/ColumnFavouriteW", defaultValue ).toInt() );
 }
 
 int AlexandraSettings::GetColumnTitleWidth() const
 {
     int defaultValue = 150;
-    return( value( "FilmsList/ColumnTitleW", defaultValue ).toInt() );
+    return( value( "ListView/ColumnTitleW", defaultValue ).toInt() );
 }
 
 int AlexandraSettings::GetColumnYearWidth() const
 {
     int defaultValue = 50;
-    return( value( "FilmsList/ColumnYearW", defaultValue ).toInt() );
+    return( value( "ListView/ColumnYearW", defaultValue ).toInt() );
 }
 
 int AlexandraSettings::GetColumnGenreWidth() const
 {
     int defaultValue = 110;
-    return( value( "FilmsList/ColumnGenreW", defaultValue ).toInt() );
+    return( value( "ListView/ColumnGenreW", defaultValue ).toInt() );
 }
 
 int AlexandraSettings::GetColumnDirectorWidth() const
 {
     int defaultValue = 110;
-    return( value( "FilmsList/ColumnDirectorW", defaultValue ).toInt() );
+    return( value( "ListView/ColumnDirectorW", defaultValue ).toInt() );
 }
 
 QString AlexandraSettings::GetCurrentFilmTitle() const
@@ -174,6 +174,16 @@ QString AlexandraSettings::GetCurrentFilmTitle() const
 QString AlexandraSettings::GetPostersDirPath() const
 {
     return( value( "FilmsList/PostersDir", "" ).toString() );
+}
+
+QString AlexandraSettings::GetPosterSavingFormat() const
+{
+    return( value( "FilmsList/PosterSavingFormat", "" ).toString() );
+}
+
+int AlexandraSettings::GetPosterSavingQuality() const
+{
+    return( value( "FilmsList/PosterSavingQuality", -1 ).toInt() );
 }
 
 int AlexandraSettings::GetScalePosterToHeight() const
@@ -188,7 +198,7 @@ QRgb AlexandraSettings::GetUnavailableFileColor() const
 
 int AlexandraSettings::GetListFontSize() const
 {
-    return( value( "ListView/FontSize", 12 ).toInt() );
+    return( value( "ListView/FontSize", 10 ).toInt() );
 }
 
 int AlexandraSettings::GetListRowHeight() const
@@ -203,7 +213,7 @@ int AlexandraSettings::GetGridItemSize() const
 
 int AlexandraSettings::GetGridFontSize() const
 {
-    return( value( "GridView/FontSize", 12 ).toInt() );
+    return( value( "GridView/FontSize", 10 ).toInt() );
 }
 
 bool AlexandraSettings::GetGridShowTooltip() const
@@ -239,6 +249,11 @@ bool AlexandraSettings::GetMainWindowShowRightPanel() const
 QString AlexandraSettings::GetFilmsScannerLastDir() const
 {
     return( value( "FilmsScanner/LastDir", "" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutPlay() const
+{
+    return( value( "Shortcuts/Play", "Alt+Return" ).toString() );
 }
 
 // Set //
@@ -295,32 +310,32 @@ void AlexandraSettings::SetCheckFilesOnStartup( bool b )
 
 void AlexandraSettings::SetColumnViewedWidth( int n )
 {
-    setValue( "FilmsList/ColumnViewedW", n );
+    setValue( "ListView/ColumnViewedW", n );
 }
 
 void AlexandraSettings::SetColumnFavouriteWidth( int n )
 {
-    setValue( "FilmsList/ColumnFavouriteW", n );
+    setValue( "ListView/ColumnFavouriteW", n );
 }
 
 void AlexandraSettings::SetColumnTitleWidth( int n )
 {
-    setValue( "FilmsList/ColumnTitleW", n );
+    setValue( "ListView/ColumnTitleW", n );
 }
 
 void AlexandraSettings::SetColumnYearWidth( int n )
 {
-    setValue( "FilmsList/ColumnYearW", n );
+    setValue( "ListView/ColumnYearW", n );
 }
 
 void AlexandraSettings::SetColumnGenreWidth( int n )
 {
-    setValue( "FilmsList/ColumnGenreW", n );
+    setValue( "ListView/ColumnGenreW", n );
 }
 
 void AlexandraSettings::SetColumnDirectorWidth( int n )
 {
-    setValue( "FilmsList/ColumnDirectorW", n );
+    setValue( "ListView/ColumnDirectorW", n );
 }
 
 void AlexandraSettings::SetCurrentFilmTitle( const QString& s )
@@ -331,6 +346,16 @@ void AlexandraSettings::SetCurrentFilmTitle( const QString& s )
 void AlexandraSettings::SetPostersDirPath( const QString& s )
 {
     setValue( "FilmsList/PostersDir", s );
+}
+
+void AlexandraSettings::SetPosterSavingFormat( const QString& s )
+{
+    setValue( "FilmsList/PosterSavingFormat", s );
+}
+
+void AlexandraSettings::SetPosterSavingQuality( int n )
+{
+    setValue( "FilmsList/PosterSavingQuality", n );
 }
 
 void AlexandraSettings::SetScalePostersToHeight( int n )
@@ -396,4 +421,9 @@ void AlexandraSettings::SetMainWindowShowRightPanel( bool b )
 void AlexandraSettings::SetFilmsScannerLastDir( const QString& s )
 {
     setValue( "FilmsScanner/LastDir", s );
+}
+
+void AlexandraSettings::SetShortcutPlay( const QString& s )
+{
+    setValue( "Shortcuts/Play", s );
 }

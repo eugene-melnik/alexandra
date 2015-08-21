@@ -25,7 +25,6 @@
 
 #include <QColor>
 #include <QLabel>
-#include <QMessageBox>
 #include <QPixmap>
 #include <QString>
 
@@ -51,29 +50,25 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     // Translators
     QString t;
 
-    foreach( Alexandra::Locale loc, Alexandra::supportedLocales )
+    foreach( Alexandra::Locale locale, Alexandra::supportedLocales )
     {
-        t += loc.selfTitle + " (" + loc.name + ") -- " + loc.translator + "\n\n";
+        t += QString( "<b>%1 (%2)</b> &mdash; %3<br/><br/>" ).arg( locale.selfTitle,
+                                                                   locale.name,
+                                                                   locale.translator );
     }
 
     tTranslators->setText( t );
 }
 
-void AboutWindow::AboutQt()
-{
-    QMessageBox::aboutQt( this->parentWidget() );
-}
-
-void AboutWindow::showEvent( QShowEvent* event )
+void AboutWindow::show()
 {
     // Random image from resources
     image->setPixmap( QPixmap( QString( ":/cats/%1" ).arg( rand() % 6 + 1 ) ) );
 
     // Random color
-//    QColor color( rand()%255, 255, rand()%255 );
-//    lAppName->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAppName ) );
-//    lAppVersion->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAppVersion ) );
-//    image->setGraphicsEffect( new EffectDropShadow( 0, 0, color, image ) );
+    QColor color( rand()%255, 255, rand()%255 );
+    labelAuthor->setGraphicsEffect( new EffectDropShadow( 0, 0, color, labelAuthor ) );
+    lAuthor->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAuthor ) );
 
-    event->accept();
+    QDialog::show();
 }

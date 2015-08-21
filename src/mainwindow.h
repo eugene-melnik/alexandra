@@ -96,6 +96,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
     private:
         // Additional functions
         void LoadSettings();
+        void LoadAppearance();
+        void LoadShorcuts();
         void SaveSettings();
 
         void SetupFilmsView();

@@ -44,7 +44,7 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
 void FilmsViewGrid::LoadSettings( AlexandraSettings* s )
 {
     settings = s;
-    setStyleSheet( QString( "font-size: %1px" ).arg( s->GetGridFontSize() ) );
+    setStyleSheet( QString( "font-size: %1pt" ).arg( s->GetGridFontSize() ) );
 
     model = new FilmViewGridModel( settings, this );
     setModel( model );
@@ -52,7 +52,7 @@ void FilmsViewGrid::LoadSettings( AlexandraSettings* s )
 
 void FilmsViewGrid::ReloadSettings( AlexandraSettings* s )
 {
-    setStyleSheet( QString( "font-size: %1px" ).arg( s->GetGridFontSize() ) );
+    setStyleSheet( QString( "font-size: %1pt" ).arg( s->GetGridFontSize() ) );
 }
 
 int FilmsViewGrid::AddItem( const Film& film, QColor background )

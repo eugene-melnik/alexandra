@@ -120,27 +120,8 @@ void MainWindow::ReloadDatabase()
 
 void MainWindow::ReloadSettings()
 {
-    // Font
-    QFont newFont;
-    newFont.fromString( settings->GetApplicationFont() );
-    qApp->setFont( newFont );
-
-    // Style
-    QString style = settings->GetApplicationStyleName();
-
-    if( style == tr( "Theme" ) )
-    {
-        QFile f( Alexandra::themes[ settings->GetApplicationThemeIndex() ].path + "style.qss" );
-        f.open( QFile::ReadOnly );
-        qApp->setStyleSheet( QString::fromUtf8( f.readAll() ) );
-        f.close();
-    }
-    else
-    {
-        qApp->setStyleSheet( "" );
-        qApp->setStyle( style );
-    }
-
+    LoadAppearance();
+    LoadShorcuts();
     wRight->setVisible( settings->GetMainWindowShowRightPanel() );
     toolbar->LoadSettings( settings );
     filmsView->ReloadSettings( settings );
@@ -491,6 +472,24 @@ void MainWindow::StatusbarShowTotal()
 
 void MainWindow::LoadSettings()
 {
+    LoadAppearance();
+    LoadShorcuts();
+
+    // Main window
+    restoreGeometry( settings->GetMainWindowGeometry() );
+    restoreState( settings->GetMainWindowState() );
+    mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
+    actionShowFullscreen->setChecked( isFullScreen() );
+    actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
+    wRight->setVisible( settings->GetMainWindowShowRightPanel() );
+
+    // Widgets
+    filmsView->LoadSettings( settings );
+    toolbar->LoadSettings( settings );
+}
+
+void MainWindow::LoadAppearance()
+{
     // Font
     QFont font;
     font.fromString( settings->GetApplicationFont() );
@@ -510,18 +509,11 @@ void MainWindow::LoadSettings()
     {
         qApp->setStyle( style );
     }
+}
 
-    // Main window
-    restoreGeometry( settings->GetMainWindowGeometry() );
-    restoreState( settings->GetMainWindowState() );
-    mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
-    actionShowFullscreen->setChecked( isFullScreen() );
-    actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
-    wRight->setVisible( settings->GetMainWindowShowRightPanel() );
-
-    // Widgets
-    filmsView->LoadSettings( settings );
-    toolbar->LoadSettings( settings );
+void MainWindow::LoadShorcuts()
+{
+    bPlay->setShortcut( QKeySequence( settings->GetShortcutPlay() ) );
 }
 
 void MainWindow::SaveSettings()

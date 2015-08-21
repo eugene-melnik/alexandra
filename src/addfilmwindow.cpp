@@ -21,6 +21,7 @@
 #include "addfilmwindow.h"
 #include "filesextensions.h"
 
+#include <string>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QCryptographicHash>
@@ -186,8 +187,10 @@ void AddFilmWindow::OkButtonClicked()
 
             // Move to posters' folder
             QString newPosterFileName = postersDir + "/" + f.GetPosterName();
+            std::string format = settings->GetPosterSavingFormat().toStdString();
+            int quality = settings->GetPosterSavingQuality();
 
-            if( !p.save( newPosterFileName ) )
+            if( !p.save( newPosterFileName, format.c_str(), quality ) )
             {
                 f.SetIsPosterExists( false );
                 emit PosterMovingError();

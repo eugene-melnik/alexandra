@@ -26,8 +26,9 @@
 #include "alexandrasettings.h"
 
 #include <QDialog>
-#include <QShowEvent>
+#include <QList>
 #include <QString>
+#include <QStringList>
 
 class SettingsWindow : public QDialog, public Ui::SettingsWindow
 {
@@ -36,8 +37,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
     public:
         SettingsWindow( AlexandraSettings* s, QWidget* parent = nullptr );
 
-    protected:
-        void showEvent( QShowEvent* event );
+        void show();
 
     signals:
         void DatabaseSettingsChanged();
@@ -47,10 +47,10 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
 
     private slots:
         void OkButtonClicked();
-        void SetIsSettingsChanged();
-        void SetIsViewChanged();
-        void SetIsNeedReboot();
-        void SetIsDatabaseSettingsChanged();
+        void SetIsSettingsChanged() { isSettingsChanged = true; }
+        void SetIsViewChanged() { SetIsSettingsChanged(); isViewChanged = true; }
+        void SetIsNeedReboot() { SetIsSettingsChanged(); isNeedReboot = true; }
+        void SetIsDatabaseSettingsChanged() { SetIsSettingsChanged(); isDatabaseSettingsChanged = true; }
 
         void StyleChanged();
         void SelectFont();
@@ -64,13 +64,15 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void EraseDatabaseQuestion();
         void OpenPostersFolder();
 
+        void SetShortcutPlayDefault() { ksePlay->setKeySequence( QKeySequence( "Alt+Return" ) ); }
+
     private:
         void ConfigureAppearanceTab();
         void ReconfigureAppearanceTab();
         void ConfigureApplicationTab();
         void ReconfigureApplicationTab();
-        void ConfigureDatabaseTab();
-        void ReconfigureDatabaseTab();
+        void ConfigureShortcutsTab();
+        void ReconfigureShortcutsTab();
 
         // Variables
         AlexandraSettings* settings;
@@ -79,7 +81,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         bool isViewChanged;
         bool isNeedReboot;
 
-        // Constants
+        // Toolbar styles
         typedef struct {
             QString name;
             Qt::ToolButtonStyle style;
@@ -91,13 +93,27 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
                                               { tr("Text under icon"),      Qt::ToolButtonTextUnderIcon },
                                               { tr("<Follow system style>"),Qt::ToolButtonFollowStyle } };
 
-        const QList<QString> appStyles = { tr( "Theme" ),
-                                           "CDE",
-                                           "Cleanlooks",
-                                           "GTK+",
-                                           "Motif",
-                                           "Plastique",
-                                           "Windows" };
+        // App styles
+        const QStringList appStyles = { tr( "Theme" ),
+                                            "CDE",
+                                            "Cleanlooks",
+                                            "GTK+",
+                                            "Motif",
+                                            "Plastique",
+                                            "Windows" };
+
+        // Saving formats
+        typedef struct {
+            QString title;
+            QString format;
+            int quality;
+        } PosterFormat;
+
+        const QList<PosterFormat> savingFormats = { { tr( "PNG (compressed)" ),   "png",  0 },
+                                                    { tr( "JPG (quality 95)" ),   "jpg", 95 },
+                                                    { tr( "JPG (quality 85)" ),   "jpg", 85 },
+                                                    { tr( "JPG (quality 75)" ),   "jpg", 75 },
+                                                    { tr( "BMP (uncompressed)" ), "bmp", -1 } };
 };
 
 #endif // SETTINGSWINDOW_H

@@ -24,7 +24,7 @@
 #include "ui_aboutwindow.h"
 
 #include <QDialog>
-#include <QShowEvent>
+#include <QMessageBox>
 
 class AboutWindow : public QDialog, public Ui::AboutWindow
 {
@@ -33,11 +33,10 @@ class AboutWindow : public QDialog, public Ui::AboutWindow
     public:
         AboutWindow( QWidget* parent = nullptr );
 
-    public slots:
-        void AboutQt();
+        void show();
 
-    protected:
-        void showEvent( QShowEvent* event );
+    public slots:
+        void AboutQt() { QMessageBox::aboutQt( this->parentWidget() ); }
 };
 
 #endif // ABOUTWINDOW_H

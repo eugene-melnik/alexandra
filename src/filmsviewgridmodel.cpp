@@ -28,6 +28,7 @@ FilmViewGridModel::FilmViewGridModel(  AlexandraSettings* s, QObject* parent )
 
 void FilmViewGridModel::AppendItem( const Film& film, QColor background )
 {
+    // Create item in arrays
     itemTitle.append( QString() );
     itemImage.append( QPixmap() );
     itemToolTip.append( QString() );
