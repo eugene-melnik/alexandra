@@ -20,6 +20,8 @@
 
 #include "film.h"
 
+#include <QCryptographicHash>
+
 /*************************************************************************************************
  *  Constructors                                                                                  *
   *************************************************************************************************/
@@ -423,4 +425,10 @@ void Film::SetNewData( const Film& other )
     isPosterExists = other.isPosterExists;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;
+}
+
+QString Film::GetRandomHash()
+{
+    QByteArray hash = QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 );
+    return( QString( hash.toHex() ) );
 }

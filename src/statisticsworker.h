@@ -22,6 +22,7 @@
 #define STATISTICSWORKER_H
 
 #include <QList>
+#include <QMetaType>
 #include <QThread>
 
 #include "film.h"
@@ -37,7 +38,7 @@ class StatisticsWorker : public QThread
     Q_OBJECT
 
     public:
-        StatisticsWorker();
+        StatisticsWorker() : QThread() { qRegisterMetaType<TimeCounter>( "TimeCounter" ); }
 
         void SetFilms( const QList<Film>* f ) { films = f; }
         void Terminate() { isTerminate = true; }

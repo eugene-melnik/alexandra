@@ -68,18 +68,15 @@ QList<QString>* FilmScannerWorker::ScanDirectoryRecursive( QString dir )
     QList<QString>* result = ScanDirectory( dir );
 
     // Scan files in subdirectories recursively
-    QFileInfoList files = QDir( dir ).entryInfoList();
+    QFileInfoList files = QDir( dir ).entryInfoList( QDir::NoDotAndDotDot | QDir::Dirs );
 
     for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
     {
-        if( i->isDir() && (i->fileName() != ".") && (i->fileName() != "..") )
-        {
-            if( isCanceled ) break; // Scanning canceled
+        if( isCanceled ) break; // Scanning canceled
 
-            QList<QString>* subdirFiles = ScanDirectoryRecursive( i->absoluteFilePath() );
-            result->append( *subdirFiles );
-            delete subdirFiles;
-        }
+        QList<QString>* subdirFiles = ScanDirectoryRecursive( i->absoluteFilePath() );
+        result->append( *subdirFiles );
+        delete subdirFiles;
     }
 
     return( result );

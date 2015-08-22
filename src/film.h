@@ -95,6 +95,8 @@ class Film
 
         void SetNewData( const Film& other );
 
+        static QString GetRandomHash();
+
     private:
         QString id;
         quint8  section = 0;

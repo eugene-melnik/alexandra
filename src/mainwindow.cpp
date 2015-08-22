@@ -102,7 +102,6 @@ void MainWindow::EraseDatabase()
     else
     {
         filmsList->EraseAll();
-        QMessageBox::information( this, tr( "Erase database" ), tr( "Done!" ) );
     }
 }
 

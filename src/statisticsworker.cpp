@@ -21,13 +21,6 @@
 #include "mediainfo.h"
 #include "statisticsworker.h"
 
-#include <QMetaType>
-
-StatisticsWorker::StatisticsWorker() : QThread()
-{
-    qRegisterMetaType<TimeCounter>( "TimeCounter" );
-}
-
 void StatisticsWorker::run()
 {
     isTerminate = false;

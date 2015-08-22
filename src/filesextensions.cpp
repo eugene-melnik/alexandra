@@ -50,8 +50,8 @@ QString FilesExtensions::GetImageExtensionsForFilter() const
 QString FilesExtensions::SearchForEponymousImage( QString fileName ) const
 {
     QFileInfo fileInfo( fileName );
-    QStringList filter( fileInfo.completeBaseName() + ".*" );
-    QFileInfoList eponymousFiles = QDir( fileInfo.absolutePath() ).entryInfoList( filter );
+    QStringList filter( QString( fileInfo.completeBaseName() + ".*" ).replace( "[", "?" ).replace( "]", "?" ) ); // TODO: need to optimize
+    QFileInfoList eponymousFiles = QDir( fileInfo.absolutePath() ).entryInfoList( filter, QDir::Files );
 
     if( eponymousFiles.size() > 1 )
     {

@@ -22,7 +22,6 @@
 #include "filesextensions.h"
 
 #include <string>
-#include <QCryptographicHash>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTableWidgetItem>
@@ -259,9 +258,9 @@ void FilmScannerWindow::AddSelected()
 
             // Creating film
             Film f;
-            f.SetId( QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() ) );
+            f.SetId( Film::GetRandomHash() );
             f.SetFileName( fileName );
-            f.SetTitle( QFileInfo( fileName ).fileName() );
+            f.SetTitle( QFileInfo( fileName ).completeBaseName().replace( "_", " " ) );
 
             // Search for poster
             if( cSearchForPoster->isChecked() )

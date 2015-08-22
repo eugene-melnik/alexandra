@@ -24,7 +24,6 @@
 #include <string>
 #include <QCheckBox>
 #include <QComboBox>
-#include <QCryptographicHash>
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -49,7 +48,7 @@ void AddFilmWindow::show()
 {
     QDialog::show();
     bOpenPoster->setText( tr( "Open" ) );
-    filmId = QString( QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 ).toHex() );
+    filmId = Film::GetRandomHash();
 }
 
 void AddFilmWindow::closeEvent( QCloseEvent* event )
@@ -70,7 +69,7 @@ void AddFilmWindow::OpenFilmFileClicked()
     if( fileName.isFile() )
     {
         eFilmFileName->setText( fileName.absoluteFilePath() );
-        eTitle->setText( fileName.completeBaseName() );
+        eTitle->setText( fileName.completeBaseName().replace( "_", " " ) );
 
         QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName.absoluteFilePath() );
         if( !posterFileName.isEmpty() )
