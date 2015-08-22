@@ -276,6 +276,7 @@ void FilmsList::AddFilm( Film film )
 void FilmsList::AddFilms( const QList<Film>* newFilms )
 {
     *films += *newFilms;
+    std::sort( films->begin(), films->end() );
 
     isDatabaseChanged = true;
     emit DatabaseChanged();

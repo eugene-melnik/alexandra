@@ -42,6 +42,7 @@ HEADERS += effects/effectdropshadow.h \
            filminfowindow.h \
            filmscannerwindow.h \
            filmscannerworker.h \
+           filmscanneraddworker.h \
            filmslist.h \
            filmsviewcontextmenu.h \
            filmsviewgrid.h \
@@ -70,6 +71,7 @@ SOURCES += effects/effectdropshadow.cpp \
            filminfowindow.cpp \
            filmscannerwindow.cpp \
            filmscannerworker.cpp \
+           filmscanneraddworker.cpp \
            filmslist.cpp \
            filmsviewcontextmenu.cpp \
            filmsviewgrid.cpp \

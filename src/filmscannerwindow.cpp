@@ -31,7 +31,9 @@ FilmScannerWindow::FilmScannerWindow( AlexandraSettings* s, QWidget* parent )
 {
     setupUi( this );
 
-    // Worker
+    newFilms = new QList<Film>();
+
+    // Scanner worker
     filmScannerWorker = new FilmScannerWorker();
     connect( filmScannerWorker, &FilmScannerWorker::Scanned, this, &FilmScannerWindow::ShowFounded );
     connect( filmScannerWorker, &FilmScannerWorker::IncFoundedTotal, this, &FilmScannerWindow::IncFoundedTotal );
@@ -53,6 +55,7 @@ FilmScannerWindow::FilmScannerWindow( AlexandraSettings* s, QWidget* parent )
 
 FilmScannerWindow::~FilmScannerWindow()
 {
+    delete newFilms;
     delete filmScannerWorker;
 }
 
@@ -244,9 +247,7 @@ void FilmScannerWindow::CalculateSelected()
 
 void FilmScannerWindow::AddSelected()
 {
-    QList<Film>* newFilms = new QList<Film>();
-    std::string format = settings->GetPosterSavingFormat().toStdString();
-    int quality = settings->GetPosterSavingQuality();
+    QStringList selectedFilms;
 
     for( int i = 0; i < twFounded->rowCount(); i++ )
     {
@@ -254,61 +255,11 @@ void FilmScannerWindow::AddSelected()
 
         if( item->checkState() == Qt::Checked )
         {
-            QString fileName = twFounded->item( i, 0 )->text();
-
-            // Creating film
-            Film f;
-            f.SetId( Film::GetRandomHash() );
-            f.SetFileName( fileName );
-            f.SetTitle( QFileInfo( fileName ).completeBaseName().replace( "_", " " ) );
-
-            // Search for poster
-            if( cSearchForPoster->isChecked() )
-            {
-                QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName );
-
-                if( !posterFileName.isEmpty() )
-                {
-                    f.SetIsPosterExists( true );
-
-                    QString postersDir = settings->GetPostersDirPath();
-                    int newHeight = settings->GetScalePosterToHeight();
-
-                    if( QFileInfo( posterFileName ).absolutePath() != postersDir )
-                    {
-                        // Creating posters' directory if not exists
-                        if( !QDir().exists( postersDir ) )
-                        {
-                            QDir().mkdir( postersDir );
-                        }
-
-                        QPixmap p( posterFileName );
-
-                        // Scale to height
-                        if( newHeight != 0 && newHeight < p.height() )
-                        {
-                            p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
-                        }
-
-                        // Move to posters' folder
-                        QString newPosterFileName = postersDir + "/" + f.GetPosterName();
-
-                        if( !p.save( newPosterFileName, format.c_str(), quality ) )
-                        {
-                            f.SetIsPosterExists( false );
-                        }
-                    }
-                }
-            }
-
-            // Adding
-            newFilms->append( f );
-            // Adding to list of existing films
-            existsFileNames->append( fileName );
+            selectedFilms.append( twFounded->item( i, 0 )->text() );
         }
     }
 
-    if( newFilms->empty() )
+    if( selectedFilms.empty() ) // Nothing was selected
     {
         QMessageBox::information( this,
                                   tr( "Film scanner" ),
@@ -316,8 +267,41 @@ void FilmScannerWindow::AddSelected()
     }
     else
     {
-        emit AddFilms( newFilms );
+        newFilmsCount = selectedFilms.size();
+        bAdd->setEnabled( false );
+        progressBar->show();
 
+        // Threads create
+        int threadCount = 1; /* QThread::idealThreadCount(); */ // TODO: Problems in QPixmap::save in multithread
+        int subListLength = selectedFilms.size() / threadCount;
+
+        for( int threadNum = 0; threadNum < threadCount; threadNum++ )
+        {
+            int subListPos = threadNum * subListLength;
+
+            if( threadNum == (threadCount - 1) ) // Last thread
+            {
+                subListLength = -1;
+            }
+
+            FilmScannerAddWorker* addWorker = new FilmScannerAddWorker();
+            connect( addWorker, &FilmScannerAddWorker::FilmsCreated, this, &FilmScannerWindow::FilmsCreated );
+            connect( addWorker, &FilmScannerAddWorker::finished, addWorker, &QWidget::deleteLater );
+
+            addWorker->SetFoundedFilms( selectedFilms.mid( subListPos, subListLength ) );
+            addWorker->SetSettings( settings );
+            addWorker->SetSearchForPoster( cSearchForPoster->isChecked() );
+            addWorker->start();
+        }
+    }
+}
+
+void FilmScannerWindow::FilmsCreated( QList<Film> films )
+{
+    newFilms->append( films );
+
+    if( newFilms->size() == newFilmsCount )
+    {
         // Disabling already added files
         for( int i = 0; i < twFounded->rowCount(); i++ )
         {
@@ -325,14 +309,20 @@ void FilmScannerWindow::AddSelected()
 
             if( item->checkState() == Qt::Checked )
             {
+                // Uncheck
                 item->setCheckState( Qt::Unchecked );
                 item->setFlags( Qt::NoItemFlags );
                 item->setBackgroundColor( QColor( 0, 255, 0, 40 ) );
+                // Add to list of existing films
+                existsFileNames->append( item->text() );
             }
         }
 
-        lSelected->setText( "0" );
-    }
+        emit AddFilms( newFilms );
 
-    delete newFilms;
+        lSelected->setText( "0" );
+        bAdd->setEnabled( true );
+        progressBar->hide();
+        newFilms->clear();
+    }
 }

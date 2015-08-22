@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmscannerwindow.h                                                                     *
+ *  file: filmscanneraddworker.h                                                                  *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,59 +18,39 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSCANNERWINDOW_H
-#define FILMSCANNERWINDOW_H
-
-#include <QCloseEvent>
-#include <QDialog>
-#include <QList>
-#include <QString>
-#include <QStringList>
+#ifndef FILMSCANNERADDWORKER_H
+#define FILMSCANNERADDWORKER_H
 
 #include "alexandrasettings.h"
 #include "film.h"
-#include "filmscannerworker.h"
-#include "filmscanneraddworker.h"
-#include "ui_filmscannerwindow.h"
 
-class FilmScannerWindow : public QDialog, public Ui::FilmScannerWindow
+#include <QList>
+#include <QMetaType>
+#include <QStringList>
+#include <QTableWidget>
+#include <QThread>
+
+class FilmScannerAddWorker : public QThread
 {
     Q_OBJECT
 
     public:
-        FilmScannerWindow( AlexandraSettings* s, QWidget* parent = nullptr );
-        ~FilmScannerWindow();
+        FilmScannerAddWorker() : QThread() { qRegisterMetaType<QList<Film>>( "QList<Film>" ); }
 
-        void show( QStringList* l );
+        void SetFoundedFilms( QStringList founded ) { foundedFilms = founded; }
+        void SetSettings( AlexandraSettings* s ) { settings = s; }
+        void SetSearchForPoster( bool b ) { searchForPoster = b; }
 
     signals:
-        void AddFilms( const QList<Film>* );
+        void FilmsCreated( QList<Film> );
 
     protected:
-        void reject() { close(); }
-        void closeEvent( QCloseEvent* event );
-
-    private slots:
-        void SelectDirectory();
-
-        void Scan();
-        void IncFoundedTotal();
-        void ShowFounded( QList<QString>* fileNames );
-
-        void SelectAll();
-        void UnselectAll();
-        void InvertSelection();
-        void CalculateSelected();
-
-        void AddSelected();
-        void FilmsCreated( QList<Film> films );
+        void run() override;
 
     private:
+        QStringList foundedFilms;
         AlexandraSettings* settings = nullptr;
-        QStringList* existsFileNames = nullptr;
-        FilmScannerWorker* filmScannerWorker = nullptr;
-        QList<Film>* newFilms = nullptr;
-        int newFilmsCount;
+        bool searchForPoster;
 };
 
-#endif // FILMSCANNERWINDOW_H
+#endif // FILMSCANNERADDWORKER_H
