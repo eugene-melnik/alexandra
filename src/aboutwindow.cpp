@@ -54,7 +54,7 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     {
         t += QString( "<b>%1 (%2)</b> &mdash; %3<br/><br/>" ).arg( locale.selfTitle,
                                                                    locale.name,
-                                                                   locale.translator );
+                                                                   locale.translator.replace( "<", "&lt;" ).replace( ">", "&gt;" ) );
     }
 
     tTranslators->setText( t );
