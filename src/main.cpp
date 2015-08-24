@@ -79,6 +79,11 @@ int main( int argc, char** argv )
     MainWindow* mainWindow = new MainWindow( settings );
     mainWindow->show();
 
+    if( parser.GetFilmsToAdd().size() > 0 )
+    {
+        mainWindow->AddFilmsFromCommandLine( parser.GetFilmsToAdd() );
+    }
+
     int res = alexandra.exec();
 
     delete settings;

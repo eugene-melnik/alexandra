@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Application
+MimeType=video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm;video/x-theora;video/webm;
+Exec=alexandra %U
+Icon=alexandra
+Categories=AudioVideo;Video;Qt;
+NoDisplay=true
+Name=Add to the video library
+Comment=Add file(s) to your video library
+
+# Translations
+Name[ru]=Добавить в видеотеку
+Comment[ru]=Добавь файл(ы) в свою видеотеку
+
+Name[uk]=Додати до відеотеки
+Comment[uk]=Додай файл(и) до своєї відеотеки
+

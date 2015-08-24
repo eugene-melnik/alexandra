@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "filesextensions.h"
 #include "filmsviewgrid.h"
 #include "filmsviewlist.h"
 #include "mainwindow.h"
@@ -65,6 +66,51 @@ MainWindow::~MainWindow()
     delete filmsList;
     delete filmsView;
     delete contextMenu;
+}
+
+void MainWindow::AddFilmsFromCommandLine( QStringList films )
+{
+    QList<Film> newFilms;
+    QString messageText;
+
+    foreach( QString film, films )
+    {
+        QFileInfo filmInfo( film );
+        QString fileSuffix = "*." + filmInfo.suffix();
+
+        if( FilesExtensions().GetFilmExtensionsForDirFilter().contains( fileSuffix ) )
+        {
+            Film f;
+            f.SetFileName( film );
+            f.SetTitle( filmInfo.completeBaseName() );
+            newFilms.append( f );
+            messageText.append( QString::number( newFilms.size() ) + ") " + filmInfo.fileName() + "\n" );
+        }
+    }
+
+    if( newFilms.size() == 0 )
+    {
+        QMessageBox::information( this,
+                                  tr( "Add films" ),
+                                  tr( "There is nothing to add." ) );
+        return;
+    }
+
+    messageText = tr( "Add the following %1 film(s)?\n" ).arg( newFilms.size() ) + messageText;
+
+    int res = QMessageBox::question( this,
+                                     tr( "Add films" ),
+                                     messageText,
+                                     QMessageBox::Yes | QMessageBox::No,
+                                     QMessageBox::Yes );
+
+    if( res == QMessageBox::Yes )
+    {
+        filmsList->AddFilms( &newFilms );
+        DatabaseIsLoaded();
+        ShowFilms();
+        QMessageBox::information( this, tr( "Add films" ), tr( "Done!" ) );
+    }
 }
 
 void MainWindow::closeEvent( QCloseEvent* event )

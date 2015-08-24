@@ -51,6 +51,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         MainWindow( AlexandraSettings* s );
         ~MainWindow();
 
+        void AddFilmsFromCommandLine( QStringList films );
+
     signals:
         void Shown();
 

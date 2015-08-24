@@ -123,10 +123,17 @@ target.path = /usr/bin/
 desktop_file.files = ../linux/alexandra.desktop
 desktop_file.path = /usr/share/applications/
 
+desktop_file_addfilms.files = ../linux/alexandra_addfilms.desktop
+desktop_file_addfilms.path = /usr/share/applications/
+
 icon_png.files = ../linux/alexandra.png
 icon_png.path = /usr/share/icons/
 
 icon_svg.files = ../linux/alexandra.svg
 icon_svg.path = /usr/share/icons/hicolor/scalable/apps/
 
-INSTALLS = target desktop_file icon_png icon_svg
+INSTALLS = target \
+           desktop_file \
+           desktop_file_addfilms \
+           icon_png \
+           icon_svg
