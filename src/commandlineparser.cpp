@@ -21,6 +21,7 @@
 #include "commandlineparser.h"
 #include "version.h"
 
+#include <QApplication>
 #include <QProcessEnvironment>
 
 CommandLineParser::CommandLineParser() : QCommandLineParser()
@@ -54,6 +55,10 @@ QString CommandLineParser::GetConfigLocation() const
 
     if( configFile.isEmpty() )
     {
+#ifdef PORTABLE_VERSION
+        return( qApp->applicationDirPath() + "/data/configuration.conf" );
+#endif
+
 #ifdef Q_OS_LINUX
         configFile = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
 

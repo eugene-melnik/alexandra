@@ -468,6 +468,16 @@ void SettingsWindow::ConfigureApplicationTab()
         cbSavingFormat->addItem( f.title );
     }
 
+#ifdef PORTABLE_VERSION
+    // Database
+    labelDatabaseFile->setEnabled( false );
+    eDatabaseFile->setEnabled( false );
+    bOpenDatabaseFile->setEnabled( false );
+    // Posters
+    labelPostersFolder->setEnabled( false );
+    ePostersFolder->setEnabled( false );
+    bOpenPostersFolder->setEnabled( false );
+#endif
 }
 
 void SettingsWindow::ReconfigureApplicationTab()

@@ -13,7 +13,10 @@ TEMPLATE = app
 
 QT = core gui widgets concurrent
 CONFIG += qt warn_on thread
+
 DEFINES += _UNICODE UNICODE
+#DEFINES += PORTABLE_VERSION
+
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -Ofast 

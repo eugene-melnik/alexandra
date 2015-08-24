@@ -27,6 +27,12 @@
 
 AlexandraSettings::AlexandraSettings( QString configFile ) : QSettings( configFile, QSettings::IniFormat )
 {
+    // In portable version the database file and the posters dir are
+    // in the same directory as the configuration file
+#ifdef PORTABLE_VERSION
+    SetDatabaseFilePath( QFileInfo( this->fileName() ).absolutePath() + "/database.adat" );
+    SetPostersDirPath( QFileInfo( this->fileName() ).absolutePath() + "/posters" );
+#else
     // Set database filename
 
     QString databaseFileName = GetDatabaseFilePath();
@@ -46,6 +52,7 @@ AlexandraSettings::AlexandraSettings( QString configFile ) : QSettings( configFi
         postersFolderName = QFileInfo( databaseFileName ).absolutePath() + "/posters";
         SetPostersDirPath( postersFolderName );
     }
+#endif
 
     // Set external player
 
@@ -174,7 +181,7 @@ int AlexandraSettings::GetPosterSavingQuality() const
 
 int AlexandraSettings::GetScalePosterToHeight() const
 {
-    return( value( "FilmsList/ScalePosters", 600 ).toInt() );
+    return( value( "FilmsList/ScalePosters", 800 ).toInt() );
 }
 
 QRgb AlexandraSettings::GetUnavailableFileColor() const
