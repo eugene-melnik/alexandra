@@ -161,7 +161,11 @@ void AddFilmWindow::OkButtonClicked()
     // Manipulations with poster
     QString posterFileName = ePosterFileName->text();
 
-    if( !posterFileName.isEmpty() )
+    if( posterFileName.isEmpty() )
+    {
+        f.SetIsPosterExists( false );
+    }
+    else
     {
         f.SetIsPosterExists( true );
 

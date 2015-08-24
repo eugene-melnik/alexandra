@@ -68,7 +68,7 @@ MainWindow::~MainWindow()
     delete contextMenu;
 }
 
-void MainWindow::AddFilmsFromCommandLine( QStringList films )
+void MainWindow::AddFilmsFromOutside( QStringList films )
 {
     QList<Film> newFilms;
     QString messageText;
@@ -322,7 +322,12 @@ void MainWindow::ShowFilmInformation()
     bFavourite->setChecked( f->GetIsFavourite() );
 
     // Poster
-    QPixmap p( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
+    QPixmap p;
+
+    if( f->GetIsPosterExists() )
+    {
+        p.load( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
+    }
 
     if( p.isNull() )
     {

@@ -31,8 +31,9 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
     setResizeMode( QListView::Adjust );
     setViewMode( QListView::IconMode );
     setWrapping( true );
+    setSpacing( 5 );
 
-    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF
+    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF: not works
 
     // Signals
     connect( this, &FilmsViewGrid::clicked, this, &FilmsViewGrid::ItemClickedSlot );

@@ -81,7 +81,7 @@ int main( int argc, char** argv )
 
     if( parser.GetFilmsToAdd().size() > 0 )
     {
-        mainWindow->AddFilmsFromCommandLine( parser.GetFilmsToAdd() );
+        mainWindow->AddFilmsFromOutside( parser.GetFilmsToAdd() );
     }
 
     int res = alexandra.exec();

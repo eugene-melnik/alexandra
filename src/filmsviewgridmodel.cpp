@@ -44,14 +44,14 @@ void FilmViewGridModel::SetItem( int n, const Film& film, QColor background )
 
     // Film poster
     QString posterFilePath = settings->GetPostersDirPath() + "/" + film.GetPosterName();
+    QPixmap posterImage;
 
-    if( !film.GetIsPosterExists() || !QFileInfo( posterFilePath ).exists() )
+    if( !film.GetIsPosterExists() || !posterImage.load( posterFilePath ) )
     {
-        posterFilePath = ":/standart-poster";
+        posterImage.load( ":/standart-poster" );
     }
 
-    itemImage[ n ] = QPixmap( posterFilePath ).scaledToHeight( settings->GetGridItemSize(),
-                                                               Qt::SmoothTransformation );
+    itemImage[ n ] = posterImage.scaledToHeight( settings->GetGridItemSize(), Qt::SmoothTransformation );
 
     // Film information
     QString tooltip;
@@ -152,7 +152,7 @@ QVariant FilmViewGridModel::data( const QModelIndex& index, int role ) const
 
         case Qt::DecorationRole :
         {
-            return( itemImage.at( row ) );
+            return( itemImage.at( row )  );
         }
 
         case Qt::ToolTipRole :
@@ -166,10 +166,6 @@ QVariant FilmViewGridModel::data( const QModelIndex& index, int role ) const
             {
                 return( itemBackground.at( row ) );
             }
-            else
-            {
-                return( QVariant() );
-            }
         }
 
         case Qt::SizeHintRole :
@@ -178,10 +174,7 @@ QVariant FilmViewGridModel::data( const QModelIndex& index, int role ) const
             int height = settings->GetGridItemSize() + settings->GetGridFontSize() * 2;  // +2* font size
             return( QSize( width, height ) );
         }
-
-        default:
-        {
-            return( QVariant() );
-        }
     }
+
+    return( QVariant() );
 }
