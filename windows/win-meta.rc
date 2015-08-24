@@ -1,14 +1,11 @@
 #include <windows.h>
  
-#define VER_FILEVERSION             
-#define VER_FILEVERSION_STR         
-
-#define VER_PRODUCTVERSION          
-#define VER_PRODUCTVERSION_STR      
+#define VERSION             1,3,0,0
+#define VERSION_STR         "1.3.0\0"
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION    	1,2,3,0
-PRODUCTVERSION 	1,2,3,0
+FILEVERSION    	VERSION
+PRODUCTVERSION 	VERSION
 FILEFLAGSMASK  	VS_FFI_FILEFLAGSMASK
 FILEFLAGS      	0
 FILEOS         	VOS__WINDOWS32
@@ -21,11 +18,11 @@ BEGIN
         BEGIN
             VALUE "CompanyName",      "Eugene Melnik <jeka7js@gmail.com>\0"
             VALUE "FileDescription",  "Alexandra Video Library\0"
-            VALUE "FileVersion",      "1.2.3\0"
+            VALUE "FileVersion",      VERSION_STR
             VALUE "InternalName",     "alexandra\0"
             VALUE "OriginalFilename", "alexandra.exe\0"
             VALUE "ProductName",      "Alexandra Video Library\0"
-            VALUE "ProductVersion",   "1.2.3\0"
+            VALUE "ProductVersion",   VERSION_STR
         END
     END
     BLOCK "VarFileInfo"
