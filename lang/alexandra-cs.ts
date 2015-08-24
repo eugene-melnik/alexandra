@@ -74,7 +74,12 @@
         <translation>&amp;Zavřít</translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.cpp" line="37"/>
+        <location filename="../src/aboutwindow.cpp" line="39"/>
+        <source>version %1 (portable) (build date: %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/aboutwindow.cpp" line="41"/>
         <source>version %1 (build date: %2)</source>
         <translation>Verze %1 (datum sestavení: %2)</translation>
     </message>
@@ -628,7 +633,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="472"/>
-        <location filename="../src/mainwindow.cpp" line="378"/>
+        <location filename="../src/mainwindow.cpp" line="383"/>
         <source>&amp;PLAY</source>
         <translation>&amp;PŘEHRÁT</translation>
     </message>
@@ -699,7 +704,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="664"/>
-        <location filename="../src/mainwindow.cpp" line="399"/>
+        <location filename="../src/mainwindow.cpp" line="404"/>
         <source>Remove film</source>
         <translation>Odstranit film</translation>
     </message>
@@ -755,7 +760,7 @@
         <translation>Databáze je pouze pro čtení! Úpravy jsou zakázány.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="400"/>
+        <location filename="../src/mainwindow.cpp" line="405"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Jste si jistý, že chcete odstranit &quot;%1&quot;?</translation>
     </message>
@@ -782,7 +787,7 @@
         <translation>Hotovo!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="544"/>
+        <location filename="../src/mainwindow.cpp" line="549"/>
         <source>Theme</source>
         <translation>Téma</translation>
     </message>
@@ -797,18 +802,18 @@
         <translation>Filmy přidejte v nabídce Filmy → Přidat film, nebo vyberte jiný soubor s databází v Úpravy → Nastavení → Databáze.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="428"/>
+        <location filename="../src/mainwindow.cpp" line="433"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Nelze odstranit soubor &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="413"/>
-        <location filename="../src/mainwindow.cpp" line="427"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
+        <location filename="../src/mainwindow.cpp" line="432"/>
         <source>Remove file</source>
         <translation>Odstranit soubor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="414"/>
+        <location filename="../src/mainwindow.cpp" line="419"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Jste si jistý, že chcete odstranit &quot;%1&quot;?</translation>
     </message>
@@ -891,7 +896,7 @@
         <translation>&lt;b&gt;Značky:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="371"/>
+        <location filename="../src/mainwindow.cpp" line="376"/>
         <source>STOP</source>
         <translation>ZASTAVIT</translation>
     </message>

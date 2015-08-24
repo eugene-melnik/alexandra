@@ -74,7 +74,12 @@
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.cpp" line="37"/>
+        <location filename="../src/aboutwindow.cpp" line="39"/>
+        <source>version %1 (portable) (build date: %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/aboutwindow.cpp" line="41"/>
         <source>version %1 (build date: %2)</source>
         <translation>версия %1 (дата сборки: %2)</translation>
     </message>
@@ -628,7 +633,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="472"/>
-        <location filename="../src/mainwindow.cpp" line="378"/>
+        <location filename="../src/mainwindow.cpp" line="383"/>
         <source>&amp;PLAY</source>
         <translation>&amp;Воспроизвести</translation>
     </message>
@@ -699,7 +704,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="664"/>
-        <location filename="../src/mainwindow.cpp" line="399"/>
+        <location filename="../src/mainwindow.cpp" line="404"/>
         <source>Remove film</source>
         <translation>Удалить фильм</translation>
     </message>
@@ -760,7 +765,7 @@
         <translation>База данных доступна только для чтения! Функции редактирования отключены.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="400"/>
+        <location filename="../src/mainwindow.cpp" line="405"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Вы уверены, что хотите удалить &quot;%1&quot;?</translation>
     </message>
@@ -787,7 +792,7 @@
         <translation>Готово!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="544"/>
+        <location filename="../src/mainwindow.cpp" line="549"/>
         <source>Theme</source>
         <translation>Тема</translation>
     </message>
@@ -797,18 +802,18 @@
         <translation>Вы можете добавить ваши фильмы в меню &quot;Фильмы&quot;→&quot;Добавить фильм&quot; или выберите другую базу данных в &quot;Правка&quot;→&quot;Настройки&quot;→&quot;База данных&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="428"/>
+        <location filename="../src/mainwindow.cpp" line="433"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Не удалось удалить файл &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="413"/>
-        <location filename="../src/mainwindow.cpp" line="427"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
+        <location filename="../src/mainwindow.cpp" line="432"/>
         <source>Remove file</source>
         <translation>Удалить файл</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="414"/>
+        <location filename="../src/mainwindow.cpp" line="419"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Вы уверены, что хотите удалить файл &quot;%1&quot;?</translation>
     </message>
@@ -891,7 +896,7 @@
         <translation>&lt;b&gt;Теги:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="371"/>
+        <location filename="../src/mainwindow.cpp" line="376"/>
         <source>STOP</source>
         <translation>Остановить</translation>
     </message>

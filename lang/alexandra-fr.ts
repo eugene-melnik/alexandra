@@ -74,7 +74,12 @@
         <translation type="unfinished">&amp;Fermer</translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.cpp" line="37"/>
+        <location filename="../src/aboutwindow.cpp" line="39"/>
+        <source>version %1 (portable) (build date: %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/aboutwindow.cpp" line="41"/>
         <source>version %1 (build date: %2)</source>
         <translation>version %1 (date du build : %2)</translation>
     </message>
@@ -628,7 +633,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="472"/>
-        <location filename="../src/mainwindow.cpp" line="378"/>
+        <location filename="../src/mainwindow.cpp" line="383"/>
         <source>&amp;PLAY</source>
         <translation type="unfinished"></translation>
     </message>
@@ -699,7 +704,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="664"/>
-        <location filename="../src/mainwindow.cpp" line="399"/>
+        <location filename="../src/mainwindow.cpp" line="404"/>
         <source>Remove film</source>
         <translation>Supprimer le film</translation>
     </message>
@@ -760,7 +765,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="544"/>
+        <location filename="../src/mainwindow.cpp" line="549"/>
         <source>Theme</source>
         <translation>Thème</translation>
     </message>
@@ -870,28 +875,28 @@
         <translation>&lt;b&gt;Étiquettes :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="371"/>
+        <location filename="../src/mainwindow.cpp" line="376"/>
         <source>STOP</source>
         <translation>STOP</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="400"/>
+        <location filename="../src/mainwindow.cpp" line="405"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Êtes vous sûr de supprimer &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="413"/>
-        <location filename="../src/mainwindow.cpp" line="427"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
+        <location filename="../src/mainwindow.cpp" line="432"/>
         <source>Remove file</source>
         <translation>Supprimer le fichier</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="414"/>
+        <location filename="../src/mainwindow.cpp" line="419"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Êtes vous sûr de supprimer le fichier &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="428"/>
+        <location filename="../src/mainwindow.cpp" line="433"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Impossible de supprimer le fichier &quot;%1&quot; !</translation>
     </message>
