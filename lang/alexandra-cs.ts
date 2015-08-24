@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>AboutWindow</name>
     <message>
@@ -21,12 +21,12 @@
     <message>
         <location filename="../src/aboutwindow.ui" line="153"/>
         <source>GCC version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verze GCC:</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="166"/>
         <source>MediaInfo version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verze MediaInfo:</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="221"/>
@@ -76,7 +76,7 @@
     <message>
         <location filename="../src/aboutwindow.cpp" line="39"/>
         <source>version %1 (portable) (build date: %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Verze %1 (přenositelná) (datum sestavení: %2)</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.cpp" line="41"/>
@@ -223,7 +223,7 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="570"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;rušit</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="577"/>
@@ -243,28 +243,28 @@
     <message>
         <location filename="../src/addfilmwindow.cpp" line="67"/>
         <source>Video files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Videosoubory (%1)</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="95"/>
         <source>Images (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázky (%1)</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="78"/>
         <location filename="../src/addfilmwindow.cpp" line="100"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyprázdnit</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="113"/>
         <source>Clear poster</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyprázdnit plakát</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="113"/>
         <source>Remove image file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit soubor s obrázkem?</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="131"/>
@@ -293,7 +293,7 @@
     <message>
         <location filename="../src/editfilmwindow.cpp" line="41"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyprázdnit</translation>
     </message>
     <message>
         <location filename="../src/editfilmwindow.cpp" line="45"/>
@@ -327,17 +327,17 @@
     <message>
         <location filename="../src/filminfowindow.cpp" line="50"/>
         <source>%1&amp;times;%2 px &amp;bull; %3 fps&lt;br/&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>%1&amp;times;%2 px &amp;bull; %3 fps&lt;br/&gt;</translation>
     </message>
     <message>
         <location filename="../src/filminfowindow.cpp" line="53"/>
         <source>Duration &amp;mdash; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Doba trvání &amp;mdash; %1</translation>
     </message>
     <message>
         <location filename="../src/filminfowindow.cpp" line="73"/>
         <source>Successfully copied.</source>
-        <translation type="unfinished"></translation>
+        <translation>Úspěšně zkopírováno.</translation>
     </message>
 </context>
 <context>
@@ -400,7 +400,7 @@
     <message>
         <location filename="../src/filmscannerwindow.ui" line="200"/>
         <source>Search for a poster with the same filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat plakát se stejným souborovým názvem</translation>
     </message>
     <message>
         <location filename="../src/filmscannerwindow.ui" line="219"/>
@@ -427,7 +427,7 @@
         <location filename="../src/filmscannerwindow.cpp" line="108"/>
         <location filename="../src/filmscannerwindow.cpp" line="135"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <location filename="../src/filmscannerwindow.cpp" line="96"/>
@@ -741,7 +741,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="741"/>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="189"/>
@@ -827,23 +827,23 @@
         <location filename="../src/mainwindow.cpp" line="102"/>
         <location filename="../src/mainwindow.cpp" line="112"/>
         <source>Add films</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat filmy</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="95"/>
         <source>There is nothing to add.</source>
-        <translation type="unfinished"></translation>
+        <translation>Není nic k přidání.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="99"/>
         <source>Add the following %1 film(s)?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat následující %1 film(y)?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="155"/>
         <source>Reset statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Vynulovat statistiku</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="288"/>
@@ -972,7 +972,7 @@
     <message>
         <location filename="../src/movedfilmswindow.ui" line="265"/>
         <source>&amp;Move</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Přesunout</translation>
     </message>
     <message>
         <location filename="../src/movedfilmswindow.ui" line="272"/>
@@ -982,14 +982,14 @@
     <message>
         <location filename="../src/movedfilmswindow.cpp" line="65"/>
         <source>Nothing to move.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nic k přesunutí.</translation>
     </message>
     <message>
         <location filename="../src/movedfilmswindow.cpp" line="77"/>
         <location filename="../src/movedfilmswindow.cpp" line="111"/>
         <location filename="../src/movedfilmswindow.cpp" line="135"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <location filename="../src/movedfilmswindow.cpp" line="99"/>
@@ -1009,7 +1009,7 @@
     <message>
         <location filename="../src/movedfilmswindow.cpp" line="258"/>
         <source>First select the files to move.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nejprve vyberte soubory k přesunutí.</translation>
     </message>
 </context>
 <context>
@@ -1017,7 +1017,7 @@
     <message>
         <location filename="../src/version.h" line="35"/>
         <source>A small opensource video library with great potential, written in C++ using Qt5 framework.</source>
-        <translation type="unfinished"></translation>
+        <translation>Malá videoknihovna s otevřeným zdrojovým kódem, s velkými možnostmi, napsaná v C++ za použití soustavy Qt5.</translation>
     </message>
 </context>
 <context>
@@ -1066,12 +1066,12 @@
     <message>
         <location filename="../src/searchwindow.ui" line="142"/>
         <source>Select all</source>
-        <translation type="unfinished">Vybrat vše</translation>
+        <translation>Vybrat vše</translation>
     </message>
     <message>
         <location filename="../src/searchwindow.ui" line="149"/>
         <source>Unselect all</source>
-        <translation type="unfinished">Odznačit vše</translation>
+        <translation>Odznačit vše</translation>
     </message>
     <message>
         <location filename="../src/searchwindow.ui" line="250"/>
@@ -1166,7 +1166,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="46"/>
         <source>Global</source>
-        <translation type="unfinished"></translation>
+        <translation>Celkové</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="163"/>
@@ -1227,7 +1227,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="56"/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Písmo</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="69"/>
@@ -1247,27 +1247,27 @@
     <message>
         <location filename="../src/settingswindow.ui" line="630"/>
         <source>Save to folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit do složky</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="664"/>
         <source>Saving format</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukládací formát</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="737"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Zkratky</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="745"/>
         <source>Play</source>
-        <translation type="unfinished">Přehrát</translation>
+        <translation>Přehrát</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="800"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;rušit</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="807"/>
@@ -1284,7 +1284,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="469"/>
         <source>Player</source>
-        <translation type="unfinished"></translation>
+        <translation>Přehrávač</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="499"/>
@@ -1385,7 +1385,7 @@
     <message>
         <location filename="../src/settingswindow.cpp" line="299"/>
         <source>Would you like to set the directory for posters next to the database file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Chcete nastavit adresář na plakátů hned u souboru s databází?</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.cpp" line="315"/>
@@ -1435,27 +1435,27 @@
     <message>
         <location filename="../src/settingswindow.h" line="112"/>
         <source>PNG (compressed)</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG (komprimováno)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.h" line="113"/>
         <source>JPG (quality 95)</source>
-        <translation type="unfinished"></translation>
+        <translation>JPG (jakost 95)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.h" line="114"/>
         <source>JPG (quality 85)</source>
-        <translation type="unfinished"></translation>
+        <translation>JPG (jakost 85)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.h" line="115"/>
         <source>JPG (quality 75)</source>
-        <translation type="unfinished"></translation>
+        <translation>JPG (jakost 75)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.h" line="116"/>
         <source>BMP (uncompressed)</source>
-        <translation type="unfinished"></translation>
+        <translation>BMP (nekomprimováno)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="79"/>
@@ -1477,53 +1477,53 @@
     <message>
         <location filename="../src/statisticswindow.ui" line="23"/>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="40"/>
         <source>Main statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Hlavní statistika</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="50"/>
         <source>Total films in the library:</source>
-        <translation type="unfinished"></translation>
+        <translation>Celkem filmů v knihovně:</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="57"/>
         <source>Films viewed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhlédnutých filmů:</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="64"/>
         <source>Total views:</source>
-        <translation type="unfinished"></translation>
+        <translation>Celkem zobrazení:</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="71"/>
         <source>Wasted time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nevyužitý čas:</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="134"/>
         <source>Most popular films:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nejoblíbenější filmy:</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="161"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Vynulovat</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="167"/>
         <source>Warning! This action will reset the counter of views and can not be undone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Varování! Tento krok nastaví počítadlo zobrazení na nulu, a nelze jej vrátit zpět.</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="198"/>
         <location filename="../src/statisticswindow.cpp" line="105"/>
         <source>Reset statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Vynulovat statistiky</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="265"/>
@@ -1533,12 +1533,12 @@
     <message>
         <location filename="../src/statisticswindow.cpp" line="86"/>
         <source>The calculation is not accurate, because some files are not available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Výpočet není přesný, protože některé soubory nejsou dostupné.</translation>
     </message>
     <message>
         <location filename="../src/statisticswindow.cpp" line="106"/>
         <source>Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation>Jste si jistý?</translation>
     </message>
 </context>
 <context>
