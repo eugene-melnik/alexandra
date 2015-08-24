@@ -1,0 +1,103 @@
+2015-08-24	(Version 1.3.0rc)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Statistics function added (first version).
+	* Application font selection.
+	* "Alexandra Flat - Coast" theme added.
+	* Calculating statistics, scanning for new films and search for moved films
+	  in background thread with ability to cancel.
+	* Automatic selection of the eponymous poster for film.
+	* Restructuring of settings window.
+	* Format selection for poster saving.
+	* Ability to setting path to the config file from command line argument.
+	* Adding films from command line (all) and filemanager context menu (linux).
+	* Portable mode.
+	* Many kinds of usability improvements and bug fixes.
+
+2015-07-29	(Version 1.2.3)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Search for moved films function added.
+	* Added fulscreen mode.
+	* Themes support.
+	* "Alexandra Flat - Forest" theme.
+	* French translation (by David Geiger and Adrien Daugabel).
+	* Desktop file added (Linux).
+	* New icon for main window and application.
+	* Make install option configured.
+	* Correction of old bugs and adding new ones.
+
+2015-07-05	(Version 1.1.3)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Quick search completer.
+	* Films scanner function added.
+	* Checking the database for correctness.
+	* Few changes in settings window.
+
+2015-04-05	(Version 1.1.0)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Grid view of films.
+	* Films browser resize ability.
+	* Update translations.
+	* Bugs, bugs, bugs...
+
+2015-03-01	(Version 1.0.0)	Eugene Melnik <jeka7js@gmail.com>
+
+	* First release! Buggy, but why not? :)
+	* Splashscreen at startup.
+	* Language selecting in settings.
+	* External player selecting function improoved.
+
+2015-02-26	(Version 0.9.8)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Added context menu in films list.
+	* Searching optimized.
+	* Fixes for Windows build.
+
+2015-02-16	(Version 0.9.6)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Search functions realized.
+	* Inno setup script added.
+	* Technical information.
+	* Partial refactoring.
+	* Added Czech translation (by Pavel Fric).
+	* Lot of small bug fixes and changes.
+
+2014-11-11	(Version 0.9)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Edit film function.
+	* Random film function.
+	* Default poster added.
+	* Select database function.
+	* Select external player function.
+	* Optimizations and bug fixes.
+
+2014-10-31	(Version 0.7)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Toolbar moved to the separate file.
+	* Qt logo added.
+	* FilmsList class improvements.
+	* Settings window skeleton.
+	* Remove film function.
+	* Play function.
+
+2014-10-23	(Version 0.5)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Adding film function.
+	* Saving and restoring columns width.
+	* Messages in statusbar.
+	* Some internal changes.
+
+2014-10-18	(Version 0.3)	Eugene Melnik <jeka7js@gmail.com>
+
+	* Sketches of the windows.
+	* Icons set.
+	* Base classes implementations.
+	* A prototype of the main and about program windows.
+	* Toolbar hide option.
+	* Database read and write functions.
+	* Saving and restoring main window settings.
+	* Show a list of films in a table.
+
+2014-09-23	Eugene Melnik <jeka7js@gmail.com>
+
+	* Project started. Designing.
+
