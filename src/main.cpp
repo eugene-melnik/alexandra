@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "alexandrasettings.h"
+#include "commandlineparser.h"
 #include "mainwindow.h"
 #include "version.h"
 
@@ -28,20 +29,17 @@
 #include <QTranslator>
 #include <QTime>
 
-void LoadLocale( QApplication* app )
+void LoadLocale( QApplication* app, int localeIndex )
 {
-    AlexandraSettings s;
-    int currentLocaleIndex = s.GetApplicationLocaleIndex();
-
     QString locale;
 
-    if( currentLocaleIndex == -1 )
+    if( localeIndex == -1 )
     {
         locale = QLocale::system().name();
     }
     else
     {
-        locale = Alexandra::supportedLocales[ currentLocaleIndex ].name;
+        locale = Alexandra::supportedLocales[ localeIndex ].name;
     }
 
     QTranslator* translator = new QTranslator( app );
@@ -62,16 +60,28 @@ int main( int argc, char** argv )
     QApplication::setOrganizationName( Alexandra::orgName );
     QApplication::setOrganizationDomain( Alexandra::orgDomain );
     QApplication::setApplicationName( Alexandra::appNameGui );
+    QApplication::setApplicationVersion( Alexandra::appVersionFull );
 
     QApplication alexandra( argc, argv );
 
-    // Translation loading
+    // Command line options
+    CommandLineParser parser;
+    parser.process( alexandra );
+
+    // Config file
+    AlexandraSettings* settings = new AlexandraSettings( parser.GetConfigLocation() );
+
+    // Translation
     QTextCodec::setCodecForLocale( QTextCodec::codecForName( "utf8" ) );
-    LoadLocale( &alexandra );
+    LoadLocale( &alexandra, settings->GetApplicationLocaleIndex() );
 
     // Run
-    MainWindow* mainWindow = new MainWindow();
+    MainWindow* mainWindow = new MainWindow( settings );
     mainWindow->show();
 
-    return( alexandra.exec() );
+    int res = alexandra.exec();
+
+    delete settings;
+    delete mainWindow;
+    return( res );
 }

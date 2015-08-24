@@ -21,19 +21,21 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#include <QString>
 #include <QList>
+#include <QObject>
+#include <QString>
 
 namespace Alexandra
 {
         // Main information
         const QString appName = "alexandra";
         const QString appNameGui = "Alexandra Video Library";
-        const QString appAuthor = "Eugene Melnik <jeka7js@gmail.com>";
         const QString appLicense = "GNU GPL v2";
         const QString appWebsite = "http://alexandra-qt.sourceforge.net/";
+        const QString appDescription = QObject::tr( "A small opensource video library with great potential, written in C++ using Qt5 framework." );
 
         // Author
+        const QString appAuthor = "Eugene Melnik <jeka7js@gmail.com>";
         const QString orgName = "Eugene Melnik";
         const QString orgDomain = "eugene.melnik.com";
 

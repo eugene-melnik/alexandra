@@ -24,10 +24,8 @@
 #include <QApplication>
 #include <QFileInfo>
 #include <QFont>
-#include <QProcessEnvironment>
 
-AlexandraSettings::AlexandraSettings( QObject* parent )
-    : QSettings( Alexandra::appName, "configuration", parent )
+AlexandraSettings::AlexandraSettings( QString configFile ) : QSettings( configFile, QSettings::IniFormat )
 {
     // Set database filename
 
@@ -35,29 +33,17 @@ AlexandraSettings::AlexandraSettings( QObject* parent )
 
     if( databaseFileName.isEmpty() )
     {
-#ifdef Q_OS_LINUX
-        databaseFileName = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
-
-        if( databaseFileName.isEmpty() )
-        {
-            databaseFileName = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
-        }
-#elif defined( Q_OS_WIN32 )
-        databaseFileName = QProcessEnvironment::systemEnvironment().value( "APPDATA" );
-#endif
-        databaseFileName += "/" + Alexandra::appName + "/database.adat";
-
+        databaseFileName = QFileInfo( this->fileName() ).absolutePath() + "/database.adat";
         SetDatabaseFilePath( databaseFileName );
     }
 
     // Set posters' directory name
 
     QString postersFolderName = GetPostersDirPath();
-    QString databaseDir = QFileInfo( databaseFileName ).absolutePath();
 
     if( postersFolderName.isEmpty() )
     {
-        postersFolderName = databaseDir + "/posters";
+        postersFolderName = QFileInfo( databaseFileName ).absolutePath() + "/posters";
         SetPostersDirPath( postersFolderName );
     }
 

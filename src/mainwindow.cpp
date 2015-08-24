@@ -29,7 +29,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 
-MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
+MainWindow::MainWindow( AlexandraSettings* s ) : QMainWindow(), settings( s )
 {
     // Interface
     setupUi( this );
@@ -38,7 +38,6 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent )
     // Data
     contextMenu = new FilmsViewContextMenu( this );
     externalPlayer = new QProcess( this );
-    settings = new AlexandraSettings( this );
     filmsList = new FilmsList( settings, this );
 
     SetupWindows();
@@ -62,7 +61,6 @@ MainWindow::~MainWindow()
     delete splashScreen;
 
     // Variables
-    delete settings;
     delete externalPlayer;
     delete filmsList;
     delete filmsView;

@@ -36,6 +36,7 @@ HEADERS += effects/effectdropshadow.h \
            abstractfilmsview.h \
            addfilmwindow.h \
            alexandrasettings.h \
+           commandlineparser.h \
            editfilmwindow.h \
            filesextensions.h \
            film.h \
@@ -65,6 +66,7 @@ SOURCES += effects/effectdropshadow.cpp \
            aboutwindow.cpp \
            addfilmwindow.cpp \
            alexandrasettings.cpp \
+           commandlineparser.cpp \
            editfilmwindow.cpp \
            filesextensions.cpp \
            film.cpp \

@@ -30,7 +30,7 @@
 class AlexandraSettings : public QSettings
 {
     public:
-        AlexandraSettings( QObject* parent = nullptr );
+        AlexandraSettings( QString configFile );
 
         // Get //
 
