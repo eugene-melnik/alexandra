@@ -39,7 +39,7 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
     public slots:
         void LoadSettings( AlexandraSettings* s );
         void ReloadSettings( AlexandraSettings* s );
-        void SaveSettings( AlexandraSettings* s ) const { Q_UNUSED(s) }
+        void SaveSettings( AlexandraSettings* /*s*/ ) const {}
 
         int AddItem( const Film& film, QColor background = QColor() );
         void SetItem( int n, const Film& film, QColor background = QColor() );
@@ -58,15 +58,18 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
 
         void SetCurrentItemIndex( int i );
 
-    private slots:
-        void ItemClickedSlot( QModelIndex i );
-        void ItemDoubleClickedSlot( QModelIndex i );
-        void ContextMenuRequestedSlot( QPoint p );
-
     signals:
         void ItemClicked( QString );
         void ItemDoubleClicked( QString );
         void ContextMenuRequested( QPoint );
+
+    protected:
+        void updateGeometries();
+
+    private slots:
+        void ItemClickedSlot( QModelIndex i );
+        void ItemDoubleClickedSlot( QModelIndex i );
+        void ContextMenuRequestedSlot( QPoint p );
 
     private:
         AlexandraSettings* settings = nullptr;

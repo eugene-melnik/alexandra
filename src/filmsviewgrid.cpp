@@ -23,6 +23,7 @@
 #include <QBrush>
 #include <QHeaderView>
 #include <QPalette>
+#include <QScrollBar>
 
 FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
 {
@@ -33,7 +34,7 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
     setWrapping( true );
     setSpacing( 5 );
 
-    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF: not works
+    //setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF: Qt bug
 
     // Signals
     connect( this, &FilmsViewGrid::clicked, this, &FilmsViewGrid::ItemClickedSlot );
@@ -139,6 +140,16 @@ void FilmsViewGrid::SetCurrentItemIndex( int i )
 
         setCurrentIndex( model->index( i, 0 ) );
         clicked( model->index( i, 0 ) );
+    }
+}
+
+void FilmsViewGrid::updateGeometries()
+{
+    QListView::updateGeometries();
+
+    if( settings != nullptr )
+    {
+        verticalScrollBar()->setSingleStep( settings->GetGridItemSize() / 5 );
     }
 }
 
