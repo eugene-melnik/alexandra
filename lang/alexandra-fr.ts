@@ -906,10 +906,10 @@
     <name>MovedFilmsWindow</name>
     <message>
         <location filename="../src/movedfilmswindow.ui" line="17"/>
-        <location filename="../src/movedfilmswindow.cpp" line="64"/>
-        <location filename="../src/movedfilmswindow.cpp" line="124"/>
-        <location filename="../src/movedfilmswindow.cpp" line="149"/>
-        <location filename="../src/movedfilmswindow.cpp" line="257"/>
+        <location filename="../src/movedfilmswindow.cpp" line="65"/>
+        <location filename="../src/movedfilmswindow.cpp" line="125"/>
+        <location filename="../src/movedfilmswindow.cpp" line="150"/>
+        <location filename="../src/movedfilmswindow.cpp" line="258"/>
         <source>Moved films</source>
         <translation>Films déplacés</translation>
     </message>
@@ -930,8 +930,8 @@
     </message>
     <message>
         <location filename="../src/movedfilmswindow.ui" line="81"/>
-        <location filename="../src/movedfilmswindow.cpp" line="80"/>
-        <location filename="../src/movedfilmswindow.cpp" line="142"/>
+        <location filename="../src/movedfilmswindow.cpp" line="81"/>
+        <location filename="../src/movedfilmswindow.cpp" line="143"/>
         <source>Scan</source>
         <translation>Analyser</translation>
     </message>
@@ -981,34 +981,34 @@
         <translation>&amp;Fermer</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="65"/>
+        <location filename="../src/movedfilmswindow.cpp" line="66"/>
         <source>Nothing to move.</source>
         <translation>Rien à déplacer.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="77"/>
-        <location filename="../src/movedfilmswindow.cpp" line="111"/>
-        <location filename="../src/movedfilmswindow.cpp" line="135"/>
+        <location filename="../src/movedfilmswindow.cpp" line="78"/>
+        <location filename="../src/movedfilmswindow.cpp" line="112"/>
+        <location filename="../src/movedfilmswindow.cpp" line="136"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="99"/>
+        <location filename="../src/movedfilmswindow.cpp" line="100"/>
         <source>Select directory for scanning</source>
         <translation>Sélectionner un répertoire à analyser</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="125"/>
+        <location filename="../src/movedfilmswindow.cpp" line="126"/>
         <source>First select the directory to scan.</source>
         <translation>Sélectionner d&apos;abord un répertoire à analyser.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="150"/>
+        <location filename="../src/movedfilmswindow.cpp" line="151"/>
         <source>Nothing was found.</source>
         <translation>Rien n&apos;a été trouvé.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="258"/>
+        <location filename="../src/movedfilmswindow.cpp" line="259"/>
         <source>First select the files to move.</source>
         <translation>Sélectionner d&apos;abord les fichiers à déplacer.</translation>
     </message>

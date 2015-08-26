@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="cs_CZ">
+<TS version="2.1" language="cs_CZ">
 <context>
     <name>AboutWindow</name>
     <message>
@@ -905,10 +905,10 @@
     <name>MovedFilmsWindow</name>
     <message>
         <location filename="../src/movedfilmswindow.ui" line="17"/>
-        <location filename="../src/movedfilmswindow.cpp" line="64"/>
-        <location filename="../src/movedfilmswindow.cpp" line="124"/>
-        <location filename="../src/movedfilmswindow.cpp" line="149"/>
-        <location filename="../src/movedfilmswindow.cpp" line="257"/>
+        <location filename="../src/movedfilmswindow.cpp" line="65"/>
+        <location filename="../src/movedfilmswindow.cpp" line="125"/>
+        <location filename="../src/movedfilmswindow.cpp" line="150"/>
+        <location filename="../src/movedfilmswindow.cpp" line="258"/>
         <source>Moved films</source>
         <translation>Přesunuté filmy</translation>
     </message>
@@ -929,8 +929,8 @@
     </message>
     <message>
         <location filename="../src/movedfilmswindow.ui" line="81"/>
-        <location filename="../src/movedfilmswindow.cpp" line="80"/>
-        <location filename="../src/movedfilmswindow.cpp" line="142"/>
+        <location filename="../src/movedfilmswindow.cpp" line="81"/>
+        <location filename="../src/movedfilmswindow.cpp" line="143"/>
         <source>Scan</source>
         <translation>Prohledat</translation>
     </message>
@@ -980,34 +980,34 @@
         <translation>&amp;Zavřít</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="65"/>
+        <location filename="../src/movedfilmswindow.cpp" line="66"/>
         <source>Nothing to move.</source>
         <translation>Nic k přesunutí.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="77"/>
-        <location filename="../src/movedfilmswindow.cpp" line="111"/>
-        <location filename="../src/movedfilmswindow.cpp" line="135"/>
+        <location filename="../src/movedfilmswindow.cpp" line="78"/>
+        <location filename="../src/movedfilmswindow.cpp" line="112"/>
+        <location filename="../src/movedfilmswindow.cpp" line="136"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="99"/>
+        <location filename="../src/movedfilmswindow.cpp" line="100"/>
         <source>Select directory for scanning</source>
         <translation>Vybrat adresář k prohledání</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="125"/>
+        <location filename="../src/movedfilmswindow.cpp" line="126"/>
         <source>First select the directory to scan.</source>
         <translation>Nejprve vyberte adresář k prohledání.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="150"/>
+        <location filename="../src/movedfilmswindow.cpp" line="151"/>
         <source>Nothing was found.</source>
         <translation>Nic nebylo nalezeno.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="258"/>
+        <location filename="../src/movedfilmswindow.cpp" line="259"/>
         <source>First select the files to move.</source>
         <translation>Nejprve vyberte soubory k přesunutí.</translation>
     </message>

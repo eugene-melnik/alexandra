@@ -76,7 +76,7 @@
     <message>
         <location filename="../src/aboutwindow.cpp" line="39"/>
         <source>version %1 (portable) (build date: %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>версія %1 (портативна) (дата збірки %2)</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.cpp" line="41"/>
@@ -905,10 +905,10 @@
     <name>MovedFilmsWindow</name>
     <message>
         <location filename="../src/movedfilmswindow.ui" line="17"/>
-        <location filename="../src/movedfilmswindow.cpp" line="64"/>
-        <location filename="../src/movedfilmswindow.cpp" line="124"/>
-        <location filename="../src/movedfilmswindow.cpp" line="149"/>
-        <location filename="../src/movedfilmswindow.cpp" line="257"/>
+        <location filename="../src/movedfilmswindow.cpp" line="65"/>
+        <location filename="../src/movedfilmswindow.cpp" line="125"/>
+        <location filename="../src/movedfilmswindow.cpp" line="150"/>
+        <location filename="../src/movedfilmswindow.cpp" line="258"/>
         <source>Moved films</source>
         <translation>Переміщені фільми</translation>
     </message>
@@ -929,8 +929,8 @@
     </message>
     <message>
         <location filename="../src/movedfilmswindow.ui" line="81"/>
-        <location filename="../src/movedfilmswindow.cpp" line="80"/>
-        <location filename="../src/movedfilmswindow.cpp" line="142"/>
+        <location filename="../src/movedfilmswindow.cpp" line="81"/>
+        <location filename="../src/movedfilmswindow.cpp" line="143"/>
         <source>Scan</source>
         <translation>Сканувати</translation>
     </message>
@@ -980,34 +980,34 @@
         <translation>&amp;Закрити</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="65"/>
+        <location filename="../src/movedfilmswindow.cpp" line="66"/>
         <source>Nothing to move.</source>
         <translation>Нічого переміщувати.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="77"/>
-        <location filename="../src/movedfilmswindow.cpp" line="111"/>
-        <location filename="../src/movedfilmswindow.cpp" line="135"/>
+        <location filename="../src/movedfilmswindow.cpp" line="78"/>
+        <location filename="../src/movedfilmswindow.cpp" line="112"/>
+        <location filename="../src/movedfilmswindow.cpp" line="136"/>
         <source>Cancel</source>
         <translation>Відмінити</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="99"/>
+        <location filename="../src/movedfilmswindow.cpp" line="100"/>
         <source>Select directory for scanning</source>
         <translation>Оберіть каталог для сканування</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="125"/>
+        <location filename="../src/movedfilmswindow.cpp" line="126"/>
         <source>First select the directory to scan.</source>
         <translation>Спочатку оберіть каталог для сканування.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="150"/>
+        <location filename="../src/movedfilmswindow.cpp" line="151"/>
         <source>Nothing was found.</source>
         <translation>Нічого не знайдено.</translation>
     </message>
     <message>
-        <location filename="../src/movedfilmswindow.cpp" line="258"/>
+        <location filename="../src/movedfilmswindow.cpp" line="259"/>
         <source>First select the files to move.</source>
         <translation>Спочатку оберіть файли для переміщення.</translation>
     </message>
