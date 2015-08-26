@@ -47,6 +47,7 @@ MovedFilmsWindow::MovedFilmsWindow( AlexandraSettings* s, QWidget* parent )
     connect( bInvertSelection, &QPushButton::clicked, this, &MovedFilmsWindow::CalculateSelected );
 
     connect( bMove, &QPushButton::clicked, this, &MovedFilmsWindow::MoveSelected );
+    connect( twFounded, &QTableWidget::clicked, this, &MovedFilmsWindow::CalculateSelected );
 }
 
 MovedFilmsWindow::~MovedFilmsWindow()
