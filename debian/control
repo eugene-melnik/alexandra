@@ -1,0 +1,17 @@
+Source: alexandra
+Section: misc
+Priority: optional
+Maintainer: Eugene Melnik <jeka7js@gmail.com>
+Build-Depends: debhelper (>= 9), bash, devscripts
+Standards-Version: 3.9.6
+Homepage: http://alexandra-qt.sourceforge.net/
+
+Package: alexandra
+Version: 1.3.0
+Homepage: http://alexandra-qt.sourceforge.net/
+Architecture: amd64
+Priority: optional
+Section: misc
+Depends: ${shlibs:Depends}
+Description: Video Library.
+ A small opensource video library with great potential, written in C++ using Qt5 framework.

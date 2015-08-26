@@ -1,3 +1,5 @@
+debian/alexandra*
+debian/files
 src/alexandra
 src/alexandra.exe
 src/alexandra.pro.user
