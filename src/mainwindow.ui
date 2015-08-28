@@ -175,14 +175,51 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lYear">
-              <property name="text">
-               <string notr="true">&lt;year&gt;</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,1">
+              <item>
+               <widget class="QLabel" name="lYear">
+                <property name="text">
+                 <string notr="true">&lt;year&gt;</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="lBudget">
+                <property name="text">
+                 <string notr="true">&lt;budget&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
             <item>
              <widget class="QLabel" name="lCountry">
@@ -194,6 +231,13 @@
               </property>
               <property name="wordWrap">
                <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lScreenwriter">
+              <property name="text">
+               <string notr="true">&lt;screenwriter&gt;</string>
               </property>
              </widget>
             </item>
@@ -220,6 +264,13 @@
               </property>
               <property name="wordWrap">
                <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lComposer">
+              <property name="text">
+               <string>&lt;composer&gt;</string>
               </property>
              </widget>
             </item>

@@ -72,14 +72,23 @@ void FilmViewGridModel::SetItem( int n, const Film& film, QColor background )
         if( film.GetYear() != 0 )
             tooltip += tr( "<b>Year:</b> %1" ).arg( film.GetYearStr() ) + "<br/>";
 
+        if( !film.GetBudgetStr().isEmpty() )
+            tooltip += tr( "<b>Budget:</b> %1" ).arg( film.GetBudgetStr() ) + "<br/>";
+
         if( !film.GetCountry().isEmpty() )
             tooltip += tr( "<b>Country:</b> %1" ).arg( film.GetCountry() ) + "<br/>";
+
+        if( !film.GetScreenwriter().isEmpty() )
+            tooltip += tr( "<b>Screenwriter:</b> %1" ).arg( film.GetScreenwriter() ) + "<br/>";
 
         if( !film.GetDirector().isEmpty() )
             tooltip += tr( "<b>Director:</b> %1" ).arg( film.GetDirector() ) + "<br/>";
 
         if( !film.GetProducer().isEmpty() )
             tooltip += tr( "<b>Producer:</b> %1" ).arg( film.GetProducer() ) + "<br/>";
+
+        if( !film.GetComposer().isEmpty() )
+            tooltip += tr( "<b>Composer:</b> %1" ).arg( film.GetComposer() ) + "<br/>";
 
         if( !film.GetStarring().isEmpty() )
             tooltip += tr( "<b>Starring:</b> %1" ).arg( film.GetStarring() ) + "<br/>";

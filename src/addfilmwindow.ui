@@ -36,7 +36,7 @@
       <widget class="QLabel" name="labelFile">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
@@ -82,7 +82,7 @@
       <widget class="QLabel" name="labelPoster">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
@@ -135,7 +135,7 @@
       <widget class="QLabel" name="labelOriginalTitle">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
@@ -162,7 +162,7 @@
       <widget class="QLabel" name="labelTitle">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
@@ -189,7 +189,7 @@
       <widget class="QLabel" name="labelTagline">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
@@ -211,41 +211,48 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl6">
+    <layout class="QHBoxLayout" name="hl20" stretch="0,0,1,0,0">
      <item>
-      <widget class="QLabel" name="labelYear">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Year</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="eYear">
-       <property name="maximumSize">
-        <size>
-         <width>60</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="inputMask">
-        <string notr="true">9999</string>
-       </property>
-       <property name="maxLength">
-        <number>4</number>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="placeholderText">
-        <string notr="true">XXXX</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="hl20_1">
+       <item>
+        <widget class="QLabel" name="labelYear">
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Year</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="eYear">
+         <property name="maximumSize">
+          <size>
+           <width>80</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="inputMask">
+          <string notr="true">9999</string>
+         </property>
+         <property name="maxLength">
+          <number>4</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="placeholderText">
+          <string notr="true">xxxx</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <widget class="Line" name="l1">
@@ -255,54 +262,40 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labelCountry">
-       <property name="text">
-        <string>Country</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="eCountry">
-       <property name="toolTip">
-        <string>Countries, comma separated</string>
-       </property>
-       <property name="maxLength">
-        <number>200</number>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="hl7">
-     <item>
-      <widget class="QLabel" name="labelGenre">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Genre</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="eGenre">
-       <property name="toolTip">
-        <string>Genres, comma separated</string>
-       </property>
-       <property name="maxLength">
-        <number>200</number>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>true</bool>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="hl20_2" stretch="0,1">
+       <item>
+        <widget class="QLabel" name="labelBudget">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Budget, $</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="eBudget">
+         <property name="inputMask">
+          <string notr="true">999999999999</string>
+         </property>
+         <property name="maxLength">
+          <number>12</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="placeholderText">
+          <string notr="true">xxxxxxxxxxxx</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <widget class="Line" name="l2">
@@ -312,131 +305,300 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labelRating">
-       <property name="text">
-        <string>Rating</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="cbRating">
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <property name="maxCount">
-        <number>10</number>
-       </property>
+      <layout class="QHBoxLayout" name="hl20_3">
        <item>
-        <property name="text">
-         <string notr="true">1</string>
-        </property>
+        <widget class="QLabel" name="labelRating">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Rating</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <property name="text">
-         <string notr="true">2</string>
-        </property>
+        <widget class="QComboBox" name="cbRating">
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <property name="maxCount">
+          <number>10</number>
+         </property>
+         <item>
+          <property name="text">
+           <string notr="true">1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">5</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">6</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">7</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">8</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">9</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">10</string>
+          </property>
+         </item>
+        </widget>
        </item>
-       <item>
-        <property name="text">
-         <string notr="true">3</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">4</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">5</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">6</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">7</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">8</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">9</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">10</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="hl8">
-     <item>
-      <widget class="QLabel" name="labelDirector">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Director</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="eDirector">
-       <property name="toolTip">
-        <string>Directors, comma separated</string>
-       </property>
-       <property name="maxLength">
-        <number>200</number>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>true</bool>
-       </property>
-      </widget>
+      </layout>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl9">
+    <layout class="QHBoxLayout" name="hl21">
      <item>
-      <widget class="QLabel" name="labelProducer">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Producer</string>
+      <layout class="QHBoxLayout" name="hl21_1">
+       <item>
+        <widget class="QLabel" name="labelCountry">
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Country</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="eCountry">
+         <property name="toolTip">
+          <string>Countries, comma separated</string>
+         </property>
+         <property name="maxLength">
+          <number>200</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="eProducer">
-       <property name="toolTip">
-        <string>Producers, comma separated</string>
-       </property>
-       <property name="maxLength">
-        <number>500</number>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>true</bool>
+      <layout class="QHBoxLayout" name="hl21_2">
+       <item>
+        <widget class="QLabel" name="labelGenre">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Genre</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="eGenre">
+         <property name="toolTip">
+          <string>Genres, comma separated</string>
+         </property>
+         <property name="maxLength">
+          <number>200</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hl22">
+     <item>
+      <layout class="QHBoxLayout" name="hl8">
+       <item>
+        <widget class="QLabel" name="labelDirector">
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Director</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="eDirector">
+         <property name="toolTip">
+          <string>Directors, comma separated</string>
+         </property>
+         <property name="maxLength">
+          <number>200</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
       </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="hl9">
+       <item>
+        <widget class="QLabel" name="labelProducer">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Producer</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="eProducer">
+         <property name="toolTip">
+          <string>Producers, comma separated</string>
+         </property>
+         <property name="maxLength">
+          <number>500</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hl14">
+     <item>
+      <layout class="QHBoxLayout" name="hl8_2">
+       <item>
+        <widget class="QLabel" name="labelScreenwriter">
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Screenwriter</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="eScreenwriter">
+         <property name="toolTip">
+          <string>Directors, comma separated</string>
+         </property>
+         <property name="maxLength">
+          <number>200</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="hl9_2">
+       <item>
+        <widget class="QLabel" name="labelComposer">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Composer</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="eComposer">
+         <property name="toolTip">
+          <string>Producers, comma separated</string>
+         </property>
+         <property name="maxLength">
+          <number>500</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -446,7 +608,7 @@
       <widget class="QLabel" name="labelStarring">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
@@ -473,7 +635,7 @@
       <widget class="QLabel" name="labelDescription">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
@@ -500,7 +662,7 @@
       <widget class="QLabel" name="labelTags">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
@@ -552,7 +714,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="hs1">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>

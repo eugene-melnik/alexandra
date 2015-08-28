@@ -29,7 +29,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_7">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="hl1">
      <item>
@@ -102,6 +102,30 @@
            <widget class="QCheckBox" name="cProducer">
             <property name="text">
              <string>Producer</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="vl3_2">
+          <item>
+           <widget class="QCheckBox" name="cScreenwriter">
+            <property name="text">
+             <string>Screenwriter</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="cComposer">
+            <property name="text">
+             <string>Composer</string>
             </property>
             <property name="checked">
              <bool>true</bool>

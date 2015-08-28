@@ -297,14 +297,23 @@ void MainWindow::ShowFilmInformation()
     lYear->setText( tr( "<b>Year:</b> %1" ).arg( f->GetYear() ) );
     lYear->setVisible( f->GetYear() != 0 );
 
+    lBudget->setText( tr( "<b>Budget:</b> %1" ).arg( f->GetBudgetStr() ) );
+    lBudget->setVisible( !f->GetBudgetStr().isEmpty() );
+
     lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f->GetCountry() ) );
     lCountry->setVisible( !f->GetCountry().isEmpty() );
+
+    lScreenwriter->setText( tr( "<b>Screenwriter:</b> %1" ).arg( f->GetScreenwriter() ) );
+    lScreenwriter->setVisible( !f->GetScreenwriter().isEmpty() );
 
     lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f->GetDirector() ) );
     lDirector->setVisible( !f->GetDirector().isEmpty() );
 
     lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f->GetProducer() ) );
     lProducer->setVisible( !f->GetProducer().isEmpty() );
+
+    lComposer->setText( tr( "<b>Composer:</b> %1" ).arg( f->GetComposer() ) );
+    lComposer->setVisible( !f->GetComposer().isEmpty() );
 
     lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->GetStarring() ) );
     lStarring->setVisible( !f->GetStarring().isEmpty() );
@@ -789,9 +798,12 @@ void MainWindow::ClearTextFields()
     lTagline->clear();
     lGenre->clear();
     lYear->clear();
+    lBudget->clear();
     lCountry->clear();
+    lScreenwriter->clear();
     lDirector->clear();
     lProducer->clear();
+    lComposer->clear();
     lStarring->clear();
     lRating->clear();
     lDescription->clear();

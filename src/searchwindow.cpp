@@ -71,6 +71,12 @@ void SearchWindow::Search()
             if( cProducer->isChecked() && film.GetProducer().contains( word, Qt::CaseInsensitive ) )
                 founded.push_back( film );
 
+            if( cScreenwriter->isChecked() && film.GetScreenwriter().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+
+            if( cComposer->isChecked() && film.GetComposer().contains( word, Qt::CaseInsensitive ) )
+                founded.push_back( film );
+
             if( cCountry->isChecked() && film.GetCountry().contains( word, Qt::CaseInsensitive ) )
                 founded.push_back( film );
 
@@ -108,6 +114,8 @@ void SearchWindow::SetOptionsIsChecked( bool isChecked )
     cStarring->setChecked( isChecked );
     cDirector->setChecked( isChecked );
     cProducer->setChecked( isChecked );
+    cScreenwriter->setChecked( isChecked );
+    cComposer->setChecked( isChecked );
     cCountry->setChecked( isChecked );
     cDescription->setChecked( isChecked );
 }

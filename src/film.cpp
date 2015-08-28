@@ -20,11 +20,9 @@
 
 #include "film.h"
 
+#include <QByteArray>
 #include <QCryptographicHash>
-
-/*************************************************************************************************
- *  Constructors                                                                                  *
-  *************************************************************************************************/
+#include <QDataStream>
 
 Film::Film()
 {
@@ -53,39 +51,39 @@ Film::Film( const Film& other )
     rating = other.rating;
     ageRestrictions = other.ageRestrictions;
     tags = other.tags;
-    additionalText = other.additionalText;
     viewsCounter = other.viewsCounter;
     isPosterExists = other.isPosterExists;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;
+    screenwriter = other.screenwriter;
+    composer = other.composer;
 }
 
-/*************************************************************************************************
- *  Operators' overloads                                                                          *
-  *************************************************************************************************/
-
-bool Film::operator > ( const Film& other ) const
+QString Film::GetBudgetStr() const
 {
-    return( title > other.title );
-}
+    QString result = "";
 
-bool Film::operator < ( const Film& other ) const
-{
-    return( title < other.title );
-}
+    if( budget > 1 ) // double has no zero
+    {
+        result = "$" + QString::number( budget, 'f', 0 );
+    }
 
-bool Film::operator == ( const Film& other ) const
-{
-    return( title == other.title );
-}
-
-const QString &Film::GetId() const
-{
-    return( id );
+    return( result );
 }
 
 QDataStream& operator << ( QDataStream& out, const Film& f )
 {
+    // Additional fields
+    QByteArray dataArray;
+    QDataStream stream( &dataArray, QIODevice::WriteOnly );
+
+    stream << f.additionalDataVersion // Unused yet
+           << f.screenwriter
+           << f.composer;
+
+    QString additionalData = dataArray.toHex();
+
+    // Write
     out << f.id
         << f.section
         << f.fileName
@@ -103,7 +101,7 @@ QDataStream& operator << ( QDataStream& out, const Film& f )
         << f.rating
         << f.ageRestrictions
         << f.tags
-        << f.additionalText
+        << additionalData
         << f.viewsCounter
         << f.isPosterExists
         << f.isViewed
@@ -114,6 +112,9 @@ QDataStream& operator << ( QDataStream& out, const Film& f )
 
 QDataStream& operator >> ( QDataStream& in, Film& f )
 {
+    QString additionalData;
+
+    // Read
     in >> f.id
        >> f.section
        >> f.fileName
@@ -131,131 +132,25 @@ QDataStream& operator >> ( QDataStream& in, Film& f )
        >> f.rating
        >> f.ageRestrictions
        >> f.tags
-       >> f.additionalText
+       >> additionalData
        >> f.viewsCounter
        >> f.isPosterExists
        >> f.isViewed
        >> f.isFavourite;
 
+    // Additional fields
+    QByteArray dataArray = QByteArray::fromHex( additionalData.toLatin1() );
+    QDataStream stream( dataArray );
+
+    int version;
+    stream >> version // unused yet
+           >> f.screenwriter
+           >> f.composer;
+
     return( in );
 }
 
-/*************************************************************************************************
- *  Getters                                                                                       *
-  *************************************************************************************************/
-
-const QString& Film::GetFileName() const
-{
-    return( fileName );
-}
-
-const QString& Film::GetTitle() const
-{
-    return( title );
-}
-
-const QString& Film::GetOriginalTitle() const
-{
-    return( originalTitle );
-}
-
-const QString& Film::GetTagline() const
-{
-    return( tagline );
-}
-
-const QString& Film::GetGenre() const
-{
-    return( genre );
-}
-
-const QString& Film::GetCountry() const
-{
-    return( country );
-}
-
-quint16 Film::GetYear() const
-{
-    return( year );
-}
-
-QString Film::GetYearStr() const
-{
-    return( QString::number( year ) );
-}
-
-const QString& Film::GetDirector() const
-{
-    return( director );
-}
-
-const QString& Film::GetProducer() const
-{
-    return( producer );
-}
-
-const QString& Film::GetStarring() const
-{
-    return( starring );
-}
-
-const QString& Film::GetDescription() const
-{
-    return( description );
-}
-
-quint8 Film::GetRating() const
-{
-    return( rating );
-}
-
-QString Film::GetRatingStr() const
-{
-    return( QString( "%1/10" ).arg( rating ) );
-}
-
-const QString &Film::GetTags() const
-{
-    return( tags );
-}
-
-int Film::GetViewsCounter() const
-{
-    return( viewsCounter );
-}
-
-bool Film::GetIsPosterExists() const
-{
-    return( isPosterExists );
-}
-
-QString Film::GetPosterName() const
-{
-    return( GetId() );
-}
-
-bool Film::GetIsViewed() const
-{
-    return( isViewed );
-}
-
-QString Film::GetIsViewedSign() const
-{
-    return( isViewed ? "+" : "-" );
-}
-
-bool Film::GetIsFavourite() const
-{
-    return( isFavourite );
-}
-
-QString Film::GetIsFavouriteSign() const
-{
-    return( isFavourite ? "+" : "-" );
-}
-
 #ifdef QT_DEBUG
-
 QString Film::DebugGetAllFields() const
 {
     QString res = "\n-= Film Debug Info =-\n";
@@ -269,6 +164,7 @@ QString Film::DebugGetAllFields() const
     res += QString( "genre: \"%1\"\n" ).arg( genre );
     res += QString( "country: \"%1\"\n" ).arg( country );
     res += QString( "year: \"%1\"\n" ).arg( year );
+    res += QString( "budget: \"%1\"\n" ).arg( budget );
     res += QString( "director: \"%1\"\n" ).arg( director );
     res += QString( "producer: \"%1\"\n" ).arg( producer );
     res += QString( "starring: \"%1\"\n" ).arg( starring );
@@ -277,61 +173,17 @@ QString Film::DebugGetAllFields() const
     res += QString( "rating: \"%1\"\n" ).arg( rating );
     res += QString( "ageRestrictions: \"%1\"\n" ).arg( ageRestrictions );
     res += QString( "tags: \"%1\"\n" ).arg( tags );
-    res += QString( "additionalText: \"%1\"\n" ).arg( additionalText );
     res += QString( "viewsCounter: \"%1\"\n" ).arg( viewsCounter );
     res += QString( "isPosterExists: \"%1\"\n" ).arg( isPosterExists );
     res += QString( "isViewed: \"%1\"\n" ).arg( isViewed );
     res += QString( "isFavourite: \"%1\"\n" ).arg( isFavourite );
+    res += QString( "screenwriter: \"%1\"\n" ).arg( screenwriter );
+    res += QString( "composer: \"%1\"\n" ).arg( composer );
     res += "-= End =-\n";
 
     return( res );
 }
-
 #endif // QT_DEBUG
-
-/*************************************************************************************************
- *  Setters                                                                                       *
-  *************************************************************************************************/
-
-void Film::SetId( const QString &s )
-{
-    id = s;
-}
-
-void Film::SetFileName( const QString& s )
-{
-    fileName = s;
-}
-
-void Film::SetTitle( const QString& s )
-{
-    title = s;
-}
-
-void Film::SetOriginalTitle( const QString& s )
-{
-    originalTitle = s;
-}
-
-void Film::SetTagline( const QString& s )
-{
-    tagline = s;
-}
-
-void Film::SetGenre( const QString& s )
-{
-    genre = s;
-}
-
-void Film::SetCountry( const QString& s )
-{
-    country = s;
-}
-
-void Film::SetYear( quint16 n )
-{
-    year = n;
-}
 
 bool Film::SetYearFromStr( const QString& s )
 {
@@ -340,66 +192,20 @@ bool Film::SetYearFromStr( const QString& s )
     return( ok );
 }
 
-void Film::SetDirector( const QString& s )
-{
-    director = s;
-}
-
-void Film::SetProducer( const QString& s )
-{
-    producer = s;
-}
-
-void Film::SetStarring( const QString& s )
-{
-    starring = s;
-}
-
-void Film::SetDescription( const QString& s )
-{
-    description = s;
-}
-
-void Film::SetRating( quint8 n )
-{
-    rating = n;
-}
-
 bool Film::SetRatingFromStr( const QString& s )
 {
     bool ok;
     rating = s.toUInt( &ok );
+    if( !ok ) rating = 1;
     return( ok );
 }
 
-void Film::SetTags( const QString &s )
+bool Film::SetBudgetFromStr( const QString& s )
 {
-    tags = s;
-}
-
-void Film::IncViewsCounter()
-{
-    viewsCounter++;
-}
-
-void Film::SetViewCounter( int count )
-{
-    viewsCounter = count;
-}
-
-void Film::SetIsPosterExists( bool b )
-{
-    isPosterExists = b;
-}
-
-void Film::SetIsViewed( bool b )
-{
-    isViewed = b;
-}
-
-void Film::SetIsFavourite( bool b )
-{
-    isFavourite = b;
+    bool ok;
+    budget = s.toDouble( &ok );
+    if( !ok ) budget = 0;
+    return( ok );
 }
 
 void Film::SetNewData( const Film& other )
@@ -420,11 +226,12 @@ void Film::SetNewData( const Film& other )
     rating = other.rating;
     ageRestrictions = other.ageRestrictions;
     tags = other.tags;
-    additionalText = other.additionalText;
     viewsCounter = other.viewsCounter;
     isPosterExists = other.isPosterExists;
     isViewed = other.isViewed;
     isFavourite = other.isFavourite;
+    screenwriter = other.screenwriter;
+    composer = other.composer;
 }
 
 QString Film::GetRandomHash()

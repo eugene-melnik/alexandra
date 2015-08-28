@@ -31,67 +31,76 @@ class Film
         Film( const Film& other );
 
         // Functions needed for comparation (sorting)
-        bool operator > ( const Film& other ) const;
-        bool operator < ( const Film& other ) const;
-        bool operator == ( const Film& other ) const;
+        bool operator > ( const Film& other ) const { return( title > other.title ); }
+        bool operator < ( const Film& other ) const { return( title < other.title ); }
+        bool operator == ( const Film& other ) const { return( title == other.title ); }
 
         // Functions needed for serialization
         friend QDataStream& operator << ( QDataStream& out, const Film& f );
         friend QDataStream& operator >> ( QDataStream& in, Film& f );
 
         // Getters
-        const QString& GetId() const;
-        const QString& GetFileName() const;
-        const QString& GetTitle() const;
-        const QString& GetOriginalTitle() const;
-        const QString& GetTagline() const;
-        const QString& GetGenre() const;
-        const QString& GetCountry() const;
-        quint16 GetYear() const;
-        QString GetYearStr() const;
-        const QString& GetDirector() const;
-        const QString& GetProducer() const;
-        const QString& GetStarring() const;
-        const QString& GetDescription() const;
-        quint8 GetRating() const;
-        QString GetRatingStr() const;
-        const QString& GetTags() const;
+        const QString& GetId() const        { return( id ); }
+        const QString& GetFileName() const  { return( fileName ); }
 
-        int GetViewsCounter() const;
-        bool GetIsPosterExists() const;
-        QString GetPosterName() const;
-        bool GetIsViewed() const;
-        QString GetIsViewedSign() const;
-        bool GetIsFavourite() const;
-        QString GetIsFavouriteSign() const;
+        const QString& GetTitle() const     { return( title ); }
+        const QString& GetOriginalTitle() const { return( originalTitle ); }
+        const QString& GetTagline() const   { return( tagline ); }
+        const QString& GetGenre() const     { return( genre ); }
+        const QString& GetCountry() const   { return( country ); }
+        quint16 GetYear() const             { return( year ); }
+        QString GetYearStr() const          { return( QString::number( year ) ); }
+        const QString& GetDirector() const  { return( director ); }
+        const QString& GetProducer() const  { return( producer ); }
+        const QString& GetStarring() const  { return( starring ); }
+        const QString& GetDescription() const { return( description ); }
+        quint8 GetRating() const            { return( rating ); }
+        QString GetRatingStr() const        { return( QString( "%1/10" ).arg( rating ) ); }
+        const QString &GetTags() const      { return( tags ); }
 
+        QString GetBudgetStr() const;
+        int     GetViewsCounter() const     { return( viewsCounter ); }
+        bool    GetIsPosterExists() const   { return( isPosterExists ); }
+        QString GetPosterName() const       { return( GetId() ); }
+        bool    GetIsViewed() const         { return( isViewed ); }
+        QString GetIsViewedSign() const     { return( isViewed ? "+" : "-" ); }
+        bool    GetIsFavourite() const      { return( isFavourite ); }
+        QString GetIsFavouriteSign() const  { return( isFavourite ? "+" : "-" ); }
+
+
+        QString GetScreenwriter() const { return( screenwriter ); }
+        QString GetComposer() const { return( composer ); }
 #ifdef QT_DEBUG
         QString DebugGetAllFields() const;
 #endif // QT_DEBUG
 
         // Setters
-        void SetId( const QString& s );
-        void SetFileName( const QString& s );
-        void SetTitle( const QString& s );
-        void SetOriginalTitle( const QString& s );
-        void SetTagline( const QString& s );
-        void SetGenre( const QString& s );
-        void SetCountry( const QString& s );
-        void SetYear( quint16 n );
+        void SetId( const QString& s )          { id = s; }
+        void SetFileName( const QString& s )    { fileName = s; }
+        void SetTitle( const QString& s )       { title = s; }
+        void SetOriginalTitle( const QString& s ) { originalTitle = s; }
+        void SetTagline( const QString& s )     { tagline = s; }
+        void SetGenre( const QString& s )       { genre = s; }
+        void SetCountry( const QString& s )     { country = s; }
+        void SetYear( quint16 n )               { year = n; }
         bool SetYearFromStr( const QString& s );
-        void SetDirector( const QString& s );
-        void SetProducer( const QString& s );
-        void SetStarring( const QString& s );
-        void SetDescription( const QString& s );
-        void SetRating( quint8 n );
+        void SetDirector( const QString& s )    { director = s; }
+        void SetProducer( const QString& s )    { producer = s; }
+        void SetStarring( const QString& s )    { starring = s; }
+        void SetDescription( const QString& s ) { description = s; }
+        void SetRating( quint8 n )              { rating = n; }
         bool SetRatingFromStr( const QString& s );
-        void SetTags( const QString& s );
+        void SetTags( const QString& s )        { tags = s; }
 
-        void IncViewsCounter();
-        void SetViewCounter( int count );
-        void SetIsPosterExists( bool b );
-        void SetIsViewed( bool b );
-        void SetIsFavourite( bool b );
+        bool SetBudgetFromStr( const QString& s );
+        void IncViewsCounter()              { viewsCounter++; }
+        void SetViewCounter( int count )    { viewsCounter = count; }
+        void SetIsPosterExists( bool b )    { isPosterExists = b; }
+        void SetIsViewed( bool b )          { isViewed = b; }
+        void SetIsFavourite( bool b )       { isFavourite = b; }
+
+        void SetScreenwriter( QString s )   { screenwriter = s; }
+        void SetComposer( QString s )       { composer = s; }
 
         void SetNewData( const Film& other );
 
@@ -99,7 +108,7 @@ class Film
 
     private:
         QString id;
-        quint8  section = 0;
+        quint8  section = 0; // unused
         QString fileName;
         QString title;
         QString originalTitle;
@@ -113,15 +122,21 @@ class Film
         double  budget = 0;
         QString description;
         quint8  rating = 1;
-        QString ageRestrictions;
+        QString ageRestrictions; // unused
         QString tags;
-        QString additionalText;
+        /* QString additionalData; (deprecated) */
 
         quint16 viewsCounter = 0;
 
         bool isPosterExists = false;
         bool isViewed = false;
         bool isFavourite = false;
+
+        // Additional fields ('additionalData')
+        int additionalDataVersion = 0x01;
+
+        QString screenwriter;
+        QString composer;
 };
 
 #endif // FILM_H

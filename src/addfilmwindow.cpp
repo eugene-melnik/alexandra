@@ -153,10 +153,13 @@ void AddFilmWindow::OkButtonClicked()
     f.SetDirector( eDirector->text() );
     f.SetProducer( eProducer->text() );
     f.SetStarring( tStarring->toPlainText() );
+    f.SetBudgetFromStr( eBudget->text() );
     f.SetDescription( tDescription->toPlainText() );
     f.SetTags( eTags->text() );
     f.SetIsViewed( cIsViewed->isChecked() );
     f.SetIsFavourite( cIsFavourite->isChecked() );
+    f.SetScreenwriter( eScreenwriter->text() );
+    f.SetComposer( eComposer->text() );
 
     // Manipulations with poster
     QString posterFileName = ePosterFileName->text();
