@@ -219,6 +219,7 @@ void MainWindow::DatabaseIsReadonly()
 void MainWindow::ShowFilms()
 {
     statusbar->ShowLoading();
+    splashScreen->SetProgressMaximum( filmsList->GetFilmsCount() );
 
     bool highlightUnavailable = settings->GetCheckFilesOnStartup();
     QColor unavailableColor = settings->GetUnavailableFileColor();
@@ -240,6 +241,8 @@ void MainWindow::ShowFilms()
         {
             filmsView->AddItem( film );
         }
+
+        splashScreen->SetProgressValue( i + 1 );
     }
 
     if( currentIndex > 0 )
@@ -621,6 +624,8 @@ void MainWindow::SetupFilmsView()
 
     filmsView = dynamic_cast<AbstractFilmsView*>( view );
     vlLeft->insertWidget( 0, view );
+
+    view->show();
     view->setFocus();
 }
 
@@ -631,6 +636,10 @@ void MainWindow::SetupWindows()
     splashScreen->show();
 
     connect( this, &MainWindow::Shown, splashScreen, &SplashScreen::Close );
+    connect( this, &MainWindow::Shown, this, &MainWindow::show );
+
+    qApp->processEvents(); // For splashscreen drawing
+    qApp->processEvents(); // WTF: works only if run twice...
 
     /// Main window
     connect( actionShowFullscreen, &QAction::toggled, this, &MainWindow::ShowFullScreen );

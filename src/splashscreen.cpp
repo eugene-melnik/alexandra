@@ -54,7 +54,14 @@ SplashScreen::SplashScreen( QWidget* parent ) : QDialog( parent )
     lLoading->setGraphicsEffect( new EffectDropShadow( 0, 0, "white", lLoading ) );
 }
 
+void SplashScreen::SetProgressValue(int progress)
+{
+     progressBar->setValue( progress );
+     progressBar->repaint();
+}
+
 void SplashScreen::Close()
 {
-    QTimer::singleShot( 1000, this, SLOT( close() ) ); // 1 second delay
+    progressBar->hide();
+    QTimer::singleShot( 500, this, SLOT( close() ) ); // 1/2 second delay
 }

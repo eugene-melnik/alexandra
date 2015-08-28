@@ -77,7 +77,6 @@ int main( int argc, char** argv )
 
     // Run
     MainWindow* mainWindow = new MainWindow( settings );
-    mainWindow->show();
 
     if( parser.GetFilmsToAdd().size() > 0 )
     {

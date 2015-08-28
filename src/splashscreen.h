@@ -32,6 +32,9 @@ class SplashScreen : public QDialog, public Ui::SplashScreen
     public:
         SplashScreen( QWidget* parent = nullptr );
 
+        void SetProgressMaximum( int maximum ) { progressBar->setMaximum( maximum ); }
+        void SetProgressValue( int progress );
+
     public slots:
         void Close();
 };
