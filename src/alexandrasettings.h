@@ -42,6 +42,7 @@ class AlexandraSettings : public QSettings
         QString GetApplicationFont() const;
         QString GetApplicationStyleName() const;
         int     GetApplicationThemeIndex() const;
+        bool    GetApplicationShowSplashScreen() const;
 
         int     GetFilmsViewMode() const;
 
@@ -85,6 +86,7 @@ class AlexandraSettings : public QSettings
         void SetApplicationFont( QString s );
         void SetApplicationStyleName( const QString& s );
         void SetApplicationThemeIndex( int n );
+        void SetApplicationShowSplashScreen( bool b );
 
         void SetFilmsViewMode( int n );
 

@@ -113,6 +113,11 @@ int AlexandraSettings::GetApplicationThemeIndex() const
     return( value( "Application/ThemeIndex" ).toInt() );
 }
 
+bool AlexandraSettings::GetApplicationShowSplashScreen() const
+{
+    return( value( "Application/ShowSplashScreen", true ).toBool() );
+}
+
 int AlexandraSettings::GetFilmsViewMode() const
 {
     return( value( "FilmsView/Mode", 0 ).toInt() );
@@ -289,6 +294,11 @@ void AlexandraSettings::SetApplicationStyleName( const QString& s )
 void AlexandraSettings::SetApplicationThemeIndex( int n )
 {
     setValue( "Application/ThemeIndex", n );
+}
+
+void AlexandraSettings::SetApplicationShowSplashScreen( bool b )
+{
+    setValue( "Application/ShowSplashScreen", b );
 }
 
 void AlexandraSettings::SetFilmsViewMode( int n )

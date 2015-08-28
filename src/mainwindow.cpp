@@ -518,13 +518,13 @@ void MainWindow::UpdateCurrentFilm()
 
 void MainWindow::SetProgressMaximum( int n )
 {
-    splashScreen->SetProgressMaximum( n );
+    if( splashScreen != nullptr) splashScreen->SetProgressMaximum( n );
     statusbar->SetProgresMaximum( n );
 }
 
 void MainWindow::SetProgressValue( int n )
 {
-    splashScreen->SetProgressValue( n + 1 );
+    if( splashScreen != nullptr) splashScreen->SetProgressValue( n + 1 );
     statusbar->SetProgressValue( n + 1 );
 }
 
@@ -644,16 +644,20 @@ void MainWindow::SetupFilmsView()
 void MainWindow::SetupWindows()
 {
     /// Splashscreen
-    splashScreen = new SplashScreen();
-    splashScreen->show();
+    if( settings->GetApplicationShowSplashScreen() )
+    {
+        splashScreen = new SplashScreen();
+        splashScreen->show();
 
-    connect( this, &MainWindow::Shown, splashScreen, &SplashScreen::Close );
-    connect( this, &MainWindow::Shown, this, &MainWindow::show );
+        connect( this, &MainWindow::Shown, splashScreen, &SplashScreen::Close );
 
-    qApp->processEvents(); // For splashscreen drawing
-    qApp->processEvents(); // WTF: works only if run twice...
+        qApp->processEvents(); // For splashscreen drawing
+        qApp->processEvents(); // WTF: works only if run twice...
+    }
 
     /// Main window
+    connect( this, &MainWindow::Shown, this, &MainWindow::show );
+
     connect( actionShowFullscreen, &QAction::toggled, this, &MainWindow::ShowFullScreen );
     connect( toolbar, &ToolBar::actionExit, this, &MainWindow::close );
 

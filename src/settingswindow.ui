@@ -418,6 +418,13 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
+           <widget class="QCheckBox" name="cShowSplashScreen">
+            <property name="text">
+             <string>Show splash screen at startup</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QHBoxLayout" name="hl1" stretch="1,0">
             <property name="spacing">
              <number>6</number>

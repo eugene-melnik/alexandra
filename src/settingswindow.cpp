@@ -115,6 +115,7 @@ void SettingsWindow::OkButtonClicked()
         settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
 
         // Application tab
+        settings->SetApplicationShowSplashScreen( cShowSplashScreen->isChecked() );
         settings->SetApplicationLocaleIndex( cbLanguage->currentIndex() - 1 );
         settings->SetExternalPlayer( eExternalPlayer->text() );
 
@@ -433,6 +434,9 @@ void SettingsWindow::ReconfigureAppearanceTab()
 
 void SettingsWindow::ConfigureApplicationTab()
 {
+    // Splash screen
+    connect( cShowSplashScreen, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+
     // Language
     connect( cbLanguage, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsNeedReboot() ) );
 
@@ -482,8 +486,8 @@ void SettingsWindow::ConfigureApplicationTab()
 
 void SettingsWindow::ReconfigureApplicationTab()
 {
+    cShowSplashScreen->setChecked( settings->GetApplicationShowSplashScreen() );
     cbLanguage->setCurrentIndex( settings->GetApplicationLocaleIndex() + 1 );
-
     eExternalPlayer->setText( settings->GetExternalPlayer() );
 
     // Database
