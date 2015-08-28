@@ -93,6 +93,9 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void SetupCompleter();
         void FilmsFilter( QString key );
         void UpdateCurrentFilm();
+
+        void SetProgressMaximum( int n );
+        void SetProgressValue( int n );
         void StatusbarShowTotal();
 
     private:

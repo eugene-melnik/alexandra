@@ -29,7 +29,7 @@ StatusBar::StatusBar( QWidget* parent ) : QStatusBar( parent )
 
     progress = new QProgressBar( this );
     progress->setAlignment( Qt::AlignCenter );
-    progress->setMaximum( 0 );
+    progress->setTextVisible( false );
     progress->hide();
     addPermanentWidget( progress );
 }
@@ -43,7 +43,8 @@ StatusBar::~StatusBar()
 void StatusBar::ShowLoading()
 {
     progress->setMaximumHeight( height() / 2 );
-    progress->setMaximumWidth( 100 );
+    progress->setMaximumWidth( 200 );
+    progress->setValue( 0 );
     progress->show();
 
     text->setText( tr( "Loading..." ) );

@@ -218,8 +218,8 @@ void MainWindow::DatabaseIsReadonly()
 
 void MainWindow::ShowFilms()
 {
+    SetProgressMaximum( filmsList->GetFilmsCount() );
     statusbar->ShowLoading();
-    splashScreen->SetProgressMaximum( filmsList->GetFilmsCount() );
 
     bool highlightUnavailable = settings->GetCheckFilesOnStartup();
     QColor unavailableColor = settings->GetUnavailableFileColor();
@@ -242,7 +242,7 @@ void MainWindow::ShowFilms()
             filmsView->AddItem( film );
         }
 
-        splashScreen->SetProgressValue( i + 1 );
+        SetProgressValue( i + 1 );
     }
 
     if( currentIndex > 0 )
@@ -514,6 +514,18 @@ void MainWindow::UpdateCurrentFilm()
     {
         filmsView->SetCurrentItemTo( *filmsList->GetCurrentFilm() );
     }
+}
+
+void MainWindow::SetProgressMaximum( int n )
+{
+    splashScreen->SetProgressMaximum( n );
+    statusbar->SetProgresMaximum( n );
+}
+
+void MainWindow::SetProgressValue( int n )
+{
+    splashScreen->SetProgressValue( n + 1 );
+    statusbar->SetProgressValue( n + 1 );
 }
 
 void MainWindow::StatusbarShowTotal()

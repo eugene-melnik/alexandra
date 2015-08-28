@@ -33,6 +33,9 @@ class StatusBar : public QStatusBar
         StatusBar( QWidget* parent = nullptr );
         ~StatusBar();
 
+        void SetProgresMaximum( int maximum ) { progress->setMaximum( maximum ); }
+        void SetProgressValue( int value ) { progress->setValue( value ); repaint(); }
+
         void ShowLoading();
         void ShowFounded( int founded );
         void ShowTotal( int total, int viewed, int favourite );
