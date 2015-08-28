@@ -32,6 +32,15 @@ FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
     connect( bCopyToClipboard, &QPushButton::clicked, this, &FilmInfoWindow::CopyToClipboard );
 }
 
+FilmInfoWindow::~FilmInfoWindow()
+{
+    // Behavior on program exit while data loading
+    if( loadInfoMutex.tryLock( 5000 ) )  // 5 seconds
+    {
+        loadInfoMutex.unlock();
+    }
+}
+
 void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )
 {
     eTechInfo->clear();

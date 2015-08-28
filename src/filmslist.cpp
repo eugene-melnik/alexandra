@@ -36,6 +36,12 @@ FilmsList::FilmsList( AlexandraSettings* s, QObject* parent ) : QObject( parent 
 
 FilmsList::~FilmsList()
 {
+    // Behavior on program exit while data loading
+    if( asyncSaveToFileMutex.tryLock( 5000 ) )  // 5 seconds
+    {
+        asyncSaveToFileMutex.unlock();
+    }
+
     delete films;
 }
 
