@@ -27,6 +27,8 @@
 #include <QColor>
 #include <QString>
 
+// Basic interface for classes that display films in the program window
+
 class AbstractFilmsView
 {
     public:
@@ -45,9 +47,9 @@ class AbstractFilmsView
         virtual void RemoveCurrentItem() = 0;
         virtual void Clear() = 0;
 
-        virtual void SelectItem( Film film ) = 0;
-        virtual void SelectItem( QString title ) = 0;
-        virtual void SelectRandomItem() = 0; // TODO: maybe need to move to FilmsList class
+        virtual void SelectItem( const Film& film ) = 0;
+        virtual void SelectItem( const QString& title ) = 0;
+        virtual void SelectRandomItem() = 0; // TODO: Maybe need to move to FilmsList class
 
         virtual int GetItemsCount() const = 0;
         virtual int GetCurrentItemIndex() const = 0;

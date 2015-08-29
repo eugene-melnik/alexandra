@@ -45,7 +45,7 @@ class FilmsList : public QObject
     public slots:
         int         GetNumberOfFilms() const;
         const Film* GetFilmAt( int i ) const;
-        const Film* GetFilmByTitle( QString title );
+        const Film* GetFilmByTitle( const QString& title );
 
         const QList<Film>* GetFilmsList() const;
 
@@ -60,11 +60,11 @@ class FilmsList : public QObject
         int GetIsViewedCount() const;
         int GetIsFavouriteCount() const;
 
-        void AddFilm( Film film );
+        void AddFilm( const Film& film );
         void AddFilms( const QList<Film>* newFilms );
 
         void SetCurrentFilm( const QString& title );
-        void ChangeCurrentFilm( Film f );
+        void ChangeCurrentFilm( const Film& f );
         void SetCurrentFilmIsViewed( bool b );
         void SetCurrentFilmIsFavourite( bool b );
         void IncCurrentFilmViewsCounter();

@@ -47,8 +47,12 @@ void StatisticsWindow::show( const QList<Film>* films )
     statisticsWorker->start();
 
     // Show
-    lTotalFilmsInLibrary->setText( QString::number( films->size() ) );
+    tabWidget->setCurrentIndex( 0 ); // activate first tab
     progressBar->show();
+
+    lTotalFilmsInLibrary->setText( QString::number( films->size() ) );
+    lWastedTime->setToolTip( "" );
+
     QDialog::show();
 }
 
@@ -58,11 +62,6 @@ void StatisticsWindow::closeEvent( QCloseEvent* event )
     {
         statisticsWorker->Terminate();
     }
-
-    // Contents
-    tabWidget->setCurrentIndex( 0 ); // activate first tab
-    lwMostPopularFilms->clear();
-    lWastedTime->setToolTip( "" );
 
     event->accept();
 }

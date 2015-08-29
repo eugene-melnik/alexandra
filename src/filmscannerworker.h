@@ -45,8 +45,8 @@ class FilmScannerWorker : public QThread
         void run() override;
 
     private:
-        QList<QString>* ScanDirectory( QString dir );
-        QList<QString>* ScanDirectoryRecursive( QString dir );
+        QList<QString>* ScanDirectory( const QString& dir );
+        QList<QString>* ScanDirectoryRecursive( const QString& dir );
 
         QString dir;
         bool isRecursive = false;

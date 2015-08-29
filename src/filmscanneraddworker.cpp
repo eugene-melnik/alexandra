@@ -28,15 +28,14 @@ void FilmScannerAddWorker::run()
 {
     QList<Film> newFilms;
 
-    foreach( QString fileName, foundedFilms )
+    for( const QString& fileName : foundedFilms )
     {
-        // Creating film
         Film f;
         f.SetId( Film::GetRandomHash() );
         f.SetFileName( fileName );
         f.SetTitle( QFileInfo( fileName ).completeBaseName().replace( "_", " " ) );
 
-        // Search for poster
+        // Search for a poster
         if( searchForPoster )
         {
             QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName );

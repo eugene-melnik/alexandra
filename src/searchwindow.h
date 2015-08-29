@@ -36,7 +36,7 @@ class SearchWindow : public QDialog, public Ui::SearchWindow
         SearchWindow( const QList<Film>* f, QWidget* parent = nullptr );
 
     signals:
-        void FilmSelected( QString film );
+        void FilmSelected( const QString& film );
 
     private slots:
         void Search();

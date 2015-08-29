@@ -270,7 +270,7 @@
             <item>
              <widget class="QLabel" name="lComposer">
               <property name="text">
-               <string>&lt;composer&gt;</string>
+               <string notr="true">&lt;composer&gt;</string>
               </property>
              </widget>
             </item>

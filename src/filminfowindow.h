@@ -40,11 +40,11 @@ class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
         void LoadTechnicalInfo( const QString& fileName );
 
     signals:
-        void ShortInfoLoaded( QString shortInfo );
-        void FullInfoLoaded( QString shortInfo );
+        void ShortInfoLoaded( const QString& shortInfo );
+        void FullInfoLoaded( const QString& shortInfo );
 
     private slots:
-        void ShowFullInfo( QString s );
+        void ShowFullInfo( const QString& s );
         void CopyToClipboard();
 
     private:

@@ -622,9 +622,6 @@
        <property name="toolTip">
         <string>Actors, comma separated</string>
        </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAsNeeded</enum>
-       </property>
       </widget>
      </item>
     </layout>

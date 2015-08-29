@@ -27,9 +27,13 @@
 CommandLineParser::CommandLineParser() : QCommandLineParser()
 {
     setApplicationDescription( Alexandra::appDescription );
+
+    // "-h" and "--help"
     addHelpOption();
+    // "-v" and "--version"
     addVersionOption();
 
+    // Adding films from the command line arguments
     addPositionalArgument( "films", "Add films to the database.", "[<file1> [<file2> ...]]" );
 
     // "-c" and "--config"

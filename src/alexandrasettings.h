@@ -30,9 +30,9 @@
 class AlexandraSettings : public QSettings
 {
     public:
-        AlexandraSettings( QString configFile );
+        AlexandraSettings( const QString& configFile );
 
-        // Get //
+        /* Get */
 
         QString GetDatabaseFilePath() const;
         QString GetExternalPlayer() const;
@@ -77,14 +77,14 @@ class AlexandraSettings : public QSettings
 
         QString GetShortcutPlay() const;
 
-        // Set //
+        /* Set */
 
         void SetDatabaseFilePath( const QString& s );
         void SetExternalPlayer( const QString& s );
         void SetLastFilmPath( const QString& s );
         void SetLastPosterPath( const QString& s );
         void SetApplicationLocaleIndex( int n );
-        void SetApplicationFont( QString s );
+        void SetApplicationFont( const QString& s );
         void SetApplicationStyleName( const QString& s );
         void SetApplicationThemeIndex( int n );
         void SetApplicationShowSplashScreen( bool b );

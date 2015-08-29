@@ -132,7 +132,7 @@ void FilmViewGridModel::RemoveRow( int row )
     emit layoutChanged(); // update the layout
 }
 
-int FilmViewGridModel::GetItemIndexByTitle( QString title )
+int FilmViewGridModel::GetItemIndexByTitle( const QString& title )
 {
     return( itemTitle.indexOf( title ) );
 }

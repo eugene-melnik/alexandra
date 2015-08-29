@@ -175,12 +175,12 @@ void FilmsViewList::Clear()
     setRowCount( 0 );
 }
 
-void FilmsViewList::SelectItem( Film film )
+void FilmsViewList::SelectItem( const Film& film )
 {
     SelectItem( film.GetTitle() );
 }
 
-void FilmsViewList::SelectItem( QString title )
+void FilmsViewList::SelectItem( const QString& title )
 {
     for( int row = 0; row < GetItemsCount(); row++ )
     {

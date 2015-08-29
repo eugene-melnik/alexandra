@@ -68,12 +68,12 @@ MainWindow::~MainWindow()
     delete contextMenu;
 }
 
-void MainWindow::AddFilmsFromOutside( QStringList films )
+void MainWindow::AddFilmsFromOutside( const QStringList& films )
 {
     QList<Film> newFilms;
     QString messageText;
 
-    foreach( QString film, films )
+    for( const QString& film : films )
     {
         QFileInfo filmInfo( film );
         QString fileSuffix = "*." + filmInfo.suffix();
@@ -356,7 +356,7 @@ void MainWindow::ShowFilmContextMenu( QPoint p )
     contextMenu->exec( dynamic_cast<QWidget*>( filmsView )->mapToGlobal( p ) );
 }
 
-void MainWindow::ShowShortTechnicalInfo( QString info )
+void MainWindow::ShowShortTechnicalInfo( const QString& info )
 {
     lTechInformation->setText( info );
     bTechInformation->setEnabled( true );
@@ -495,7 +495,7 @@ void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
     const QList<Film>* films = filmsList->GetFilmsList();
     std::list<Film> filteredFilms;
 
-    for( const Film& film : *films ) // TODO: move algorithm to the separate Search engine class
+    for( const Film& film : *films ) // TODO: Move algorithm to the separate Search engine class
     {
         if( ( filters & SearchEdit::Title ) && film.GetTitle().contains( key, Qt::CaseInsensitive ) )
             filteredFilms.push_back( film );

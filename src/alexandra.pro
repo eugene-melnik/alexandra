@@ -5,17 +5,15 @@
 #                                                                   #
  ###################################################################
 
-CONFIG += release
-#CONFIG += debug
-
 TARGET = alexandra
 TEMPLATE = app
 
+CONFIG += release
+#CONFIG += debug
+
+# Main configuration
 QT = core gui widgets concurrent
 CONFIG += qt warn_on thread
-
-DEFINES += _UNICODE UNICODE
-#DEFINES += PORTABLE_VERSION
 
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS_RELEASE -= -O2
@@ -28,12 +26,11 @@ win32:RC_FILE = $$PWD\..\windows\win-meta.rc
 win32:LIBS += $$PWD\..\lib\MediaInfo.dll
 win32:INCLUDEPATH += $$PWD\..\lib\
 
-DESTDIR = ./
-MOC_DIR = ./tmp/moc
-OBJECTS_DIR = ./tmp/obj
-RCC_DIR = ./tmp/rcc
-UI_DIR = ./tmp/ui
+# Options
+DEFINES += _UNICODE UNICODE
+#DEFINES += PORTABLE_VERSION
 
+# Source files
 HEADERS += effects/effectdropshadow.h \
            aboutwindow.h \
            abstractfilmsview.h \
@@ -117,12 +114,19 @@ RESOURCES = icons.qrc \
             images.qrc \
             lang.qrc
 
+# Temporary files
+DESTDIR = ./
+MOC_DIR = ./tmp/moc
+OBJECTS_DIR = ./tmp/obj
+RCC_DIR = ./tmp/rcc
+UI_DIR = ./tmp/ui
+
 # Stylesheets
 RESOURCES += ../styles/alexandraflat-coast/alexandraflat-coast.qrc \
              ../styles/alexandraflat-rainforest/alexandraflat-rainforest.qrc \
              ../styles/qdarkstylesheet/qdarkstylesheet.qrc
 
-# Install
+# Installation setup
 target.path = /usr/bin/
 
 desktop_file.files = ../linux/alexandra.desktop

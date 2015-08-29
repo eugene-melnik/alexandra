@@ -37,7 +37,8 @@ FilmsList::FilmsList( AlexandraSettings* s, QObject* parent ) : QObject( parent 
 FilmsList::~FilmsList()
 {
     // Behavior on program exit while data loading
-    if( asyncSaveToFileMutex.tryLock( 5000 ) )  // 5 seconds
+    // Wait for 5 seconds
+    if( asyncSaveToFileMutex.tryLock( 5000 ) )
     {
         asyncSaveToFileMutex.unlock();
     }
@@ -153,7 +154,7 @@ const Film* FilmsList::GetFilmAt( int i ) const
     return( &(films->at(i)) );
 }
 
-const Film *FilmsList::GetFilmByTitle( QString title )
+const Film *FilmsList::GetFilmByTitle( const QString& title )
 {
     for( int i = 0; i < films->size(); i++ )
     {
@@ -255,7 +256,7 @@ int FilmsList::GetIsFavouriteCount() const
     return( isFavouriteCount );
 }
 
-void FilmsList::AddFilm( Film film )
+void FilmsList::AddFilm( const Film& film )
 {
     films->append( film );
     std::sort( films->begin(), films->end() );
@@ -285,7 +286,7 @@ void FilmsList::SetCurrentFilm( const QString& title )
     }
 }
 
-void FilmsList::ChangeCurrentFilm( Film f )
+void FilmsList::ChangeCurrentFilm( const Film& f )
 {
     currentFilm->SetNewData( f );
     isDatabaseChanged = true;

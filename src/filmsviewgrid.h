@@ -49,8 +49,8 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void RemoveCurrentItem();
         void Clear();
 
-        void SelectItem( Film film );
-        void SelectItem( QString title );
+        void SelectItem( const Film& film );
+        void SelectItem( const QString& title );
         void SelectRandomItem();
 
         int GetItemsCount() const;
@@ -59,8 +59,8 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void SetCurrentItemIndex( int i );
 
     signals:
-        void ItemClicked( QString );
-        void ItemDoubleClicked( QString );
+        void ItemClicked( const QString& );
+        void ItemDoubleClicked( const QString& );
         void ContextMenuRequested( QPoint );
 
     protected:

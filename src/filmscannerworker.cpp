@@ -46,7 +46,7 @@ void FilmScannerWorker::run()
     }
 }
 
-QList<QString>* FilmScannerWorker::ScanDirectory( QString dir )
+QList<QString>* FilmScannerWorker::ScanDirectory( const QString& dir )
 {
     QList<QString>* result = new QList<QString>();
     QFileInfoList files = QDir( dir ).entryInfoList( FilesExtensions().GetFilmExtensionsForDirFilter() );
@@ -62,7 +62,7 @@ QList<QString>* FilmScannerWorker::ScanDirectory( QString dir )
     return( result );
 }
 
-QList<QString>* FilmScannerWorker::ScanDirectoryRecursive( QString dir )
+QList<QString>* FilmScannerWorker::ScanDirectoryRecursive( const QString& dir )
 {
     // Scan files in directory
     QList<QString>* result = ScanDirectory( dir );

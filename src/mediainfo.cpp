@@ -28,7 +28,7 @@ MediaInfo::MediaInfo()
     mi->Option( __T( "CharSet" ), __T( "UTF-8" ) );
 }
 
-MediaInfo::MediaInfo( QString fileName )
+MediaInfo::MediaInfo( const QString& fileName )
 {
     mi = new MI::MediaInfo();
     mi->Option( __T( "CharSet" ), __T( "UTF-8" ) );

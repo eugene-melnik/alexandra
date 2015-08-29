@@ -25,16 +25,16 @@
 #include <QFileInfo>
 #include <QFont>
 
-AlexandraSettings::AlexandraSettings( QString configFile ) : QSettings( configFile, QSettings::IniFormat )
+AlexandraSettings::AlexandraSettings( const QString& configFile ) : QSettings( configFile, QSettings::IniFormat )
 {
-    // In portable version the database file and the posters dir are
-    // in the same directory as the configuration file
+    // In portable version of the program the database file and the posters directory
+    // located in the same directory as the configuration file
 #ifdef PORTABLE_VERSION
     SetDatabaseFilePath( QFileInfo( this->fileName() ).absolutePath() + "/database.adat" );
     SetPostersDirPath( QFileInfo( this->fileName() ).absolutePath() + "/posters" );
 #else
-    // Set database filename
 
+    // Set database filename
     QString databaseFileName = GetDatabaseFilePath();
 
     if( databaseFileName.isEmpty() )
@@ -43,8 +43,7 @@ AlexandraSettings::AlexandraSettings( QString configFile ) : QSettings( configFi
         SetDatabaseFilePath( databaseFileName );
     }
 
-    // Set posters' directory name
-
+    // Set directory of the posters
     QString postersFolderName = GetPostersDirPath();
 
     if( postersFolderName.isEmpty() )
@@ -55,7 +54,6 @@ AlexandraSettings::AlexandraSettings( QString configFile ) : QSettings( configFi
 #endif
 
     // Set external player
-
     QString externalPlayerName = GetExternalPlayer();
 
     if( externalPlayerName.isEmpty() )
@@ -71,7 +69,7 @@ AlexandraSettings::AlexandraSettings( QString configFile ) : QSettings( configFi
     sync();
 }
 
-// Get //
+/* Get */
 
 QString AlexandraSettings::GetDatabaseFilePath() const
 {
@@ -85,12 +83,12 @@ QString AlexandraSettings::GetExternalPlayer() const
 
 QString AlexandraSettings::GetLastFilmPath() const
 {
-    return( value( "Application/LastFilmPath", "." ).toString() );
+    return( value( "Application/LastFilmPath", "" ).toString() );
 }
 
 QString AlexandraSettings::GetLastPosterPath() const
 {
-    return( value( "Application/LastPosterPath", "." ).toString() );
+    return( value( "Application/LastPosterPath", "" ).toString() );
 }
 
 int AlexandraSettings::GetApplicationLocaleIndex() const
@@ -130,6 +128,8 @@ bool AlexandraSettings::GetCheckFilesOnStartup() const
 
 int AlexandraSettings::GetColumnViewedWidth() const
 {
+    // Default value here and some values below
+    // are based on scientific calculations xD
     int defaultValue = 20;
     return( value( "ListView/ColumnViewedW", defaultValue ).toInt() );
 }
@@ -191,12 +191,14 @@ int AlexandraSettings::GetScalePosterToHeight() const
 
 QRgb AlexandraSettings::GetUnavailableFileColor() const
 {
-    return( value( "FilmsList/UnavailableFileColor", qRgb( 0xff, 0xc0, 0xc0 ) ).toUInt() );
+    unsigned int defaulValue = qRgb( 0xff, 0xc0, 0xc0 ); // Light red color
+    return( value( "FilmsList/UnavailableFileColor", defaulValue ).toUInt() );
 }
 
 int AlexandraSettings::GetListFontSize() const
 {
-    return( value( "ListView/FontSize", 10 ).toInt() );
+    return( value( "ListView/FontSize", 10 ).toInt() ); // In Windows by default font size if '8'...
+                                                        // Need to do something
 }
 
 int AlexandraSettings::GetListRowHeight() const
@@ -206,12 +208,12 @@ int AlexandraSettings::GetListRowHeight() const
 
 int AlexandraSettings::GetGridItemSize() const
 {
-    return( value( "GridView/ItemSize", 130 ).toInt() );
+    return( value( "GridView/ItemSize", 130 ).toInt() ); // 130 is the best value :D
 }
 
 int AlexandraSettings::GetGridFontSize() const
 {
-    return( value( "GridView/FontSize", 10 ).toInt() );
+    return( value( "GridView/FontSize", 10 ).toInt() ); // Font size. Again ^
 }
 
 bool AlexandraSettings::GetGridShowTooltip() const
@@ -259,7 +261,7 @@ QString AlexandraSettings::GetShortcutPlay() const
     return( value( "Shortcuts/Play", "Alt+Return" ).toString() );
 }
 
-// Set //
+/* Set */
 
 void AlexandraSettings::SetDatabaseFilePath( const QString& s )
 {
@@ -286,7 +288,7 @@ void AlexandraSettings::SetApplicationLocaleIndex( int n )
     setValue( "Application/Locale", n );
 }
 
-void AlexandraSettings::SetApplicationFont( QString s )
+void AlexandraSettings::SetApplicationFont( const QString& s )
 {
     setValue( "Application/Font", s );
 }

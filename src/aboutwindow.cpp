@@ -41,8 +41,6 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     lAppVersion->setText( tr( "version %1 (build date: %2)" ).arg( Alexandra::appVersionFull, Alexandra::appBuildDate ) );
 #endif
 
-    lQtVersion->setText( QT_VERSION_STR );
-
 #ifdef __VERSION__
     lGccVersion->setText( __VERSION__ );
 #else
@@ -50,19 +48,21 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     lGccVersion->hide();
 #endif
 
+    lQtVersion->setText( QT_VERSION_STR );
     lMIVersion->setText( MediaInfo::GetLibraryVersion() );
 
     lAuthor->setText( Alexandra::appAuthor );
     lLicense->setText( Alexandra::appLicense );
 
-    // Translators
+    // List of translators
     QString t;
 
-    foreach( Alexandra::Locale locale, Alexandra::supportedLocales )
+    for( Alexandra::Locale locale : Alexandra::supportedLocales )
     {
-        t += QString( "<b>%1 (%2)</b> &mdash; %3<br/><br/>" ).arg( locale.selfTitle,
-                                                                   locale.name,
-                                                                   locale.translator.replace( "<", "&lt;" ).replace( ">", "&gt;" ) );
+        // Print in format "English (en) - Translator Name <tr3000@mail>"
+        t += QString( "<b>%1 (%2)</b> &mdash; %3<br/><br/>" ).arg( locale.selfTitle, locale.name,
+                                                                   locale.translator.replace( "<", "&lt;" )
+                                                                                    .replace( ">", "&gt;" ) );
     }
 
     tTranslators->setText( t );
@@ -70,13 +70,7 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
 
 void AboutWindow::show()
 {
-    // Random image from resources
+    // Random picture for each show :)
     image->setPixmap( QPixmap( QString( ":/cats/%1" ).arg( rand() % 6 + 1 ) ) );
-
-    // Random color
-    QColor color( rand()%255, 255, rand()%255 );
-    labelAuthor->setGraphicsEffect( new EffectDropShadow( 0, 0, color, labelAuthor ) );
-    lAuthor->setGraphicsEffect( new EffectDropShadow( 0, 0, color, lAuthor ) );
-
     QDialog::show();
 }

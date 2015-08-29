@@ -39,16 +39,17 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog(
 
     settings = s;
 
-    connect( bOpenFile, &QPushButton::clicked, this, &AddFilmWindow::OpenFilmFileClicked );
+    connect( bOpenFile, &QPushButton::clicked, this, &AddFilmWindow::OpenFilm );
     connect( bOpenPoster, &QPushButton::clicked, this, &AddFilmWindow::OpenPosterFileClicked );
     connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::OkButtonClicked );
+    connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::close );
 }
 
 void AddFilmWindow::show()
 {
-    QDialog::show();
     bOpenPoster->setText( tr( "Open" ) );
     filmId = Film::GetRandomHash();
+    QDialog::show();
 }
 
 void AddFilmWindow::closeEvent( QCloseEvent* event )
@@ -57,21 +58,41 @@ void AddFilmWindow::closeEvent( QCloseEvent* event )
     event->accept();
 }
 
-void AddFilmWindow::OpenFilmFileClicked()
+void AddFilmWindow::OpenFilm()
 {
-    QString lastFilmPath = settings->GetLastFilmPath();
+    // Set path to the file depending on the settings
+    // or the selected movie (if already selected)
+    QString openPath;
 
+    if( eFilmFileName->text().isEmpty() )
+    {
+        openPath = settings->GetLastFilmPath();
+    }
+    else
+    {
+        openPath = QFileInfo( eFilmFileName->text() ).absolutePath();
+    }
+
+    // Open file dialog
     QFileInfo fileName = QFileDialog::getOpenFileName( this,
                          tr( "Select film" ),
-                         lastFilmPath,
+                         openPath,
                          tr( "Video files (%1)" ).arg( FilesExtensions().GetFilmExtensionsForFilter() ) );
 
     if( fileName.isFile() )
     {
+        // If a file is selected set the file name and the title
+        // of the film (with the replacement of characters '_' to spaces)
         eFilmFileName->setText( fileName.absoluteFilePath() );
-        eTitle->setText( fileName.completeBaseName().replace( "_", " " ) );
 
+        if( eTitle->text().isEmpty() )
+        {
+            eTitle->setText( fileName.completeBaseName().replace( "_", " " ) );
+        }
+
+        // Setting the path to the image file, if found in the same directory
         QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName.absoluteFilePath() );
+
         if( !posterFileName.isEmpty() )
         {
             ePosterFileName->setText( posterFileName );
@@ -79,13 +100,12 @@ void AddFilmWindow::OpenFilmFileClicked()
         }
 
         settings->SetLastFilmPath( fileName.absolutePath() );
-        settings->sync();
     }
 }
 
 void AddFilmWindow::OpenPosterFileClicked()
 {
-    if( bOpenPoster->text() == tr( "Open" ) ) // Open poster
+    if( bOpenPoster->text() == tr( "Open" ) ) // If poster isn't selected
     {
         QString lastPosterPath = settings->GetLastPosterPath();
 
@@ -100,21 +120,27 @@ void AddFilmWindow::OpenPosterFileClicked()
             bOpenPoster->setText( tr( "Clear" ) );
 
             settings->SetLastPosterPath( fileName.absolutePath() );
-            settings->sync();
         }
     }
-    else // Clear poster
+    else // If poster is already selected
     {
-        QString posterPath = QFileInfo( ePosterFileName->text() ).path();
+        // Cleaning the filename field and request to delete the file if
+        // it has been moved to the directory of posters (for edit film function)
+        QString posterPath = QFileInfo( ePosterFileName->text() ).absolutePath();
         QString postersDirPath = settings->GetPostersDirPath();
 
         if( posterPath == postersDirPath )
         {
-            int res = QMessageBox::question( this, tr( "Clear poster" ), tr( "Remove image file?" ) );
+            int res = QMessageBox::question( this, tr( "Clear poster" ),
+                                                   tr( "Remove image file?" ) );
 
             if( res == QMessageBox::Yes )
             {
                 QFile( ePosterFileName->text() ).remove();
+
+                // Need to update information if poster removed
+                ePosterFileName->clear();
+                OkButtonClicked();
             }
         }
 
@@ -128,18 +154,20 @@ void AddFilmWindow::OkButtonClicked()
     // Checking necessary fields
     if( eFilmFileName->text().isEmpty() )
     {
-        QMessageBox::information( this, tr( "Adding film" ), tr( "You must choose file on the disk." ) );
+        QMessageBox::information( this, tr( "Adding film" ),
+                                        tr( "You must choose file on the disk." ) );
         eFilmFileName->setFocus();
         return;
     }
     if( eTitle->text().isEmpty() )
     {
-        QMessageBox::information( this, tr( "Adding film" ), tr( "Field \"Title\" can't be empty." ) );
+        QMessageBox::information( this, tr( "Adding film" ),
+                                        tr( "Field \"Title\" can't be empty." ) );
         eTitle->setFocus();
         return;
     }
 
-    // Text data
+    // Filling the text data
     Film f;
     f.SetId( filmId );
     f.SetFileName( eFilmFileName->text() );
@@ -177,7 +205,7 @@ void AddFilmWindow::OkButtonClicked()
 
         if( QFileInfo( posterFileName ).absolutePath() != postersDir )
         {
-            // Creating posters' directory if not exists
+            // Create a directory for posters, if it does not exist
             if( !QDir().exists( postersDir ) )
             {
                 QDir().mkdir( postersDir );
@@ -185,13 +213,13 @@ void AddFilmWindow::OkButtonClicked()
 
             QPixmap p( posterFileName );
 
-            // Scale to height
+            // Move to directory of the posters with selected format and quality
+            // and scaling if necessary
             if( newHeight != 0 && newHeight < p.height() )
             {
                 p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
             }
 
-            // Move to posters' folder
             QString newPosterFileName = postersDir + "/" + f.GetPosterName();
             std::string format = settings->GetPosterSavingFormat().toStdString();
             int quality = settings->GetPosterSavingQuality();
@@ -204,7 +232,6 @@ void AddFilmWindow::OkButtonClicked()
         }
     }
 
-    close();
     emit Done( f );
 }
 
@@ -226,4 +253,7 @@ void AddFilmWindow::ClearFields()
     eTags->clear();
     cIsViewed->setChecked( false );
     cIsFavourite->setChecked( false );
+    eBudget->clear();
+    eScreenwriter->clear();
+    eComposer->clear();
 }

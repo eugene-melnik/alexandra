@@ -49,9 +49,9 @@ void SearchWindow::Search()
 
     QStringList words = eKeywords->text().split( " " );
 
-    foreach( const QString& word, words )
+    for( const QString& word : words )
     {
-        foreach( Film film, *films )
+        for( const Film& film : *films )
         {
             if( cTitle->isChecked() && film.GetTitle().contains( word, Qt::CaseInsensitive ) )
                 founded.push_back( film );
@@ -144,7 +144,7 @@ void SearchWindow::UpdateTable( std::list<Film>& founded )
     twResult->setRowCount( founded.size() );
     int row = 0;
 
-    foreach( const Film f, founded )
+    for( const Film& f : founded )
     {
         // Title
         QTableWidgetItem* title = new QTableWidgetItem( f.GetTitle() );

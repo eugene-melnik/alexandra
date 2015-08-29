@@ -25,6 +25,7 @@
 
 QString FilesExtensions::GetFilmExtensionsForFilter() const
 {
+    // Creating a string with format "*.ext1 *.ext2 ... *.extN"
     QString res;
 
     for( auto i = videos.begin(); i < videos.end(); i++ )
@@ -47,10 +48,18 @@ QString FilesExtensions::GetImageExtensionsForFilter() const
     return( res );
 }
 
-QString FilesExtensions::SearchForEponymousImage( QString fileName ) const
+QString FilesExtensions::SearchForEponymousImage( const QString& fileName ) const
 {
+    // Searching for file "/path/to/film/filename.videoformat"
+    // eponymous file "/path/to/film/filename.imageformat"
+
     QFileInfo fileInfo( fileName );
-    QStringList filter( QString( fileInfo.completeBaseName() + ".*" ).replace( "[", "?" ).replace( "]", "?" ) ); // TODO: need to optimize
+
+    // The problem with files that have in their names the square brackets, replaces them with '?'
+    // TODO: Need to optimize
+    QStringList filter( QString( fileInfo.completeBaseName() + ".*" ).replace( "[", "?" ).replace( "]", "?" ) );
+
+    // Searching
     QFileInfoList eponymousFiles = QDir( fileInfo.absolutePath() ).entryInfoList( filter, QDir::Files );
 
     if( eponymousFiles.size() > 1 )
@@ -66,5 +75,6 @@ QString FilesExtensions::SearchForEponymousImage( QString fileName ) const
         }
     }
 
+    // If nothing was found
     return( QString() );
 }

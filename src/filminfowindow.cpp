@@ -35,7 +35,8 @@ FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
 FilmInfoWindow::~FilmInfoWindow()
 {
     // Behavior on program exit while data loading
-    if( loadInfoMutex.tryLock( 5000 ) )  // 5 seconds
+    // Wait for 5 seconds, must siffice
+    if( loadInfoMutex.tryLock( 5000 ) )
     {
         loadInfoMutex.unlock();
     }
@@ -70,7 +71,7 @@ void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
     loadInfoMutex.unlock();
 }
 
-void FilmInfoWindow::ShowFullInfo( QString s )
+void FilmInfoWindow::ShowFullInfo( const QString& s )
 {
     eTechInfo->setPlainText( s );
 }

@@ -72,7 +72,7 @@ class Film
         QString GetComposer() const { return( composer ); }
 #ifdef QT_DEBUG
         QString DebugGetAllFields() const;
-#endif // QT_DEBUG
+#endif
 
         // Setters
         void SetId( const QString& s )          { id = s; }
@@ -99,8 +99,8 @@ class Film
         void SetIsViewed( bool b )          { isViewed = b; }
         void SetIsFavourite( bool b )       { isFavourite = b; }
 
-        void SetScreenwriter( QString s )   { screenwriter = s; }
-        void SetComposer( QString s )       { composer = s; }
+        void SetScreenwriter( const QString& s ) { screenwriter = s; }
+        void SetComposer( const QString& s )     { composer = s; }
 
         void SetNewData( const Film& other );
 
@@ -132,8 +132,12 @@ class Film
         bool isViewed = false;
         bool isFavourite = false;
 
-        // Additional fields ('additionalData')
-        int additionalDataVersion = 0x01;
+        // Additional fields
+        // In order not to change the file format, and maintain compatibility with older
+        // versions, the new films fields will be stored in one string variable "additionalData"
+        // in QByteArray::toHex() format
+
+        int additionalDataVersion = 0x01; // For the future
 
         QString screenwriter;
         QString composer;

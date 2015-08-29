@@ -89,12 +89,12 @@ void FilmsViewGrid::Clear()
     model->Clear();
 }
 
-void FilmsViewGrid::SelectItem( Film film )
+void FilmsViewGrid::SelectItem( const Film& film )
 {
     SelectItem( film.GetTitle() );
 }
 
-void FilmsViewGrid::SelectItem( QString title )
+void FilmsViewGrid::SelectItem( const QString& title )
 {
     SetCurrentItemIndex( model->GetItemIndexByTitle( title ) );
 }

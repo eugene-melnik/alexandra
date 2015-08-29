@@ -24,6 +24,8 @@
 #include <QString>
 #include <QStringList>
 
+// This class contains a listing of all currently supported file formats
+
 class FilesExtensions
 {
     public:
@@ -33,7 +35,7 @@ class FilesExtensions
         const QStringList& GetFilmExtensionsForDirFilter() const { return( videos ); }
         const QStringList& GetImageExtensionsForDirFilter() const { return( images ); }
 
-        QString SearchForEponymousImage( QString fileName ) const;
+        QString SearchForEponymousImage( const QString& fileName ) const;
 
     private:
         const QStringList videos = { "*.avi",  "*.bik", "*.divx", "*.dv",  "*.flv",  "*.m1v",  "*.m2t",

@@ -362,19 +362,19 @@ void SettingsWindow::ConfigureAppearanceTab()
     connect( cShowRightPanel, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
 
     // Style ComboBox
-    foreach( QString style, appStyles )
+    for( const QString& style : appStyles )
     {
         cbStyle->addItem( style );
     }
 
     // Theme ComboBox
-    foreach( Alexandra::Theme theme, Alexandra::themes )
+    for( const Alexandra::Theme& theme : Alexandra::themes )
     {
         cbTheme->addItem( theme.name );
     }
 
     // Toolbar style ComboBox
-    foreach( ToolStyle toolStyle, toolStyles )
+    for( const ToolStyle& toolStyle : toolStyles )
     {
         cbToolbarStyle->addItem( toolStyle.name );
     }
@@ -461,13 +461,13 @@ void SettingsWindow::ConfigureApplicationTab()
     connect( cbSavingFormat, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
 
     // Language ComboBox
-    foreach( Alexandra::Locale locale, Alexandra::supportedLocales )
+    for( const Alexandra::Locale& locale : Alexandra::supportedLocales )
     {
         cbLanguage->addItem( locale.title + " (" + locale.name + ")" );
     }
 
     // Saving format ComboBox
-    foreach( PosterFormat f, savingFormats )
+    for( const PosterFormat& f : savingFormats )
     {
         cbSavingFormat->addItem( f.title );
     }

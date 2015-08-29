@@ -37,7 +37,7 @@ class FilmScannerAddWorker : public QThread
     public:
         FilmScannerAddWorker() : QThread() { qRegisterMetaType<QList<Film>>( "QList<Film>" ); }
 
-        void SetFoundedFilms( QStringList founded ) { foundedFilms = founded; }
+        void SetFoundedFilms( const QStringList& founded ) { foundedFilms = founded; }
         void SetSettings( AlexandraSettings* s ) { settings = s; }
         void SetSearchForPoster( bool b ) { searchForPoster = b; }
 

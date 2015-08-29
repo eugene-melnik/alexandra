@@ -42,7 +42,7 @@ class FilmViewGridModel : public QAbstractListModel
         void Clear();
         void RemoveRow( int row );
 
-        int GetItemIndexByTitle( QString title );
+        int GetItemIndexByTitle( const QString& title );
         QString GetItemTitle( int n );
 
         int rowCount( const QModelIndex& parent = QModelIndex() ) const;

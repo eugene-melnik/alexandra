@@ -52,7 +52,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         MainWindow( AlexandraSettings* s );
         ~MainWindow();
 
-        void AddFilmsFromOutside( QStringList films );
+        void AddFilmsFromOutside( const QStringList& films );
 
     signals:
         void Shown();
@@ -78,7 +78,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void ShowFilms();
         void ShowFilmInformation();
         void ShowFilmContextMenu( QPoint p );
-        void ShowShortTechnicalInfo( QString info );
+        void ShowShortTechnicalInfo( const QString& info );
 
         void PlayFilm();
         void PlayerStarted();

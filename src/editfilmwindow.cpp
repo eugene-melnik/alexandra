@@ -33,8 +33,7 @@ EditFilmWindow::EditFilmWindow( AlexandraSettings* s, QWidget* parent ) : AddFil
 
 void EditFilmWindow::show( const Film* f )
 {
-    AddFilmWindow::show();
-
+    // Setting button "Open poster" state depending on the availability of the image
     if( f->GetIsPosterExists() )
     {
         ePosterFileName->setText( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
@@ -45,6 +44,7 @@ void EditFilmWindow::show( const Film* f )
         bOpenPoster->setText( tr( "Open" ) );
     }
 
+    // Filling the fields
     filmId = f->GetId();
     eFilmFileName->setText( f->GetFileName() );
     eTitle->setText( f->GetTitle() );
@@ -64,4 +64,6 @@ void EditFilmWindow::show( const Film* f )
     eBudget->setText( f->GetBudgetStr() );
     eScreenwriter->setText( f->GetScreenwriter() );
     eComposer->setText( f->GetComposer() );
+
+    QDialog::show();
 }

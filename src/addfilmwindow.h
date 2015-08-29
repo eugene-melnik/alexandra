@@ -46,10 +46,10 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
 
     signals:
         void PosterMovingError();
-        void Done( Film f );
+        void Done( const Film& f );
 
     private slots:
-        void OpenFilmFileClicked();
+        void OpenFilm();
         void OpenPosterFileClicked();
         void OkButtonClicked();
 
