@@ -20,5 +20,6 @@
         <file alias="edit">../icons/tool-edit.png</file>
         <file alias="find">../icons/tool-find.png</file>
         <file alias="random">../icons/tool-random.png</file>
+        <file alias="spanner">../icons/tool-spanner.png</file>
     </qresource>
 </RCC>

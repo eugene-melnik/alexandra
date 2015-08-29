@@ -55,6 +55,7 @@ HEADERS += effects/effectdropshadow.h \
            mainwindow.h \
            mediainfo.h \
            movedfilmswindow.h \
+           searchedit.h \
            searchwindow.h \
            settingswindow.h \
            splashscreen.h \
@@ -86,6 +87,7 @@ SOURCES += effects/effectdropshadow.cpp \
            mainwindow.cpp \
            mediainfo.cpp \
            movedfilmswindow.cpp \
+           searchedit.cpp \
            searchwindow.cpp \
            settingswindow.cpp \
            splashscreen.cpp \

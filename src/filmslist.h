@@ -48,7 +48,6 @@ class FilmsList : public QObject
         const Film* GetFilmByTitle( QString title );
 
         const QList<Film>* GetFilmsList() const;
-        QList<Film>*       GetFilmsFilteredBy( const QString& key ) const;
 
         QStringList*  GetFilmsFileNames() const;
         QList<Film*>* GetUnavailableFilms();

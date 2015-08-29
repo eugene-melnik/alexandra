@@ -31,6 +31,7 @@
 #include "filmscannerwindow.h"
 #include "filmsviewcontextmenu.h"
 #include "movedfilmswindow.h"
+#include "searchedit.h"
 #include "searchwindow.h"
 #include "settingswindow.h"
 #include "splashscreen.h"
@@ -91,7 +92,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void Statistics();
 
         void SetupCompleter();
-        void FilmsFilter( QString key );
+        void FilmsFilter( const QString& key, SearchEdit::FilterBy filters );
         void UpdateCurrentFilm();
 
         void SetProgressMaximum( int n );

@@ -171,21 +171,6 @@ const QList<Film>* FilmsList::GetFilmsList() const
     return( films );
 }
 
-QList<Film>* FilmsList::GetFilmsFilteredBy( const QString& key ) const
-{
-    QList<Film>* f = new QList<Film>();
-
-    for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
-    {
-        if( i->GetTitle().contains( key, Qt::CaseInsensitive ) )
-        {
-            f->append( *i );
-        }
-    }
-
-    return( f );
-}
-
 QStringList* FilmsList::GetFilmsFileNames() const
 {
     QStringList* res = new QStringList();

@@ -24,10 +24,10 @@
 #include "mainwindow.h"
 #include "version.h"
 
+#include <list>
 #include <QColor>
 #include <QCompleter>
 #include <QFileInfo>
-#include <QLineEdit>
 #include <QMessageBox>
 
 MainWindow::MainWindow( AlexandraSettings* s ) : QMainWindow(), settings( s )
@@ -479,21 +479,66 @@ void MainWindow::SetupCompleter()
     eFilter->setCompleter( c );
 }
 
-void MainWindow::FilmsFilter( QString key )
+void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
 {
+    if( key.isEmpty() )
+    {
+        QString foundedTitle = filmsList->GetCurrentFilmTitle();
+        ShowFilms();
+        filmsView->SelectItem( foundedTitle );
+        return;
+    }
+
+    // Filtering
     statusbar->ShowLoading();
 
-    QList<Film>* films = filmsList->GetFilmsFilteredBy( key );
+    const QList<Film>* films = filmsList->GetFilmsList();
+    std::list<Film> filteredFilms;
 
+    for( const Film& film : *films ) // TODO: move algorithm to the separate Search engine class
+    {
+        if( ( filters & SearchEdit::Title ) && film.GetTitle().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+
+        if( ( filters & SearchEdit::Tags ) && film.GetTags().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+
+        if( ( filters & SearchEdit::Genre ) && film.GetGenre().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+
+        if( ( filters & SearchEdit::Starring ) && film.GetStarring().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+
+        if( ( filters & SearchEdit::Director ) && film.GetDirector().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+
+        if( ( filters & SearchEdit::Producer ) && film.GetProducer().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+
+        if( ( filters & SearchEdit::Screenwriter ) && film.GetScreenwriter().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+
+        if( ( filters & SearchEdit::Composer ) && film.GetComposer().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+
+        if( ( filters & SearchEdit::Country ) && film.GetCountry().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+
+        if( ( filters & SearchEdit::Description ) && film.GetDescription().contains( key, Qt::CaseInsensitive ) )
+            filteredFilms.push_back( film );
+    }
+
+    filteredFilms.sort();
+    filteredFilms.unique();
+
+    // Show founded
     bool highlightUnavailable = settings->GetCheckFilesOnStartup();
     QColor unavailableColor = settings->GetUnavailableFileColor();
 
     filmsView->Clear();
 
-    for( int i = 0; i < films->size(); i++ )
+    for( Film& film : filteredFilms )
     {
-        const Film& film = films->at(i);
-
         if( highlightUnavailable && !QFileInfo( film.GetFileName() ).exists() )
         {
             filmsView->AddItem( film, unavailableColor );
@@ -504,17 +549,18 @@ void MainWindow::FilmsFilter( QString key )
         }
     }
 
-    if( films->size() == filmsList->GetNumberOfFilms() )
+    if( filteredFilms.empty() )
     {
-        StatusbarShowTotal();
+        ClearTextFields();
+        statusbar->ShowFounded( 0 );
+        lFilmTitle->setText( tr( "Nothing was found! Try to change keyword or search settings." ) );
     }
     else
     {
-        statusbar->ShowFounded( films->size() );
+        statusbar->ShowFounded( filteredFilms.size() );
     }
 
     filmsView->SetCurrentItemIndex( 0 );
-    delete films;
 }
 
 void MainWindow::UpdateCurrentFilm()
@@ -556,6 +602,7 @@ void MainWindow::LoadSettings()
     wRight->setVisible( settings->GetMainWindowShowRightPanel() );
 
     // Widgets
+    eFilter->LoadSettings( settings );
     filmsView->LoadSettings( settings );
     toolbar->LoadSettings( settings );
 }
@@ -596,6 +643,7 @@ void MainWindow::SaveSettings()
     settings->SetMainWindowSplitterState( mainSplitter->saveState() );
 
     // Widgets
+    eFilter->SaveSettings( settings );
     filmsView->SaveSettings( settings );
 
     // Choosen film
@@ -645,6 +693,7 @@ void MainWindow::SetupFilmsView()
 
     filmsView = dynamic_cast<AbstractFilmsView*>( view );
     vlLeft->insertWidget( 0, view );
+    eFilter->clear();
 
     view->show();
     view->setFocus();
@@ -696,7 +745,7 @@ void MainWindow::SetupWindows()
     connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, this, &MainWindow::UpdateCurrentFilm );
     connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, bFavourite, &QPushButton::setChecked );
     // Quick search input
-    connect( eFilter, &QLineEdit::textChanged, this, &MainWindow::FilmsFilter );
+    connect( eFilter, &SearchEdit::TextChanged, this, &MainWindow::FilmsFilter );
     connect( filmsList, &FilmsList::DatabaseLoaded, this, &MainWindow::SetupCompleter );
     connect( filmsList, &FilmsList::DatabaseChanged, this, &MainWindow::SetupCompleter );
     // Player setup
