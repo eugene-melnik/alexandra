@@ -22,6 +22,7 @@
 #define SEARCHEDIT_H
 
 #include <QAction>
+#include <QKeyEvent>
 #include <QLineEdit>
 #include <QList>
 #include <QMenu>
@@ -59,6 +60,9 @@ class SearchEdit : public QLineEdit
 
     signals:
         void TextChanged( const QString& text, FilterBy fields );
+
+    protected:
+        void keyPressEvent( QKeyEvent* event );
 
     private slots:
         void SetupMenu();
