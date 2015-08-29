@@ -101,7 +101,7 @@ void FilmsViewGrid::SelectItem( QString title )
 
 void FilmsViewGrid::SelectRandomItem()
 {
-    if( GetItemsCount() > 0 )
+    if( GetItemsCount() > 1 )
     {
         int n;
 

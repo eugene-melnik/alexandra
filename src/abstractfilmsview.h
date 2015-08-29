@@ -47,7 +47,7 @@ class AbstractFilmsView
 
         virtual void SelectItem( Film film ) = 0;
         virtual void SelectItem( QString title ) = 0;
-        virtual void SelectRandomItem() = 0;
+        virtual void SelectRandomItem() = 0; // TODO: maybe need to move to FilmsList class
 
         virtual int GetItemsCount() const = 0;
         virtual int GetCurrentItemIndex() const = 0;

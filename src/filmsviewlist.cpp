@@ -196,7 +196,7 @@ void FilmsViewList::SelectItem( QString title )
 
 void FilmsViewList::SelectRandomItem()
 {
-    if( rowCount() > 0 )
+    if( rowCount() > 1 )
     {
         int n;
 
