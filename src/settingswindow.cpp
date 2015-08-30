@@ -128,7 +128,11 @@ void SettingsWindow::OkButtonClicked()
         settings->SetScalePostersToHeight( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
 
         // Shortcuts tab
-        settings->SetShortcutPlay( ksePlay->keySequence().toString() );
+        for( auto& s : shortcuts )
+        {
+            QString currentKey = s.keyEdit->keySequence().toString();
+            s.SetSetting( settings, currentKey );
+        }
 
         settings->sync();
         emit SettingsChanged();
@@ -334,6 +338,68 @@ void SettingsWindow::OpenPostersFolder()
     }
 }
 
+void SettingsWindow::ShortcutsKeySequenceHandler()
+{
+    QKeySequenceEdit* currentKeyEdit = dynamic_cast<QKeySequenceEdit*>( sender() );
+    QString currentKey = currentKeyEdit->keySequence().toString();
+
+    if( CheckForDuplicates( currentKey, currentKeyEdit->objectName() ) )
+    {
+        currentKeyEdit->clear();
+    }
+
+    SetIsSettingsChanged();
+}
+
+void SettingsWindow::ShortcutsDefaultButtonHandler()
+{
+    for( auto& s : shortcuts )
+    {
+        if( s.buttonDefault == sender() )
+        {
+            QKeySequence k( s.defaultKey );
+            s.keyEdit->setKeySequence( k );
+
+            if( CheckForDuplicates( s.defaultKey, s.keyEdit->objectName() ) )
+            {
+                s.keyEdit->clear();
+            }
+
+            SetIsSettingsChanged();
+            return;
+        }
+    }
+}
+
+void SettingsWindow::ShortcutsClearButtonHandler()
+{
+    for( auto& s : shortcuts )
+    {
+        if( s.buttonClear == sender() )
+        {
+            s.keyEdit->clear();
+            break;
+        }
+    }
+
+    SetIsSettingsChanged();
+}
+
+bool SettingsWindow::CheckForDuplicates( const QString& currentKey, const QString& objName )
+{
+    for( auto& s : shortcuts )
+    {
+        if( s.keyEdit->objectName() != objName                          // Not the same object
+                && s.keyEdit->keySequence().toString() == currentKey )  // Key sequences equal
+        {
+            QMessageBox::warning( this, tr( "Shortcuts" ), tr( "This shortcut is already in use!" ) );
+            return( true );
+        }
+    }
+
+    return( false );
+}
+
 /*************************************************************************************************
  *  "Appearance" tab settings                                                                     *
   *************************************************************************************************/
@@ -532,12 +598,44 @@ void SettingsWindow::ReconfigureApplicationTab()
 
 void SettingsWindow::ConfigureShortcutsTab()
 {
-    connect( ksePlay, &QKeySequenceEdit::keySequenceChanged, this, &SettingsWindow::SetIsSettingsChanged );
-    connect( bDefaultPlayShortcut, &QPushButton::clicked, this, &SettingsWindow::SetShortcutPlayDefault );
-    connect( bDefaultPlayShortcut, &QPushButton::clicked, this, &SettingsWindow::SetIsSettingsChanged );
+    // Main setup, large and terrible
+    shortcuts =
+    {
+        // Add, Edit, Remove
+        { "Ctrl+A",     kseAddFilm,     bDefaultAddFilm,    bClearAddFilm,      &AlexandraSettings::GetShortcutAddFilm,     &AlexandraSettings::SetShortcutAddFilm },
+        { "Ctrl+E",     kseEditFilm,    bDefaultEditFilm,   bClearEditFilm,     &AlexandraSettings::GetShortcutEditFilm,    &AlexandraSettings::SetShortcutEditFilm },
+        { "Ctrl+Del",   kseRemoveFilm,  bDefaultRemoveFilm, bClearRemoveFilm,   &AlexandraSettings::GetShortcutRemoveFilm,  &AlexandraSettings::SetShortcutRemoveFilm },
+        // Random, Quick search, Search
+        { "Ctrl+R",     kseSelectRandomFilm,    bDefaultSelectRandomFilm,       bClearSelectRandomFilm,     &AlexandraSettings::GetShortcutSelectRandomFilm,    &AlexandraSettings::SetShortcutSelectRandomFilm },
+        { "Backspace",  kseActivateQuickSearch, bDefaultActivateQuickSearch,    bClearActivateQuickSearch,  &AlexandraSettings::GetShortcutActivateQuickSearch, &AlexandraSettings::SetShortcutActivateQuickSearch },
+        { "Ctrl+F",     kseAdvancedSearch,      bDefaultAdvancedSearch,         bClearAdvancedSearch,       &AlexandraSettings::GetShortcutAdvancedSearch,      &AlexandraSettings::SetShortcutAdvancedSearch },
+        // Play
+        { "Alt+Return", ksePlay, bDefaultPlay, bClearPlay, &AlexandraSettings::GetShortcutPlay, &AlexandraSettings::SetShortcutPlay },
+        // Settings, Toolbar, Fullscreen
+        { "Ctrl+P", kseSettings,        bDefaultSettings,       bClearSettings,         &AlexandraSettings::GetShortcutSettings,        &AlexandraSettings::SetShortcutSettings },
+        { "Ctrl+T", kseShowToolbar,     bDefaultShowToolbar,    bClearShowToolbar,      &AlexandraSettings::GetShortcutShowToolbar,     &AlexandraSettings::SetShortcutShowToolbar },
+        { "F11",    kseShowFullscreen,  bDefaultShowFullscreen, bClearShowFullscreen,   &AlexandraSettings::GetShortcutShowFullscreen,  &AlexandraSettings::SetShortcutShowFullscreen },
+        // Exit
+        { "Ctrl+Q", kseExit, bDefaultExit, bClearExit, &AlexandraSettings::GetShortcutExit, &AlexandraSettings::SetShortcutExit }
+    };
+
+    // Signals
+    for( auto& s : shortcuts )
+    {
+        // Key sequence changed
+        connect( s.keyEdit, &QKeySequenceEdit::editingFinished, this, &SettingsWindow::ShortcutsKeySequenceHandler );
+        // Default button clicked
+        connect( s.buttonDefault, &QPushButton::clicked, this, &SettingsWindow::ShortcutsDefaultButtonHandler );
+        // Clear button clicked
+        connect( s.buttonClear, &QPushButton::clicked, this, &SettingsWindow::ShortcutsClearButtonHandler );
+    }
 }
 
 void SettingsWindow::ReconfigureShortcutsTab()
 {
-    ksePlay->setKeySequence( QKeySequence( settings->GetShortcutPlay() ) );
+    for( auto& s : shortcuts )
+    {
+        QKeySequence k( s.GetSetting( settings) );
+        s.keyEdit->setKeySequence( k );
+    }
 }

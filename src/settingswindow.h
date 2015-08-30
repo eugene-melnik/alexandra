@@ -25,6 +25,7 @@
 
 #include "alexandrasettings.h"
 
+#include <functional>
 #include <QDialog>
 #include <QList>
 #include <QString>
@@ -64,7 +65,10 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void EraseDatabaseQuestion();
         void OpenPostersFolder();
 
-        void SetShortcutPlayDefault() { ksePlay->setKeySequence( QKeySequence( "Alt+Return" ) ); }
+        void ShortcutsKeySequenceHandler();
+        void ShortcutsDefaultButtonHandler();
+        void ShortcutsClearButtonHandler();
+        bool CheckForDuplicates( const QString& currentKey, const QString& objName );
 
     private:
         void ConfigureAppearanceTab();
@@ -114,6 +118,18 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
                                                     { tr( "JPG (quality 85)" ),   "jpg", 85 },
                                                     { tr( "JPG (quality 75)" ),   "jpg", 75 },
                                                     { tr( "BMP (uncompressed)" ), "bmp", -1 } };
+
+        // Shortcuts
+        typedef struct {
+            QString defaultKey;
+            QKeySequenceEdit* keyEdit;
+            QPushButton* buttonDefault;
+            QPushButton* buttonClear;
+            std::function<QString(AlexandraSettings*)> GetSetting;       // Using: s = var.GetSetting( settings );
+            std::function<void(AlexandraSettings*, QString)> SetSetting; // Using: var.SetSetting( settings, value );
+        } Shortcut;
+
+        QList<Shortcut> shortcuts;
 };
 
 #endif // SETTINGSWINDOW_H

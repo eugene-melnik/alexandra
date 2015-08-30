@@ -75,7 +75,17 @@ class AlexandraSettings : public QSettings
 
         QString GetFilmsScannerLastDir() const;
 
+        QString GetShortcutAddFilm() const;
+        QString GetShortcutEditFilm() const;
+        QString GetShortcutRemoveFilm() const;
+        QString GetShortcutSelectRandomFilm() const;
+        QString GetShortcutActivateQuickSearch() const;
+        QString GetShortcutAdvancedSearch() const;
         QString GetShortcutPlay() const;
+        QString GetShortcutSettings() const;
+        QString GetShortcutShowToolbar() const;
+        QString GetShortcutShowFullscreen() const;
+        QString GetShortcutExit() const;
 
         /* Set */
 
@@ -120,7 +130,17 @@ class AlexandraSettings : public QSettings
 
         void SetFilmsScannerLastDir( const QString& s );
 
+        void SetShortcutAddFilm( const QString& s );
+        void SetShortcutEditFilm( const QString& s );
+        void SetShortcutRemoveFilm( const QString& s );
+        void SetShortcutSelectRandomFilm( const QString& s );
+        void SetShortcutActivateQuickSearch( const QString& s );
+        void SetShortcutAdvancedSearch( const QString& s );
         void SetShortcutPlay( const QString& s );
+        void SetShortcutSettings( const QString& s );
+        void SetShortcutShowToolbar( const QString& s );
+        void SetShortcutShowFullscreen( const QString& s );
+        void SetShortcutExit( const QString& s );
 };
 
 #endif // ALEXANDRASETTINGS_H

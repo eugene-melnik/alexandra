@@ -49,16 +49,6 @@ void SearchEdit::SaveSettings( AlexandraSettings* s ) const
     s->SetQuickSearchFilter( selectedFilters );
 }
 
-void SearchEdit::keyPressEvent( QKeyEvent* event )
-{
-    if( event->key() == Qt::Key_Escape )
-    {
-        this->clear();
-    }
-
-    QLineEdit::keyPressEvent( event );
-}
-
 void SearchEdit::SetupMenu()
 {
     // Menu header

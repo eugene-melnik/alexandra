@@ -256,9 +256,59 @@ QString AlexandraSettings::GetFilmsScannerLastDir() const
     return( value( "FilmsScanner/LastDir", "" ).toString() );
 }
 
+QString AlexandraSettings::GetShortcutAddFilm() const
+{
+    return( value( "Shortcuts/AddFilm", "Ctrl+A" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutEditFilm() const
+{
+    return( value( "Shortcuts/EditFilm", "Ctrl+E" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutRemoveFilm() const
+{
+    return( value( "Shortcuts/RemoveFilm", "Ctrl+Del" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutSelectRandomFilm() const
+{
+    return( value( "Shortcuts/SelectRandomFilm", "Ctrl+R" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutActivateQuickSearch() const
+{
+    return( value( "Shortcuts/ActivateQuickSearch", "Backspace" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutAdvancedSearch() const
+{
+    return( value( "Shortcuts/AdvancedSearch", "Ctrl+F" ).toString() );
+}
+
 QString AlexandraSettings::GetShortcutPlay() const
 {
     return( value( "Shortcuts/Play", "Alt+Return" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutSettings() const
+{
+    return( value( "Shortcuts/Settings", "Ctrl+P" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutShowToolbar() const
+{
+    return( value( "Shortcuts/ShowToolbar", "Ctrl+T" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutShowFullscreen() const
+{
+    return( value( "Shortcuts/ShowFullscreen", "F11" ).toString() );
+}
+
+QString AlexandraSettings::GetShortcutExit() const
+{
+    return( value( "Shortcuts/Exit", "Ctrl+Q" ).toString() );
 }
 
 /* Set */
@@ -438,7 +488,57 @@ void AlexandraSettings::SetFilmsScannerLastDir( const QString& s )
     setValue( "FilmsScanner/LastDir", s );
 }
 
+void AlexandraSettings::SetShortcutAddFilm( const QString& s )
+{
+    setValue( "Shortcuts/AddFilm", s );
+}
+
+void AlexandraSettings::SetShortcutEditFilm( const QString& s )
+{
+    setValue( "Shortcuts/EditFilm", s );
+}
+
+void AlexandraSettings::SetShortcutRemoveFilm( const QString& s )
+{
+    setValue( "Shortcuts/RemoveFilm", s );
+}
+
+void AlexandraSettings::SetShortcutSelectRandomFilm( const QString& s )
+{
+    setValue( "Shortcuts/SelectRandomFilm", s );
+}
+
+void AlexandraSettings::SetShortcutActivateQuickSearch( const QString& s )
+{
+    setValue( "Shortcuts/ActivateQuickSearch", s );
+}
+
+void AlexandraSettings::SetShortcutAdvancedSearch( const QString& s )
+{
+    setValue( "Shortcuts/AdvancedSearch", s );
+}
+
 void AlexandraSettings::SetShortcutPlay( const QString& s )
 {
     setValue( "Shortcuts/Play", s );
+}
+
+void AlexandraSettings::SetShortcutSettings( const QString& s )
+{
+    setValue( "Shortcuts/Settings", s );
+}
+
+void AlexandraSettings::SetShortcutShowToolbar( const QString& s )
+{
+    setValue( "Shortcuts/ShowToolbar", s );
+}
+
+void AlexandraSettings::SetShortcutShowFullscreen( const QString& s )
+{
+    setValue( "Shortcuts/ShowFullscreen", s );
+}
+
+void AlexandraSettings::SetShortcutExit( const QString& s )
+{
+    setValue( "Shortcuts/Exit", s );
 }

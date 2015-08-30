@@ -62,6 +62,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
     private slots:
         void ShowFullScreen( bool isFullScreen );
+        void QuickSearchEscBehavior();
 
         void SaveDatabase();
         void EraseDatabase();

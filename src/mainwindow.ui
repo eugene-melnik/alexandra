@@ -336,6 +336,36 @@
               </property>
              </spacer>
             </item>
+            <item>
+             <layout class="QHBoxLayout" name="hl_HackZone">
+              <item>
+               <widget class="QPushButton" name="bSetViewFocus">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>ViewFocusHack</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="bActivateQuickSearch">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">QuickSearchHack</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
            </layout>
           </widget>
          </widget>
@@ -637,9 +667,6 @@
    <property name="statusTip">
     <string>Exit the program and save all data</string>
    </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+Q</string>
-   </property>
   </action>
   <action name="actionAbout">
    <property name="icon">
@@ -648,9 +675,6 @@
    </property>
    <property name="text">
     <string>&amp;About...</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true"/>
    </property>
   </action>
   <action name="actionShowToolbar">
@@ -666,9 +690,6 @@
    <property name="statusTip">
     <string>Show or hide the toolbar</string>
    </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+T</string>
-   </property>
   </action>
   <action name="actionSettings">
    <property name="icon">
@@ -677,9 +698,6 @@
    </property>
    <property name="text">
     <string>Settings...</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+P</string>
    </property>
   </action>
   <action name="actionAdd">
@@ -690,9 +708,6 @@
    <property name="text">
     <string>&amp;Add film...</string>
    </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+A</string>
-   </property>
   </action>
   <action name="actionEdit">
    <property name="icon">
@@ -701,9 +716,6 @@
    </property>
    <property name="text">
     <string>Edit film...</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+E</string>
    </property>
   </action>
   <action name="actionRemove">
@@ -714,9 +726,6 @@
    <property name="text">
     <string>Remove film</string>
    </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+Del</string>
-   </property>
   </action>
   <action name="actionRandom">
    <property name="icon">
@@ -725,9 +734,6 @@
    </property>
    <property name="text">
     <string>&amp;Random</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+R</string>
    </property>
   </action>
   <action name="actionSearch">
@@ -738,9 +744,6 @@
    <property name="text">
     <string>&amp;Search...</string>
    </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+F</string>
-   </property>
   </action>
   <action name="actionAboutQt">
    <property name="icon">
@@ -749,9 +752,6 @@
    </property>
    <property name="text">
     <string>About Qt...</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true"/>
    </property>
   </action>
   <action name="actionFilmScanner">
@@ -778,9 +778,6 @@
    </property>
    <property name="text">
     <string>Show fullscreen</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true">F11</string>
    </property>
   </action>
   <action name="actionStatistics">

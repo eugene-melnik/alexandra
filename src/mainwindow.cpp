@@ -132,6 +132,18 @@ void MainWindow::ShowFullScreen( bool isFullScreen )
     }
 }
 
+void MainWindow::QuickSearchEscBehavior()
+{
+    QWidget* view = dynamic_cast<QWidget*>( filmsView );
+
+    if( view == focusWidget() )
+    {
+        eFilter->clear();
+    }
+
+    view->setFocus();
+}
+
 void MainWindow::SaveDatabase()
 {
     filmsList->SaveToFileAsync( settings->GetDatabaseFilePath() );
@@ -632,7 +644,21 @@ void MainWindow::LoadAppearance()
 
 void MainWindow::LoadShorcuts()
 {
+    actionAdd->setShortcut( QKeySequence( settings->GetShortcutAddFilm() ) );
+    actionEdit->setShortcut( QKeySequence( settings->GetShortcutEditFilm() ) );
+    actionRemove->setShortcut( QKeySequence( settings->GetShortcutRemoveFilm() ) );
+
+    actionRandom->setShortcut( QKeySequence( settings->GetShortcutSelectRandomFilm() ) );
+    bActivateQuickSearch->setShortcut( QKeySequence( settings->GetShortcutActivateQuickSearch() ) );
+    actionSearch->setShortcut( QKeySequence( settings->GetShortcutAdvancedSearch() ) );
+
     bPlay->setShortcut( QKeySequence( settings->GetShortcutPlay() ) );
+
+    actionSettings->setShortcut( QKeySequence( settings->GetShortcutSettings() ) );
+    actionShowToolbar->setShortcut( QKeySequence( settings->GetShortcutShowToolbar() ) );
+    actionShowFullscreen->setShortcut( QKeySequence( settings->GetShortcutShowFullscreen() ) );
+
+    actionExit->setShortcut( QKeySequence( settings->GetShortcutExit() ) );
 }
 
 void MainWindow::SaveSettings()
@@ -836,6 +862,13 @@ void MainWindow::SetupWindows()
     connect( actionStatistics, &QAction::triggered, this, &MainWindow::Statistics );
 
     connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
+
+    /// HackZone
+    // There is no ability to set a shortcut on QLineEdit. So here...
+    // Created button 0x0 pixels, which do stuff on shortcut
+    connect( bActivateQuickSearch, &QPushButton::clicked, this, [this] { eFilter->setFocus(); } );
+    connect( bSetViewFocus, &QPushButton::clicked, this, &MainWindow::QuickSearchEscBehavior );
+    bSetViewFocus->setShortcut( QKeySequence( "Esc" ) );
 }
 
 void MainWindow::ClearTextFields()
