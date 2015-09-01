@@ -42,7 +42,6 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog(
     connect( bOpenFile, &QPushButton::clicked, this, &AddFilmWindow::OpenFilm );
     connect( bOpenPoster, &QPushButton::clicked, this, &AddFilmWindow::OpenPosterFileClicked );
     connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::OkButtonClicked );
-    connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::close );
 }
 
 void AddFilmWindow::show()
@@ -152,13 +151,6 @@ void AddFilmWindow::OpenPosterFileClicked()
 void AddFilmWindow::OkButtonClicked()
 {
     // Checking necessary fields
-    if( eFilmFileName->text().isEmpty() )
-    {
-        QMessageBox::information( this, tr( "Adding film" ),
-                                        tr( "You must choose file on the disk." ) );
-        eFilmFileName->setFocus();
-        return;
-    }
     if( eTitle->text().isEmpty() )
     {
         QMessageBox::information( this, tr( "Adding film" ),
@@ -232,6 +224,7 @@ void AddFilmWindow::OkButtonClicked()
         }
     }
 
+    close();
     emit Done( f );
 }
 

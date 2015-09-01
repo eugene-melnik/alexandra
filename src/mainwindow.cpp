@@ -120,20 +120,10 @@ void MainWindow::closeEvent( QCloseEvent* event )
     event->accept();
 }
 
-void MainWindow::ShowFullScreen( bool isFullScreen )
-{
-    if( isFullScreen )
-    {
-        showFullScreen();
-    }
-    else
-    {
-        showNormal();
-    }
-}
-
 void MainWindow::QuickSearchEscBehavior()
 {
+    // Pressing key 'Esc' sets focus to the films list,
+    // pressing again clears the quick search line
     QWidget* view = dynamic_cast<QWidget*>( filmsView );
 
     if( view == focusWidget() )
@@ -142,11 +132,6 @@ void MainWindow::QuickSearchEscBehavior()
     }
 
     view->setFocus();
-}
-
-void MainWindow::SaveDatabase()
-{
-    filmsList->SaveToFileAsync( settings->GetDatabaseFilePath() );
 }
 
 void MainWindow::EraseDatabase()
@@ -187,11 +172,6 @@ void MainWindow::ReloadView()
     SetupFilmsView();
     filmsView->LoadSettings( settings );
     ShowFilms();
-}
-
-void MainWindow::DatabaseIsLoaded()
-{
-    SetAllFunctionsEnabled( true );
 }
 
 void MainWindow::DatabaseReadError()
@@ -414,12 +394,7 @@ void MainWindow::PlayerClosed()
         UpdateCurrentFilm();
     }
 
-    dynamic_cast<QWidget*>( filmsView )->setFocus(); // Focus on FilmsView
-}
-
-void MainWindow::EditFilm()
-{
-    editFilmWindow->show( filmsList->GetCurrentFilm() );
+    dynamic_cast<QWidget*>( filmsView )->setFocus();
 }
 
 void MainWindow::RemoveFilm()
@@ -457,21 +432,6 @@ void MainWindow::RemoveFile()
                                   tr( "Unable to remove file \"%1\"!" ).arg( filmsList->GetCurrentFilmFileName() ) );
         }
     }
-}
-
-void MainWindow::FilmScanner()
-{
-    filmScannerWindow->show( filmsList->GetFilmsFileNames() );
-}
-
-void MainWindow::MovedFilms()
-{
-    movedFilmsWindow->show( filmsList->GetUnavailableFilms() );
-}
-
-void MainWindow::Statistics()
-{
-    statisticsWindow->show( filmsList->GetFilmsList() );
 }
 
 void MainWindow::SetupCompleter()
@@ -597,7 +557,9 @@ void MainWindow::SetProgressValue( int n )
 
 void MainWindow::StatusbarShowTotal()
 {
-    statusbar->ShowTotal( filmsList->GetFilmsCount(), filmsList->GetIsViewedCount(), filmsList->GetIsFavouriteCount() );
+    statusbar->ShowTotal( filmsList->GetFilmsCount(),
+                          filmsList->GetIsViewedCount(),
+                          filmsList->GetIsFavouriteCount() );
 }
 
 void MainWindow::LoadSettings()

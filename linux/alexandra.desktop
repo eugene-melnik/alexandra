@@ -4,7 +4,7 @@ Name=Alexandra
 GenericName=Video Library
 Exec=alexandra
 Icon=alexandra
-Categories=AudioVideo;Video;Qt;
+Categories=AudioVideo;Video;Database;Qt;
 Comment=Organize your video library
 
 # Translations

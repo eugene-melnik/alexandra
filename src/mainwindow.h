@@ -61,17 +61,17 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void closeEvent( QCloseEvent* event );
 
     private slots:
-        void ShowFullScreen( bool isFullScreen );
+        void ShowFullScreen( bool isFullScreen ) { isFullScreen ? showFullScreen() : showNormal(); }
         void QuickSearchEscBehavior();
 
-        void SaveDatabase();
+        void SaveDatabase() { filmsList->SaveToFileAsync( settings->GetDatabaseFilePath() ); }
         void EraseDatabase();
         void ResetStatistics();
         void ReloadDatabase();
         void ReloadSettings();
         void ReloadView();
 
-        void DatabaseIsLoaded();
+        void DatabaseIsLoaded() { SetAllFunctionsEnabled( true ); }
         void DatabaseReadError();
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
@@ -85,12 +85,12 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void PlayerStarted();
         void PlayerClosed();
 
-        void EditFilm();
+        void EditFilm() { editFilmWindow->show( filmsList->GetCurrentFilm() ); }
         void RemoveFilm();
         void RemoveFile();
-        void FilmScanner();
-        void MovedFilms();
-        void Statistics();
+        void FilmScanner() { filmScannerWindow->show( filmsList->GetFilmsFileNames() ); }
+        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailableFilms() ); }
+        void Statistics() { statisticsWindow->show( filmsList->GetFilmsList() ); }
 
         void SetupCompleter();
         void FilmsFilter( const QString& key, SearchEdit::FilterBy filters );

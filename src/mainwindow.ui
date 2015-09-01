@@ -347,7 +347,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>ViewFocusHack</string>
+                 <string notr="true">ViewFocusHack</string>
                 </property>
                </widget>
               </item>

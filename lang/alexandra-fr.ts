@@ -104,9 +104,9 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="73"/>
         <location filename="../src/addfilmwindow.ui" line="119"/>
-        <location filename="../src/addfilmwindow.cpp" line="50"/>
-        <location filename="../src/addfilmwindow.cpp" line="108"/>
-        <location filename="../src/addfilmwindow.cpp" line="148"/>
+        <location filename="../src/addfilmwindow.cpp" line="49"/>
+        <location filename="../src/addfilmwindow.cpp" line="107"/>
+        <location filename="../src/addfilmwindow.cpp" line="147"/>
         <source>Open</source>
         <translation>Ouvrir</translation>
     </message>
@@ -248,54 +248,52 @@
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="78"/>
+        <location filename="../src/addfilmwindow.cpp" line="77"/>
         <source>Select film</source>
         <translation>Sélectionner un film</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="113"/>
+        <location filename="../src/addfilmwindow.cpp" line="112"/>
         <source>Select image</source>
         <translation>Sélectionner une image</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="80"/>
+        <location filename="../src/addfilmwindow.cpp" line="79"/>
         <source>Video files (%1)</source>
         <translation>Fichiers vidéo (%1)</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="115"/>
+        <location filename="../src/addfilmwindow.cpp" line="114"/>
         <source>Images (%1)</source>
         <translation>Images (%1)</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="99"/>
-        <location filename="../src/addfilmwindow.cpp" line="120"/>
+        <location filename="../src/addfilmwindow.cpp" line="98"/>
+        <location filename="../src/addfilmwindow.cpp" line="119"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="134"/>
+        <location filename="../src/addfilmwindow.cpp" line="133"/>
         <source>Clear poster</source>
         <translation>Effacer l&apos;affiche</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="135"/>
+        <location filename="../src/addfilmwindow.cpp" line="134"/>
         <source>Remove image file?</source>
         <translation>Supprimer l&apos;image ?</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="157"/>
-        <location filename="../src/addfilmwindow.cpp" line="164"/>
+        <location filename="../src/addfilmwindow.cpp" line="156"/>
         <source>Adding film</source>
         <translation>Ajout du film</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="158"/>
         <source>You must choose file on the disk.</source>
-        <translation>Vous devez choisir un fichier sur le disque.</translation>
+        <translation type="vanished">Vous devez choisir un fichier sur le disque.</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="165"/>
+        <location filename="../src/addfilmwindow.cpp" line="157"/>
         <source>Field &quot;Title&quot; can&apos;t be empty.</source>
         <translation>Le champ &quot;Titre&quot; ne peut pas être vide.</translation>
     </message>
@@ -644,114 +642,114 @@
         <translation>&lt;Taper pour rechercher&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="425"/>
+        <location filename="../src/mainwindow.ui" line="455"/>
         <source>Is viewed</source>
         <translation>Vu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="454"/>
+        <location filename="../src/mainwindow.ui" line="484"/>
         <source>Is added to favourites</source>
         <translation>Ajouté aux favoris</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="483"/>
+        <location filename="../src/mainwindow.ui" line="513"/>
         <source>Show technical information</source>
         <translation>Afficher les informations techniques</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="520"/>
+        <location filename="../src/mainwindow.ui" line="550"/>
         <source>Open film in external player</source>
         <translation>Ouvrir le film dans un lecteur vidéo externe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="523"/>
-        <location filename="../src/mainwindow.cpp" line="395"/>
+        <location filename="../src/mainwindow.ui" line="553"/>
+        <location filename="../src/mainwindow.cpp" line="387"/>
         <source>&amp;PLAY</source>
         <translation>&amp;LECTURE</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="571"/>
+        <location filename="../src/mainwindow.ui" line="601"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="577"/>
+        <location filename="../src/mainwindow.ui" line="607"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="584"/>
+        <location filename="../src/mainwindow.ui" line="614"/>
         <source>&amp;Edit</source>
         <translation>&amp;Édition</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="593"/>
+        <location filename="../src/mainwindow.ui" line="623"/>
         <source>Fil&amp;ms</source>
         <translation>Fil&amp;ms</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="604"/>
+        <location filename="../src/mainwindow.ui" line="634"/>
         <source>&amp;Tools</source>
         <translation>&amp;Outils</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="635"/>
+        <location filename="../src/mainwindow.ui" line="665"/>
         <source>E&amp;xit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="638"/>
+        <location filename="../src/mainwindow.ui" line="668"/>
         <source>Exit the program and save all data</source>
         <translation>Quitter le programme et sauvegarder les données</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="650"/>
+        <location filename="../src/mainwindow.ui" line="677"/>
         <source>&amp;About...</source>
         <translation>&amp;À propos...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="664"/>
+        <location filename="../src/mainwindow.ui" line="688"/>
         <source>Show toolbar</source>
         <translation>Afficher la barre d&apos;outils</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="667"/>
+        <location filename="../src/mainwindow.ui" line="691"/>
         <source>Show or hide the toolbar</source>
         <translation>Afficher ou masquer la barre d&apos;outils</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="679"/>
+        <location filename="../src/mainwindow.ui" line="700"/>
         <source>Settings...</source>
         <translation>Préférences...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="691"/>
+        <location filename="../src/mainwindow.ui" line="709"/>
         <source>&amp;Add film...</source>
         <translation>&amp;Ajouter un film...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="703"/>
+        <location filename="../src/mainwindow.ui" line="718"/>
         <source>Edit film...</source>
         <translation>Éditer le film...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="715"/>
-        <location filename="../src/mainwindow.cpp" line="416"/>
+        <location filename="../src/mainwindow.ui" line="727"/>
+        <location filename="../src/mainwindow.cpp" line="403"/>
         <source>Remove film</source>
         <translation>Supprimer le film</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="727"/>
+        <location filename="../src/mainwindow.ui" line="736"/>
         <source>&amp;Random</source>
         <translation>Aléatoi&amp;re</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="739"/>
+        <location filename="../src/mainwindow.ui" line="745"/>
         <source>&amp;Search...</source>
         <translation>&amp;Rechercher...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="751"/>
+        <location filename="../src/mainwindow.ui" line="754"/>
         <source>About Qt...</source>
         <translation>À propos de Qt...</translation>
     </message>
@@ -771,43 +769,43 @@
         <translation>Afficher en plein écran</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="792"/>
+        <location filename="../src/mainwindow.ui" line="789"/>
         <source>Statistics</source>
         <translation>Statistiques</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="144"/>
+        <location filename="../src/mainwindow.cpp" line="141"/>
         <source>Erase database</source>
         <translation>Supprimer la base de données</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="144"/>
+        <location filename="../src/mainwindow.cpp" line="141"/>
         <source>Nothing to erase.</source>
         <translation>Rien à effacer.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="112"/>
-        <location filename="../src/mainwindow.cpp" line="155"/>
+        <location filename="../src/mainwindow.cpp" line="152"/>
         <source>Done!</source>
         <translation>Effectué !</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="155"/>
+        <location filename="../src/mainwindow.cpp" line="152"/>
         <source>Reset statistics</source>
         <translation>Réinitialiser les statistiques</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="556"/>
+        <location filename="../src/mainwindow.cpp" line="528"/>
         <source>Nothing was found! Try to change keyword or search settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="620"/>
+        <location filename="../src/mainwindow.cpp" line="594"/>
         <source>Theme</source>
         <translation>Thème</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="189"/>
+        <location filename="../src/mainwindow.cpp" line="181"/>
         <source>Error reading the database!</source>
         <translation>Erreur lors de la lecture de la base de données !</translation>
     </message>
@@ -831,125 +829,125 @@
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="192"/>
-        <location filename="../src/mainwindow.cpp" line="215"/>
+        <location filename="../src/mainwindow.cpp" line="184"/>
+        <location filename="../src/mainwindow.cpp" line="207"/>
         <source>Database</source>
         <translation>Base de données</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="193"/>
+        <location filename="../src/mainwindow.cpp" line="185"/>
         <source>Error reading the database! Check the permissions or choose another database file in &quot;Edit&quot;→&quot;Settings&quot;→&quot;Database&quot;.</source>
         <translation>Erreur lors de la lecture de la base de données ! Vérifier les permissions ou choisir une autre base de données dans &quot;Édition&quot;→&quot;Préférences&quot;→&quot;Base de données&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="202"/>
-        <location filename="../src/mainwindow.cpp" line="205"/>
+        <location filename="../src/mainwindow.cpp" line="194"/>
+        <location filename="../src/mainwindow.cpp" line="197"/>
         <source>Database is empty!</source>
         <translation>Base de données vide !</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="206"/>
+        <location filename="../src/mainwindow.cpp" line="198"/>
         <source>You can add your films in menu &quot;Films&quot;→&quot;Add film&quot; or choose an another database in &quot;Edit&quot;→&quot;Settings&quot;→&quot;Database&quot;.</source>
         <translation>Vous pouvez ajouter vos films dans le menu &quot;Films&quot;→&quot;Ajouter un film&quot; ou choisir une autre base de données dans &quot;Édition&quot;→&quot;Préférences&quot;→&quot;Base de données&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="216"/>
+        <location filename="../src/mainwindow.cpp" line="208"/>
         <source>Database is readonly! Editing functions are disabled.</source>
         <translation>La base de données est en lecture seule ! Les fonctions d&apos;édition sont désactivées.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="288"/>
+        <location filename="../src/mainwindow.cpp" line="280"/>
         <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Titre original :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="291"/>
+        <location filename="../src/mainwindow.cpp" line="283"/>
         <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Slogan :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="294"/>
+        <location filename="../src/mainwindow.cpp" line="286"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="297"/>
+        <location filename="../src/mainwindow.cpp" line="289"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Année :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="300"/>
+        <location filename="../src/mainwindow.cpp" line="292"/>
         <source>&lt;b&gt;Budget:&lt;/b&gt; %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="303"/>
+        <location filename="../src/mainwindow.cpp" line="295"/>
         <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Pays :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="306"/>
+        <location filename="../src/mainwindow.cpp" line="298"/>
         <source>&lt;b&gt;Screenwriter:&lt;/b&gt; %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="309"/>
+        <location filename="../src/mainwindow.cpp" line="301"/>
         <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Réalisateur :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="312"/>
+        <location filename="../src/mainwindow.cpp" line="304"/>
         <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Producteur(s) :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="315"/>
+        <location filename="../src/mainwindow.cpp" line="307"/>
         <source>&lt;b&gt;Composer:&lt;/b&gt; %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="318"/>
+        <location filename="../src/mainwindow.cpp" line="310"/>
         <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Avec :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="321"/>
+        <location filename="../src/mainwindow.cpp" line="313"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Note :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="324"/>
+        <location filename="../src/mainwindow.cpp" line="316"/>
         <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Description :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="327"/>
+        <location filename="../src/mainwindow.cpp" line="319"/>
         <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Étiquettes :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="388"/>
+        <location filename="../src/mainwindow.cpp" line="380"/>
         <source>STOP</source>
         <translation>STOP</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="417"/>
+        <location filename="../src/mainwindow.cpp" line="404"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
         <translation>Êtes vous sûr de supprimer &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="430"/>
-        <location filename="../src/mainwindow.cpp" line="444"/>
+        <location filename="../src/mainwindow.cpp" line="417"/>
+        <location filename="../src/mainwindow.cpp" line="431"/>
         <source>Remove file</source>
         <translation>Supprimer le fichier</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="431"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Êtes vous sûr de supprimer le fichier &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="445"/>
+        <location filename="../src/mainwindow.cpp" line="432"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Impossible de supprimer le fichier &quot;%1&quot; !</translation>
     </message>
@@ -1289,8 +1287,9 @@
     <name>SettingsWindow</name>
     <message>
         <location filename="../src/settingswindow.ui" line="23"/>
+        <location filename="../src/settingswindow.ui" line="969"/>
         <location filename="../src/settingswindow.cpp" line="77"/>
-        <location filename="../src/settingswindow.cpp" line="251"/>
+        <location filename="../src/settingswindow.cpp" line="255"/>
         <source>Settings</source>
         <translation>Préférences</translation>
     </message>
@@ -1402,28 +1401,99 @@
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="744"/>
+        <location filename="../src/settingswindow.cpp" line="395"/>
         <source>Shortcuts</source>
         <translation>Raccourcis</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="752"/>
+        <source>Add film</source>
+        <translation type="unfinished">Ajouter un film</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="769"/>
+        <location filename="../src/settingswindow.ui" line="797"/>
+        <location filename="../src/settingswindow.ui" line="825"/>
+        <location filename="../src/settingswindow.ui" line="860"/>
+        <location filename="../src/settingswindow.ui" line="888"/>
+        <location filename="../src/settingswindow.ui" line="916"/>
+        <location filename="../src/settingswindow.ui" line="951"/>
+        <location filename="../src/settingswindow.ui" line="986"/>
+        <location filename="../src/settingswindow.ui" line="1014"/>
+        <location filename="../src/settingswindow.ui" line="1042"/>
+        <location filename="../src/settingswindow.ui" line="1077"/>
+        <source>Clear</source>
+        <translation type="unfinished">Effacer</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="780"/>
+        <source>Edit film</source>
+        <translation type="unfinished">Éditer le film</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="808"/>
+        <source>Remove film</source>
+        <translation type="unfinished">Supprimer le film</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="843"/>
+        <source>Select random film</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="871"/>
+        <source>Activate quick search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="899"/>
+        <source>Advanced search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="934"/>
         <source>Play</source>
         <translation>Lecture</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="807"/>
+        <location filename="../src/settingswindow.ui" line="997"/>
+        <source>Show toolbar</source>
+        <translation type="unfinished">Afficher la barre d&apos;outils</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1025"/>
+        <source>Show fullscreen</source>
+        <translation type="unfinished">Afficher en plein écran</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1060"/>
+        <source>Exit</source>
+        <translation type="unfinished">Quitter</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1118"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Annuler</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="814"/>
+        <location filename="../src/settingswindow.ui" line="1125"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="112"/>
         <location filename="../src/settingswindow.ui" line="494"/>
-        <location filename="../src/settingswindow.ui" line="766"/>
+        <location filename="../src/settingswindow.ui" line="762"/>
+        <location filename="../src/settingswindow.ui" line="790"/>
+        <location filename="../src/settingswindow.ui" line="818"/>
+        <location filename="../src/settingswindow.ui" line="853"/>
+        <location filename="../src/settingswindow.ui" line="881"/>
+        <location filename="../src/settingswindow.ui" line="909"/>
+        <location filename="../src/settingswindow.ui" line="944"/>
+        <location filename="../src/settingswindow.ui" line="979"/>
+        <location filename="../src/settingswindow.ui" line="1007"/>
+        <location filename="../src/settingswindow.ui" line="1035"/>
+        <location filename="../src/settingswindow.ui" line="1070"/>
         <source>Default</source>
         <translation>Par défaut</translation>
     </message>
@@ -1444,7 +1514,7 @@
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="506"/>
-        <location filename="../src/settingswindow.cpp" line="237"/>
+        <location filename="../src/settingswindow.cpp" line="241"/>
         <source>Database</source>
         <translation>Base de données</translation>
     </message>
@@ -1461,14 +1531,14 @@
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="570"/>
-        <location filename="../src/settingswindow.cpp" line="279"/>
-        <location filename="../src/settingswindow.cpp" line="299"/>
+        <location filename="../src/settingswindow.cpp" line="283"/>
+        <location filename="../src/settingswindow.cpp" line="303"/>
         <source>Create database</source>
         <translation>Créer une base de données</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="586"/>
-        <location filename="../src/settingswindow.cpp" line="315"/>
+        <location filename="../src/settingswindow.cpp" line="319"/>
         <source>Erase database</source>
         <translation>Supprimer la base de données</translation>
     </message>
@@ -1498,109 +1568,114 @@
         <translation>Pour prendre en compte tous les paramètres, redémarrer l&apos;application.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="184"/>
+        <location filename="../src/settingswindow.cpp" line="188"/>
         <source>Select external player</source>
         <translation>Sélectionner le lecteur externe</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="187"/>
+        <location filename="../src/settingswindow.cpp" line="191"/>
         <source>Executable files (*.exe)</source>
         <translation>Fichiers exécutables (*.exe)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="189"/>
+        <location filename="../src/settingswindow.cpp" line="193"/>
         <source>Executable files (*)</source>
         <translation>Fichiers exécutables (*)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="214"/>
+        <location filename="../src/settingswindow.cpp" line="218"/>
         <source>Select database file</source>
         <translation>Sélectionner le fichier de base de données</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="216"/>
-        <location filename="../src/settingswindow.cpp" line="281"/>
+        <location filename="../src/settingswindow.cpp" line="220"/>
+        <location filename="../src/settingswindow.cpp" line="285"/>
         <source>Alexandra DB (*.adat)</source>
         <translation>Alexandra DB (*.adat)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="238"/>
+        <location filename="../src/settingswindow.cpp" line="242"/>
         <source>Not a database file or incorrect version!</source>
         <translation>Ceci n&apos;est pas un fichier de base de données, ou la version est incorrecte !</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="252"/>
+        <location filename="../src/settingswindow.cpp" line="256"/>
         <source>Would you like to set the catalog of posters is &quot;%1&quot;?</source>
         <translation>Voulez-vous définir le catalogue des affiches à &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="300"/>
+        <location filename="../src/settingswindow.cpp" line="304"/>
         <source>Would you like to set the directory for posters next to the database file?</source>
         <translation>Voulez-vous définir le répertoire des affiches suivantes dans la base de données ?</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="316"/>
+        <location filename="../src/settingswindow.cpp" line="320"/>
         <source>Are you sure you want to erase the database and posters?</source>
         <translation>Êtes-vous sûr de vouloir supprimer la base de données et les affiches ?</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="328"/>
+        <location filename="../src/settingswindow.cpp" line="332"/>
         <source>Select posters&apos; folder</source>
         <translation>Sélectionner le dossier des affiches</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="90"/>
+        <location filename="../src/settingswindow.cpp" line="395"/>
+        <source>This shortcut is already in use!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.h" line="94"/>
         <source>Icon only</source>
         <translation>Icônes uniquement</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="91"/>
+        <location filename="../src/settingswindow.h" line="95"/>
         <source>Text only</source>
         <translation>Texte uniquement</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="92"/>
+        <location filename="../src/settingswindow.h" line="96"/>
         <source>Text beside icon</source>
         <translation>Texte à coté des icônes</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="93"/>
+        <location filename="../src/settingswindow.h" line="97"/>
         <source>Text under icon</source>
         <translation>Texte sous les icônes</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="94"/>
+        <location filename="../src/settingswindow.h" line="98"/>
         <source>&lt;Follow system style&gt;</source>
         <translation>&lt;Comme le style système&gt;</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="112"/>
+        <location filename="../src/settingswindow.h" line="116"/>
         <source>PNG (compressed)</source>
         <translation>PNG (compressé)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="113"/>
+        <location filename="../src/settingswindow.h" line="117"/>
         <source>JPG (quality 95)</source>
         <translation>JPG (qualité 95)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="114"/>
+        <location filename="../src/settingswindow.h" line="118"/>
         <source>JPG (quality 85)</source>
         <translation>JPG (qualité 85)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="115"/>
+        <location filename="../src/settingswindow.h" line="119"/>
         <source>JPG (quality 75)</source>
         <translation>JPG (qualité 75)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.h" line="116"/>
+        <location filename="../src/settingswindow.h" line="120"/>
         <source>BMP (uncompressed)</source>
         <translation>BMP (non compressé)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="79"/>
-        <location filename="../src/settingswindow.h" line="97"/>
+        <location filename="../src/settingswindow.h" line="101"/>
         <source>Theme</source>
         <translation>Thème</translation>
     </message>
@@ -1662,7 +1737,7 @@
     </message>
     <message>
         <location filename="../src/statisticswindow.ui" line="198"/>
-        <location filename="../src/statisticswindow.cpp" line="104"/>
+        <location filename="../src/statisticswindow.cpp" line="149"/>
         <source>Reset statistics</source>
         <translation>Réinitialiser les statistiques</translation>
     </message>
@@ -1672,12 +1747,12 @@
         <translation>&amp;Fermer</translation>
     </message>
     <message>
-        <location filename="../src/statisticswindow.cpp" line="85"/>
+        <location filename="../src/statisticswindow.cpp" line="117"/>
         <source>The calculation is not accurate, because some files are not available.</source>
         <translation>Le calcul n&apos;est pas exacte, car certains fichiers ne sont pas disponibles.</translation>
     </message>
     <message>
-        <location filename="../src/statisticswindow.cpp" line="105"/>
+        <location filename="../src/statisticswindow.cpp" line="150"/>
         <source>Are you sure?</source>
         <translation>Êtes vous sûr ?</translation>
     </message>
