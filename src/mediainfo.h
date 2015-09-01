@@ -39,7 +39,7 @@ class MediaInfo
         MediaInfo( const QString& fileName );
         ~MediaInfo();
 
-        bool IsOpened() const;
+        bool IsOpened() const { return( isOpened ); }
 
         QString GetFormat() const;
         QString GetFileSize() const;

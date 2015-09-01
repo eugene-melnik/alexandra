@@ -35,9 +35,11 @@ class TimeCounter
         void Add( const TimeCounter& t );
         void Add( const QTime& t );
 
-        QString ToString();
-        QString ToStringWithDays();
-        QString ToStringWithMs();
+        void Reset();
+
+        QString ToString() const;
+        QString ToStringWithDays() const;
+        QString ToStringWithMs() const;
 
     private:
         quint16 days;

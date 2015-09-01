@@ -33,6 +33,8 @@ typedef struct {
     QString filmTitle;
 } TopFilm;
 
+typedef QList<TopFilm> TopFilmList;
+
 class StatisticsWorker : public QThread
 {
     Q_OBJECT
@@ -40,21 +42,22 @@ class StatisticsWorker : public QThread
     public:
         StatisticsWorker() : QThread() { qRegisterMetaType<TimeCounter>( "TimeCounter" ); }
 
-        void SetFilms( const QList<Film>* f ) { films = f; }
+        void SetFilms( const QList<Film>& f ) { films = f; }
         void Terminate() { isTerminate = true; }
 
     signals:
-        void MainStatisticsLoaded( int              /* viewedFilms */,
-                                   int              /* totalViewsCount */,
-                                   TimeCounter      /* wastedTime */,
-                                   bool             /* allFilesOk */,
-                                   QList<TopFilm>*  /* topFilms */ );
+        void IncProgress();
+        void MainStatisticsLoaded( int          /* viewedFilms */,
+                                   int          /* totalViewsCount */,
+                                   TimeCounter  /* wastedTime */,
+                                   bool         /* allFilesOk */,
+                                   TopFilmList* /* topFilms */ );
 
     protected:
         void run() override;
 
     private:
-        const QList<Film>* films;
+        QList<Film> films;
         bool isTerminate = false;
 };
 

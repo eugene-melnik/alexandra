@@ -33,7 +33,7 @@ void StatisticsWorker::run()
 
     QList<TopFilm>* topFilms = new QList<TopFilm>();
 
-    for( QList<Film>::const_iterator i = films->begin(); i < films->end(); i++ )
+    for( QList<Film>::const_iterator i = films.begin(); i < films.end(); i++ )
     {
         if( isTerminate ) return; // statistics window closed
 
@@ -66,6 +66,8 @@ void StatisticsWorker::run()
                 topFilms->append( { i->GetViewsCounter(), i->GetTitle() } );
             }
         }
+
+        emit IncProgress();
     }
 
     emit MainStatisticsLoaded( viewedFilms, totalViewsCount, wastedTime, allFilesOk, topFilms );

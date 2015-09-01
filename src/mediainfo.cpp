@@ -25,13 +25,11 @@
 MediaInfo::MediaInfo()
 {
     mi = new MI::MediaInfo();
-    mi->Option( __T( "CharSet" ), __T( "UTF-8" ) );
 }
 
 MediaInfo::MediaInfo( const QString& fileName )
 {
     mi = new MI::MediaInfo();
-    mi->Option( __T( "CharSet" ), __T( "UTF-8" ) );
 
     if( mi->Open( MI::String( fileName.toStdWString() ) ) == 1 )
     {
@@ -41,13 +39,12 @@ MediaInfo::MediaInfo( const QString& fileName )
 
 MediaInfo::~MediaInfo()
 {
-    mi->Close();
-    delete mi;
-}
+    if( IsOpened() )
+    {
+        mi->Close();
+    }
 
-bool MediaInfo::IsOpened() const
-{
-    return( isOpened );
+    delete mi;
 }
 
 QString MediaInfo::GetFormat() const

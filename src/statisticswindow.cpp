@@ -26,76 +26,121 @@
 StatisticsWindow::StatisticsWindow( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
-
-    // Worker
-    statisticsWorker = new StatisticsWorker();
-    connect( statisticsWorker, &StatisticsWorker::MainStatisticsLoaded, this, &StatisticsWindow::ShowMainStatistics );
-
-    // Buttons
     connect( bReset, &QPushButton::clicked, this, &StatisticsWindow::Reset );
 }
 
 StatisticsWindow::~StatisticsWindow()
 {
-    delete statisticsWorker;
+    if( calculateMutex.tryLock( 5000 ) )
+    {
+        calculateMutex.unlock();
+    }
 }
 
 void StatisticsWindow::show( const QList<Film>* films )
 {
-    // Calculations
-    statisticsWorker->SetFilms( films );
-    statisticsWorker->start();
+    viewedFilms = 0;
+    totalViewsCount = 0;
+    wastedTime.Reset();
+    allFilesOk = true;
+
+    // Calculations in multithread
+    threadsCount = QThread::idealThreadCount();
+
+    if( threadsCount < 1 )
+    {
+        threadsCount = 1;
+    }
+
+    int subListLength = films->size() / threadsCount;
+
+    for( int threadNum = 0; threadNum < threadsCount; threadNum++ )
+    {
+        int subListPos = threadNum * subListLength;
+
+        if( threadNum == (threadsCount - 1) ) // Last thread
+        {
+            subListLength = -1;
+        }
+
+        StatisticsWorker* calcWorker = new StatisticsWorker();
+        connect( calcWorker, &StatisticsWorker::IncProgress, this, &StatisticsWindow::IncProgress );
+        connect( calcWorker, &StatisticsWorker::MainStatisticsLoaded, this, &StatisticsWindow::ShowMainStatistics );
+        connect( calcWorker, &StatisticsWorker::finished, calcWorker, &QWidget::deleteLater );
+
+        calcWorker->SetFilms( films->mid( subListPos, subListLength ) );
+        calcWorker->start();
+    }
 
     // Show
-    tabWidget->setCurrentIndex( 0 ); // activate first tab
-    progressBar->show();
-
+    tabWidget->setCurrentIndex( 0 ); // Activate first tab
     lTotalFilmsInLibrary->setText( QString::number( films->size() ) );
     lWastedTime->setToolTip( "" );
+
+    progressBar->setMaximum( films->size() );
+    progressBar->setValue( 0 );
+    progressBar->show();
 
     QDialog::show();
 }
 
-void StatisticsWindow::closeEvent( QCloseEvent* event )
+void StatisticsWindow::IncProgress()
 {
-    if( statisticsWorker->isRunning() )
-    {
-        statisticsWorker->Terminate();
-    }
-
-    event->accept();
+     progressMutex.lock();
+     progressBar->setValue( progressBar->value() + 1 );
+     progressBar->repaint();
+     progressMutex.unlock();
 }
 
-void StatisticsWindow::ShowMainStatistics( int viewedFilms,
-                                           int totalViewsCount,
-                                           TimeCounter wastedTime,
-                                           bool allFilesOk,
-                                           QList<TopFilm>* topFilms )
+void StatisticsWindow::ShowMainStatistics( int          threadViewedFilms,
+                                           int          threadTotalViewsCount,
+                                           TimeCounter  threadWastedTime,
+                                           bool         threadAllFilesOk,
+                                           TopFilmList* threadTopFilms )
 {
-    progressBar->hide();
+    calculateMutex.lock();
 
-    // Output
-    lFilmsViewed->setText( QString::number( viewedFilms ) );
-    lTotalViews->setText( QString::number( totalViewsCount ) );
-    lWastedTime->setText( wastedTime.ToString() );
+    // Appending data
+    viewedFilms += threadViewedFilms;
+    totalViewsCount += threadTotalViewsCount;
+    wastedTime.Add( threadWastedTime );
+    allFilesOk |= threadAllFilesOk;
 
-    if( !allFilesOk )
+    topFilms.append( *threadTopFilms );
+    delete threadTopFilms;
+
+    if( --threadsCount == 0 ) // End of scanning
     {
-        lWastedTime->setText( lWastedTime->text() + " (?)" );
-        lWastedTime->setToolTip( tr( "The calculation is not accurate, because some files are not available." ) );
+        if( allFilesOk ) // Condition when unable to access all the files
+        {
+            lWastedTime->setText( lWastedTime->text() + " (?)" );
+            lWastedTime->setToolTip( tr( "The calculation is not accurate, because some files are not available." ) );
+        }
+
+        // List of most popular films
+        // Sorting by views count
+        std::sort( topFilms.begin(), topFilms.end(), [] ( TopFilm a, TopFilm b )
+        {
+            return( a.viewsCount < b.viewsCount );
+        } );
+
+        // Show in list widget
+        for( int i = 0; i < topFilms.size(); i++ )
+        {
+            QString itemText = QString( "(%1) " ).arg( topFilms.at(i).viewsCount ) + topFilms.at(i).filmTitle;
+            lwMostPopularFilms->insertItem( 0, itemText );
+        }
+
+        progressBar->hide();
+        topFilms.clear();
     }
 
-    // Most popular
-    auto TopFilmLessThen = [] ( TopFilm a, TopFilm b ) { return( a.viewsCount < b.viewsCount ); };
-    std::sort( topFilms->begin(), topFilms->end(), TopFilmLessThen );
+    // Show other information
+    lFilmsViewed->setText( QString::number( this->viewedFilms ) );
+    lTotalViews->setText( QString::number( this->totalViewsCount ) );
+    lWastedTime->setText( this->wastedTime.ToString() );
 
-    for( int i = 0; i < topFilms->size(); i++ )
-    {
-        QString itemText = QString( "(%1) " ).arg( topFilms->at(i).viewsCount ) + topFilms->at(i).filmTitle;
-        lwMostPopularFilms->insertItem( 0, itemText );
-    }
-
-    delete topFilms;
+    calculateMutex.unlock();
 }
 
 void StatisticsWindow::Reset()

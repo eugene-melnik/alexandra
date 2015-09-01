@@ -29,6 +29,7 @@
 #include <QCloseEvent>
 #include <QDialog>
 #include <QList>
+#include <QMutex>
 
 class StatisticsWindow : public QDialog, public Ui::StatisticsWindow
 {
@@ -45,19 +46,28 @@ class StatisticsWindow : public QDialog, public Ui::StatisticsWindow
 
     protected:
         void reject() { close(); }
-        void closeEvent( QCloseEvent* event );
+        void closeEvent( QCloseEvent* event ) { event->accept(); }
 
     private slots:
-        void ShowMainStatistics( int viewedFilms,
-                                 int totalViewsCount,
-                                 TimeCounter wastedTime,
-                                 bool allFilesOk,
-                                 QList<TopFilm>* topFilms );
-
+        void IncProgress();
+        void ShowMainStatistics( int          threadViewedFilms,
+                                 int          threadTotalViewsCount,
+                                 TimeCounter  threadWastedTime,
+                                 bool         threadAllFilesOk,
+                                 TopFilmList* threadTopFilms );
         void Reset();
 
     private:
-        StatisticsWorker* statisticsWorker = nullptr;
+        QMutex progressMutex;
+        QMutex calculateMutex;
+
+        int threadsCount;
+
+        int viewedFilms;
+        int totalViewsCount;
+        TimeCounter wastedTime;
+        bool allFilesOk;
+        QList<TopFilm> topFilms;
 };
 
 #endif // STATISTICSWINDOW_H

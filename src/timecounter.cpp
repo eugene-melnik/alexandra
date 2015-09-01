@@ -22,11 +22,7 @@
 
 TimeCounter::TimeCounter()
 {
-    days = 0;
-    hours = 0;
-    minutes = 0;
-    seconds = 0;
-    mseconds = 0;
+    Reset();
 }
 
 TimeCounter::TimeCounter( quint16 h, quint16 m, quint16 s, quint16 ms )
@@ -90,6 +86,8 @@ void TimeCounter::Add( const TimeCounter& t )
         hours -= 24;
         days++;
     }
+
+    days += t.days;
 }
 
 void TimeCounter::Add( const QTime& t )
@@ -97,7 +95,16 @@ void TimeCounter::Add( const QTime& t )
     Add( TimeCounter( t ) );
 }
 
-QString TimeCounter::ToString()
+void TimeCounter::Reset()
+{
+    days = 0;
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
+    mseconds = 0;
+}
+
+QString TimeCounter::ToString() const
 {
     QString result = QString( "%1:%2:%3" )
             .arg( days * 24 + hours )
@@ -107,7 +114,7 @@ QString TimeCounter::ToString()
     return( result );
 }
 
-QString TimeCounter::ToStringWithDays()
+QString TimeCounter::ToStringWithDays() const
 {
     QString result = QString( "%1/%2:%3:%4" )
             .arg( days )
@@ -118,7 +125,7 @@ QString TimeCounter::ToStringWithDays()
     return( result );
 }
 
-QString TimeCounter::ToStringWithMs()
+QString TimeCounter::ToStringWithMs() const
 {
     QString result = QString( "%1/%2:%3:%4.%5" )
             .arg( days )
