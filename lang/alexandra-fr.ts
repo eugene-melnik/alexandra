@@ -143,7 +143,7 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="275"/>
         <source>Budget, $</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget, $</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="405"/>
@@ -195,12 +195,12 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="547"/>
         <source>Screenwriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Scénariste</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="584"/>
         <source>Composer</source>
-        <translation type="unfinished"></translation>
+        <translation>Compositeur</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="616"/>
@@ -490,7 +490,7 @@
     <message>
         <location filename="../src/filmsviewgridmodel.cpp" line="76"/>
         <source>&lt;b&gt;Budget:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Budget :&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/filmsviewgridmodel.cpp" line="79"/>
@@ -500,7 +500,7 @@
     <message>
         <location filename="../src/filmsviewgridmodel.cpp" line="82"/>
         <source>&lt;b&gt;Screenwriter:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Scénariste :&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/filmsviewgridmodel.cpp" line="85"/>
@@ -515,7 +515,7 @@
     <message>
         <location filename="../src/filmsviewgridmodel.cpp" line="91"/>
         <source>&lt;b&gt;Composer:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Compositeur :&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/filmsviewgridmodel.cpp" line="94"/>
@@ -797,7 +797,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="528"/>
         <source>Nothing was found! Try to change keyword or search settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rien n&apos;a été trouvé ! Essayez de changer de mots clés ou de paramètres de recherche.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="594"/>
@@ -878,7 +878,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="292"/>
         <source>&lt;b&gt;Budget:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Budget :&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="295"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="298"/>
         <source>&lt;b&gt;Screenwriter:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Scénariste :&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="301"/>
@@ -903,7 +903,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="307"/>
         <source>&lt;b&gt;Composer:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Compositeur :&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="310"/>
@@ -1085,72 +1085,72 @@
     <message>
         <location filename="../src/searchedit.cpp" line="28"/>
         <source>Select fields for filtration</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner des champs pour le filtrage</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="56"/>
         <source>Filter by:</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrer par :</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="62"/>
         <source>Title</source>
-        <translation type="unfinished">Titre</translation>
+        <translation>Titre</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="66"/>
         <source>Tags</source>
-        <translation type="unfinished">Étiquettes</translation>
+        <translation>Étiquettes</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="70"/>
         <source>Genre</source>
-        <translation type="unfinished">Genre</translation>
+        <translation>Genre</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="74"/>
         <source>Starring</source>
-        <translation type="unfinished">Avec</translation>
+        <translation>Avec</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="78"/>
         <source>Director</source>
-        <translation type="unfinished">Réalisateur</translation>
+        <translation>Réalisateur</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="82"/>
         <source>Producer</source>
-        <translation type="unfinished">Producteur(s)</translation>
+        <translation>Producteur(s)</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="86"/>
         <source>Screenwriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Scénariste</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="90"/>
         <source>Composer</source>
-        <translation type="unfinished"></translation>
+        <translation>Compositeur</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="94"/>
         <source>Country</source>
-        <translation type="unfinished">Pays</translation>
+        <translation>Pays</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="98"/>
         <source>Description</source>
-        <translation type="unfinished">Description</translation>
+        <translation>Description</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="105"/>
         <source>Select all</source>
-        <translation type="unfinished">Tout sélectionner</translation>
+        <translation>Tout sélectionner</translation>
     </message>
     <message>
         <location filename="../src/searchedit.cpp" line="106"/>
         <source>Unselect all</source>
-        <translation type="unfinished">Tout désélectionner</translation>
+        <translation>Tout désélectionner</translation>
     </message>
 </context>
 <context>
@@ -1202,12 +1202,12 @@
     <message>
         <location filename="../src/searchwindow.ui" line="118"/>
         <source>Screenwriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Scénariste</translation>
     </message>
     <message>
         <location filename="../src/searchwindow.ui" line="128"/>
         <source>Composer</source>
-        <translation type="unfinished"></translation>
+        <translation>Compositeur</translation>
     </message>
     <message>
         <location filename="../src/searchwindow.ui" line="142"/>
@@ -1408,7 +1408,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="752"/>
         <source>Add film</source>
-        <translation type="unfinished">Ajouter un film</translation>
+        <translation>Ajouter un film</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="769"/>
@@ -1423,32 +1423,32 @@
         <location filename="../src/settingswindow.ui" line="1042"/>
         <location filename="../src/settingswindow.ui" line="1077"/>
         <source>Clear</source>
-        <translation type="unfinished">Effacer</translation>
+        <translation>Effacer</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="780"/>
         <source>Edit film</source>
-        <translation type="unfinished">Éditer le film</translation>
+        <translation>Éditer le film</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="808"/>
         <source>Remove film</source>
-        <translation type="unfinished">Supprimer le film</translation>
+        <translation>Supprimer le film</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="843"/>
         <source>Select random film</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner aléatoirement un film</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="871"/>
         <source>Activate quick search</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer la recherche rapide</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="899"/>
         <source>Advanced search</source>
-        <translation type="unfinished"></translation>
+        <translation>Recherche avancée</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="934"/>
@@ -1458,17 +1458,17 @@
     <message>
         <location filename="../src/settingswindow.ui" line="997"/>
         <source>Show toolbar</source>
-        <translation type="unfinished">Afficher la barre d&apos;outils</translation>
+        <translation>Afficher la barre d&apos;outils</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1025"/>
         <source>Show fullscreen</source>
-        <translation type="unfinished">Afficher en plein écran</translation>
+        <translation>Afficher en plein écran</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1060"/>
         <source>Exit</source>
-        <translation type="unfinished">Quitter</translation>
+        <translation>Quitter</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1118"/>
@@ -1505,7 +1505,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="423"/>
         <source>Show splash screen at startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher l&apos;écran de démarrage au lancement</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="476"/>
@@ -1621,7 +1621,7 @@
     <message>
         <location filename="../src/settingswindow.cpp" line="395"/>
         <source>This shortcut is already in use!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce raccourci est déjà utilisé !</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.h" line="94"/>
