@@ -8,8 +8,8 @@
 TARGET = alexandra
 TEMPLATE = app
 
-CONFIG += release
-#CONFIG += debug
+#CONFIG += release
+CONFIG += debug
 
 # Main configuration
 QT = core gui widgets concurrent
@@ -52,6 +52,8 @@ HEADERS += effects/effectdropshadow.h \
            mainwindow.h \
            mediainfo.h \
            movedfilmswindow.h \
+           playlist.h \
+           playlistwidget.h \
            searchedit.h \
            searchwindow.h \
            settingswindow.h \
@@ -84,6 +86,8 @@ SOURCES += effects/effectdropshadow.cpp \
            mainwindow.cpp \
            mediainfo.cpp \
            movedfilmswindow.cpp \
+           playlist.cpp \
+           playlistwidget.cpp \
            searchedit.cpp \
            searchwindow.cpp \
            settingswindow.cpp \

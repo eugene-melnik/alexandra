@@ -81,6 +81,10 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void ShowFilmContextMenu( QPoint p );
         void ShowShortTechnicalInfo( const QString& info );
 
+        void AddToPlaylist();
+        void PlaylistCleared();
+        void PlayOrNot();
+
         void PlayFilm();
         void PlayerStarted();
         void PlayerClosed();

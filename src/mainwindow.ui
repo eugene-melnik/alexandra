@@ -382,22 +382,7 @@
         <height>16777215</height>
        </size>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <property name="spacing">
-        <number>4</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QLabel" name="lPosterImage">
          <property name="sizePolicy">
@@ -585,7 +570,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="bAddToPlaylist">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -621,118 +606,48 @@
         </spacer>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QWidget" name="wPlaylist" native="true">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
            <height>150</height>
           </size>
          </property>
-         <property name="title">
-          <string>Playlist</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item>
-           <widget class="QListWidget" name="listWidget">
-            <property name="dragEnabled">
-             <bool>true</bool>
+           <widget class="QLabel" name="labelPlaylist">
+            <property name="text">
+             <string>Playlist:</string>
             </property>
-            <property name="alternatingRowColors">
-             <bool>true</bool>
-            </property>
-            <item>
-             <property name="text">
-              <string>Film 001</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Super film 3000</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Film 2</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Film n</string>
-             </property>
-            </item>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <property name="spacing">
-             <number>4</number>
+           <widget class="PlayListWidget" name="lwPlaylist">
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
             </property>
-            <item>
-             <widget class="QPushButton" name="pushButton_2">
-              <property name="maximumSize">
-               <size>
-                <width>16</width>
-                <height>16</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>1</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_3">
-              <property name="maximumSize">
-               <size>
-                <width>16</width>
-                <height>16</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>2</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_4">
-              <property name="maximumSize">
-               <size>
-                <width>16</width>
-                <height>16</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>3</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_5">
-              <property name="maximumSize">
-               <size>
-                <width>16</width>
-                <height>16</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>4</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>10</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
+            <property name="verticalScrollMode">
+             <enum>QAbstractItemView::ScrollPerPixel</enum>
+            </property>
+            <property name="horizontalScrollMode">
+             <enum>QAbstractItemView::ScrollPerPixel</enum>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -963,6 +878,11 @@
    <class>SearchEdit</class>
    <extends>QLineEdit</extends>
    <header>searchedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PlayListWidget</class>
+   <extends>QListWidget</extends>
+   <header>playlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

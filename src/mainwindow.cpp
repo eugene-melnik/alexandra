@@ -22,6 +22,7 @@
 #include "filmsviewgrid.h"
 #include "filmsviewlist.h"
 #include "mainwindow.h"
+#include "playlist.h"
 #include "version.h"
 
 #include <list>
@@ -355,16 +356,55 @@ void MainWindow::ShowShortTechnicalInfo( const QString& info )
     lTechInformation->setVisible( true );
 }
 
+void MainWindow::AddToPlaylist()
+{
+    bPlay->setText( tr( "Play list" ) );
+    wPlaylist->show();
+
+    lwPlaylist->AddItem( filmsList->GetCurrentFilmTitle(),
+                         filmsList->GetCurrentFilmFileName() );
+}
+
+void MainWindow::PlaylistCleared()
+{
+    bPlay->setText( tr( "PLAY" ) );
+    wPlaylist->hide();
+}
+
+void MainWindow::PlayOrNot()
+{
+    // FIXME: temporary solution
+    if( lwPlaylist->IsEmpty() )
+    {
+        PlayFilm();
+    }
+    else
+    {
+        AddToPlaylist();
+    }
+}
+
 void MainWindow::PlayFilm()
 {
     if( !bPlay->isEnabled() ) return;
 
     if( externalPlayer->state() == QProcess::NotRunning )
     {
+        QString fileToPlay;
+
+        if( lwPlaylist->IsEmpty() )
+        {
+            fileToPlay = filmsList->GetCurrentFilmFileName();
+        }
+        else
+        {
+            fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
+        }
+
 #ifdef Q_OS_LINUX
-        externalPlayer->start( settings->GetExternalPlayer() + " \"" + filmsList->GetCurrentFilmFileName() +"\"" );
+        //externalPlayer->start( settings->GetExternalPlayer() + " \"" + fileToPlay +"\"" );
 #elif defined(Q_OS_WIN32)
-        externalPlayer->start( "\"" + settings->GetExternalPlayer() + "\" \"" + filmsList->GetCurrentFilmFileName() +"\"" );
+        externalPlayer->start( "\"" + settings->GetExternalPlayer() + "\" \"" + fileToPlay +"\"" );
 #endif
     }
     else
@@ -386,12 +426,20 @@ void MainWindow::PlayerClosed()
     eFilter->setEnabled( true );
     bPlay->setText( tr( "&PLAY" ) );
 
-    filmsList->IncCurrentFilmViewsCounter();
-
-    if( bViewed->isEnabled() && !bViewed->isChecked() )
+    // TODO: make all films of playlist is viewed
+    if( lwPlaylist->IsEmpty() )
     {
-        bViewed->setChecked( true );
-        UpdateCurrentFilm();
+        filmsList->IncCurrentFilmViewsCounter();
+
+        if( bViewed->isEnabled() && !bViewed->isChecked() )
+        {
+            bViewed->setChecked( true );
+            UpdateCurrentFilm();
+        }
+    }
+    else
+    {
+        lwPlaylist->Clear();
     }
 
     dynamic_cast<QWidget*>( filmsView )->setFocus();
@@ -668,7 +716,7 @@ void MainWindow::SetupFilmsView()
     // Base signals
     connect( view, SIGNAL( ItemClicked(QString) ), filmsList, SLOT( SetCurrentFilm(QString) ) );
     connect( view, SIGNAL( ItemClicked(QString) ), this, SLOT( ShowFilmInformation() ) );
-    connect( view, SIGNAL( ItemDoubleClicked(QString) ), this, SLOT( PlayFilm() ) );
+    connect( view, SIGNAL( ItemDoubleClicked(QString) ), this, SLOT( PlayOrNot() ) );
     connect( view, SIGNAL( ContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
     // Add film window
     connect( addFilmWindow, SIGNAL( Done(Film) ), view, SLOT( AddItem(Film) ) );
@@ -716,6 +764,12 @@ void MainWindow::SetupWindows()
     connect( filmsList, &FilmsList::DatabaseReadError, this, &MainWindow::DatabaseReadError );
     connect( filmsList, &FilmsList::DatabaseIsReadonly, this, &MainWindow::DatabaseIsReadonly );
     connect( filmsList, &FilmsList::DatabaseIsEmpty, this, &MainWindow::DatabaseIsEmpty );
+
+    // Playlist
+    connect( bAddToPlaylist, &QPushButton::clicked, this, &MainWindow::AddToPlaylist );
+    connect( lwPlaylist, &PlayListWidget::Cleared, this, &MainWindow::PlaylistCleared );
+
+    wPlaylist->hide();
 
     // Play button
     connect( bPlay, &QPushButton::clicked, this, &MainWindow::PlayFilm );
