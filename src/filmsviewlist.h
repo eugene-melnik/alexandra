@@ -60,15 +60,15 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
 
         void SetCurrentItemIndex( int i );
 
-    private slots:
-        void ItemClickedSlot();
-        void ItemDoubleClickedSlot();
-        void ContextMenuRequestedSlot( QPoint p );
-
     signals:
         void ItemClicked( const QString& );
         void ItemDoubleClicked( const QString& );
         void ContextMenuRequested( QPoint );
+
+    private slots:
+        void ItemClickedSlot();
+        void ItemDoubleClickedSlot();
+        void ContextMenuRequestedSlot( QPoint p );
 
     private:
         enum Columns {

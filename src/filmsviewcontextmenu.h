@@ -45,22 +45,15 @@ class FilmsViewContextMenu : public QMenu
         void actionRemove();
         void actionRemoveFile();
 
-    private slots:
-        void actionPlaySlot();
-        void actionShowInfoSlot();
-        void actionIsViewedSlot( bool b );
-        void actionIsFavouriteSlot( bool b );
-        void actionEditSlot();
-        void actionRemoveSlot();
-        void actionRemoveFileSlot();
-
     private:
         QAction* cmaPlay = nullptr;
         QAction* cmaAddToList = nullptr;
         QAction* cmaShowInfo = nullptr;
         QAction* cmaIsViewed = nullptr;
         QAction* cmaIsFavourite = nullptr;
+        QAction* cmaEdit = nullptr;
+        QAction* cmaRemove = nullptr;
+        QAction* cmaRemoveFile = nullptr;
 };
 
 #endif // FILMSVIEWCONTEXTMENU_H
-

@@ -70,8 +70,6 @@ class SearchEdit : public QLineEdit
         void UnselectAllOptions() { SetOptionsChecked( false ); }
         void SetOptionsChecked( bool b );
 
-        void MakeSignal( const QString& text );
-
     private:
         typedef struct {
             FilterBy filter;

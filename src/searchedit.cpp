@@ -22,7 +22,7 @@
 
 SearchEdit::SearchEdit( QWidget* parent ) : QLineEdit( parent )
 {
-    connect( this, &SearchEdit::textChanged, this, &SearchEdit::MakeSignal );
+    connect( this, &SearchEdit::textChanged, this, [this] (const QString& s) { emit TextChanged( s, selectedFilters ); } );
 
     aOptions = addAction( QIcon( ":/tool/spanner" ), QLineEdit::TrailingPosition );
     aOptions->setToolTip( tr( "Select fields for filtration") );
@@ -141,9 +141,4 @@ void SearchEdit::SetOptionsChecked( bool b )
     }
 
     CalculateOptions();
-}
-
-void SearchEdit::MakeSignal( const QString& text )
-{
-    emit TextChanged( text, selectedFilters );
 }

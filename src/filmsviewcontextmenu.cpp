@@ -25,40 +25,41 @@
 FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
 {
     // Play
-    cmaPlay = addAction( QIcon( ":/action/play"), tr( "Play" ), this, SLOT( actionPlaySlot() ) );
+    cmaPlay = addAction( QIcon( ":/action/play"), tr( "Play" ) );
+    connect( cmaPlay, &QAction::triggered, this, [this] { emit actionPlay(); } );
 
     cmaAddToList = addAction( QIcon( ":/action/add-to-list"), tr( "Add to playlist" ) );
     connect( cmaAddToList, &QAction::triggered, this, [this] { emit actionAddToList(); } );
     addSeparator();
 
     // Show technical information
-    cmaShowInfo = addAction( QIcon( ":/window/about"), tr( "Show technical information" ), this, SLOT( actionShowInfoSlot() ) );
+    cmaShowInfo = addAction( QIcon( ":/window/about"), tr( "Show technical information" ) );
+    connect( cmaShowInfo, &QAction::triggered, this, [this] { emit actionShowInfo(); } );
     addSeparator();
 
     // IsViewed
     cmaIsViewed = addAction( tr( "Is viewed" ) );
     cmaIsViewed->setCheckable( true );
-    connect( cmaIsViewed, &QAction::triggered, this, &FilmsViewContextMenu::actionIsViewedSlot );
+    connect( cmaIsViewed, &QAction::triggered, this, [this] (bool b) { emit actionIsViewed( b ); } );
 
     // IsFavourite
     cmaIsFavourite = addAction( tr( "Is favourite" ) );
     cmaIsFavourite->setCheckable( true );
-    connect( cmaIsFavourite, &QAction::triggered, this, &FilmsViewContextMenu::actionIsFavouriteSlot );
-
-    // Separator
+    connect( cmaIsFavourite, &QAction::triggered, this, [this] (bool b) { emit actionIsFavourite( b ); } );
     addSeparator();
 
     // Edit
-    addAction( QIcon( ":/tool/edit" ), tr( "Edit" ), this, SLOT( actionEditSlot() ) );
+    cmaEdit = addAction( QIcon( ":/tool/edit" ), tr( "Edit" ) );
+    connect( cmaEdit, &QAction::triggered, this, [this] { emit actionEdit(); } );
 
     // Remove
-    addAction( QIcon( ":/tool/delete" ), tr( "Remove" ), this, SLOT( actionRemoveSlot() ) );
-
-    // Separator
+    cmaRemove = addAction( QIcon( ":/tool/delete" ), tr( "Remove" ) );
+    connect( cmaRemove, &QAction::triggered, this, [this] { emit actionRemove(); } );
     addSeparator();
 
     // Remove file
-    addAction( tr( "Remove file" ), this, SLOT( actionRemoveFileSlot() ) );
+    cmaRemoveFile = addAction( QIcon( ":/tool/clear" ), tr( "Remove file" ) );
+    connect( cmaRemoveFile, &QAction::triggered, this, [this] { emit actionRemoveFile(); } );
 }
 
 void FilmsViewContextMenu::SetState( const Film* film )
@@ -76,39 +77,4 @@ void FilmsViewContextMenu::SetState( const Film* film )
 
     cmaIsViewed->setChecked( film->GetIsViewed() );
     cmaIsFavourite->setChecked( film->GetIsFavourite() );
-}
-
-void FilmsViewContextMenu::actionPlaySlot()
-{
-    emit actionPlay();
-}
-
-void FilmsViewContextMenu::actionShowInfoSlot()
-{
-    emit actionShowInfo();
-}
-
-void FilmsViewContextMenu::actionIsViewedSlot( bool b )
-{
-    emit actionIsViewed( b );
-}
-
-void FilmsViewContextMenu::actionIsFavouriteSlot( bool b )
-{
-    emit actionIsFavourite( b );
-}
-
-void FilmsViewContextMenu::actionEditSlot()
-{
-    emit actionEdit();
-}
-
-void FilmsViewContextMenu::actionRemoveSlot()
-{
-    emit actionRemove();
-}
-
-void FilmsViewContextMenu::actionRemoveFileSlot()
-{
-    emit actionRemoveFile();
 }

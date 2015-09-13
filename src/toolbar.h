@@ -48,15 +48,6 @@ class ToolBar : public QToolBar
         void actionSearch();
         void actionExit();
 
-    private slots:
-        void actionAddTriggered();
-        void actionEditTriggered();
-        void actionRemoveTriggered();
-        void actionFilmScannerTriggered();
-        void actionRandomTriggered();
-        void actionSearchTriggered();
-        void actionExitTriggered();
-
     private:
         QAction* tbaAdd = nullptr;
         QAction* tbaEdit = nullptr;

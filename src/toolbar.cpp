@@ -28,16 +28,32 @@ ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
     setContextMenuPolicy( Qt::PreventContextMenu );
 
     // Items
-    tbaAdd = addAction( QIcon( ":/tool/add" ), tr( "Add" ), this, SLOT( actionAddTriggered()) );
-    tbaEdit = addAction( QIcon( ":/tool/edit" ), tr( "Edit" ), this, SLOT( actionEditTriggered() ) );
-    tbaRemove = addAction( QIcon( ":/tool/delete" ), tr( "Remove" ), this, SLOT( actionRemoveTriggered() ) );
+    tbaAdd = addAction( QIcon( ":/tool/add" ), tr( "Add" ) );
+    connect( tbaAdd, &QAction::triggered, this, [this] { emit actionAdd(); } );
+
+    tbaEdit = addAction( QIcon( ":/tool/edit" ), tr( "Edit" ) );
+    connect( tbaEdit, &QAction::triggered, this, [this] { emit actionEdit(); } );
+
+    tbaRemove = addAction( QIcon( ":/tool/delete" ), tr( "Remove" ) );
+    connect( tbaRemove, &QAction::triggered, this, [this] { emit actionRemove(); } );
+
     addSeparator();
-    tbaFilmScanner = addAction( QIcon( ":/window/film-scanner" ), tr( "Film scanner" ), this, SLOT( actionFilmScannerTriggered() ) );
+
+    tbaFilmScanner = addAction( QIcon( ":/window/film-scanner" ), tr( "Film scanner" ) );
+    connect( tbaFilmScanner, &QAction::triggered, this, [this] { emit actionFilmScanner(); } );
+
     addSeparator();
-    tbaRandom = addAction( QIcon( ":/tool/random" ), tr( "Random" ), this, SLOT( actionRandomTriggered() ) );
-    tbaSearch = addAction( QIcon( ":/tool/find" ), tr( "Search" ), this, SLOT( actionSearchTriggered() ) );
+
+    tbaRandom = addAction( QIcon( ":/tool/random" ), tr( "Random" ) );
+    connect( tbaRandom, &QAction::triggered, this, [this] { emit actionRandom(); } );
+
+    tbaSearch = addAction( QIcon( ":/tool/find" ), tr( "Search" ) );
+    connect( tbaSearch, &QAction::triggered, this, [this] { emit actionSearch(); } );
+
     addSeparator();
-    tbaExit = addAction( QIcon( ":/action/exit" ), tr( "Exit" ), this, SLOT( actionExitTriggered() ) );
+
+    tbaExit = addAction( QIcon( ":/action/exit" ), tr( "Exit" ) );
+    connect( tbaExit, &QAction::triggered, this, [this] { emit actionExit(); } );
 }
 
 void ToolBar::LoadSettings( const AlexandraSettings* s )
@@ -69,39 +85,4 @@ void ToolBar::SetReadOnlyMode( bool b )
     tbaEdit->setDisabled( b );
     tbaRemove->setDisabled( b );
     tbaFilmScanner->setDisabled( b );
-}
-
-void ToolBar::actionAddTriggered()
-{
-    emit actionAdd();
-}
-
-void ToolBar::actionEditTriggered()
-{
-    emit actionEdit();
-}
-
-void ToolBar::actionRemoveTriggered()
-{
-    emit actionRemove();
-}
-
-void ToolBar::actionFilmScannerTriggered()
-{
-    emit actionFilmScanner();
-}
-
-void ToolBar::actionRandomTriggered()
-{
-    emit actionRandom();
-}
-
-void ToolBar::actionSearchTriggered()
-{
-    emit actionSearch();
-}
-
-void ToolBar::actionExitTriggered()
-{
-    emit actionExit();
 }
