@@ -361,7 +361,7 @@ void MainWindow::AddToPlaylist()
 
 void MainWindow::PlaylistCleared()
 {
-    bPlay->setText( tr( "PLAY" ) );
+    bPlay->setText( tr( "&PLAY" ) );
     wPlaylist->hide();
 }
 
