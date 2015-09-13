@@ -31,7 +31,7 @@ class ToolBar : public QToolBar
     Q_OBJECT
 
     public:
-        ToolBar( QWidget* parent = nullptr );
+        explicit ToolBar( QWidget* parent = nullptr );
 
         void LoadSettings( const AlexandraSettings* s );
 

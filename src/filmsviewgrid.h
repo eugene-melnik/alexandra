@@ -34,7 +34,7 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
     Q_OBJECT
 
     public:
-        FilmsViewGrid( QWidget* parent = nullptr );
+        explicit FilmsViewGrid( QWidget* parent = nullptr );
 
     public slots:
         void LoadSettings( AlexandraSettings* s );

@@ -26,13 +26,11 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QtConcurrentRun>
+#include <thread>
 
-FilmsList::FilmsList( AlexandraSettings* s, QObject* parent ) : QObject( parent )
-{
-    settings = s;
-    films = new QList<Film>();
-}
+FilmsList::FilmsList( AlexandraSettings* s, QObject* parent )
+    : QObject( parent ), settings( s ), films( new QList<Film>() )
+{ }
 
 FilmsList::~FilmsList()
 {
@@ -141,7 +139,7 @@ void FilmsList::SaveToFile( const QString& fileName )
 
 void FilmsList::SaveToFileAsync( const QString& fileName )
 {
-    QtConcurrent::run( this, &FilmsList::SaveToFile, fileName );
+    std::thread( &FilmsList::SaveToFile, this, std::cref( fileName ) ).detach();
 }
 
 int FilmsList::GetNumberOfFilms() const

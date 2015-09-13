@@ -38,8 +38,8 @@ class FilmScannerWindow : public QDialog, public Ui::FilmScannerWindow
     Q_OBJECT
 
     public:
-        FilmScannerWindow( AlexandraSettings* s, QWidget* parent = nullptr );
-        ~FilmScannerWindow();
+        explicit FilmScannerWindow( AlexandraSettings* s, QWidget* parent = nullptr );
+        virtual ~FilmScannerWindow();
 
         void show( QStringList* l );
 

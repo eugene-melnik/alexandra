@@ -44,25 +44,6 @@ MainWindow::MainWindow( AlexandraSettings* s ) : QMainWindow(), settings( s )
     filmsList->SetCurrentFilm( settings->GetCurrentFilmTitle() );
 }
 
-MainWindow::~MainWindow()
-{
-    // Child windows
-    delete aboutWindow;
-    delete editFilmWindow;
-    delete filmInfoWindow;
-    delete filmScannerWindow;
-    delete movedFilmsWindow;
-    delete searchWindow;
-    delete settingsWindow;
-    delete splashScreen;
-
-    // Variables
-    delete externalPlayer;
-    delete filmsList;
-    delete filmsView;
-    delete contextMenu;
-}
-
 void MainWindow::AddFilmsFromOutside( const QStringList& films )
 {
     QList<Film> newFilms;

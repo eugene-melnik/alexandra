@@ -31,6 +31,8 @@ class FilmScannerWorker : public QThread
     Q_OBJECT
 
     public:
+        FilmScannerWorker() = default;
+
         void SetIsRecursive( bool b ) { isRecursive = b; }
         void SetDir( const QString& d ) { dir = d; }
 

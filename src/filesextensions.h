@@ -29,6 +29,8 @@
 class FilesExtensions
 {
     public:
+        FilesExtensions() = default;
+
         QString GetFilmExtensionsForFilter() const;
         QString GetImageExtensionsForFilter() const;
 

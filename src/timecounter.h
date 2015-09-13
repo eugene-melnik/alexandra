@@ -26,11 +26,12 @@
 class TimeCounter
 {
     public:
-        TimeCounter();
+        TimeCounter() { Reset(); }
+        TimeCounter( quint64 s );
         TimeCounter( quint16 h, quint16 m, quint16 s, quint16 ms = 0 );
         TimeCounter( quint16 d, quint16 h, quint16 m, quint16 s, quint16 ms = 0 );
         TimeCounter( const QTime& t );
-        TimeCounter( const TimeCounter& t );
+        TimeCounter( const TimeCounter& t ) = default;
 
         void Add( const TimeCounter& t );
         void Add( const QTime& t );
@@ -42,7 +43,7 @@ class TimeCounter
         QString ToStringWithMs() const;
 
     private:
-        quint16 days;
+        quint32 days;
         quint16 hours;
         quint16 minutes;
         quint16 seconds;

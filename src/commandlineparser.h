@@ -28,8 +28,8 @@
 class CommandLineParser : public QCommandLineParser
 {
     public:
-        CommandLineParser();
-        ~CommandLineParser();
+        explicit CommandLineParser();
+        virtual ~CommandLineParser() = default;
 
         QStringList GetFilmsToAdd() const;
         QString GetConfigLocation() const;

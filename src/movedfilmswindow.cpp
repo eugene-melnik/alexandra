@@ -27,12 +27,11 @@
 #include <QTableWidgetItem>
 
 MovedFilmsWindow::MovedFilmsWindow( AlexandraSettings* s, QWidget* parent )
-    : QDialog( parent ), settings( s )
+    : QDialog( parent ), settings( s ), filmScannerWorker( new FilmScannerWorker() )
 {
     setupUi( this );
 
     // Worker
-    filmScannerWorker = new FilmScannerWorker();
     connect( filmScannerWorker, &FilmScannerWorker::Scanned, this, &MovedFilmsWindow::ShowFounded );
 
     // Buttons

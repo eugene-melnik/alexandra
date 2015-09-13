@@ -32,12 +32,11 @@
 #include <QPlainTextEdit>
 #include <QStringList>
 
-AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent ) : QDialog( parent )
+AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent )
+    : QDialog( parent ), settings( s )
 {
     setupUi( this );
     bOpenFile->setFocus();
-
-    settings = s;
 
     connect( bOpenFile, &QPushButton::clicked, this, &AddFilmWindow::OpenFilm );
     connect( bOpenPoster, &QPushButton::clicked, this, &AddFilmWindow::OpenPosterFileClicked );

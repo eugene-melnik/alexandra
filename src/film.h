@@ -28,7 +28,7 @@ class Film
 {
     public:
         Film();
-        Film( const Film& other );
+        Film( const Film& other ) = default;
 
         // Functions needed for comparation (sorting)
         bool operator > ( const Film& other ) const { return( title > other.title ); }

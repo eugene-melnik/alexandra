@@ -39,11 +39,7 @@ MediaInfo::MediaInfo( const QString& fileName )
 
 MediaInfo::~MediaInfo()
 {
-    if( IsOpened() )
-    {
-        mi->Close();
-    }
-
+    mi->Close();
     delete mi;
 }
 

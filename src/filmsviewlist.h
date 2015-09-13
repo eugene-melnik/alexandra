@@ -36,7 +36,7 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
     Q_OBJECT
 
     public:
-        FilmsViewList( QWidget* parent = nullptr );
+        explicit FilmsViewList( QWidget* parent = nullptr );
 
     public slots:
         void LoadSettings( AlexandraSettings* s );

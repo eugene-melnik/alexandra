@@ -35,8 +35,8 @@ class FilmsList : public QObject
     Q_OBJECT
 
     public:
-        FilmsList( AlexandraSettings* s, QObject* parent = nullptr );
-        ~FilmsList();
+        explicit FilmsList( AlexandraSettings* s, QObject* parent = nullptr );
+        virtual ~FilmsList();
 
         void LoadFromFile( const QString& fileName );
         void SaveToFile( const QString& fileName );

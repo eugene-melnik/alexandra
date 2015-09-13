@@ -37,7 +37,7 @@ class SearchEdit : public QLineEdit
     Q_OBJECT
 
     public:
-        SearchEdit( QWidget* parent = nullptr );
+        explicit SearchEdit( QWidget* parent = nullptr );
 
         void LoadSettings( const AlexandraSettings* s );
         void SaveSettings( AlexandraSettings* s ) const;
@@ -91,23 +91,9 @@ class SearchEditMenu : public QMenu
         SearchEditMenu( QWidget* parent = nullptr ) : QMenu( parent ) {}
 
     protected:
-        // Prevent a menu from closing when one of its actions is triggered
-        void mouseReleaseEvent( QMouseEvent* event )
-        {
-            QAction* action = activeAction();
-
-            if( action && action->isEnabled() )
-            {
-                action->setEnabled( false );
-                QMenu::mouseReleaseEvent( event );
-                action->setEnabled( true );
-                action->trigger();
-            }
-            else
-            {
-                QMenu::mouseReleaseEvent( event );
-            }
-        }
+        // Prevent a menu from closing when
+        // one of its actions is triggered
+        void mouseReleaseEvent( QMouseEvent* event );
 };
 
 #endif // SEARCHEDIT_H

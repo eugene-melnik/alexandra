@@ -20,9 +20,15 @@
 
 #include "timecounter.h"
 
-TimeCounter::TimeCounter()
+TimeCounter::TimeCounter( quint64 s )
 {
-    Reset();
+    days = s / (24 * 60 * 60);
+    s %= 24 * 60 * 60;
+    hours = s / (60 * 60);
+    s %= 60 * 60;
+    minutes = s / 60;
+    seconds = s % 60;
+    mseconds = 0;
 }
 
 TimeCounter::TimeCounter( quint16 h, quint16 m, quint16 s, quint16 ms )
@@ -50,15 +56,6 @@ TimeCounter::TimeCounter( const QTime& t )
     minutes = t.minute();
     seconds = t.second();
     mseconds = t.msec();
-}
-
-TimeCounter::TimeCounter( const TimeCounter& t )
-{
-    days = t.days;
-    hours = t.hours;
-    minutes = t.minutes;
-    seconds = t.seconds;
-    mseconds = t.mseconds;
 }
 
 void TimeCounter::Add( const TimeCounter& t )

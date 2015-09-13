@@ -31,7 +31,7 @@ class FilmsViewContextMenu : public QMenu
     Q_OBJECT
 
     public:
-        FilmsViewContextMenu( QWidget* parent = nullptr );
+        explicit FilmsViewContextMenu( QWidget* parent = nullptr );
 
         void SetState( const Film* film );
 

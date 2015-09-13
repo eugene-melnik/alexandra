@@ -37,7 +37,7 @@ class MediaInfo
     public:
         MediaInfo();
         MediaInfo( const QString& fileName );
-        ~MediaInfo();
+        virtual ~MediaInfo();
 
         bool IsOpened() const { return( isOpened ); }
 

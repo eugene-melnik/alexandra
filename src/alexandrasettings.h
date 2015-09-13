@@ -30,7 +30,7 @@
 class AlexandraSettings : public QSettings
 {
     public:
-        AlexandraSettings( const QString& configFile );
+        explicit AlexandraSettings( const QString& configFile );
 
         /* Get */
 

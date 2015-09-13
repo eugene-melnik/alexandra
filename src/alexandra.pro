@@ -12,7 +12,7 @@ TEMPLATE = app
 CONFIG += debug
 
 # Main configuration
-QT = core gui widgets concurrent
+QT = core gui widgets
 CONFIG += qt warn_on thread
 
 QMAKE_CXXFLAGS += -std=c++11

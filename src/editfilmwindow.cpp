@@ -25,10 +25,10 @@
 #include <QPlainTextEdit>
 #include <QProcessEnvironment>
 
-EditFilmWindow::EditFilmWindow( AlexandraSettings* s, QWidget* parent ) : AddFilmWindow( s, parent )
+EditFilmWindow::EditFilmWindow( AlexandraSettings* s, QWidget* parent )
+    : AddFilmWindow( s, parent ), settings( s )
 {
     setWindowTitle( tr( "Edit film" ) );
-    settings = s;
 }
 
 void EditFilmWindow::show( const Film* f )

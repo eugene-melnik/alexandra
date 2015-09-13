@@ -33,8 +33,8 @@ class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
     Q_OBJECT
 
     public:
-        FilmInfoWindow( QWidget* parent = nullptr );
-        ~FilmInfoWindow();
+        explicit FilmInfoWindow( QWidget* parent = nullptr );
+        virtual ~FilmInfoWindow();
 
         void LoadTechnicalInfoAsync( const QString& fileName );
         void LoadTechnicalInfo( const QString& fileName );

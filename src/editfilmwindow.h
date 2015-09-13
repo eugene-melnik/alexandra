@@ -29,7 +29,7 @@ class EditFilmWindow : public AddFilmWindow
     Q_OBJECT
 
     public:
-        EditFilmWindow( AlexandraSettings* s, QWidget* parent = nullptr );
+        explicit EditFilmWindow( AlexandraSettings* s, QWidget* parent = nullptr );
 
     public slots:
         void show( const Film* f );

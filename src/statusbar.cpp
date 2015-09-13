@@ -20,18 +20,16 @@
 
 #include "statusbar.h"
 
-StatusBar::StatusBar( QWidget* parent ) : QStatusBar( parent )
+StatusBar::StatusBar( QWidget* parent )
+    : QStatusBar( parent ), text( new QLabel( this ) ), progress( new QProgressBar( this ) )
 {
-    setStyleSheet( "QStatusBar::item { border: 0px solid black };" );
-
-    text = new QLabel( this );
-    addWidget( text );
-
-    progress = new QProgressBar( this );
     progress->setAlignment( Qt::AlignCenter );
     progress->setTextVisible( false );
     progress->hide();
+
+    addWidget( text );
     addPermanentWidget( progress );
+    setStyleSheet( "QStatusBar::item { border: 0px solid black };" );
 }
 
 StatusBar::~StatusBar()

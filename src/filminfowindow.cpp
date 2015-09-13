@@ -23,7 +23,7 @@
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QPushButton>
-#include <QtConcurrentRun>
+#include <thread>
 
 FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
 {
@@ -45,7 +45,7 @@ FilmInfoWindow::~FilmInfoWindow()
 void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )
 {
     eTechInfo->clear();
-    QtConcurrent::run( this, &FilmInfoWindow::LoadTechnicalInfo, fileName );
+    std::thread( &FilmInfoWindow::LoadTechnicalInfo, this, std::cref( fileName ) ).detach();
 }
 
 void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )

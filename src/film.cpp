@@ -25,39 +25,8 @@
 #include <QDataStream>
 
 Film::Film()
-{
-    viewsCounter = 0;
-    isPosterExists = false;
-    isViewed = false;
-    isFavourite = false;
-}
-
-Film::Film( const Film& other )
-{
-    id = other.id;
-    section = other.section;
-    fileName = other.fileName;
-    title = other.title;
-    originalTitle = other.originalTitle;
-    tagline = other.tagline;
-    genre = other.genre;
-    country = other.country;
-    year = other.year;
-    director = other.director;
-    producer = other.producer;
-    starring = other.starring;
-    budget = other.budget;
-    description = other.description;
-    rating = other.rating;
-    ageRestrictions = other.ageRestrictions;
-    tags = other.tags;
-    viewsCounter = other.viewsCounter;
-    isPosterExists = other.isPosterExists;
-    isViewed = other.isViewed;
-    isFavourite = other.isFavourite;
-    screenwriter = other.screenwriter;
-    composer = other.composer;
-}
+    : viewsCounter( 0 ), isPosterExists( false ), isViewed( false ), isFavourite( false )
+{ }
 
 QString Film::GetBudgetStr() const
 {

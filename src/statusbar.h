@@ -30,8 +30,8 @@ class StatusBar : public QStatusBar
     Q_OBJECT
 
     public:
-        StatusBar( QWidget* parent = nullptr );
-        ~StatusBar();
+        explicit StatusBar( QWidget* parent = nullptr );
+        virtual ~StatusBar();
 
         void SetProgresMaximum( int maximum ) { progress->setMaximum( maximum ); }
         void SetProgressValue( int value ) { progress->setValue( value ); repaint(); }

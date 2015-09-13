@@ -49,8 +49,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
     Q_OBJECT
 
     public:
-        MainWindow( AlexandraSettings* s );
-        ~MainWindow();
+        explicit MainWindow( AlexandraSettings* s );
+        virtual ~MainWindow() = default;
 
         void AddFilmsFromOutside( const QStringList& films );
 

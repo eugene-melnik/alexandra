@@ -37,7 +37,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
     Q_OBJECT
 
     public:
-        SettingsWindow( AlexandraSettings* s, QWidget* parent = nullptr );
+        explicit SettingsWindow( AlexandraSettings* s, QWidget* parent = nullptr );
 
         void show();
 

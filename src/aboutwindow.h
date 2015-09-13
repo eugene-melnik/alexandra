@@ -31,7 +31,7 @@ class AboutWindow : public QDialog, public Ui::AboutWindow
     Q_OBJECT
 
     public:
-        AboutWindow( QWidget* parent = nullptr );
+        explicit AboutWindow( QWidget* parent = nullptr );
 
         void show();
 

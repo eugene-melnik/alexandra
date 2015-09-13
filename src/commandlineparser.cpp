@@ -43,11 +43,6 @@ CommandLineParser::CommandLineParser() : QCommandLineParser()
     addOption( *configLocationOption );
 }
 
-CommandLineParser::~CommandLineParser()
-{
-    delete configLocationOption;
-}
-
 QStringList CommandLineParser::GetFilmsToAdd() const
 {
     return( positionalArguments() );

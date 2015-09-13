@@ -27,11 +27,9 @@
 #include <QTableWidgetItem>
 
 FilmScannerWindow::FilmScannerWindow( AlexandraSettings* s, QWidget* parent )
-    : QDialog( parent ), settings( s )
+    : QDialog( parent ), settings( s ), newFilms( new QList<Film>() )
 {
     setupUi( this );
-
-    newFilms = new QList<Film>();
 
     // Scanner worker
     filmScannerWorker = new FilmScannerWorker();

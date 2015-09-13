@@ -142,3 +142,20 @@ void SearchEdit::SetOptionsChecked( bool b )
 
     CalculateOptions();
 }
+
+void SearchEditMenu::mouseReleaseEvent(QMouseEvent *event)
+{
+    QAction* action = activeAction();
+
+    if( action && action->isEnabled() )
+    {
+        action->setEnabled( false );
+        QMenu::mouseReleaseEvent( event );
+        action->setEnabled( true );
+        action->trigger();
+    }
+    else
+    {
+        QMenu::mouseReleaseEvent( event );
+    }
+}

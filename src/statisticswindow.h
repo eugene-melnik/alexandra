@@ -36,8 +36,8 @@ class StatisticsWindow : public QDialog, public Ui::StatisticsWindow
     Q_OBJECT
 
     public:
-        StatisticsWindow( QWidget* parent = nullptr );
-        ~StatisticsWindow();
+        explicit StatisticsWindow( QWidget* parent = nullptr );
+        virtual ~StatisticsWindow();
 
         void show( const QList<Film>* films );
 

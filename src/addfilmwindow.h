@@ -35,7 +35,7 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
     Q_OBJECT
 
     public:
-        AddFilmWindow( AlexandraSettings* settings, QWidget* parent = nullptr );
+        explicit AddFilmWindow( AlexandraSettings* settings, QWidget* parent = nullptr );
 
         void show();
 

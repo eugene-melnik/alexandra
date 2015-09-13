@@ -33,7 +33,7 @@ class SearchWindow : public QDialog, public Ui::SearchWindow
     Q_OBJECT
 
     public:
-        SearchWindow( const QList<Film>* f, QWidget* parent = nullptr );
+        explicit SearchWindow( const QList<Film>* f, QWidget* parent = nullptr );
 
     signals:
         void FilmSelected( const QString& film );

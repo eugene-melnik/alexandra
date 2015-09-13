@@ -36,8 +36,8 @@ class MovedFilmsWindow : public QDialog, public Ui::MovedFilmsWindow
     Q_OBJECT
 
     public:
-        MovedFilmsWindow( AlexandraSettings* s, QWidget* parent = nullptr );
-        ~MovedFilmsWindow();
+        explicit MovedFilmsWindow( AlexandraSettings* s, QWidget* parent = nullptr );
+        virtual ~MovedFilmsWindow();
 
         void show( QList<Film*>* f );
 
