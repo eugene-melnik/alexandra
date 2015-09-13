@@ -36,10 +36,9 @@
 #include <QRadioButton>
 #include <QSpinBox>
 
-SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent ) : QDialog( parent )
+SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent )
+    : QDialog( parent ), settings( s )
 {
-    settings = s;
-
     setupUi( this );
     connect( bOk, &QPushButton::clicked, this, &SettingsWindow::OkButtonClicked );
 
@@ -117,7 +116,9 @@ void SettingsWindow::OkButtonClicked()
         // Application tab
         settings->SetApplicationShowSplashScreen( cShowSplashScreen->isChecked() );
         settings->SetApplicationLocaleIndex( cbLanguage->currentIndex() - 1 );
+
         settings->SetExternalPlayer( eExternalPlayer->text() );
+        settings->SetPlayerDoubleClickBehavior( playerBehaviors.key( cbDoubleClickBehavior->currentText() ) );
 
         settings->SetDatabaseFilePath( eDatabaseFile->text() );
         settings->SetCheckFilesOnStartup( cCheckFilesAtStartup->isChecked() );
@@ -510,6 +511,13 @@ void SettingsWindow::ConfigureApplicationTab()
     connect( eExternalPlayer, &QLineEdit::textChanged, this, &SettingsWindow::SetIsSettingsChanged );
     connect( bSelectExternalPlayer, &QPushButton::clicked, this, &SettingsWindow::SelectExternalPlayer );
     connect( bExternalPlayerDefault, &QPushButton::clicked, this, &SettingsWindow::SetDefaultExternalPlayer );
+    connect( cbDoubleClickBehavior, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+
+    playerBehaviors.insert( "auto",        tr( "<Auto>" ) );
+    playerBehaviors.insert( "play",        tr( "Play" ) );
+    playerBehaviors.insert( "add-to-list", tr( "Add to playlist" ) );
+
+    cbDoubleClickBehavior->addItems( playerBehaviors.values() );
 
     // Database
     connect( eDatabaseFile, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDatabaseSettingsChanged );
@@ -554,7 +562,10 @@ void SettingsWindow::ReconfigureApplicationTab()
 {
     cShowSplashScreen->setChecked( settings->GetApplicationShowSplashScreen() );
     cbLanguage->setCurrentIndex( settings->GetApplicationLocaleIndex() + 1 );
+
+    // Player
     eExternalPlayer->setText( settings->GetExternalPlayer() );
+    cbDoubleClickBehavior->setCurrentText( playerBehaviors.value( settings->GetPlayerDoubleClickBehavior() ) );
 
     // Database
     eDatabaseFile->setText( settings->GetDatabaseFilePath() );

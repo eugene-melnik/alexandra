@@ -13,6 +13,7 @@
         <file alias="favourite">../icons/action-favourite.png</file>
         <file alias="viewed">../icons/action-viewed.png</file>
         <file alias="play">../icons/action-play.png</file>
+        <file alias="add-to-list">../icons/action-add-to-list.png</file>
     </qresource>
     <qresource prefix="/tool">
         <file alias="add">../icons/tool-add.png</file>
@@ -21,5 +22,7 @@
         <file alias="find">../icons/tool-find.png</file>
         <file alias="random">../icons/tool-random.png</file>
         <file alias="spanner">../icons/tool-spanner.png</file>
+        <file alias="default">../icons/default.png</file>
+        <file alias="clear">../icons/clear.png</file>
     </qresource>
 </RCC>

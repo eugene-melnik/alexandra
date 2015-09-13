@@ -37,6 +37,7 @@ class FilmsViewContextMenu : public QMenu
 
     signals:
         void actionPlay();
+        void actionAddToList();
         void actionShowInfo();
         void actionIsViewed( bool );
         void actionIsFavourite( bool );
@@ -55,6 +56,7 @@ class FilmsViewContextMenu : public QMenu
 
     private:
         QAction* cmaPlay = nullptr;
+        QAction* cmaAddToList = nullptr;
         QAction* cmaShowInfo = nullptr;
         QAction* cmaIsViewed = nullptr;
         QAction* cmaIsFavourite = nullptr;

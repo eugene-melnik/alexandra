@@ -27,10 +27,12 @@ FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
     // Play
     cmaPlay = addAction( QIcon( ":/action/play"), tr( "Play" ), this, SLOT( actionPlaySlot() ) );
 
+    cmaAddToList = addAction( QIcon( ":/action/add-to-list"), tr( "Add to playlist" ) );
+    connect( cmaAddToList, &QAction::triggered, this, [this] { emit actionAddToList(); } );
+    addSeparator();
+
     // Show technical information
     cmaShowInfo = addAction( QIcon( ":/window/about"), tr( "Show technical information" ), this, SLOT( actionShowInfoSlot() ) );
-
-    // Separator
     addSeparator();
 
     // IsViewed

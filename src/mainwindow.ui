@@ -533,7 +533,7 @@
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0">
+          <layout class="QHBoxLayout" name="hlPlayOrList" stretch="1,0">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -577,14 +577,18 @@
                <height>28</height>
               </size>
              </property>
-             <property name="maximumSize">
+             <property name="toolTip">
+              <string>Add to playlist</string>
+             </property>
+             <property name="icon">
+              <iconset resource="icons.qrc">
+               <normaloff>:/action/add-to-list</normaloff>:/action/add-to-list</iconset>
+             </property>
+             <property name="iconSize">
               <size>
                <width>16</width>
-               <height>16777215</height>
+               <height>16</height>
               </size>
-             </property>
-             <property name="text">
-              <string>X</string>
              </property>
             </widget>
            </item>
@@ -610,7 +614,7 @@
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>150</height>
+           <height>120</height>
           </size>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">

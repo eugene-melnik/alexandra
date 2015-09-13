@@ -83,7 +83,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         void AddToPlaylist();
         void PlaylistCleared();
-        void PlayOrNot();
+        void DoubleClickBehavior();
 
         void PlayFilm();
         void PlayerStarted();

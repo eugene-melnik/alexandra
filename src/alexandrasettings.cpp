@@ -311,6 +311,11 @@ QString AlexandraSettings::GetShortcutExit() const
     return( value( "Shortcuts/Exit", "Ctrl+Q" ).toString() );
 }
 
+QString AlexandraSettings::GetPlayerDoubleClickBehavior() const
+{
+    return( value( "Player/DoubleClickBehavior", "auto" ).toString() );
+}
+
 /* Set */
 
 void AlexandraSettings::SetDatabaseFilePath( const QString& s )
@@ -541,4 +546,9 @@ void AlexandraSettings::SetShortcutShowFullscreen( const QString& s )
 void AlexandraSettings::SetShortcutExit( const QString& s )
 {
     setValue( "Shortcuts/Exit", s );
+}
+
+void AlexandraSettings::SetPlayerDoubleClickBehavior( const QString& s )
+{
+    setValue( "Player/DoubleClickBehavior", s );
 }

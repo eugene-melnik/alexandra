@@ -28,6 +28,7 @@
 #include <functional>
 #include <QDialog>
 #include <QList>
+#include <QMap>
 #include <QString>
 #include <QStringList>
 
@@ -91,11 +92,11 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
             Qt::ToolButtonStyle style;
         } ToolStyle;
 
-        const QList<ToolStyle> toolStyles = { { tr("Icon only"),            Qt::ToolButtonIconOnly },
-                                              { tr("Text only"),            Qt::ToolButtonTextOnly },
-                                              { tr("Text beside icon"),     Qt::ToolButtonTextBesideIcon },
-                                              { tr("Text under icon"),      Qt::ToolButtonTextUnderIcon },
-                                              { tr("<Follow system style>"),Qt::ToolButtonFollowStyle } };
+        const QList<ToolStyle> toolStyles = { { tr( "<Follow system style>" ),  Qt::ToolButtonFollowStyle },
+                                              { tr( "Icon only" ),              Qt::ToolButtonIconOnly },
+                                              { tr( "Text only" ),              Qt::ToolButtonTextOnly },
+                                              { tr( "Text beside icon" ),       Qt::ToolButtonTextBesideIcon },
+                                              { tr( "Text under icon" ),        Qt::ToolButtonTextUnderIcon } };
 
         // App styles
         const QStringList appStyles = { tr( "Theme" ),
@@ -105,6 +106,9 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
                                             "Motif",
                                             "Plastique",
                                             "Windows" };
+
+        // Player double click behavior
+        QMap<QString, QString> playerBehaviors;
 
         // Saving formats
         typedef struct {

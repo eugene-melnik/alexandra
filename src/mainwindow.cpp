@@ -33,14 +33,8 @@
 
 MainWindow::MainWindow( AlexandraSettings* s ) : QMainWindow(), settings( s )
 {
-    // Interface
     setupUi( this );
     setWindowTitle( Alexandra::appNameGui );
-
-    // Data
-    contextMenu = new FilmsViewContextMenu( this );
-    externalPlayer = new QProcess( this );
-    filmsList = new FilmsList( settings, this );
 
     SetupWindows();
     SetupFilmsView();
@@ -371,16 +365,30 @@ void MainWindow::PlaylistCleared()
     wPlaylist->hide();
 }
 
-void MainWindow::PlayOrNot()
+void MainWindow::DoubleClickBehavior()
 {
-    // FIXME: temporary solution
-    if( lwPlaylist->IsEmpty() )
+    QString s = settings->GetPlayerDoubleClickBehavior();
+
+    if( s == "play" )
     {
         PlayFilm();
     }
-    else
+    else if( s == "add-to-list" )
     {
         AddToPlaylist();
+    }
+    else
+    // "auto" mode -- plays film if playlist is empty
+    // and adds film to playlist otherwise
+    {
+        if( lwPlaylist->IsEmpty() )
+        {
+            PlayFilm();
+        }
+        else
+        {
+            AddToPlaylist();
+        }
     }
 }
 
@@ -402,7 +410,7 @@ void MainWindow::PlayFilm()
         }
 
 #ifdef Q_OS_LINUX
-        //externalPlayer->start( settings->GetExternalPlayer() + " \"" + fileToPlay +"\"" );
+        externalPlayer->start( settings->GetExternalPlayer() + " \"" + fileToPlay +"\"" );
 #elif defined(Q_OS_WIN32)
         externalPlayer->start( "\"" + settings->GetExternalPlayer() + "\" \"" + fileToPlay +"\"" );
 #endif
@@ -427,6 +435,7 @@ void MainWindow::PlayerClosed()
     bPlay->setText( tr( "&PLAY" ) );
 
     // TODO: make all films of playlist is viewed
+    // need to think about this
     if( lwPlaylist->IsEmpty() )
     {
         filmsList->IncCurrentFilmViewsCounter();
@@ -716,7 +725,7 @@ void MainWindow::SetupFilmsView()
     // Base signals
     connect( view, SIGNAL( ItemClicked(QString) ), filmsList, SLOT( SetCurrentFilm(QString) ) );
     connect( view, SIGNAL( ItemClicked(QString) ), this, SLOT( ShowFilmInformation() ) );
-    connect( view, SIGNAL( ItemDoubleClicked(QString) ), this, SLOT( PlayOrNot() ) );
+    connect( view, SIGNAL( ItemDoubleClicked(QString) ), this, SLOT( DoubleClickBehavior() ) );
     connect( view, SIGNAL( ContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
     // Add film window
     connect( addFilmWindow, SIGNAL( Done(Film) ), view, SLOT( AddItem(Film) ) );
@@ -741,15 +750,17 @@ void MainWindow::SetupWindows()
     if( settings->GetApplicationShowSplashScreen() )
     {
         splashScreen = new SplashScreen();
-        splashScreen->show();
-
         connect( this, &MainWindow::Shown, splashScreen, &SplashScreen::Close );
+        splashScreen->show();
 
         qApp->processEvents(); // For splashscreen drawing
         qApp->processEvents(); // WTF: works only if run twice...
     }
 
     /// Main window
+    contextMenu = new FilmsViewContextMenu( this );
+    filmsList = new FilmsList( settings, this );
+
     connect( this, &MainWindow::Shown, this, &MainWindow::show );
 
     connect( actionShowFullscreen, &QAction::toggled, this, &MainWindow::ShowFullScreen );
@@ -765,10 +776,14 @@ void MainWindow::SetupWindows()
     connect( filmsList, &FilmsList::DatabaseIsReadonly, this, &MainWindow::DatabaseIsReadonly );
     connect( filmsList, &FilmsList::DatabaseIsEmpty, this, &MainWindow::DatabaseIsEmpty );
 
+    // Player
+    externalPlayer = new QProcess( this );
+
     // Playlist
     connect( bAddToPlaylist, &QPushButton::clicked, this, &MainWindow::AddToPlaylist );
-    connect( lwPlaylist, &PlayListWidget::Cleared, this, &MainWindow::PlaylistCleared );
+    connect( contextMenu, &FilmsViewContextMenu::actionAddToList, this, &MainWindow::AddToPlaylist );
 
+    connect( lwPlaylist, &PlayListWidget::Cleared, this, &MainWindow::PlaylistCleared );
     wPlaylist->hide();
 
     // Play button
@@ -884,6 +899,7 @@ void MainWindow::SetupWindows()
     // Created button 0x0 pixels, which do stuff on shortcut
     connect( bActivateQuickSearch, &QPushButton::clicked, this, [this] { eFilter->setFocus(); } );
     connect( bSetViewFocus, &QPushButton::clicked, this, &MainWindow::QuickSearchEscBehavior );
+
     bSetViewFocus->setShortcut( QKeySequence( "Esc" ) );
 }
 

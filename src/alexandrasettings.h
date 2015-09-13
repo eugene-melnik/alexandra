@@ -87,6 +87,8 @@ class AlexandraSettings : public QSettings
         QString GetShortcutShowFullscreen() const;
         QString GetShortcutExit() const;
 
+        QString GetPlayerDoubleClickBehavior() const;
+
         /* Set */
 
         void SetDatabaseFilePath( const QString& s );
@@ -141,6 +143,8 @@ class AlexandraSettings : public QSettings
         void SetShortcutShowToolbar( const QString& s );
         void SetShortcutShowFullscreen( const QString& s );
         void SetShortcutExit( const QString& s );
+
+        void SetPlayerDoubleClickBehavior( const QString& s );
 };
 
 #endif // ALEXANDRASETTINGS_H
