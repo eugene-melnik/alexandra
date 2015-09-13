@@ -118,10 +118,17 @@ void StatisticsWindow::ShowMainStatistics( int          threadViewedFilms,
         }
 
         // List of most popular films
-        // Sorting by views count
+        // Sorting by views count and alphabet
         std::sort( topFilms.begin(), topFilms.end(), [] ( TopFilm a, TopFilm b )
         {
-            return( a.viewsCount < b.viewsCount );
+            if( a.viewsCount == b.viewsCount )
+            {
+                return( a.filmTitle > b.filmTitle );
+            }
+            else
+            {
+                return( a.viewsCount < b.viewsCount );
+            }
         } );
 
         // Show in list widget
