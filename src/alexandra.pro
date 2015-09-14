@@ -20,14 +20,13 @@ QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -Ofast 
 
 LIBS += -lstdc++ -lpthread
-linux:LIBS += -lmediainfo
 
-win32:RC_FILE = $$PWD\..\windows\win-meta.rc
-win32:LIBS += $$PWD\..\lib\MediaInfo.dll
 win32:INCLUDEPATH += $$PWD\..\lib\
+win32:RC_FILE = $$PWD\..\windows\win-meta.rc
 
 # Options
 DEFINES += _UNICODE UNICODE
+#DEFINES += MEDIAINFO_SUPPORT
 #DEFINES += PORTABLE_VERSION
 
 # Source files
@@ -40,7 +39,6 @@ HEADERS += effects/effectdropshadow.h \
            editfilmwindow.h \
            filesextensions.h \
            film.h \
-           filminfowindow.h \
            filmscannerwindow.h \
            filmscannerworker.h \
            filmscanneraddworker.h \
@@ -50,7 +48,6 @@ HEADERS += effects/effectdropshadow.h \
            filmsviewgridmodel.h \
            filmsviewlist.h \
            mainwindow.h \
-           mediainfo.h \
            movedfilmswindow.h \
            playlist.h \
            playlistwidget.h \
@@ -73,7 +70,6 @@ SOURCES += effects/effectdropshadow.cpp \
            editfilmwindow.cpp \
            filesextensions.cpp \
            film.cpp \
-           filminfowindow.cpp \
            filmscannerwindow.cpp \
            filmscannerworker.cpp \
            filmscanneraddworker.cpp \
@@ -84,7 +80,6 @@ SOURCES += effects/effectdropshadow.cpp \
            filmsviewlist.cpp \
            main.cpp \
            mainwindow.cpp \
-           mediainfo.cpp \
            movedfilmswindow.cpp \
            playlist.cpp \
            playlistwidget.cpp \
@@ -100,7 +95,6 @@ SOURCES += effects/effectdropshadow.cpp \
 
 FORMS += aboutwindow.ui \
          addfilmwindow.ui \
-         filminfowindow.ui \
          filmscannerwindow.ui \
          mainwindow.ui \
          movedfilmswindow.ui \
@@ -117,6 +111,23 @@ TRANSLATIONS += ../lang/alexandra-cs.ts \
 RESOURCES = icons.qrc \
             images.qrc \
             lang.qrc
+
+# MediaInfo support
+contains( DEFINES, MEDIAINFO_SUPPORT ) {
+    message( "MediaInfo support enabled." )
+
+    HEADERS += filminfowindow.h mediainfo.h
+    SOURCES += filminfowindow.cpp mediainfo.cpp
+    FORMS += filminfowindow.ui
+
+    linux:LIBS += -lmediainfo
+    win32:LIBS += $$PWD\..\lib\MediaInfo.dll
+}
+
+# Portable version
+contains( DEFINES, PORTABLE_VERSION ) {
+    message( "Portable version." )
+}
 
 # Temporary files
 DESTDIR = ./

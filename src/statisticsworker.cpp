@@ -46,6 +46,7 @@ void StatisticsWorker::run()
                 totalViewsCount += i->GetViewsCounter();
 
                 // Wasted time
+#ifdef MEDIAINFO_SUPPORT
                 MediaInfo f( i->GetFileName() );
 
                 if( f.IsOpened() )
@@ -61,6 +62,7 @@ void StatisticsWorker::run()
                 {
                     allFilesOk = false;
                 }
+#endif // MEDIAINFO_SUPPORT
 
                 // Most popular
                 topFilms->append( { i->GetViewsCounter(), i->GetTitle() } );

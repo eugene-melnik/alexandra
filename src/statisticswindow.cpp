@@ -109,13 +109,23 @@ void StatisticsWindow::ShowMainStatistics( int          threadViewedFilms,
     topFilms.append( *threadTopFilms );
     delete threadTopFilms;
 
+    // Other information
+    lFilmsViewed->setText( QString::number( this->viewedFilms ) );
+    lTotalViews->setText( QString::number( this->totalViewsCount ) );
+    lWastedTime->setText( this->wastedTime.ToString() );
+
     if( --threadsCount == 0 ) // End of scanning
     {
+#ifdef MEDIAINFO_SUPPORT
         if( allFilesOk ) // Condition when unable to access all the files
         {
             lWastedTime->setText( lWastedTime->text() + " (?)" );
             lWastedTime->setToolTip( tr( "The calculation is not accurate, because some files are not available." ) );
         }
+#else
+        labelWastedTime->hide();
+        lWastedTime->hide();
+#endif
 
         // List of most popular films
         // Sorting by views count and alphabet
@@ -141,11 +151,6 @@ void StatisticsWindow::ShowMainStatistics( int          threadViewedFilms,
         progressBar->hide();
         topFilms.clear();
     }
-
-    // Show other information
-    lFilmsViewed->setText( QString::number( this->viewedFilms ) );
-    lTotalViews->setText( QString::number( this->totalViewsCount ) );
-    lWastedTime->setText( this->wastedTime.ToString() );
 
     calculateMutex.unlock();
 }

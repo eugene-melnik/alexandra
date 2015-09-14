@@ -34,25 +34,29 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
 
     // Base information
     lAppName->setText( Alexandra::appNameGui );
+    lQtVersion->setText( QT_VERSION_STR );
+    lAuthor->setText( Alexandra::appAuthor );
+    lLicense->setText( Alexandra::appLicense );
 
 #ifdef PORTABLE_VERSION
     lAppVersion->setText( tr( "version %1 (portable) (build date: %2)" ).arg( Alexandra::appVersionFull, Alexandra::appBuildDate ) );
 #else
     lAppVersion->setText( tr( "version %1 (build date: %2)" ).arg( Alexandra::appVersionFull, Alexandra::appBuildDate ) );
-#endif
+#endif // PORTABLE_VERSION
 
 #ifdef __VERSION__
     lGccVersion->setText( __VERSION__ );
 #else
     labelGccVersion->hide();
     lGccVersion->hide();
-#endif
+#endif // __VERSION__
 
-    lQtVersion->setText( QT_VERSION_STR );
+#ifdef MEDIAINFO_SUPPORT
     lMIVersion->setText( MediaInfo::GetLibraryVersion() );
-
-    lAuthor->setText( Alexandra::appAuthor );
-    lLicense->setText( Alexandra::appLicense );
+#else
+    labelMIVersion->hide();
+    lMIVersion->hide();
+#endif // MEDIAINFO_SUPPORT
 
     // List of translators
     QString t;

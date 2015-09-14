@@ -241,7 +241,9 @@ void MainWindow::ShowFilmInformation()
     if( QFileInfo( f->GetFileName() ).exists() )
     {
         // File exists
+#ifdef MEDIAINFO_SUPPORT
         filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
+#endif
         bPlay->setEnabled( true );
     }
     else
@@ -825,12 +827,14 @@ void MainWindow::SetupWindows()
     connect( contextMenu, &FilmsViewContextMenu::actionRemoveFile, this, &MainWindow::RemoveFile );
 
     /// Film info window
+#ifdef MEDIAINFO_SUPPORT
     filmInfoWindow = new FilmInfoWindow( this );
 
     connect( bTechInformation, &QPushButton::clicked, filmInfoWindow, &FilmInfoWindow::show );
     connect( contextMenu, &FilmsViewContextMenu::actionShowInfo, filmInfoWindow, &FilmInfoWindow::show );
 
     connect( filmInfoWindow, &FilmInfoWindow::ShortInfoLoaded, this, &MainWindow::ShowShortTechnicalInfo );
+#endif // MEDIAINFO_SUPPORT
 
     /// Search window
     searchWindow = new SearchWindow( filmsList->GetFilmsList(), this );
