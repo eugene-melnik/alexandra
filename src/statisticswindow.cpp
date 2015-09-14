@@ -110,14 +110,14 @@ void StatisticsWindow::ShowMainStatistics( int          threadViewedFilms,
     delete threadTopFilms;
 
     // Other information
-    lFilmsViewed->setText( QString::number( this->viewedFilms ) );
-    lTotalViews->setText( QString::number( this->totalViewsCount ) );
-    lWastedTime->setText( this->wastedTime.ToString() );
+    lFilmsViewed->setText( QString::number( viewedFilms ) );
+    lTotalViews->setText( QString::number( totalViewsCount ) );
+    lWastedTime->setText( wastedTime.ToString() );
 
     if( --threadsCount == 0 ) // End of scanning
     {
 #ifdef MEDIAINFO_SUPPORT
-        if( allFilesOk ) // Condition when unable to access all the files
+        if( !allFilesOk ) // Condition when unable to access all the files
         {
             lWastedTime->setText( lWastedTime->text() + " (?)" );
             lWastedTime->setToolTip( tr( "The calculation is not accurate, because some files are not available." ) );
