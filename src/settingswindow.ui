@@ -108,8 +108,12 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="bFontSelectDefault">
-                  <property name="text">
+                  <property name="toolTip">
                    <string>Default</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
                   </property>
                  </widget>
                 </item>
@@ -490,8 +494,12 @@
             </item>
             <item>
              <widget class="QPushButton" name="bExternalPlayerDefault">
-              <property name="text">
+              <property name="toolTip">
                <string>Default</string>
+              </property>
+              <property name="icon">
+               <iconset resource="icons.qrc">
+                <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
               </property>
              </widget>
             </item>
@@ -583,6 +591,10 @@
               <property name="text">
                <string>Create database</string>
               </property>
+              <property name="icon">
+               <iconset resource="icons.qrc">
+                <normaloff>:/tool/add</normaloff>:/tool/add</iconset>
+              </property>
              </widget>
             </item>
             <item>
@@ -598,6 +610,10 @@
               </property>
               <property name="text">
                <string>Erase database</string>
+              </property>
+              <property name="icon">
+               <iconset resource="icons.qrc">
+                <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
               </property>
              </widget>
             </item>
@@ -760,6 +776,9 @@
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
         <layout class="QHBoxLayout" name="hlAddFilm" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelAddFilm">
            <property name="text">
@@ -772,15 +791,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultAddFilm">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearAddFilm">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -788,6 +815,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlEditFilm" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelEditFilm">
            <property name="text">
@@ -800,15 +830,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultEditFilm">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearEditFilm">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -816,6 +854,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlRemoveFilm" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelRemoveFilm">
            <property name="text">
@@ -828,15 +869,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultRemoveFilm">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearRemoveFilm">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -851,6 +900,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlSelectRandomFilm" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelSelectRandomFilm">
            <property name="text">
@@ -863,15 +915,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultSelectRandomFilm">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearSelectRandomFilm">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -879,6 +939,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlActivateQuickSearch" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelActivateQuickSearch">
            <property name="text">
@@ -891,15 +954,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultActivateQuickSearch">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearActivateQuickSearch">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -907,6 +978,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlAdvancedSearch" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelAdvancedSearch">
            <property name="text">
@@ -919,15 +993,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultAdvancedSearch">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearAdvancedSearch">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -942,6 +1024,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlPlay" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelPlay">
            <property name="text">
@@ -954,15 +1039,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultPlay">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearPlay">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -977,6 +1070,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlSettings" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelSettings">
            <property name="text">
@@ -989,15 +1085,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultSettings">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearSettings">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -1005,6 +1109,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlShowToolbar" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelShowToolbar">
            <property name="text">
@@ -1017,15 +1124,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultShowToolbar">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearShowToolbar">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -1033,6 +1148,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlShowFullscreen" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelShowFullscreen">
            <property name="text">
@@ -1045,15 +1163,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultShowFullscreen">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearShowFullscreen">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>
@@ -1068,6 +1194,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlExit" stretch="1,1,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="labelExit">
            <property name="text">
@@ -1080,15 +1209,23 @@
          </item>
          <item>
           <widget class="QPushButton" name="bDefaultExit">
-           <property name="text">
+           <property name="toolTip">
             <string>Default</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/default</normaloff>:/tool/default</iconset>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="bClearExit">
-           <property name="text">
+           <property name="toolTip">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset resource="icons.qrc">
+             <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
            </property>
           </widget>
          </item>

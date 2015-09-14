@@ -23,6 +23,7 @@
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QPushButton>
+#include <memory>
 #include <thread>
 
 FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
@@ -51,7 +52,7 @@ void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )
 void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
 {
     loadInfoMutex.lock();
-    MediaInfo* mi = new MediaInfo( fileName );
+    std::unique_ptr<MediaInfo> mi( new MediaInfo( fileName ) );
 
     // Short info
     QString shortInfo = QString( "%1 &bull; %2 &bull; %3<br/>" ).arg( mi->GetFormat(),
@@ -67,7 +68,6 @@ void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
     // Full info
     emit FullInfoLoaded( mi->GetCompleteData() );
 
-    delete mi;
     loadInfoMutex.unlock();
 }
 

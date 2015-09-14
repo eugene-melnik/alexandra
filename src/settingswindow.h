@@ -87,16 +87,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         bool isNeedReboot;
 
         // Toolbar styles
-        typedef struct {
-            QString name;
-            Qt::ToolButtonStyle style;
-        } ToolStyle;
-
-        const QList<ToolStyle> toolStyles = { { tr( "<Follow system style>" ),  Qt::ToolButtonFollowStyle },
-                                              { tr( "Icon only" ),              Qt::ToolButtonIconOnly },
-                                              { tr( "Text only" ),              Qt::ToolButtonTextOnly },
-                                              { tr( "Text beside icon" ),       Qt::ToolButtonTextBesideIcon },
-                                              { tr( "Text under icon" ),        Qt::ToolButtonTextUnderIcon } };
+        QMap<int, QString> toolStyles;
 
         // App styles
         const QStringList appStyles = { tr( "Theme" ),

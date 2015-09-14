@@ -23,6 +23,7 @@
 
 #include <QDir>
 #include <QFileInfo>
+#include <memory>
 
 void FilmScannerWorker::run()
 {
@@ -74,9 +75,8 @@ QList<QString>* FilmScannerWorker::ScanDirectoryRecursive( const QString& dir )
     {
         if( isCanceled ) break; // Scanning canceled
 
-        QList<QString>* subdirFiles = ScanDirectoryRecursive( i->absoluteFilePath() );
+        std::unique_ptr<QList<QString>> subdirFiles( ScanDirectoryRecursive( i->absoluteFilePath() ) );
         result->append( *subdirFiles );
-        delete subdirFiles;
     }
 
     return( result );

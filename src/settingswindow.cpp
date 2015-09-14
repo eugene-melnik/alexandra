@@ -95,7 +95,7 @@ void SettingsWindow::OkButtonClicked()
         }
 
         settings->SetApplicationThemeIndex( cbTheme->currentIndex() );
-        settings->SetMainWindowToolbarStyle( toolStyles[ cbToolbarStyle->currentIndex() ].style  );
+        settings->SetMainWindowToolbarStyle( cbToolbarStyle->currentIndex() );
 
         if( rbListView->isChecked() )
         {
@@ -441,10 +441,13 @@ void SettingsWindow::ConfigureAppearanceTab()
     }
 
     // Toolbar style ComboBox
-    for( const ToolStyle& toolStyle : toolStyles )
-    {
-        cbToolbarStyle->addItem( toolStyle.name );
-    }
+    toolStyles.insert( Qt::ToolButtonIconOnly,       tr( "Icon only" ) );
+    toolStyles.insert( Qt::ToolButtonTextOnly,       tr( "Text only" ) );
+    toolStyles.insert( Qt::ToolButtonTextBesideIcon, tr( "Text beside icon" ) );
+    toolStyles.insert( Qt::ToolButtonTextUnderIcon,  tr( "Text under icon" ) );
+    toolStyles.insert( Qt::ToolButtonFollowStyle,    tr( "<Follow system style>" ) );
+
+    cbToolbarStyle->addItems( toolStyles.values() );
 }
 
 void SettingsWindow::ReconfigureAppearanceTab()
