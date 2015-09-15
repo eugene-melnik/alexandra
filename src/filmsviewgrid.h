@@ -23,6 +23,7 @@
 
 #include <QColor>
 #include <QListView>
+#include <QStringList>
 
 #include "abstractfilmsview.h"
 #include "alexandrasettings.h"
@@ -55,6 +56,7 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
 
         int GetItemsCount() const;
         int GetCurrentItemIndex() const;
+        QStringList GetSelectedItemsList() const;
 
         void SetCurrentItemIndex( int i );
 

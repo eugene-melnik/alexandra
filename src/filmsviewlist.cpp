@@ -30,7 +30,7 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
     setEditTriggers( QAbstractItemView::NoEditTriggers );
     setHorizontalScrollMode( QAbstractItemView::ScrollPerPixel );
     setSelectionBehavior( QAbstractItemView::SelectRows );
-    setSelectionMode( QAbstractItemView::SingleSelection );
+    setSelectionMode( QAbstractItemView::ExtendedSelection );
     setShowGrid( false );
     setSortingEnabled( true );
     setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
@@ -218,6 +218,18 @@ int FilmsViewList::GetItemsCount() const
 int FilmsViewList::GetCurrentItemIndex() const
 {
     return( currentRow() );
+}
+
+QStringList FilmsViewList::GetSelectedItemsList() const
+{
+    QStringList res;
+
+    for( const auto& item : selectedItems() ) // TODO: fix this shit, select rows*cols...
+    {
+        res.append( item->text() );
+    }
+
+    return( res );
 }
 
 void FilmsViewList::SetCurrentItemIndex( int i )

@@ -46,7 +46,7 @@ FilmInfoWindow::~FilmInfoWindow()
 void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )
 {
     eTechInfo->clear();
-    std::thread( &FilmInfoWindow::LoadTechnicalInfo, this, std::cref( fileName ) ).detach();
+    std::thread( &FilmInfoWindow::LoadTechnicalInfo, this, fileName ).detach();
 }
 
 void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )

@@ -26,6 +26,7 @@
 
 #include <QColor>
 #include <QString>
+#include <QStringList>
 
 // Basic interface for classes that display films in the program window
 
@@ -53,6 +54,7 @@ class AbstractFilmsView
 
         virtual int GetItemsCount() const = 0;
         virtual int GetCurrentItemIndex() const = 0;
+        virtual QStringList GetSelectedItemsList() const = 0;
 
         virtual void SetCurrentItemIndex( int i ) = 0;
 

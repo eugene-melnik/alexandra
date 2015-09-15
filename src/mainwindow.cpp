@@ -333,7 +333,7 @@ void MainWindow::ShowShortTechnicalInfo( const QString& info )
     lTechInformation->setVisible( true );
 }
 
-void MainWindow::AddToPlaylist()
+void MainWindow::AddToPlaylist() //TODO:
 {
     bPlay->setText( tr( "Play list" ) );
     wPlaylist->show();
@@ -375,7 +375,7 @@ void MainWindow::DoubleClickBehavior()
     }
 }
 
-void MainWindow::PlayFilm()
+void MainWindow::PlayFilm() // TODO:
 {
     if( !bPlay->isEnabled() ) return;
 
@@ -439,15 +439,34 @@ void MainWindow::PlayerClosed()
 
 void MainWindow::RemoveFilm()
 {
-    int res = QMessageBox::question( this,
-                                     tr( "Remove film" ),
-                                     tr( "Are you sure to remove \"%1\"?" ).arg( filmsList->GetCurrentFilmTitle() ),
-                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
-
-    if( res == QMessageBox::Yes )
+    QStringList films = filmsView->GetSelectedItemsList();
+//TODO:
+    if( films.count() == 1 )
     {
-        filmsList->RemoveCurrentFilm();
-        filmsView->RemoveCurrentItem();
+        int res = QMessageBox::question( this,
+                                         tr( "Remove film" ),
+                                         tr( "Are you sure to remove \"%1\"?" ).arg( filmsList->GetCurrentFilmTitle() ),
+                                         QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+        if( res == QMessageBox::Yes )
+        {
+            filmsList->RemoveCurrentFilm();
+            filmsView->RemoveCurrentItem();
+        }
+    }
+    else // More than one film
+    {
+        QString message = tr( "Are you sure to remove %1?\n" ).arg( films.count() );
+
+        int res = QMessageBox::question( this,
+                                         tr( "Remove film" ),
+                                         message,
+                                         QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+        if( res == QMessageBox::Yes )
+        {
+            //
+        }
     }
 }
 

@@ -28,6 +28,7 @@
 FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
 {
     // Appearance
+    setSelectionMode( QAbstractItemView::ExtendedSelection );
     setContextMenuPolicy( Qt::CustomContextMenu );
     setResizeMode( QListView::Adjust );
     setViewMode( QListView::IconMode );
@@ -123,6 +124,18 @@ int FilmsViewGrid::GetItemsCount() const
 int FilmsViewGrid::GetCurrentItemIndex() const
 {
     return( currentIndex().row() );
+}
+
+QStringList FilmsViewGrid::GetSelectedItemsList() const
+{
+    QStringList res;
+
+    for( const auto& index : selectedIndexes() )
+    {
+        res.append( model->data( index, Qt::DisplayRole ).toString() );
+    }
+
+    return( res );
 }
 
 void FilmsViewGrid::SetCurrentItemIndex( int i )

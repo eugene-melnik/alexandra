@@ -139,7 +139,7 @@ void FilmsList::SaveToFile( const QString& fileName )
 
 void FilmsList::SaveToFileAsync( const QString& fileName )
 {
-    std::thread( &FilmsList::SaveToFile, this, std::cref( fileName ) ).detach();
+    std::thread( &FilmsList::SaveToFile, this, fileName ).detach();
 }
 
 int FilmsList::GetNumberOfFilms() const

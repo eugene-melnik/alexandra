@@ -57,6 +57,7 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
 
         int GetItemsCount() const;
         int GetCurrentItemIndex() const;
+        QStringList GetSelectedItemsList() const;
 
         void SetCurrentItemIndex( int i );
 
