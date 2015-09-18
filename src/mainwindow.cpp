@@ -334,13 +334,18 @@ void MainWindow::ShowShortTechnicalInfo( const QString& info )
     lTechInformation->setVisible( true );
 }
 
-void MainWindow::AddToPlaylist() //TODO:
+void MainWindow::AddToPlaylist()
 {
     bPlay->setText( tr( "Play list" ) );
     wPlaylist->show();
 
-    lwPlaylist->AddItem( filmsList->GetCurrentFilmTitle(),
-                         filmsList->GetCurrentFilmFileName() );
+    QStringList filmsTitles = filmsView->GetSelectedItemsList();
+
+    for( QString f : filmsTitles )
+    {
+        const Film* film = filmsList->GetFilmByTitle( f );
+        lwPlaylist->AddItem( film->GetTitle(), film->GetFileName() );
+    }
 }
 
 void MainWindow::PlaylistCleared()
@@ -376,12 +381,17 @@ void MainWindow::DoubleClickBehavior()
     }
 }
 
-void MainWindow::PlayFilm() // TODO:
+void MainWindow::PlayFilm()
 {
     if( !bPlay->isEnabled() ) return;
 
     if( externalPlayer->state() == QProcess::NotRunning )
     {
+        if( filmsView->GetSelectedItemsList().size() > 1 )
+        {
+            AddToPlaylist();
+        }
+
         QString fileToPlay;
 
         if( lwPlaylist->IsEmpty() )
