@@ -35,6 +35,7 @@
 #include <QMessageBox>
 #include <QRadioButton>
 #include <QSpinBox>
+#include <QStyleFactory>
 
 SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent )
     : QDialog( parent ), settings( s )
@@ -428,11 +429,11 @@ void SettingsWindow::ConfigureAppearanceTab()
 
     connect( cShowRightPanel, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
 
-    // Style ComboBox
-    for( const QString& style : appStyles )
-    {
-        cbStyle->addItem( style );
-    }
+    // Application styles
+    appStyles.append( tr( "<Theme>" ) );
+    appStyles.append( QStyleFactory::keys() );
+
+    cbStyle->addItems( appStyles );
 
     // Theme ComboBox
     for( const Alexandra::Theme& theme : Alexandra::themes )

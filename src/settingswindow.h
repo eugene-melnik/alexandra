@@ -86,17 +86,11 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         bool isViewChanged;
         bool isNeedReboot;
 
+        // App styles
+        QStringList appStyles;
+
         // Toolbar styles
         QMap<int, QString> toolStyles;
-
-        // App styles
-        const QStringList appStyles = { tr( "Theme" ),
-                                            "CDE",
-                                            "Cleanlooks",
-                                            "GTK+",
-                                            "Motif",
-                                            "Plastique",
-                                            "Windows" };
 
         // Player double click behavior
         QMap<QString, QString> playerBehaviors;

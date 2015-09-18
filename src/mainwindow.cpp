@@ -674,15 +674,17 @@ void MainWindow::LoadAppearance()
     // Style
     QString style = settings->GetApplicationStyleName();
 
-    if( style == tr( "Theme" ) )
+    if( style == tr( "<Theme>" ) )
     {
         QFile f( Alexandra::themes[ settings->GetApplicationThemeIndex() ].path + "style.qss" );
+
         f.open( QFile::ReadOnly );
         qApp->setStyleSheet( QString::fromUtf8( f.readAll() ) );
         f.close();
     }
     else
     {
+        qApp->setStyleSheet( "" );
         qApp->setStyle( style );
     }
 }
