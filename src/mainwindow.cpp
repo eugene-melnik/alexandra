@@ -682,7 +682,7 @@ void MainWindow::LoadAppearance()
         qApp->setStyleSheet( QString::fromUtf8( f.readAll() ) );
         f.close();
     }
-    else
+    else if( !style.isEmpty() )
     {
         qApp->setStyleSheet( "" );
         qApp->setStyle( style );
