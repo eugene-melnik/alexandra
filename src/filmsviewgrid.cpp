@@ -80,6 +80,21 @@ void FilmsViewGrid::RemoveItem( int n )
     SetCurrentItemIndex( n );
 }
 
+void FilmsViewGrid::RemoveItemByTitle( const QString& title )
+{
+    for( int i = 0; i < GetItemsCount(); i++ )
+    {
+        QModelIndex index = model->index( i, 0 );
+        QString t = model->data( index, Qt::DisplayRole ).toString();
+
+        if( t == title )
+        {
+            model->RemoveRow( i );
+            return;
+        }
+    }
+}
+
 void FilmsViewGrid::RemoveCurrentItem()
 {
     RemoveItem( GetCurrentItemIndex() );
@@ -153,6 +168,36 @@ void FilmsViewGrid::SetCurrentItemIndex( int i )
 
         setCurrentIndex( model->index( i, 0 ) );
         clicked( model->index( i, 0 ) );
+    }
+}
+
+void FilmsViewGrid::keyPressEvent(QKeyEvent *event)
+{
+    QListView::keyPressEvent( event );
+
+    switch( event->key() )
+    {
+        case Qt::Key_Home :
+        {
+            SetCurrentItemIndex( 0 );
+            ItemClickedSlot( currentIndex() );
+            break;
+        }
+        case Qt::Key_End :
+        {
+            SetCurrentItemIndex( GetItemsCount() - 1 );
+            ItemClickedSlot( currentIndex() );
+            break;
+        }
+        case Qt::Key_Down :
+        case Qt::Key_Up :
+        case Qt::Key_Left :
+        case Qt::Key_Right :
+        case Qt::Key_PageUp :
+        case Qt::Key_PageDown :
+        {
+            ItemClickedSlot( currentIndex() );
+        }
     }
 }
 

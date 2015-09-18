@@ -45,6 +45,7 @@ class AbstractFilmsView
         virtual void SetCurrentItemTo( const Film film ) = 0;
 
         virtual void RemoveItem( int n ) = 0;
+        virtual void RemoveItemByTitle( const QString& title ) = 0;
         virtual void RemoveCurrentItem() = 0;
         virtual void Clear() = 0;
 

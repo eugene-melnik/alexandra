@@ -142,9 +142,8 @@ QString FilmViewGridModel::GetItemTitle( int n )
     return( itemTitle.at( n ) );
 }
 
-int FilmViewGridModel::rowCount( const QModelIndex& parent ) const
+int FilmViewGridModel::rowCount( const QModelIndex& /* parent */ ) const
 {
-    Q_UNUSED( parent )
     return( itemTitle.size() );
 }
 

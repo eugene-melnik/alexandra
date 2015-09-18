@@ -72,7 +72,7 @@ void MainWindow::AddFilmsFromOutside( const QStringList& films )
         return;
     }
 
-    messageText = tr( "Add the following %1 film(s)?\n" ).arg( newFilms.size() ) + messageText;
+    messageText = tr( "Add the following film(s)?\n" ) + messageText;
 
     int res = QMessageBox::question( this,
                                      tr( "Add films" ),
@@ -164,10 +164,11 @@ void MainWindow::DatabaseReadError()
 
 void MainWindow::DatabaseIsEmpty()
 {
-    SetEmptyMode();
-
     ClearTextFields();
+    SetEmptyMode();
     lFilmTitle->setText( tr( "Database is empty!" ) );
+
+    repaint(); // Need for removing the artifacts
 
     QMessageBox::information( this,
                               tr( "Database is empty!"),
@@ -440,33 +441,46 @@ void MainWindow::PlayerClosed()
 void MainWindow::RemoveFilm()
 {
     QStringList films = filmsView->GetSelectedItemsList();
-//TODO:
-    if( films.count() == 1 )
-    {
-        int res = QMessageBox::question( this,
-                                         tr( "Remove film" ),
-                                         tr( "Are you sure to remove \"%1\"?" ).arg( filmsList->GetCurrentFilmTitle() ),
-                                         QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+    int res;
 
-        if( res == QMessageBox::Yes )
-        {
-            filmsList->RemoveCurrentFilm();
-            filmsView->RemoveCurrentItem();
-        }
+    if( films.count() == 1 ) // One film selected
+    {
+        res = QMessageBox::question( this,
+                                     tr( "Remove film" ),
+                                     tr( "Are you sure to remove \"%1\"?" ).arg( filmsList->GetCurrentFilmTitle() ),
+                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
     }
-    else // More than one film
+    else // More than one film selected
     {
-        QString message = tr( "Are you sure to remove %1?\n" ).arg( films.count() );
+        QString message = tr( "Are you sure to remove following films?\n" );
+        const int maxFilmsCount = 20;
+        int counter = 1;
 
-        int res = QMessageBox::question( this,
-                                         tr( "Remove film" ),
-                                         message,
-                                         QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
-
-        if( res == QMessageBox::Yes )
+        for( int i = 0; i < std::min( films.size(), maxFilmsCount ); i++ )
         {
-            //
+            message.append( QString( "%1) %2\n" ).arg( counter++ ).arg( films[i] ) );
         }
+
+        if( films.size() > maxFilmsCount )
+        {
+            message.append( "..." );
+        }
+
+        res = QMessageBox::question( this,
+                                     tr( "Remove film" ),
+                                     message,
+                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+    }
+
+    if( res == QMessageBox::Yes )
+    {
+        for( const QString& s : films )
+        {
+            filmsView->RemoveItemByTitle( s );
+            filmsList->RemoveFilmByTitle( s );
+        }
+
+        filmsView->SetCurrentItemIndex( 0 );
     }
 }
 
@@ -927,8 +941,6 @@ void MainWindow::ClearTextFields()
     lDescription->clear();
     lTags->clear();
     lTechInformation->clear();
-
-    repaint(); // Need for removing the artifacts
 }
 
 void MainWindow::SetAllFunctionsEnabled( bool b )
@@ -949,6 +961,7 @@ void MainWindow::SetAllFunctionsEnabled( bool b )
     bFavourite->setEnabled( b );
     bTechInformation->setEnabled( b );
     bPlay->setEnabled( b );
+    bAddToPlaylist->setEnabled( b );
 }
 
 void MainWindow::SetEmptyMode( bool b )
@@ -967,6 +980,7 @@ void MainWindow::SetEmptyMode( bool b )
     bFavourite->setDisabled( b );
     bTechInformation->setDisabled( b );
     bPlay->setDisabled( b );
+    bAddToPlaylist->setDisabled( b );
 }
 
 void MainWindow::SetReadOnlyMode( bool b )

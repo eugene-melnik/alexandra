@@ -22,6 +22,7 @@
 #define FILMSVIEWGRID_H
 
 #include <QColor>
+#include <QKeyEvent>
 #include <QListView>
 #include <QStringList>
 
@@ -47,6 +48,7 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void SetCurrentItemTo( const Film film );
 
         void RemoveItem( int n );
+        void RemoveItemByTitle( const QString& title );
         void RemoveCurrentItem();
         void Clear();
 
@@ -66,6 +68,7 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void ContextMenuRequested( QPoint );
 
     protected:
+        void keyPressEvent( QKeyEvent* event );
         void updateGeometries();
 
     private slots:

@@ -210,13 +210,20 @@ QString FilmsList::GetCurrentFilmTitle() const
     }
     else
     {
-        return( "" );
+        return( QString() );
     }
 }
 
 QString FilmsList::GetCurrentFilmFileName() const
 {
-    return( currentFilm->GetFileName() );
+    if( currentFilm != nullptr )
+    {
+        return( currentFilm->GetFileName() );
+    }
+    else
+    {
+        return( QString() );
+    }
 }
 
 int FilmsList::GetFilmsCount() const
@@ -315,23 +322,23 @@ void FilmsList::IncCurrentFilmViewsCounter()
 
 void FilmsList::RemoveCurrentFilm()
 {
-    // Remove poster image
-    if( currentFilm->GetIsPosterExists() == true )
+    RemoveFilm( *currentFilm );
+}
+
+void FilmsList::RemoveFilmByTitle( const QString& title )
+{
+    Film film;
+
+    for( QList<Film>::iterator f = films->begin(); f < films->end(); f++ )
     {
-        QString posterFileName = settings->GetPostersDirPath() + "/" + currentFilm->GetPosterName();
-        QFile( posterFileName ).remove();
+        if( f->GetTitle() == title )
+        {
+            film = *f;
+            break;
+        }
     }
 
-    // Remove record from database
-    films->removeOne( *currentFilm );
-    isDatabaseChanged = true;
-    currentFilm = nullptr;
-    emit DatabaseChanged();
-
-    if( films->isEmpty() )
-    {
-        emit DatabaseIsEmpty();
-    }
+    RemoveFilm( film );
 }
 
 void FilmsList::FilmsMoved()
@@ -374,4 +381,29 @@ void FilmsList::ResetViews()
 
     emit DatabaseLoaded();
     emit DatabaseChanged();
+}
+
+void FilmsList::RemoveFilm( const Film& film )
+{
+    // Remove poster image
+    if( film.GetIsPosterExists() == true )
+    {
+        QString posterFileName = settings->GetPostersDirPath() + "/" + film.GetPosterName();
+        QFile( posterFileName ).remove();
+    }
+
+    if( currentFilm != nullptr && film == *currentFilm )
+    {
+        currentFilm = nullptr;
+    }
+
+    // Remove record from database
+    films->removeOne( film );
+    isDatabaseChanged = true;
+    emit DatabaseChanged();
+
+    if( films->isEmpty() )
+    {
+        emit DatabaseIsEmpty();
+    }
 }

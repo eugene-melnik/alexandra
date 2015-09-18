@@ -43,8 +43,8 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
     horizontalHeader()->setMinimumSectionSize( 20 );
 
     // Signals
-    connect( this, &FilmsViewList::itemSelectionChanged, this, &FilmsViewList::ItemClickedSlot );
-    connect( this, &FilmsViewList::itemDoubleClicked, this, &FilmsViewList::ItemDoubleClickedSlot );
+    connect( this, &FilmsViewList::clicked, this, &FilmsViewList::ItemClickedSlot );
+    connect( this, &FilmsViewList::doubleClicked, this, &FilmsViewList::ItemDoubleClickedSlot );
     connect( this, &FilmsViewList::customContextMenuRequested, this, &FilmsViewList::ContextMenuRequestedSlot );
 
     // Columns setup
@@ -164,6 +164,21 @@ void FilmsViewList::RemoveItem( int n )
     removeRow( n );
 }
 
+void FilmsViewList::RemoveItemByTitle( const QString& title )
+{
+    for( int row = 0; row < rowCount(); row++ )
+    {
+        QModelIndex index = model()->index( row, TitleColumn );
+        QString t = model()->data( index, Qt::DisplayRole ).toString();
+
+        if( t == title )
+        {
+            removeRow( row );
+            return;
+        }
+    }
+}
+
 void FilmsViewList::RemoveCurrentItem()
 {
     RemoveItem( GetCurrentItemIndex() );
@@ -224,9 +239,9 @@ QStringList FilmsViewList::GetSelectedItemsList() const
 {
     QStringList res;
 
-    for( const auto& item : selectedItems() ) // TODO: fix this shit, select rows*cols...
+    for( const auto& rowIndex : selectionModel()->selectedRows() )
     {
-        res.append( item->text() );
+        res.append( item( rowIndex.row(), TitleColumn )->text() );
     }
 
     return( res );
@@ -242,7 +257,35 @@ void FilmsViewList::SetCurrentItemIndex( int i )
         }
 
         setCurrentCell( i, 0 );
-        itemClicked( item( i, 0 ) );
+        clicked( model()->index( i, 0 ) );
+    }
+}
+
+void FilmsViewList::keyPressEvent( QKeyEvent* event )
+{
+    QTableWidget::keyPressEvent( event );
+
+    switch( event->key() )
+    {
+        case Qt::Key_Home :
+        {
+            SetCurrentItemIndex( 0 );
+            ItemClickedSlot();
+            break;
+        }
+        case Qt::Key_End :
+        {
+            SetCurrentItemIndex( GetItemsCount() - 1 );
+            ItemClickedSlot();
+            break;
+        }
+        case Qt::Key_Down :
+        case Qt::Key_Up :
+        case Qt::Key_PageUp :
+        case Qt::Key_PageDown :
+        {
+            ItemClickedSlot();
+        }
     }
 }
 

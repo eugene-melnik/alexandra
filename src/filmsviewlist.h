@@ -22,6 +22,7 @@
 #define FILMSVIEWLIST_H
 
 #include <QColor>
+#include <QKeyEvent>
 #include <QPoint>
 #include <QStringList>
 #include <QTableWidget>
@@ -48,6 +49,7 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
         void SetCurrentItemTo( const Film film );
 
         void RemoveItem( int n );
+        void RemoveItemByTitle( const QString& title );
         void RemoveCurrentItem();
         void Clear();
 
@@ -65,6 +67,9 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
         void ItemClicked( const QString& );
         void ItemDoubleClicked( const QString& );
         void ContextMenuRequested( QPoint );
+
+    protected:
+        void keyPressEvent( QKeyEvent* event );
 
     private slots:
         void ItemClickedSlot();

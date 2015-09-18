@@ -70,6 +70,7 @@ class FilmsList : public QObject
         void IncCurrentFilmViewsCounter();
 
         void RemoveCurrentFilm();
+        void RemoveFilmByTitle( const QString& title );
         void FilmsMoved();
 
         void EraseAll();
@@ -84,9 +85,10 @@ class FilmsList : public QObject
 
         void DatabaseLoaded();
         void DatabaseChanged();
-        void FilmSelected( const Film* );
 
     private:
+        void RemoveFilm( const Film& film );
+
         // Variables
         AlexandraSettings* settings = nullptr;
         QList<Film>* films = nullptr;
