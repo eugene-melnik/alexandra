@@ -103,7 +103,7 @@ void AddFilmWindow::OpenFilm()
 
 void AddFilmWindow::OpenPosterFileClicked()
 {
-    if( bOpenPoster->text() == tr( "Open" ) ) // If poster isn't selected
+    if( ePosterFileName->text().isEmpty() ) // If poster isn't selected
     {
         QString lastPosterPath = settings->GetLastPosterPath();
 
