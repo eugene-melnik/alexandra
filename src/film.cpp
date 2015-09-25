@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "film.h"
+#include "debug.h"
 
 #include <QByteArray>
 #include <QCryptographicHash>
@@ -179,6 +180,8 @@ bool Film::SetBudgetFromStr( const QString& s )
 
 void Film::SetNewData( const Film& other )
 {
+    DebugPrintFuncA( "Film::SetNewData", other.GetFileName() );
+
     section = other.section;
     fileName = other.fileName;
     title = other.title;
@@ -205,6 +208,8 @@ void Film::SetNewData( const Film& other )
 
 QString Film::GetRandomHash()
 {
+    DebugPrintFunc( "Film::GetRandomHash" );
+
     QByteArray hash = QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 );
     return( QString( hash.toHex() ) );
 }

@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "alexandrasettings.h"
+#include "debug.h"
 #include "version.h"
 
 #include <QApplication>
@@ -27,6 +28,8 @@
 
 AlexandraSettings::AlexandraSettings( const QString& configFile ) : QSettings( configFile, QSettings::IniFormat )
 {
+    DebugPrintFuncA( "AlexandraSettings::AlexandraSettings", configFile );
+
     // In portable version of the program the database file and the posters directory
     // located in the same directory as the configuration file
 #ifdef PORTABLE_VERSION
@@ -65,6 +68,10 @@ AlexandraSettings::AlexandraSettings( const QString& configFile ) : QSettings( c
 #endif
         SetExternalPlayer( externalPlayerName );
     }
+
+    DebugPrint( "Database: " + databaseFileName );
+    DebugPrint( "Posters dir: " + postersFolderName );
+    DebugPrint( "External player: " + externalPlayerName );
 
     sync();
 }

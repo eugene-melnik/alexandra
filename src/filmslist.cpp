@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "debug.h"
 #include "filmslist.h"
 #include "version.h"
 
@@ -46,6 +47,8 @@ FilmsList::~FilmsList()
 
 void FilmsList::LoadFromFile( const QString& fileName )
 {
+    DebugPrintFuncA( "FilmsList::LoadFromFile", fileName );
+
     currentFilm = nullptr;
     films->clear();
 
@@ -75,6 +78,9 @@ void FilmsList::LoadFromFile( const QString& fileName )
         }
 
         std::sort( films->begin(), films->end() );
+
+        DebugPrintFuncDone( "FilmsList::LoadFromFile" );
+
         emit DatabaseLoaded();
 
         // Is Empty
@@ -94,6 +100,7 @@ void FilmsList::LoadFromFile( const QString& fileName )
     {
         emit DatabaseLoaded();
         emit DatabaseReadError();
+        DebugPrint( "Failed!" );
     }
 
     file.close();
@@ -103,6 +110,7 @@ void FilmsList::SaveToFile( const QString& fileName )
 {
     if( isDatabaseChanged )
     {
+        DebugPrintFuncA( "FilmsList::SaveToFile", fileName );
         asyncSaveToFileMutex.lock();
 
         QFile file( fileName );
@@ -134,6 +142,7 @@ void FilmsList::SaveToFile( const QString& fileName )
         isDatabaseChanged = false;
 
         asyncSaveToFileMutex.unlock();
+        DebugPrintFuncDone( "FilmsList::SaveToFile" );
     }
 }
 
@@ -184,6 +193,8 @@ QStringList* FilmsList::GetFilmsFileNames() const
 
 QList<Film*>* FilmsList::GetUnavailableFilms()
 {
+    DebugPrintFunc( "FilmsList::GetUnavailableFilms" );
+
     QList<Film*>* f = new QList<Film*>();
 
     for( QList<Film>::iterator iter = films->begin(); iter < films->end(); iter++ )
@@ -263,6 +274,8 @@ int FilmsList::GetIsFavouriteCount() const
 
 void FilmsList::AddFilm( const Film& film )
 {
+    DebugPrintFuncA( "FilmsList::AddFilm", film.GetFileName() );
+
     films->append( film );
     std::sort( films->begin(), films->end() );
 
@@ -272,8 +285,12 @@ void FilmsList::AddFilm( const Film& film )
 
 void FilmsList::AddFilms( const QList<Film>* newFilms )
 {
+    DebugPrintFuncA( "FilmsList::AddFilms", newFilms->size() );
+
     *films += *newFilms;
     std::sort( films->begin(), films->end() );
+
+    DebugPrintFuncDone( "FilmsList::AddFilms" );
 
     isDatabaseChanged = true;
     emit DatabaseChanged();
@@ -327,6 +344,8 @@ void FilmsList::RemoveCurrentFilm()
 
 void FilmsList::RemoveFilmByTitle( const QString& title )
 {
+    DebugPrintFuncA( "FilmsList::RemoveFilmByTitle", title );
+
     Film film;
 
     for( QList<Film>::iterator f = films->begin(); f < films->end(); f++ )
@@ -349,6 +368,8 @@ void FilmsList::FilmsMoved()
 
 void FilmsList::EraseAll()
 {
+    DebugPrintFunc( "FilmsList::EraseAll" );
+
     QString postersDir = settings->GetPostersDirPath();
 
     for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
@@ -361,6 +382,8 @@ void FilmsList::EraseAll()
 
     films->clear();
 
+    DebugPrintFuncDone( "FilmsList::EraseAll" );
+
     currentFilm = nullptr;
     isDatabaseChanged = true;
 
@@ -371,11 +394,15 @@ void FilmsList::EraseAll()
 
 void FilmsList::ResetViews()
 {
+    DebugPrintFunc( "FilmsList::ResetViews" );
+
     for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
     {
         i->SetIsViewed( false );
         i->SetViewCounter( 0 );
     }
+
+    DebugPrintFuncDone( "FilmsList::ResetViews" );
 
     isDatabaseChanged = true;
 
@@ -385,6 +412,8 @@ void FilmsList::ResetViews()
 
 void FilmsList::RemoveFilm( const Film& film )
 {
+    DebugPrintFuncA( "FilmsList::ResetViews", film.GetFileName() );
+
     // Remove poster image
     if( film.GetIsPosterExists() == true )
     {
@@ -399,6 +428,9 @@ void FilmsList::RemoveFilm( const Film& film )
 
     // Remove record from database
     films->removeOne( film );
+
+    DebugPrintFuncDone( "FilmsList::RemoveFilm" );
+
     isDatabaseChanged = true;
     emit DatabaseChanged();
 

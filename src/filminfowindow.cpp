@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "filminfowindow.h"
+#include "debug.h"
 
 #include <QMessageBox>
 #include <QPlainTextEdit>
@@ -51,7 +52,9 @@ void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )
 
 void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
 {
+    DebugPrintFuncA( "FilmInfoWindow::LoadTechnicalInfo", fileName );
     loadInfoMutex.lock();
+
     std::unique_ptr<MediaInfo> mi( new MediaInfo( fileName ) );
 
     // Short info
@@ -69,6 +72,7 @@ void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
     emit FullInfoLoaded( mi->GetCompleteData() );
 
     loadInfoMutex.unlock();
+    DebugPrintFuncDone( "FilmInfoWindow::LoadTechnicalInfo" );
 }
 
 void FilmInfoWindow::ShowFullInfo( const QString& s )

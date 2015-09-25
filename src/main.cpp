@@ -20,6 +20,7 @@
 
 #include "alexandrasettings.h"
 #include "commandlineparser.h"
+#include "debug.h"
 #include "mainwindow.h"
 #include "version.h"
 
@@ -31,6 +32,8 @@
 
 void LoadLocale( QApplication* app, int localeIndex )
 {
+    DebugPrintFunc( "::LoadLocale" );
+
     QString locale;
 
     if( localeIndex == -1 )
@@ -42,17 +45,24 @@ void LoadLocale( QApplication* app, int localeIndex )
         locale = Alexandra::supportedLocales[ localeIndex ].name;
     }
 
+    DebugPrint( "Loading locale: " + locale );
+
     QTranslator* translator = new QTranslator( app );
     translator->load( QString( ":/lang/alexandra-%1.qm" ).arg( locale ) );
-    app->installTranslator( translator );
+    bool isInstalled = app->installTranslator( translator );
 
     QTranslator* qt_translator = new QTranslator( app );
     qt_translator->load( QString( ":/lang/qt-%1.qm" ).arg( locale ) );
     app->installTranslator( qt_translator );
+
+    DebugPrint( isInstalled ? "Success" : "Failed!" );
 }
 
 int main( int argc, char** argv )
 {
+    DebugPrintFunc( "::main" );
+    DebugPrint( QString( "IdealThreadCount = %1" ).arg( QThread::idealThreadCount() ) );
+
     // Create seed for the random
     qsrand( QTime::currentTime().msecsSinceStartOfDay() );
 
@@ -83,7 +93,11 @@ int main( int argc, char** argv )
         mainWindow->AddFilmsFromOutside( parser.GetFilmsToAdd() );
     }
 
+    DebugPrintFunc( "alexandra.exec" );
+
     int res = alexandra.exec();
+
+    DebugPrintL( "Closed" );
 
     delete settings;
     delete mainWindow;

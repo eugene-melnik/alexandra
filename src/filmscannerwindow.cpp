@@ -20,6 +20,7 @@
 
 #include "filmscannerwindow.h"
 #include "filesextensions.h"
+#include "debug.h"
 
 #include <string>
 #include <QFileDialog>
@@ -59,6 +60,8 @@ FilmScannerWindow::~FilmScannerWindow()
 
 void FilmScannerWindow::show( QStringList* l )
 {
+    DebugPrintFunc( "FilmScannerWindow::show" );
+
     existsFileNames = l;
     progressBar->hide();
     eDirectory->setText( settings->GetFilmsScannerLastDir() );
@@ -102,6 +105,8 @@ void FilmScannerWindow::SelectDirectory()
 
 void FilmScannerWindow::Scan()
 {
+    DebugPrintFunc( "FilmScannerWindow::Scan" );
+
     // If scans
     if( bScan->text() == tr( "Cancel" ) )
     {
@@ -143,6 +148,8 @@ void FilmScannerWindow::IncFoundedTotal()
 
 void FilmScannerWindow::ShowFounded( QList<QString>* fileNames )
 {
+    DebugPrintFuncA( "FilmScannerWindow::ShowFounded", fileNames->size() );
+
     // Flip button
     bScan->setText( tr( "Scan" ) );
     progressBar->hide();

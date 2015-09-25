@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "movedfilmswindow.h"
+#include "debug.h"
 
 #include <QDir>
 #include <QFileDialog>
@@ -56,6 +57,8 @@ MovedFilmsWindow::~MovedFilmsWindow()
 
 void MovedFilmsWindow::show( QList<Film*>* f )
 {
+    DebugPrintFuncA( "MovedFilmsWindow::show", f->size() );
+
     films = f;
 
     if( films->size() == 0 )
@@ -107,6 +110,8 @@ void MovedFilmsWindow::SelectDirectory()
 
 void MovedFilmsWindow::Scan()
 {
+    DebugPrintFunc( "MovedFilmsWindow::Scan" );
+
     // If scans
     if( bScan->text() == tr( "Cancel" ) )
     {
@@ -136,8 +141,10 @@ void MovedFilmsWindow::Scan()
     progressBar->show();
 }
 
-void MovedFilmsWindow::ShowFounded(QList<QString> *fileNames)
+void MovedFilmsWindow::ShowFounded( QList<QString>* fileNames )
 {
+    DebugPrintFuncA( "MovedFilmsWindow::ShowFounded", fileNames->size() );
+
     // Flip button
     bScan->setText( tr( "Scan" ) );
     progressBar->hide();

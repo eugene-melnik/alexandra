@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "statisticswindow.h"
+#include "debug.h"
 
 #include <algorithm>
 #include <QMessageBox>
@@ -39,6 +40,8 @@ StatisticsWindow::~StatisticsWindow()
 
 void StatisticsWindow::show( const QList<Film>* films )
 {
+    DebugPrintFuncA( "StatisticsWindow::show", films->size() );
+
     viewedFilms = 0;
     totalViewsCount = 0;
     wastedTime.Reset();

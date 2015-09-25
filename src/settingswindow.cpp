@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "settingswindow.h"
+#include "debug.h"
 #include "version.h"
 
 #include <QCheckBox>
@@ -50,6 +51,8 @@ SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent )
 
 void SettingsWindow::show()
 {
+    DebugPrintFunc( "SettingsWindow::show" );
+
     ReconfigureAppearanceTab();
     ReconfigureApplicationTab();
     ReconfigureShortcutsTab();
@@ -71,6 +74,8 @@ void SettingsWindow::show()
 
 void SettingsWindow::OkButtonClicked()
 {
+    DebugPrintFunc( "SettingsWindow::OkButtonClicked" );
+
     // Show reboot message (if necessary)
     if( isNeedReboot )
     {
@@ -136,6 +141,8 @@ void SettingsWindow::OkButtonClicked()
             s.SetSetting( settings, currentKey );
         }
 
+        DebugPrintFuncDone( "SettingsWindow::OkButtonClicked" );
+
         settings->sync();
         emit SettingsChanged();
 
@@ -179,9 +186,13 @@ void SettingsWindow::SelectFont()
 
 void SettingsWindow::SelectFontDefault()
 {
+    DebugPrintFunc( "SettingsWindow::SelectFontDefault" );
+
     QFont defaultFont = QFontDatabase::systemFont( QFontDatabase::GeneralFont );
     bFontSelect->setFont( defaultFont );
     bFontSelect->setText( defaultFont.family() + QString( " %1" ).arg( defaultFont.pointSize() ) );
+
+    DebugPrint( defaultFont.toString() );
 }
 
 void SettingsWindow::SelectExternalPlayer()
@@ -342,6 +353,8 @@ void SettingsWindow::OpenPostersFolder()
 
 void SettingsWindow::ShortcutsKeySequenceHandler()
 {
+    DebugPrintFunc( "SettingsWindow::ShortcutsKeySequenceHandler" );
+
     QKeySequenceEdit* currentKeyEdit = dynamic_cast<QKeySequenceEdit*>( sender() );
     QString currentKey = currentKeyEdit->keySequence().toString();
 
@@ -351,6 +364,8 @@ void SettingsWindow::ShortcutsKeySequenceHandler()
     }
 
     SetIsSettingsChanged();
+
+    DebugPrint( currentKeyEdit->objectName() + ": " + currentKey );
 }
 
 void SettingsWindow::ShortcutsDefaultButtonHandler()
@@ -375,10 +390,14 @@ void SettingsWindow::ShortcutsDefaultButtonHandler()
 
 void SettingsWindow::ShortcutsClearButtonHandler()
 {
+    DebugPrintFunc( "SettingsWindow::ShortcutsClearButtonHandler" );
+
     for( auto& s : shortcuts )
     {
         if( s.buttonClear == sender() )
         {
+            DebugPrint( "Button: " + s.buttonClear->objectName() );
+
             s.keyEdit->clear();
             break;
         }

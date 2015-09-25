@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: playlist.h                                                                              *
+ *  file: debug.h                                                                                 *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,25 +18,52 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef PLAYLIST_H
-#define PLAYLIST_H
+#ifndef DEBUG_H
+#define DEBUG_H
 
-#include <QStringList>
+#include <QApplication>
 
-class PlayList
-{
-    public:
-        PlayList() = delete;
-        PlayList( const QStringList& p ) : pathes( p ) {}
+#ifdef QT_DEBUG
 
-        void AddPath( const QString& s ) { pathes.append( s ); }
-        void AddPathes( const QStringList& s ) { pathes.append( s ); }
-        void Clear() { pathes.clear(); }
+/*
+ * Output format:
+ *   [time] text
+ */
 
-        QString CreateTempListM3U8() const;
+    void DebugPrint( const QString& text );
+    void DebugPrintL( const QString& text );
 
-    private:
-        QStringList pathes;
-};
+/*
+ * Output format:
+ *   [time] FunctionName()
+ *   [time] FunctionName( argument )
+ *   [time] FunctionName( arg, um, ents )
+ *
+ * For example:
+ *   [21:21:01.123] AlexandraSettings::AlexandraSettings( configuration.conf )
+ */
 
-#endif // PLAYLIST_H
+    void DebugPrintFunc( const char* funcName );
+    void DebugPrintFuncA( const char* funcName, int argument );
+    void DebugPrintFuncA( const char* funcName, const QString& argument );
+
+/*
+ * Output format:
+ *   [time] Done <FunctionName>
+ */
+
+    void DebugPrintFuncDone( const char* funcName );
+
+#else
+
+    #define DebugPrint(text)
+    #define DebugPrintL(text)
+
+    #define DebugPrintFunc(funcName)
+    #define DebugPrintFuncA(funcName, argument)
+
+    #define DebugPrintFuncDone(funcName)
+
+#endif
+
+#endif //DEBUG_H

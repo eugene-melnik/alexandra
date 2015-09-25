@@ -20,6 +20,7 @@
 
 #include "addfilmwindow.h"
 #include "filesextensions.h"
+#include "debug.h"
 
 #include <string>
 #include <QCheckBox>
@@ -45,6 +46,8 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent )
 
 void AddFilmWindow::show()
 {
+    DebugPrintFunc( "AddFilmWindow::show" );
+
     bOpenPoster->setText( tr( "Open" ) );
     filmId = Film::GetRandomHash();
     QDialog::show();
@@ -58,6 +61,8 @@ void AddFilmWindow::closeEvent( QCloseEvent* event )
 
 void AddFilmWindow::OpenFilm()
 {
+    DebugPrintFunc( "AddFilmWindow::OpenFilm" );
+
     // Set path to the file depending on the settings
     // or the selected movie (if already selected)
     QString openPath;
@@ -103,13 +108,15 @@ void AddFilmWindow::OpenFilm()
 
 void AddFilmWindow::OpenPosterFileClicked()
 {
+    DebugPrintFunc( "AddFilmWindow::OpenPosterFileClicked" );
+
     if( ePosterFileName->text().isEmpty() ) // If poster isn't selected
     {
-        QString lastPosterPath = settings->GetLastPosterPath();
+        DebugPrint( "Select new poster" );
 
         QFileInfo fileName = QFileDialog::getOpenFileName( this,
                              tr( "Select image" ),
-                             lastPosterPath,
+                             settings->GetLastPosterPath(),
                              tr( "Images (%1)" ).arg( FilesExtensions().GetImageExtensionsForFilter() ) );
 
         if( fileName.isFile() )
@@ -122,6 +129,8 @@ void AddFilmWindow::OpenPosterFileClicked()
     }
     else // If poster is already selected
     {
+        DebugPrint( "Clearing poster" );
+
         // Cleaning the filename field and request to delete the file if
         // it has been moved to the directory of posters (for edit film function)
         QString posterPath = QFileInfo( ePosterFileName->text() ).absolutePath();
@@ -134,6 +143,8 @@ void AddFilmWindow::OpenPosterFileClicked()
 
             if( res == QMessageBox::Yes )
             {
+                DebugPrint( "With removing file: " + ePosterFileName->text() );
+
                 QFile( ePosterFileName->text() ).remove();
 
                 // Need to update information if poster removed

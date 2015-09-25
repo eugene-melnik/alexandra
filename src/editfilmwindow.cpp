@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "editfilmwindow.h"
+#include "debug.h"
 
 #include <QComboBox>
 #include <QLineEdit>
@@ -33,6 +34,8 @@ EditFilmWindow::EditFilmWindow( AlexandraSettings* s, QWidget* parent )
 
 void EditFilmWindow::show( const Film* f )
 {
+    DebugPrintFuncA( "EditFilmWindow::show", f->GetFileName() );
+
     // Setting button "Open poster" state depending on the availability of the image
     if( f->GetIsPosterExists() )
     {

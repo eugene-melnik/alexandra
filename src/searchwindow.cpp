@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "searchwindow.h"
+#include "debug.h"
 
 #include <QMessageBox>
 #include <QPushButton>
@@ -41,6 +42,8 @@ SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent )
 
 void SearchWindow::Search()
 {
+    DebugPrintFunc( "SearchWindow::Search" );
+
     if( eKeywords->text().isEmpty() )
     {
         QMessageBox::information( this, tr( "Search" ), tr( "Nothing to search. Input keyword first." ) );
@@ -94,6 +97,8 @@ void SearchWindow::Search()
     }
 
     UpdateTable( founded );
+
+    DebugPrintFuncDone( "SearchWindow::Search" );
 }
 
 void SearchWindow::OkButtonClicked()

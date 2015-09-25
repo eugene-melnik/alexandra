@@ -8,10 +8,12 @@
 TARGET = alexandra
 TEMPLATE = app
 
-#CONFIG += release
-CONFIG += debug
 
-# Main configuration
+#CONFIG += release
+CONFIG += debug console
+
+
+    # Main configuration #
 QT = core gui widgets
 CONFIG += qt warn_on thread
 
@@ -24,18 +26,21 @@ LIBS += -lstdc++ -lpthread
 win32:INCLUDEPATH += $$PWD\..\lib\
 win32:RC_FILE = $$PWD\..\windows\win-meta.rc
 
-# Options
+
+    # Options #
 DEFINES += _UNICODE UNICODE
 DEFINES += MEDIAINFO_SUPPORT
 #DEFINES += PORTABLE_VERSION
 
-# Source files
+
+    # Source files #
 HEADERS += effects/effectdropshadow.h \
            aboutwindow.h \
            abstractfilmsview.h \
            addfilmwindow.h \
            alexandrasettings.h \
            commandlineparser.h \
+           debug.h \
            editfilmwindow.h \
            filesextensions.h \
            film.h \
@@ -67,6 +72,7 @@ SOURCES += effects/effectdropshadow.cpp \
            addfilmwindow.cpp \
            alexandrasettings.cpp \
            commandlineparser.cpp \
+           debug.cpp \
            editfilmwindow.cpp \
            filesextensions.cpp \
            film.cpp \
@@ -112,7 +118,8 @@ RESOURCES = icons.qrc \
             images.qrc \
             lang.qrc
 
-# MediaInfo support
+
+    # MediaInfo support #
 contains( DEFINES, MEDIAINFO_SUPPORT ) {
     message( "MediaInfo support enabled." )
 
@@ -124,24 +131,28 @@ contains( DEFINES, MEDIAINFO_SUPPORT ) {
     win32:LIBS += $$PWD\..\lib\MediaInfo.dll
 }
 
-# Portable version
+
+    # Portable version #
 contains( DEFINES, PORTABLE_VERSION ) {
     message( "Portable version." )
 }
 
-# Temporary files
+
+    # Temporary files #
 DESTDIR = ./
 MOC_DIR = ./tmp/moc
 OBJECTS_DIR = ./tmp/obj
 RCC_DIR = ./tmp/rcc
 UI_DIR = ./tmp/ui
 
-# Stylesheets
+
+    # Stylesheets #
 RESOURCES += ../styles/alexandraflat-coast/alexandraflat-coast.qrc \
              ../styles/alexandraflat-rainforest/alexandraflat-rainforest.qrc \
              ../styles/qdarkstylesheet/qdarkstylesheet.qrc
 
-# Installation setup
+
+    # Installation setup #
 target.path = /usr/bin/
 
 desktop_file.files = ../linux/alexandra.desktop
@@ -161,3 +172,4 @@ INSTALLS = target \
            desktop_file_addfilms \
            icon_png \
            icon_svg
+

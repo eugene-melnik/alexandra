@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: playlist.h                                                                              *
+ *  file: debug.cpp                                                                               *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,25 +18,52 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef PLAYLIST_H
-#define PLAYLIST_H
+#include "debug.h"
 
-#include <QStringList>
+#ifdef QT_DEBUG
 
-class PlayList
+#include <cstdio>
+#include <QTime>
+
+const char* timeFormat = "hh:mm:ss.zzz";
+
+void DebugPrint( const QString& text )
 {
-    public:
-        PlayList() = delete;
-        PlayList( const QStringList& p ) : pathes( p ) {}
+    printf( "[%s] %s\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
+                         text.toStdString().c_str() );
+}
 
-        void AddPath( const QString& s ) { pathes.append( s ); }
-        void AddPathes( const QStringList& s ) { pathes.append( s ); }
-        void Clear() { pathes.clear(); }
+void DebugPrintL( const QString& text )
+{
+    printf( "\n[%s] %s\n\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
+                             text.toStdString().c_str() );
+}
 
-        QString CreateTempListM3U8() const;
+void DebugPrintFunc( const char* funcName )
+{
+    printf( "\n[%s] %s()\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
+                             funcName );
+}
 
-    private:
-        QStringList pathes;
-};
+void DebugPrintFuncA( const char* funcName, int argument )
+{
+    printf( "\n[%s] %s( %d )\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
+                                 funcName,
+                                 argument );
+}
 
-#endif // PLAYLIST_H
+void DebugPrintFuncA( const char* funcName, const QString& argument )
+{
+    printf( "\n[%s] %s( %s )\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
+                                 funcName,
+                                 argument.toStdString().c_str() );
+}
+
+
+void DebugPrintFuncDone( const char* funcName )
+{
+    printf( "[%s] Done <%s>\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
+                                funcName );
+}
+
+#endif // QT_DEBUG

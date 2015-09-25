@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "debug.h"
 #include "filesextensions.h"
 #include "filmsviewgrid.h"
 #include "filmsviewlist.h"
@@ -33,6 +34,8 @@
 
 MainWindow::MainWindow( AlexandraSettings* s ) : QMainWindow(), settings( s )
 {
+    DebugPrintFunc( "MainWindow::MainWindow" );
+
     setupUi( this );
     setWindowTitle( Alexandra::appNameGui );
 
@@ -46,6 +49,8 @@ MainWindow::MainWindow( AlexandraSettings* s ) : QMainWindow(), settings( s )
 
 void MainWindow::AddFilmsFromOutside( const QStringList& films )
 {
+    DebugPrintFuncA( "MainWindow::AddFilmsFromOutside", films.size() );
+
     QList<Film> newFilms;
     QString messageText;
 
@@ -91,6 +96,8 @@ void MainWindow::AddFilmsFromOutside( const QStringList& films )
 
 void MainWindow::closeEvent( QCloseEvent* event )
 {
+    DebugPrintFunc( "MainWindow::closeEvent" );
+
     hide();
     SaveSettings();
     event->accept();
@@ -130,12 +137,16 @@ void MainWindow::ResetStatistics()
 
 void MainWindow::ReloadDatabase()
 {
+    DebugPrintFunc( "MainWindow::ReloadDatabase" );
+
     filmsList->LoadFromFile( settings->GetDatabaseFilePath() );
     filmsView->SelectItem( settings->GetCurrentFilmTitle() );
 }
 
 void MainWindow::ReloadSettings()
 {
+    DebugPrintFunc( "MainWindow::ReloadSettings" );
+
     LoadAppearance();
     LoadShorcuts();
     wRight->setVisible( settings->GetMainWindowShowRightPanel() );
@@ -145,6 +156,8 @@ void MainWindow::ReloadSettings()
 
 void MainWindow::ReloadView()
 {
+    DebugPrintFunc( "MainWindow::ReloadView" );
+
     SetupFilmsView();
     filmsView->LoadSettings( settings );
     ShowFilms();
@@ -187,6 +200,8 @@ void MainWindow::DatabaseIsReadonly()
 
 void MainWindow::ShowFilms()
 {
+    DebugPrintFunc( "MainWindow::ShowFilms" );
+
     SetProgressMaximum( filmsList->GetFilmsCount() );
     statusbar->ShowLoading();
 
@@ -229,12 +244,16 @@ void MainWindow::ShowFilms()
 
 void MainWindow::ShowFilmInformation()
 {
+    DebugPrintFunc( "MainWindow::ShowFilmInformation" );
+
     const Film* f = filmsList->GetCurrentFilm();
 
     if( f == nullptr )
     {
         return;
     }
+
+    DebugPrint( "Selected film: " + f->GetFileName() );
 
     // Buttons and technical information
     bTechInformation->setEnabled( false );
@@ -309,16 +328,21 @@ void MainWindow::ShowFilmInformation()
 
     if( f->GetIsPosterExists() )
     {
-        p.load( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
+        QString posterFileName = settings->GetPostersDirPath() + "/" + f->GetPosterName();
+        DebugPrint( "Loading poster: " + posterFileName );
+        p.load( posterFileName );
     }
 
     if( p.isNull() )
     {
+        DebugPrint( "Loading standart poster" );
         p.load( ":/standart-poster" );
     }
 
     p = p.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
     lPosterImage->setPixmap( p );
+
+    DebugPrintFuncDone( "MainWindow::ShowFilmInformation" );
 }
 
 void MainWindow::ShowFilmContextMenu( QPoint p )
@@ -329,6 +353,8 @@ void MainWindow::ShowFilmContextMenu( QPoint p )
 
 void MainWindow::ShowShortTechnicalInfo( const QString& info )
 {
+    DebugPrintFunc( "MainWindow::ShowShortTechnicalInfo" );
+
     lTechInformation->setText( info );
     bTechInformation->setEnabled( true );
     lTechInformation->setVisible( true );
@@ -336,6 +362,8 @@ void MainWindow::ShowShortTechnicalInfo( const QString& info )
 
 void MainWindow::AddToPlaylist()
 {
+    DebugPrintFunc( "MainWindow::AddToPlaylist" );
+
     bPlay->setText( tr( "Play list" ) );
     wPlaylist->show();
 
@@ -383,6 +411,8 @@ void MainWindow::DoubleClickBehavior()
 
 void MainWindow::PlayFilm()
 {
+    DebugPrintFunc( "MainWindow::PlayFilm" );
+
     if( !bPlay->isEnabled() ) return;
 
     if( externalPlayer->state() == QProcess::NotRunning )
@@ -403,11 +433,11 @@ void MainWindow::PlayFilm()
             fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
         }
 
-#ifdef Q_OS_LINUX
+    #ifdef Q_OS_LINUX
         externalPlayer->start( settings->GetExternalPlayer() + " \"" + fileToPlay +"\"" );
-#elif defined(Q_OS_WIN32)
+    #elif defined(Q_OS_WIN32)
         externalPlayer->start( "\"" + settings->GetExternalPlayer() + "\" \"" + fileToPlay +"\"" );
-#endif
+    #endif
     }
     else
     {
@@ -420,6 +450,8 @@ void MainWindow::PlayerStarted()
     dynamic_cast<QWidget*>( filmsView )->setEnabled( false );
     eFilter->setEnabled( false );
     bPlay->setText( tr( "STOP" ) );
+
+    DebugPrint( "Player started" );
 }
 
 void MainWindow::PlayerClosed()
@@ -446,6 +478,8 @@ void MainWindow::PlayerClosed()
     }
 
     dynamic_cast<QWidget*>( filmsView )->setFocus();
+
+    DebugPrint( "Player stopped" );
 }
 
 void MainWindow::RemoveFilm()
@@ -519,6 +553,8 @@ void MainWindow::RemoveFile()
 
 void MainWindow::SetupCompleter()
 {
+    DebugPrintFunc( "MainWindow::SetupCompleter" );
+
     delete eFilter->completer();
 
     const QList<Film>* films = filmsList->GetFilmsList();
@@ -532,15 +568,22 @@ void MainWindow::SetupCompleter()
     QCompleter* c = new QCompleter( words, this );
     c->setCaseSensitivity( Qt::CaseInsensitive );
     eFilter->setCompleter( c );
+
+    DebugPrintFuncDone( "MainWindow::SetupCompleter" );
 }
 
 void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
 {
+    DebugPrintFuncA( "MainWindow::FilmsFilter", key );
+
     if( key.isEmpty() )
     {
         QString foundedTitle = filmsList->GetCurrentFilmTitle();
         ShowFilms();
         filmsView->SelectItem( foundedTitle );
+
+        DebugPrint( "Filter cleared" );
+
         return;
     }
 
@@ -616,10 +659,14 @@ void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
     }
 
     filmsView->SetCurrentItemIndex( 0 );
+
+    DebugPrint( "Filtered" );
 }
 
 void MainWindow::UpdateCurrentFilm()
 {
+    DebugPrintFunc( "MainWindow::UpdateCurrentFilm" );
+
     if( filmsList->GetCurrentFilm() != nullptr )
     {
         filmsView->SetCurrentItemTo( *filmsList->GetCurrentFilm() );
@@ -647,6 +694,8 @@ void MainWindow::StatusbarShowTotal()
 
 void MainWindow::LoadSettings()
 {
+    DebugPrintFunc( "MainWindow::LoadSettings" );
+
     LoadAppearance();
     LoadShorcuts();
 
@@ -681,11 +730,15 @@ void MainWindow::LoadAppearance()
         f.open( QFile::ReadOnly );
         qApp->setStyleSheet( QString::fromUtf8( f.readAll() ) );
         f.close();
+
+        DebugPrint( "Theme loaded: " + f.fileName() );
     }
     else if( !style.isEmpty() )
     {
         qApp->setStyleSheet( "" );
         qApp->setStyle( style );
+
+        DebugPrint( "Style loaded: " + style );
     }
 }
 
@@ -710,6 +763,8 @@ void MainWindow::LoadShorcuts()
 
 void MainWindow::SaveSettings()
 {
+    DebugPrintFunc( "MainWindow::SaveSettings" );
+
     // Main window
     settings->SetMainWindowState( saveState() );
     settings->SetMainWindowGeometry( saveGeometry() );
@@ -727,6 +782,8 @@ void MainWindow::SaveSettings()
 
 void MainWindow::SetupFilmsView()
 {
+    DebugPrintFunc( "MainWindow::SetupFilmsView" );
+
     if( filmsView != nullptr )
     {
         delete filmsView;
@@ -740,6 +797,7 @@ void MainWindow::SetupFilmsView()
         case Alexandra::GridMode :
         {
             view = new FilmsViewGrid( this );
+            DebugPrint( "Grid view mode" );
             break;
         }
 
@@ -747,6 +805,7 @@ void MainWindow::SetupFilmsView()
         default :
         {
             view = new FilmsViewList( this );
+            DebugPrint( "List view mode" );
         }
     }
 
@@ -770,10 +829,14 @@ void MainWindow::SetupFilmsView()
 
     view->show();
     view->setFocus();
+
+    DebugPrintFuncDone( "MainWindow::SetupFilmsView" );
 }
 
 void MainWindow::SetupWindows()
 {
+    DebugPrintFunc( "MainWindow::SetupWindows" );
+
     /// Splashscreen
     if( settings->GetApplicationShowSplashScreen() )
     {
@@ -931,6 +994,8 @@ void MainWindow::SetupWindows()
     connect( bSetViewFocus, &QPushButton::clicked, this, &MainWindow::QuickSearchEscBehavior );
 
     bSetViewFocus->setShortcut( QKeySequence( "Esc" ) );
+
+    DebugPrintFuncDone( "MainWindow::SetupWindows" );
 }
 
 void MainWindow::ClearTextFields()
