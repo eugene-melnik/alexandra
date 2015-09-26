@@ -5,6 +5,8 @@
 #                                                                   #
  ###################################################################
 
+    # Main configuration #
+
 TARGET = alexandra
 TEMPLATE = app
 
@@ -12,9 +14,7 @@ TEMPLATE = app
 #CONFIG += release
 CONFIG += debug console
 
-
-    # Main configuration #
-QT = core gui widgets
+QT = core gui widgets network
 CONFIG += qt warn_on thread
 
 QMAKE_CXXFLAGS += -std=c++11
@@ -28,19 +28,24 @@ win32:RC_FILE = $$PWD\..\windows\win-meta.rc
 
 
     # Options #
+
 DEFINES += _UNICODE UNICODE
 DEFINES += MEDIAINFO_SUPPORT
 #DEFINES += PORTABLE_VERSION
 
 
     # Source files #
+
 HEADERS += effects/effectdropshadow.h \
+           network/abstractparser.h \
+           network/networkrequest.h \
+           network/imdb/imdbparser.h \
+           network/kinopoisk/kinopoiskparser.h \
            aboutwindow.h \
            abstractfilmsview.h \
            addfilmwindow.h \
            alexandrasettings.h \
            commandlineparser.h \
-           debug.h \
            editfilmwindow.h \
            filesextensions.h \
            film.h \
@@ -68,11 +73,13 @@ HEADERS += effects/effectdropshadow.h \
            version.h
 
 SOURCES += effects/effectdropshadow.cpp \
+           network/networkrequest.cpp \
+           network/imdb/imdbparser.cpp \
+           network/kinopoisk/kinopoiskparser.cpp \
            aboutwindow.cpp \
            addfilmwindow.cpp \
            alexandrasettings.cpp \
            commandlineparser.cpp \
-           debug.cpp \
            editfilmwindow.cpp \
            filesextensions.cpp \
            film.cpp \
@@ -120,6 +127,7 @@ RESOURCES = icons.qrc \
 
 
     # MediaInfo support #
+
 contains( DEFINES, MEDIAINFO_SUPPORT ) {
     message( "MediaInfo support enabled." )
 
@@ -133,26 +141,45 @@ contains( DEFINES, MEDIAINFO_SUPPORT ) {
 
 
     # Portable version #
+
 contains( DEFINES, PORTABLE_VERSION ) {
     message( "Portable version." )
 }
 
+    # Debug & Release #
 
-    # Temporary files #
+CONFIG(debug, debug|release) {
+    message( "DEBUG mode" )
+
+    HEADERS += debug.h
+    SOURCES += debug.cpp
+
+    MOC_DIR = ./tmp/debug/moc
+    OBJECTS_DIR = ./tmp/debug/obj
+    RCC_DIR = ./tmp/debug/rcc
+    UI_DIR = ./tmp/debug/ui
+
+} else {
+    message( "RELEASE mode" )
+
+    MOC_DIR = ./tmp/release/moc
+    OBJECTS_DIR = ./tmp/release/obj
+    RCC_DIR = ./tmp/release/rcc
+    UI_DIR = ./tmp/release/ui
+}
+
 DESTDIR = ./
-MOC_DIR = ./tmp/moc
-OBJECTS_DIR = ./tmp/obj
-RCC_DIR = ./tmp/rcc
-UI_DIR = ./tmp/ui
 
 
     # Stylesheets #
+
 RESOURCES += ../styles/alexandraflat-coast/alexandraflat-coast.qrc \
              ../styles/alexandraflat-rainforest/alexandraflat-rainforest.qrc \
              ../styles/qdarkstylesheet/qdarkstylesheet.qrc
 
 
     # Installation setup #
+
 target.path = /usr/bin/
 
 desktop_file.files = ../linux/alexandra.desktop
