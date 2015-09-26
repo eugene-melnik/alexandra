@@ -547,7 +547,7 @@
     <message>
         <location filename="../src/filmsviewcontextmenu.cpp" line="31"/>
         <source>Add to playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter à la liste de lecture</translation>
     </message>
     <message>
         <location filename="../src/filmsviewcontextmenu.cpp" line="36"/>
@@ -675,12 +675,12 @@
     <message>
         <location filename="../src/mainwindow.ui" line="584"/>
         <source>Add to playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter à la liste de lecture</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="642"/>
         <source>Playlist:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste de lecture :</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="681"/>
@@ -948,7 +948,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="367"/>
         <source>Play list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture de la liste</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="452"/>
@@ -1104,12 +1104,12 @@
     <message>
         <location filename="../src/playlistwidget.cpp" line="72"/>
         <source>Remove from playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer de la liste de lecture</translation>
     </message>
     <message>
         <location filename="../src/playlistwidget.cpp" line="73"/>
         <source>Clear all</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout effacer</translation>
     </message>
 </context>
 <context>
@@ -1452,7 +1452,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="513"/>
         <source>Double click behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Comportement du double-clic</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="774"/>
@@ -1687,7 +1687,7 @@
     <message>
         <location filename="../src/settingswindow.cpp" line="541"/>
         <source>Add to playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter à la liste de lecture</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.cpp" line="464"/>
