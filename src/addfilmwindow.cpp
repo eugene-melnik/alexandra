@@ -37,17 +37,35 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent )
     : QDialog( parent ), settings( s )
 {
     setupUi( this );
+    progressBar->hide();
     bOpenFile->setFocus();
+
+    parser = new ParserManager();
+    cbOnlineSource->addItems( parser->GetAvailableParsers() );
+
+    connect( parser, &ParserManager::Loaded, this, &AddFilmWindow::InformationLoaded );
+    connect( parser, &ParserManager::Error, this, &AddFilmWindow::InformationLoadError );
+    connect( parser, &ParserManager::Progress, this, [this] (quint64 value, quint64 maximum) {
+        progressBar->setMaximum( maximum );
+        progressBar->setValue( value );
+    } );
 
     connect( bOpenFile, &QPushButton::clicked, this, &AddFilmWindow::OpenFilm );
     connect( bOpenPoster, &QPushButton::clicked, this, &AddFilmWindow::OpenPosterFileClicked );
+    connect( bLoad, &QPushButton::clicked, this, &AddFilmWindow::LoadInformation );
     connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::OkButtonClicked );
+}
+
+AddFilmWindow::~AddFilmWindow()
+{
+    delete parser;
 }
 
 void AddFilmWindow::show()
 {
     DebugPrintFunc( "AddFilmWindow::show" );
 
+    progressBar->hide();
     bOpenPoster->setText( tr( "Open" ) );
     filmId = Film::GetRandomHash();
     QDialog::show();
@@ -84,13 +102,21 @@ void AddFilmWindow::OpenFilm()
 
     if( fileName.isFile() )
     {
-        // If a file is selected set the file name and the title
-        // of the film (with the replacement of characters '_' to spaces)
+        // If a file is selected set the file name, title and the year (if presents
+        // in file name) of the film (with the replacement of characters '_' to spaces)
         eFilmFileName->setText( fileName.absoluteFilePath() );
+        QString title = fileName.completeBaseName().replace( "_", " " );
+
+        if( eYear->text().isEmpty() )
+        {
+            QRegExp regexp( "[0-9]{4}" );
+            int i = regexp.indexIn( title );
+            if( i >= 0 ) eYear->setText( title.mid( i, 4 ) );
+        }
 
         if( eTitle->text().isEmpty() )
         {
-            eTitle->setText( fileName.completeBaseName().replace( "_", " " ) );
+            eTitle->setText( title );
         }
 
         // Setting the path to the image file, if found in the same directory
@@ -156,6 +182,32 @@ void AddFilmWindow::OpenPosterFileClicked()
         ePosterFileName->clear();
         bOpenPoster->setText( tr( "Open" ) );
     }
+}
+
+void AddFilmWindow::LoadInformation()
+{
+    if( eTitle->text().isEmpty() && eOriginalTitle->text().isEmpty() )
+    {
+        QMessageBox::information( this, tr( "Loading information" ),
+                                        tr( "Input title for searching!" ) );
+        eTitle->setFocus();
+        return;
+    }
+
+    QString title = eTitle->text().isEmpty() ? eOriginalTitle->text() : eTitle->text();
+
+    parser->Reset();
+    parser->SetParserId( ParserManager::Parser( cbOnlineSource->currentIndex() ) );
+    parser->SetTitle( title );
+
+    if( !eYear->text().isEmpty() && eYear->text().length() == 4 )
+    {
+        parser->SetYear( eYear->text() );
+    }
+
+    parser->Search();
+    bLoad->setEnabled( false );
+    progressBar->show();
 }
 
 void AddFilmWindow::OkButtonClicked()
@@ -236,6 +288,43 @@ void AddFilmWindow::OkButtonClicked()
 
     close();
     emit Done( f );
+}
+
+void AddFilmWindow::InformationLoaded( const Film& f, const QString& posterFileName )
+{
+    if( !posterFileName.isEmpty() && ePosterFileName->text().isEmpty() )
+    {
+        ePosterFileName->setText( posterFileName );
+    }
+
+    eOriginalTitle->setText( f.GetOriginalTitle() );
+    eTagline->setText( f.GetTagline() );
+    eYear->setText( f.GetYearStr() );
+    eCountry->setText( f.GetCountry() );
+    eGenre->setText( f.GetGenre() );
+    cbRating->setCurrentIndex( f.GetRating() - 1 );
+    eDirector->setText( f.GetDirector() );
+    eProducer->setText( f.GetProducer() );
+    tStarring->setPlainText( f.GetStarring() );
+    tDescription->setPlainText( f.GetDescription() );
+    eTags->setText( f.GetTags() );
+    cIsViewed->setChecked( f.GetIsViewed() );
+    cIsFavourite->setChecked( f.GetIsFavourite() );
+    eBudget->setText( f.GetBudgetStr() );
+    eScreenwriter->setText( f.GetScreenwriter() );
+    eComposer->setText( f.GetComposer() );
+
+    bLoad->setEnabled( true );
+    progressBar->hide();
+}
+
+void AddFilmWindow::InformationLoadError( const QString& e )
+{
+    bLoad->setEnabled( true );
+    progressBar->hide();
+
+    QMessageBox::warning( this, tr( "Loading information" ),
+                                tr( "Error!\n%1" ).arg( e ) );
 }
 
 void AddFilmWindow::ClearFields()

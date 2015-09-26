@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>565</height>
+    <height>625</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -29,14 +29,14 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <layout class="QHBoxLayout" name="hl1">
      <item>
       <widget class="QLabel" name="labelFile">
        <property name="minimumSize">
         <size>
-         <width>80</width>
+         <width>100</width>
          <height>0</height>
         </size>
        </property>
@@ -82,7 +82,7 @@
       <widget class="QLabel" name="labelPoster">
        <property name="minimumSize">
         <size>
-         <width>80</width>
+         <width>100</width>
          <height>0</height>
         </size>
        </property>
@@ -130,58 +130,90 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl3">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="labelOriginalTitle">
-       <property name="minimumSize">
-        <size>
-         <width>80</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Original title</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="labelTitle">
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Title</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelOriginalTitle">
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Original title</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelLoadInformation">
+         <property name="text">
+          <string>Load information from</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QLineEdit" name="eOriginalTitle">
-       <property name="maxLength">
-        <number>500</number>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>true</bool>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLineEdit" name="eTitle">
+         <property name="maxLength">
+          <number>500</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="eOriginalTitle">
+         <property name="maxLength">
+          <number>500</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
+         <item>
+          <widget class="QComboBox" name="cbOnlineSource"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bLoad">
+           <property name="text">
+            <string>Load</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl4">
-     <item>
-      <widget class="QLabel" name="labelTitle">
-       <property name="minimumSize">
-        <size>
-         <width>80</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Title</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="eTitle">
-       <property name="maxLength">
-        <number>500</number>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="Line" name="l_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="hl5">
@@ -688,7 +720,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl12">
+    <layout class="QHBoxLayout" name="hl12" stretch="0,0,0,1,0,0,0">
      <item>
       <widget class="QCheckBox" name="cIsViewed">
        <property name="text">
@@ -711,13 +743,26 @@
       </widget>
      </item>
      <item>
-      <spacer name="hs1">
+      <widget class="QProgressBar" name="progressBar">
+       <property name="maximum">
+        <number>0</number>
+       </property>
+       <property name="value">
+        <number>-1</number>
+       </property>
+       <property name="format">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
+         <width>5</width>
          <height>20</height>
         </size>
        </property>

@@ -21,10 +21,20 @@
 #ifndef ABSTRACTPARSER_H
 #define ABSTRACTPARSER_H
 
+#include "film.h"
+
+#include <QString>
+
 class AbstractParser
 {
     public:
         virtual ~AbstractParser() {}
+
+        virtual void SearchFor( const QString& title, const QString& year = QString() ) = 0;
+
+//    signals:
+//        void Loaded( const Film& f, const QString& posterFileName );
+//        void Error( const QString& e);
 };
 
 #endif // ABSTRACTPARSER_H

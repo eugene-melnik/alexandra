@@ -23,14 +23,34 @@
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
+#include <QNetworkReply>
 #include <QObject>
+#include <QUrl>
 
 class NetworkRequest : public QObject
 {
     Q_OBJECT
 
     public:
-        NetworkRequest( const QUrl& url = QUrl() );
+        NetworkRequest() = default;
+
+        void run( const QUrl& url );
+
+    signals:
+        void Progress( quint64 received, quint64 total );
+        void DataLoaded( const QByteArray& data );
+        void DataLoadError( const QString& e );
+
+    private slots:
+        void ReadyRead();
+        void Finished();
+
+    private:
+        QUrl url;
+        QNetworkAccessManager accessManager;
+        QNetworkReply* reply = nullptr;
+
+        QByteArray data;
 };
 
 #endif // NETWORKREQUEST_H

@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: addfilmwindow.h                                                                         *
+ *  file: parsermanager.h                                                                         *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,52 +18,55 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ADDFILMWINDOW_H
-#define ADDFILMWINDOW_H
+#ifndef PARSERMANAGER_H
+#define PARSERMANAGER_H
 
-#include "ui_addfilmwindow.h"
+#include <QMap>
+#include <QObject>
+#include <QStringList>
 
-#include "alexandrasettings.h"
-#include "network/parsermanager.h"
+#include "abstractparser.h"
 #include "film.h"
 
-#include <QCloseEvent>
-#include <QDialog>
-#include <QString>
-
-class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
+class ParserManager : public QObject
 {
     Q_OBJECT
 
     public:
-        explicit AddFilmWindow( AlexandraSettings* settings, QWidget* parent = nullptr );
-        virtual ~AddFilmWindow();
+        enum Parser {
+            Auto = 0,
+            OMDB
+        };
 
-        void show();
+        explicit ParserManager( Parser p = Parser::Auto );
 
-    protected:
-        void closeEvent( QCloseEvent* event );
+        QStringList GetAvailableParsers() const;
 
-        QString filmId;
+        void SetParserId( Parser p ) { selectedParserId = p; }
+        void SetTitle( const QString& t ) { title = t; }
+        void SetYear( const QString& y ) { year = y; }
+
+        void Reset();
+        void Search();
 
     signals:
-        void PosterMovingError();
-        void Done( const Film& f );
+        void Progress( quint64 received, quint64 total );
+        void Loaded( const Film& f, const QString& posterFileName );
+        void Error( const QString& e );
 
     private slots:
-        void OpenFilm();
-        void OpenPosterFileClicked();
-        void LoadInformation();
-        void OkButtonClicked();
-
+        void ProgressChandged( quint64 received, quint64 total ) { emit Progress( received, total ); }
         void InformationLoaded( const Film& f, const QString& posterFileName );
         void InformationLoadError( const QString& e );
 
     private:
-        void ClearFields();
+        QMap<Parser,QString> parsers;
 
-        AlexandraSettings* settings = nullptr;
-        ParserManager* parser = nullptr;
+        Parser selectedParserId;
+        QString title;
+        QString year;
+
+        QObject* currentParser = nullptr;
 };
 
-#endif // ADDFILMWINDOW_H
+#endif // PARSERMANAGER_H

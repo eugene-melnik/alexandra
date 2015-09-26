@@ -165,7 +165,7 @@ bool Film::SetYearFromStr( const QString& s )
 bool Film::SetRatingFromStr( const QString& s )
 {
     bool ok;
-    rating = s.toUInt( &ok );
+    rating = qRound( s.toDouble( &ok ) );
     if( !ok ) rating = 1;
     return( ok );
 }

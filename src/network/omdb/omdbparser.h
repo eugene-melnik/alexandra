@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: addfilmwindow.h                                                                         *
+ *  file: omdbparser.h                                                                            *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,52 +18,35 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ADDFILMWINDOW_H
-#define ADDFILMWINDOW_H
+#ifndef OMDBPARSER_H
+#define OMDBPARSER_H
 
-#include "ui_addfilmwindow.h"
+#include "../abstractparser.h"
+#include "../networkrequest.h"
 
-#include "alexandrasettings.h"
-#include "network/parsermanager.h"
-#include "film.h"
-
-#include <QCloseEvent>
-#include <QDialog>
-#include <QString>
-
-class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
+class OmdbParser : public QObject, public AbstractParser
 {
     Q_OBJECT
 
     public:
-        explicit AddFilmWindow( AlexandraSettings* settings, QWidget* parent = nullptr );
-        virtual ~AddFilmWindow();
+        OmdbParser();
 
-        void show();
-
-    protected:
-        void closeEvent( QCloseEvent* event );
-
-        QString filmId;
+        void SearchFor( const QString& title, const QString& year = QString() );
 
     signals:
-        void PosterMovingError();
-        void Done( const Film& f );
+        void Progress( quint64 received, quint64 total );
+        void Loaded( const Film& f, const QString& posterFileName );
+        void Error( const QString& e );
 
     private slots:
-        void OpenFilm();
-        void OpenPosterFileClicked();
-        void LoadInformation();
-        void OkButtonClicked();
-
-        void InformationLoaded( const Film& f, const QString& posterFileName );
-        void InformationLoadError( const QString& e );
+        void DataLoaded( const QByteArray& data );
+        void PosterLoaded( const QByteArray& data );
+        void PosterLoadError( const QString& e );
 
     private:
-        void ClearFields();
-
-        AlexandraSettings* settings = nullptr;
-        ParserManager* parser = nullptr;
+        NetworkRequest request;
+        NetworkRequest posterRequest;
+        Film f;
 };
 
-#endif // ADDFILMWINDOW_H
+#endif // OMDBPARSER_H

@@ -19,8 +19,42 @@
   *************************************************************************************************/
 
 #include "networkrequest.h"
+#include "debug.h"
 
-NetworkRequest::NetworkRequest( const QUrl& url )
+void NetworkRequest::run( const QUrl& url )
 {
-    //
+    DebugPrintFuncA( "NetworkRequest::run", url.toString() );
+
+    data.clear();
+
+    QNetworkRequest request( url );
+    reply = accessManager.get( request );
+
+    connect( reply, &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
+    connect( reply, &QNetworkReply::finished, this, &NetworkRequest::Finished );
+    connect( reply, &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
+}
+
+void NetworkRequest::ReadyRead()
+{
+    DebugPrintFunc( "NetworkRequest::ReadyRead" );
+    data.append( reply->readAll() );
+    DebugPrint( QString( "New data size: %1" ).arg( data.size() ) );
+}
+
+void NetworkRequest::Finished()
+{
+    DebugPrintFunc( "NetworkRequest::Finished" );
+
+    if( reply->error() )
+    {
+        DebugPrint( "Error: " + reply->errorString() );
+        emit DataLoadError( reply->errorString() );
+    }
+    else
+    {
+        emit DataLoaded( data );
+    }
+
+    reply->deleteLater();
 }
