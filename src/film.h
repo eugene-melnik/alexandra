@@ -104,7 +104,9 @@ class Film
 
         void SetNewData( const Film& other );
 
+        // Static
         static QString GetRandomHash();
+        static QString ClearTitle( QString title );
 
     private:
         QString id;

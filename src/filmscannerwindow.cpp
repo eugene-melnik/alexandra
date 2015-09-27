@@ -292,9 +292,15 @@ void FilmScannerWindow::AddSelected()
             FilmScannerAddWorker* addWorker = new FilmScannerAddWorker();
             connect( addWorker, &FilmScannerAddWorker::FilmsCreated, this, &FilmScannerWindow::FilmsCreated );
             connect( addWorker, &FilmScannerAddWorker::finished, addWorker, &QWidget::deleteLater );
+            connect( addWorker, &FilmScannerAddWorker::Progress, this, [this] (quint64 value, quint64 total)
+            {
+                progressBar->setMaximum( total );
+                progressBar->setValue( value );
+            } );
 
             addWorker->SetFoundedFilms( selectedFilms.mid( subListPos, subListLength ) );
             addWorker->SetSettings( settings );
+            addWorker->SetLoadInformation( cLoadInformation->isChecked() );
             addWorker->SetSearchForPoster( cSearchForPoster->isChecked() );
             addWorker->start();
         }

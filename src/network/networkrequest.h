@@ -35,6 +35,7 @@ class NetworkRequest : public QObject
         NetworkRequest() = default;
 
         void run( const QUrl& url );
+        QByteArray& runSync( const QUrl& url );
 
     signals:
         void Progress( quint64 received, quint64 total );

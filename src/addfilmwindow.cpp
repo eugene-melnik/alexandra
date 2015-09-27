@@ -105,18 +105,18 @@ void AddFilmWindow::OpenFilm()
         // If a file is selected set the file name, title and the year (if presents
         // in file name) of the film (with the replacement of characters '_' to spaces)
         eFilmFileName->setText( fileName.absoluteFilePath() );
-        QString title = fileName.completeBaseName().replace( "_", " " );
+        QString title = fileName.completeBaseName();
 
         if( eYear->text().isEmpty() )
         {
-            QRegExp regexp( "[0-9]{4}" );
+            QRegExp regexp( "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])" ); // Years between 1850 and 2019
             int i = regexp.indexIn( title );
             if( i >= 0 ) eYear->setText( title.mid( i, 4 ) );
         }
 
         if( eTitle->text().isEmpty() )
         {
-            eTitle->setText( title );
+            eTitle->setText( Film::ClearTitle( title ) );
         }
 
         // Setting the path to the image file, if found in the same directory
@@ -275,10 +275,10 @@ void AddFilmWindow::OkButtonClicked()
             }
 
             QString newPosterFileName = postersDir + "/" + f.GetPosterName();
-            std::string format = settings->GetPosterSavingFormat().toStdString();
+            QString format = settings->GetPosterSavingFormat();
             int quality = settings->GetPosterSavingQuality();
 
-            if( !p.save( newPosterFileName, format.c_str(), quality ) )
+            if( !p.save( newPosterFileName, format.toUtf8(), quality ) )
             {
                 f.SetIsPosterExists( false );
                 emit PosterMovingError();

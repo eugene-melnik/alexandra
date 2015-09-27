@@ -239,6 +239,9 @@
               <property name="text">
                <string notr="true">&lt;screenwriter&gt;</string>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -272,6 +275,9 @@
               <property name="text">
                <string notr="true">&lt;composer&gt;</string>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -294,6 +300,9 @@
               </property>
               <property name="alignment">
                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
               </property>
              </widget>
             </item>

@@ -39,17 +39,22 @@ class FilmScannerAddWorker : public QThread
 
         void SetFoundedFilms( const QStringList& founded ) { foundedFilms = founded; }
         void SetSettings( AlexandraSettings* s ) { settings = s; }
+        void SetLoadInformation( bool b ) { loadInformation = b; }
         void SetSearchForPoster( bool b ) { searchForPoster = b; }
 
     signals:
+        void Progress( quint64 value, quint64 total );
         void FilmsCreated( QList<Film> );
 
     protected:
         void run() override;
 
     private:
+        bool SavePosterTo( const QString& sourceName, const QString& destinationName );
+
         QStringList foundedFilms;
         AlexandraSettings* settings = nullptr;
+        bool loadInformation;
         bool searchForPoster;
 };
 

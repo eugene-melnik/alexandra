@@ -31,6 +31,8 @@ class AbstractParser
         virtual ~AbstractParser() {}
 
         virtual void SearchFor( const QString& title, const QString& year = QString() ) = 0;
+        virtual void SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
+                                    const QString& title, const QString& year = QString() ) = 0;
 
 //    signals:
 //        void Loaded( const Film& f, const QString& posterFileName );

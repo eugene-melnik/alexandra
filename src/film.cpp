@@ -213,3 +213,54 @@ QString Film::GetRandomHash()
     QByteArray hash = QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 );
     return( QString( hash.toHex() ) );
 }
+
+QString Film::ClearTitle( QString title )
+{
+    QString newTitle = title;
+
+    static QStringList wordsToRemove;
+
+    if( wordsToRemove.isEmpty() )
+    {
+        // TODO: comment this
+        wordsToRemove = { "DHT-Movies", "TheaterRip", "BlueBird", "HDTV720", "HDTVRip", "NeroAVC",
+                          "UNRATED", "BluRay", "DVDRip", "HDclub", "HDRip", "WEB-DL", "1080p", "BDRip",
+                          "720p", "H264", "HDTV", "HiDt", "x264", "AC3", "AVC", "AVO", "DTS", "Eng",
+                          "JRG", "MKV", "MVO", "Fra", "Rus", "Ukr", "HD" };
+    }
+
+    for( const QString& word : wordsToRemove )
+    {
+        newTitle.replace( word, "", Qt::CaseInsensitive );
+    }
+
+    // Years between 1850 and 2019
+    newTitle.replace( QRegExp( "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])" ), "" );
+
+    // Round and square brackets with the contents
+    newTitle.replace( QRegExp( "\\[(.+)\\]|\\((.+)\\)" ), "" );
+
+    // Round and square brackets whithout contents
+    newTitle.replace( QRegExp( "\\(\\)|\\[\\]" ), "" );
+
+    // Dots, underscores and dashes (hyphens)
+    newTitle.replace( QRegExp( "\\.|_|\\-" ), " " );
+
+    // Phrases like "NxSomething"
+    newTitle.replace( QRegExp( "[0-9][xX]" ), "" );
+
+    // Multiple spaces
+    newTitle.replace( QRegExp( " {1,}" ), " " );
+
+    // Spaces at begin end end of the string
+    newTitle = newTitle.trimmed();
+
+    if( newTitle.length() > 1 )
+    {
+        return( newTitle );
+    }
+    else
+    {
+        return( title );
+    }
+}

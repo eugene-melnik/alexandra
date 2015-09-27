@@ -48,6 +48,39 @@ void ParserManager::Search()
 {
     DebugPrintFunc( "ParserManager::Search" );
 
+    CreateParser();
+    connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
+    connect( currentParser, SIGNAL( Loaded(const Film&, const QString&) ), this, SLOT( InformationLoaded(const Film&, const QString&) ) );
+    connect( currentParser, SIGNAL( Error(const QString&) ), this, SLOT( InformationLoadError(const QString&) ) );
+
+    AbstractParser* cp = dynamic_cast<AbstractParser*>( currentParser );
+    cp->SearchFor( title, year );
+}
+
+void ParserManager::SearchAsync( Film* filmSaveTo, QString* posterFileNameSaveTo )
+{
+    DebugPrintFunc( "ParserManager::SearchAsync" );
+
+    CreateParser();
+    connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
+
+    dynamic_cast<AbstractParser*>( currentParser )->SyncSearchFor( filmSaveTo, posterFileNameSaveTo, title, year );
+}
+
+void ParserManager::InformationLoaded( const Film& f, const QString& posterFileName )
+{
+    DebugPrintFuncA( "ParserManager::InformationLoaded", f.GetOriginalTitle() + ", " + posterFileName );
+    emit Loaded( f, posterFileName );
+}
+
+void ParserManager::InformationLoadError( const QString& e )
+{
+    DebugPrintFuncA( "ParserManager::InformationLoadError", e );
+    emit Error( e );
+}
+
+void ParserManager::CreateParser()
+{
     if( currentParser != nullptr )
     {
         delete currentParser;
@@ -66,23 +99,4 @@ void ParserManager::Search()
             currentParser = new OmdbParser();
         }
     }
-
-    connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
-    connect( currentParser, SIGNAL( Loaded(const Film&, const QString&) ), this, SLOT( InformationLoaded(const Film&, const QString&) ) );
-    connect( currentParser, SIGNAL( Error(const QString&) ), this, SLOT( InformationLoadError(const QString&) ) );
-
-    AbstractParser* cp = dynamic_cast<AbstractParser*>( currentParser );
-    cp->SearchFor( title, year );
-}
-
-void ParserManager::InformationLoaded( const Film& f, const QString& posterFileName )
-{
-    DebugPrintFuncA( "ParserManager::InformationLoaded", f.GetOriginalTitle() + ", " + posterFileName );
-    emit Loaded( f, posterFileName );
-}
-
-void ParserManager::InformationLoadError( const QString& e )
-{
-    DebugPrintFuncA( "ParserManager::InformationLoadError", e );
-    emit Error( e );
 }

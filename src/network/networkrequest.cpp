@@ -35,6 +35,23 @@ void NetworkRequest::run( const QUrl& url )
     connect( reply, &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
 }
 
+QByteArray& NetworkRequest::runSync( const QUrl& url )
+{
+    DebugPrintFuncA( "NetworkRequest::runSync", url.toString() );
+
+    data.clear();
+
+    QNetworkRequest request( url );
+    reply = accessManager.get( request );
+
+    QEventLoop loop;
+    connect( reply, &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
+    connect( reply, &QNetworkReply::finished, &loop, &QEventLoop::quit );
+    loop.exec();
+
+    return( data );
+}
+
 void NetworkRequest::ReadyRead()
 {
     DebugPrintFunc( "NetworkRequest::ReadyRead" );

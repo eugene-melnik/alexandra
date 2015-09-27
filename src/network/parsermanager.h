@@ -48,6 +48,7 @@ class ParserManager : public QObject
 
         void Reset();
         void Search();
+        void SearchAsync( Film* filmSaveTo, QString* posterFileNameSaveTo );
 
     signals:
         void Progress( quint64 received, quint64 total );
@@ -58,6 +59,8 @@ class ParserManager : public QObject
         void ProgressChandged( quint64 received, quint64 total ) { emit Progress( received, total ); }
         void InformationLoaded( const Film& f, const QString& posterFileName );
         void InformationLoadError( const QString& e );
+
+        void CreateParser();
 
     private:
         QMap<Parser,QString> parsers;

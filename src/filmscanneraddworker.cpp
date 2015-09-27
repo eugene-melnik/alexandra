@@ -20,65 +20,105 @@
 
 #include "filmscanneraddworker.h"
 #include "filesextensions.h"
+#include "network/parsermanager.h"
 
 #include <QDir>
 #include <QFileInfo>
+#include <QRegExp>
 
 void FilmScannerAddWorker::run()
 {
     QList<Film> newFilms;
+    ParserManager parser;
+    int count = 0;
 
     for( const QString& fileName : foundedFilms )
     {
         Film f;
         f.SetId( Film::GetRandomHash() );
+        QString title = Film::ClearTitle( QFileInfo( fileName ).completeBaseName() );
         f.SetFileName( fileName );
-        f.SetTitle( QFileInfo( fileName ).completeBaseName().replace( "_", " " ) );
+        f.SetTitle( title );
 
-        // Search for a poster
+        QString posterFileName;
+        QString newPosterFileName = settings->GetPostersDirPath() + "/" + f.GetPosterName();
+
+        QRegExp regexp( "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])" ); // Years between 1850 and 2019
+        int i = regexp.indexIn( title );
+
+        if( i >= 0 )
+        {
+            f.SetYearFromStr( title.mid( i, 4 ) );
+        }
+
+        // Load information from online source
+        if( loadInformation )
+        {
+            parser.Reset();
+            parser.SetTitle( title );
+
+            if( f.GetYearStr().length() == 4 )
+            {
+                parser.SetYear( f.GetYearStr() );
+            }
+
+            parser.SearchAsync( &f, &posterFileName );
+        }
+
+        // Search for a poster on the disk
         if( searchForPoster )
         {
-            QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName );
+            QString p = FilesExtensions().SearchForEponymousImage( fileName );
 
-            if( !posterFileName.isEmpty() )
+            if( !p.isEmpty() )
             {
-                f.SetIsPosterExists( true );
-
-                QString postersDir = settings->GetPostersDirPath();
-                int newHeight = settings->GetScalePosterToHeight();
-
-                if( QFileInfo( posterFileName ).absolutePath() != postersDir )
-                {
-                    // Creating posters' directory if not exists
-                    if( !QDir().exists( postersDir ) )
-                    {
-                        QDir().mkdir( postersDir );
-                    }
-
-                    QPixmap p( posterFileName );
-
-                    // Scale to height
-                    if( newHeight != 0 && newHeight < p.height() )
-                    {
-                        p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
-                    }
-
-                    // Move to posters' folder
-                    QString newPosterFileName = postersDir + "/" + f.GetPosterName();
-                    std::string format = settings->GetPosterSavingFormat().toStdString();
-                    int quality = settings->GetPosterSavingQuality();
-
-                    if( !p.save( newPosterFileName, format.c_str(), quality ) )
-                    {
-                        f.SetIsPosterExists( false );
-                    }
-                }
+                posterFileName = p;
             }
         }
 
-        // Adding
+        // Moving poster
+        if( !posterFileName.isEmpty() )
+        {
+            if( SavePosterTo( posterFileName, newPosterFileName ) )
+            {
+                f.SetIsPosterExists( true );
+            }
+            else
+            {
+                f.SetIsPosterExists( false );
+            }
+        }
+
+        // Adding film to the list
         newFilms.append( f );
+        emit Progress( ++count, foundedFilms.size() );
     }
 
     emit FilmsCreated( newFilms );
+}
+
+bool FilmScannerAddWorker::SavePosterTo( const QString& sourceName, const QString& destinationName )
+{
+    QString postersDir = settings->GetPostersDirPath();
+    int newHeight = settings->GetScalePosterToHeight();
+
+    // Creating posters' directory if not exists
+    if( !QDir().exists( postersDir ) )
+    {
+        QDir().mkdir( postersDir );
+    }
+
+    QPixmap p( sourceName );
+
+    // Scale to height
+    if( newHeight != 0 && newHeight < p.height() )
+    {
+        p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
+    }
+
+    // Move to posters' folder
+    QString format = settings->GetPosterSavingFormat();
+    int quality = settings->GetPosterSavingQuality();
+
+    return( p.save( destinationName, format.toUtf8(), quality ) );
 }

@@ -32,6 +32,8 @@ class OmdbParser : public QObject, public AbstractParser
         OmdbParser();
 
         void SearchFor( const QString& title, const QString& year = QString() );
+        void SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
+                            const QString& title, const QString& year = QString() );
 
     signals:
         void Progress( quint64 received, quint64 total );
@@ -40,12 +42,11 @@ class OmdbParser : public QObject, public AbstractParser
 
     private slots:
         void DataLoaded( const QByteArray& data );
-        void PosterLoaded( const QByteArray& data );
-        void PosterLoadError( const QString& e );
+
+        QString Parse( const QByteArray& data );
 
     private:
         NetworkRequest request;
-        NetworkRequest posterRequest;
         Film f;
 };
 
