@@ -223,10 +223,10 @@ QString Film::ClearTitle( QString title )
     if( wordsToRemove.isEmpty() )
     {
         // TODO: comment this
-        wordsToRemove = { "DHT-Movies", "TheaterRip", "BlueBird", "HDTV720", "HDTVRip", "NeroAVC",
-                          "UNRATED", "BluRay", "DVDRip", "HDclub", "HDRip", "WEB-DL", "1080p", "BDRip",
-                          "720p", "H264", "HDTV", "HiDt", "x264", "AC3", "AVC", "AVO", "DTS", "Eng",
-                          "JRG", "MKV", "MVO", "Fra", "Rus", "Ukr", "HD" };
+        wordsToRemove = QStringList{ "DHT-Movies", "TheaterRip", "BlueBird", "HDTV720", "HDTVRip", "NeroAVC",
+                                     "UNRATED", "BluRay", "DVDRip", "HDclub", "HDRip", "WEB-DL", "1080p", "BDRip",
+                                     "720p", "H264", "HDTV", "HiDt", "x264", "AC3", "AVC", "AVO", "DTS", "Eng",
+                                     "JRG", "MKV", "MVO", "Fra", "Rus", "Ukr", "HD" };
     }
 
     for( const QString& word : wordsToRemove )
