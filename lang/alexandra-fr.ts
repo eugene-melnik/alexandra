@@ -809,7 +809,8 @@
         <location filename="../src/mainwindow.cpp" line="80"/>
         <source>Add the following film(s)?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter le(s) film(s) suivant ?
+</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="135"/>
@@ -964,7 +965,8 @@
         <location filename="../src/mainwindow.cpp" line="499"/>
         <source>Are you sure to remove following films?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes vous sûr de supprimer le(s) film(s) suivant ?
+</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="534"/>
@@ -985,7 +987,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="726"/>
         <source>&lt;Theme&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Thème&gt;</translation>
     </message>
 </context>
 <context>
@@ -1682,7 +1684,7 @@
     <message>
         <location filename="../src/settingswindow.cpp" line="452"/>
         <source>&lt;Theme&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Thème&gt;</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.cpp" line="541"/>
