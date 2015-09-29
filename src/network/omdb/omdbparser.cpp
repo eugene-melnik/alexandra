@@ -26,79 +26,19 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-OmdbParser::OmdbParser()
-{
-    connect( &request, &NetworkRequest::DataLoaded, this, &OmdbParser::DataLoaded );
-    connect( &request, &NetworkRequest::DataLoadError, this, [this] (const QString& e) { emit Error( e ); } );
-    connect( &request, &NetworkRequest::Progress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
-}
-
 void OmdbParser::SearchFor( const QString& title, const QString& year )
 {
-    QUrl searchUrl;
-
-    if( year.isEmpty() )
-    {
-        searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=%2" )
-                            .arg( title )
-                            .arg( "json" );
-    }
-    else
-    {
-        searchUrl = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=%3" )
-                            .arg( title )
-                            .arg( year )
-                            .arg( "json" );
-    }
-
-    request.run( searchUrl );
+    searchUrlWithYear = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=json" );
+    searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=json" );
+    AbstractParser::SearchFor( title, year );
 }
 
 void OmdbParser::SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
                                 const QString& title, const QString& year)
 {
-    QUrl searchUrl;
-
-    if( year.isEmpty() )
-    {
-        searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=%2" )
-                            .arg( title )
-                            .arg( "json" );
-    }
-    else
-    {
-        searchUrl = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=%3" )
-                            .arg( title )
-                            .arg( year )
-                            .arg( "json" );
-    }
-
-    QByteArray data = request.runSync( searchUrl );
-    QString poster = Parse( data );
-
-    if( filmSaveTo != nullptr )
-    {
-        // We must to save these fields
-        QString title = filmSaveTo->GetTitle();
-        QString fileName = filmSaveTo->GetFileName();
-
-        filmSaveTo->SetNewData( f );
-
-        // And then restore them
-        filmSaveTo->SetTitle( title );
-        filmSaveTo->SetFileName( fileName );
-    }
-
-    if( posterFileNameSaveTo != nullptr )
-    {
-        *posterFileNameSaveTo = poster;
-    }
-}
-
-void OmdbParser::DataLoaded( const QByteArray& data )
-{
-    DebugPrintFuncA( "OmdbParser::DataLoaded", data.size() );
-    Parse( data );
+    searchUrlWithYear = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=json" );
+    searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=json" );
+    AbstractParser::SyncSearchFor( filmSaveTo, posterFileNameSaveTo, title, year );
 }
 
 QString OmdbParser::Parse( const QByteArray& data )
@@ -114,15 +54,30 @@ QString OmdbParser::Parse( const QByteArray& data )
 
     if( json["Response"].toString() == "True" )
     {
+        f.SetTitle( json["Title"].toString() );
         f.SetOriginalTitle( json["Title"].toString() );
         f.SetYearFromStr(   json["Year"].toString() );
-        f.SetCountry(       json["Country"].toString() );
-        f.SetDirector(      json["Director"].toString() );
-        f.SetGenre(         json["Genre"].toString() );
-        f.SetScreenwriter(  json["Writer"].toString() );
-        f.SetRatingFromStr( json["imdbRating"].toString() );
-        f.SetStarring(      json["Actors"].toString() );
-        f.SetDescription(   json["Plot"].toString() );
+
+        if( json["Country"].toString() != QLatin1String( "N/A" ) )
+            f.SetCountry( json["Country"].toString() );
+
+        if( json["Director"].toString() != QLatin1String( "N/A" ) )
+            f.SetDirector( json["Director"].toString() );
+
+        if( json["Genre"].toString() != QLatin1String( "N/A" ) )
+            f.SetGenre( json["Genre"].toString() );
+
+        if( json["Writer"].toString() != QLatin1String( "N/A" ) )
+            f.SetScreenwriter( json["Writer"].toString() );
+
+        if( json["imdbRating"].toString() != QLatin1String( "N/A" ) )
+            f.SetRatingFromStr( json["imdbRating"].toString() );
+
+        if( json["Actors"].toString() != QLatin1String( "N/A" ) )
+            f.SetStarring( json["Actors"].toString() );
+
+        if( json["Plot"].toString() != QLatin1String( "N/A" ) )
+            f.SetDescription( json["Plot"].toString() );
 
         QString posterUrl = json["Poster"].toString();
 
@@ -134,7 +89,7 @@ QString OmdbParser::Parse( const QByteArray& data )
             QString posterFileName( QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() ) );
             QFile file( posterFileName );
 
-            if( file.open( QIODevice::WriteOnly) && file.write( data ) )
+            if( file.open( QIODevice::WriteOnly ) && file.write( data ) )
             {
                 file.close();
                 emit Loaded( f, posterFileName );

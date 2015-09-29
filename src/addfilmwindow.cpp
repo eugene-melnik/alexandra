@@ -54,6 +54,10 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent )
     connect( bOpenPoster, &QPushButton::clicked, this, &AddFilmWindow::OpenPosterFileClicked );
     connect( bLoad, &QPushButton::clicked, this, &AddFilmWindow::LoadInformation );
     connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::OkButtonClicked );
+
+    // TODO: explain this
+    QString msgOmdbNotFound = tr( "Movie not found!" );
+    Q_UNUSED( msgOmdbNotFound )
 }
 
 AddFilmWindow::~AddFilmWindow()
@@ -297,6 +301,7 @@ void AddFilmWindow::InformationLoaded( const Film& f, const QString& posterFileN
         ePosterFileName->setText( posterFileName );
     }
 
+    eTitle->setText( f.GetTitle() );
     eOriginalTitle->setText( f.GetOriginalTitle() );
     eTagline->setText( f.GetTagline() );
     eYear->setText( f.GetYearStr() );
@@ -324,7 +329,7 @@ void AddFilmWindow::InformationLoadError( const QString& e )
     progressBar->hide();
 
     QMessageBox::warning( this, tr( "Loading information" ),
-                                tr( "Error!\n%1" ).arg( e ) );
+                                tr( "Error!\n%1" ).arg( tr( e.toUtf8() ) ) );
 }
 
 void AddFilmWindow::ClearFields()

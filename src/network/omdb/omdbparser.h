@@ -22,32 +22,20 @@
 #define OMDBPARSER_H
 
 #include "../abstractparser.h"
-#include "../networkrequest.h"
 
-class OmdbParser : public QObject, public AbstractParser
+class OmdbParser : public AbstractParser
 {
     Q_OBJECT
 
     public:
-        OmdbParser();
+        OmdbParser() : AbstractParser() {}
 
         void SearchFor( const QString& title, const QString& year = QString() );
         void SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
                             const QString& title, const QString& year = QString() );
 
-    signals:
-        void Progress( quint64 received, quint64 total );
-        void Loaded( const Film& f, const QString& posterFileName );
-        void Error( const QString& e );
-
     private slots:
-        void DataLoaded( const QByteArray& data );
-
         QString Parse( const QByteArray& data );
-
-    private:
-        NetworkRequest request;
-        Film f;
 };
 
 #endif // OMDBPARSER_H

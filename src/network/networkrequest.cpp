@@ -26,13 +26,12 @@ void NetworkRequest::run( const QUrl& url )
     DebugPrintFuncA( "NetworkRequest::run", url.toString() );
 
     data.clear();
+    reply = accessManager.get( QNetworkRequest( url ) );
 
-    QNetworkRequest request( url );
-    reply = accessManager.get( request );
-
+    connect( reply, &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
     connect( reply, &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
     connect( reply, &QNetworkReply::finished, this, &NetworkRequest::Finished );
-    connect( reply, &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
+    connect( reply, &QNetworkReply::finished, reply, &QObject::deleteLater );
 }
 
 QByteArray& NetworkRequest::runSync( const QUrl& url )
@@ -40,16 +39,30 @@ QByteArray& NetworkRequest::runSync( const QUrl& url )
     DebugPrintFuncA( "NetworkRequest::runSync", url.toString() );
 
     data.clear();
-
-    QNetworkRequest request( url );
-    reply = accessManager.get( request );
+    reply = accessManager.get( QNetworkRequest( url ) );
 
     QEventLoop loop;
+    connect( reply, &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
     connect( reply, &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
+    connect( reply, &QNetworkReply::finished, this, &NetworkRequest::CheckForRedirect );
     connect( reply, &QNetworkReply::finished, &loop, &QEventLoop::quit );
     loop.exec();
 
+    reply->deleteLater();
     return( data );
+}
+
+void NetworkRequest::CheckForRedirect()
+{
+    DebugPrintFunc( "NetworkRequest::CheckForRedirect" );
+    QVariant redirectionTarget = reply->attribute( QNetworkRequest::RedirectionTargetAttribute );
+
+    if( !redirectionTarget.isNull() )
+    {
+        QUrl newUrl = reply->url().resolved( redirectionTarget.toUrl() );
+        DebugPrint( "Redirected to: " + newUrl.toString() );
+        runSync( newUrl );
+    }
 }
 
 void NetworkRequest::ReadyRead()
@@ -63,6 +76,8 @@ void NetworkRequest::Finished()
 {
     DebugPrintFunc( "NetworkRequest::Finished" );
 
+    CheckForRedirect();
+
     if( reply->error() )
     {
         DebugPrint( "Error: " + reply->errorString() );
@@ -72,6 +87,4 @@ void NetworkRequest::Finished()
     {
         emit DataLoaded( data );
     }
-
-    reply->deleteLater();
 }

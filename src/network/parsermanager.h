@@ -25,7 +25,6 @@
 #include <QObject>
 #include <QStringList>
 
-#include "abstractparser.h"
 #include "film.h"
 
 class ParserManager : public QObject
@@ -35,7 +34,8 @@ class ParserManager : public QObject
     public:
         enum Parser {
             Auto = 0,
-            OMDB
+            OMDB,
+            Kinopoisk
         };
 
         explicit ParserManager( Parser p = Parser::Auto );

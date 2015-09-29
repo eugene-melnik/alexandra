@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "parsermanager.h"
+#include "abstractparser.h"
 #include "kinopoisk/kinopoiskparser.h"
 #include "imdb/imdbparser.h"
 #include "omdb/omdbparser.h"
@@ -29,7 +30,7 @@ ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
     parsers.insert( Auto, tr( "<Auto>" ) );
     parsers.insert( OMDB, "OMDB (http://www.omdbapi.com/)" );
 //    parsers.insert( IMDB, "IMDB (http://www.imdb.com/)" );
-//    parsers.insert( Kinopoisk, "КиноПоиск (http://www.kinopoisk.ru/)" );
+    parsers.insert( Kinopoisk, "КиноПоиск (http://www.kinopoisk.ru/)" );
 }
 
 QStringList ParserManager::GetAvailableParsers() const
@@ -48,6 +49,8 @@ void ParserManager::Search()
 {
     DebugPrintFunc( "ParserManager::Search" );
 
+    if( title.isEmpty() ) return;
+
     CreateParser();
     connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
     connect( currentParser, SIGNAL( Loaded(const Film&, const QString&) ), this, SLOT( InformationLoaded(const Film&, const QString&) ) );
@@ -60,6 +63,8 @@ void ParserManager::Search()
 void ParserManager::SearchAsync( Film* filmSaveTo, QString* posterFileNameSaveTo )
 {
     DebugPrintFunc( "ParserManager::SearchAsync" );
+
+    if( title.isEmpty() ) return;
 
     CreateParser();
     connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
@@ -82,6 +87,9 @@ void ParserManager::InformationLoadError( const QString& e )
 
 void ParserManager::CreateParser()
 {
+    DebugPrintFunc( "ParserManager::CreateParser" );
+    DebugPrint( "Parser: " + QString::number( selectedParserId ) );
+
     if( currentParser != nullptr )
     {
         delete currentParser;
@@ -89,15 +97,23 @@ void ParserManager::CreateParser()
 
     switch( selectedParserId )
     {
-        case OMDB:
+        case OMDB :
         {
             currentParser = new OmdbParser();
+            break;
         }
 
-        default:
+        case Kinopoisk :
+        {
+            currentParser = new KinopoiskParser();
+            break;
+        }
+
+        default : // Parser::Auto
         {
             // TODO: need to realize some logic, picking parser
             currentParser = new OmdbParser();
+            break;
         }
     }
 }

@@ -43,6 +43,7 @@ class NetworkRequest : public QObject
         void DataLoadError( const QString& e );
 
     private slots:
+        void CheckForRedirect();
         void ReadyRead();
         void Finished();
 

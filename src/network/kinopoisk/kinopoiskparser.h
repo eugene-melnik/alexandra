@@ -22,12 +22,20 @@
 #define KINOPOISKPARSER_H
 
 #include "../abstractparser.h"
-#include "../networkrequest.h"
 
 class KinopoiskParser : public AbstractParser
 {
+    Q_OBJECT
+
     public:
-        KinopoiskParser();
+        KinopoiskParser() : AbstractParser() {}
+
+        void SearchFor( const QString& title, const QString& year = QString() );
+        void SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
+                            const QString& title, const QString& year = QString() );
+
+    private slots:
+        QString Parse( const QByteArray& data );
 };
 
 #endif // KINOPOISKPARSER_H
