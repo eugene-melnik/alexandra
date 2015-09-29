@@ -23,8 +23,8 @@ QMAKE_CXXFLAGS_RELEASE += -Ofast
 
 LIBS += -lstdc++ -lpthread
 
-win32:INCLUDEPATH += $$PWD\..\lib\
 win32:RC_FILE = $$PWD\..\windows\win-meta.rc
+win32:INCLUDEPATH += $$PWD\..\lib\
 
 
     # Options #

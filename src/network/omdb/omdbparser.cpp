@@ -78,12 +78,13 @@ void OmdbParser::SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
 
     if( filmSaveTo != nullptr )
     {
-        // TODO: explain this
+        // We must to save these fields
         QString title = filmSaveTo->GetTitle();
         QString fileName = filmSaveTo->GetFileName();
 
         filmSaveTo->SetNewData( f );
 
+        // And then restore them
         filmSaveTo->SetTitle( title );
         filmSaveTo->SetFileName( fileName );
     }

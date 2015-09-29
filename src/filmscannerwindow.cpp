@@ -277,7 +277,7 @@ void FilmScannerWindow::AddSelected()
         progressBar->show();
 
         // Threads create
-        int threadCount = 1; /* QThread::idealThreadCount(); */ // TODO: Problems in QPixmap::save in multithread
+        int threadCount = 1; /* QThread::idealThreadCount(); */ // FIXME: Problems in QPixmap::save in multithread
         int subListLength = selectedFilms.size() / threadCount;
 
         for( int threadNum = 0; threadNum < threadCount; threadNum++ )

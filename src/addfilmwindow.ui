@@ -197,6 +197,9 @@
          </item>
          <item>
           <widget class="QPushButton" name="bLoad">
+           <property name="toolTip">
+            <string>Try to fetch information from the selected online source. The search is conducted by fields &quot;Title&quot; and &quot;Year&quot; (optional).</string>
+           </property>
            <property name="text">
             <string>Load</string>
            </property>

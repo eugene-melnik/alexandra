@@ -64,7 +64,8 @@ void ParserManager::SearchAsync( Film* filmSaveTo, QString* posterFileNameSaveTo
     CreateParser();
     connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
 
-    dynamic_cast<AbstractParser*>( currentParser )->SyncSearchFor( filmSaveTo, posterFileNameSaveTo, title, year );
+    AbstractParser* cp = dynamic_cast<AbstractParser*>( currentParser );
+    cp->SyncSearchFor( filmSaveTo, posterFileNameSaveTo, title, year );
 }
 
 void ParserManager::InformationLoaded( const Film& f, const QString& posterFileName )

@@ -56,7 +56,7 @@ class ParserManager : public QObject
         void Error( const QString& e );
 
     private slots:
-        void ProgressChandged( quint64 received, quint64 total ) { emit Progress( received, total ); }
+        void ProgressChanged( quint64 received, quint64 total ) { emit Progress( received, total ); }
         void InformationLoaded( const Film& f, const QString& posterFileName );
         void InformationLoadError( const QString& e );
 
