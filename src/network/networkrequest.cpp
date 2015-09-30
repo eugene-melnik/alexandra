@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "networkrequest.h"
+#include "version.h"
 #include "debug.h"
 
 void NetworkRequest::run( const QUrl& url )
@@ -26,7 +27,7 @@ void NetworkRequest::run( const QUrl& url )
     DebugPrintFuncA( "NetworkRequest::run", url.toString() );
 
     data.clear();
-    reply = accessManager.get( QNetworkRequest( url ) );
+    reply = MakeRequest( url );
 
     connect( reply, &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
     connect( reply, &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
@@ -39,7 +40,7 @@ QByteArray& NetworkRequest::runSync( const QUrl& url )
     DebugPrintFuncA( "NetworkRequest::runSync", url.toString() );
 
     data.clear();
-    reply = accessManager.get( QNetworkRequest( url ) );
+    reply = MakeRequest( url );
 
     QEventLoop loop;
     connect( reply, &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
@@ -50,6 +51,22 @@ QByteArray& NetworkRequest::runSync( const QUrl& url )
 
     reply->deleteLater();
     return( data );
+}
+
+QNetworkReply* NetworkRequest::MakeRequest( const QUrl& url )
+{
+    QString userAgent = QString( "Alexandra/%1.%2 (%3)" ).arg( Alexandra::verMajor )
+                                                         .arg( Alexandra::verMinor )
+                                                   #ifdef Q_OS_LINUX
+                                                         .arg( "GNU/Linux" ).toUtf8();
+                                                   #else
+                                                         .arg( "MS Windows" ).toUtf8();
+                                                   #endif
+
+    QNetworkRequest request( url );
+    request.setRawHeader( "User-Agent", userAgent.toUtf8() );
+
+    return( accessManager.get( request ) );
 }
 
 void NetworkRequest::CheckForRedirect()

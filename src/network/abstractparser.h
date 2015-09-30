@@ -47,15 +47,11 @@ class AbstractParser : public QObject
         virtual void SearchFor( const QString& title, const QString& year = QString() )
         {
             DebugPrintFuncA( "AbstractParser::SearchFor", title );
-            QUrl url;
+            QUrl url( searchUrlWithYear.arg( title ).arg( year ) );
 
             if( year.isEmpty() )
             {
                 url = searchUrl.arg( title );
-            }
-            else
-            {
-                url = searchUrlWithYear.arg( title ).arg( year );
             }
 
             request.run( url );
@@ -65,11 +61,11 @@ class AbstractParser : public QObject
                                     const QString& title, const QString& year = QString() )
         {
             DebugPrintFuncA( "AbstractParser::SyncSearchFor", title );
-            QUrl url( searchUrl.arg( title ) );
+            QUrl url( searchUrlWithYear.arg( title ).arg( year ) );
 
-            if( !year.isEmpty() )
+            if( year.isEmpty() )
             {
-                url = searchUrlWithYear.arg( title ).arg( year );
+                url = searchUrl.arg( title );
             }
 
             QByteArray data = request.runSync( url );

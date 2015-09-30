@@ -277,9 +277,19 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="lLinks">
+          <widget class="QLabel" name="lLinkWebsite">
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://alexandra-qt.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Official website&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://alexandra-qt.sourceforge.net/en/download/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Download latest version&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;a href=&quot;http://alexandra-qt.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Official website&lt;/span&gt;&lt;/a&gt;</string>
+           </property>
+           <property name="openExternalLinks">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lLinkLatestVersion">
+           <property name="text">
+            <string>&lt;a href=&quot;http://alexandra-qt.sourceforge.net/en/download/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Download latest version (%1)&lt;/span&gt;&lt;/a&gt;</string>
            </property>
            <property name="openExternalLinks">
             <bool>true</bool>

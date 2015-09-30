@@ -102,7 +102,6 @@ QString OmdbParser::Parse( const QByteArray& data )
         else
         {
             emit Loaded( film, QString() );
-            emit Error( file.errorString() );
         }
     }
     else

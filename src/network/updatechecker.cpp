@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: aboutwindow.h                                                                           *
+ *  file: updatechecker.cpp                                                                       *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,28 +18,47 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ABOUTWINDOW_H
-#define ABOUTWINDOW_H
+#include "updatechecker.h"
+#include "debug.h"
 
-#include "ui_aboutwindow.h"
+#include <QRegExp>
 
-#include <QDialog>
-#include <QMessageBox>
-
-class AboutWindow : public QDialog, public Ui::AboutWindow
+UpdateChecker::UpdateChecker()
 {
-    Q_OBJECT
+    connect( &request, &NetworkRequest::DataLoaded, this, &UpdateChecker::DataLoaded );
+    connect( &request, &NetworkRequest::DataLoadError, this, &UpdateChecker::DataLoadError );
+}
 
-    public:
-        explicit AboutWindow( QWidget* parent = nullptr );
+void UpdateChecker::Run()
+{
+    DebugPrintFunc( "UpdateChecker::Run" );
+    QUrl url( "http://alexandra-qt.sourceforge.net/en/updates/index.html" );
+    request.run( url );
+}
 
-        void show();
+void UpdateChecker::DataLoaded( const QByteArray& data )
+{
+    DebugPrintFuncA( "UpdateChecker::DataLoaded", data.size() );
+    QString str( data );
 
-    public slots:
-        void AboutQt() { QMessageBox::aboutQt( this->parentWidget() ); }
+    QRegExp reCounterUrl( "<counter_lnk>(.*)</counter_lnk>" );
+    reCounterUrl.setMinimal( true );
+    reCounterUrl.indexIn( str );
+    DebugPrint( "COUNTER -- " + reCounterUrl.cap(1) );
 
-    private slots:
-        void CompareVersions( const QString& latestVersion );
-};
+#ifndef QT_DEBUG
+    request.runSync( reCounterUrl.cap(1) );
+#endif
 
-#endif // ABOUTWINDOW_H
+    QRegExp reLatestVersion( "<latest_ver>(.*)</latest_ver>" );
+    reLatestVersion.setMinimal( true );
+    reLatestVersion.indexIn( str );
+    DebugPrint( "VERSION -- " + reLatestVersion.cap(1) );
+
+    emit Loaded( reLatestVersion.cap(1) );
+}
+
+void UpdateChecker::DataLoadError( const QString& e )
+{
+    DebugPrintFuncA( "UpdateChecker::DataLoadError", e ); Q_UNUSED(e)
+}

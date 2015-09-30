@@ -40,10 +40,10 @@ namespace Alexandra
         const QString orgDomain = "eugene.melnik.com";
 
         // Version
-        const quint8 major = 1;
-        const quint8 minor = 3;
-        const quint8 fix = 0;
-        const QString appVersionFull = QString( "%1.%2.%3" ).arg( major ).arg( minor ).arg( fix );
+        const quint8 verMajor = 1;
+        const quint8 verMinor = 3;
+        const quint8 verFix = 0;
+        const QString appVersionFull = QString( "%1.%2.%3" ).arg( verMajor ).arg( verMinor ).arg( verFix );
         const QString appBuildDate = QString( __DATE__ );
 
         const quint8 databaseVersion = 0x10;

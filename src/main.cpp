@@ -55,7 +55,7 @@ void LoadLocale( QApplication* app, int localeIndex )
     qt_translator->load( QString( ":/lang/qt-%1.qm" ).arg( locale ) );
     app->installTranslator( qt_translator );
 
-    DebugPrint( isInstalled ? "Success" : "Failed!" );
+    DebugPrint( isInstalled ? "Success" : "Failed!" ); Q_UNUSED(isInstalled)
 }
 
 int main( int argc, char** argv )

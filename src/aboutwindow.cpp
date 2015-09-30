@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "effects/effectdropshadow.h"
+#include "network/updatechecker.h"
 #include "aboutwindow.h"
 #include "mediainfo.h"
 #include "version.h"
@@ -65,11 +66,18 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     {
         // Print in format "English (en) - Translator Name <tr3000@mail>"
         t += QString( "<b>%1 (%2)</b> &mdash; %3<br/><br/>" ).arg( locale.selfTitle, locale.name,
-                                                                   locale.translator.replace( "<", "&lt;" )
-                                                                                    .replace( ">", "&gt;" ) );
+                                                                   locale.translator.replace( "<", "&lt;" ).replace( ">", "&gt;" ) );
     }
 
     tTranslators->setText( t );
+
+    // Check for updates
+    lLinkLatestVersion->hide();
+
+    UpdateChecker* uc = new UpdateChecker();
+    connect( uc, &UpdateChecker::Loaded, this, &AboutWindow::CompareVersions );
+    connect( uc, &UpdateChecker::Loaded, uc, &QObject::deleteLater );
+    uc->Run();
 }
 
 void AboutWindow::show()
@@ -77,4 +85,13 @@ void AboutWindow::show()
     // Random picture for each show :)
     image->setPixmap( QPixmap( QString( ":/cats/%1" ).arg( rand() % 6 + 1 ) ) );
     QDialog::show();
+}
+
+void AboutWindow::CompareVersions( const QString& latestVersion )
+{
+    if( latestVersion > Alexandra::appVersionFull )
+    {
+        lLinkLatestVersion->setText( lLinkLatestVersion->text().arg( latestVersion ) );
+        lLinkLatestVersion->show();
+    }
 }

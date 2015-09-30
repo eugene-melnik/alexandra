@@ -43,6 +43,7 @@ HEADERS += effects/effectdropshadow.h \
            network/imdb/imdbparser.h \
            network/kinopoisk/kinopoiskparser.h \
            network/omdb/omdbparser.h \
+           network/updatechecker.h \
            aboutwindow.h \
            abstractfilmsview.h \
            addfilmwindow.h \
@@ -80,6 +81,7 @@ SOURCES += effects/effectdropshadow.cpp \
            network/imdb/imdbparser.cpp \
            network/kinopoisk/kinopoiskparser.cpp \
            network/omdb/omdbparser.cpp \
+           network/updatechecker.cpp \
            aboutwindow.cpp \
            addfilmwindow.cpp \
            alexandrasettings.cpp \

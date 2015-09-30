@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: aboutwindow.h                                                                           *
+ *  file: updatechecker.h                                                                         *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,28 +18,33 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ABOUTWINDOW_H
-#define ABOUTWINDOW_H
+#ifndef UPDATECHECKER_H
+#define UPDATECHECKER_H
 
-#include "ui_aboutwindow.h"
+#include "networkrequest.h"
 
-#include <QDialog>
-#include <QMessageBox>
+#include <QByteArray>
+#include <QObject>
+#include <QString>
 
-class AboutWindow : public QDialog, public Ui::AboutWindow
+class UpdateChecker : public QObject
 {
     Q_OBJECT
 
     public:
-        explicit AboutWindow( QWidget* parent = nullptr );
+        UpdateChecker();
 
-        void show();
+        void Run();
 
-    public slots:
-        void AboutQt() { QMessageBox::aboutQt( this->parentWidget() ); }
+    signals:
+        void Loaded( const QString& latestVersion );
 
     private slots:
-        void CompareVersions( const QString& latestVersion );
+        void DataLoaded( const QByteArray& data );
+        void DataLoadError( const QString& e );
+
+    private:
+        NetworkRequest request;
 };
 
-#endif // ABOUTWINDOW_H
+#endif // UPDATECHECKER_H
