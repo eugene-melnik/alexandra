@@ -25,6 +25,8 @@
 #include "omdb/omdbparser.h"
 #include "debug.h"
 
+#include <QLocale>
+
 ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
 {
     parsers.insert( Auto, tr( "<Auto>" ) );
@@ -111,9 +113,18 @@ void ParserManager::CreateParser()
 
         default : // Parser::Auto
         {
-            // TODO: need to realize some logic, picking parser
-            //currentParser = new OmdbParser();
-            currentParser = new KinopoiskParser();
+            // TODO: more logic
+            QStringList kyr = QStringList { "ru", "uk", "be" };
+
+            if( kyr.contains( QLocale::system().name().left(2) ) )
+            {
+                currentParser = new KinopoiskParser();
+            }
+            else
+            {
+                currentParser = new OmdbParser();
+            }
+
             break;
         }
     }
