@@ -65,26 +65,26 @@ class AbstractParser : public QObject
                                     const QString& title, const QString& year = QString() )
         {
             DebugPrintFuncA( "AbstractParser::SyncSearchFor", title );
-            QUrl url;
+            QUrl url( searchUrl.arg( title ) );
 
-            if( year.isEmpty() )
-            {
-                url = searchUrl.arg( title );
-            }
-            else
+            if( !year.isEmpty() )
             {
                 url = searchUrlWithYear.arg( title ).arg( year );
             }
 
-            QByteArray data = request.runSync( QUrl( searchUrl ) );
+            QByteArray data = request.runSync( url );
             QString poster = Parse( data );
 
             if( filmSaveTo != nullptr )
             {
-                // We must to save filename
+                // We must to save these fields
+                QString title = filmSaveTo->GetTitle();
                 QString fileName = filmSaveTo->GetFileName();
-                filmSaveTo->SetNewData( f );
+
+                filmSaveTo->SetNewData( film );
+
                 filmSaveTo->SetFileName( fileName );
+                filmSaveTo->SetTitle( title );
             }
 
             if( posterFileNameSaveTo != nullptr )
@@ -107,7 +107,7 @@ class AbstractParser : public QObject
 
     signals:
         void Progress( quint64 received, quint64 total );
-        void Loaded( const Film& f, const QString& posterFileName );
+        void Loaded( const Film& film, const QString& posterFileName );
         void Error( const QString& e);
 
     protected:
@@ -115,7 +115,7 @@ class AbstractParser : public QObject
         QString searchUrl;
 
         NetworkRequest request;
-        Film f;
+        Film film;
 };
 
 #endif // ABSTRACTPARSER_H

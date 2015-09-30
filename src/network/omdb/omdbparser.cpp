@@ -26,6 +26,11 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+OmdbParser::OmdbParser() : AbstractParser()
+{
+    DebugPrintFunc( "OmdbParser::OmdbParser" );
+}
+
 void OmdbParser::SearchFor( const QString& title, const QString& year )
 {
     searchUrlWithYear = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=json" );
@@ -54,60 +59,55 @@ QString OmdbParser::Parse( const QByteArray& data )
 
     if( json["Response"].toString() == "True" )
     {
-        f.SetTitle( json["Title"].toString() );
-        f.SetOriginalTitle( json["Title"].toString() );
-        f.SetYearFromStr(   json["Year"].toString() );
+        film.SetTitle( json["Title"].toString() );
+        film.SetOriginalTitle( json["Title"].toString() );
+        film.SetYearFromStr(   json["Year"].toString() );
 
         if( json["Country"].toString() != QLatin1String( "N/A" ) )
-            f.SetCountry( json["Country"].toString() );
+            film.SetCountry( json["Country"].toString() );
 
         if( json["Director"].toString() != QLatin1String( "N/A" ) )
-            f.SetDirector( json["Director"].toString() );
+            film.SetDirector( json["Director"].toString() );
 
         if( json["Genre"].toString() != QLatin1String( "N/A" ) )
-            f.SetGenre( json["Genre"].toString() );
+            film.SetGenre( json["Genre"].toString() );
 
         if( json["Writer"].toString() != QLatin1String( "N/A" ) )
-            f.SetScreenwriter( json["Writer"].toString() );
+            film.SetScreenwriter( json["Writer"].toString() );
 
         if( json["imdbRating"].toString() != QLatin1String( "N/A" ) )
-            f.SetRatingFromStr( json["imdbRating"].toString() );
+            film.SetRatingFromStr( json["imdbRating"].toString() );
 
         if( json["Actors"].toString() != QLatin1String( "N/A" ) )
-            f.SetStarring( json["Actors"].toString() );
+            film.SetStarring( json["Actors"].toString() );
 
         if( json["Plot"].toString() != QLatin1String( "N/A" ) )
-            f.SetDescription( json["Plot"].toString() );
+            film.SetDescription( json["Plot"].toString() );
+
+        DebugPrint( "Loading poster..." );
 
         QString posterUrl = json["Poster"].toString();
 
-        if( posterUrl.length() > 5 )
+        QByteArray& posterData = request.runSync( posterUrl );
+        QString posterFileName( QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() ) );
+
+        QFile file( posterFileName );
+
+        if( file.open( QIODevice::WriteOnly ) && file.write( posterData ) )
         {
-            DebugPrint( "Loading poster" );
-
-            QByteArray& data = request.runSync( posterUrl );
-            QString posterFileName( QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() ) );
-            QFile file( posterFileName );
-
-            if( file.open( QIODevice::WriteOnly ) && file.write( data ) )
-            {
-                file.close();
-                emit Loaded( f, posterFileName );
-                return( posterFileName );
-            }
-            else
-            {
-                Error( file.errorString() );
-            }
+            file.close();
+            emit Loaded( film, posterFileName );
+            return( posterFileName );
         }
         else
         {
-            emit Loaded( f, QString() );
+            emit Loaded( film, QString() );
+            emit Error( file.errorString() );
         }
     }
     else
     {
-        Error( json["Error"].toString() );
+        emit Error( json["Error"].toString() );
     }
 
     return( QString() );

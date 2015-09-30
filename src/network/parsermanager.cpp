@@ -112,7 +112,8 @@ void ParserManager::CreateParser()
         default : // Parser::Auto
         {
             // TODO: need to realize some logic, picking parser
-            currentParser = new OmdbParser();
+            //currentParser = new OmdbParser();
+            currentParser = new KinopoiskParser();
             break;
         }
     }

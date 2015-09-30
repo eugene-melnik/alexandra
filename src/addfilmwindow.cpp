@@ -301,7 +301,11 @@ void AddFilmWindow::InformationLoaded( const Film& f, const QString& posterFileN
         ePosterFileName->setText( posterFileName );
     }
 
-    eTitle->setText( f.GetTitle() );
+    if( eTitle->text().isEmpty() )
+    {
+        eTitle->setText( f.GetTitle() );
+    }
+
     eOriginalTitle->setText( f.GetOriginalTitle() );
     eTagline->setText( f.GetTagline() );
     eYear->setText( f.GetYearStr() );

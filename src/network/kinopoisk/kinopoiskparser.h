@@ -23,12 +23,14 @@
 
 #include "../abstractparser.h"
 
+#include <QRegExp>
+
 class KinopoiskParser : public AbstractParser
 {
     Q_OBJECT
 
     public:
-        KinopoiskParser() : AbstractParser() {}
+        KinopoiskParser();
 
         void SearchFor( const QString& title, const QString& year = QString() );
         void SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
@@ -36,6 +38,10 @@ class KinopoiskParser : public AbstractParser
 
     private slots:
         QString Parse( const QByteArray& data );
+
+    private:
+        QString ParseList( const QString& str, QRegExp& reList, QRegExp& reItem ) const;
+        QString ParseItem( const QString& str, QRegExp& reItem ) const;
 };
 
 #endif // KINOPOISKPARSER_H

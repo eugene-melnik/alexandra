@@ -21,9 +21,15 @@
 #include "kinopoiskparser.h"
 #include "debug.h"
 
+#include <QByteArray>
 #include <QDir>
 #include <QFile>
 #include <QTextCodec>
+
+KinopoiskParser::KinopoiskParser() : AbstractParser()
+{
+    DebugPrintFunc( "KinopoiskParser::KinopoiskParser" );
+}
 
 void KinopoiskParser::SearchFor( const QString& title, const QString& year )
 {
@@ -64,73 +70,119 @@ QString KinopoiskParser::Parse( const QByteArray& data )
 
     DebugPrint( "Simpified to: " + QString::number( str.size() ) );
 
-//QFile file("../INDEX.HTML");
-//file.open(QIODevice::WriteOnly);
-//file.write(str.toUtf8());
-//file.close();
+// TODO: case if not founded
 
     // Title
     QRegExp reTitle( "class=\"moviename-big\".*>(.*)</h1>" );
-    reTitle.setMinimal( true );
-    reTitle.indexIn( str );
-    f.SetTitle( reTitle.cap(1) );
+    film.SetTitle( ParseItem( str, reTitle ) );
 
     // Original title
     QRegExp reOriginalTitle( "itemprop=\"alternativeHeadline\">(.*)</span>" );
-    reOriginalTitle.setMinimal( true );
-    reOriginalTitle.indexIn( str );
-    f.SetOriginalTitle( reOriginalTitle.cap(1) );
+    film.SetOriginalTitle( ParseItem( str, reOriginalTitle ) );
 
     // Tagline
     QRegExp reTagline( "слоган</td><.*>(.*)</td>" );
-    reTagline.setMinimal( true );
-    reTagline.indexIn( str );
-    f.SetTagline( reTagline.cap(1) );
+    film.SetTagline( ParseItem( str, reTagline ) );
 
     // Year
-    QRegExp reYear( "год</td><td><.*><.*>(.*)</a>" );
-    reYear.setMinimal( true );
-    reYear.indexIn( str );
-    f.SetYearFromStr( reYear.cap(1).trimmed() );
+    QRegExp reYear( "href=\"/lists/m_act\\[year\\]/.*>(.*)</a>" );
+    film.SetYearFromStr( ParseItem( str, reYear ) );
+
+    // Budget
+    QRegExp reBudget( "бюджет</td><.*><.*><.*>\\$(.*)</a>" );
+    film.SetBudgetFromStr( ParseItem( str, reBudget ).replace( " ", "" ) );
+
+    // Rating
+    QRegExp reRating( "class=\"rating_ball\">(.*)</span>" );
+    film.SetRatingFromStr( ParseItem( str, reRating ) );
 
     // Country
-    QRegExp reCountry( "страна</td><td><.*><.*>(.*)</a>" );
-    reCountry.setMinimal( true );
-    reCountry.indexIn( str );
-    f.SetCountry( reCountry.cap(1) );
+    QRegExp reCountryList( "страна</td><td><.*>(.*)</td>" );
+    QRegExp reCountry( "href=\"/lists/m_act\\[country\\]/.*>(.*)</a>" );
+    film.SetCountry( ParseList( str, reCountryList, reCountry ) );
 
-    // Director /// может быть список людей
-    QRegExp reDirector( "режиссер</td><.*><.*>(.*)</a>" );
-    reDirector.setMinimal( true );
-    reDirector.indexIn( str );
-    f.SetDirector( reDirector.cap(1) );
+    // Director
+    QRegExp reDirectorList( "itemprop=\"director\">(.*)</td>" );
+    QRegExp reName( "href=\"/name/.*>(.*)</a>" );
+    film.SetDirector( ParseList( str, reDirectorList, reName ) );
+
+    // Screenwriter
+    QRegExp reScreenwriterList( "сценарий</td><.*>(.*)</td>" );
+    film.SetScreenwriter( ParseList( str, reScreenwriterList, reName ) );
+
+    // Genre
+    QRegExp reGenreList( "itemprop=\"genre\">(.*)</span>" );
+    QRegExp reGenre( "href=\"/lists/.*>(.*)</a>" );
+    film.SetGenre( ParseList( str, reGenreList, reGenre ) );
+
+    // Producer
+    QRegExp reProducerList( "itemprop=\"producer\">(.*)</td>" );
+    film.SetProducer( ParseList( str, reProducerList, reName ) );
+
+    // Composer
+    QRegExp reComposerList( "itemprop=\"musicBy\">(.*)</td>" );
+    film.SetComposer( ParseList( str, reComposerList, reName ) );
 
     // Starring
-    QRegExp reStarring( "В главных ролях:</h4>(.*)</ul>" );
-    reStarring.setMinimal( true );
-    reStarring.indexIn( str );
-
-    QRegExp reActors( "href=\"/name/.*>(.*)</a>" );
-    reActors.setMinimal( true );
-
-    QStringList actors;
-    int pos = 0;
-
-    while( reActors.indexIn( reStarring.cap(1), pos ) != -1 )
-    {
-        actors.append( reActors.cap(1) );
-        pos += reActors.matchedLength();
-    }
-
-    f.SetStarring( actors.join( ", " ) );
+    QRegExp reStarringList( "В главных ролях:</h4>(.*)</ul>" );
+    film.SetStarring( ParseList( str, reStarringList, reName ) );
 
     // Description
     QRegExp reDescription( "itemprop=\"description\">(.*)</div>" );
-    reDescription.setMinimal( true );
-    reDescription.indexIn( str );
-    f.SetDescription( reDescription.cap(1).replace( "<br><br>", "<br>\n" ) );
+    film.SetDescription( ParseItem( str, reDescription ).replace( "<br><br>", "<br>\n" ) );
 
-    DebugPrint( "Seems to be done!" );
-    emit Loaded( f, QString() );
+    DebugPrint( "Text parsed!  Loading poster..." );
+
+    // Poster
+    QRegExp rePosterUrl( "openImgPopup\\('(.*)'\\)" );
+    QString posterSubUrl = ParseItem( str, rePosterUrl );
+
+    if( !posterSubUrl.isEmpty() )
+    {
+        QString posterUrl( "http://www.kinopoisk.ru" + posterSubUrl );
+        DebugPrint( "Poster URL: " + posterUrl );
+
+        QByteArray& posterData = request.runSync( posterUrl );
+        QString posterFileName( QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() ) );
+        QFile file( posterFileName );
+
+        if( file.open( QIODevice::WriteOnly ) && file.write( posterData ) )
+        {
+            file.close();
+            emit Loaded( film, posterFileName );
+            return( posterFileName );
+        }
+        else
+        {
+            emit Error( file.errorString() );
+        }
+    }
+
+    emit Loaded( film, QString() );
     return( QString() );
+}
+
+QString KinopoiskParser::ParseList( const QString& str, QRegExp& reList, QRegExp& reItem ) const
+{
+    reItem.setMinimal( true );
+    reList.setMinimal( true );
+    reList.indexIn( str );
+
+    QStringList result;
+    int nextPosition = 0;
+
+    while( reItem.indexIn( reList.cap(1), nextPosition ) != -1 )
+    {
+        result.append( reItem.cap(1).trimmed() );
+        nextPosition += reItem.matchedLength();
+    }
+
+    return( result.join( ", " ) );
+}
+
+QString KinopoiskParser::ParseItem( const QString& str, QRegExp& reItem ) const
+{
+    reItem.setMinimal( true );
+    reItem.indexIn( str );
+    return( reItem.cap(1).trimmed() );
 }

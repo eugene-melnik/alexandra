@@ -33,9 +33,9 @@ QString Film::GetBudgetStr() const
 {
     QString result = "";
 
-    if( budget > 1 ) // double has no zero
+    if( budget > 0 )
     {
-        result = "$" + QString::number( budget, 'f', 0 );
+        result = QString( "$%L1" ).arg( budget, 0, 'f', 0 );
     }
 
     return( result );

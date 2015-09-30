@@ -28,7 +28,7 @@ class OmdbParser : public AbstractParser
     Q_OBJECT
 
     public:
-        OmdbParser() : AbstractParser() {}
+        OmdbParser();
 
         void SearchFor( const QString& title, const QString& year = QString() );
         void SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
