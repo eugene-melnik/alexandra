@@ -54,7 +54,7 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
         void OpenFilm();
         void OpenPosterFileClicked();
         void LoadInformation();
-        void OkButtonClicked();
+        void Save();
 
         void InformationLoaded( const Film& f, const QString& posterFileName );
         void InformationLoadError( const QString& e );

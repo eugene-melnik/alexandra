@@ -53,7 +53,8 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent )
     connect( bOpenFile, &QPushButton::clicked, this, &AddFilmWindow::OpenFilm );
     connect( bOpenPoster, &QPushButton::clicked, this, &AddFilmWindow::OpenPosterFileClicked );
     connect( bLoad, &QPushButton::clicked, this, &AddFilmWindow::LoadInformation );
-    connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::OkButtonClicked );
+    connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::Save );
+    connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::close );
 
     // TODO: explain this
     QString msgOmdbNotFound = tr( "Movie not found!" );
@@ -179,7 +180,7 @@ void AddFilmWindow::OpenPosterFileClicked()
 
                 // Need to update information if poster removed
                 ePosterFileName->clear();
-                OkButtonClicked();
+                Save();
             }
         }
 
@@ -214,7 +215,7 @@ void AddFilmWindow::LoadInformation()
     progressBar->show();
 }
 
-void AddFilmWindow::OkButtonClicked()
+void AddFilmWindow::Save()
 {
     // Checking necessary fields
     if( eTitle->text().isEmpty() )
@@ -290,7 +291,6 @@ void AddFilmWindow::OkButtonClicked()
         }
     }
 
-    close();
     emit Done( f );
 }
 
