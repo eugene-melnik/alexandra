@@ -44,13 +44,13 @@ class FilmsList : public QObject
 
     public slots:
         int         GetNumberOfFilms() const;
-        const Film* GetFilmAt( int i ) const;
         const Film* GetFilmByTitle( const QString& title );
 
         const QList<Film>* GetFilmsList() const;
+        QStringList GetTitlesList() const;
 
-        QStringList*  GetFilmsFileNames() const;
-        QList<Film*>* GetUnavailableFilms();
+        QStringList*  GetFileNamesList() const;
+        QList<Film*>* GetUnavailablesList();
 
         const Film* GetCurrentFilm() const;
         QString GetCurrentFilmTitle() const;

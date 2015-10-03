@@ -92,8 +92,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void EditFilm() { editFilmWindow->show( filmsList->GetCurrentFilm() ); }
         void RemoveFilm();
         void RemoveFile();
-        void FilmScanner() { filmScannerWindow->show( filmsList->GetFilmsFileNames() ); }
-        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailableFilms() ); }
+        void FilmScanner() { filmScannerWindow->show( filmsList->GetFileNamesList() ); }
+        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailablesList() ); }
         void Statistics() { statisticsWindow->show( filmsList->GetFilmsList() ); }
 
         void SetupCompleter();

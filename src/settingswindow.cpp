@@ -76,19 +76,17 @@ void SettingsWindow::OkButtonClicked()
 {
     DebugPrintFunc( "SettingsWindow::OkButtonClicked" );
 
-    // Show reboot message (if necessary)
     if( isNeedReboot )
     {
         QMessageBox::information( this, tr( "Settings" ), tr( "For taking all settings, restart the application." ) );
     }
 
-    // Hide window
     close();
 
-    // Saving settings
     if( isSettingsChanged )
     {
         // Appearance tab
+
         settings->SetApplicationFont( bFontSelect->font().toString() );
 
         if( cbStyle->currentIndex() == 0 )
@@ -120,6 +118,7 @@ void SettingsWindow::OkButtonClicked()
         settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
 
         // Application tab
+
         settings->SetApplicationShowSplashScreen( cShowSplashScreen->isChecked() );
         settings->SetApplicationLocaleIndex( cbLanguage->currentIndex() - 1 );
 
@@ -135,6 +134,7 @@ void SettingsWindow::OkButtonClicked()
         settings->SetScalePostersToHeight( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
 
         // Shortcuts tab
+
         for( auto& s : shortcuts )
         {
             QString currentKey = s.keyEdit->keySequence().toString();

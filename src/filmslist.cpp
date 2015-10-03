@@ -156,11 +156,6 @@ int FilmsList::GetNumberOfFilms() const
     return( films->size() );
 }
 
-const Film* FilmsList::GetFilmAt( int i ) const
-{
-    return( &(films->at(i)) );
-}
-
 const Film *FilmsList::GetFilmByTitle( const QString& title )
 {
     for( int i = 0; i < films->size(); i++ )
@@ -179,19 +174,31 @@ const QList<Film>* FilmsList::GetFilmsList() const
     return( films );
 }
 
-QStringList* FilmsList::GetFilmsFileNames() const
+QStringList FilmsList::GetTitlesList() const
 {
-    QStringList* res = new QStringList();
+    QStringList res;
 
-    for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
+    for( const Film& film : *films )
     {
-        *res << i->GetFileName();
+        res.append( film.GetTitle() );
     }
 
     return( res );
 }
 
-QList<Film*>* FilmsList::GetUnavailableFilms()
+QStringList* FilmsList::GetFileNamesList() const
+{
+    QStringList* res = new QStringList();
+
+    for( const Film& film : *films )
+    {
+        res->append( film.GetFileName() );
+    }
+
+    return( res );
+}
+
+QList<Film*>* FilmsList::GetUnavailablesList()
 {
     DebugPrintFunc( "FilmsList::GetUnavailableFilms" );
 
@@ -246,9 +253,9 @@ int FilmsList::GetIsViewedCount() const
 {
     int isViewedCount = 0;
 
-    for( QList<Film>::iterator f = films->begin(); f < films->end(); f++ )
+    for( const Film& film : *films )
     {
-        if( f->GetIsViewed() )
+        if( film.GetIsViewed() )
         {
             isViewedCount++;
         }
@@ -261,9 +268,9 @@ int FilmsList::GetIsFavouriteCount() const
 {
     int isFavouriteCount = 0;
 
-    for( QList<Film>::iterator f = films->begin(); f < films->end(); f++ )
+    for( const Film& film : *films )
     {
-        if( f->GetIsFavourite() )
+        if( film.GetIsFavourite() )
         {
             isFavouriteCount++;
         }
@@ -298,11 +305,11 @@ void FilmsList::AddFilms( const QList<Film>* newFilms )
 
 void FilmsList::SetCurrentFilm( const QString& title )
 {
-    for( QList<Film>::iterator f = films->begin(); f < films->end(); f++ )
+    for( Film& film : *films )
     {
-        if( f->GetTitle() == title )
+        if( film.GetTitle() == title )
         {
-            currentFilm = &(*f);
+            currentFilm = &film;
             return;
         }
     }
@@ -340,24 +347,22 @@ void FilmsList::IncCurrentFilmViewsCounter()
 void FilmsList::RemoveCurrentFilm()
 {
     RemoveFilm( *currentFilm );
+    currentFilm = nullptr;
 }
 
 void FilmsList::RemoveFilmByTitle( const QString& title )
 {
     DebugPrintFuncA( "FilmsList::RemoveFilmByTitle", title );
 
-    Film film;
-
-    for( QList<Film>::iterator f = films->begin(); f < films->end(); f++ )
+    for( const Film& film : *films )
     {
-        if( f->GetTitle() == title )
+        if( film.GetTitle() == title )
         {
-            film = *f;
+            RemoveFilm( film );
             break;
         }
     }
 
-    RemoveFilm( film );
 }
 
 void FilmsList::FilmsMoved()
@@ -369,14 +374,13 @@ void FilmsList::FilmsMoved()
 void FilmsList::EraseAll()
 {
     DebugPrintFunc( "FilmsList::EraseAll" );
-
     QString postersDir = settings->GetPostersDirPath();
 
-    for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
+    for( const Film& film : *films )
     {
-        if( i->GetIsPosterExists() == true )
+        if( film.GetIsPosterExists() == true )
         {
-            QFile( postersDir + "/" + i->GetPosterName() ).remove();
+            QFile( postersDir + "/" + film.GetPosterName() ).remove();
         }
     }
 
@@ -396,10 +400,10 @@ void FilmsList::ResetViews()
 {
     DebugPrintFunc( "FilmsList::ResetViews" );
 
-    for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
+    for( Film& film : *films )
     {
-        i->SetIsViewed( false );
-        i->SetViewCounter( 0 );
+        film.SetIsViewed( false );
+        film.SetViewCounter( 0 );
     }
 
     DebugPrintFuncDone( "FilmsList::ResetViews" );
@@ -419,11 +423,6 @@ void FilmsList::RemoveFilm( const Film& film )
     {
         QString posterFileName = settings->GetPostersDirPath() + "/" + film.GetPosterName();
         QFile( posterFileName ).remove();
-    }
-
-    if( currentFilm != nullptr && film == *currentFilm )
-    {
-        currentFilm = nullptr;
     }
 
     // Remove record from database

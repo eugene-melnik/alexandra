@@ -262,7 +262,7 @@ void MainWindow::ShowFilmInformation()
     {
         // File exists
 #ifdef MEDIAINFO_SUPPORT
-        filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
+        //filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
 #endif
         bPlay->setEnabled( true );
     }
@@ -369,9 +369,9 @@ void MainWindow::AddToPlaylist()
 
     QStringList filmsTitles = filmsView->GetSelectedItemsList();
 
-    for( QString f : filmsTitles )
+    for( QString t : filmsTitles )
     {
-        const Film* film = filmsList->GetFilmByTitle( f );
+        const Film* film = filmsList->GetFilmByTitle( t );
         lwPlaylist->AddItem( film->GetTitle(), film->GetFileName() );
     }
 }
@@ -557,15 +557,7 @@ void MainWindow::SetupCompleter()
 
     delete eFilter->completer();
 
-    const QList<Film>* films = filmsList->GetFilmsList();
-    QStringList words;
-
-    for( int i = 0; i < films->size(); i++ )
-    {
-        words.append( films->at(i).GetTitle() );
-    }
-
-    QCompleter* c = new QCompleter( words, this );
+    QCompleter* c = new QCompleter( filmsList->GetTitlesList(), this );
     c->setCaseSensitivity( Qt::CaseInsensitive );
     eFilter->setCompleter( c );
 

@@ -33,7 +33,7 @@ QString Film::GetBudgetStr() const
 {
     QString result = "";
 
-    if( budget > 0 )
+    if( budget > 1 )
     {
         result = QString( "$%L1" ).arg( budget, 0, 'f', 0 );
     }
