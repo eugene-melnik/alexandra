@@ -262,7 +262,7 @@ void MainWindow::ShowFilmInformation()
     {
         // File exists
 #ifdef MEDIAINFO_SUPPORT
-        //filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
+        filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
 #endif
         bPlay->setEnabled( true );
     }
