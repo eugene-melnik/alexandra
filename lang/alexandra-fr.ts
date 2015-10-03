@@ -45,41 +45,46 @@
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="282"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://alexandra-qt.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Official website&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://alexandra-qt.sourceforge.net/en/download/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Download latest version&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://alexandra-qt.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Website officiel&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://alexandra-qt.sourceforge.net/en/download/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Télécharger la dernière version&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;a href=&quot;http://alexandra-qt.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Official website&lt;/span&gt;&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.ui" line="321"/>
+        <location filename="../src/aboutwindow.ui" line="292"/>
+        <source>&lt;a href=&quot;http://alexandra-qt.sourceforge.net/en/download/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Download latest version (%1)&lt;/span&gt;&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/aboutwindow.ui" line="331"/>
         <source>Translators</source>
         <translation>Traducteurs</translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.ui" line="327"/>
+        <location filename="../src/aboutwindow.ui" line="337"/>
         <source>People, who contributed with translations:</source>
         <translation>Les personnes, qui ont contribuées pour les traductions :</translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.ui" line="338"/>
+        <location filename="../src/aboutwindow.ui" line="348"/>
         <source>Donate</source>
         <translation>Faire un don</translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.ui" line="344"/>
+        <location filename="../src/aboutwindow.ui" line="354"/>
         <source>Alexandra Video Library is freeware, there are no sales or other revenues. Thus you can donate to encourage the author and to enable him to continue developing the project. Thank you!</source>
         <translation>Alexandra Video Library est gratuit, il n&apos;y a pas de vente ou autres revenus. Vous pouvez donner pour encourager l&apos;auteur et l&apos;aider à développer le projet. Merci !</translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.ui" line="400"/>
+        <location filename="../src/aboutwindow.ui" line="410"/>
         <source>&amp;Close</source>
         <translation>&amp;Fermer</translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.cpp" line="42"/>
+        <location filename="../src/aboutwindow.cpp" line="43"/>
         <source>version %1 (portable) (build date: %2)</source>
         <translation>version %1 (portable) (date du build : %2)</translation>
     </message>
     <message>
-        <location filename="../src/aboutwindow.cpp" line="44"/>
+        <location filename="../src/aboutwindow.cpp" line="45"/>
         <source>version %1 (build date: %2)</source>
         <translation>version %1 (date du build : %2)</translation>
     </message>
@@ -104,8 +109,8 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="73"/>
         <location filename="../src/addfilmwindow.ui" line="119"/>
-        <location filename="../src/addfilmwindow.cpp" line="51"/>
-        <location filename="../src/addfilmwindow.cpp" line="157"/>
+        <location filename="../src/addfilmwindow.cpp" line="74"/>
+        <location filename="../src/addfilmwindow.cpp" line="188"/>
         <source>Open</source>
         <translation>Ouvrir</translation>
     </message>
@@ -120,179 +125,212 @@
         <translation>Ouvrir une affiche sur le disque</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="143"/>
+        <location filename="../src/addfilmwindow.ui" line="158"/>
         <source>Original title</source>
         <translation>Titre original</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="170"/>
+        <location filename="../src/addfilmwindow.ui" line="145"/>
         <source>Title</source>
         <translation>Titre</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="197"/>
+        <location filename="../src/addfilmwindow.ui" line="232"/>
         <source>Tagline</source>
         <translation>Slogan</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="226"/>
+        <location filename="../src/addfilmwindow.ui" line="261"/>
         <source>Year</source>
         <translation>Année</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="275"/>
+        <location filename="../src/addfilmwindow.ui" line="310"/>
         <source>Budget, $</source>
         <translation>Budget, $</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="405"/>
+        <location filename="../src/addfilmwindow.ui" line="440"/>
         <source>Country</source>
         <translation>Pays</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="412"/>
+        <location filename="../src/addfilmwindow.ui" line="447"/>
         <source>Countries, comma separated</source>
         <translation>Pays, séparés par une virgule</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="442"/>
+        <location filename="../src/addfilmwindow.ui" line="477"/>
         <source>Genre</source>
         <translation>Genre</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="449"/>
+        <location filename="../src/addfilmwindow.ui" line="484"/>
         <source>Genres, comma separated</source>
         <translation>Genres, séparés par une virgule</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="318"/>
+        <location filename="../src/addfilmwindow.ui" line="353"/>
         <source>Rating</source>
         <translation>Note</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="476"/>
+        <location filename="../src/addfilmwindow.ui" line="165"/>
+        <source>Load information from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.ui" line="201"/>
+        <source>Try to fetch information from the selected online source. The search is conducted by fields &quot;Title&quot; and &quot;Year&quot; (optional).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.ui" line="204"/>
+        <source>Load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.ui" line="511"/>
         <source>Director</source>
         <translation>Réalisateur</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="483"/>
-        <location filename="../src/addfilmwindow.ui" line="554"/>
+        <location filename="../src/addfilmwindow.ui" line="518"/>
+        <location filename="../src/addfilmwindow.ui" line="589"/>
         <source>Directors, comma separated</source>
         <translation>Réalisateurs, séparés par une virgule</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="513"/>
+        <location filename="../src/addfilmwindow.ui" line="548"/>
         <source>Producer</source>
         <translation>Producteur(s)</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="520"/>
-        <location filename="../src/addfilmwindow.ui" line="591"/>
+        <location filename="../src/addfilmwindow.ui" line="555"/>
+        <location filename="../src/addfilmwindow.ui" line="626"/>
         <source>Producers, comma separated</source>
         <translation>Producteurs, séparés par une virgule</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="547"/>
+        <location filename="../src/addfilmwindow.ui" line="582"/>
         <source>Screenwriter</source>
         <translation>Scénariste</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="584"/>
+        <location filename="../src/addfilmwindow.ui" line="619"/>
         <source>Composer</source>
         <translation>Compositeur</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="616"/>
+        <location filename="../src/addfilmwindow.ui" line="651"/>
         <source>Starring</source>
         <translation>Avec</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="623"/>
+        <location filename="../src/addfilmwindow.ui" line="658"/>
         <source>Actors, comma separated</source>
         <translation>Acteurs, séparés par une virgule</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="640"/>
+        <location filename="../src/addfilmwindow.ui" line="675"/>
         <source>Description</source>
         <translation>Description</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="647"/>
+        <location filename="../src/addfilmwindow.ui" line="682"/>
         <source>A summary of the plot</source>
         <translation>Un résumé de l&apos;intrigue</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="667"/>
+        <location filename="../src/addfilmwindow.ui" line="702"/>
         <source>Tags</source>
         <translation>Étiquettes</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="695"/>
+        <location filename="../src/addfilmwindow.ui" line="730"/>
         <source>Is viewed</source>
         <translation>Vu</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="709"/>
+        <location filename="../src/addfilmwindow.ui" line="744"/>
         <source>Is favourite</source>
         <translation>Favori</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="729"/>
+        <location filename="../src/addfilmwindow.ui" line="777"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Annuler</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.ui" line="736"/>
+        <location filename="../src/addfilmwindow.ui" line="784"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="81"/>
+        <location filename="../src/addfilmwindow.cpp" line="104"/>
         <source>Select film</source>
         <translation>Sélectionner un film</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="118"/>
+        <location filename="../src/addfilmwindow.cpp" line="149"/>
         <source>Select image</source>
         <translation>Sélectionner une image</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="83"/>
+        <location filename="../src/addfilmwindow.cpp" line="106"/>
         <source>Video files (%1)</source>
         <translation>Fichiers vidéo (%1)</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="120"/>
+        <location filename="../src/addfilmwindow.cpp" line="151"/>
         <source>Images (%1)</source>
         <translation>Images (%1)</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="102"/>
-        <location filename="../src/addfilmwindow.cpp" line="125"/>
+        <location filename="../src/addfilmwindow.cpp" line="133"/>
+        <location filename="../src/addfilmwindow.cpp" line="156"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="141"/>
+        <location filename="../src/addfilmwindow.cpp" line="60"/>
+        <source>Movie not found!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="172"/>
         <source>Clear poster</source>
         <translation>Effacer l&apos;affiche</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="142"/>
+        <location filename="../src/addfilmwindow.cpp" line="173"/>
         <source>Remove image file?</source>
         <translation>Supprimer l&apos;image ?</translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="166"/>
+        <location filename="../src/addfilmwindow.cpp" line="196"/>
+        <location filename="../src/addfilmwindow.cpp" line="335"/>
+        <source>Loading information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="197"/>
+        <source>Input title for searching!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/addfilmwindow.cpp" line="223"/>
         <source>Adding film</source>
         <translation>Ajout du film</translation>
     </message>
     <message>
-        <source>You must choose file on the disk.</source>
-        <translation type="vanished">Vous devez choisir un fichier sur le disque.</translation>
+        <location filename="../src/addfilmwindow.cpp" line="336"/>
+        <source>Error!
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/addfilmwindow.cpp" line="167"/>
+        <location filename="../src/addfilmwindow.cpp" line="224"/>
         <source>Field &quot;Title&quot; can&apos;t be empty.</source>
         <translation>Le champ &quot;Titre&quot; ne peut pas être vide.</translation>
     </message>
@@ -412,27 +450,32 @@
         <translation>Inverser la sélection</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.ui" line="200"/>
-        <source>Search for a poster with the same filename</source>
-        <translation>Rechercher une affiche avec le même nom de fichier</translation>
+        <location filename="../src/filmscannerwindow.ui" line="202"/>
+        <source>Load information from online source</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.ui" line="219"/>
+        <location filename="../src/filmscannerwindow.ui" line="214"/>
+        <source>Search for a poster with the same filename in the directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filmscannerwindow.ui" line="233"/>
         <source>Total founded:</source>
         <translation>Total trouvé :</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.ui" line="240"/>
+        <location filename="../src/filmscannerwindow.ui" line="254"/>
         <source>Selected:</source>
         <translation>Sélectionné :</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.ui" line="280"/>
+        <location filename="../src/filmscannerwindow.ui" line="294"/>
         <source>&amp;Add</source>
         <translation>&amp;Ajouter</translation>
     </message>
     <message>
-        <location filename="../src/filmscannerwindow.ui" line="287"/>
+        <location filename="../src/filmscannerwindow.ui" line="301"/>
         <source>&amp;Close</source>
         <translation>&amp;Fermer</translation>
     </message>
@@ -646,146 +689,146 @@
         <translation>&lt;Taper pour rechercher&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="449"/>
+        <location filename="../src/mainwindow.ui" line="458"/>
         <source>Is viewed</source>
         <translation>Vu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="478"/>
+        <location filename="../src/mainwindow.ui" line="487"/>
         <source>Is added to favourites</source>
         <translation>Ajouté aux favoris</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="510"/>
+        <location filename="../src/mainwindow.ui" line="519"/>
         <source>Show technical information</source>
         <translation>Afficher les informations techniques</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="558"/>
+        <location filename="../src/mainwindow.ui" line="567"/>
         <source>Open film in external player</source>
         <translation>Ouvrir le film dans un lecteur vidéo externe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="561"/>
+        <location filename="../src/mainwindow.ui" line="570"/>
         <location filename="../src/mainwindow.cpp" line="381"/>
         <location filename="../src/mainwindow.cpp" line="461"/>
         <source>&amp;PLAY</source>
         <translation>&amp;LECTURE</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="584"/>
+        <location filename="../src/mainwindow.ui" line="593"/>
         <source>Add to playlist</source>
         <translation>Ajouter à la liste de lecture</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="642"/>
+        <location filename="../src/mainwindow.ui" line="651"/>
         <source>Playlist:</source>
         <translation>Liste de lecture :</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="681"/>
+        <location filename="../src/mainwindow.ui" line="690"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="687"/>
+        <location filename="../src/mainwindow.ui" line="696"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="694"/>
+        <location filename="../src/mainwindow.ui" line="703"/>
         <source>&amp;Edit</source>
         <translation>&amp;Édition</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="703"/>
+        <location filename="../src/mainwindow.ui" line="712"/>
         <source>Fil&amp;ms</source>
         <translation>Fil&amp;ms</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="714"/>
+        <location filename="../src/mainwindow.ui" line="723"/>
         <source>&amp;Tools</source>
         <translation>&amp;Outils</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="745"/>
+        <location filename="../src/mainwindow.ui" line="754"/>
         <source>E&amp;xit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="748"/>
+        <location filename="../src/mainwindow.ui" line="757"/>
         <source>Exit the program and save all data</source>
         <translation>Quitter le programme et sauvegarder les données</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="757"/>
+        <location filename="../src/mainwindow.ui" line="766"/>
         <source>&amp;About...</source>
         <translation>&amp;À propos...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="768"/>
+        <location filename="../src/mainwindow.ui" line="777"/>
         <source>Show toolbar</source>
         <translation>Afficher la barre d&apos;outils</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="771"/>
+        <location filename="../src/mainwindow.ui" line="780"/>
         <source>Show or hide the toolbar</source>
         <translation>Afficher ou masquer la barre d&apos;outils</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="780"/>
+        <location filename="../src/mainwindow.ui" line="789"/>
         <source>Settings...</source>
         <translation>Préférences...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="789"/>
+        <location filename="../src/mainwindow.ui" line="798"/>
         <source>&amp;Add film...</source>
         <translation>&amp;Ajouter un film...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="798"/>
+        <location filename="../src/mainwindow.ui" line="807"/>
         <source>Edit film...</source>
         <translation>Éditer le film...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="807"/>
+        <location filename="../src/mainwindow.ui" line="816"/>
         <location filename="../src/mainwindow.cpp" line="493"/>
         <location filename="../src/mainwindow.cpp" line="514"/>
         <source>Remove film</source>
         <translation>Supprimer le film</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="816"/>
+        <location filename="../src/mainwindow.ui" line="825"/>
         <source>&amp;Random</source>
         <translation>Aléatoi&amp;re</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="825"/>
+        <location filename="../src/mainwindow.ui" line="834"/>
         <source>&amp;Search...</source>
         <translation>&amp;Rechercher...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="834"/>
+        <location filename="../src/mainwindow.ui" line="843"/>
         <source>About Qt...</source>
         <translation>À propos de Qt...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="843"/>
+        <location filename="../src/mainwindow.ui" line="852"/>
         <source>Film scanner</source>
         <translation>Explorer les films</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="852"/>
+        <location filename="../src/mainwindow.ui" line="861"/>
         <source>Moved films</source>
         <translation>Films déplacés</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="860"/>
+        <location filename="../src/mainwindow.ui" line="869"/>
         <source>Show fullscreen</source>
         <translation>Afficher en plein écran</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="869"/>
+        <location filename="../src/mainwindow.ui" line="878"/>
         <source>Statistics</source>
         <translation>Statistiques</translation>
     </message>
@@ -818,13 +861,9 @@
         <translation>Réinitialiser les statistiques</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="654"/>
+        <location filename="../src/mainwindow.cpp" line="646"/>
         <source>Nothing was found! Try to change keyword or search settings.</source>
         <translation>Rien n&apos;a été trouvé ! Essayez de changer de mots clés ou de paramètres de recherche.</translation>
-    </message>
-    <message>
-        <source>Theme</source>
-        <translation type="vanished">Thème</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="170"/>
@@ -842,12 +881,6 @@
         <location filename="../src/mainwindow.cpp" line="76"/>
         <source>There is nothing to add.</source>
         <translation>Il n&apos;y a rien à ajouter.</translation>
-    </message>
-    <message>
-        <source>Add the following %1 film(s)?
-</source>
-        <translation type="vanished">Ajouter le(s) film(s) suivant %1 ?
-</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="173"/>
@@ -985,7 +1018,7 @@
         <translation>Impossible de supprimer le fichier &quot;%1&quot; !</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="726"/>
+        <location filename="../src/mainwindow.cpp" line="718"/>
         <source>&lt;Theme&gt;</source>
         <translation>&lt;Thème&gt;</translation>
     </message>
@@ -1099,6 +1132,14 @@
         <location filename="../src/movedfilmswindow.cpp" line="265"/>
         <source>First select the files to move.</source>
         <translation>Sélectionner d&apos;abord les fichiers à déplacer.</translation>
+    </message>
+</context>
+<context>
+    <name>ParserManager</name>
+    <message>
+        <location filename="../src/network/parsermanager.cpp" line="32"/>
+        <source>&lt;Auto&gt;</source>
+        <translation type="unfinished">&lt;Auto&gt;</translation>
     </message>
 </context>
 <context>
@@ -1339,7 +1380,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="23"/>
         <location filename="../src/settingswindow.ui" line="1079"/>
-        <location filename="../src/settingswindow.cpp" line="82"/>
+        <location filename="../src/settingswindow.cpp" line="81"/>
         <location filename="../src/settingswindow.cpp" line="268"/>
         <source>Settings</source>
         <translation>Préférences</translation>
@@ -1621,7 +1662,7 @@
         <translation>Redimenssionner l&apos;affiche à la hauteur</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="82"/>
+        <location filename="../src/settingswindow.cpp" line="81"/>
         <source>For taking all settings, restart the application.</source>
         <translation>Pour prendre en compte tous les paramètres, redémarrer l&apos;application.</translation>
     </message>
