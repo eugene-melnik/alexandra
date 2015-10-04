@@ -21,9 +21,11 @@
 #ifndef PARSERMANAGER_H
 #define PARSERMANAGER_H
 
+#include <QDir>
 #include <QMap>
 #include <QObject>
 #include <QStringList>
+#include <QUrl>
 
 #include "film.h"
 
@@ -40,11 +42,12 @@ class ParserManager : public QObject
 
         explicit ParserManager( Parser p = Parser::Auto );
 
-        QStringList GetAvailableParsers() const;
+        QStringList GetAvailableParsers() const { return( parsers.values() ); }
 
         void SetParserId( Parser p ) { selectedParserId = p; }
         void SetTitle( const QString& t ) { title = t; }
         void SetYear( const QString& y ) { year = y; }
+        void SetLoadPoster( bool b ) { loadPoster = b; }
 
         void Reset();
         void Search();
@@ -57,10 +60,12 @@ class ParserManager : public QObject
 
     private slots:
         void ProgressChanged( quint64 received, quint64 total ) { emit Progress( received, total ); }
-        void InformationLoaded( const Film& f, const QString& posterFileName );
+        void InformationLoaded( const Film& f, const QUrl& posterUrl );
         void InformationLoadError( const QString& e );
 
         void CreateParser();
+
+        bool SavePoster( QUrl posterUrl, QString posterFileName );
 
     private:
         QMap<Parser,QString> parsers;
@@ -68,8 +73,11 @@ class ParserManager : public QObject
         Parser selectedParserId;
         QString title;
         QString year;
+        bool loadPoster;
 
         QObject* currentParser = nullptr;
+
+        const QString stdPosterFileName = QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() );
 };
 
 #endif // PARSERMANAGER_H

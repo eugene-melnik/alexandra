@@ -98,7 +98,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
         void SetupCompleter();
         void FilmsFilter( const QString& key, SearchEdit::FilterBy filters );
-        void UpdateCurrentFilm();
+        void UpdateCurrentFilm() { UpdateCurrentFilm( Film() ); }
+        void UpdateCurrentFilm( Film film );
 
         void SetProgressMaximum( int n );
         void SetProgressValue( int n );
@@ -106,6 +107,9 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 
     private:
         // Additional functions
+        void AddFilmDone( Film film );
+        void AddFilmsDone( const QList<Film>* films );
+
         void LoadSettings();
         void LoadAppearance();
         void LoadShorcuts();

@@ -21,8 +21,6 @@
 #include "omdbparser.h"
 #include "debug.h"
 
-#include <QDir>
-#include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
 
@@ -38,15 +36,15 @@ void OmdbParser::SearchFor( const QString& title, const QString& year )
     AbstractParser::SearchFor( title, year );
 }
 
-void OmdbParser::SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
+void OmdbParser::SyncSearchFor( Film* filmSaveTo, QUrl* posterUrlSaveTo,
                                 const QString& title, const QString& year)
 {
     searchUrlWithYear = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=json" );
     searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=json" );
-    AbstractParser::SyncSearchFor( filmSaveTo, posterFileNameSaveTo, title, year );
+    AbstractParser::SyncSearchFor( filmSaveTo, posterUrlSaveTo, title, year );
 }
 
-QString OmdbParser::Parse( const QByteArray& data )
+QUrl OmdbParser::Parse( const QByteArray& data )
 {
     DebugPrintFuncA( "OmdbParser::Parse", data.size() );
 
@@ -84,25 +82,10 @@ QString OmdbParser::Parse( const QByteArray& data )
         if( json["Plot"].toString() != QLatin1String( "N/A" ) )
             film.SetDescription( json["Plot"].toString() );
 
-        DebugPrint( "Loading poster..." );
+        QUrl posterUrl = json["Poster"].toString();
 
-        QString posterUrl = json["Poster"].toString();
-
-        QByteArray& posterData = request.runSync( posterUrl );
-        QString posterFileName( QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() ) );
-
-        QFile file( posterFileName );
-
-        if( file.open( QIODevice::WriteOnly ) && file.write( posterData ) )
-        {
-            file.close();
-            emit Loaded( film, posterFileName );
-            return( posterFileName );
-        }
-        else
-        {
-            emit Loaded( film, QString() );
-        }
+        emit Loaded( film, posterUrl );
+        return( posterUrl );
     }
     else
     {

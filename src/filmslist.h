@@ -60,8 +60,7 @@ class FilmsList : public QObject
         int GetIsViewedCount() const;
         int GetIsFavouriteCount() const;
 
-        void AddFilm( const Film& film );
-        void AddFilms( const QList<Film>* newFilms );
+        void AddFilm( Film film );
 
         void SetCurrentFilm( const QString& title );
         void ChangeCurrentFilm( const Film& f );

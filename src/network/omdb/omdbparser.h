@@ -31,11 +31,11 @@ class OmdbParser : public AbstractParser
         OmdbParser();
 
         void SearchFor( const QString& title, const QString& year = QString() );
-        void SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
+        void SyncSearchFor( Film* filmSaveTo, QUrl* posterUrlSaveTo,
                             const QString& title, const QString& year = QString() );
 
     private slots:
-        QString Parse( const QByteArray& data );
+        QUrl Parse( const QByteArray& data );
 };
 
 #endif // OMDBPARSER_H

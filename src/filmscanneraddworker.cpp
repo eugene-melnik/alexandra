@@ -34,36 +34,18 @@ void FilmScannerAddWorker::run()
 
     for( const QString& fileName : foundedFilms )
     {
-        Film f;
-        f.SetId( Film::GetRandomHash() );
+        Film film;
+        film.SetId( Film::GetRandomHash() );
         QString title = Film::ClearTitle( QFileInfo( fileName ).completeBaseName() );
-        f.SetFileName( fileName );
-        f.SetTitle( title );
+        film.SetFileName( fileName );
+        film.SetTitle( title );
 
         QString posterFileName;
-        QString newPosterFileName = settings->GetPostersDirPath() + "/" + f.GetPosterName();
+        QString newPosterFileName = settings->GetPostersDirPath() + "/" + film.GetPosterName();
 
         QRegExp regexp( "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])" ); // Years between 1850 and 2019
-        int i = regexp.indexIn( title );
-
-        if( i >= 0 )
-        {
-            f.SetYearFromStr( title.mid( i, 4 ) );
-        }
-
-        // Load information from online source
-        if( loadInformation )
-        {
-            parser.Reset();
-            parser.SetTitle( title );
-
-            if( f.GetYearStr().length() == 4 )
-            {
-                parser.SetYear( f.GetYearStr() );
-            }
-
-            parser.SearchAsync( &f, &posterFileName );
-        }
+        regexp.indexIn( fileName );
+        film.SetYearFromStr( regexp.cap(1) );
 
         // Search for a poster on the disk
         if( searchForPoster )
@@ -76,21 +58,43 @@ void FilmScannerAddWorker::run()
             }
         }
 
+        // Load information from online source
+        if( loadInformation )
+        {
+            parser.Reset();
+            parser.SetTitle( title );
+
+            if( film.GetYearStr().length() == 4 )
+            {
+                parser.SetYear( film.GetYearStr() );
+            }
+
+            if( posterFileName.isEmpty() )
+            {
+                parser.SearchAsync( &film, &posterFileName );
+            }
+            else
+            {
+                parser.SetLoadPoster( false );
+                parser.SearchAsync( &film, nullptr );
+            }
+        }
+
         // Moving poster
         if( !posterFileName.isEmpty() )
         {
             if( SavePosterTo( posterFileName, newPosterFileName ) )
             {
-                f.SetIsPosterExists( true );
+                film.SetIsPosterExists( true );
             }
             else
             {
-                f.SetIsPosterExists( false );
+                film.SetIsPosterExists( false );
             }
         }
 
         // Adding film to the list
-        newFilms.append( f );
+        newFilms.append( film );
         emit Progress( ++count, foundedFilms.size() );
     }
 

@@ -11,8 +11,8 @@ TARGET = alexandra
 TEMPLATE = app
 
 
-CONFIG += release
-#CONFIG += debug console
+#CONFIG += release
+CONFIG += debug console
 
 QT = core gui widgets network
 CONFIG += qt warn_on thread

@@ -171,6 +171,7 @@ const Film *FilmsList::GetFilmByTitle( const QString& title )
 
 const QList<Film>* FilmsList::GetFilmsList() const
 {
+    std::sort( films->begin(), films->end() );
     return( films );
 }
 
@@ -279,28 +280,13 @@ int FilmsList::GetIsFavouriteCount() const
     return( isFavouriteCount );
 }
 
-void FilmsList::AddFilm( const Film& film )
+void FilmsList::AddFilm( Film film )
 {
     DebugPrintFuncA( "FilmsList::AddFilm", film.GetFileName() );
 
     films->append( film );
-    std::sort( films->begin(), films->end() );
 
     isDatabaseChanged = true;
-    emit DatabaseChanged();
-}
-
-void FilmsList::AddFilms( const QList<Film>* newFilms )
-{
-    DebugPrintFuncA( "FilmsList::AddFilms", newFilms->size() );
-
-    *films += *newFilms;
-    std::sort( films->begin(), films->end() );
-
-    DebugPrintFuncDone( "FilmsList::AddFilms" );
-
-    isDatabaseChanged = true;
-    emit DatabaseChanged();
 }
 
 void FilmsList::SetCurrentFilm( const QString& title )
@@ -347,7 +333,6 @@ void FilmsList::IncCurrentFilmViewsCounter()
 void FilmsList::RemoveCurrentFilm()
 {
     RemoveFilm( *currentFilm );
-    currentFilm = nullptr;
 }
 
 void FilmsList::RemoveFilmByTitle( const QString& title )
@@ -362,7 +347,6 @@ void FilmsList::RemoveFilmByTitle( const QString& title )
             break;
         }
     }
-
 }
 
 void FilmsList::FilmsMoved()
@@ -427,6 +411,11 @@ void FilmsList::RemoveFilm( const Film& film )
 
     // Remove record from database
     films->removeOne( film );
+
+    if( currentFilm != nullptr && *currentFilm == film )
+    {
+        currentFilm = nullptr;
+    }
 
     DebugPrintFuncDone( "FilmsList::RemoveFilm" );
 

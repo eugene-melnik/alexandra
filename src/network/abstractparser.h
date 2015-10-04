@@ -57,7 +57,7 @@ class AbstractParser : public QObject
             request.run( url );
         }
 
-        virtual void SyncSearchFor( Film* filmSaveTo, QString* posterFileNameSaveTo,
+        virtual void SyncSearchFor( Film* filmSaveTo, QUrl* posterUrlSaveTo,
                                     const QString& title, const QString& year = QString() )
         {
             DebugPrintFuncA( "AbstractParser::SyncSearchFor", title );
@@ -69,7 +69,7 @@ class AbstractParser : public QObject
             }
 
             QByteArray data = request.runSync( url );
-            QString poster = Parse( data );
+            QUrl posterUrl = Parse( data );
 
             if( filmSaveTo != nullptr )
             {
@@ -83,17 +83,14 @@ class AbstractParser : public QObject
                 filmSaveTo->SetTitle( title );
             }
 
-            if( posterFileNameSaveTo != nullptr )
-            {
-                *posterFileNameSaveTo = poster;
-            }
+            *posterUrlSaveTo = posterUrl;
         }
 
         virtual ~AbstractParser() = default;
 
     protected slots:
         // This slot must be overridden by concrete parser
-        virtual QString Parse( const QByteArray& data ) = 0;
+        virtual QUrl Parse( const QByteArray& data ) = 0;
 
         virtual void DataLoaded( const QByteArray& data )
         {
@@ -103,7 +100,7 @@ class AbstractParser : public QObject
 
     signals:
         void Progress( quint64 received, quint64 total );
-        void Loaded( const Film& film, const QString& posterFileName );
+        void Loaded( const Film& film, const QUrl& posterUrl );
         void Error( const QString& e);
 
     protected:

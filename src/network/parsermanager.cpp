@@ -25,6 +25,7 @@
 #include "omdb/omdbparser.h"
 #include "debug.h"
 
+#include <QFile>
 #include <QLocale>
 
 ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
@@ -35,16 +36,12 @@ ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
     parsers.insert( Kinopoisk, "КиноПоиск (http://www.kinopoisk.ru/)" );
 }
 
-QStringList ParserManager::GetAvailableParsers() const
-{
-    return( parsers.values() );
-}
-
 void ParserManager::Reset()
 {
     selectedParserId = Auto;
     title.clear();
     year.clear();
+    loadPoster = true;
 }
 
 void ParserManager::Search()
@@ -55,7 +52,7 @@ void ParserManager::Search()
 
     CreateParser();
     connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
-    connect( currentParser, SIGNAL( Loaded(const Film&, const QString&) ), this, SLOT( InformationLoaded(const Film&, const QString&) ) );
+    connect( currentParser, SIGNAL( Loaded(const Film&, const QUrl&) ), this, SLOT( InformationLoaded(const Film&, const QUrl&) ) );
     connect( currentParser, SIGNAL( Error(const QString&) ), this, SLOT( InformationLoadError(const QString&) ) );
 
     AbstractParser* cp = dynamic_cast<AbstractParser*>( currentParser );
@@ -71,14 +68,39 @@ void ParserManager::SearchAsync( Film* filmSaveTo, QString* posterFileNameSaveTo
     CreateParser();
     connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
 
+    QUrl posterUrl;
     AbstractParser* cp = dynamic_cast<AbstractParser*>( currentParser );
-    cp->SyncSearchFor( filmSaveTo, posterFileNameSaveTo, title, year );
+    cp->SyncSearchFor( filmSaveTo, &posterUrl, title, year );
+
+    if( posterFileNameSaveTo != nullptr )
+    {
+        posterFileNameSaveTo->clear();
+
+        if( !posterUrl.isEmpty() && SavePoster( posterUrl, stdPosterFileName ) )
+        {
+            *posterFileNameSaveTo = stdPosterFileName;
+        }
+    }
 }
 
-void ParserManager::InformationLoaded( const Film& f, const QString& posterFileName )
+void ParserManager::InformationLoaded( const Film& f, const QUrl& posterUrl )
 {
-    DebugPrintFuncA( "ParserManager::InformationLoaded", f.GetOriginalTitle() + ", " + posterFileName );
-    emit Loaded( f, posterFileName );
+    DebugPrintFuncA( "ParserManager::InformationLoaded", f.GetOriginalTitle() + ", " + stdPosterFileName );
+
+    if( loadPoster )
+    {
+        if( SavePoster( posterUrl, stdPosterFileName ) )
+        {
+            emit Loaded( f, stdPosterFileName );
+            return;
+        }
+        else
+        {
+            emit Error( tr( "Failed to save the poster to \"%1\"!" ).arg( stdPosterFileName ) );
+        }
+    }
+
+    emit Loaded( f, QString() );
 }
 
 void ParserManager::InformationLoadError( const QString& e )
@@ -127,5 +149,23 @@ void ParserManager::CreateParser()
 
             break;
         }
+    }
+}
+
+bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
+{
+    DebugPrint( "Loading poster..." );
+
+    QByteArray& posterData = NetworkRequest().runSync( posterUrl );
+    QFile file( posterFileName );
+
+    if( file.open( QIODevice::WriteOnly ) && file.write( posterData ) )
+    {
+        file.close();
+        return( true );
+    }
+    else
+    {
+        return( false );
     }
 }

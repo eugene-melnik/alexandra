@@ -61,11 +61,6 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent )
     Q_UNUSED( msgOmdbNotFound )
 }
 
-AddFilmWindow::~AddFilmWindow()
-{
-    delete parser;
-}
-
 void AddFilmWindow::show()
 {
     DebugPrintFunc( "AddFilmWindow::show" );
@@ -112,11 +107,11 @@ void AddFilmWindow::OpenFilm()
         eFilmFileName->setText( fileName.absoluteFilePath() );
         QString title = fileName.completeBaseName();
 
-        if( eYear->text().isEmpty() )
+        if( eYear->text().length() < 4 )
         {
             QRegExp regexp( "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])" ); // Years between 1850 and 2019
-            int i = regexp.indexIn( title );
-            if( i >= 0 ) eYear->setText( title.mid( i, 4 ) );
+            regexp.indexIn( title );
+            eYear->setText( regexp.cap(1) );
         }
 
         if( eTitle->text().isEmpty() )
@@ -210,7 +205,9 @@ void AddFilmWindow::LoadInformation()
         parser->SetYear( eYear->text() );
     }
 
+    parser->SetLoadPoster( ePosterFileName->text().isEmpty() );
     parser->Search();
+
     bLoad->setEnabled( false );
     progressBar->show();
 }
@@ -299,6 +296,7 @@ void AddFilmWindow::InformationLoaded( const Film& f, const QString& posterFileN
     if( !posterFileName.isEmpty() && ePosterFileName->text().isEmpty() )
     {
         ePosterFileName->setText( posterFileName );
+        bOpenPoster->setText( tr( "Clear" ) );
     }
 
     if( eTitle->text().isEmpty() )

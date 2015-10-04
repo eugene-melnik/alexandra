@@ -38,15 +38,15 @@ void KinopoiskParser::SearchFor( const QString& title, const QString& year )
     AbstractParser::SearchFor( title, year );
 }
 
-void KinopoiskParser::SyncSearchFor( Film * filmSaveTo, QString* posterFileNameSaveTo,
+void KinopoiskParser::SyncSearchFor( Film * filmSaveTo, QUrl* posterUrlSaveTo,
                                      const QString& title, const QString& year )
 {
     searchUrlWithYear = QString( "http://www.kinopoisk.ru/index.php?level=7&m_act[what]=content&first=yes&m_act[find]=%1&m_act[year]=%2" );
     searchUrl = QString( "http://www.kinopoisk.ru/index.php?first=yes&what=&kp_query=%1" );
-    AbstractParser::SyncSearchFor( filmSaveTo, posterFileNameSaveTo, title, year );
+    AbstractParser::SyncSearchFor( filmSaveTo, posterUrlSaveTo, title, year );
 }
 
-QString KinopoiskParser::Parse( const QByteArray& data )
+QUrl KinopoiskParser::Parse( const QByteArray& data )
 {
     DebugPrintFuncA( "KinopoiskParser::Parse", data.size() );
 
@@ -131,7 +131,7 @@ QString KinopoiskParser::Parse( const QByteArray& data )
     QRegExp reDescription( "itemprop=\"description\">(.*)</div>" );
     film.SetDescription( ParseItem( str, reDescription ).replace( "<br><br>", "<br>\n" ) );
 
-    DebugPrint( "Text parsed!  Loading poster..." );
+    DebugPrint( "Text parsed!" );
 
     // Poster
     QRegExp rePosterUrl( "openImgPopup\\('(.*)'\\)" );
@@ -139,26 +139,12 @@ QString KinopoiskParser::Parse( const QByteArray& data )
 
     if( !posterSubUrl.isEmpty() )
     {
-        QString posterUrl( "http://www.kinopoisk.ru" + posterSubUrl );
-        DebugPrint( "Poster URL: " + posterUrl );
-
-        QByteArray& posterData = request.runSync( posterUrl );
-        QString posterFileName( QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() ) );
-        QFile file( posterFileName );
-
-        if( file.open( QIODevice::WriteOnly ) && file.write( posterData ) )
-        {
-            file.close();
-            emit Loaded( film, posterFileName );
-            return( posterFileName );
-        }
-        else
-        {
-            emit Error( file.errorString() );
-        }
+        QUrl posterUrl( "http://www.kinopoisk.ru" + posterSubUrl );
+        emit Loaded( film, posterUrl );
+        return( posterUrl );
     }
 
-    emit Loaded( film, QString() );
+    emit Loaded( film, QUrl() );
     return( QString() );
 }
 

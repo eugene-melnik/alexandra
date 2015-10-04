@@ -87,9 +87,7 @@ void MainWindow::AddFilmsFromOutside( const QStringList& films )
 
     if( res == QMessageBox::Yes )
     {
-        filmsList->AddFilms( &newFilms );
-        DatabaseIsLoaded();
-        ShowFilms();
+        AddFilmsDone( &newFilms );
         QMessageBox::information( this, tr( "Add films" ), tr( "Done!" ) );
     }
 }
@@ -655,9 +653,20 @@ void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
     DebugPrint( "Filtered" );
 }
 
-void MainWindow::UpdateCurrentFilm()
+void MainWindow::UpdateCurrentFilm( Film film )
 {
-    DebugPrintFunc( "MainWindow::UpdateCurrentFilm" );
+    DebugPrintFuncA( "MainWindow::UpdateCurrentFilm", film.GetTitle() );
+
+    if( !film.GetTitle().isEmpty() )
+    {
+        if( filmsList->GetTitlesList().contains( film.GetTitle() ) )
+        {
+            film.SetTitle( film.GetTitle() + tr( " (another)") );
+        }
+
+        filmsList->ChangeCurrentFilm( film );
+        DebugPrint( "Film information changed." );
+    }
 
     if( filmsList->GetCurrentFilm() != nullptr )
     {
@@ -682,6 +691,42 @@ void MainWindow::StatusbarShowTotal()
     statusbar->ShowTotal( filmsList->GetFilmsCount(),
                           filmsList->GetIsViewedCount(),
                           filmsList->GetIsFavouriteCount() );
+}
+
+void MainWindow::AddFilmDone( Film film )
+{
+    if( filmsList->GetTitlesList().contains( film.GetTitle() ) )
+    {
+        film.SetTitle( film.GetTitle() + tr( " (another)") );
+    }
+
+    filmsList->AddFilm( film );
+    filmsView->AddItem( film );
+    filmsView->SelectItem( film );
+
+    SaveDatabase();
+    SetupCompleter();
+    StatusbarShowTotal();
+    SetAllFunctionsEnabled( true );
+}
+
+void MainWindow::AddFilmsDone( const QList<Film>* films )
+{
+    for( Film film : *films )
+    {
+        if( filmsList->GetTitlesList().contains( film.GetTitle() ) )
+        {
+            film.SetTitle( film.GetTitle() + tr( " (another)") );
+        }
+
+        filmsList->AddFilm( film );
+    }
+
+    SaveDatabase();
+    SetupCompleter();
+    StatusbarShowTotal();
+    SetAllFunctionsEnabled( true );
+    ShowFilms();
 }
 
 void MainWindow::LoadSettings()
@@ -806,9 +851,6 @@ void MainWindow::SetupFilmsView()
     connect( view, SIGNAL( ItemClicked(QString) ), this, SLOT( ShowFilmInformation() ) );
     connect( view, SIGNAL( ItemDoubleClicked(QString) ), this, SLOT( DoubleClickBehavior() ) );
     connect( view, SIGNAL( ContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
-    // Add film window
-    connect( addFilmWindow, SIGNAL( Done(Film) ), view, SLOT( AddItem(Film) ) );
-    connect( addFilmWindow, SIGNAL( Done(Film) ), view, SLOT( SelectItem(Film) ) );
     // Search window
     connect( searchWindow, SIGNAL( FilmSelected(QString) ), view, SLOT( SelectItem(QString) ) );
     // Random film function
@@ -874,15 +916,15 @@ void MainWindow::SetupWindows()
     connect( contextMenu, &FilmsViewContextMenu::actionPlay, this, &MainWindow::PlayFilm );
     // Viewed button
     connect( bViewed, &QPushButton::clicked, filmsList, &FilmsList::SetCurrentFilmIsViewed );
-    connect( bViewed, &QPushButton::clicked, this, &MainWindow::UpdateCurrentFilm );
+    connect( bViewed, SIGNAL( clicked() ), this, SLOT( UpdateCurrentFilm() ) );
     connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, filmsList, &FilmsList::SetCurrentFilmIsViewed );
-    connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, this, &MainWindow::UpdateCurrentFilm );
+    connect( contextMenu, SIGNAL( actionIsViewed(bool) ), this, SLOT( UpdateCurrentFilm() ) );
     connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, bViewed, &QPushButton::setChecked );
     // Favourite button
     connect( bFavourite, &QPushButton::clicked, filmsList, &FilmsList::SetCurrentFilmIsFavourite );
-    connect( bFavourite, &QPushButton::clicked, this, &MainWindow::UpdateCurrentFilm );
+    connect( bFavourite, SIGNAL( clicked() ), this, SLOT( UpdateCurrentFilm() ) );
     connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, filmsList, &FilmsList::SetCurrentFilmIsFavourite );
-    connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, this, &MainWindow::UpdateCurrentFilm );
+    connect( contextMenu, SIGNAL( actionIsFavourite(bool) ), this, SLOT( UpdateCurrentFilm() ) );
     connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, bFavourite, &QPushButton::setChecked );
     // Quick search input
     connect( eFilter, &SearchEdit::TextChanged, this, &MainWindow::FilmsFilter );
@@ -904,8 +946,7 @@ void MainWindow::SetupWindows()
     connect( actionAdd, &QAction::triggered, addFilmWindow, &AddFilmWindow::show );
     connect( toolbar, &ToolBar::actionAdd, addFilmWindow, &AddFilmWindow::show );
 
-    connect( addFilmWindow, &AddFilmWindow::Done, filmsList, &FilmsList::AddFilm );
-    connect( addFilmWindow, &AddFilmWindow::Done, this, &MainWindow::DatabaseIsLoaded );
+    connect( addFilmWindow, &AddFilmWindow::Done, this, &MainWindow::AddFilmDone );
 
     /// Edit film window
     editFilmWindow = new EditFilmWindow( settings, this );
@@ -914,8 +955,7 @@ void MainWindow::SetupWindows()
     connect( toolbar, &ToolBar::actionEdit, this, &MainWindow::EditFilm );
     connect( contextMenu, &FilmsViewContextMenu::actionEdit, this, &MainWindow::EditFilm );
 
-    connect( editFilmWindow, &EditFilmWindow::Done, filmsList, &FilmsList::ChangeCurrentFilm );
-    connect( editFilmWindow, &EditFilmWindow::Done, this, &MainWindow::UpdateCurrentFilm );
+    connect( editFilmWindow, SIGNAL( Done(Film) ), this, SLOT( UpdateCurrentFilm(Film) ) );
     connect( editFilmWindow, &EditFilmWindow::Done, this, &MainWindow::ShowFilmInformation );
 
     /// Remove film dialog
@@ -960,9 +1000,7 @@ void MainWindow::SetupWindows()
     connect( actionFilmScanner, &QAction::triggered, this, &MainWindow::FilmScanner );
     connect( toolbar, &ToolBar::actionFilmScanner, this, &MainWindow::FilmScanner );
 
-    connect( filmScannerWindow, &FilmScannerWindow::AddFilms, filmsList, &FilmsList::AddFilms );
-    connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::ShowFilms );
-    connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::DatabaseIsLoaded );
+    connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::AddFilmsDone );
 
     /// Moved films window
     movedFilmsWindow = new MovedFilmsWindow( settings, this );
