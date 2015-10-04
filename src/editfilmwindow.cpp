@@ -68,5 +68,6 @@ void EditFilmWindow::show( const Film* f )
     eScreenwriter->setText( f->GetScreenwriter() );
     eComposer->setText( f->GetComposer() );
 
+    cbOnlineSource->setCurrentIndex( settings->GetDefaultParserIndex() );
     QDialog::show();
 }

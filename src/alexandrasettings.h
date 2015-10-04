@@ -76,6 +76,7 @@ class AlexandraSettings : public QSettings
         bool       GetAutoLoadTechInfo() const;
 
         QString GetFilmsScannerLastDir() const;
+        int     GetDefaultParserIndex() const;
 
         QString GetShortcutAddFilm() const;
         QString GetShortcutEditFilm() const;
@@ -135,6 +136,7 @@ class AlexandraSettings : public QSettings
         void SetAutoLoadTechInfo( bool b );
 
         void SetFilmsScannerLastDir( const QString& s );
+        void SetDefaultParserIndex( int n );
 
         void SetShortcutAddFilm( const QString& s );
         void SetShortcutEditFilm( const QString& s );

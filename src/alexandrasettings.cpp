@@ -273,6 +273,11 @@ QString AlexandraSettings::GetFilmsScannerLastDir() const
     return( value( "FilmsScanner/LastDir", "" ).toString() );
 }
 
+int AlexandraSettings::GetDefaultParserIndex() const
+{
+    return( value( "FilmsScanner/DefaultParserIndex", 0 ).toInt() ); // Parser::Auto
+}
+
 QString AlexandraSettings::GetShortcutAddFilm() const
 {
     return( value( "Shortcuts/AddFilm", "Ctrl+A" ).toString() );
@@ -518,6 +523,11 @@ void AlexandraSettings::SetAutoLoadTechInfo( bool b )
 void AlexandraSettings::SetFilmsScannerLastDir( const QString& s )
 {
     setValue( "FilmsScanner/LastDir", s );
+}
+
+void AlexandraSettings::SetDefaultParserIndex( int n )
+{
+    setValue( "FilmsScanner/DefaultParserIndex", n );
 }
 
 void AlexandraSettings::SetShortcutAddFilm( const QString& s )

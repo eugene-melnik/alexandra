@@ -78,6 +78,8 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
         void ReconfigureApplicationTab();
         void ConfigureShortcutsTab();
         void ReconfigureShortcutsTab();
+        void ConfigureSourcesTab();
+        void ReconfigureSourcesTab();
 
         // Variables
         AlexandraSettings* settings;

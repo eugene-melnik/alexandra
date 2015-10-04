@@ -63,6 +63,7 @@ void FilmScannerAddWorker::run()
         {
             parser.Reset();
             parser.SetTitle( title );
+            parser.SetParserId( ParserManager::Parser( settings->GetDefaultParserIndex() ) );
 
             if( film.GetYearStr().length() == 4 )
             {

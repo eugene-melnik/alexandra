@@ -67,7 +67,9 @@ void AddFilmWindow::show()
 
     progressBar->hide();
     bOpenPoster->setText( tr( "Open" ) );
+    cbOnlineSource->setCurrentIndex( settings->GetDefaultParserIndex() );
     filmId = Film::GetRandomHash();
+
     QDialog::show();
 }
 

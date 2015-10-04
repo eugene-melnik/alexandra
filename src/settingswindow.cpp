@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "settingswindow.h"
+#include "parsers/parsermanager.h"
 #include "tools/debug.h"
 #include "version.h"
 
@@ -47,6 +48,7 @@ SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent )
     ConfigureAppearanceTab();
     ConfigureApplicationTab();
     ConfigureShortcutsTab();
+    ConfigureSourcesTab();
 }
 
 void SettingsWindow::show()
@@ -56,6 +58,7 @@ void SettingsWindow::show()
     ReconfigureAppearanceTab();
     ReconfigureApplicationTab();
     ReconfigureShortcutsTab();
+    ReconfigureSourcesTab();
 
     isViewChanged = false;
     isDatabaseSettingsChanged = false;
@@ -143,9 +146,13 @@ void SettingsWindow::OkButtonClicked()
             s.SetSetting( settings, currentKey );
         }
 
-        DebugPrintFuncDone( "SettingsWindow::OkButtonClicked" );
+        // Sources tab
 
+        settings->SetDefaultParserIndex( cbDefaultOnlineSource->currentIndex() );
+
+        // Save
         settings->sync();
+        DebugPrintFuncDone( "SettingsWindow::OkButtonClicked" );
         emit SettingsChanged();
 
         if( isDatabaseSettingsChanged )
@@ -680,4 +687,19 @@ void SettingsWindow::ReconfigureShortcutsTab()
         QKeySequence k( s.GetSetting( settings) );
         s.keyEdit->setKeySequence( k );
     }
+}
+
+/*************************************************************************************************
+ *  "Sources" tab settings                                                                        *
+  *************************************************************************************************/
+
+void SettingsWindow::ConfigureSourcesTab()
+{
+    connect( cbDefaultOnlineSource, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+    cbDefaultOnlineSource->addItems( ParserManager().GetAvailableParsers() );
+}
+
+void SettingsWindow::ReconfigureSourcesTab()
+{
+    cbDefaultOnlineSource->setCurrentIndex( settings->GetDefaultParserIndex() );
 }

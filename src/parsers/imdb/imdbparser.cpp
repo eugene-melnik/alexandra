@@ -61,7 +61,7 @@ QUrl ImdbParser::Parse( const QByteArray& data )
         film.SetOriginalTitle( RegExpTools::ParseItem( str, reOriginalTitle ) );
 
         // Tagline
-        QRegExp reTagline( "Taglines:</h4>(.*)<span" );
+        QRegExp reTagline( "Taglines:</h4>(.*)<" );
         film.SetTagline( RegExpTools::ParseItem( str, reTagline ) );
 
         // Year

@@ -1045,7 +1045,7 @@ void MainWindow::SetupWindows()
 
 void MainWindow::ClearTextFields()
 {
-    lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( lPosterImage->maximumWidth(),
+    lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( wRight->maximumWidth(),
                                                                            Qt::SmoothTransformation ) );
     lFilmTitle->clear();
     lOriginalTitle->clear();
@@ -1082,8 +1082,8 @@ void MainWindow::SetAllFunctionsEnabled( bool b )
     bViewed->setEnabled( b );
     bFavourite->setEnabled( b );
     bTechInformation->setEnabled( b );
-    bPlay->setEnabled( b );
-    bAddToPlaylist->setEnabled( b );
+    //bPlay->setEnabled( b );
+    //bAddToPlaylist->setEnabled( b );
 }
 
 void MainWindow::SetEmptyMode( bool b )
