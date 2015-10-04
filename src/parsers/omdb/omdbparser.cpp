@@ -27,21 +27,8 @@
 OmdbParser::OmdbParser() : AbstractParser()
 {
     DebugPrintFunc( "OmdbParser::OmdbParser" );
-}
-
-void OmdbParser::SearchFor( const QString& title, const QString& year )
-{
     searchUrlWithYear = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=json" );
     searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=json" );
-    AbstractParser::SearchFor( title, year );
-}
-
-void OmdbParser::SyncSearchFor( Film* filmSaveTo, QUrl* posterUrlSaveTo,
-                                const QString& title, const QString& year)
-{
-    searchUrlWithYear = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=json" );
-    searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=json" );
-    AbstractParser::SyncSearchFor( filmSaveTo, posterUrlSaveTo, title, year );
 }
 
 QUrl OmdbParser::Parse( const QByteArray& data )
@@ -49,11 +36,7 @@ QUrl OmdbParser::Parse( const QByteArray& data )
     DebugPrintFuncA( "OmdbParser::Parse", data.size() );
 
     QJsonObject json = QJsonDocument::fromJson( data ).object();
-
-    for( const QString& s : json.keys() )
-    {
-        DebugPrint( "JSON key: " + s + " = " + json[s].toString() );
-    }
+    QUrl posterUrl;
 
     if( json["Response"].toString() == "True" )
     {
@@ -82,15 +65,15 @@ QUrl OmdbParser::Parse( const QByteArray& data )
         if( json["Plot"].toString() != QLatin1String( "N/A" ) )
             film.SetDescription( json["Plot"].toString() );
 
-        QUrl posterUrl = json["Poster"].toString();
+        if( json["Poster"].toString() != QLatin1String( "N/A" ) )
+            posterUrl = json["Poster"].toString();
 
         emit Loaded( film, posterUrl );
-        return( posterUrl );
     }
     else
     {
         emit Error( json["Error"].toString() );
     }
 
-    return( QString() );
+    return( posterUrl );
 }

@@ -37,13 +37,14 @@ DEFINES += MEDIAINFO_SUPPORT
     # Source files #
 
 HEADERS += effects/effectdropshadow.h \
-           network/abstractparser.h \
            network/networkrequest.h \
-           network/parsermanager.h \
-           network/imdb/imdbparser.h \
-           network/kinopoisk/kinopoiskparser.h \
-           network/omdb/omdbparser.h \
            network/updatechecker.h \
+           parsers/abstractparser.h \
+           parsers/parsermanager.h \
+           parsers/imdb/imdbparser.h \
+           parsers/kinopoisk/kinopoiskparser.h \
+           parsers/omdb/omdbparser.h \
+           tools/regexptools.h \
            aboutwindow.h \
            abstractfilmsview.h \
            addfilmwindow.h \
@@ -77,11 +78,12 @@ HEADERS += effects/effectdropshadow.h \
 
 SOURCES += effects/effectdropshadow.cpp \
            network/networkrequest.cpp \
-           network/parsermanager.cpp \
-           network/imdb/imdbparser.cpp \
-           network/kinopoisk/kinopoiskparser.cpp \
-           network/omdb/omdbparser.cpp \
            network/updatechecker.cpp \
+           parsers/parsermanager.cpp \
+           parsers/imdb/imdbparser.cpp \
+           parsers/kinopoisk/kinopoiskparser.cpp \
+           parsers/omdb/omdbparser.cpp \
+           tools/regexptools.cpp \
            aboutwindow.cpp \
            addfilmwindow.cpp \
            alexandrasettings.cpp \

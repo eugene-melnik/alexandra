@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: imdbparser.h                                                                            *
+ *  file: regexptools.h                                                                           *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,16 +18,19 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef IMDBPARSER_H
-#define IMDBPARSER_H
+#ifndef REGEXPTOOLS_H
+#define REGEXPTOOLS_H
 
-#include "../abstractparser.h"
-#include "../networkrequest.h"
+#include <QRegExp>
+#include <QString>
 
-class ImdbParser : public AbstractParser
+class RegExpTools
 {
     public:
-        ImdbParser();
+        static void SimplifyText( QString& str );
+
+        static QString ParseList( const QString& str, QRegExp& reList, QRegExp& reItem );
+        static QString ParseItem( const QString& str, QRegExp& reItem );
 };
 
-#endif // IMDBPARSER_H
+#endif // REGEXPTOOLS_H

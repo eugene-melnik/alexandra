@@ -175,7 +175,7 @@
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,1">
+             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0">
               <item>
                <widget class="QLabel" name="lYear">
                 <property name="text">
@@ -187,19 +187,6 @@
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
                <widget class="QLabel" name="lBudget">
                 <property name="text">
                  <string notr="true">&lt;budget&gt;</string>
@@ -207,17 +194,17 @@
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+               <widget class="QLabel" name="lRating">
+                <property name="text">
+                 <string notr="true">&lt;rating&gt;</string>
                 </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
+                <property name="alignment">
+                 <set>Qt::AlignJustify|Qt::AlignVCenter</set>
                 </property>
-               </spacer>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -284,19 +271,6 @@
              <widget class="QLabel" name="lStarring">
               <property name="text">
                <string notr="true">&lt;starring&gt;</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-              </property>
-              <property name="wordWrap">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lRating">
-              <property name="text">
-               <string notr="true">&lt;rating&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignJustify|Qt::AlignVCenter</set>

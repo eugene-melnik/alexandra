@@ -23,7 +23,7 @@
 
 #include "film.h"
 #include "debug.h"
-#include "networkrequest.h"
+#include "network/networkrequest.h"
 
 #include <QByteArray>
 #include <QObject>

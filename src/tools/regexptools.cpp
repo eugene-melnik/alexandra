@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: parsermanager.h                                                                         *
+ *  file: regexptools.cpp                                                                         *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,66 +18,52 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef PARSERMANAGER_H
-#define PARSERMANAGER_H
+#include "regexptools.h"
 
-#include <QDir>
-#include <QMap>
-#include <QObject>
 #include <QStringList>
-#include <QUrl>
 
-#include "film.h"
-
-class ParserManager : public QObject
+void RegExpTools::SimplifyText( QString& str )
 {
-    Q_OBJECT
+    str = str.simplified();
+    str.replace( "&nbsp;",  " " );
+    str.replace( "&raquo;", "»" );
+    str.replace( "&laquo;", "«" );
+    str.replace( "&lt;",    "<" );
+    str.replace( "&gt;",    ">" );
+    str.replace( "&quot;",  "\"" );
+    str.replace( "&#x27;",  "'" );
+    str.replace( "%5B",     "[" );
+    str.replace( "%5D",     "]" );
+    str.replace( "%20",     " " );
+    str.replace( "&#133;",  "…" );
+    str.replace( 0x0A,      "" );
+    str.replace( "> <",     "><" );
+}
 
-    public:
-        enum Parser {
-            Auto = 0,
-            OMDB,
-            Kinopoisk
-        };
+QString RegExpTools::ParseList( const QString& str, QRegExp& reList, QRegExp& reItem )
+{
+    reItem.setMinimal( true );
+    reList.setMinimal( true );
+    reList.indexIn( str );
 
-        explicit ParserManager( Parser p = Parser::Auto );
+    QString list = reList.cap(1);
+    QStringList result;
 
-        QStringList GetAvailableParsers() const { return( parsers.values() ); }
+    int nextPosition = 0;
 
-        void SetParserId( Parser p ) { selectedParserId = p; }
-        void SetTitle( const QString& t ) { title = t; }
-        void SetYear( const QString& y ) { year = y; }
-        void SetLoadPoster( bool b ) { loadPoster = b; }
+    while( reItem.indexIn( list, nextPosition ) != -1 )
+    {
+        result.append( reItem.cap(1).trimmed() );
+        nextPosition += reItem.matchedLength();
+    }
 
-        void Reset();
-        void Search();
-        void SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo );
+    result.removeDuplicates(); // TODO: solution or not?
+    return( result.join( ", " ) );
+}
 
-    signals:
-        void Progress( quint64 received, quint64 total );
-        void Loaded( const Film& f, const QString& posterFileName );
-        void Error( const QString& e );
-
-    private slots:
-        void ProgressChanged( quint64 received, quint64 total ) { emit Progress( received, total ); }
-        void InformationLoaded( const Film& f, const QUrl& posterUrl );
-        void InformationLoadError( const QString& e );
-
-        void CreateParser();
-
-        bool SavePoster( QUrl posterUrl, QString posterFileName );
-
-    private:
-        QMap<Parser,QString> parsers;
-
-        Parser selectedParserId;
-        QString title;
-        QString year;
-        bool loadPoster;
-
-        QObject* currentParser = nullptr;
-
-        const QString stdPosterFileName = QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() );
-};
-
-#endif // PARSERMANAGER_H
+QString RegExpTools::ParseItem( const QString& str, QRegExp& reItem )
+{
+    reItem.setMinimal( true );
+    reItem.indexIn( str );
+    return( reItem.cap(1).trimmed() );
+}

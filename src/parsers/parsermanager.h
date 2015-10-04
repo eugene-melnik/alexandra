@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: kinopoiskparser.h                                                                       *
+ *  file: parsermanager.h                                                                         *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,30 +18,67 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef KINOPOISKPARSER_H
-#define KINOPOISKPARSER_H
+#ifndef PARSERMANAGER_H
+#define PARSERMANAGER_H
 
-#include "../abstractparser.h"
+#include <QDir>
+#include <QMap>
+#include <QObject>
+#include <QStringList>
+#include <QUrl>
 
-#include <QRegExp>
+#include "film.h"
 
-class KinopoiskParser : public AbstractParser
+class ParserManager : public QObject
 {
     Q_OBJECT
 
     public:
-        KinopoiskParser();
+        enum Parser {
+            Auto = 0,
+            IMDB,
+            Kinopoisk,
+            OMDB
+        };
 
-        void SearchFor( const QString& title, const QString& year = QString() );
-        void SyncSearchFor( Film* filmSaveTo, QUrl* posterUrlSaveTo,
-                            const QString& title, const QString& year = QString() );
+        explicit ParserManager( Parser p = Parser::Auto );
+
+        QStringList GetAvailableParsers() const { return( parsers.values() ); }
+
+        void SetParserId( Parser p ) { selectedParserId = p; }
+        void SetTitle( const QString& t ) { title = t; }
+        void SetYear( const QString& y ) { year = y; }
+        void SetLoadPoster( bool b ) { loadPoster = b; }
+
+        void Reset();
+        void Search();
+        void SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo );
+
+    signals:
+        void Progress( quint64 received, quint64 total );
+        void Loaded( const Film& f, const QString& posterFileName );
+        void Error( const QString& e );
 
     private slots:
-        QUrl Parse( const QByteArray& data );
+        void ProgressChanged( quint64 received, quint64 total ) { emit Progress( received, total ); }
+        void InformationLoaded( const Film& f, const QUrl& posterUrl );
+        void InformationLoadError( const QString& e );
+
+        void CreateParser();
+
+        bool SavePoster( QUrl posterUrl, QString posterFileName );
 
     private:
-        QString ParseList( const QString& str, QRegExp& reList, QRegExp& reItem ) const;
-        QString ParseItem( const QString& str, QRegExp& reItem ) const;
+        QMap<Parser,QString> parsers;
+
+        Parser selectedParserId;
+        QString title;
+        QString year;
+        bool loadPoster;
+
+        QObject* currentParser = nullptr;
+
+        const QString stdPosterFileName = QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() );
 };
 
-#endif // KINOPOISKPARSER_H
+#endif // PARSERMANAGER_H

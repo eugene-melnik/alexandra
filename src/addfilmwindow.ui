@@ -236,7 +236,7 @@
      <item>
       <widget class="QLineEdit" name="eTagline">
        <property name="maxLength">
-        <number>1000</number>
+        <number>500</number>
        </property>
        <property name="clearButtonEnabled">
         <bool>true</bool>
@@ -447,7 +447,7 @@
           <string>Countries, comma separated</string>
          </property>
          <property name="maxLength">
-          <number>200</number>
+          <number>500</number>
          </property>
          <property name="clearButtonEnabled">
           <bool>true</bool>
@@ -484,7 +484,7 @@
           <string>Genres, comma separated</string>
          </property>
          <property name="maxLength">
-          <number>200</number>
+          <number>500</number>
          </property>
          <property name="clearButtonEnabled">
           <bool>true</bool>
@@ -518,7 +518,7 @@
           <string>Directors, comma separated</string>
          </property>
          <property name="maxLength">
-          <number>200</number>
+          <number>500</number>
          </property>
          <property name="clearButtonEnabled">
           <bool>true</bool>
@@ -589,7 +589,7 @@
           <string>Directors, comma separated</string>
          </property>
          <property name="maxLength">
-          <number>200</number>
+          <number>500</number>
          </property>
          <property name="clearButtonEnabled">
           <bool>true</bool>

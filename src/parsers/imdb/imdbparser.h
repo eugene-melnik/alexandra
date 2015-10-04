@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: omdbparser.h                                                                            *
+ *  file: imdbparser.h                                                                            *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,24 +18,20 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef OMDBPARSER_H
-#define OMDBPARSER_H
+#ifndef IMDBPARSER_H
+#define IMDBPARSER_H
 
-#include "../abstractparser.h"
+#include "parsers/abstractparser.h"
 
-class OmdbParser : public AbstractParser
+class ImdbParser : public AbstractParser
 {
     Q_OBJECT
 
     public:
-        OmdbParser();
-
-        void SearchFor( const QString& title, const QString& year = QString() );
-        void SyncSearchFor( Film* filmSaveTo, QUrl* posterUrlSaveTo,
-                            const QString& title, const QString& year = QString() );
+        ImdbParser();
 
     private slots:
         QUrl Parse( const QByteArray& data );
 };
 
-#endif // OMDBPARSER_H
+#endif // IMDBPARSER_H

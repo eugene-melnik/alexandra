@@ -31,9 +31,9 @@
 ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
 {
     parsers.insert( Auto, tr( "<Auto>" ) );
-    parsers.insert( OMDB, "OMDB (http://www.omdbapi.com/)" );
-//    parsers.insert( IMDB, "IMDB (http://www.imdb.com/)" );
+    parsers.insert( IMDB, "IMDB (http://www.imdb.com/)" );
     parsers.insert( Kinopoisk, "КиноПоиск (http://www.kinopoisk.ru/)" );
+    parsers.insert( OMDB, "OMDB (http://www.omdbapi.com/)" );
 }
 
 void ParserManager::Reset()
@@ -53,7 +53,9 @@ void ParserManager::Search()
     CreateParser();
     connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
     connect( currentParser, SIGNAL( Loaded(const Film&, const QUrl&) ), this, SLOT( InformationLoaded(const Film&, const QUrl&) ) );
+    connect( currentParser, SIGNAL( Loaded(const Film&, const QUrl&) ), currentParser, SLOT( deleteLater() ) );
     connect( currentParser, SIGNAL( Error(const QString&) ), this, SLOT( InformationLoadError(const QString&) ) );
+    connect( currentParser, SIGNAL( Error(const QString&) ), currentParser, SLOT( deleteLater() ) );
 
     AbstractParser* cp = dynamic_cast<AbstractParser*>( currentParser );
     cp->SearchFor( title, year );
@@ -81,6 +83,8 @@ void ParserManager::SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo 
             *posterFileNameSaveTo = stdPosterFileName;
         }
     }
+
+    cp->deleteLater();
 }
 
 void ParserManager::InformationLoaded( const Film& f, const QUrl& posterUrl )
@@ -93,10 +97,6 @@ void ParserManager::InformationLoaded( const Film& f, const QUrl& posterUrl )
         {
             emit Loaded( f, stdPosterFileName );
             return;
-        }
-        else
-        {
-            emit Error( tr( "Failed to save the poster to \"%1\"!" ).arg( stdPosterFileName ) );
         }
     }
 
@@ -112,12 +112,7 @@ void ParserManager::InformationLoadError( const QString& e )
 void ParserManager::CreateParser()
 {
     DebugPrintFunc( "ParserManager::CreateParser" );
-    DebugPrint( "Parser: " + QString::number( selectedParserId ) );
-
-    if( currentParser != nullptr )
-    {
-        delete currentParser;
-    }
+    DebugPrint( "Parser: " + parsers.value( selectedParserId ) );
 
     switch( selectedParserId )
     {
@@ -130,6 +125,12 @@ void ParserManager::CreateParser()
         case Kinopoisk :
         {
             currentParser = new KinopoiskParser();
+            break;
+        }
+
+        case IMDB :
+        {
+            currentParser = new ImdbParser();
             break;
         }
 
@@ -158,19 +159,23 @@ bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
     DebugPrint( "Url:  " + posterUrl.toString() );
     DebugPrint( "File: " + posterFileName );
 
-    QByteArray posterData = NetworkRequest().runSync( posterUrl );
-    QFile file( posterFileName );
+    if( !posterUrl.isEmpty() )
+    {
+        QByteArray posterData = NetworkRequest().runSync( posterUrl );
+        QFile file( posterFileName );
 
-    if( file.open( QIODevice::WriteOnly )
-            && file.write( posterData ) )
-    {
-        file.close();
-        DebugPrintFuncDone( "ParserManager::SavePoster" );
-        return( true );
+        if( file.open( QIODevice::WriteOnly )
+                && file.write( posterData ) )
+        {
+            file.close();
+            DebugPrintFuncDone( "ParserManager::SavePoster" );
+            return( true );
+        }
+        else
+        {
+            DebugPrint( QString( "Error! %1" ).arg( file.errorString() ) );
+        }
     }
-    else
-    {
-        DebugPrint( QString( "Error! %1" ).arg( file.errorString() ) );
-        return( false );
-    }
+
+    return( false );
 }

@@ -20,7 +20,7 @@
 
 #include "filmscanneraddworker.h"
 #include "filesextensions.h"
-#include "network/parsermanager.h"
+#include "parsers/parsermanager.h"
 
 #include <QDir>
 #include <QFileInfo>

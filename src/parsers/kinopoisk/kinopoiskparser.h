@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: addfilmwindow.h                                                                         *
+ *  file: kinopoiskparser.h                                                                       *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,52 +18,20 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ADDFILMWINDOW_H
-#define ADDFILMWINDOW_H
+#ifndef KINOPOISKPARSER_H
+#define KINOPOISKPARSER_H
 
-#include "ui_addfilmwindow.h"
+#include "parsers/abstractparser.h"
 
-#include "alexandrasettings.h"
-#include "parsers/parsermanager.h"
-#include "film.h"
-
-#include <QCloseEvent>
-#include <QDialog>
-#include <QString>
-
-class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
+class KinopoiskParser : public AbstractParser
 {
     Q_OBJECT
 
     public:
-        explicit AddFilmWindow( AlexandraSettings* settings, QWidget* parent = nullptr );
-        virtual ~AddFilmWindow() { delete parser; }
-
-        void show();
-
-    protected:
-        void closeEvent( QCloseEvent* event );
-
-        QString filmId;
-
-    signals:
-        void PosterMovingError();
-        void Done( const Film& f );
+        KinopoiskParser();
 
     private slots:
-        void OpenFilm();
-        void OpenPosterFileClicked();
-        void LoadInformation();
-        void Save();
-
-        void InformationLoaded( const Film& f, const QString& posterFileName );
-        void InformationLoadError( const QString& e );
-
-    private:
-        void ClearFields();
-
-        AlexandraSettings* settings = nullptr;
-        ParserManager* parser = nullptr;
+        QUrl Parse( const QByteArray& data );
 };
 
-#endif // ADDFILMWINDOW_H
+#endif // KINOPOISKPARSER_H
