@@ -116,6 +116,7 @@ void SettingsWindow::OkButtonClicked()
         }
 
         settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
+        settings->SetMainWindowRightPanelWidth( sbPanelWidth->value() );
 
         // Application tab
 
@@ -446,7 +447,9 @@ void SettingsWindow::ConfigureAppearanceTab()
     connect( sbGridFontSize, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( cShowTooltip, &QCheckBox::toggled, this, &SettingsWindow::SetIsViewChanged );
 
+    // Right panel
     connect( cShowRightPanel, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
+    connect( sbPanelWidth, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
 
     // Application styles
     appStyles.append( tr( "<Theme>" ) );
@@ -515,7 +518,9 @@ void SettingsWindow::ReconfigureAppearanceTab()
     sbGridFontSize->setValue( settings->GetGridFontSize() );
     cShowTooltip->setChecked( settings->GetGridShowTooltip() );
 
+    // Right panel
     cShowRightPanel->setChecked( settings->GetMainWindowShowRightPanel() );
+    sbPanelWidth->setValue( settings->GetMainWindowRightPanelWidth() );
 }
 
 /*************************************************************************************************

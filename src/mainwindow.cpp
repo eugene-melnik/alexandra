@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "debug.h"
-#include "filesextensions.h"
+#include "tools/filesextensions.h"
 #include "filmsviewgrid.h"
 #include "filmsviewlist.h"
 #include "mainwindow.h"
@@ -154,9 +154,11 @@ void MainWindow::ReloadSettings()
 
     LoadAppearance();
     LoadShorcuts();
-    wRight->setVisible( settings->GetMainWindowShowRightPanel() );
+
     toolbar->LoadSettings( settings );
     filmsView->ReloadSettings( settings );
+
+    ShowFilmInformation();
 }
 
 void MainWindow::ReloadView()
@@ -344,7 +346,7 @@ void MainWindow::ShowFilmInformation()
         p.load( ":/standart-poster" );
     }
 
-    p = p.scaledToWidth( lPosterImage->maximumWidth(), Qt::SmoothTransformation );
+    p = p.scaledToWidth( wRight->maximumWidth(), Qt::SmoothTransformation );
     lPosterImage->setPixmap( p );
 
     DebugPrintFuncDone( "MainWindow::ShowFilmInformation" );
@@ -753,7 +755,6 @@ void MainWindow::LoadSettings()
     mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
     actionShowFullscreen->setChecked( isFullScreen() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
-    wRight->setVisible( settings->GetMainWindowShowRightPanel() );
 
     // Widgets
     eFilter->LoadSettings( settings );
@@ -788,6 +789,9 @@ void MainWindow::LoadAppearance()
 
         DebugPrint( "Style loaded: " + style );
     }
+
+    wRight->setVisible( settings->GetMainWindowShowRightPanel() );
+    wRight->setMaximumWidth( settings->GetMainWindowRightPanelWidth() );
 }
 
 void MainWindow::LoadShorcuts()

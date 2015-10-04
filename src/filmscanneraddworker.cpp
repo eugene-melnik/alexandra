@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "filmscanneraddworker.h"
-#include "filesextensions.h"
+#include "tools/filesextensions.h"
 #include "parsers/parsermanager.h"
 
 #include <QDir>

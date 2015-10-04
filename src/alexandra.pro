@@ -44,6 +44,7 @@ HEADERS += effects/effectdropshadow.h \
            parsers/imdb/imdbparser.h \
            parsers/kinopoisk/kinopoiskparser.h \
            parsers/omdb/omdbparser.h \
+           tools/filesextensions.h \
            tools/regexptools.h \
            aboutwindow.h \
            abstractfilmsview.h \
@@ -51,7 +52,6 @@ HEADERS += effects/effectdropshadow.h \
            alexandrasettings.h \
            commandlineparser.h \
            editfilmwindow.h \
-           filesextensions.h \
            film.h \
            filmscannerwindow.h \
            filmscannerworker.h \
@@ -83,13 +83,13 @@ SOURCES += effects/effectdropshadow.cpp \
            parsers/imdb/imdbparser.cpp \
            parsers/kinopoisk/kinopoiskparser.cpp \
            parsers/omdb/omdbparser.cpp \
+           tools/filesextensions.cpp \
            tools/regexptools.cpp \
            aboutwindow.cpp \
            addfilmwindow.cpp \
            alexandrasettings.cpp \
            commandlineparser.cpp \
            editfilmwindow.cpp \
-           filesextensions.cpp \
            film.cpp \
            filmscannerwindow.cpp \
            filmscannerworker.cpp \

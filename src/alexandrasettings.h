@@ -71,6 +71,7 @@ class AlexandraSettings : public QSettings
         QByteArray GetMainWindowSplitterState() const;
         int        GetMainWindowToolbarStyle() const;
         bool       GetMainWindowShowRightPanel() const;
+        int        GetMainWindowRightPanelWidth() const;
         int        GetQuickSearchFilter() const;
 
         QString GetFilmsScannerLastDir() const;
@@ -128,6 +129,7 @@ class AlexandraSettings : public QSettings
         void SetMainWindowSplitterState( const QByteArray& a );
         void SetMainWindowToolbarStyle( int n );
         void SetMainWindowShowRightPanel( bool b );
+        void SetMainWindowRightPanelWidth( int n );
         void SetQuickSearchFilter( int n );
 
         void SetFilmsScannerLastDir( const QString& s );

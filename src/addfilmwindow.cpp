@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "addfilmwindow.h"
-#include "filesextensions.h"
+#include "tools/filesextensions.h"
 #include "debug.h"
 
 #include <string>

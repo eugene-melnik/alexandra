@@ -18,7 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "filesextensions.h"
+#include "tools/filesextensions.h"
 #include "filmscannerworker.h"
 
 #include <QDir>

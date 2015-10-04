@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>520</width>
-    <height>582</height>
+    <height>583</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -41,13 +41,13 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QGroupBox" name="boxGlobal">
          <property name="title">
           <string>Global</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <layout class="QHBoxLayout" name="hl15" stretch="1,0">
+           <layout class="QHBoxLayout" name="hlGlobal" stretch="1,0">
             <item>
              <layout class="QVBoxLayout" name="vl6">
               <item>
@@ -168,7 +168,7 @@
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1">
           <item>
-           <layout class="QVBoxLayout" name="vl3">
+           <layout class="QVBoxLayout" name="vlViewMode">
             <item>
              <widget class="QRadioButton" name="rbListView">
               <property name="text">
@@ -388,6 +388,69 @@
               <property name="text">
                <string>Show right panel</string>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="hlPanel" native="true">
+              <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <spacer name="hsPanel">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Fixed</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>30</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="labelPanelWidth">
+                 <property name="text">
+                  <string>Panel width</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="sbPanelWidth">
+                 <property name="minimumSize">
+                  <size>
+                   <width>80</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="minimum">
+                  <number>150</number>
+                 </property>
+                 <property name="maximum">
+                  <number>500</number>
+                 </property>
+                 <property name="value">
+                  <number>220</number>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
@@ -1275,6 +1338,9 @@
        <property name="text">
         <string>&amp;OK</string>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -1330,6 +1396,22 @@
     <hint type="destinationlabel">
      <x>269</x>
      <y>189</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cShowRightPanel</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>hlPanel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>263</x>
+     <y>464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>263</x>
+     <y>494</y>
     </hint>
    </hints>
   </connection>
