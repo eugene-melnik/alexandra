@@ -117,6 +117,7 @@ void SettingsWindow::OkButtonClicked()
 
         settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
         settings->SetMainWindowRightPanelWidth( sbPanelWidth->value() );
+        settings->SetAutoLoadTechInfo( cbAutoLoadTechInfo->isChecked() );
 
         // Application tab
 
@@ -450,6 +451,7 @@ void SettingsWindow::ConfigureAppearanceTab()
     // Right panel
     connect( cShowRightPanel, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
     connect( sbPanelWidth, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( cbAutoLoadTechInfo, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
 
     // Application styles
     appStyles.append( tr( "<Theme>" ) );
@@ -521,6 +523,7 @@ void SettingsWindow::ReconfigureAppearanceTab()
     // Right panel
     cShowRightPanel->setChecked( settings->GetMainWindowShowRightPanel() );
     sbPanelWidth->setValue( settings->GetMainWindowRightPanelWidth() );
+    cbAutoLoadTechInfo->setChecked( settings->GetAutoLoadTechInfo() );
 }
 
 /*************************************************************************************************

@@ -389,6 +389,13 @@
         </widget>
        </item>
        <item>
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="lTechInformation">
          <property name="text">
           <string notr="true">&lt;tech_info&gt;</string>
@@ -404,12 +411,12 @@
        <item>
         <layout class="QVBoxLayout" name="vlAllButtons">
          <property name="spacing">
-          <number>4</number>
+          <number>2</number>
          </property>
          <item>
           <layout class="QHBoxLayout" name="hlOptionsButtons">
            <property name="spacing">
-            <number>4</number>
+            <number>1</number>
            </property>
            <item>
             <widget class="QPushButton" name="bViewed">
@@ -494,7 +501,7 @@
          <item>
           <layout class="QHBoxLayout" name="hlPlayOrList" stretch="1,0">
            <property name="spacing">
-            <number>0</number>
+            <number>1</number>
            </property>
            <item>
             <widget class="QPushButton" name="bPlay">

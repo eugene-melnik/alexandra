@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filminfowindow.h                                                                        *
+ *  file: filesextensions.cpp                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,43 +18,63 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMINFOWINDOW_H
-#define FILMINFOWINDOW_H
+#include "filesextensions.h"
 
-#include "alexandrasettings.h"
-#include "mediainfo.h"
-#include "ui_filminfowindow.h"
+#include <QDir>
+#include <QFileInfoList>
 
-#include <QDialog>
-#include <QMutex>
-#include <QString>
-
-class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
+QString FilesExtensions::GetFilmExtensionsForFilter() const
 {
-    Q_OBJECT
+    // Creating a string with format "*.ext1 *.ext2 ... *.extN"
+    QString res;
 
-    public:
-        FilmInfoWindow( AlexandraSettings* s, QWidget* parent = nullptr );
-        virtual ~FilmInfoWindow();
+    for( auto i = videos.begin(); i < videos.end(); i++ )
+    {
+        res += *i + " ";
+    }
 
-        void LoadTechnicalInfoAsync( const QString& fileName );
-        void LoadTechnicalInfo( const QString& fileName );
+    return( res );
+}
 
-        void show();
+QString FilesExtensions::GetImageExtensionsForFilter() const
+{
+    QString res;
 
-    signals:
-        void ShortInfoLoaded( const QString& shortInfo );
-        void FullInfoLoaded( const QString& shortInfo );
+    for( auto i = images.begin(); i < images.end(); i++ )
+    {
+        res += *i + " ";
+    }
 
-    private slots:
-        void ShowFullInfo( const QString& s ) { eTechInfo->setPlainText( s ); }
-        void CopyToClipboard();
-        void ActuallyLoad();
+    return( res );
+}
 
-    private:
-        AlexandraSettings* settings = nullptr;
-        QString savedFileName;
-        QMutex loadInfoMutex;
-};
+QString FilesExtensions::SearchForEponymousImage( const QString& fileName ) const
+{
+    // Searching for file "/path/to/film/filename.videoformat"
+    // eponymous file "/path/to/film/filename.imageformat"
 
-#endif // FILMINFOWINDOW_H
+    QFileInfo fileInfo( fileName );
+
+    // The problem with files that have in their names the square brackets, replaces them with '?'
+    // TODO: Need to optimize
+    QStringList filter( QString( fileInfo.completeBaseName() + ".*" ).replace( "[", "?" ).replace( "]", "?" ) );
+
+    // Searching
+    QFileInfoList eponymousFiles = QDir( fileInfo.absolutePath() ).entryInfoList( filter, QDir::Files );
+
+    if( eponymousFiles.size() > 1 )
+    {
+        for( auto i = eponymousFiles.begin(); i < eponymousFiles.end(); i++)
+        {
+            QString extension = "*." + i->suffix();
+
+            if( images.contains( extension, Qt::CaseInsensitive ) )
+            {
+                return( i->absoluteFilePath() );
+            }
+        }
+    }
+
+    // If nothing was found
+    return( QString() );
+}

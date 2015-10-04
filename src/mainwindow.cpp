@@ -263,20 +263,22 @@ void MainWindow::ShowFilmInformation()
     DebugPrint( "Selected film: " + f->GetFileName() );
 
     // Buttons and technical information
-    bTechInformation->setEnabled( false );
-
     if( QFileInfo( f->GetFileName() ).exists() )
     {
-        // File exists
-#ifdef MEDIAINFO_SUPPORT
-        filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
-#endif
+        #ifdef MEDIAINFO_SUPPORT
+            filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
+            bTechInformation->setEnabled( true );
+        #endif
+
         bPlay->setEnabled( true );
+        bAddToPlaylist->setEnabled( true );
     }
     else
     {
         // File doesn't exists
         bPlay->setEnabled( false );
+        bAddToPlaylist->setEnabled( false );
+        bTechInformation->setEnabled( false );
     }
 
     // Main information
@@ -361,9 +363,7 @@ void MainWindow::ShowFilmContextMenu( QPoint p )
 void MainWindow::ShowShortTechnicalInfo( const QString& info )
 {
     DebugPrintFunc( "MainWindow::ShowShortTechnicalInfo" );
-
     lTechInformation->setText( info );
-    bTechInformation->setEnabled( true );
     lTechInformation->setVisible( true );
 }
 
@@ -983,7 +983,7 @@ void MainWindow::SetupWindows()
 
     /// Film info window
 #ifdef MEDIAINFO_SUPPORT
-    filmInfoWindow = new FilmInfoWindow( this );
+    filmInfoWindow = new FilmInfoWindow( settings, this );
 
     connect( bTechInformation, &QPushButton::clicked, filmInfoWindow, &FilmInfoWindow::show );
     connect( contextMenu, &FilmsViewContextMenu::actionShowInfo, filmInfoWindow, &FilmInfoWindow::show );

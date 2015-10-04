@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filminfowindow.h                                                                        *
+ *  file: filesextensions.h                                                                       *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,43 +18,35 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMINFOWINDOW_H
-#define FILMINFOWINDOW_H
+#ifndef FILESEXTENSIONS_H
+#define FILESEXTENSIONS_H
 
-#include "alexandrasettings.h"
-#include "mediainfo.h"
-#include "ui_filminfowindow.h"
-
-#include <QDialog>
-#include <QMutex>
 #include <QString>
+#include <QStringList>
 
-class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
+// This class contains a listing of all currently supported file formats
+
+class FilesExtensions
 {
-    Q_OBJECT
-
     public:
-        FilmInfoWindow( AlexandraSettings* s, QWidget* parent = nullptr );
-        virtual ~FilmInfoWindow();
+        FilesExtensions() = default;
 
-        void LoadTechnicalInfoAsync( const QString& fileName );
-        void LoadTechnicalInfo( const QString& fileName );
+        QString GetFilmExtensionsForFilter() const;
+        QString GetImageExtensionsForFilter() const;
 
-        void show();
+        const QStringList& GetFilmExtensionsForDirFilter() const { return( videos ); }
+        const QStringList& GetImageExtensionsForDirFilter() const { return( images ); }
 
-    signals:
-        void ShortInfoLoaded( const QString& shortInfo );
-        void FullInfoLoaded( const QString& shortInfo );
-
-    private slots:
-        void ShowFullInfo( const QString& s ) { eTechInfo->setPlainText( s ); }
-        void CopyToClipboard();
-        void ActuallyLoad();
+        QString SearchForEponymousImage( const QString& fileName ) const;
 
     private:
-        AlexandraSettings* settings = nullptr;
-        QString savedFileName;
-        QMutex loadInfoMutex;
+        const QStringList videos = { "*.avi",  "*.bik", "*.divx", "*.dv",  "*.flv",  "*.m1v",  "*.m2t",
+                                     "*.m2ts", "*.m2v", "*.m4v",  "*.mkv", "*.mov",  "*.mp4",  "*.mpv",
+                                     "*.mpeg", "*.mpg", "*.mts",  "*.ogm", "*.ogv",  "*.ogx",  "*.rm",
+                                     "*.ts",   "*.vcd", "*.vob",  "*.vp8", "*.webm", "*.wmv" };
+
+        const QStringList images = { "*.bmp", "*.gif", "*.jpg", "*.jpeg", "*.png",
+                                     "*.pbm", "*.pgm", "*.ppm", "*.xbm",  "*.xpm" };
 };
 
-#endif // FILMINFOWINDOW_H
+#endif // FILESEXTENSIONS_H

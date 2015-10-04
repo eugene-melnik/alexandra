@@ -263,6 +263,11 @@ int AlexandraSettings::GetQuickSearchFilter() const
     return( value( "MainWindow/QuickSearchFilter", 1 ).toInt() ); // FilterBy::Title by default
 }
 
+bool AlexandraSettings::GetAutoLoadTechInfo() const
+{
+    return( value( "MainWindow/AutoLoadTechInfo", true ).toBool() );
+}
+
 QString AlexandraSettings::GetFilmsScannerLastDir() const
 {
     return( value( "FilmsScanner/LastDir", "" ).toString() );
@@ -503,6 +508,11 @@ void AlexandraSettings::SetMainWindowRightPanelWidth( int n )
 void AlexandraSettings::SetQuickSearchFilter( int n )
 {
     setValue( "MainWindow/QuickSearchFilter", n );
+}
+
+void AlexandraSettings::SetAutoLoadTechInfo( bool b )
+{
+    setValue( "MainWindow/AutoLoadTechInfo", b );
 }
 
 void AlexandraSettings::SetFilmsScannerLastDir( const QString& s )

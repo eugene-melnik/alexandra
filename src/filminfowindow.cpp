@@ -27,7 +27,8 @@
 #include <memory>
 #include <thread>
 
-FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
+FilmInfoWindow::FilmInfoWindow( AlexandraSettings* s, QWidget* parent )
+    : QDialog( parent ), settings( s )
 {
     setupUi( this );
     connect( this, &FilmInfoWindow::FullInfoLoaded, this, &FilmInfoWindow::ShowFullInfo );
@@ -53,9 +54,40 @@ void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )
 void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
 {
     DebugPrintFuncA( "FilmInfoWindow::LoadTechnicalInfo", fileName );
-    loadInfoMutex.lock();
+    savedFileName = fileName;
 
-    std::unique_ptr<MediaInfo> mi( new MediaInfo( fileName ) );
+    if( settings->GetAutoLoadTechInfo() && settings->GetMainWindowShowRightPanel() )
+    {
+        loadInfoMutex.lock();
+
+        ActuallyLoad();
+
+        loadInfoMutex.unlock();
+        DebugPrintFuncDone( "FilmInfoWindow::LoadTechnicalInfo" );
+    }
+}
+
+void FilmInfoWindow::show()
+{
+    if( !settings->GetAutoLoadTechInfo() || !settings->GetMainWindowShowRightPanel() )
+    {
+        eTechInfo->clear();
+        std::thread( &FilmInfoWindow::ActuallyLoad, this).detach();
+    }
+
+    QDialog::show();
+}
+
+void FilmInfoWindow::CopyToClipboard()
+{
+    eTechInfo->selectAll();
+    eTechInfo->copy();
+    QMessageBox::information( this, tr( "Technical information" ), tr( "Successfully copied." ) );
+}
+
+void FilmInfoWindow::ActuallyLoad()
+{
+    std::unique_ptr<MediaInfo> mi( new MediaInfo( savedFileName ) );
 
     // Short info
     QString shortInfo = QString( "%1 &bull; %2 &bull; %3<br/>" ).arg( mi->GetFormat(),
@@ -70,19 +102,4 @@ void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
 
     // Full info
     emit FullInfoLoaded( mi->GetCompleteData() );
-
-    loadInfoMutex.unlock();
-    DebugPrintFuncDone( "FilmInfoWindow::LoadTechnicalInfo" );
-}
-
-void FilmInfoWindow::ShowFullInfo( const QString& s )
-{
-    eTechInfo->setPlainText( s );
-}
-
-void FilmInfoWindow::CopyToClipboard()
-{
-    eTechInfo->selectAll();
-    eTechInfo->copy();
-    QMessageBox::information( this, tr( "Technical information" ), tr( "Successfully copied." ) );
 }

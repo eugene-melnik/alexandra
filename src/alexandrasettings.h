@@ -73,6 +73,7 @@ class AlexandraSettings : public QSettings
         bool       GetMainWindowShowRightPanel() const;
         int        GetMainWindowRightPanelWidth() const;
         int        GetQuickSearchFilter() const;
+        bool       GetAutoLoadTechInfo() const;
 
         QString GetFilmsScannerLastDir() const;
 
@@ -131,6 +132,7 @@ class AlexandraSettings : public QSettings
         void SetMainWindowShowRightPanel( bool b );
         void SetMainWindowRightPanelWidth( int n );
         void SetQuickSearchFilter( int n );
+        void SetAutoLoadTechInfo( bool b );
 
         void SetFilmsScannerLastDir( const QString& s );
 
