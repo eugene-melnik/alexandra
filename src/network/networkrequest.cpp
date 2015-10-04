@@ -35,7 +35,7 @@ void NetworkRequest::run( const QUrl& url )
     connect( reply, &QNetworkReply::finished, reply, &QObject::deleteLater );
 }
 
-QByteArray& NetworkRequest::runSync( const QUrl& url )
+QByteArray NetworkRequest::runSync( const QUrl& url )
 {
     DebugPrintFuncA( "NetworkRequest::runSync", url.toString() );
 
@@ -49,6 +49,7 @@ QByteArray& NetworkRequest::runSync( const QUrl& url )
     connect( reply, &QNetworkReply::finished, &loop, &QEventLoop::quit );
     loop.exec();
 
+    DebugPrint( QString( "Loaded: %1 bytes" ).arg( data.size() ) );
     reply->deleteLater();
     return( data );
 }
@@ -84,9 +85,9 @@ void NetworkRequest::CheckForRedirect()
 
 void NetworkRequest::ReadyRead()
 {
-    DebugPrintFunc( "NetworkRequest::ReadyRead" );
+    //DebugPrintFunc( "NetworkRequest::ReadyRead" );
     data.append( reply->readAll() );
-    DebugPrint( QString( "New data size: %1" ).arg( data.size() ) );
+    //DebugPrint( QString( "New data size: %1" ).arg( data.size() ) );
 }
 
 void NetworkRequest::Finished()
@@ -102,6 +103,7 @@ void NetworkRequest::Finished()
     }
     else
     {
+        DebugPrint( QString( "Loaded: %1 bytes" ).arg( data.size() ) );
         emit DataLoaded( data );
     }
 }

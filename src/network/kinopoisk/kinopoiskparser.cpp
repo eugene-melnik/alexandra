@@ -129,7 +129,8 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
 
     // Description
     QRegExp reDescription( "itemprop=\"description\">(.*)</div>" );
-    film.SetDescription( ParseItem( str, reDescription ).replace( "<br><br>", "<br>\n" ) );
+    film.SetDescription( ParseItem( str, reDescription ).replace( QRegExp( "<br /><br />|<br/><br/>|<br><br>" ),
+                                                                  "<br/>\n" ) );
 
     DebugPrint( "Text parsed!" );
 

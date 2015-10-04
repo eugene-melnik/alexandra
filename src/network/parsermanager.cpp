@@ -59,7 +59,7 @@ void ParserManager::Search()
     cp->SearchFor( title, year );
 }
 
-void ParserManager::SearchAsync( Film* filmSaveTo, QString* posterFileNameSaveTo )
+void ParserManager::SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo )
 {
     DebugPrintFunc( "ParserManager::SearchAsync" );
 
@@ -85,7 +85,7 @@ void ParserManager::SearchAsync( Film* filmSaveTo, QString* posterFileNameSaveTo
 
 void ParserManager::InformationLoaded( const Film& f, const QUrl& posterUrl )
 {
-    DebugPrintFuncA( "ParserManager::InformationLoaded", f.GetOriginalTitle() + ", " + stdPosterFileName );
+    DebugPrintFuncA( "ParserManager::InformationLoaded", f.GetOriginalTitle() + ", " + posterUrl.toString() );
 
     if( loadPoster )
     {
@@ -154,12 +154,15 @@ void ParserManager::CreateParser()
 
 bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
 {
-    DebugPrintFuncA( "ParserManager::SavePoster", posterUrl.toString() );
+    DebugPrintFunc( "ParserManager::SavePoster" );
+    DebugPrint( "Url:  " + posterUrl.toString() );
+    DebugPrint( "File: " + posterFileName );
 
-    QByteArray& posterData = NetworkRequest().runSync( posterUrl );
+    QByteArray posterData = NetworkRequest().runSync( posterUrl );
     QFile file( posterFileName );
 
-    if( file.open( QIODevice::WriteOnly ) && file.write( posterData ) )
+    if( file.open( QIODevice::WriteOnly )
+            && file.write( posterData ) )
     {
         file.close();
         DebugPrintFuncDone( "ParserManager::SavePoster" );
@@ -167,6 +170,7 @@ bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
     }
     else
     {
+        DebugPrint( QString( "Error! %1" ).arg( file.errorString() ) );
         return( false );
     }
 }

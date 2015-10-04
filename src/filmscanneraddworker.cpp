@@ -71,12 +71,12 @@ void FilmScannerAddWorker::run()
 
             if( posterFileName.isEmpty() )
             {
-                parser.SearchAsync( &film, &posterFileName );
+                parser.SearchSync( &film, &posterFileName );
             }
             else
             {
                 parser.SetLoadPoster( false );
-                parser.SearchAsync( &film, nullptr );
+                parser.SearchSync( &film, nullptr );
             }
         }
 

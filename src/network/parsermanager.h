@@ -51,7 +51,7 @@ class ParserManager : public QObject
 
         void Reset();
         void Search();
-        void SearchAsync( Film* filmSaveTo, QString* posterFileNameSaveTo );
+        void SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo );
 
     signals:
         void Progress( quint64 received, quint64 total );

@@ -47,14 +47,14 @@ class AbstractParser : public QObject
         virtual void SearchFor( const QString& title, const QString& year = QString() )
         {
             DebugPrintFuncA( "AbstractParser::SearchFor", title );
-            QUrl url( searchUrlWithYear.arg( title ).arg( year ) );
+            QUrl url( searchUrlWithYear.arg( QUrl::toPercentEncoding( title ).data() ).arg( year ) );
 
             if( year.isEmpty() )
             {
-                url = searchUrl.arg( title );
+                url = searchUrl.arg( QUrl::toPercentEncoding( title ).data() );
             }
 
-            request.run( url );
+            request.run(  url );
         }
 
         virtual void SyncSearchFor( Film* filmSaveTo, QUrl* posterUrlSaveTo,

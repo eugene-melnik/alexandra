@@ -726,12 +726,13 @@ void MainWindow::AddFilmsDone( const QList<Film>* films )
 
     for( Film film : *films )
     {
-        if( titles.contains( film.GetTitle() ) )
+        while( titles.contains( film.GetTitle() ) )
         {
             film.SetTitle( film.GetTitle() + tr( " (another)") );
         }
 
         filmsList->AddFilm( film );
+        titles.append( film.GetTitle() );
     }
 
     SaveDatabase();
