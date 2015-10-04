@@ -64,7 +64,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void ShowFullScreen( bool isFullScreen ) { isFullScreen ? showFullScreen() : showNormal(); }
         void QuickSearchEscBehavior();
 
-        void SaveDatabase() { filmsList->SaveToFileAsync( settings->GetDatabaseFilePath() ); }
+        void SaveDatabase();
         void EraseDatabase();
         void ResetStatistics();
         void ReloadDatabase();

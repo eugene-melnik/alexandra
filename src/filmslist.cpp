@@ -333,6 +333,8 @@ void FilmsList::IncCurrentFilmViewsCounter()
 void FilmsList::RemoveCurrentFilm()
 {
     RemoveFilm( *currentFilm );
+    currentFilm = nullptr;
+    emit DatabaseChanged();
 }
 
 void FilmsList::RemoveFilmByTitle( const QString& title )
@@ -400,7 +402,7 @@ void FilmsList::ResetViews()
 
 void FilmsList::RemoveFilm( const Film& film )
 {
-    DebugPrintFuncA( "FilmsList::ResetViews", film.GetFileName() );
+    DebugPrintFuncA( "FilmsList::RemoveFilm", film.GetFileName() );
 
     // Remove poster image
     if( film.GetIsPosterExists() == true )
@@ -411,19 +413,12 @@ void FilmsList::RemoveFilm( const Film& film )
 
     // Remove record from database
     films->removeOne( film );
-
-    if( currentFilm != nullptr && *currentFilm == film )
-    {
-        currentFilm = nullptr;
-    }
-
-    DebugPrintFuncDone( "FilmsList::RemoveFilm" );
-
     isDatabaseChanged = true;
-    emit DatabaseChanged();
+    DebugPrintFuncDone( "FilmsList::RemoveFilm" );
 
     if( films->isEmpty() )
     {
+        currentFilm = nullptr;
         emit DatabaseIsEmpty();
     }
 }

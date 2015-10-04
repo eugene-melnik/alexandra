@@ -154,7 +154,7 @@ void ParserManager::CreateParser()
 
 bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
 {
-    DebugPrint( "Loading poster..." );
+    DebugPrintFuncA( "ParserManager::SavePoster", posterUrl.toString() );
 
     QByteArray& posterData = NetworkRequest().runSync( posterUrl );
     QFile file( posterFileName );
@@ -162,6 +162,7 @@ bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
     if( file.open( QIODevice::WriteOnly ) && file.write( posterData ) )
     {
         file.close();
+        DebugPrintFuncDone( "ParserManager::SavePoster" );
         return( true );
     }
     else

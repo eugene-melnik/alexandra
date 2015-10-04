@@ -34,7 +34,7 @@ KinopoiskParser::KinopoiskParser() : AbstractParser()
 void KinopoiskParser::SearchFor( const QString& title, const QString& year )
 {
     searchUrlWithYear = QString( "http://www.kinopoisk.ru/index.php?level=7&m_act[what]=content&first=yes&m_act[find]=%1&m_act[year]=%2" );
-    searchUrl = QString( "http://www.kinopoisk.ru/index.php?first=yes&what=&kp_query=%1" );
+    searchUrl = QString( "http://www.kinopoisk.ru/index.php?first=yes&kp_query=%1" );
     AbstractParser::SearchFor( title, year );
 }
 
@@ -42,7 +42,7 @@ void KinopoiskParser::SyncSearchFor( Film * filmSaveTo, QUrl* posterUrlSaveTo,
                                      const QString& title, const QString& year )
 {
     searchUrlWithYear = QString( "http://www.kinopoisk.ru/index.php?level=7&m_act[what]=content&first=yes&m_act[find]=%1&m_act[year]=%2" );
-    searchUrl = QString( "http://www.kinopoisk.ru/index.php?first=yes&what=&kp_query=%1" );
+    searchUrl = QString( "http://www.kinopoisk.ru/index.php?first=yes&kp_query=%1" );
     AbstractParser::SyncSearchFor( filmSaveTo, posterUrlSaveTo, title, year );
 }
 

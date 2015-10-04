@@ -115,6 +115,13 @@ void MainWindow::QuickSearchEscBehavior()
     view->setFocus();
 }
 
+void MainWindow::SaveDatabase()
+{
+    SetupCompleter();
+    StatusbarShowTotal();
+    filmsList->SaveToFileAsync( settings->GetDatabaseFilePath() );
+}
+
 void MainWindow::EraseDatabase()
 {
     if( filmsList->GetFilmsCount() == 0 )
@@ -522,6 +529,7 @@ void MainWindow::RemoveFilm()
             filmsList->RemoveFilmByTitle( s );
         }
 
+        SaveDatabase();
         filmsView->SetCurrentItemIndex( 0 );
     }
 }
@@ -655,13 +663,17 @@ void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
 
 void MainWindow::UpdateCurrentFilm( Film film )
 {
-    DebugPrintFuncA( "MainWindow::UpdateCurrentFilm", film.GetTitle() );
+    QString newCurrentTitle = film.GetTitle();
+    DebugPrintFuncA( "MainWindow::UpdateCurrentFilm", newCurrentTitle );
 
-    if( !film.GetTitle().isEmpty() )
+    if( !newCurrentTitle.isEmpty() ) // if not just update view
     {
-        if( filmsList->GetTitlesList().contains( film.GetTitle() ) )
+        QStringList titles = filmsList->GetTitlesList();
+
+        if( newCurrentTitle != filmsList->GetCurrentFilmTitle()
+                && titles.contains( newCurrentTitle )  )
         {
-            film.SetTitle( film.GetTitle() + tr( " (another)") );
+            film.SetTitle( newCurrentTitle + tr( " (another)") );
         }
 
         filmsList->ChangeCurrentFilm( film );
@@ -705,16 +717,16 @@ void MainWindow::AddFilmDone( Film film )
     filmsView->SelectItem( film );
 
     SaveDatabase();
-    SetupCompleter();
-    StatusbarShowTotal();
     SetAllFunctionsEnabled( true );
 }
 
 void MainWindow::AddFilmsDone( const QList<Film>* films )
 {
+    QStringList titles = filmsList->GetTitlesList();
+
     for( Film film : *films )
     {
-        if( filmsList->GetTitlesList().contains( film.GetTitle() ) )
+        if( titles.contains( film.GetTitle() ) )
         {
             film.SetTitle( film.GetTitle() + tr( " (another)") );
         }
@@ -723,8 +735,6 @@ void MainWindow::AddFilmsDone( const QList<Film>* films )
     }
 
     SaveDatabase();
-    SetupCompleter();
-    StatusbarShowTotal();
     SetAllFunctionsEnabled( true );
     ShowFilms();
 }
