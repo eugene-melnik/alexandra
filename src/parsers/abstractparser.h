@@ -21,8 +21,8 @@
 #ifndef ABSTRACTPARSER_H
 #define ABSTRACTPARSER_H
 
-#include "film.h"
-#include "debug.h"
+#include "filmslist/film.h"
+#include "tools/debug.h"
 #include "network/networkrequest.h"
 
 #include <QByteArray>

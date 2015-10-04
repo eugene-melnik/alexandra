@@ -20,7 +20,7 @@
 
 #include "kinopoiskparser.h"
 #include "tools/regexptools.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <QByteArray>
 #include <QTextCodec>

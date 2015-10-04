@@ -21,9 +21,9 @@
 #ifndef STATISTICSWINDOW_H
 #define STATISTICSWINDOW_H
 
-#include "film.h"
+#include "filmslist/film.h"
+#include "tools/timecounter.h"
 #include "statisticsworker.h"
-#include "timecounter.h"
 #include "ui_statisticswindow.h"
 
 #include <QCloseEvent>

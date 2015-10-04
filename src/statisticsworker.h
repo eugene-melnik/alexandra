@@ -25,8 +25,8 @@
 #include <QMetaType>
 #include <QThread>
 
-#include "film.h"
-#include "timecounter.h"
+#include "filmslist/film.h"
+#include "tools/timecounter.h"
 
 typedef struct {
     int viewsCount;

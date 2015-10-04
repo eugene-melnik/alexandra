@@ -27,7 +27,7 @@
 #include <QString>
 
 #include "alexandrasettings.h"
-#include "film.h"
+#include "filmslist/film.h"
 #include "filmscannerworker.h"
 #include "ui_movedfilmswindow.h"
 

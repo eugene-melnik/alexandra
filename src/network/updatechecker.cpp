@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "updatechecker.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <QRegExp>
 

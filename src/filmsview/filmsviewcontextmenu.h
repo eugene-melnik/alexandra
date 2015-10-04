@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmsviewgrid.h                                                                         *
+ *  file: filmsviewcontextmenu.h                                                                  *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,67 +18,42 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSVIEWGRID_H
-#define FILMSVIEWGRID_H
+#ifndef FILMSVIEWCONTEXTMENU_H
+#define FILMSVIEWCONTEXTMENU_H
 
-#include <QColor>
-#include <QKeyEvent>
-#include <QListView>
-#include <QStringList>
+#include <QAction>
+#include <QMenu>
 
-#include "abstractfilmsview.h"
-#include "alexandrasettings.h"
-#include "film.h"
-#include "filmsviewgridmodel.h"
+#include "filmslist/film.h"
 
-class FilmsViewGrid : public QListView, public AbstractFilmsView
+class FilmsViewContextMenu : public QMenu
 {
     Q_OBJECT
 
     public:
-        explicit FilmsViewGrid( QWidget* parent = nullptr );
+        explicit FilmsViewContextMenu( QWidget* parent = nullptr );
 
-    public slots:
-        void LoadSettings( AlexandraSettings* s );
-        void ReloadSettings( AlexandraSettings* s );
-        void SaveSettings( AlexandraSettings* /*s*/ ) const {}
-
-        int AddItem( const Film& film, QColor background = QColor() );
-        void SetItem( int n, const Film& film, QColor background = QColor() );
-        void SetCurrentItemTo( const Film film );
-
-        void RemoveItem( int n );
-        void RemoveItemByTitle( const QString& title );
-        void RemoveCurrentItem();
-        void Clear();
-
-        void SelectItem( const Film& film );
-        void SelectItem( const QString& title );
-        void SelectRandomItem();
-
-        int GetItemsCount() const;
-        int GetCurrentItemIndex() const;
-        QStringList GetSelectedItemsList() const;
-
-        void SetCurrentItemIndex( int i );
+        void SetState( const Film* film );
 
     signals:
-        void ItemClicked( const QString& );
-        void ItemDoubleClicked( const QString& );
-        void ContextMenuRequested( QPoint );
-
-    protected:
-        void keyPressEvent( QKeyEvent* event );
-        void updateGeometries();
-
-    private slots:
-        void ItemClickedSlot( QModelIndex i );
-        void ItemDoubleClickedSlot( QModelIndex i );
-        void ContextMenuRequestedSlot( QPoint p );
+        void actionPlay();
+        void actionAddToList();
+        void actionShowInfo();
+        void actionIsViewed( bool );
+        void actionIsFavourite( bool );
+        void actionEdit();
+        void actionRemove();
+        void actionRemoveFile();
 
     private:
-        AlexandraSettings* settings = nullptr;
-        FilmViewGridModel* model = nullptr;
+        QAction* cmaPlay = nullptr;
+        QAction* cmaAddToList = nullptr;
+        QAction* cmaShowInfo = nullptr;
+        QAction* cmaIsViewed = nullptr;
+        QAction* cmaIsFavourite = nullptr;
+        QAction* cmaEdit = nullptr;
+        QAction* cmaRemove = nullptr;
+        QAction* cmaRemoveFile = nullptr;
 };
 
-#endif // FILMSVIEWGRID_H
+#endif // FILMSVIEWCONTEXTMENU_H

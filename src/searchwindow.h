@@ -21,7 +21,7 @@
 #ifndef SEARCHWINDOW_H
 #define SEARCHWINDOW_H
 
-#include "film.h"
+#include "filmslist/film.h"
 #include "ui_searchwindow.h"
 
 #include <list>

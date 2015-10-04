@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmsviewcontextmenu.h                                                                  *
+ *  file: abstractfilmsview.h                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,42 +18,51 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSVIEWCONTEXTMENU_H
-#define FILMSVIEWCONTEXTMENU_H
+#ifndef ABSTRACTFILMSVIEW_H
+#define ABSTRACTFILMSVIEW_H
 
-#include <QAction>
-#include <QMenu>
+#include "alexandrasettings.h"
+#include "filmslist/film.h"
 
-#include "film.h"
+#include <QColor>
+#include <QString>
+#include <QStringList>
 
-class FilmsViewContextMenu : public QMenu
+// Basic interface for classes that display films in the program window
+
+class AbstractFilmsView
 {
-    Q_OBJECT
-
     public:
-        explicit FilmsViewContextMenu( QWidget* parent = nullptr );
+        virtual ~AbstractFilmsView() {}
 
-        void SetState( const Film* film );
+        virtual void LoadSettings( AlexandraSettings* s ) = 0;
+        virtual void ReloadSettings( AlexandraSettings* s ) = 0;
+        virtual void SaveSettings( AlexandraSettings* s ) const = 0;
 
-    signals:
-        void actionPlay();
-        void actionAddToList();
-        void actionShowInfo();
-        void actionIsViewed( bool );
-        void actionIsFavourite( bool );
-        void actionEdit();
-        void actionRemove();
-        void actionRemoveFile();
+        virtual int AddItem( const Film& film, QColor background = QColor() ) = 0;
 
-    private:
-        QAction* cmaPlay = nullptr;
-        QAction* cmaAddToList = nullptr;
-        QAction* cmaShowInfo = nullptr;
-        QAction* cmaIsViewed = nullptr;
-        QAction* cmaIsFavourite = nullptr;
-        QAction* cmaEdit = nullptr;
-        QAction* cmaRemove = nullptr;
-        QAction* cmaRemoveFile = nullptr;
+        virtual void SetItem( int n, const Film& film, QColor background = QColor() ) = 0;
+        virtual void SetCurrentItemTo( const Film film ) = 0;
+
+        virtual void RemoveItem( int n ) = 0;
+        virtual void RemoveItemByTitle( const QString& title ) = 0;
+        virtual void RemoveCurrentItem() = 0;
+        virtual void Clear() = 0;
+
+        virtual void SelectItem( const Film& film ) = 0;
+        virtual void SelectItem( const QString& title ) = 0;
+        virtual void SelectRandomItem() = 0; /* TODO: Maybe need to move to another place */
+
+        virtual int GetItemsCount() const = 0;
+        virtual int GetCurrentItemIndex() const = 0;
+        virtual QStringList GetSelectedItemsList() const = 0;
+
+        virtual void SetCurrentItemIndex( int i ) = 0;
+
+//    signals:
+//        void ItemClicked( QString );
+//        void ItemDoubleClicked( QString );
+//        void ContextMenuRequested( QPoint );
 };
 
-#endif // FILMSVIEWCONTEXTMENU_H
+#endif // ABSTRACTFILMSVIEW_H

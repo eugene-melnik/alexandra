@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "playlistwidget.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <QAction>
 #include <QListWidgetItem>

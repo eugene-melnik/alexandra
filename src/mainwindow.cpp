@@ -18,10 +18,10 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "debug.h"
+#include "tools/debug.h"
 #include "tools/filesextensions.h"
-#include "filmsviewgrid.h"
-#include "filmsviewlist.h"
+#include "filmsview/filmsviewgrid.h"
+#include "filmsview/filmsviewlist.h"
 #include "mainwindow.h"
 #include "playlist.h"
 #include "version.h"

@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "statisticswindow.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <algorithm>
 #include <QMessageBox>

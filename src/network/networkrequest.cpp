@@ -20,7 +20,7 @@
 
 #include "networkrequest.h"
 #include "version.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 void NetworkRequest::run( const QUrl& url )
 {

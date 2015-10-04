@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "settingswindow.h"
-#include "debug.h"
+#include "tools/debug.h"
 #include "version.h"
 
 #include <QCheckBox>

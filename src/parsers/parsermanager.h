@@ -27,7 +27,7 @@
 #include <QStringList>
 #include <QUrl>
 
-#include "film.h"
+#include "filmslist/film.h"
 
 class ParserManager : public QObject
 {

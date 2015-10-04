@@ -20,7 +20,7 @@
 
 #include "imdbparser.h"
 #include "tools/regexptools.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <QByteArray>
 

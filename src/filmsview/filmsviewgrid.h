@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmsviewlist.h                                                                         *
+ *  file: filmsviewgrid.h                                                                         *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,31 +18,30 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSVIEWLIST_H
-#define FILMSVIEWLIST_H
+#ifndef FILMSVIEWGRID_H
+#define FILMSVIEWGRID_H
 
 #include <QColor>
 #include <QKeyEvent>
-#include <QPoint>
+#include <QListView>
 #include <QStringList>
-#include <QTableWidget>
-#include <QTableWidgetItem>
 
 #include "abstractfilmsview.h"
 #include "alexandrasettings.h"
-#include "film.h"
+#include "filmslist/film.h"
+#include "filmsviewgridmodel.h"
 
-class FilmsViewList : public QTableWidget, public AbstractFilmsView
+class FilmsViewGrid : public QListView, public AbstractFilmsView
 {
     Q_OBJECT
 
     public:
-        explicit FilmsViewList( QWidget* parent = nullptr );
+        explicit FilmsViewGrid( QWidget* parent = nullptr );
 
     public slots:
         void LoadSettings( AlexandraSettings* s );
         void ReloadSettings( AlexandraSettings* s );
-        void SaveSettings( AlexandraSettings* s ) const;
+        void SaveSettings( AlexandraSettings* /*s*/ ) const {}
 
         int AddItem( const Film& film, QColor background = QColor() );
         void SetItem( int n, const Film& film, QColor background = QColor() );
@@ -70,42 +69,16 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
 
     protected:
         void keyPressEvent( QKeyEvent* event );
+        void updateGeometries();
 
     private slots:
-        void ItemClickedSlot();
-        void ItemDoubleClickedSlot();
+        void ItemClickedSlot( QModelIndex i );
+        void ItemDoubleClickedSlot( QModelIndex i );
         void ContextMenuRequestedSlot( QPoint p );
 
     private:
-        enum Columns {
-            ViewedColumn,
-            FavouriteColumn,
-            TitleColumn,
-            YearColumn,
-            GenreColumn,
-            DirectorColumn,
-            RatingColumn
-        };
-
-        const QStringList colNames = {
-            tr( "V" ),  // Is viewed
-            tr( "F" ),  // Is favourite
-            tr( "Title" ),
-            tr( "Year" ),
-            tr( "Genre" ),
-            tr( "Director" ),
-            tr( "Rating" )
-        };
-
-        const QStringList colTooltips = {
-            tr( "Is viewed" ),
-            tr( "Is favourite" ),
-            tr( "Title" ),
-            tr( "Year" ),
-            tr( "Genre" ),
-            tr( "Director" ),
-            tr( "Rating" )
-        };
+        AlexandraSettings* settings = nullptr;
+        FilmViewGridModel* model = nullptr;
 };
 
-#endif // FILMSVIEWLIST_H
+#endif // FILMSVIEWGRID_H

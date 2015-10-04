@@ -22,7 +22,7 @@
 #define FILMSLIST_H
 
 #include "alexandrasettings.h"
-#include "film.h"
+#include "filmslist/film.h"
 
 #include <QList>
 #include <QObject>

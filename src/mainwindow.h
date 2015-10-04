@@ -22,14 +22,14 @@
 #define MAINWINDOW_H
 
 #include "aboutwindow.h"
-#include "abstractfilmsview.h"
+#include "filmsview/abstractfilmsview.h"
+#include "filmsview/filmsviewcontextmenu.h"
 #include "addfilmwindow.h"
 #include "alexandrasettings.h"
 #include "editfilmwindow.h"
 #include "filminfowindow.h"
-#include "filmslist.h"
+#include "filmslist/filmslist.h"
 #include "filmscannerwindow.h"
-#include "filmsviewcontextmenu.h"
 #include "movedfilmswindow.h"
 #include "searchedit.h"
 #include "searchwindow.h"

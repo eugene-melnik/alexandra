@@ -37,6 +37,13 @@ DEFINES += MEDIAINFO_SUPPORT
     # Source files #
 
 HEADERS += effects/effectdropshadow.h \
+           filmslist/film.h \
+           filmslist/filmslist.h \
+           filmsview/abstractfilmsview.h \
+           filmsview/filmsviewcontextmenu.h \
+           filmsview/filmsviewgrid.h \
+           filmsview/filmsviewgridmodel.h \
+           filmsview/filmsviewlist.h \
            network/networkrequest.h \
            network/updatechecker.h \
            parsers/abstractparser.h \
@@ -46,21 +53,15 @@ HEADERS += effects/effectdropshadow.h \
            parsers/omdb/omdbparser.h \
            tools/filesextensions.h \
            tools/regexptools.h \
+           tools/timecounter.h \
            aboutwindow.h \
-           abstractfilmsview.h \
            addfilmwindow.h \
            alexandrasettings.h \
            commandlineparser.h \
            editfilmwindow.h \
-           film.h \
            filmscannerwindow.h \
            filmscannerworker.h \
            filmscanneraddworker.h \
-           filmslist.h \
-           filmsviewcontextmenu.h \
-           filmsviewgrid.h \
-           filmsviewgridmodel.h \
-           filmsviewlist.h \
            mainwindow.h \
            movedfilmswindow.h \
            playlist.h \
@@ -72,11 +73,16 @@ HEADERS += effects/effectdropshadow.h \
            statisticswindow.h \
            statisticsworker.h \
            statusbar.h \
-           timecounter.h \
            toolbar.h \
            version.h
 
 SOURCES += effects/effectdropshadow.cpp \
+           filmslist/film.cpp \
+           filmslist/filmslist.cpp \
+           filmsview/filmsviewcontextmenu.cpp \
+           filmsview/filmsviewgrid.cpp \
+           filmsview/filmsviewgridmodel.cpp \
+           filmsview/filmsviewlist.cpp \
            network/networkrequest.cpp \
            network/updatechecker.cpp \
            parsers/parsermanager.cpp \
@@ -85,20 +91,15 @@ SOURCES += effects/effectdropshadow.cpp \
            parsers/omdb/omdbparser.cpp \
            tools/filesextensions.cpp \
            tools/regexptools.cpp \
+           tools/timecounter.cpp \
            aboutwindow.cpp \
            addfilmwindow.cpp \
            alexandrasettings.cpp \
            commandlineparser.cpp \
            editfilmwindow.cpp \
-           film.cpp \
            filmscannerwindow.cpp \
            filmscannerworker.cpp \
            filmscanneraddworker.cpp \
-           filmslist.cpp \
-           filmsviewcontextmenu.cpp \
-           filmsviewgrid.cpp \
-           filmsviewgridmodel.cpp \
-           filmsviewlist.cpp \
            main.cpp \
            mainwindow.cpp \
            movedfilmswindow.cpp \
@@ -111,7 +112,6 @@ SOURCES += effects/effectdropshadow.cpp \
            statisticswindow.cpp \
            statisticsworker.cpp \
            statusbar.cpp \
-           timecounter.cpp \
            toolbar.cpp
 
 FORMS += aboutwindow.ui \
@@ -159,8 +159,8 @@ contains( DEFINES, PORTABLE_VERSION ) {
 CONFIG(debug, debug|release) {
     message( "DEBUG mode" )
 
-    HEADERS += debug.h
-    SOURCES += debug.cpp
+    HEADERS += tools/debug.h
+    SOURCES += tools/debug.cpp
 
     MOC_DIR = ./tmp/debug/moc
     OBJECTS_DIR = ./tmp/debug/obj

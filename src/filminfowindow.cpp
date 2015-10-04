@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "filminfowindow.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <QMessageBox>
 #include <QPlainTextEdit>

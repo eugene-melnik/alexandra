@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: abstractfilmsview.h                                                                     *
+ *  file: filmsviewgridmodel.h                                                                    *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,51 +18,43 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ABSTRACTFILMSVIEW_H
-#define ABSTRACTFILMSVIEW_H
+#ifndef FILMSVIEWGRIDMODEL_H
+#define FILMSVIEWGRIDMODEL_H
+
+#include <QAbstractListModel>
+#include <QColor>
+#include <QList>
+#include <QPixmap>
+#include <QString>
 
 #include "alexandrasettings.h"
-#include "film.h"
+#include "filmslist/film.h"
 
-#include <QColor>
-#include <QString>
-#include <QStringList>
-
-// Basic interface for classes that display films in the program window
-
-class AbstractFilmsView
+class FilmViewGridModel : public QAbstractListModel
 {
+    Q_OBJECT
+
     public:
-        virtual ~AbstractFilmsView() {}
+        explicit FilmViewGridModel( AlexandraSettings* s, QObject* parent = nullptr );
 
-        virtual void LoadSettings( AlexandraSettings* s ) = 0;
-        virtual void ReloadSettings( AlexandraSettings* s ) = 0;
-        virtual void SaveSettings( AlexandraSettings* s ) const = 0;
+        void AppendItem( const Film& film, QColor background );
+        void SetItem( int n, const Film& film, QColor background );
+        void Clear();
+        void RemoveRow( int row );
 
-        virtual int AddItem( const Film& film, QColor background = QColor() ) = 0;
+        int GetItemIndexByTitle( const QString& title );
+        QString GetItemTitle( int n );
 
-        virtual void SetItem( int n, const Film& film, QColor background = QColor() ) = 0;
-        virtual void SetCurrentItemTo( const Film film ) = 0;
+        int rowCount( const QModelIndex& /* parent */ = QModelIndex() ) const;
+        QVariant data( const QModelIndex& index, int role ) const;
 
-        virtual void RemoveItem( int n ) = 0;
-        virtual void RemoveItemByTitle( const QString& title ) = 0;
-        virtual void RemoveCurrentItem() = 0;
-        virtual void Clear() = 0;
+    private:
+        AlexandraSettings* settings = nullptr;
 
-        virtual void SelectItem( const Film& film ) = 0;
-        virtual void SelectItem( const QString& title ) = 0;
-        virtual void SelectRandomItem() = 0; // TODO: Maybe need to move to FilmsList class
-
-        virtual int GetItemsCount() const = 0;
-        virtual int GetCurrentItemIndex() const = 0;
-        virtual QStringList GetSelectedItemsList() const = 0;
-
-        virtual void SetCurrentItemIndex( int i ) = 0;
-
-//    signals:
-//        void ItemClicked( QString );
-//        void ItemDoubleClicked( QString );
-//        void ContextMenuRequested( QPoint );
+        QList<QString> itemTitle;
+        QList<QPixmap> itemImage;
+        QList<QString> itemToolTip;
+        QList<QColor>  itemBackground;
 };
 
-#endif // ABSTRACTFILMSVIEW_H
+#endif // FILMSVIEWGRIDMODEL_H

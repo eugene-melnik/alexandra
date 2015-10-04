@@ -18,7 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "debug.h"
+#include "tools/debug.h"
 #include "filmslist.h"
 #include "version.h"
 

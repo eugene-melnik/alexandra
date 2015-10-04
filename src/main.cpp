@@ -20,7 +20,7 @@
 
 #include "alexandrasettings.h"
 #include "commandlineparser.h"
-#include "debug.h"
+#include "tools/debug.h"
 #include "mainwindow.h"
 #include "version.h"
 

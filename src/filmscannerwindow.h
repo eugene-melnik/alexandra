@@ -28,7 +28,7 @@
 #include <QStringList>
 
 #include "alexandrasettings.h"
-#include "film.h"
+#include "filmslist/film.h"
 #include "filmscannerworker.h"
 #include "filmscanneraddworker.h"
 #include "ui_filmscannerwindow.h"

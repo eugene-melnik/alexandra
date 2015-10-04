@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "editfilmwindow.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <QComboBox>
 #include <QLineEdit>

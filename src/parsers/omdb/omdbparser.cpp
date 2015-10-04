@@ -19,7 +19,7 @@
   *************************************************************************************************/
 
 #include "omdbparser.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>

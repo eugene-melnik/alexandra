@@ -20,7 +20,7 @@
 
 #include "filmscannerwindow.h"
 #include "tools/filesextensions.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <string>
 #include <QFileDialog>

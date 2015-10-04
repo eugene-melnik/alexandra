@@ -18,7 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "debug.h"
+#include "tools/debug.h"
 #include "playlist.h"
 
 #include <QDir>

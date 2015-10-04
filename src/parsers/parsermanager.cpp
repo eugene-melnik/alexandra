@@ -23,7 +23,7 @@
 #include "kinopoisk/kinopoiskparser.h"
 #include "imdb/imdbparser.h"
 #include "omdb/omdbparser.h"
-#include "debug.h"
+#include "tools/debug.h"
 
 #include <QFile>
 #include <QLocale>
