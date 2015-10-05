@@ -24,7 +24,7 @@
     <normaloff>:/window/main</normaloff>:/window/main</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QHBoxLayout" name="layoutMain">
     <item>
      <widget class="QSplitter" name="mainSplitter">
       <property name="orientation">
@@ -389,7 +389,7 @@
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line">
+        <widget class="Line" name="linePoster">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -518,7 +518,7 @@
               </size>
              </property>
              <property name="toolTip">
-              <string>Open film in external player</string>
+              <string>Play film or playlist</string>
              </property>
              <property name="text">
               <string>&amp;PLAY</string>

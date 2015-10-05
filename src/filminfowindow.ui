@@ -29,7 +29,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="layoutMain">
    <item>
     <widget class="QPlainTextEdit" name="eTechInfo">
      <property name="font">
@@ -51,16 +51,16 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl1">
+    <layout class="QHBoxLayout" name="layoutFooter">
      <item>
       <widget class="QPushButton" name="bCopyToClipboard">
        <property name="text">
-        <string>&amp;Copy to clipboard</string>
+        <string>Copy to clipboard</string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="hs1">
+      <spacer name="spacerFooter">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>

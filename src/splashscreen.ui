@@ -26,7 +26,7 @@
    <string notr="true">QDialog {border:solid 3px white;background-image:url(:/splash-bg);}
 QLabel {color:black;}</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="layoutMain">
    <item>
     <widget class="QLabel" name="lAppName">
      <property name="font">
@@ -62,7 +62,7 @@ QLabel {color:black;}</string>
     </widget>
    </item>
    <item>
-    <spacer name="vs1">
+    <spacer name="spacerMain0">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -103,7 +103,7 @@ QLabel {color:black;}</string>
     </widget>
    </item>
    <item>
-    <spacer name="vs2">
+    <spacer name="spacerMain1">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -116,7 +116,7 @@ QLabel {color:black;}</string>
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl1">
+    <layout class="QHBoxLayout" name="layoutFooter">
      <item>
       <widget class="QLabel" name="lLoading">
        <property name="font">
@@ -135,7 +135,7 @@ QLabel {color:black;}</string>
       </widget>
      </item>
      <item>
-      <spacer name="hs1">
+      <spacer name="spacerFooter">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>

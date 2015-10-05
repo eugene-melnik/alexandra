@@ -26,7 +26,7 @@
      <property name="title">
       <string>Search moved films in</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="layoutDirectory">
       <item>
        <widget class="QLineEdit" name="eDirectory">
         <property name="focusPolicy">
@@ -61,9 +61,9 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl1" stretch="1,2,1">
+    <layout class="QHBoxLayout" name="layoutScan" stretch="1,2,1">
      <item>
-      <spacer name="hs1">
+      <spacer name="spacerScanLeft">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -78,12 +78,12 @@
      <item>
       <widget class="QPushButton" name="bScan">
        <property name="text">
-        <string>Scan</string>
+        <string>&amp;Scan</string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="hs2">
+      <spacer name="spacerScanRight">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -102,8 +102,14 @@
      <property name="title">
       <string>Founded</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <item>
        <widget class="QTableWidget" name="twFounded">
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
@@ -148,56 +154,56 @@
         </column>
        </widget>
       </item>
+      <item>
+       <layout class="QHBoxLayout" name="layoutSelection">
+        <item>
+         <spacer name="spacerSelection">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="bSelectAll">
+          <property name="text">
+           <string>Select all</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="bUnselectAll">
+          <property name="text">
+           <string>Unselect all</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="bInvertSelection">
+          <property name="text">
+           <string>Invert selection</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl2">
-     <item>
-      <spacer name="hs3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="bSelectAll">
-       <property name="text">
-        <string>Select all</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="bUnselectAll">
-       <property name="text">
-        <string>Unselect all</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="bInvertSelection">
-       <property name="text">
-        <string>Invert selection</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="Line" name="l1">
+    <widget class="Line" name="lineMain0">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl3" stretch="0,0,0,0,0,1,0,0,0">
+    <layout class="QHBoxLayout" name="layoutFooter" stretch="0,0,0,0,0,1,0,0,0">
      <item>
       <widget class="QLabel" name="labelTotalFounded">
        <property name="text">
@@ -213,7 +219,7 @@
       </widget>
      </item>
      <item>
-      <widget class="Line" name="l2">
+      <widget class="Line" name="lineFooter0">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -247,13 +253,13 @@
       </widget>
      </item>
      <item>
-      <spacer name="hs4">
+      <spacer name="spacerFooter">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>5</width>
+         <width>1</width>
          <height>20</height>
         </size>
        </property>

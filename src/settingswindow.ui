@@ -29,7 +29,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="layoutMain">
    <item>
     <widget class="QTabWidget" name="twMain">
      <property name="currentIndex">
@@ -39,20 +39,20 @@
       <attribute name="title">
        <string>Appearance</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_8">
+      <layout class="QVBoxLayout" name="layoutTabAppearance">
        <property name="leftMargin">
         <number>9</number>
        </property>
        <item>
-        <widget class="QGroupBox" name="boxGlobal">
+        <widget class="QGroupBox" name="gbGlobal">
          <property name="title">
           <string>Global</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <layout class="QVBoxLayout" name="layoutBoxGlobal">
           <item>
-           <layout class="QHBoxLayout" name="hlGlobal" stretch="1,0">
+           <layout class="QHBoxLayout" name="layoutGlobal" stretch="1,0">
             <item>
-             <layout class="QVBoxLayout" name="vl6">
+             <layout class="QVBoxLayout" name="layoutGlobalLabels">
               <item>
                <widget class="QLabel" name="labelFont">
                 <property name="text">
@@ -99,9 +99,12 @@
              </layout>
             </item>
             <item>
-             <layout class="QVBoxLayout" name="vl7">
+             <layout class="QVBoxLayout" name="layoutGlobalValues">
               <item>
-               <layout class="QHBoxLayout" name="hl10" stretch="1,0">
+               <layout class="QHBoxLayout" name="layoutGlobalValuesFont" stretch="1,0">
+                <property name="spacing">
+                 <number>1</number>
+                </property>
                 <item>
                  <widget class="QPushButton" name="bFontSelect">
                   <property name="text">
@@ -165,13 +168,13 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="boxViewMode">
+        <widget class="QGroupBox" name="gbViewMode">
          <property name="title">
           <string>View mode</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1">
+         <layout class="QHBoxLayout" name="layoutBoxViewMode" stretch="1">
           <item>
-           <layout class="QVBoxLayout" name="vlViewMode">
+           <layout class="QVBoxLayout" name="layoutViewMode">
             <item>
              <widget class="QRadioButton" name="rbListView">
               <property name="text">
@@ -183,7 +186,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="widgetListView" native="true">
+             <widget class="QWidget" name="layoutViewModeListView" native="true">
               <layout class="QHBoxLayout" name="hl6">
                <property name="leftMargin">
                 <number>0</number>
@@ -198,7 +201,7 @@
                 <number>0</number>
                </property>
                <item>
-                <spacer name="hs7">
+                <spacer name="spacerListView">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -214,9 +217,9 @@
                 </spacer>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="vl4">
+                <layout class="QVBoxLayout" name="layoutViewModeListViewSub0">
                  <item>
-                  <layout class="QHBoxLayout" name="hl7" stretch="1,0">
+                  <layout class="QHBoxLayout" name="layoutViewModeListViewSub1" stretch="1,0">
                    <item>
                     <widget class="QLabel" name="labelFontSize">
                      <property name="enabled">
@@ -246,7 +249,7 @@
                   </layout>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="hl11" stretch="1,0">
+                  <layout class="QHBoxLayout" name="layoutViewModeListViewSub2" stretch="1,0">
                    <item>
                     <widget class="QLabel" name="labelRowHeight">
                      <property name="text">
@@ -285,7 +288,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="widgetGridView" native="true">
+             <widget class="QWidget" name="layoutViewModeGridView" native="true">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -303,7 +306,7 @@
                 <number>0</number>
                </property>
                <item>
-                <spacer name="hs8">
+                <spacer name="spacerGridView">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -319,9 +322,9 @@
                 </spacer>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="vl5">
+                <layout class="QVBoxLayout" name="layoutViewModeGridViewSub0">
                  <item>
-                  <layout class="QHBoxLayout" name="hl8" stretch="10,0">
+                  <layout class="QHBoxLayout" name="layoutViewModeGridViewSub1" stretch="10,0">
                    <item>
                     <widget class="QLabel" name="labelImageSize">
                      <property name="text">
@@ -348,7 +351,7 @@
                   </layout>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="hl9" stretch="1,0">
+                  <layout class="QHBoxLayout" name="layoutViewModeGridViewSub2" stretch="1,0">
                    <item>
                     <widget class="QLabel" name="labelFontSize2">
                      <property name="text">
@@ -397,7 +400,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="hlPanel" native="true">
+             <widget class="QWidget" name="layoutViewModePanel" native="true">
               <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
                <property name="leftMargin">
                 <number>0</number>
@@ -412,7 +415,7 @@
                 <number>0</number>
                </property>
                <item>
-                <spacer name="hsPanel">
+                <spacer name="spacerPanel">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -428,9 +431,9 @@
                 </spacer>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_3">
+                <layout class="QVBoxLayout" name="layoutViewModePanelSub0">
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0">
+                  <layout class="QHBoxLayout" name="layoutViewModePanelSub1" stretch="1,0">
                    <item>
                     <widget class="QLabel" name="labelPanelWidth">
                      <property name="text">
@@ -480,7 +483,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="vs2">
+        <spacer name="spacerAppearance">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -498,13 +501,13 @@
       <attribute name="title">
        <string>Application</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_10">
+      <layout class="QVBoxLayout" name="layoutTabApplication">
        <item>
         <widget class="QGroupBox" name="gbMain">
          <property name="title">
           <string>Main</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <layout class="QVBoxLayout" name="layoutBoxMain">
           <item>
            <widget class="QCheckBox" name="cShowSplashScreen">
             <property name="text">
@@ -513,45 +516,34 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="hl1" stretch="1,0">
-            <property name="spacing">
-             <number>6</number>
-            </property>
+           <layout class="QHBoxLayout" name="layoutLanguage">
             <item>
-             <layout class="QVBoxLayout" name="vl1">
-              <item>
-               <widget class="QLabel" name="labelLanguage">
-                <property name="minimumSize">
-                 <size>
-                  <width>110</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Language</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QLabel" name="labelLanguage">
+              <property name="minimumSize">
+               <size>
+                <width>110</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Language</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <layout class="QVBoxLayout" name="vl2">
+             <widget class="QComboBox" name="cbLanguage">
+              <property name="minimumSize">
+               <size>
+                <width>220</width>
+                <height>0</height>
+               </size>
+              </property>
               <item>
-               <widget class="QComboBox" name="cbLanguage">
-                <property name="minimumSize">
-                 <size>
-                  <width>220</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>&lt;Auto&gt;</string>
-                 </property>
-                </item>
-               </widget>
+               <property name="text">
+                <string>&lt;Auto&gt;</string>
+               </property>
               </item>
-             </layout>
+             </widget>
             </item>
            </layout>
           </item>
@@ -563,9 +555,9 @@
          <property name="title">
           <string>Player</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
+         <layout class="QVBoxLayout" name="layoutBoxPlayer">
           <item>
-           <layout class="QHBoxLayout" name="hl2">
+           <layout class="QHBoxLayout" name="layoutPlayerPath">
             <item>
              <widget class="QLineEdit" name="eExternalPlayer"/>
             </item>
@@ -590,7 +582,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
+           <layout class="QHBoxLayout" name="layoutDoubleClick" stretch="1,0">
             <item>
              <widget class="QLabel" name="labelDoubleClickBehavior">
               <property name="text">
@@ -611,9 +603,9 @@
          <property name="title">
           <string>Database</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_9">
+         <layout class="QVBoxLayout" name="layoutBoxDatabase">
           <item>
-           <layout class="QHBoxLayout" name="hl3">
+           <layout class="QHBoxLayout" name="layoutDatabaseFile">
             <item>
              <widget class="QLabel" name="labelDatabaseFile">
               <property name="text">
@@ -647,9 +639,9 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="hl3_2">
+           <layout class="QHBoxLayout" name="layoutDatabaseButtons">
             <item>
-             <spacer name="hs2">
+             <spacer name="spacerDatabaseButtonsLeft">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -702,7 +694,7 @@
              </widget>
             </item>
             <item>
-             <spacer name="hs3">
+             <spacer name="spacerDatabaseButtonsRight">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -717,7 +709,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="hl4" stretch="1,0">
+           <layout class="QHBoxLayout" name="layoutDatabaseCheck" stretch="1,0">
             <item>
              <widget class="QCheckBox" name="cCheckFilesAtStartup">
               <property name="text">
@@ -742,9 +734,9 @@
          <property name="title">
           <string>Posters</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QVBoxLayout" name="layoutBoxPosters">
           <item>
-           <layout class="QHBoxLayout" name="hl5">
+           <layout class="QHBoxLayout" name="layoutPostersFolder">
             <item>
              <widget class="QLabel" name="labelPostersFolder">
               <property name="text">
@@ -778,7 +770,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="hl16" stretch="1,0">
+           <layout class="QHBoxLayout" name="layoutPostersFormat" stretch="1,0">
             <item>
              <widget class="QLabel" name="labelSavingFormat">
               <property name="text">
@@ -799,7 +791,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="hl12" stretch="1,0,0">
+           <layout class="QHBoxLayout" name="layoutPostersScale" stretch="1,0,0">
             <item>
              <widget class="QCheckBox" name="cScalePoster">
               <property name="text">
@@ -839,7 +831,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="vs1">
+        <spacer name="spacerApplication">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -857,9 +849,9 @@
       <attribute name="title">
        <string>Shortcuts</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
+      <layout class="QVBoxLayout" name="layoutTabShortcuts">
        <item>
-        <layout class="QHBoxLayout" name="hlAddFilm" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutAddFilm" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -898,7 +890,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlEditFilm" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutEditFilm" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -937,7 +929,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlRemoveFilm" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutRemoveFilm" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -976,14 +968,14 @@
         </layout>
        </item>
        <item>
-        <widget class="Line" name="line3_0">
+        <widget class="Line" name="lineShortcuts0">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlSelectRandomFilm" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutSelectRandomFilm" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1022,7 +1014,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlActivateQuickSearch" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutActivateQuickSearch" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1061,7 +1053,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlAdvancedSearch" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutAdvancedSearch" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1100,14 +1092,14 @@
         </layout>
        </item>
        <item>
-        <widget class="Line" name="line3_1">
+        <widget class="Line" name="lineShortcuts1">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlPlay" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutPlay" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1146,14 +1138,14 @@
         </layout>
        </item>
        <item>
-        <widget class="Line" name="line3_2">
+        <widget class="Line" name="lineShortcuts2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlSettings" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutSettings" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1192,7 +1184,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlShowToolbar" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutShowToolbar" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1231,7 +1223,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlShowFullscreen" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutShowFullscreen" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1270,14 +1262,14 @@
         </layout>
        </item>
        <item>
-        <widget class="Line" name="line3_3">
+        <widget class="Line" name="lineShortcuts3">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hlExit" stretch="1,1,0,0">
+        <layout class="QHBoxLayout" name="layoutExit" stretch="1,1,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1316,7 +1308,7 @@
         </layout>
        </item>
        <item>
-        <spacer name="vsShortcuts">
+        <spacer name="spacerShortcuts">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1334,9 +1326,9 @@
       <attribute name="title">
        <string>Sources</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_12">
+      <layout class="QVBoxLayout" name="layoutTabSources">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,0">
+        <layout class="QHBoxLayout" name="layoutDefaultSource" stretch="1,0">
          <item>
           <widget class="QLabel" name="labelDefaultOnlineSource">
            <property name="text">
@@ -1350,7 +1342,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QGroupBox" name="gbImdb">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -1359,14 +1351,14 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
-           <widget class="QCheckBox" name="checkBox">
+           <widget class="QCheckBox" name="cLoadBigPoster">
             <property name="text">
              <string>Load big poster</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBox_2">
+           <widget class="QCheckBox" name="cLoadAdditionalData">
             <property name="text">
              <string>Load additional data</string>
             </property>
@@ -1376,7 +1368,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="spacerSources">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1393,9 +1385,9 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hlButtonBox">
+    <layout class="QHBoxLayout" name="layoutFooter">
      <item>
-      <spacer name="hsButtonBox">
+      <spacer name="spacerFooter">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -1435,7 +1427,7 @@
   <connection>
    <sender>rbListView</sender>
    <signal>toggled(bool)</signal>
-   <receiver>widgetListView</receiver>
+   <receiver>layoutViewModeListView</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1451,7 +1443,7 @@
   <connection>
    <sender>rbListView</sender>
    <signal>toggled(bool)</signal>
-   <receiver>widgetGridView</receiver>
+   <receiver>layoutViewModeGridView</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1483,7 +1475,7 @@
   <connection>
    <sender>cShowRightPanel</sender>
    <signal>toggled(bool)</signal>
-   <receiver>hlPanel</receiver>
+   <receiver>layoutViewModePanel</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
