@@ -69,5 +69,6 @@ void EditFilmWindow::show( const Film* f )
     eComposer->setText( f->GetComposer() );
 
     cbOnlineSource->setCurrentIndex( settings->GetDefaultParserIndex() );
+    eTitle->setFocus();
     QDialog::show();
 }

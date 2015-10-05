@@ -9,14 +9,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>625</height>
+    <width>570</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
-    <height>550</height>
+    <width>570</width>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -29,9 +29,9 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3">
+  <layout class="QVBoxLayout" name="layoutMain">
    <item>
-    <layout class="QHBoxLayout" name="hl1">
+    <layout class="QHBoxLayout" name="layoutFile">
      <item>
       <widget class="QLabel" name="labelFile">
        <property name="minimumSize">
@@ -67,7 +67,7 @@
      <item>
       <widget class="QPushButton" name="bOpenFile">
        <property name="toolTip">
-        <string>Open film on the disk</string>
+        <string>Select a film on the disk</string>
        </property>
        <property name="text">
         <string>Open</string>
@@ -77,7 +77,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl2">
+    <layout class="QHBoxLayout" name="layoutPoster">
      <item>
       <widget class="QLabel" name="labelPoster">
        <property name="minimumSize">
@@ -113,7 +113,7 @@
      <item>
       <widget class="QPushButton" name="bOpenPoster">
        <property name="toolTip">
-        <string>Open poster on the disk</string>
+        <string>Select a poster on the disk</string>
        </property>
        <property name="text">
         <string>Open</string>
@@ -123,16 +123,16 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="l">
+    <widget class="Line" name="lineMain0">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="layoutTitlePlus">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="layoutTitles">
        <item>
         <widget class="QLabel" name="labelTitle">
          <property name="minimumSize">
@@ -169,7 +169,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="layoutTitlesEdits">
        <item>
         <widget class="QLineEdit" name="eTitle">
          <property name="maxLength">
@@ -191,14 +191,14 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
+        <layout class="QHBoxLayout" name="layoutLoadFrom" stretch="1,0">
          <item>
           <widget class="QComboBox" name="cbOnlineSource"/>
          </item>
          <item>
           <widget class="QPushButton" name="bLoad">
            <property name="toolTip">
-            <string>Try to fetch information from the selected online source. The search is conducted by fields &quot;Title&quot; and &quot;Year&quot; (optional).</string>
+            <string>Try to fetch information from the selected online source. The search is conducted by fields &quot;Title&quot; and &quot;Year&quot; (optional)</string>
            </property>
            <property name="text">
             <string>Load</string>
@@ -212,14 +212,14 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="l_2">
+    <widget class="Line" name="lineMain1">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl5">
+    <layout class="QHBoxLayout" name="layoutTagline">
      <item>
       <widget class="QLabel" name="labelTagline">
        <property name="minimumSize">
@@ -246,9 +246,9 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl20" stretch="0,0,1,0,0">
+    <layout class="QHBoxLayout" name="layoutNumbers" stretch="0,0,1,0,0">
      <item>
-      <layout class="QHBoxLayout" name="hl20_1">
+      <layout class="QHBoxLayout" name="layoutYear">
        <item>
         <widget class="QLabel" name="labelYear">
          <property name="minimumSize">
@@ -290,14 +290,14 @@
       </layout>
      </item>
      <item>
-      <widget class="Line" name="l1">
+      <widget class="Line" name="lineYear">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="hl20_2" stretch="0,1">
+      <layout class="QHBoxLayout" name="layoutBudget" stretch="0,1">
        <item>
         <widget class="QLabel" name="labelBudget">
          <property name="minimumSize">
@@ -333,14 +333,14 @@
       </layout>
      </item>
      <item>
-      <widget class="Line" name="l2">
+      <widget class="Line" name="lineBudget">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="hl20_3">
+      <layout class="QHBoxLayout" name="layoutRating">
        <item>
         <widget class="QLabel" name="labelRating">
          <property name="minimumSize">
@@ -425,9 +425,12 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl21">
+    <layout class="QHBoxLayout" name="layoutStaff">
+     <property name="spacing">
+      <number>6</number>
+     </property>
      <item>
-      <layout class="QHBoxLayout" name="hl21_1">
+      <layout class="QVBoxLayout" name="layoutSubStaff1">
        <item>
         <widget class="QLabel" name="labelCountry">
          <property name="minimumSize">
@@ -442,64 +445,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="eCountry">
-         <property name="toolTip">
-          <string>Countries, comma separated</string>
-         </property>
-         <property name="maxLength">
-          <number>500</number>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="hl21_2">
-       <item>
-        <widget class="QLabel" name="labelGenre">
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Genre</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="eGenre">
-         <property name="toolTip">
-          <string>Genres, comma separated</string>
-         </property>
-         <property name="maxLength">
-          <number>500</number>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="hl22">
-     <item>
-      <layout class="QHBoxLayout" name="hl8">
-       <item>
         <widget class="QLabel" name="labelDirector">
          <property name="minimumSize">
           <size>
@@ -509,6 +454,36 @@
          </property>
          <property name="text">
           <string>Director</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelScreenwriter">
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Screenwriter</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="layoutSubStaff2">
+       <item>
+        <widget class="QLineEdit" name="eCountry">
+         <property name="toolTip">
+          <string>Countries, comma separated</string>
+         </property>
+         <property name="maxLength">
+          <number>500</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -525,17 +500,61 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLineEdit" name="eScreenwriter">
+         <property name="toolTip">
+          <string>Screenwriters, comma separated</string>
+         </property>
+         <property name="maxLength">
+          <number>500</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="layoutSubStaff3">
+       <item>
+        <widget class="Line" name="lineStaff1">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="lineStaff2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="lineStaff3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="hl9">
+      <layout class="QVBoxLayout" name="layoutSubStaff4">
+       <item>
+        <widget class="QLabel" name="labelGenre">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Genre</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QLabel" name="labelProducer">
          <property name="minimumSize">
@@ -546,6 +565,36 @@
          </property>
          <property name="text">
           <string>Producer</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelComposer">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Composer</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="layoutSubStaff5">
+       <item>
+        <widget class="QLineEdit" name="eGenre">
+         <property name="toolTip">
+          <string>Genres, comma separated</string>
+         </property>
+         <property name="maxLength">
+          <number>500</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -562,68 +611,10 @@
          </property>
         </widget>
        </item>
-      </layout>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="hl14">
-     <item>
-      <layout class="QHBoxLayout" name="hl8_2">
-       <item>
-        <widget class="QLabel" name="labelScreenwriter">
-         <property name="minimumSize">
-          <size>
-           <width>80</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Screenwriter</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="eScreenwriter">
-         <property name="toolTip">
-          <string>Directors, comma separated</string>
-         </property>
-         <property name="maxLength">
-          <number>500</number>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="hl9_2">
-       <item>
-        <widget class="QLabel" name="labelComposer">
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Composer</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QLineEdit" name="eComposer">
          <property name="toolTip">
-          <string>Producers, comma separated</string>
+          <string>Composers, comma separated</string>
          </property>
          <property name="maxLength">
           <number>500</number>
@@ -638,7 +629,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl10">
+    <layout class="QHBoxLayout" name="layoutStarring">
      <item>
       <widget class="QLabel" name="labelStarring">
        <property name="minimumSize">
@@ -655,14 +646,14 @@
      <item>
       <widget class="QPlainTextEdit" name="tStarring">
        <property name="toolTip">
-        <string>Actors, comma separated</string>
+        <string>The actors, who played in the film (comma separated)</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl11">
+    <layout class="QHBoxLayout" name="layoutDescription">
      <item>
       <widget class="QLabel" name="labelDescription">
        <property name="minimumSize">
@@ -679,7 +670,7 @@
      <item>
       <widget class="QPlainTextEdit" name="tDescription">
        <property name="toolTip">
-        <string>A summary of the plot</string>
+        <string>Short description of the plot</string>
        </property>
        <property name="verticalScrollBarPolicy">
         <enum>Qt::ScrollBarAsNeeded</enum>
@@ -689,7 +680,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl13">
+    <layout class="QHBoxLayout" name="layoutTags">
      <item>
       <widget class="QLabel" name="labelTags">
        <property name="minimumSize">
@@ -705,6 +696,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="eTags">
+       <property name="toolTip">
+        <string>User-defined words and phrases for faster search</string>
+       </property>
        <property name="maxLength">
         <number>500</number>
        </property>
@@ -716,14 +710,14 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="l0">
+    <widget class="Line" name="lineMain2">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl12" stretch="0,0,0,1,0,0,0">
+    <layout class="QHBoxLayout" name="layoutFooter" stretch="0,0,0,1,0,0,0">
      <item>
       <widget class="QCheckBox" name="cIsViewed">
        <property name="text">
@@ -732,7 +726,7 @@
       </widget>
      </item>
      <item>
-      <widget class="Line" name="l3">
+      <widget class="Line" name="lineFooter0">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -759,13 +753,13 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="spacerFooter0">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>5</width>
+         <width>1</width>
          <height>20</height>
         </size>
        </property>

@@ -131,6 +131,7 @@ void AddFilmWindow::OpenFilm()
         }
 
         settings->SetLastFilmPath( fileName.absolutePath() );
+        bOpenPoster->setFocus();
     }
 }
 
@@ -153,6 +154,7 @@ void AddFilmWindow::OpenPosterFileClicked()
             bOpenPoster->setText( tr( "Clear" ) );
 
             settings->SetLastPosterPath( fileName.absolutePath() );
+            eTitle->setFocus();
         }
     }
     else // If poster is already selected
@@ -212,11 +214,12 @@ void AddFilmWindow::LoadInformation()
 
     bLoad->setEnabled( false );
     progressBar->show();
+    eTitle->setFocus();
 }
 
 void AddFilmWindow::Save()
 {
-    // Checking necessary fields
+    // Checking for necessary fields
     if( eTitle->text().isEmpty() )
     {
         QMessageBox::information( this, tr( "Adding film" ),
