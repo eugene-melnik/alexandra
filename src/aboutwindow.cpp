@@ -59,17 +59,23 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     lMIVersion->hide();
 #endif // MEDIAINFO_SUPPORT
 
-    // List of translators
-    QString t;
+    // List of contributors
+    QString headerStyle = "<p align=\"center\"><b>%1</b></p>";
+    QString translatorsText = headerStyle.arg( tr( "TRANSLATORS" ) );
 
     for( Alexandra::Locale locale : Alexandra::supportedLocales )
     {
         // Print in format "English (en) - Translator Name <tr3000@mail>"
-        t += QString( "<b>%1 (%2)</b> &mdash; %3<br/><br/>" ).arg( locale.selfTitle, locale.name,
-                                                                   locale.translator.replace( "<", "&lt;" ).replace( ">", "&gt;" ) );
+        if( locale.name != QLatin1String( "en" ) )
+        {
+            translatorsText += QString( "<b>%1 (%2)</b> &mdash; %3<br/><br/>" )
+                    .arg( locale.selfTitle, locale.name, locale.translator.replace( "<", "&lt;" ).replace( ">", "&gt;" ) );
+        }
     }
 
-    tTranslators->setText( t );
+    translatorsText.chop( 10 ); // Remove last "<br/><br/>"
+
+    tContributors->setText( translatorsText );
 
     // Check for updates
     lLinkLatestVersion->hide();
@@ -82,7 +88,7 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
 
 void AboutWindow::show()
 {
-    // Random picture for each show :)
+    // Random picture for each show() :)
     image->setPixmap( QPixmap( QString( ":/cats/%1" ).arg( rand() % 6 + 1 ) ) );
     QDialog::show();
 }
