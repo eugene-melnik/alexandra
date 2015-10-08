@@ -260,7 +260,7 @@ int AlexandraSettings::GetMainWindowRightPanelWidth() const
 
 int AlexandraSettings::GetQuickSearchFilter() const
 {
-    return( value( "MainWindow/QuickSearchFilter", 1 ).toInt() ); // FilterBy::Title by default
+    return( value( "MainWindow/QuickSearchFilter", 0b11 ).toInt() ); // FilterBy::Title & Tags by default
 }
 
 bool AlexandraSettings::GetAutoLoadTechInfo() const
