@@ -124,7 +124,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>469</width>
+             <width>482</width>
              <height>431</height>
             </rect>
            </property>
@@ -183,6 +183,9 @@
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -361,7 +364,7 @@
      <widget class="QWidget" name="wRight" native="true">
       <property name="maximumSize">
        <size>
-        <width>220</width>
+        <width>200</width>
         <height>16777215</height>
        </size>
       </property>

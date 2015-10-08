@@ -750,16 +750,27 @@ void MainWindow::LoadSettings()
     LoadShorcuts();
 
     // Main window
-    restoreGeometry( settings->GetMainWindowGeometry() );
+    if( settings->GetMainWindowGeometry().isEmpty() )
+    {
+        // On first launch move the window to the center of the screen
+        QRect rect = frameGeometry();
+        rect.moveCenter( QDesktopWidget().availableGeometry().center() );
+        move( rect.topLeft() );
+    }
+    else
+    {
+        restoreGeometry( settings->GetMainWindowGeometry() );
+    }
+
     restoreState( settings->GetMainWindowState() );
     mainSplitter->restoreState( settings->GetMainWindowSplitterState() );
     actionShowFullscreen->setChecked( isFullScreen() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
 
     // Widgets
+    toolbar->LoadSettings( settings );
     eFilter->LoadSettings( settings );
     filmsView->LoadSettings( settings );
-    toolbar->LoadSettings( settings );
 }
 
 void MainWindow::LoadAppearance()
@@ -767,7 +778,9 @@ void MainWindow::LoadAppearance()
     // Font
     QFont font;
     font.fromString( settings->GetApplicationFont() );
+
     qApp->setFont( font );
+    statusbar->setFont( font );
 
     // Style
     QString style = settings->GetApplicationStyleName();

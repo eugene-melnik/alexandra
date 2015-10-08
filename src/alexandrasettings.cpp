@@ -183,12 +183,12 @@ QString AlexandraSettings::GetPostersDirPath() const
 
 QString AlexandraSettings::GetPosterSavingFormat() const
 {
-    return( value( "FilmsList/PosterSavingFormat", "png" ).toString() );
+    return( value( "FilmsList/PosterSavingFormat", "jpg" ).toString() );
 }
 
 int AlexandraSettings::GetPosterSavingQuality() const
 {
-    return( value( "FilmsList/PosterSavingQuality", -1 ).toInt() );
+    return( value( "FilmsList/PosterSavingQuality", 95 ).toInt() );
 }
 
 int AlexandraSettings::GetScalePosterToHeight() const
@@ -255,7 +255,7 @@ bool AlexandraSettings::GetMainWindowShowRightPanel() const
 
 int AlexandraSettings::GetMainWindowRightPanelWidth() const
 {
-    return( value( "MainWindow/RightPanelWidth", 220 ).toInt() );
+    return( value( "MainWindow/RightPanelWidth", 200 ).toInt() );
 }
 
 int AlexandraSettings::GetQuickSearchFilter() const
