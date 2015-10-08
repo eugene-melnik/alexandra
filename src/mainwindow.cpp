@@ -387,17 +387,24 @@ void MainWindow::ShowShortTechnicalInfo( const QString& info )
 void MainWindow::AddToPlaylist()
 {
     DebugPrintFunc( "MainWindow::AddToPlaylist" );
+    QStringList filmsTitles = filmsView->GetSelectedItemsList();
+
+    if( filmsTitles.size() > 0 )
+    {
+        for( QString t : filmsTitles )
+        {
+            const Film* film = filmsList->GetFilmByTitle( t );
+            lwPlaylist->AddItem( film->GetTitle(), film->GetFileName() );
+        }
+    }
+    else
+    {
+        lwPlaylist->AddItem( filmsList->GetCurrentFilmTitle(),
+                             filmsList->GetCurrentFilmFileName() );
+    }
 
     bPlay->setText( tr( "Play list" ) );
     wPlaylist->show();
-
-    QStringList filmsTitles = filmsView->GetSelectedItemsList();
-
-    for( QString t : filmsTitles )
-    {
-        const Film* film = filmsList->GetFilmByTitle( t );
-        lwPlaylist->AddItem( film->GetTitle(), film->GetFileName() );
-    }
 }
 
 void MainWindow::PlaylistCleared()
