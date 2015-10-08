@@ -41,9 +41,9 @@ namespace Alexandra
 
         // Version
         const quint8 verMajor = 1;
-        const quint8 verMinor = 3;
+        const quint8 verMinor = 4;
         const quint8 verFix = 0;
-        const QString appVersionFull = QString( "%1.%2.%3" ).arg( verMajor ).arg( verMinor ).arg( verFix );
+        const QString appVersionFull = QString( "%1.%2.%3-alpha" ).arg( verMajor ).arg( verMinor ).arg( verFix );
         const QString appBuildDate = QString( __DATE__ );
 
         const quint8 databaseVersion = 0x10;
