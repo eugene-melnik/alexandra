@@ -50,12 +50,7 @@ void FilmScannerAddWorker::run()
         // Search for a poster on the disk
         if( searchForPoster )
         {
-            QString p = FilesExtensions().SearchForEponymousImage( fileName );
-
-            if( !p.isEmpty() )
-            {
-                posterFileName = p;
-            }
+            posterFileName = FilesExtensions().SearchForEponymousImage( fileName );
         }
 
         // Load information from online source
@@ -72,6 +67,7 @@ void FilmScannerAddWorker::run()
 
             if( posterFileName.isEmpty() )
             {
+                parser.SetLoadPoster( true );
                 parser.SearchSync( &film, &posterFileName );
             }
             else

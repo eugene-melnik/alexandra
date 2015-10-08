@@ -123,5 +123,5 @@ QUrl ImdbParser::Parse( const QByteArray& data )
         emit Error( "Movie not found!" );
     }
 
-    return( QUrl() );
+    return( posterUrl );
 }

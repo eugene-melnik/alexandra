@@ -74,7 +74,7 @@ void ParserManager::SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo 
     AbstractParser* cp = dynamic_cast<AbstractParser*>( currentParser );
     cp->SyncSearchFor( filmSaveTo, &posterUrl, title, year );
 
-    if( posterFileNameSaveTo != nullptr )
+    if( loadPoster && posterFileNameSaveTo != nullptr )
     {
         posterFileNameSaveTo->clear();
 
