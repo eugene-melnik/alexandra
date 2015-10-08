@@ -18,19 +18,21 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "tools/debug.h"
-#include "tools/filesextensions.h"
 #include "filmsview/filmsviewgrid.h"
 #include "filmsview/filmsviewlist.h"
+#include "tools/filesextensions.h"
+#include "tools/debug.h"
 #include "mainwindow.h"
 #include "playlist.h"
 #include "version.h"
 
-#include <list>
 #include <QColor>
 #include <QCompleter>
+#include <QDesktopWidget>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QRect>
+#include <list>
 
 MainWindow::MainWindow( AlexandraSettings* s ) : QMainWindow(), settings( s )
 {

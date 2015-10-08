@@ -51,6 +51,12 @@ HEADERS += effects/effectdropshadow.h \
            parsers/imdb/imdbparser.h \
            parsers/kinopoisk/kinopoiskparser.h \
            parsers/omdb/omdbparser.h \
+           search/searchedit.h \
+           search/searchwindow.h \
+           scanner/filmscannerwindow.h \
+           scanner/filmscannerworker.h \
+           scanner/filmscanneraddworker.h \
+           scanner/movedfilmswindow.h \
            tools/filesextensions.h \
            tools/regexptools.h \
            tools/timecounter.h \
@@ -59,15 +65,9 @@ HEADERS += effects/effectdropshadow.h \
            alexandrasettings.h \
            commandlineparser.h \
            editfilmwindow.h \
-           filmscannerwindow.h \
-           filmscannerworker.h \
-           filmscanneraddworker.h \
            mainwindow.h \
-           movedfilmswindow.h \
            playlist.h \
            playlistwidget.h \
-           searchedit.h \
-           searchwindow.h \
            settingswindow.h \
            splashscreen.h \
            statisticswindow.h \
@@ -89,6 +89,12 @@ SOURCES += effects/effectdropshadow.cpp \
            parsers/imdb/imdbparser.cpp \
            parsers/kinopoisk/kinopoiskparser.cpp \
            parsers/omdb/omdbparser.cpp \
+           search/searchedit.cpp \
+           search/searchwindow.cpp \
+           scanner/filmscannerwindow.cpp \
+           scanner/filmscannerworker.cpp \
+           scanner/filmscanneraddworker.cpp \
+           scanner/movedfilmswindow.cpp \
            tools/filesextensions.cpp \
            tools/regexptools.cpp \
            tools/timecounter.cpp \
@@ -97,16 +103,10 @@ SOURCES += effects/effectdropshadow.cpp \
            alexandrasettings.cpp \
            commandlineparser.cpp \
            editfilmwindow.cpp \
-           filmscannerwindow.cpp \
-           filmscannerworker.cpp \
-           filmscanneraddworker.cpp \
            main.cpp \
            mainwindow.cpp \
-           movedfilmswindow.cpp \
            playlist.cpp \
            playlistwidget.cpp \
-           searchedit.cpp \
-           searchwindow.cpp \
            settingswindow.cpp \
            splashscreen.cpp \
            statisticswindow.cpp \
@@ -114,12 +114,12 @@ SOURCES += effects/effectdropshadow.cpp \
            statusbar.cpp \
            toolbar.cpp
 
-FORMS += aboutwindow.ui \
+FORMS += search/searchwindow.ui \
+         scanner/filmscannerwindow.ui \
+         scanner/movedfilmswindow.ui \
+         aboutwindow.ui \
          addfilmwindow.ui \
-         filmscannerwindow.ui \
          mainwindow.ui \
-         movedfilmswindow.ui \
-         searchwindow.ui \
          settingswindow.ui \
          splashscreen.ui \
          statisticswindow.ui

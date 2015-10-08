@@ -22,7 +22,6 @@
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 
-#include <string>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDialogButtonBox>
@@ -32,6 +31,7 @@
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QStringList>
+#include <string>
 
 AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent )
     : QDialog( parent ), settings( s )

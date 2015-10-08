@@ -54,20 +54,21 @@ QString CommandLineParser::GetConfigLocation() const
 
     if( configFile.isEmpty() )
     {
-#ifdef PORTABLE_VERSION
-        return( qApp->applicationDirPath() + "/data/configuration.conf" );
-#endif
+        #ifdef PORTABLE_VERSION
+            return( qApp->applicationDirPath() + "/data/configuration.conf" );
+        #endif
 
-#ifdef Q_OS_LINUX
-        configFile = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
+        #ifdef Q_OS_LINUX
+            configFile = QProcessEnvironment::systemEnvironment().value( "XDG_CONFIG_HOME" );
 
-        if( configFile.isEmpty() )
-        {
-            configFile = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
-        }
-#elif defined( Q_OS_WIN32 )
-        configFile = QProcessEnvironment::systemEnvironment().value( "APPDATA" );
-#endif
+            if( configFile.isEmpty() )
+            {
+                configFile = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
+            }
+        #elif defined( Q_OS_WIN32 )
+            configFile = QProcessEnvironment::systemEnvironment().value( "APPDATA" );
+        #endif
+
         configFile += "/" + Alexandra::appName + "/configuration.conf";
     }
 

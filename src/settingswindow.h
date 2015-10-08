@@ -22,7 +22,6 @@
 #define SETTINGSWINDOW_H
 
 #include "ui_settingswindow.h"
-
 #include "alexandrasettings.h"
 
 #include <functional>

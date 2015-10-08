@@ -18,8 +18,8 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "tools/debug.h"
 #include "playlist.h"
+#include "tools/debug.h"
 
 #include <QDir>
 #include <QFile>

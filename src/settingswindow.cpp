@@ -697,6 +697,8 @@ void SettingsWindow::ConfigureSourcesTab()
 {
     connect( cbDefaultOnlineSource, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     cbDefaultOnlineSource->addItems( ParserManager().GetAvailableParsers() );
+
+    gbImdb->hide(); // TODO: implement
 }
 
 void SettingsWindow::ReconfigureSourcesTab()

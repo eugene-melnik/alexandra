@@ -22,8 +22,8 @@
 #define FILMINFOWINDOW_H
 
 #include "alexandrasettings.h"
-#include "mediainfo.h"
 #include "ui_filminfowindow.h"
+#include "mediainfo.h"
 
 #include <QDialog>
 #include <QMutex>

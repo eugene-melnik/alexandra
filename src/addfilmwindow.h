@@ -24,8 +24,8 @@
 #include "ui_addfilmwindow.h"
 
 #include "alexandrasettings.h"
-#include "parsers/parsermanager.h"
 #include "filmslist/film.h"
+#include "parsers/parsermanager.h"
 
 #include <QCloseEvent>
 #include <QDialog>
