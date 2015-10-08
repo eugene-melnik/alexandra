@@ -181,21 +181,36 @@ void MainWindow::DatabaseReadError()
     QMessageBox::critical( this,
                            tr( "Database" ),
                            tr( "Error reading the database! Check the permissions or choose another "
-                               "database file in \"Edit\"→\"Settings\"→\"Database\"." ) );
+                               "database file in settings (\"Application\" tab)." ) );
 }
 
 void MainWindow::DatabaseIsEmpty()
 {
     ClearTextFields();
     SetEmptyMode();
-    lFilmTitle->setText( tr( "Database is empty!" ) );
 
-    repaint(); // Need for removing the artifacts
+    QString title = tr( "Your database is empty" );
+    lFilmTitle->setText( title );
 
-    QMessageBox::information( this,
-                              tr( "Database is empty!"),
-                              tr( "You can add your films in menu \"Films\"→\"Add film\" or choose "
-                                  "an another database in \"Edit\"→\"Settings\"→\"Database\"." ) );
+    QString line1 = tr( "Hi! At this point your database is empty. It's time to fill it! To do this, use the following tools:" );
+    lOriginalTitle->setText( line1 + "<br/><br/>" );
+    lOriginalTitle->show();
+
+    QString line2 = tr( "Adding movies one by one (menu \"Film\"→\"Add film\" or the \"Add\" button on the toolbar)." );
+    lTagline->setText( "1. " + line2 );
+    lTagline->show();
+
+    QString line3 = tr( "Scan selected folders on the drive with the automatic addition of the selected films (menu \"Tools\"→\"Films scanner\" or button on the toolbar)." );
+    lGenre->setText( "2. " + line3 );
+    lGenre->show();
+
+    QString line4 = tr( "If you already have filled database, just select it in the settings (\"Application\" tab)." );
+    lCountry->setText( "3. " + line4 );
+    lCountry->show();
+
+    QString line5 = tr( "All of these tools have automatic information retrieval via the Internet, as well as loading a graphic poster for the film. Enjoy! :)" );
+    lScreenwriter->setText( line5 );
+    lScreenwriter->show();
 }
 
 void MainWindow::DatabaseIsReadonly()
