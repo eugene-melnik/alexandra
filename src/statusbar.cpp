@@ -20,8 +20,9 @@
 
 #include "statusbar.h"
 
-StatusBar::StatusBar( QWidget* parent )
-    : QStatusBar( parent ), text( new QLabel( this ) ), progress( new QProgressBar( this ) )
+StatusBar::StatusBar( QWidget* parent ) : QStatusBar( parent ),
+    text( new QLabel( this ) ),
+    progress( new QProgressBar( this ) )
 {
     progress->setAlignment( Qt::AlignCenter );
     progress->setTextVisible( false );
@@ -30,12 +31,6 @@ StatusBar::StatusBar( QWidget* parent )
     addWidget( text );
     addPermanentWidget( progress );
     setStyleSheet( "QStatusBar::item { border: 0px solid black };" );
-}
-
-StatusBar::~StatusBar()
-{
-    delete text;
-    delete progress;
 }
 
 void StatusBar::ShowLoading()
@@ -62,4 +57,10 @@ void StatusBar::ShowTotal( int total, int viewed, int favourite )
                    .arg( total )
                    .arg( viewed )
                    .arg( favourite ) );
+}
+
+void StatusBar::setFont( const QFont& font )
+{
+    QStatusBar::setFont( font );
+    text->setFont( font );
 }
