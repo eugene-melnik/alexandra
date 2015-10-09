@@ -54,6 +54,8 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
         void OpenFilm();
         void OpenPosterFileClicked();
         void LoadInformation();
+
+        void OkClicked();
         void Save();
 
         void InformationLoaded( const Film& f, const QString& posterFileName );
@@ -61,6 +63,7 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
 
     private:
         void ClearFields();
+        bool CanBeSaved();
 
         AlexandraSettings* settings = nullptr;
         ParserManager* parser = nullptr;

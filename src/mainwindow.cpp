@@ -569,10 +569,18 @@ void MainWindow::RemoveFile()
 
     if( res == QMessageBox::Yes )
     {
-        if( QFile( filmsList->GetCurrentFilmFileName() ).remove() == true )
+        if( QFile( filmsList->GetCurrentFilmFileName() ).remove() )
         {
-            filmsList->RemoveCurrentFilm();
-            filmsView->RemoveCurrentItem();
+            res = QMessageBox::question( this,
+                                         tr( "Remove file" ),
+                                         tr( "Remove record from database?" ),
+                                         QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+            if( res == QMessageBox::Yes )
+            {
+                filmsList->RemoveCurrentFilm();
+                filmsView->RemoveCurrentItem();
+            }
         }
         else
         {

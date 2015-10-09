@@ -53,8 +53,7 @@ AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent )
     connect( bOpenFile, &QPushButton::clicked, this, &AddFilmWindow::OpenFilm );
     connect( bOpenPoster, &QPushButton::clicked, this, &AddFilmWindow::OpenPosterFileClicked );
     connect( bLoad, &QPushButton::clicked, this, &AddFilmWindow::LoadInformation );
-    connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::Save );
-    connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::close );
+    connect( bOk, &QPushButton::clicked, this, &AddFilmWindow::OkClicked );
 
     // TODO: explain this
     QString msgOmdbNotFound = tr( "Movie not found!" );
@@ -173,8 +172,12 @@ void AddFilmWindow::OpenPosterFileClicked()
 
             if( res == QMessageBox::Yes )
             {
-                DebugPrint( "With removing file: " + ePosterFileName->text() );
+                if( !CanBeSaved() )
+                {
+                    return;
+                }
 
+                DebugPrint( "With removing file: " + ePosterFileName->text() );
                 QFile( ePosterFileName->text() ).remove();
 
                 // Need to update information if poster removed
@@ -217,18 +220,17 @@ void AddFilmWindow::LoadInformation()
     eTitle->setFocus();
 }
 
+void AddFilmWindow::OkClicked()
+{
+    if( CanBeSaved() )
+    {
+        Save();
+        close();
+    }
+}
+
 void AddFilmWindow::Save()
 {
-    // Checking for necessary fields
-    if( eTitle->text().isEmpty() )
-    {
-        QMessageBox::information( this, tr( "Adding film" ),
-                                        tr( "Field \"Title\" can't be empty." ) );
-        eTitle->setFocus();
-        return;
-    }
-
-    // Filling the text data
     Film f;
     f.SetId( filmId );
     f.SetFileName( eFilmFileName->text() );
@@ -357,4 +359,20 @@ void AddFilmWindow::ClearFields()
     eBudget->clear();
     eScreenwriter->clear();
     eComposer->clear();
+}
+
+bool AddFilmWindow::CanBeSaved()
+{
+    // Checking for necessary fields
+
+    if( eTitle->text().isEmpty() )
+    {
+        QMessageBox::information( this, tr( "Adding film" ), tr( "Field \"Title\" can't be empty." ) );
+        eTitle->setFocus();
+        return( false );
+    }
+    else
+    {
+        return( true );
+    }
 }
