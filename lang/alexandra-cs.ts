@@ -46,22 +46,22 @@
     <message>
         <location filename="../src/aboutwindow.ui" line="282"/>
         <source>&lt;a href=&quot;http://alexandra-qt.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Official website&lt;/span&gt;&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;http://alexandra-qt.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Stránky&lt;/span&gt;&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="292"/>
         <source>&lt;a href=&quot;http://alexandra-qt.sourceforge.net/en/download/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Download latest version (%1)&lt;/span&gt;&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;http://alexandra-qt.sourceforge.net/en/download/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Stáhnout nejnovější verzi (%1)&lt;/span&gt;&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="331"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>Přispěvatelé</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="337"/>
         <source>People, who contributed to Alexandra Video Library:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lidé, kteří přispěli do knihovny obrazových záznamů Alexandra:</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="348"/>
@@ -91,7 +91,7 @@
     <message>
         <location filename="../src/aboutwindow.cpp" line="64"/>
         <source>TRANSLATORS</source>
-        <translation type="unfinished"></translation>
+        <translation>Překladatelé</translation>
     </message>
 </context>
 <context>
@@ -132,17 +132,17 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="70"/>
         <source>Select a film on the disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat film na disku</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="116"/>
         <source>Select a poster on the disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat plakát na disku</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="201"/>
         <source>Try to fetch information from the selected online source. The search is conducted by fields &quot;Title&quot; and &quot;Year&quot; (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokusit se natáhnout údaje z vybraného internetového zdroje. Hledání se provádí pomocí polí Název a Rok (volitelné)</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="232"/>
@@ -157,7 +157,7 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="310"/>
         <source>Budget, $</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozpočet, $</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="443"/>
@@ -172,7 +172,7 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="506"/>
         <source>Screenwriters, comma separated</source>
-        <translation type="unfinished"></translation>
+        <translation>Scénáristé, oddělení čárkou</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="554"/>
@@ -187,12 +187,12 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="649"/>
         <source>The actors, who played in the film (comma separated)</source>
-        <translation type="unfinished"></translation>
+        <translation>Herci, kteří hráli ve filmu (oddělení čárkou)</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="673"/>
         <source>Short description of the plot</source>
-        <translation type="unfinished"></translation>
+        <translation>Krátký popis děje</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="353"/>
@@ -202,12 +202,12 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="165"/>
         <source>Load information from</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát údaje z</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="204"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="456"/>
@@ -232,17 +232,17 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="469"/>
         <source>Screenwriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Scénárista</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="580"/>
         <source>Composer</source>
-        <translation type="unfinished"></translation>
+        <translation>Skladatel</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="617"/>
         <source>Composers, comma separated</source>
-        <translation type="unfinished"></translation>
+        <translation>Skladatelé, oddělení čárkou</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="642"/>
@@ -262,7 +262,7 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="700"/>
         <source>User-defined words and phrases for faster search</source>
-        <translation type="unfinished"></translation>
+        <translation>Uživatelem stanovená slova a slovní spojení pro rychlejší hledání</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="724"/>
@@ -314,7 +314,7 @@
     <message>
         <location filename="../src/addfilmwindow.cpp" line="59"/>
         <source>Movie not found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Film nenalezen!</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="170"/>
@@ -330,12 +330,12 @@
         <location filename="../src/addfilmwindow.cpp" line="198"/>
         <location filename="../src/addfilmwindow.cpp" line="337"/>
         <source>Loading information</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrávají se informace</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="199"/>
         <source>Input title for searching!</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadejte název k vyhledání!</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="370"/>
@@ -346,7 +346,8 @@
         <location filename="../src/addfilmwindow.cpp" line="338"/>
         <source>Error!
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba!
+%1</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="370"/>
@@ -388,7 +389,7 @@
     <message>
         <location filename="../src/filminfowindow.ui" line="58"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopírovat do schránky</translation>
     </message>
     <message>
         <location filename="../src/filminfowindow.ui" line="78"/>
@@ -470,17 +471,17 @@
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="210"/>
         <source>Load information from online source</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát informace z internetového zdroje</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="200"/>
         <source>Search for a poster with the same filename in the directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat plakát se stejným souborovým názvem v adresáři</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="92"/>
         <source>&amp;Scan</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Prohledat</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="229"/>
@@ -555,7 +556,7 @@
     <message>
         <location filename="../src/filmsview/filmsviewgridmodel.cpp" line="76"/>
         <source>&lt;b&gt;Budget:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Rozpočet:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/filmsview/filmsviewgridmodel.cpp" line="79"/>
@@ -565,7 +566,7 @@
     <message>
         <location filename="../src/filmsview/filmsviewgridmodel.cpp" line="82"/>
         <source>&lt;b&gt;Screenwriter:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Scénárista:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/filmsview/filmsviewgridmodel.cpp" line="85"/>
@@ -580,7 +581,7 @@
     <message>
         <location filename="../src/filmsview/filmsviewgridmodel.cpp" line="91"/>
         <source>&lt;b&gt;Composer:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Skladatel:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/filmsview/filmsviewgridmodel.cpp" line="94"/>
@@ -613,7 +614,7 @@
     <message>
         <location filename="../src/filmsview/filmsviewcontextmenu.cpp" line="31"/>
         <source>Add to playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat do seznamu skladeb</translation>
     </message>
     <message>
         <location filename="../src/filmsview/filmsviewcontextmenu.cpp" line="36"/>
@@ -729,7 +730,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="524"/>
         <source>Play film or playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Přehrát film nebo seznam skladeb</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="527"/>
@@ -741,12 +742,12 @@
     <message>
         <location filename="../src/mainwindow.ui" line="556"/>
         <source>Add to playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat do seznamu skladeb</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="614"/>
         <source>Playlist:</source>
-        <translation type="unfinished"></translation>
+        <translation>Seznam skladeb:</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="653"/>
@@ -880,7 +881,7 @@
         <location filename="../src/mainwindow.cpp" line="82"/>
         <source>Add the following film(s)?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat následující film(y)?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="131"/>
@@ -901,13 +902,13 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="686"/>
         <source>Nothing was found! Try to change keyword or search settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nic nebylo nalezeno! Vyzkoušejte změnu klíčového slova nebo nastavení hledání.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="530"/>
         <source>Are you sure to remove following films?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Jste si jistý, že chcete odstranit filmy?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="589"/>
@@ -951,37 +952,37 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="183"/>
         <source>Error reading the database! Check the permissions or choose another database file in settings (&quot;Application&quot; tab).</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při čtení databáze! Prověřte oprávnění nebo zvolte jiný soubor s databází v nastavení (karta Program).</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="192"/>
         <source>Your database is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaše databáze je prázdná</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="195"/>
         <source>Hi! At this point your database is empty. It&apos;s time to fill it! To do this, use the following tools:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazdar. V tomto okamžiku je vaše databáze prázdná. Je čas ji naplnit. K tomu použijte následující nástroje:</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="199"/>
         <source>Adding movies one by one (menu &quot;Film&quot;→&quot;Add film&quot; or the &quot;Add&quot; button on the toolbar).</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidání filmů jeden po druhém (nabídka Film → Přidat film nebo tlačítko Přidat v nástrojovém pruhu).</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="203"/>
         <source>Scan selected folders on the drive with the automatic addition of the selected films (menu &quot;Tools&quot;→&quot;Films scanner&quot; or button on the toolbar).</source>
-        <translation type="unfinished"></translation>
+        <translation>Prohledat vybrané složky na disku s automatickým přidáním vybraných filmů (nabídka Nástroje → Prohledávač filmů nebo tlačítko Přidat v nástrojovém pruhu).</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="207"/>
         <source>If you already have filled database, just select it in the settings (&quot;Application&quot; tab).</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokud jste již vyplnil databázi, prostě ji vyberte v nastavení (karta Program).</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="211"/>
         <source>All of these tools have automatic information retrieval via the Internet, as well as loading a graphic poster for the film. Enjoy! :)</source>
-        <translation type="unfinished"></translation>
+        <translation>Všechny tyto nástroje získávají údaje samočinně z internetu, a stejně tak plakáty k filmu. Užijte si to! :-)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="307"/>
@@ -1001,7 +1002,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="316"/>
         <source>&lt;b&gt;Budget:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Rozpočet:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="319"/>
@@ -1011,7 +1012,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="322"/>
         <source>&lt;b&gt;Screenwriter:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Scénárista:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="325"/>
@@ -1026,7 +1027,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="331"/>
         <source>&lt;b&gt;Composer:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Skladatel:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="334"/>
@@ -1051,7 +1052,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="406"/>
         <source>Play list</source>
-        <translation type="unfinished"></translation>
+        <translation>Přehrát seznam</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="483"/>
@@ -1061,19 +1062,19 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="576"/>
         <source>Remove record from database?</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit záznam z databáze?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="710"/>
         <location filename="../src/mainwindow.cpp" line="746"/>
         <location filename="../src/mainwindow.cpp" line="765"/>
         <source> (another)</source>
-        <translation type="unfinished"></translation>
+        <translation>(jiný)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="820"/>
         <source>&lt;Theme&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Motiv&gt;</translation>
     </message>
 </context>
 <context>
@@ -1111,7 +1112,7 @@
     <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="81"/>
         <source>&amp;Scan</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Prohledat</translation>
     </message>
     <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="103"/>
@@ -1196,7 +1197,7 @@
     <message>
         <location filename="../src/parsers/parsermanager.cpp" line="33"/>
         <source>&lt;Auto&gt;</source>
-        <translation type="unfinished">&lt;Automaticky&gt;</translation>
+        <translation>&lt;Automaticky&gt;</translation>
     </message>
 </context>
 <context>
@@ -1204,12 +1205,12 @@
     <message>
         <location filename="../src/playlistwidget.cpp" line="72"/>
         <source>Remove from playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit ze seznamu skladeb</translation>
     </message>
     <message>
         <location filename="../src/playlistwidget.cpp" line="73"/>
         <source>Clear all</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat vše</translation>
     </message>
 </context>
 <context>
@@ -1234,72 +1235,72 @@
     <message>
         <location filename="../src/search/searchedit.cpp" line="28"/>
         <source>Select fields for filtration</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat pole k filtrování</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="56"/>
         <source>Filter by:</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrovat podle:</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="62"/>
         <source>Title</source>
-        <translation type="unfinished">Název</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="66"/>
         <source>Tags</source>
-        <translation type="unfinished">Značky</translation>
+        <translation>Značky</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="70"/>
         <source>Genre</source>
-        <translation type="unfinished">Žánr</translation>
+        <translation>Žánr</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="74"/>
         <source>Starring</source>
-        <translation type="unfinished">V hlavní roli</translation>
+        <translation>V hlavní roli</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="78"/>
         <source>Director</source>
-        <translation type="unfinished">Režisér</translation>
+        <translation>Režisér</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="82"/>
         <source>Producer</source>
-        <translation type="unfinished">Výrobce</translation>
+        <translation>Výrobce</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="86"/>
         <source>Screenwriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Scénárista</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="90"/>
         <source>Composer</source>
-        <translation type="unfinished"></translation>
+        <translation>Skladatel</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="94"/>
         <source>Country</source>
-        <translation type="unfinished">Země</translation>
+        <translation>Země</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="98"/>
         <source>Description</source>
-        <translation type="unfinished">Popis</translation>
+        <translation>Popis</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="105"/>
         <source>Select all</source>
-        <translation type="unfinished">Vybrat vše</translation>
+        <translation>Vybrat vše</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="106"/>
         <source>Unselect all</source>
-        <translation type="unfinished">Odznačit vše</translation>
+        <translation>Odznačit vše</translation>
     </message>
 </context>
 <context>
@@ -1334,12 +1335,12 @@
     <message>
         <location filename="../src/search/searchwindow.ui" line="118"/>
         <source>Screenwriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Scénárista</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="128"/>
         <source>Composer</source>
-        <translation type="unfinished"></translation>
+        <translation>Skladatel</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="152"/>
@@ -1506,7 +1507,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="514"/>
         <source>Show splash screen at startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat uvítací obrazovku při spuštění</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="529"/>
@@ -1531,12 +1532,12 @@
     <message>
         <location filename="../src/settingswindow.ui" line="440"/>
         <source>Panel width</source>
-        <translation type="unfinished"></translation>
+        <translation>Šířka panelu</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="468"/>
         <source>Automatically load technical information</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát technické údaje automaticky</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="567"/>
@@ -1546,7 +1547,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="589"/>
         <source>Double click behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Chování s dvojitým klepnutím</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="743"/>
@@ -1567,7 +1568,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="861"/>
         <source>Add film</source>
-        <translation type="unfinished">Přidat film</translation>
+        <translation>Přidat film</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="882"/>
@@ -1582,32 +1583,32 @@
         <location filename="../src/settingswindow.ui" line="1254"/>
         <location filename="../src/settingswindow.ui" line="1300"/>
         <source>Clear</source>
-        <translation type="unfinished">Vyprázdnit</translation>
+        <translation>Vyprázdnit</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="900"/>
         <source>Edit film</source>
-        <translation type="unfinished">Upravit film</translation>
+        <translation>Upravit film</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="939"/>
         <source>Remove film</source>
-        <translation type="unfinished">Odstranit film</translation>
+        <translation>Odstranit film</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="985"/>
         <source>Select random film</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat náhodný film</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1024"/>
         <source>Activate quick search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapnout rychlé hledání</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1063"/>
         <source>Advanced search</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé hledání</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1109"/>
@@ -1618,42 +1619,42 @@
     <message>
         <location filename="../src/settingswindow.ui" line="1194"/>
         <source>Show toolbar</source>
-        <translation type="unfinished">Ukázat nástrojový pruh</translation>
+        <translation>Ukázat nástrojový pruh</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1233"/>
         <source>Show fullscreen</source>
-        <translation type="unfinished">Ukázat na celou obrazovku</translation>
+        <translation>Ukázat na celou obrazovku</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1279"/>
         <source>Exit</source>
-        <translation type="unfinished">Ukončit</translation>
+        <translation>Ukončit</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1327"/>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdroje</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1335"/>
         <source>Default online source</source>
-        <translation type="unfinished"></translation>
+        <translation>Výchozí internetové zdroje</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1350"/>
         <source>IMDB</source>
-        <translation type="unfinished"></translation>
+        <translation>IMDB</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1356"/>
         <source>Load big poster</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát velký plakát</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1363"/>
         <source>Load additional data</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát dodatečné údaje</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1405"/>
@@ -1801,17 +1802,17 @@
     <message>
         <location filename="../src/settingswindow.cpp" line="425"/>
         <source>This shortcut is already in use!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tato zkratka se již používá!</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.cpp" line="464"/>
         <source>&lt;Theme&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Motiv&gt;</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.cpp" line="556"/>
         <source>Add to playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat do seznamu skladeb</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="543"/>
@@ -1877,7 +1878,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="82"/>
         <source>Theme</source>
-        <translation>Téma</translation>
+        <translation>Motiv</translation>
     </message>
 </context>
 <context>
