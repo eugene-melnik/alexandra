@@ -1437,7 +1437,7 @@
     <name>SettingsWindow</name>
     <message>
         <location filename="../src/settingswindow.ui" line="23"/>
-        <location filename="../src/settingswindow.ui" line="1155"/>
+        <location filename="../src/settingswindow.ui" line="1154"/>
         <location filename="../src/settingswindow.cpp" line="84"/>
         <location filename="../src/settingswindow.cpp" line="277"/>
         <source>Settings</source>
@@ -1540,146 +1540,146 @@
         <translation>Nahrát technické údaje automaticky</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="567"/>
+        <location filename="../src/settingswindow.ui" line="570"/>
         <source>Select</source>
         <translation>Vybrat</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="589"/>
+        <location filename="../src/settingswindow.ui" line="592"/>
         <source>Double click behavior</source>
         <translation>Chování s dvojitým klepnutím</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="743"/>
+        <location filename="../src/settingswindow.ui" line="749"/>
         <source>Save to folder</source>
         <translation>Uložit do složky</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="777"/>
+        <location filename="../src/settingswindow.ui" line="783"/>
         <source>Saving format</source>
         <translation>Ukládací formát</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="850"/>
+        <location filename="../src/settingswindow.ui" line="849"/>
         <location filename="../src/settingswindow.cpp" line="425"/>
         <source>Shortcuts</source>
         <translation>Zkratky</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="861"/>
+        <location filename="../src/settingswindow.ui" line="860"/>
         <source>Add film</source>
         <translation>Přidat film</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="882"/>
-        <location filename="../src/settingswindow.ui" line="921"/>
-        <location filename="../src/settingswindow.ui" line="960"/>
-        <location filename="../src/settingswindow.ui" line="1006"/>
-        <location filename="../src/settingswindow.ui" line="1045"/>
-        <location filename="../src/settingswindow.ui" line="1084"/>
-        <location filename="../src/settingswindow.ui" line="1130"/>
-        <location filename="../src/settingswindow.ui" line="1176"/>
-        <location filename="../src/settingswindow.ui" line="1215"/>
-        <location filename="../src/settingswindow.ui" line="1254"/>
-        <location filename="../src/settingswindow.ui" line="1300"/>
+        <location filename="../src/settingswindow.ui" line="881"/>
+        <location filename="../src/settingswindow.ui" line="920"/>
+        <location filename="../src/settingswindow.ui" line="959"/>
+        <location filename="../src/settingswindow.ui" line="1005"/>
+        <location filename="../src/settingswindow.ui" line="1044"/>
+        <location filename="../src/settingswindow.ui" line="1083"/>
+        <location filename="../src/settingswindow.ui" line="1129"/>
+        <location filename="../src/settingswindow.ui" line="1175"/>
+        <location filename="../src/settingswindow.ui" line="1214"/>
+        <location filename="../src/settingswindow.ui" line="1253"/>
+        <location filename="../src/settingswindow.ui" line="1299"/>
         <source>Clear</source>
         <translation>Vyprázdnit</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="900"/>
+        <location filename="../src/settingswindow.ui" line="899"/>
         <source>Edit film</source>
         <translation>Upravit film</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="939"/>
+        <location filename="../src/settingswindow.ui" line="938"/>
         <source>Remove film</source>
         <translation>Odstranit film</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="985"/>
+        <location filename="../src/settingswindow.ui" line="984"/>
         <source>Select random film</source>
         <translation>Vybrat náhodný film</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1024"/>
+        <location filename="../src/settingswindow.ui" line="1023"/>
         <source>Activate quick search</source>
         <translation>Zapnout rychlé hledání</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1063"/>
+        <location filename="../src/settingswindow.ui" line="1062"/>
         <source>Advanced search</source>
         <translation>Pokročilé hledání</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1109"/>
-        <location filename="../src/settingswindow.cpp" line="555"/>
+        <location filename="../src/settingswindow.ui" line="1108"/>
+        <location filename="../src/settingswindow.cpp" line="556"/>
         <source>Play</source>
         <translation>Přehrát</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1194"/>
+        <location filename="../src/settingswindow.ui" line="1193"/>
         <source>Show toolbar</source>
         <translation>Ukázat nástrojový pruh</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1233"/>
+        <location filename="../src/settingswindow.ui" line="1232"/>
         <source>Show fullscreen</source>
         <translation>Ukázat na celou obrazovku</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1279"/>
+        <location filename="../src/settingswindow.ui" line="1278"/>
         <source>Exit</source>
         <translation>Ukončit</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1327"/>
+        <location filename="../src/settingswindow.ui" line="1326"/>
         <source>Sources</source>
         <translation>Zdroje</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1335"/>
+        <location filename="../src/settingswindow.ui" line="1334"/>
         <source>Default online source</source>
         <translation>Výchozí internetové zdroje</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1350"/>
+        <location filename="../src/settingswindow.ui" line="1349"/>
         <source>IMDB</source>
         <translation>IMDB</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1356"/>
+        <location filename="../src/settingswindow.ui" line="1355"/>
         <source>Load big poster</source>
         <translation>Nahrát velký plakát</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1363"/>
+        <location filename="../src/settingswindow.ui" line="1362"/>
         <source>Load additional data</source>
         <translation>Nahrát dodatečné údaje</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1405"/>
+        <location filename="../src/settingswindow.ui" line="1404"/>
         <source>&amp;Cancel</source>
         <translation>Z&amp;rušit</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1412"/>
+        <location filename="../src/settingswindow.ui" line="1411"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="118"/>
-        <location filename="../src/settingswindow.ui" line="574"/>
-        <location filename="../src/settingswindow.ui" line="871"/>
-        <location filename="../src/settingswindow.ui" line="910"/>
-        <location filename="../src/settingswindow.ui" line="949"/>
-        <location filename="../src/settingswindow.ui" line="995"/>
-        <location filename="../src/settingswindow.ui" line="1034"/>
-        <location filename="../src/settingswindow.ui" line="1073"/>
-        <location filename="../src/settingswindow.ui" line="1119"/>
-        <location filename="../src/settingswindow.ui" line="1165"/>
-        <location filename="../src/settingswindow.ui" line="1204"/>
-        <location filename="../src/settingswindow.ui" line="1243"/>
-        <location filename="../src/settingswindow.ui" line="1289"/>
+        <location filename="../src/settingswindow.ui" line="577"/>
+        <location filename="../src/settingswindow.ui" line="870"/>
+        <location filename="../src/settingswindow.ui" line="909"/>
+        <location filename="../src/settingswindow.ui" line="948"/>
+        <location filename="../src/settingswindow.ui" line="994"/>
+        <location filename="../src/settingswindow.ui" line="1033"/>
+        <location filename="../src/settingswindow.ui" line="1072"/>
+        <location filename="../src/settingswindow.ui" line="1118"/>
+        <location filename="../src/settingswindow.ui" line="1164"/>
+        <location filename="../src/settingswindow.ui" line="1203"/>
+        <location filename="../src/settingswindow.ui" line="1242"/>
+        <location filename="../src/settingswindow.ui" line="1288"/>
         <source>Default</source>
         <translation>Výchozí</translation>
     </message>
@@ -1689,57 +1689,57 @@
         <translation>Přehrávač</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="604"/>
+        <location filename="../src/settingswindow.ui" line="607"/>
         <location filename="../src/settingswindow.cpp" line="263"/>
         <source>Database</source>
         <translation>Databáze</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="612"/>
+        <location filename="../src/settingswindow.ui" line="615"/>
         <source>Database file</source>
         <translation>Soubor s databází</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="635"/>
-        <location filename="../src/settingswindow.ui" line="766"/>
+        <location filename="../src/settingswindow.ui" line="638"/>
+        <location filename="../src/settingswindow.ui" line="772"/>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="668"/>
+        <location filename="../src/settingswindow.ui" line="674"/>
         <location filename="../src/settingswindow.cpp" line="305"/>
         <location filename="../src/settingswindow.cpp" line="325"/>
         <source>Create database</source>
         <translation>Vytvořit databázi</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="716"/>
+        <location filename="../src/settingswindow.ui" line="722"/>
         <source>Checking availability of files at startup</source>
         <translation>Ověření dostupnosti souborů při spuštění</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="723"/>
+        <location filename="../src/settingswindow.ui" line="729"/>
         <source>Select color</source>
         <translation>Vybrat barvu</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="688"/>
+        <location filename="../src/settingswindow.ui" line="694"/>
         <location filename="../src/settingswindow.cpp" line="341"/>
         <source>Erase database</source>
         <translation>Vymazat databázi</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="735"/>
+        <location filename="../src/settingswindow.ui" line="741"/>
         <source>Posters</source>
         <translation>Plakáty</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="798"/>
+        <location filename="../src/settingswindow.ui" line="797"/>
         <source>Scale poster to height</source>
         <translation>Změnit velikost plakátu na výšku</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="824"/>
+        <location filename="../src/settingswindow.ui" line="823"/>
         <source>px</source>
         <translation>px</translation>
     </message>
@@ -1810,7 +1810,7 @@
         <translation>&lt;Motiv&gt;</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="556"/>
+        <location filename="../src/settingswindow.cpp" line="555"/>
         <source>Add to playlist</source>
         <translation>Přidat do seznamu skladeb</translation>
     </message>

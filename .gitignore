@@ -2,7 +2,8 @@ debian/alexandra*
 debian/files
 src/alexandra
 src/alexandra.exe
-src/alexandra.pro.user
-src/Makefile
-src/tmp
-src/windows/alexandra*.exe
+windows/alexandra*.exe
+*.pro.user
+*.pro.user*
+Makefile
+tmp

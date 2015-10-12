@@ -124,10 +124,14 @@ FORMS += search/searchwindow.ui \
          splashscreen.ui \
          statisticswindow.ui
 
+    # Translations #
+
 TRANSLATIONS += ../lang/alexandra-cs.ts \
                 ../lang/alexandra-fr.ts \
                 ../lang/alexandra-ru_RU.ts \
                 ../lang/alexandra-uk_UA.ts
+
+    # Resources #
 
 RESOURCES = icons.qrc \
             images.qrc \
