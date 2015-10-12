@@ -419,7 +419,7 @@
          <item>
           <layout class="QHBoxLayout" name="hlOptionsButtons">
            <property name="spacing">
-            <number>1</number>
+            <number>2</number>
            </property>
            <item>
             <widget class="QPushButton" name="bViewed">
@@ -504,7 +504,7 @@
          <item>
           <layout class="QHBoxLayout" name="hlPlayOrList" stretch="1,0">
            <property name="spacing">
-            <number>1</number>
+            <number>2</number>
            </property>
            <item>
             <widget class="QPushButton" name="bPlay">

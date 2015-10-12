@@ -103,7 +103,7 @@
               <item>
                <layout class="QHBoxLayout" name="layoutGlobalValuesFont" stretch="1,0">
                 <property name="spacing">
-                 <number>1</number>
+                 <number>2</number>
                 </property>
                 <item>
                  <widget class="QPushButton" name="bFontSelect">
@@ -558,6 +558,9 @@
          <layout class="QVBoxLayout" name="layoutBoxPlayer">
           <item>
            <layout class="QHBoxLayout" name="layoutPlayerPath">
+            <property name="spacing">
+             <number>2</number>
+            </property>
             <item>
              <widget class="QLineEdit" name="eExternalPlayer"/>
             </item>
@@ -640,6 +643,9 @@
           </item>
           <item>
            <layout class="QHBoxLayout" name="layoutDatabaseButtons">
+            <property name="spacing">
+             <number>15</number>
+            </property>
             <item>
              <spacer name="spacerDatabaseButtonsLeft">
               <property name="orientation">
@@ -779,14 +785,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="cbSavingFormat">
-              <property name="minimumSize">
-               <size>
-                <width>100</width>
-                <height>0</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QComboBox" name="cbSavingFormat"/>
             </item>
            </layout>
           </item>

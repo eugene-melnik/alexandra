@@ -335,7 +335,7 @@ QString AlexandraSettings::GetShortcutExit() const
 
 QString AlexandraSettings::GetPlayerDoubleClickBehavior() const
 {
-    return( value( "Player/DoubleClickBehavior", "auto" ).toString() );
+    return( value( "Player/DoubleClickBehavior", QString() ).toString() );
 }
 
 /* Set */

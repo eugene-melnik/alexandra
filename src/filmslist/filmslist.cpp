@@ -205,11 +205,11 @@ QList<Film*>* FilmsList::GetUnavailablesList()
 
     QList<Film*>* f = new QList<Film*>();
 
-    for( QList<Film>::iterator iter = films->begin(); iter < films->end(); iter++ )
+    for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
     {
-        if( !QFileInfo( iter->GetFileName() ).exists() )
+        if( !i->GetFileName().isEmpty() && !QFileInfo( i->GetFileName() ).exists() )
         {
-            f->append( &(*iter) );
+            f->append( &(*i) );
         }
     }
 

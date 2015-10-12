@@ -551,9 +551,9 @@ void SettingsWindow::ConfigureApplicationTab()
     connect( bExternalPlayerDefault, &QPushButton::clicked, this, &SettingsWindow::SetDefaultExternalPlayer );
     connect( cbDoubleClickBehavior, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
 
-    playerBehaviors.insert( "auto",        tr( "<Auto>" ) );
-    playerBehaviors.insert( "play",        tr( "Play" ) );
-    playerBehaviors.insert( "add-to-list", tr( "Add to playlist" ) );
+    playerBehaviors.insert( "0-auto",        tr( "<Auto>" ) );
+    playerBehaviors.insert( "1-add-to-list", tr( "Add to playlist" ) );
+    playerBehaviors.insert( "2-play",        tr( "Play" ) );
 
     cbDoubleClickBehavior->addItems( playerBehaviors.values() );
 
