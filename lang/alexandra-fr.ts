@@ -46,22 +46,22 @@
     <message>
         <location filename="../src/aboutwindow.ui" line="282"/>
         <source>&lt;a href=&quot;http://alexandra-qt.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Official website&lt;/span&gt;&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;http://alexandra-qt.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Website officiel&lt;/span&gt;&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="292"/>
         <source>&lt;a href=&quot;http://alexandra-qt.sourceforge.net/en/download/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Download latest version (%1)&lt;/span&gt;&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;http://alexandra-qt.sourceforge.net/en/download/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Télécharger la dernière version (%1)&lt;/span&gt;&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="331"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>Contributeurs</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="337"/>
         <source>People, who contributed to Alexandra Video Library:</source>
-        <translation type="unfinished"></translation>
+        <translation>Les personnes, qui ont contribuées pour Alexandra Video Library :</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="348"/>
@@ -91,7 +91,7 @@
     <message>
         <location filename="../src/aboutwindow.cpp" line="64"/>
         <source>TRANSLATORS</source>
-        <translation type="unfinished"></translation>
+        <translation>TRADUCTEURS</translation>
     </message>
 </context>
 <context>
@@ -132,17 +132,17 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="70"/>
         <source>Select a film on the disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner un film sur le disque</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="116"/>
         <source>Select a poster on the disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner une affiche sur le disque</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="201"/>
         <source>Try to fetch information from the selected online source. The search is conducted by fields &quot;Title&quot; and &quot;Year&quot; (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Essayez de rapporter les informations depuis les sources en lignes sélectionnées. La recherche est menée par des champs &quot;Titre&quot; et &quot;Année&quot; (optionnel)</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="232"/>
@@ -172,7 +172,7 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="506"/>
         <source>Screenwriters, comma separated</source>
-        <translation type="unfinished"></translation>
+        <translation>Scénaristes, séparés par une virgule</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="554"/>
@@ -187,12 +187,12 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="649"/>
         <source>The actors, who played in the film (comma separated)</source>
-        <translation type="unfinished"></translation>
+        <translation>Les acteurs, qui ont joués dans le film (séparés par une virgule)</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="673"/>
         <source>Short description of the plot</source>
-        <translation type="unfinished"></translation>
+        <translation>Brève description de l&apos;intrigue</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="353"/>
@@ -202,12 +202,12 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="165"/>
         <source>Load information from</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger les informations depuis</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="204"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="456"/>
@@ -242,7 +242,7 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="617"/>
         <source>Composers, comma separated</source>
-        <translation type="unfinished"></translation>
+        <translation>Compositeurs, séparés par une virgule</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="642"/>
@@ -262,7 +262,7 @@
     <message>
         <location filename="../src/addfilmwindow.ui" line="700"/>
         <source>User-defined words and phrases for faster search</source>
-        <translation type="unfinished"></translation>
+        <translation>Mots et expressions définies par l&apos;utilisateur pour la recherche rapide</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.ui" line="724"/>
@@ -314,7 +314,7 @@
     <message>
         <location filename="../src/addfilmwindow.cpp" line="59"/>
         <source>Movie not found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Film non trouvé !</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="170"/>
@@ -330,12 +330,12 @@
         <location filename="../src/addfilmwindow.cpp" line="198"/>
         <location filename="../src/addfilmwindow.cpp" line="337"/>
         <source>Loading information</source>
-        <translation type="unfinished"></translation>
+        <translation>Chargement des informations</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="199"/>
         <source>Input title for searching!</source>
-        <translation type="unfinished"></translation>
+        <translation>Titre d&apos;entrée pour la recherche !</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="370"/>
@@ -346,7 +346,8 @@
         <location filename="../src/addfilmwindow.cpp" line="338"/>
         <source>Error!
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur !
+%1</translation>
     </message>
     <message>
         <location filename="../src/addfilmwindow.cpp" line="370"/>
@@ -388,7 +389,7 @@
     <message>
         <location filename="../src/filminfowindow.ui" line="58"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copier dans le presse-papier</translation>
     </message>
     <message>
         <location filename="../src/filminfowindow.ui" line="78"/>
@@ -450,7 +451,7 @@
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="151"/>
         <source>Filename</source>
-        <translation>Nom de fichier</translation>
+        <translation>Nom du fichier</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="174"/>
@@ -470,17 +471,17 @@
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="210"/>
         <source>Load information from online source</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger les informations depuis la source en ligne</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="200"/>
         <source>Search for a poster with the same filename in the directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher une affiche avec le même nom de fichier dans le répertoire</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="92"/>
         <source>&amp;Scan</source>
-        <translation type="unfinished"></translation>
+        <translation>Analy&amp;ser</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="229"/>
@@ -729,7 +730,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="524"/>
         <source>Play film or playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture du film ou de la liste de lecture</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="527"/>
@@ -886,37 +887,37 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="183"/>
         <source>Error reading the database! Check the permissions or choose another database file in settings (&quot;Application&quot; tab).</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de la lecture de la base de données ! Vérifiez les permissions ou choisissez un autre fichier de base de données dans les paramètres (onglet &quot;Application&quot;).</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="192"/>
         <source>Your database is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Votre base de données est vide</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="195"/>
         <source>Hi! At this point your database is empty. It&apos;s time to fill it! To do this, use the following tools:</source>
-        <translation type="unfinished"></translation>
+        <translation>Salut ! À ce stade, votre base de données est vide. Il est temps de la remplir ! Pour ce faire, utilisez les outils suivants :</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="199"/>
         <source>Adding movies one by one (menu &quot;Film&quot;→&quot;Add film&quot; or the &quot;Add&quot; button on the toolbar).</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajout de films un par un (menu &quot;Film&quot;→&quot;Ajouter un film&quot; ou avec le bouton de la barre d&apos;outils &quot;Ajouter&quot;).</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="203"/>
         <source>Scan selected folders on the drive with the automatic addition of the selected films (menu &quot;Tools&quot;→&quot;Films scanner&quot; or button on the toolbar).</source>
-        <translation type="unfinished"></translation>
+        <translation>Analyser les dossiers séléctionnés sur le disque avec l&apos;ajout automatique des films sélectionnés (menu &quot;Outils&quot;→&quot;Explorer les films&quot; ou avec le bouton de la barre d&apos;outils).</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="207"/>
         <source>If you already have filled database, just select it in the settings (&quot;Application&quot; tab).</source>
-        <translation type="unfinished"></translation>
+        <translation>Si vous avez déjà une base de données remplie, il suffit de la sélectionner dans les paramètres (onglet &quot;Application&quot;).</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="211"/>
         <source>All of these tools have automatic information retrieval via the Internet, as well as loading a graphic poster for the film. Enjoy! :)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous ces outils récupèrent automatiquement des informations via Internet, tout comme le chargement des affiches de film. Profitez-en ! :-)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="686"/>
@@ -1034,13 +1035,13 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="525"/>
         <source>Are you sure to remove &quot;%1&quot;?</source>
-        <translation>Êtes vous sûr de supprimer &quot;%1&quot; ?</translation>
+        <translation>Êtes-vous sûr(e) de supprimer &quot;%1&quot; ?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="530"/>
         <source>Are you sure to remove following films?
 </source>
-        <translation>Êtes vous sûr de supprimer le(s) film(s) suivant ?
+        <translation>Êtes-vous sûr(e) de supprimer le(s) film(s) suivant ?
 </translation>
     </message>
     <message>
@@ -1053,12 +1054,12 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="567"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
-        <translation>Êtes vous sûr de supprimer le fichier &quot;%1&quot; ?</translation>
+        <translation>Êtes-vous sûr(e) de supprimer le fichier &quot;%1&quot; ?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="576"/>
         <source>Remove record from database?</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer l&apos;enregistrement de la base de données ?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="589"/>
@@ -1070,7 +1071,7 @@
         <location filename="../src/mainwindow.cpp" line="746"/>
         <location filename="../src/mainwindow.cpp" line="765"/>
         <source> (another)</source>
-        <translation type="unfinished"></translation>
+        <translation> (un autre)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="820"/>
@@ -1113,7 +1114,7 @@
     <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="81"/>
         <source>&amp;Scan</source>
-        <translation type="unfinished"></translation>
+        <translation>Analy&amp;ser</translation>
     </message>
     <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="103"/>
@@ -1198,7 +1199,7 @@
     <message>
         <location filename="../src/parsers/parsermanager.cpp" line="33"/>
         <source>&lt;Auto&gt;</source>
-        <translation type="unfinished">&lt;Auto&gt;</translation>
+        <translation>&lt;Auto&gt;</translation>
     </message>
 </context>
 <context>
@@ -1549,12 +1550,12 @@
     <message>
         <location filename="../src/settingswindow.ui" line="440"/>
         <source>Panel width</source>
-        <translation type="unfinished"></translation>
+        <translation>Largeur du panneau</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="468"/>
         <source>Automatically load technical information</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger automatiquement les informations techniques</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="570"/>
@@ -1641,27 +1642,27 @@
     <message>
         <location filename="../src/settingswindow.ui" line="1326"/>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Sources</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1334"/>
         <source>Default online source</source>
-        <translation type="unfinished"></translation>
+        <translation>Source en ligne par défaut</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1349"/>
         <source>IMDB</source>
-        <translation type="unfinished"></translation>
+        <translation>IMDB</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1355"/>
         <source>Load big poster</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger une grande affiche</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1362"/>
         <source>Load additional data</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger des données supplémentaires</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1404"/>
@@ -1804,7 +1805,7 @@
     <message>
         <location filename="../src/settingswindow.cpp" line="342"/>
         <source>Are you sure you want to erase the database and posters?</source>
-        <translation>Êtes-vous sûr de vouloir supprimer la base de données et les affiches ?</translation>
+        <translation>Êtes-vous sûr(e) de vouloir supprimer la base de données et les affiches ?</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.cpp" line="354"/>
@@ -1956,7 +1957,7 @@
     <message>
         <location filename="../src/statisticswindow.cpp" line="165"/>
         <source>Are you sure?</source>
-        <translation>Êtes vous sûr ?</translation>
+        <translation>Êtes-vous sûr(e) ?</translation>
     </message>
 </context>
 <context>
