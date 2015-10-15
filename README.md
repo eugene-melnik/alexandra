@@ -22,7 +22,6 @@ Also here you can find quick search, advanced search, random play function, tech
 
 **Build:**
 
-    cd ./src/
     qmake
     make
 

@@ -589,6 +589,7 @@ void SettingsWindow::ConfigureApplicationTab()
     labelDatabaseFile->setEnabled( false );
     eDatabaseFile->setEnabled( false );
     bOpenDatabaseFile->setEnabled( false );
+    bCreateDatabase->setEnabled( false );
     // Posters
     labelPostersFolder->setEnabled( false );
     ePostersFolder->setEnabled( false );
