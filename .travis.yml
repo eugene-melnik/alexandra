@@ -7,9 +7,10 @@ before_install:
   - sudo add-apt-repository "deb http://cz.archive.ubuntu.com/ubuntu vivid main universe"
   - sudo apt-get update -qq
   - sudo rm -rf /etc/dpkg/dpkg.cfg.d/multiarch
-  - sudo apt-get install qt5-default qtbase5-dev qt5-qmake qttranslations5-l10n qttools5-dev-tools libmediainfo-dev 
+  - sudo apt-get install gcc-4.8 g++-4.8 qt5-default qtbase5-dev qt5-qmake qttranslations5-l10n qttools5-dev-tools libmediainfo-dev 
 
 before_script:
+  - echo "QMAKE_CXX = g++-4.8" >> src/src.pro
   - qmake
 
 script:
