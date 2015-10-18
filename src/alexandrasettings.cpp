@@ -258,6 +258,11 @@ int AlexandraSettings::GetMainWindowRightPanelWidth() const
     return( value( "MainWindow/RightPanelWidth", 200 ).toInt() );
 }
 
+bool AlexandraSettings::GetMainWindowStatusbarIsVisible() const
+{
+    return( value( "MainWindow/StatusbarIsVisible", true ).toBool() );
+}
+
 int AlexandraSettings::GetQuickSearchFilter() const
 {
     return( value( "MainWindow/QuickSearchFilter", 0b11 ).toInt() ); // FilterBy::Title & Tags by default
@@ -508,6 +513,11 @@ void AlexandraSettings::SetMainWindowShowRightPanel( bool b )
 void AlexandraSettings::SetMainWindowRightPanelWidth( int n )
 {
     setValue( "MainWindow/RightPanelWidth", n );
+}
+
+void AlexandraSettings::SetMainWindowStatusbarIsVisible( bool b )
+{
+    setValue( "MainWindow/StatusbarIsVisible", b );
 }
 
 void AlexandraSettings::SetQuickSearchFilter( int n )

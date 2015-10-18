@@ -72,6 +72,7 @@ class AlexandraSettings : public QSettings
         int        GetMainWindowToolbarStyle() const;
         bool       GetMainWindowShowRightPanel() const;
         int        GetMainWindowRightPanelWidth() const;
+        bool       GetMainWindowStatusbarIsVisible() const;
         int        GetQuickSearchFilter() const;
         bool       GetAutoLoadTechInfo() const;
 
@@ -132,6 +133,7 @@ class AlexandraSettings : public QSettings
         void SetMainWindowToolbarStyle( int n );
         void SetMainWindowShowRightPanel( bool b );
         void SetMainWindowRightPanelWidth( int n );
+        void SetMainWindowStatusbarIsVisible( bool b );
         void SetQuickSearchFilter( int n );
         void SetAutoLoadTechInfo( bool b );
 

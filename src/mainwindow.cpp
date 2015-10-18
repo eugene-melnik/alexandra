@@ -799,6 +799,9 @@ void MainWindow::LoadSettings()
     actionShowFullscreen->setChecked( isFullScreen() );
     actionShowToolbar->setChecked( toolbar->isVisibleTo( this ) );
 
+    statusbar->setVisible( settings->GetMainWindowStatusbarIsVisible() );
+    actionShowStatusbar->setChecked( statusbar->isVisibleTo( this ) );
+
     // Widgets
     toolbar->LoadSettings( settings );
     eFilter->LoadSettings( settings );
@@ -866,6 +869,7 @@ void MainWindow::SaveSettings()
     settings->SetMainWindowState( saveState() );
     settings->SetMainWindowGeometry( saveGeometry() );
     settings->SetMainWindowSplitterState( mainSplitter->saveState() );
+    settings->SetMainWindowStatusbarIsVisible( statusbar->isVisibleTo( this ) );
 
     // Widgets
     eFilter->SaveSettings( settings );
