@@ -1,0 +1,24 @@
+language: cpp
+
+compiler:
+  - gcc
+
+before_install:
+  - uname -a
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq qttranslations5-l10n qt5-qmake libqt5concurrent5 libqt5core5a libqt5gui5 libqt5network5 libqt5widgets5 qttools5-dev-tools
+
+before_script:
+  - qmake
+
+script:
+  - make clean
+  - make
+
+branches:
+  only:
+    - master
+
+os:
+  - linux
+
