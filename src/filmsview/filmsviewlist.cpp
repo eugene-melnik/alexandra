@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "alexandrasettings.h"
 #include "filmsviewlist.h"
 
 #include <QHeaderView>
@@ -58,8 +59,10 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
     }
 }
 
-void FilmsViewList::LoadSettings( AlexandraSettings* s )
+void FilmsViewList::LoadSettings()
 {
+    AlexandraSettings* s = AlexandraSettings::GetInstance();
+
     setColumnWidth( ViewedColumn, s->GetColumnViewedWidth() );
     setColumnWidth( FavouriteColumn, s->GetColumnFavouriteWidth() );
     setColumnWidth( TitleColumn, s->GetColumnTitleWidth() );
@@ -71,14 +74,18 @@ void FilmsViewList::LoadSettings( AlexandraSettings* s )
     setStyleSheet( QString( "font-size: %1pt" ).arg( s->GetListFontSize() ) );
 }
 
-void FilmsViewList::ReloadSettings( AlexandraSettings *s )
+void FilmsViewList::ReloadSettings()
 {
+    AlexandraSettings* s = AlexandraSettings::GetInstance();
+
     verticalHeader()->setDefaultSectionSize( s->GetListRowHeight() );
     setStyleSheet( QString( "font-size: %1pt" ).arg( s->GetListFontSize() ) );
 }
 
-void FilmsViewList::SaveSettings( AlexandraSettings* s ) const
+void FilmsViewList::SaveSettings() const
 {
+    AlexandraSettings* s = AlexandraSettings::GetInstance();
+
     s->SetColumnViewedWidth( columnWidth( ViewedColumn )  );
     s->SetColumnFavouriteWidth( columnWidth( FavouriteColumn ) );
     s->SetColumnTitleWidth( columnWidth( TitleColumn ) );

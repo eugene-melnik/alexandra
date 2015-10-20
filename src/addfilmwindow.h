@@ -36,7 +36,7 @@ class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
     Q_OBJECT
 
     public:
-        explicit AddFilmWindow( AlexandraSettings* settings, QWidget* parent = nullptr );
+        explicit AddFilmWindow( QWidget* parent = nullptr );
         virtual ~AddFilmWindow() { delete parser; }
 
         void show();

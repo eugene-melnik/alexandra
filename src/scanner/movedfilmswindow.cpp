@@ -27,8 +27,7 @@
 #include <QMessageBox>
 #include <QTableWidgetItem>
 
-MovedFilmsWindow::MovedFilmsWindow( AlexandraSettings* s, QWidget* parent )
-    : QDialog( parent ), settings( s ), filmScannerWorker( new FilmScannerWorker() )
+MovedFilmsWindow::MovedFilmsWindow( QWidget* parent ) : QDialog( parent ), filmScannerWorker( new FilmScannerWorker() )
 {
     setupUi( this );
 

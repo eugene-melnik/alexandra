@@ -79,14 +79,14 @@ int main( int argc, char** argv )
     parser.process( alexandra );
 
     // Config file
-    AlexandraSettings* settings = new AlexandraSettings( parser.GetConfigLocation() );
+    AlexandraSettings::Initialize( parser.GetConfigLocation() );
 
     // Translation
     QTextCodec::setCodecForLocale( QTextCodec::codecForName( "utf8" ) );
-    LoadLocale( &alexandra, settings->GetApplicationLocaleIndex() );
+    LoadLocale( &alexandra, AlexandraSettings::GetInstance()->GetApplicationLocaleIndex() );
 
     // Run
-    MainWindow* mainWindow = new MainWindow( settings );
+    MainWindow* mainWindow = new MainWindow();
 
     if( parser.GetFilmsToAdd().size() > 0 )
     {
@@ -99,7 +99,6 @@ int main( int argc, char** argv )
 
     DebugPrintL( "Closed" );
 
-    delete settings;
     delete mainWindow;
     return( res );
 }

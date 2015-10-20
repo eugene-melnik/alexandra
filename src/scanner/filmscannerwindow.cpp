@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "alexandrasettings.h"
 #include "filmscannerwindow.h"
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
@@ -27,8 +28,7 @@
 #include <QMessageBox>
 #include <QTableWidgetItem>
 
-FilmScannerWindow::FilmScannerWindow( AlexandraSettings* s, QWidget* parent )
-    : QDialog( parent ), settings( s ), newFilms( new QList<Film>() )
+FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent ), newFilms( new QList<Film>() )
 {
     setupUi( this );
 
@@ -64,7 +64,7 @@ void FilmScannerWindow::show( QStringList* l )
 
     existsFileNames = l;
     progressBar->hide();
-    eDirectory->setText( settings->GetFilmsScannerLastDir() );
+    eDirectory->setText( AlexandraSettings::GetInstance()->GetFilmsScannerLastDir() );
 
     QDialog::show();
 }
@@ -127,7 +127,7 @@ void FilmScannerWindow::Scan()
         return;
     }
 
-    settings->SetFilmsScannerLastDir( eDirectory->text() );
+    AlexandraSettings::GetInstance()->SetFilmsScannerLastDir( eDirectory->text() );
 
     // Scan
     filmScannerWorker->SetIsRecursive( cSearchInSubdirs->isChecked() );
@@ -299,7 +299,6 @@ void FilmScannerWindow::AddSelected()
             } );
 
             addWorker->SetFoundedFilms( selectedFilms.mid( subListPos, subListLength ) );
-            addWorker->SetSettings( settings );
             addWorker->SetLoadInformation( cLoadInformation->isChecked() );
             addWorker->SetSearchForPoster( cSearchForPoster->isChecked() );
             addWorker->start();

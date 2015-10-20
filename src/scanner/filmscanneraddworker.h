@@ -21,7 +21,6 @@
 #ifndef FILMSCANNERADDWORKER_H
 #define FILMSCANNERADDWORKER_H
 
-#include "alexandrasettings.h"
 #include "filmslist/film.h"
 
 #include <QList>
@@ -38,7 +37,6 @@ class FilmScannerAddWorker : public QThread
         FilmScannerAddWorker() : QThread() { qRegisterMetaType<QList<Film>>( "QList<Film>" ); }
 
         void SetFoundedFilms( const QStringList& founded ) { foundedFilms = founded; }
-        void SetSettings( AlexandraSettings* s ) { settings = s; }
         void SetLoadInformation( bool b ) { loadInformation = b; }
         void SetSearchForPoster( bool b ) { searchForPoster = b; }
 
@@ -53,7 +51,6 @@ class FilmScannerAddWorker : public QThread
         bool SavePosterTo( const QString& sourceName, const QString& destinationName );
 
         QStringList foundedFilms;
-        AlexandraSettings* settings = nullptr;
         bool loadInformation;
         bool searchForPoster;
 };

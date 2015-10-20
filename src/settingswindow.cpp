@@ -39,9 +39,10 @@
 #include <QSpinBox>
 #include <QStyleFactory>
 
-SettingsWindow::SettingsWindow( AlexandraSettings* s, QWidget* parent )
-    : QDialog( parent ), settings( s )
+SettingsWindow::SettingsWindow( QWidget* parent ) : QDialog( parent )
 {
+    settings = AlexandraSettings::GetInstance();
+
     setupUi( this );
     connect( bOk, &QPushButton::clicked, this, &SettingsWindow::OkButtonClicked );
 

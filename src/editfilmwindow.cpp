@@ -26,9 +26,9 @@
 #include <QPlainTextEdit>
 #include <QProcessEnvironment>
 
-EditFilmWindow::EditFilmWindow( AlexandraSettings* s, QWidget* parent )
-    : AddFilmWindow( s, parent ), settings( s )
+EditFilmWindow::EditFilmWindow( QWidget* parent ) : AddFilmWindow( parent )
 {
+    settings = AlexandraSettings::GetInstance();
     setWindowTitle( tr( "Edit film" ) );
 }
 

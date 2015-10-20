@@ -30,7 +30,8 @@
 class AlexandraSettings : public QSettings
 {
     public:
-        explicit AlexandraSettings( const QString& configFile );
+        static void Initialize( const QString& configFile = QString() );
+        static AlexandraSettings* GetInstance();
 
         /* Get */
 
@@ -62,8 +63,8 @@ class AlexandraSettings : public QSettings
         int     GetListFontSize() const;
         int     GetListRowHeight() const;
 
-        int GetGridItemSize() const;
-        int GetGridFontSize() const;
+        int  GetGridItemSize() const;
+        int  GetGridFontSize() const;
         bool GetGridShowTooltip() const;
 
         QByteArray GetMainWindowGeometry() const;
@@ -153,6 +154,12 @@ class AlexandraSettings : public QSettings
         void SetShortcutExit( const QString& s );
 
         void SetPlayerDoubleClickBehavior( const QString& s );
+
+    private:
+        AlexandraSettings( const QString& configFile );
+        AlexandraSettings( const AlexandraSettings& s ) = delete;
+
+        static AlexandraSettings* instance;
 };
 
 #endif // ALEXANDRASETTINGS_H

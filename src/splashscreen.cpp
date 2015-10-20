@@ -54,7 +54,7 @@ SplashScreen::SplashScreen( QWidget* parent ) : QDialog( parent )
     lLoading->setGraphicsEffect( new EffectDropShadow( 0, 0, "white", lLoading ) );
 }
 
-void SplashScreen::SetProgressValue(int progress)
+void SplashScreen::SetProgressValue( int progress )
 {
      progressBar->setValue( progress );
      progressBar->repaint();

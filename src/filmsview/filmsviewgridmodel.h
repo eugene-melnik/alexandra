@@ -35,7 +35,7 @@ class FilmViewGridModel : public QAbstractListModel
     Q_OBJECT
 
     public:
-        explicit FilmViewGridModel( AlexandraSettings* s, QObject* parent = nullptr );
+        explicit FilmViewGridModel( QObject* parent = nullptr );
 
         void AppendItem( const Film& film, QColor background );
         void SetItem( int n, const Film& film, QColor background );

@@ -29,7 +29,6 @@
 #include <QTableWidgetItem>
 
 #include "abstractfilmsview.h"
-#include "alexandrasettings.h"
 #include "filmslist/film.h"
 
 class FilmsViewList : public QTableWidget, public AbstractFilmsView
@@ -40,9 +39,9 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
         explicit FilmsViewList( QWidget* parent = nullptr );
 
     public slots:
-        void LoadSettings( AlexandraSettings* s );
-        void ReloadSettings( AlexandraSettings* s );
-        void SaveSettings( AlexandraSettings* s ) const;
+        void LoadSettings();
+        void ReloadSettings();
+        void SaveSettings() const;
 
         int AddItem( const Film& film, QColor background = QColor() );
         void SetItem( int n, const Film& film, QColor background = QColor() );

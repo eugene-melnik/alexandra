@@ -21,7 +21,6 @@
 #ifndef ABSTRACTFILMSVIEW_H
 #define ABSTRACTFILMSVIEW_H
 
-#include "alexandrasettings.h"
 #include "filmslist/film.h"
 
 #include <QColor>
@@ -35,9 +34,9 @@ class AbstractFilmsView
     public:
         virtual ~AbstractFilmsView() {}
 
-        virtual void LoadSettings( AlexandraSettings* s ) = 0;
-        virtual void ReloadSettings( AlexandraSettings* s ) = 0;
-        virtual void SaveSettings( AlexandraSettings* s ) const = 0;
+        virtual void LoadSettings() = 0;
+        virtual void ReloadSettings() = 0;
+        virtual void SaveSettings() const = 0;
 
         virtual int AddItem( const Film& film, QColor background = QColor() ) = 0;
 

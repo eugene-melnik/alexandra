@@ -36,7 +36,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
     Q_OBJECT
 
     public:
-        explicit SettingsWindow( AlexandraSettings* s, QWidget* parent = nullptr );
+        explicit SettingsWindow( QWidget* parent = nullptr );
 
         void show();
 
@@ -82,6 +82,7 @@ class SettingsWindow : public QDialog, public Ui::SettingsWindow
 
         // Variables
         AlexandraSettings* settings;
+
         bool isSettingsChanged;
         bool isDatabaseSettingsChanged;
         bool isViewChanged;

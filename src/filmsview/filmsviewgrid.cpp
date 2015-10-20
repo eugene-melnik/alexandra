@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "alexandrasettings.h"
 #include "filmsviewgrid.h"
 
 #include <QBrush>
@@ -44,18 +45,19 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
     connect( this, &FilmsViewGrid::customContextMenuRequested, this, &FilmsViewGrid::ContextMenuRequestedSlot );
 }
 
-void FilmsViewGrid::LoadSettings( AlexandraSettings* s )
+void FilmsViewGrid::LoadSettings()
 {
-    settings = s;
-    setStyleSheet( QString( "font-size: %1pt" ).arg( s->GetGridFontSize() ) );
+    AlexandraSettings* settings  = AlexandraSettings::GetInstance();
 
-    model = new FilmViewGridModel( settings, this );
+    setStyleSheet( QString( "font-size: %1pt" ).arg( settings->GetGridFontSize() ) );
+
+    model = new FilmViewGridModel( this );
     setModel( model );
 }
 
-void FilmsViewGrid::ReloadSettings( AlexandraSettings* s )
+void FilmsViewGrid::ReloadSettings()
 {
-    setStyleSheet( QString( "font-size: %1pt" ).arg( s->GetGridFontSize() ) );
+    setStyleSheet( QString( "font-size: %1pt" ).arg( AlexandraSettings::GetInstance()->GetGridFontSize() ) );
 }
 
 int FilmsViewGrid::AddItem( const Film& film, QColor background )
@@ -204,11 +206,7 @@ void FilmsViewGrid::keyPressEvent(QKeyEvent *event)
 void FilmsViewGrid::updateGeometries()
 {
     QListView::updateGeometries();
-
-    if( settings != nullptr )
-    {
-        verticalScrollBar()->setSingleStep( settings->GetGridItemSize() / 5 );
-    }
+    verticalScrollBar()->setSingleStep( AlexandraSettings::GetInstance()->GetGridItemSize() / 5 );
 }
 
 void FilmsViewGrid::ItemClickedSlot( QModelIndex i )

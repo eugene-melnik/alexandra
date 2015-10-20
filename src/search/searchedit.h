@@ -28,8 +28,6 @@
 #include <QMenu>
 #include <QPoint>
 
-#include "alexandrasettings.h"
-
 class SearchEditMenu;
 
 class SearchEdit : public QLineEdit
@@ -39,8 +37,8 @@ class SearchEdit : public QLineEdit
     public:
         explicit SearchEdit( QWidget* parent = nullptr );
 
-        void LoadSettings( const AlexandraSettings* s );
-        void SaveSettings( AlexandraSettings* s ) const;
+        void LoadSettings();
+        void SaveSettings() const;
 
         enum FilterBy {
             None         = 0,

@@ -27,7 +27,6 @@
 #include <QStringList>
 
 #include "abstractfilmsview.h"
-#include "alexandrasettings.h"
 #include "filmslist/film.h"
 #include "filmsviewgridmodel.h"
 
@@ -39,9 +38,9 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         explicit FilmsViewGrid( QWidget* parent = nullptr );
 
     public slots:
-        void LoadSettings( AlexandraSettings* s );
-        void ReloadSettings( AlexandraSettings* s );
-        void SaveSettings( AlexandraSettings* /*s*/ ) const {}
+        void LoadSettings();
+        void ReloadSettings();
+        void SaveSettings() const {}
 
         int AddItem( const Film& film, QColor background = QColor() );
         void SetItem( int n, const Film& film, QColor background = QColor() );
@@ -77,7 +76,6 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void ContextMenuRequestedSlot( QPoint p );
 
     private:
-        AlexandraSettings* settings = nullptr;
         FilmViewGridModel* model = nullptr;
 };
 

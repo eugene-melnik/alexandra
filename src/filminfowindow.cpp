@@ -27,9 +27,10 @@
 #include <memory>
 #include <thread>
 
-FilmInfoWindow::FilmInfoWindow( AlexandraSettings* s, QWidget* parent )
-    : QDialog( parent ), settings( s )
+FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
 {
+    settings = AlexandraSettings::GetInstance();
+
     setupUi( this );
     connect( this, &FilmInfoWindow::FullInfoLoaded, this, &FilmInfoWindow::ShowFullInfo );
     connect( bCopyToClipboard, &QPushButton::clicked, this, &FilmInfoWindow::CopyToClipboard );

@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "alexandrasettings.h"
 #include "toolbar.h"
 
 #include <QIcon>
@@ -56,9 +57,9 @@ ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
     connect( tbaExit, &QAction::triggered, this, [this] { emit actionExit(); } );
 }
 
-void ToolBar::LoadSettings( const AlexandraSettings* s )
+void ToolBar::LoadSettings()
 {
-    setToolButtonStyle( (Qt::ToolButtonStyle) s->GetMainWindowToolbarStyle() );
+    setToolButtonStyle( Qt::ToolButtonStyle( AlexandraSettings::GetInstance()->GetMainWindowToolbarStyle() ) );
 }
 
 void ToolBar::SetAllFunctionsEnabled( bool b )

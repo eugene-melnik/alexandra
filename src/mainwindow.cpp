@@ -34,9 +34,10 @@
 #include <QRect>
 #include <list>
 
-MainWindow::MainWindow( AlexandraSettings* s ) : QMainWindow(), settings( s )
+MainWindow::MainWindow() : QMainWindow()
 {
     DebugPrintFunc( "MainWindow::MainWindow" );
+    settings = AlexandraSettings::GetInstance();
 
     setupUi( this );
     setWindowTitle( Alexandra::appNameGui );
@@ -157,8 +158,8 @@ void MainWindow::ReloadSettings()
     LoadAppearance();
     LoadShorcuts();
 
-    toolbar->LoadSettings( settings );
-    filmsView->ReloadSettings( settings );
+    toolbar->LoadSettings();
+    filmsView->ReloadSettings();
 
     ShowFilmInformation();
 }
@@ -168,7 +169,7 @@ void MainWindow::ReloadView()
     DebugPrintFunc( "MainWindow::ReloadView" );
 
     SetupFilmsView();
-    filmsView->LoadSettings( settings );
+    filmsView->LoadSettings();
     ShowFilms();
 }
 
@@ -803,9 +804,9 @@ void MainWindow::LoadSettings()
     actionShowStatusbar->setChecked( statusbar->isVisibleTo( this ) );
 
     // Widgets
-    toolbar->LoadSettings( settings );
-    eFilter->LoadSettings( settings );
-    filmsView->LoadSettings( settings );
+    toolbar->LoadSettings();
+    eFilter->LoadSettings();
+    filmsView->LoadSettings();
 }
 
 void MainWindow::LoadAppearance()
@@ -872,8 +873,8 @@ void MainWindow::SaveSettings()
     settings->SetMainWindowStatusbarIsVisible( statusbar->isVisibleTo( this ) );
 
     // Widgets
-    eFilter->SaveSettings( settings );
-    filmsView->SaveSettings( settings );
+    eFilter->SaveSettings();
+    filmsView->SaveSettings();
 
     // Choosen film
     settings->SetCurrentFilmTitle( filmsList->GetCurrentFilmTitle() );
@@ -948,7 +949,7 @@ void MainWindow::SetupWindows()
 
     /// Main window
     contextMenu = new FilmsViewContextMenu( this );
-    filmsList = new FilmsList( settings, this );
+    filmsList = new FilmsList( this );
 
     connect( this, &MainWindow::Shown, this, &MainWindow::show );
 
@@ -1005,7 +1006,7 @@ void MainWindow::SetupWindows()
     connect( actionAboutQt, &QAction::triggered, aboutWindow, &AboutWindow::AboutQt );
 
     /// Add film window
-    addFilmWindow = new AddFilmWindow( settings, this );
+    addFilmWindow = new AddFilmWindow( this );
 
     connect( actionAdd, &QAction::triggered, addFilmWindow, &AddFilmWindow::show );
     connect( toolbar, &ToolBar::actionAdd, addFilmWindow, &AddFilmWindow::show );
@@ -1013,7 +1014,7 @@ void MainWindow::SetupWindows()
     connect( addFilmWindow, &AddFilmWindow::Done, this, &MainWindow::AddFilmDone );
 
     /// Edit film window
-    editFilmWindow = new EditFilmWindow( settings, this );
+    editFilmWindow = new EditFilmWindow( this );
 
     connect( actionEdit, &QAction::triggered, this, &MainWindow::EditFilm );
     connect( toolbar, &ToolBar::actionEdit, this, &MainWindow::EditFilm );
@@ -1032,7 +1033,7 @@ void MainWindow::SetupWindows()
 
     /// Film info window
 #ifdef MEDIAINFO_SUPPORT
-    filmInfoWindow = new FilmInfoWindow( settings, this );
+    filmInfoWindow = new FilmInfoWindow( this );
 
     connect( bTechInformation, &QPushButton::clicked, filmInfoWindow, &FilmInfoWindow::show );
     connect( contextMenu, &FilmsViewContextMenu::actionShowInfo, filmInfoWindow, &FilmInfoWindow::show );
@@ -1049,7 +1050,7 @@ void MainWindow::SetupWindows()
     connect( searchWindow, &SearchWindow::FilmSelected, filmsList, &FilmsList::SetCurrentFilm );
 
     /// Settings window
-    settingsWindow = new SettingsWindow( settings, this );
+    settingsWindow = new SettingsWindow( this );
 
     connect( actionSettings, &QAction::triggered, settingsWindow, &SettingsWindow::show );
 
@@ -1059,7 +1060,7 @@ void MainWindow::SetupWindows()
     connect( settingsWindow, &SettingsWindow::EraseDatabase, this, &MainWindow::EraseDatabase );
 
     /// Film scanner window
-    filmScannerWindow = new FilmScannerWindow( settings, this );
+    filmScannerWindow = new FilmScannerWindow( this );
 
     connect( actionFilmScanner, &QAction::triggered, this, &MainWindow::FilmScanner );
     connect( toolbar, &ToolBar::actionFilmScanner, this, &MainWindow::FilmScanner );
@@ -1067,7 +1068,7 @@ void MainWindow::SetupWindows()
     connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::AddFilmsDone );
 
     /// Moved films window
-    movedFilmsWindow = new MovedFilmsWindow( settings, this );
+    movedFilmsWindow = new MovedFilmsWindow( this );
 
     connect( actionMovedFilms, &QAction::triggered, this, &MainWindow::MovedFilms );
 

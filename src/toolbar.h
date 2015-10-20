@@ -24,8 +24,6 @@
 #include <QAction>
 #include <QToolBar>
 
-#include "alexandrasettings.h"
-
 class ToolBar : public QToolBar
 {
     Q_OBJECT
@@ -33,7 +31,7 @@ class ToolBar : public QToolBar
     public:
         explicit ToolBar( QWidget* parent = nullptr );
 
-        void LoadSettings( const AlexandraSettings* s );
+        void LoadSettings();
 
         void SetAllFunctionsEnabled( bool b );
         void SetEmptyDatabaseMode( bool b );

@@ -33,9 +33,10 @@
 #include <QStringList>
 #include <string>
 
-AddFilmWindow::AddFilmWindow( AlexandraSettings* s, QWidget* parent )
-    : QDialog( parent ), settings( s )
+AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent )
 {
+    settings = AlexandraSettings::GetInstance();
+
     setupUi( this );
     progressBar->hide();
     bOpenFile->setFocus();

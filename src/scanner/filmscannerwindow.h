@@ -27,7 +27,6 @@
 #include <QString>
 #include <QStringList>
 
-#include "alexandrasettings.h"
 #include "filmslist/film.h"
 #include "filmscannerworker.h"
 #include "filmscanneraddworker.h"
@@ -38,7 +37,7 @@ class FilmScannerWindow : public QDialog, public Ui::FilmScannerWindow
     Q_OBJECT
 
     public:
-        explicit FilmScannerWindow( AlexandraSettings* s, QWidget* parent = nullptr );
+        explicit FilmScannerWindow( QWidget* parent = nullptr );
         virtual ~FilmScannerWindow();
 
         void show( QStringList* l );
@@ -66,7 +65,6 @@ class FilmScannerWindow : public QDialog, public Ui::FilmScannerWindow
         void FilmsCreated( QList<Film> films );
 
     private:
-        AlexandraSettings* settings = nullptr;
         QStringList* existsFileNames = nullptr;
         FilmScannerWorker* filmScannerWorker = nullptr;
         QList<Film>* newFilms = nullptr;

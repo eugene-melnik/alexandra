@@ -22,9 +22,10 @@
 
 #include <QFileInfo>
 
-FilmViewGridModel::FilmViewGridModel(  AlexandraSettings* s, QObject* parent )
-    : QAbstractListModel( parent ), settings( s )
-{ }
+FilmViewGridModel::FilmViewGridModel( QObject* parent ) : QAbstractListModel( parent )
+{
+    settings = AlexandraSettings::GetInstance();
+}
 
 void FilmViewGridModel::AppendItem( const Film& film, QColor background )
 {

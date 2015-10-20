@@ -21,7 +21,6 @@
 #ifndef FILMSLIST_H
 #define FILMSLIST_H
 
-#include "alexandrasettings.h"
 #include "filmslist/film.h"
 
 #include <QList>
@@ -35,7 +34,7 @@ class FilmsList : public QObject
     Q_OBJECT
 
     public:
-        explicit FilmsList( AlexandraSettings* s, QObject* parent = nullptr );
+        explicit FilmsList( QObject* parent = nullptr );
         virtual ~FilmsList();
 
         void LoadFromFile( const QString& fileName );
@@ -89,7 +88,6 @@ class FilmsList : public QObject
         void RemoveFilm( const Film& film );
 
         // Variables
-        AlexandraSettings* settings = nullptr;
         QList<Film>* films = nullptr;
         Film* currentFilm = nullptr;
         QMutex asyncSaveToFileMutex;

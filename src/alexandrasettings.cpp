@@ -26,54 +26,16 @@
 #include <QFileInfo>
 #include <QFont>
 
-AlexandraSettings::AlexandraSettings( const QString& configFile ) : QSettings( configFile, QSettings::IniFormat )
+AlexandraSettings* AlexandraSettings::instance = nullptr;
+
+void AlexandraSettings::Initialize( const QString& configFile )
 {
-    DebugPrintFuncA( "AlexandraSettings::AlexandraSettings", configFile );
+    instance = new AlexandraSettings( configFile );
+}
 
-    // In portable version of the program the database file and the posters directory
-    // located in the same directory as the configuration file
-#ifdef PORTABLE_VERSION
-    SetDatabaseFilePath( QFileInfo( this->fileName() ).absolutePath() + "/database.adat" );
-    SetPostersDirPath( QFileInfo( this->fileName() ).absolutePath() + "/posters" );
-#else
-
-    // Set database filename
-    QString databaseFileName = GetDatabaseFilePath();
-
-    if( databaseFileName.isEmpty() )
-    {
-        databaseFileName = QFileInfo( this->fileName() ).absolutePath() + "/database.adat";
-        SetDatabaseFilePath( databaseFileName );
-    }
-
-    // Set directory of the posters
-    QString postersFolderName = GetPostersDirPath();
-
-    if( postersFolderName.isEmpty() )
-    {
-        postersFolderName = QFileInfo( databaseFileName ).absolutePath() + "/posters";
-        SetPostersDirPath( postersFolderName );
-    }
-#endif
-
-    // Set external player
-    QString externalPlayerName = GetExternalPlayer();
-
-    if( externalPlayerName.isEmpty() )
-    {
-#ifdef Q_OS_LINUX
-        externalPlayerName = "xdg-open";
-#elif defined(Q_OS_WIN32)
-        externalPlayerName = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
-#endif
-        SetExternalPlayer( externalPlayerName );
-    }
-
-    DebugPrint( "Database: " + databaseFileName );
-    DebugPrint( "Posters dir: " + postersFolderName );
-    DebugPrint( "External player: " + externalPlayerName );
-
-    sync();
+AlexandraSettings* AlexandraSettings::GetInstance()
+{
+    return( instance );
 }
 
 /* Get */
@@ -598,4 +560,53 @@ void AlexandraSettings::SetShortcutExit( const QString& s )
 void AlexandraSettings::SetPlayerDoubleClickBehavior( const QString& s )
 {
     setValue( "Player/DoubleClickBehavior", s );
+}
+
+AlexandraSettings::AlexandraSettings( const QString& configFile ) : QSettings( configFile, QSettings::IniFormat )
+{
+    DebugPrintFuncA( "AlexandraSettings::AlexandraSettings", configFile );
+
+    // In portable version of the program the database file and the posters directory
+    // located in the same directory as the configuration file
+    #ifdef PORTABLE_VERSION
+        SetDatabaseFilePath( QFileInfo( this->fileName() ).absolutePath() + "/database.adat" );
+        SetPostersDirPath( QFileInfo( this->fileName() ).absolutePath() + "/posters" );
+    #else
+        // Set database filename
+        QString databaseFileName = GetDatabaseFilePath();
+
+        if( databaseFileName.isEmpty() )
+        {
+            databaseFileName = QFileInfo( this->fileName() ).absolutePath() + "/database.adat";
+            SetDatabaseFilePath( databaseFileName );
+        }
+
+        // Set directory of the posters
+        QString postersFolderName = GetPostersDirPath();
+
+        if( postersFolderName.isEmpty() )
+        {
+            postersFolderName = QFileInfo( databaseFileName ).absolutePath() + "/posters";
+            SetPostersDirPath( postersFolderName );
+        }
+    #endif
+
+    // Set external player
+    QString externalPlayerName = GetExternalPlayer();
+
+    if( externalPlayerName.isEmpty() )
+    {
+        #ifdef Q_OS_LINUX
+            externalPlayerName = "xdg-open";
+        #elif defined(Q_OS_WIN32)
+            externalPlayerName = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
+        #endif
+
+        SetExternalPlayer( externalPlayerName );
+    }
+
+    DebugPrint( "Database: " + databaseFileName );
+    DebugPrint( "Posters dir: " + postersFolderName );
+    DebugPrint( "External player: " + externalPlayerName );
+    sync();
 }

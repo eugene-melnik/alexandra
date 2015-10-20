@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "tools/debug.h"
+#include "alexandrasettings.h"
 #include "filmslist.h"
 #include "version.h"
 
@@ -29,8 +30,7 @@
 #include <QMessageBox>
 #include <thread>
 
-FilmsList::FilmsList( AlexandraSettings* s, QObject* parent )
-    : QObject( parent ), settings( s ), films( new QList<Film>() )
+FilmsList::FilmsList( QObject* parent ) : QObject( parent ), films( new QList<Film>() )
 { }
 
 FilmsList::~FilmsList()
@@ -360,7 +360,7 @@ void FilmsList::FilmsMoved()
 void FilmsList::EraseAll()
 {
     DebugPrintFunc( "FilmsList::EraseAll" );
-    QString postersDir = settings->GetPostersDirPath();
+    QString postersDir = AlexandraSettings::GetInstance()->GetPostersDirPath();
 
     for( const Film& film : *films )
     {
@@ -407,7 +407,7 @@ void FilmsList::RemoveFilm( const Film& film )
     // Remove poster image
     if( film.GetIsPosterExists() == true )
     {
-        QString posterFileName = settings->GetPostersDirPath() + "/" + film.GetPosterName();
+        QString posterFileName = AlexandraSettings::GetInstance()->GetPostersDirPath() + "/" + film.GetPosterName();
         QFile( posterFileName ).remove();
     }
 

@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "alexandrasettings.h"
 #include "searchedit.h"
 
 SearchEdit::SearchEdit( QWidget* parent ) : QLineEdit( parent )
@@ -31,9 +32,9 @@ SearchEdit::SearchEdit( QWidget* parent ) : QLineEdit( parent )
     SetupMenu();
 }
 
-void SearchEdit::LoadSettings( const AlexandraSettings* s )
+void SearchEdit::LoadSettings()
 {
-    selectedFilters = (FilterBy) s->GetQuickSearchFilter();
+    selectedFilters = FilterBy( AlexandraSettings::GetInstance()->GetQuickSearchFilter() );
 
     for( FilterAction f : filterActions )
     {
@@ -44,9 +45,9 @@ void SearchEdit::LoadSettings( const AlexandraSettings* s )
     }
 }
 
-void SearchEdit::SaveSettings( AlexandraSettings* s ) const
+void SearchEdit::SaveSettings() const
 {
-    s->SetQuickSearchFilter( selectedFilters );
+    AlexandraSettings::GetInstance()->SetQuickSearchFilter( selectedFilters );
 }
 
 void SearchEdit::SetupMenu()

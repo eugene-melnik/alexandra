@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "alexandrasettings.h"
 #include "filmscanneraddworker.h"
 #include "tools/filesextensions.h"
 #include "parsers/parsermanager.h"
@@ -28,6 +29,8 @@
 
 void FilmScannerAddWorker::run()
 {
+    AlexandraSettings* settings = AlexandraSettings::GetInstance();
+
     QList<Film> newFilms;
     ParserManager parser;
     int count = 0;
@@ -100,6 +103,8 @@ void FilmScannerAddWorker::run()
 
 bool FilmScannerAddWorker::SavePosterTo( const QString& sourceName, const QString& destinationName )
 {
+    AlexandraSettings* settings = AlexandraSettings::GetInstance();
+
     QString postersDir = settings->GetPostersDirPath();
     int newHeight = settings->GetScalePosterToHeight();
 

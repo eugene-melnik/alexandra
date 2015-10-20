@@ -26,7 +26,6 @@
 #include <QList>
 #include <QString>
 
-#include "alexandrasettings.h"
 #include "filmslist/film.h"
 #include "filmscannerworker.h"
 #include "ui_movedfilmswindow.h"
@@ -36,7 +35,7 @@ class MovedFilmsWindow : public QDialog, public Ui::MovedFilmsWindow
     Q_OBJECT
 
     public:
-        explicit MovedFilmsWindow( AlexandraSettings* s, QWidget* parent = nullptr );
+        explicit MovedFilmsWindow( QWidget* parent = nullptr );
         virtual ~MovedFilmsWindow();
 
         void show( QList<Film*>* f );
@@ -62,7 +61,6 @@ class MovedFilmsWindow : public QDialog, public Ui::MovedFilmsWindow
         void MoveSelected();
 
     private:
-        AlexandraSettings* settings = nullptr;
         QList<Film*>* films = nullptr;
         FilmScannerWorker* filmScannerWorker = nullptr;
 };
