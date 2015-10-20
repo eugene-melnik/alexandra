@@ -21,6 +21,7 @@
 #include "parsermanager.h"
 #include "abstractparser.h"
 #include "kinopoisk/kinopoiskparser.h"
+#include "kinoteatr/kinoteatrparser.h"
 #include "imdb/imdbparser.h"
 #include "omdb/omdbparser.h"
 #include "tools/debug.h"
@@ -30,10 +31,11 @@
 
 ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
 {
-    parsers.insert( Auto, tr( "<Auto>" ) );
-    parsers.insert( IMDB, "IMDB (http://www.imdb.com/)" );
-    parsers.insert( Kinopoisk, "КиноПоиск (http://www.kinopoisk.ru/)" );
-    parsers.insert( OMDB, "OMDB (http://www.omdbapi.com/)" );
+    parsers.insert( Auto,       tr( "<Auto>" ) );
+    parsers.insert( IMDB,       "IMDB (http://www.imdb.com/)" );
+    parsers.insert( Kinopoisk,  "КиноПоиск (http://www.kinopoisk.ru/)" );
+    parsers.insert( Kinoteatr,  "Кіно-Театр (http://kino-teatr.ua/)" );
+    parsers.insert( OMDB,       "OMDB (http://www.omdbapi.com/)" );
 }
 
 void ParserManager::Reset()
@@ -128,6 +130,12 @@ void ParserManager::CreateParser()
             break;
         }
 
+        case Kinoteatr :
+        {
+            currentParser = new KinoteatrParser();
+            break;
+        }
+
         case IMDB :
         {
             currentParser = new ImdbParser();
@@ -137,11 +145,14 @@ void ParserManager::CreateParser()
         default : // Parser::Auto
         {
             // TODO: more logic
-            QStringList kyr = QStringList { "ru", "uk", "be" };
 
-            if( kyr.contains( QLocale::system().name().left(2) ) )
+            if( QLocale::system().name().left(2) == "ru" )
             {
                 currentParser = new KinopoiskParser();
+            }
+            else if( QLocale::system().name().left(2) == "uk" )
+            {
+                currentParser = new KinoteatrParser();
             }
             else
             {
@@ -156,11 +167,12 @@ void ParserManager::CreateParser()
 bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
 {
     DebugPrintFunc( "ParserManager::SavePoster" );
-    DebugPrint( "Url:  " + posterUrl.toString() );
-    DebugPrint( "File: " + posterFileName );
 
     if( !posterUrl.isEmpty() )
     {
+        DebugPrint( "Url:  " + posterUrl.toString() );
+        DebugPrint( "File: " + posterFileName );
+
         QByteArray posterData = NetworkRequest().runSync( posterUrl );
         QFile file( posterFileName );
 

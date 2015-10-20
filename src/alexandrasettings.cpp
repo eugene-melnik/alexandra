@@ -245,6 +245,16 @@ int AlexandraSettings::GetDefaultParserIndex() const
     return( value( "FilmsScanner/DefaultParserIndex", 0 ).toInt() ); // Parser::Auto
 }
 
+bool AlexandraSettings::GetParsersKinoteatrLoadAdvancedInfo() const
+{
+    return( value( "Parsers/KinoteatrLoadAdvancedInfo", true ).toBool() );
+}
+
+bool AlexandraSettings::GetParsersKinoteatrLoadBigPoster() const
+{
+    return( value( "Parsers/KinoteatrLoadBigPoster", true ).toBool() );
+}
+
 QString AlexandraSettings::GetShortcutAddFilm() const
 {
     return( value( "Shortcuts/AddFilm", "Ctrl+A" ).toString() );

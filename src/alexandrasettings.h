@@ -80,6 +80,9 @@ class AlexandraSettings : public QSettings
         QString GetFilmsScannerLastDir() const;
         int     GetDefaultParserIndex() const;
 
+        bool GetParsersKinoteatrLoadAdvancedInfo() const;
+        bool GetParsersKinoteatrLoadBigPoster() const;
+
         QString GetShortcutAddFilm() const;
         QString GetShortcutEditFilm() const;
         QString GetShortcutRemoveFilm() const;
