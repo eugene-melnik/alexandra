@@ -1,5 +1,6 @@
-# Alexandra Video Library v1.4
+# Alexandra Video Library v1.4 
 ##### A small opensource video library with great potential, written in C++ using Qt5 framework
+[![Build Status](https://travis-ci.org/jeka-js/alexandra.svg)](https://travis-ci.org/jeka-js/alexandra)
 
 
 Alexandra Video Library — a simple and comfortable program for organization and management of the home video library. You can completely customize your movies in a list or a grid, add a description, detailed information, user tags and posters. You can also use the films scanner that will find and add all video files on your disk.
