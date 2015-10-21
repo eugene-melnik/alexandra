@@ -29,7 +29,7 @@ class RegExpTools
     public:
         static void SimplifyText( QString& str );
 
-        static QString ParseList( const QString& str, QRegExp& reList, QRegExp& reItem );
+        static QString ParseList( const QString& str, QRegExp& reList, QRegExp& reItem, quint16 stripTo = 0 );
         static QString ParseItem( const QString& str, QRegExp& reItem );
 };
 

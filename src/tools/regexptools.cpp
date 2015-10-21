@@ -40,7 +40,7 @@ void RegExpTools::SimplifyText( QString& str )
     str.replace( "> <",     "><" );
 }
 
-QString RegExpTools::ParseList( const QString& str, QRegExp& reList, QRegExp& reItem )
+QString RegExpTools::ParseList( const QString& str, QRegExp& reList, QRegExp& reItem, quint16 stripTo )
 {
     reItem.setMinimal( true );
     reList.setMinimal( true );
@@ -58,6 +58,13 @@ QString RegExpTools::ParseList( const QString& str, QRegExp& reList, QRegExp& re
     }
 
     result.removeDuplicates(); // TODO: solution or not?
+
+    // Leave only 'stripTo' first elements
+    if( stripTo != 0 && stripTo < result.size() )
+    {
+        result.erase( result.begin() + stripTo, result.end() );
+    }
+
     return( result.join( ", " ) );
 }
 

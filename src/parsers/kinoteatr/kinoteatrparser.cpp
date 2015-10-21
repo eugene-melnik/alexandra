@@ -91,7 +91,7 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
 
         // Advanced information
 
-        if( AlexandraSettings::GetInstance()->GetParsersKinoteatrLoadAdvancedInfo() )
+        if( AlexandraSettings::GetInstance()->GetParsersLoadAdvancedInfo() )
         {
             str = QString( request.runSync( QUrl( redirectUrl.replace( "film", "film-persons" ) ) ) );
             RegExpTools::SimplifyText( str );
@@ -113,7 +113,7 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
 
         // Poster
 
-        if( AlexandraSettings::GetInstance()->GetParsersKinoteatrLoadBigPoster() )
+        if( AlexandraSettings::GetInstance()->GetParsersLoadBigPoster() )
         {
             // Lot of redirectes... :(
 

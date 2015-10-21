@@ -18,6 +18,7 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "alexandrasettings.h"
 #include "kinopoiskparser.h"
 #include "tools/regexptools.h"
 #include "tools/debug.h"
@@ -75,13 +76,9 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
         QRegExp reCountry( "href=\"/lists/m_act\\[country\\]/.*>(.*)</a>" );
         film.SetCountry( RegExpTools::ParseList( str, reCountryList, reCountry ) );
 
-        // Director
-        QRegExp reDirectorList( "itemprop=\"director\">(.*)</td>" );
-        QRegExp reName( "href=\"/name/.*>(.*)</a>" );
-        film.SetDirector( RegExpTools::ParseList( str, reDirectorList, reName ) );
-
         // Screenwriter
         QRegExp reScreenwriterList( "сценарий</td><.*>(.*)</td>" );
+        QRegExp reName( "href=\"/name/.*>(.*)</a>" );
         film.SetScreenwriter( RegExpTools::ParseList( str, reScreenwriterList, reName ) );
 
         // Genre
@@ -89,34 +86,78 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
         QRegExp reGenre( "href=\"/lists/.*>(.*)</a>" );
         film.SetGenre( RegExpTools::ParseList( str, reGenreList, reGenre ) );
 
-        // Producer
-        QRegExp reProducerList( "itemprop=\"producer\">(.*)</td>" );
-        film.SetProducer( RegExpTools::ParseList( str, reProducerList, reName ) );
-
-        // Composer
-        QRegExp reComposerList( "itemprop=\"musicBy\">(.*)</td>" );
-        film.SetComposer( RegExpTools::ParseList( str, reComposerList, reName ) );
-
-        // Starring
-        QRegExp reStarringList( "В главных ролях:</h4>(.*)</ul>" );
-        film.SetStarring( RegExpTools::ParseList( str, reStarringList, reName ) );
-
         // Description
         QRegExp reDescription( "itemprop=\"description\">(.*)</div>" );
         film.SetDescription( RegExpTools::ParseItem( str, reDescription )
                              .replace( QRegExp( "<br /><br />|<br/><br/>|<br><br>" ), "<br/>\n" ) );
 
-        DebugPrint( "Text parsed!" );
+        // Advanced information
 
-        // Poster
-        QRegExp rePosterUrl( "openImgPopup\\('(.*)'\\)" );
-        QString posterSubUrl = RegExpTools::ParseItem( str, rePosterUrl );
-
-        if( !posterSubUrl.isEmpty() )
+        if( AlexandraSettings::GetInstance()->GetParsersLoadAdvancedInfo() )
         {
-            posterUrl = "http://www.kinopoisk.ru" + posterSubUrl;
+            QRegExp reMoreUrl( "<h4><a href=\"(.*)\">показать всех</a>" );
+            QUrl moreUrl( "http://www.kinopoisk.ru" + RegExpTools::ParseItem( str, reMoreUrl ) );
+
+            QString str = codec->toUnicode( request.runSync( moreUrl ) );
+            RegExpTools::SimplifyText( str );
+            DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
+
+            // Director
+            QRegExp reDirectorList( "Режиссер(.*)<a name" );
+            reName = QRegExp( "class=\"name\"><a href=\"/name/.*>(.*)</a>" );
+            film.SetDirector( RegExpTools::ParseList( str, reDirectorList, reName ) );
+
+            // Producer
+            QRegExp reProducerList( "Продюсер(.*)<a name" );
+            film.SetProducer( RegExpTools::ParseList( str, reProducerList, reName, 10 ) ); // 10 first producers
+
+            // Composer
+            QRegExp reComposerList( "Композитор(.*)<a name" );
+            film.SetComposer( RegExpTools::ParseList( str, reComposerList, reName ) );
+
+            // Starring
+            QRegExp reStarringList( "Актер(.*)<a name" );
+            reName = QRegExp( "class=\"info\"><div class=\"name\"><a href=\"/name/.*>(.*)</a>" );
+            film.SetStarring( RegExpTools::ParseList( str, reStarringList, reName, 20 ) ); // 20 first actors
+        }
+        else
+        {
+            // Director
+            QRegExp reDirectorList( "itemprop=\"director\">(.*)</td>" );
+            film.SetDirector( RegExpTools::ParseList( str, reDirectorList, reName ) );
+
+            // Producer
+            QRegExp reProducerList( "itemprop=\"producer\">(.*)</td>" );
+            film.SetProducer( RegExpTools::ParseList( str, reProducerList, reName ) );
+
+            // Composer
+            QRegExp reComposerList( "itemprop=\"musicBy\">(.*)</td>" );
+            film.SetComposer( RegExpTools::ParseList( str, reComposerList, reName ) );
+
+            // Starring
+            QRegExp reStarringList( "В главных ролях:</h4>(.*)</ul>" );
+            film.SetStarring( RegExpTools::ParseList( str, reStarringList, reName ) );
         }
 
+        // Poster
+
+        if( AlexandraSettings::GetInstance()->GetParsersLoadBigPoster() )
+        {
+            QRegExp rePosterUrl( "openImgPopup\\('(.*)'\\)" );
+            QString posterSubUrl = RegExpTools::ParseItem( str, rePosterUrl );
+
+            if( !posterSubUrl.isEmpty() )
+            {
+                posterUrl = "http://www.kinopoisk.ru" + posterSubUrl;
+            }
+        }
+        else
+        {
+            QRegExp rePosterUrl( "class=\"popupBigImage\".*><.*src=\"(.*)\" alt.*>" );
+            posterUrl = QUrl( RegExpTools::ParseItem( str, rePosterUrl ) );
+        }
+
+        DebugPrint( "Text parsed!" );
         emit Loaded( film, posterUrl );
     }
     else

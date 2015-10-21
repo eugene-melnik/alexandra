@@ -245,14 +245,14 @@ int AlexandraSettings::GetDefaultParserIndex() const
     return( value( "FilmsScanner/DefaultParserIndex", 0 ).toInt() ); // Parser::Auto
 }
 
-bool AlexandraSettings::GetParsersKinoteatrLoadAdvancedInfo() const
+bool AlexandraSettings::GetParsersLoadAdvancedInfo() const
 {
-    return( value( "Parsers/KinoteatrLoadAdvancedInfo", true ).toBool() );
+    return( value( "Parsers/LoadAdvancedInfo", true ).toBool() );
 }
 
-bool AlexandraSettings::GetParsersKinoteatrLoadBigPoster() const
+bool AlexandraSettings::GetParsersLoadBigPoster() const
 {
-    return( value( "Parsers/KinoteatrLoadBigPoster", true ).toBool() );
+    return( value( "Parsers/LoadBigPoster", true ).toBool() );
 }
 
 QString AlexandraSettings::GetShortcutAddFilm() const
@@ -510,6 +510,16 @@ void AlexandraSettings::SetFilmsScannerLastDir( const QString& s )
 void AlexandraSettings::SetDefaultParserIndex( int n )
 {
     setValue( "FilmsScanner/DefaultParserIndex", n );
+}
+
+void AlexandraSettings::SetParsersLoadAdvancedInfo( bool b )
+{
+    setValue( "Parsers/LoadAdvancedInfo", b );
+}
+
+void AlexandraSettings::SetParsersLoadBigPoster( bool b )
+{
+    setValue( "Parsers/LoadBigPoster", b );
 }
 
 void AlexandraSettings::SetShortcutAddFilm( const QString& s )
