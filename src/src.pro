@@ -50,6 +50,7 @@ HEADERS += effects/effectdropshadow.h \
            parsers/parsermanager.h \
            parsers/imdb/imdbparser.h \
            parsers/kinopoisk/kinopoiskparser.h \
+           parsers/kinoteatr/kinoteatrparser.h \
            parsers/omdb/omdbparser.h \
            search/searchedit.h \
            search/searchwindow.h \
@@ -88,6 +89,7 @@ SOURCES += effects/effectdropshadow.cpp \
            parsers/parsermanager.cpp \
            parsers/imdb/imdbparser.cpp \
            parsers/kinopoisk/kinopoiskparser.cpp \
+           parsers/kinoteatr/kinoteatrparser.cpp \
            parsers/omdb/omdbparser.cpp \
            search/searchedit.cpp \
            search/searchwindow.cpp \
