@@ -150,6 +150,8 @@ void SettingsWindow::OkButtonClicked()
         // Sources tab
 
         settings->SetDefaultParserIndex( cbDefaultOnlineSource->currentIndex() );
+        settings->SetParsersLoadBigPoster( cDownloadBigPoster->isChecked() );
+        settings->SetParsersLoadAdvancedInfo( cDownloadMoreInformation->isChecked() );
 
         // Save
         settings->sync();
@@ -684,7 +686,7 @@ void SettingsWindow::ConfigureShortcutsTab()
 
 void SettingsWindow::ReconfigureShortcutsTab()
 {
-    for( auto& s : shortcuts )
+    for( Shortcut& s : shortcuts )
     {
         QKeySequence k( s.GetSetting( settings) );
         s.keyEdit->setKeySequence( k );
@@ -698,12 +700,15 @@ void SettingsWindow::ReconfigureShortcutsTab()
 void SettingsWindow::ConfigureSourcesTab()
 {
     connect( cbDefaultOnlineSource, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-    cbDefaultOnlineSource->addItems( ParserManager().GetAvailableParsers() );
+    connect( cDownloadBigPoster, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( cDownloadMoreInformation, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
 
-    gbImdb->hide(); // TODO: implement
+    cbDefaultOnlineSource->addItems( ParserManager().GetAvailableParsers() );
 }
 
 void SettingsWindow::ReconfigureSourcesTab()
 {
     cbDefaultOnlineSource->setCurrentIndex( settings->GetDefaultParserIndex() );
+    cDownloadBigPoster->setChecked( settings->GetParsersLoadBigPoster() );
+    cDownloadMoreInformation->setChecked( settings->GetParsersLoadAdvancedInfo() );
 }

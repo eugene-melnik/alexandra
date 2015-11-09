@@ -93,7 +93,8 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
 
         if( AlexandraSettings::GetInstance()->GetParsersLoadAdvancedInfo() )
         {
-            str = QString( request.runSync( QUrl( redirectUrl.replace( "film", "film-persons" ) ) ) );
+            QString newRedirectUrl = redirectUrl;
+            QString str( request.runSync( QUrl( newRedirectUrl.replace( "film", "film-persons" ) ) ) );
             RegExpTools::SimplifyText( str );
             DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
 
@@ -117,7 +118,8 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
         {
             // Lot of redirectes... :(
 
-            str = QString( request.runSync( QUrl( redirectUrl.replace( "film-persons", "film-poster" ) ) ) );
+            QString newRedirectUrl = redirectUrl;
+            str = QString( request.runSync( QUrl( newRedirectUrl.replace( "film", "film-poster" ) ) ) );
             RegExpTools::SimplifyText( str );
             DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
 

@@ -1341,25 +1341,35 @@
         </layout>
        </item>
        <item>
-        <widget class="QGroupBox" name="gbImdb">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+        <widget class="QGroupBox" name="gbOther">
          <property name="title">
-          <string>IMDB</string>
+          <string notr="true">Other</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
-           <widget class="QCheckBox" name="cLoadBigPoster">
+           <widget class="QCheckBox" name="cDownloadBigPoster">
             <property name="text">
-             <string>Load big poster</string>
+             <string>Download big poster (if possible)</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="cLoadAdditionalData">
+           <widget class="QCheckBox" name="cDownloadMoreInformation">
             <property name="text">
-             <string>Load additional data</string>
+             <string>Download more information (if possible)</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelAdvancedMessage">
+            <property name="text">
+             <string>(These options use more traffic and may slows down the loading)</string>
             </property>
            </widget>
           </item>
@@ -1484,6 +1494,22 @@
     <hint type="destinationlabel">
      <x>263</x>
      <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cScalePoster</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>sbScaleToHeight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>211</x>
+     <y>492</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>429</x>
+     <y>493</y>
     </hint>
    </hints>
   </connection>

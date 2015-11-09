@@ -25,6 +25,7 @@
 #include <QMap>
 #include <QObject>
 #include <QStringList>
+#include <QTime>
 #include <QUrl>
 
 #include "filmslist/film.h"
@@ -80,6 +81,9 @@ class ParserManager : public QObject
         QObject* currentParser = nullptr;
 
         const QString stdPosterFileName = QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() );
+
+        // For debug
+        QTime time;
 };
 
 #endif // PARSERMANAGER_H

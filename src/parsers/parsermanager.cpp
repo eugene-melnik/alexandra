@@ -49,6 +49,7 @@ void ParserManager::Reset()
 void ParserManager::Search()
 {
     DebugPrintFunc( "ParserManager::Search" );
+    time.start();
 
     if( title.isEmpty() ) return;
 
@@ -66,6 +67,7 @@ void ParserManager::Search()
 void ParserManager::SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo )
 {
     DebugPrintFunc( "ParserManager::SearchAsync" );
+    time.start();
 
     if( title.isEmpty() ) return;
 
@@ -92,6 +94,7 @@ void ParserManager::SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo 
 void ParserManager::InformationLoaded( const Film& f, const QUrl& posterUrl )
 {
     DebugPrintFuncA( "ParserManager::InformationLoaded", f.GetOriginalTitle() + ", " + posterUrl.toString() );
+    DebugPrint( QString( "Loded in %1 ms" ).arg( time.elapsed() ) );
 
     if( loadPoster )
     {
@@ -108,6 +111,7 @@ void ParserManager::InformationLoaded( const Film& f, const QUrl& posterUrl )
 void ParserManager::InformationLoadError( const QString& e )
 {
     DebugPrintFuncA( "ParserManager::InformationLoadError", e );
+    DebugPrint( QString( "Loded in %1 ms" ).arg( time.elapsed() ) );
     emit Error( e );
 }
 
