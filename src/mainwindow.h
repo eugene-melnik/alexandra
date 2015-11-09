@@ -38,11 +38,9 @@
 #include "statisticswindow.h"
 #include "ui_mainwindow.h"
 
-#include <QCloseEvent>
 #include <QMainWindow>
 #include <QPoint>
 #include <QProcess>
-#include <QString>
 
 class MainWindow : public QMainWindow, public Ui::MainWindow
 {

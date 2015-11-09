@@ -23,7 +23,6 @@
 
 #include <QBrush>
 #include <QHeaderView>
-#include <QPalette>
 #include <QScrollBar>
 
 FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )

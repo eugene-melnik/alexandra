@@ -22,7 +22,6 @@
 #define FILMSCANNERWORKER_H
 
 #include <QList>
-#include <QString>
 #include <QStringList>
 #include <QThread>
 

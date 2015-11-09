@@ -23,7 +23,6 @@
 
 #include <QDir>
 #include <QMap>
-#include <QObject>
 #include <QStringList>
 #include <QTime>
 #include <QUrl>

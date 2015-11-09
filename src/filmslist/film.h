@@ -22,7 +22,6 @@
 #define FILM_H
 
 #include <QDataStream>
-#include <QString>
 
 class Film
 {

@@ -28,7 +28,6 @@
 #include <QDialog>
 #include <QList>
 #include <QMap>
-#include <QString>
 #include <QStringList>
 
 class SettingsWindow : public QDialog, public Ui::SettingsWindow

@@ -24,9 +24,7 @@
 #include "filmslist/film.h"
 
 #include <QList>
-#include <QObject>
 #include <QMutex>
-#include <QString>
 #include <QStringList>
 
 class FilmsList : public QObject

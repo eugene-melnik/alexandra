@@ -24,9 +24,9 @@
 #include "tools/debug.h"
 
 #include <string>
+#include <QCloseEvent>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QTableWidgetItem>
 
 FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent ), newFilms( new QList<Film>() )
 {

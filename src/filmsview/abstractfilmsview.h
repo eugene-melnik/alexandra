@@ -24,7 +24,6 @@
 #include "filmslist/film.h"
 
 #include <QColor>
-#include <QString>
 #include <QStringList>
 
 // Basic interface for classes that display films in the program window

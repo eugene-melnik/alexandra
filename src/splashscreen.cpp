@@ -23,7 +23,6 @@
 #include "version.h"
 
 #include <QDesktopWidget>
-#include <QString>
 #include <QTimer>
 
 SplashScreen::SplashScreen( QWidget* parent ) : QDialog( parent )

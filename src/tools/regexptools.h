@@ -22,7 +22,6 @@
 #define REGEXPTOOLS_H
 
 #include <QRegExp>
-#include <QString>
 
 class RegExpTools
 {

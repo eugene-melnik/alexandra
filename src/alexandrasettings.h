@@ -21,11 +21,8 @@
 #ifndef ALEXANDRASETTINGS_H
 #define ALEXANDRASETTINGS_H
 
-#include <QByteArray>
 #include <QColor>
-#include <QFont>
 #include <QSettings>
-#include <QString>
 
 class AlexandraSettings : public QSettings
 {

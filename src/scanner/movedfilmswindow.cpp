@@ -22,10 +22,10 @@
 #include "tools/debug.h"
 
 #include <QDir>
+#include <QCloseEvent>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QTableWidgetItem>
 
 MovedFilmsWindow::MovedFilmsWindow( QWidget* parent ) : QDialog( parent ), filmScannerWorker( new FilmScannerWorker() )
 {

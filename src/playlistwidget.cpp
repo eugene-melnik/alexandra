@@ -22,7 +22,6 @@
 #include "tools/debug.h"
 
 #include <QAction>
-#include <QListWidgetItem>
 #include <QMenu>
 
 PlayListWidget::PlayListWidget( QWidget* parent ) : QListWidget( parent )

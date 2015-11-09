@@ -23,20 +23,14 @@
 #include "tools/debug.h"
 #include "version.h"
 
-#include <QCheckBox>
 #include <QColorDialog>
-#include <QComboBox>
 #include <QDataStream>
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QFontDatabase>
 #include <QFontDialog>
-#include <QKeySequenceEdit>
-#include <QLineEdit>
 #include <QMessageBox>
-#include <QRadioButton>
-#include <QSpinBox>
 #include <QStyleFactory>
 
 SettingsWindow::SettingsWindow( QWidget* parent ) : QDialog( parent )

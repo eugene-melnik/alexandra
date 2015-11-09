@@ -23,8 +23,6 @@
 #include "tools/regexptools.h"
 #include "tools/debug.h"
 
-#include <QByteArray>
-
 ImdbParser::ImdbParser() : AbstractParser()
 {
     DebugPrintFunc( "ImdbParser::ImdbParser" );

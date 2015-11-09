@@ -21,9 +21,6 @@
 #include "editfilmwindow.h"
 #include "tools/debug.h"
 
-#include <QComboBox>
-#include <QLineEdit>
-#include <QPlainTextEdit>
 #include <QProcessEnvironment>
 
 EditFilmWindow::EditFilmWindow( QWidget* parent ) : AddFilmWindow( parent )

@@ -21,9 +21,7 @@
 #include "film.h"
 #include "tools/debug.h"
 
-#include <QByteArray>
 #include <QCryptographicHash>
-#include <QDataStream>
 
 Film::Film()
     : viewsCounter( 0 ), isPosterExists( false ), isViewed( false ), isFavourite( false )

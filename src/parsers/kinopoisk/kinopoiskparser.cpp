@@ -23,7 +23,6 @@
 #include "tools/regexptools.h"
 #include "tools/debug.h"
 
-#include <QByteArray>
 #include <QTextCodec>
 
 KinopoiskParser::KinopoiskParser() : AbstractParser()

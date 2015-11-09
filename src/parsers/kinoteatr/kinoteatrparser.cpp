@@ -23,9 +23,6 @@
 #include "tools/regexptools.h"
 #include "tools/debug.h"
 
-#include <QByteArray>
-#include <QTextCodec>
-
 KinoteatrParser::KinoteatrParser() : AbstractParser()
 {
     DebugPrintFunc( "KinoteatrParser::KinoteatrParser" );

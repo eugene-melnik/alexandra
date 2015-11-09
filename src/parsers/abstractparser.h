@@ -25,11 +25,6 @@
 #include "tools/debug.h"
 #include "network/networkrequest.h"
 
-#include <QByteArray>
-#include <QObject>
-#include <QString>
-#include <QUrl>
-
 // TODO: need to comment //
 
 class AbstractParser : public QObject

@@ -22,8 +22,6 @@
 #include "tools/debug.h"
 
 #include <QMessageBox>
-#include <QPlainTextEdit>
-#include <QPushButton>
 #include <memory>
 #include <thread>
 

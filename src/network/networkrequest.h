@@ -24,7 +24,6 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
-#include <QObject>
 #include <QUrl>
 
 class NetworkRequest : public QObject

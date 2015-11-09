@@ -26,7 +26,6 @@
 #include <QPoint>
 #include <QStringList>
 #include <QTableWidget>
-#include <QTableWidgetItem>
 
 #include "abstractfilmsview.h"
 #include "filmslist/film.h"

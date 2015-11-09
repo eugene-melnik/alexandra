@@ -21,10 +21,8 @@
 #ifndef MOVEDFILMSWINDOW_H
 #define MOVEDFILMSWINDOW_H
 
-#include <QCloseEvent>
 #include <QDialog>
 #include <QList>
-#include <QString>
 
 #include "filmslist/film.h"
 #include "filmscannerworker.h"

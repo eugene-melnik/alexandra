@@ -25,9 +25,7 @@
 #include "version.h"
 
 #include <QColor>
-#include <QLabel>
 #include <QPixmap>
-#include <QString>
 
 AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
 {

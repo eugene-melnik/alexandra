@@ -22,7 +22,6 @@
 #include "tools/debug.h"
 
 #include <QMessageBox>
-#include <QPushButton>
 #include <QStringList>
 
 SearchWindow::SearchWindow( const QList<Film>* f, QWidget* parent )

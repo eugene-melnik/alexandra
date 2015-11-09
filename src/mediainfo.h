@@ -21,7 +21,6 @@
 #ifndef MEDIAINFO_H
 #define MEDIAINFO_H
 
-#include <QString>
 #include <QTime>
 
 #ifdef Q_OS_LINUX

@@ -25,7 +25,6 @@
 #include <QColor>
 #include <QList>
 #include <QPixmap>
-#include <QString>
 
 #include "alexandrasettings.h"
 #include "filmslist/film.h"

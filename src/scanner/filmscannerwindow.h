@@ -21,10 +21,8 @@
 #ifndef FILMSCANNERWINDOW_H
 #define FILMSCANNERWINDOW_H
 
-#include <QCloseEvent>
 #include <QDialog>
 #include <QList>
-#include <QString>
 #include <QStringList>
 
 #include "filmslist/film.h"

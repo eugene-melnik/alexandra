@@ -27,7 +27,6 @@
 
 #include <QDialog>
 #include <QMutex>
-#include <QString>
 
 class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
 {

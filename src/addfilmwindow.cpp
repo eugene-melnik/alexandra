@@ -22,14 +22,9 @@
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 
-#include <QCheckBox>
-#include <QComboBox>
-#include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QFileInfo>
-#include <QLineEdit>
 #include <QMessageBox>
-#include <QPlainTextEdit>
 #include <QStringList>
 #include <string>
 

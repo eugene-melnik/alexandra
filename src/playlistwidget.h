@@ -22,7 +22,6 @@
 #define PLAYLISTWIDGET_H
 
 #include <QListWidget>
-#include <QString>
 #include <QStringList>
 
 class PlayListWidget : public QListWidget

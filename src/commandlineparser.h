@@ -22,7 +22,6 @@
 #define COMMANDLINEPARSER_H
 
 #include <QCommandLineParser>
-#include <QString>
 #include <QStringList>
 
 class CommandLineParser : public QCommandLineParser

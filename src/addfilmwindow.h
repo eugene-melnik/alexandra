@@ -27,9 +27,7 @@
 #include "filmslist/film.h"
 #include "parsers/parsermanager.h"
 
-#include <QCloseEvent>
 #include <QDialog>
-#include <QString>
 
 class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
 {

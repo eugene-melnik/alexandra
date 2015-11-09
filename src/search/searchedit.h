@@ -22,7 +22,6 @@
 #define SEARCHEDIT_H
 
 #include <QAction>
-#include <QKeyEvent>
 #include <QLineEdit>
 #include <QList>
 #include <QMenu>

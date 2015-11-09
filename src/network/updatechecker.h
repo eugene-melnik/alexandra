@@ -23,10 +23,6 @@
 
 #include "networkrequest.h"
 
-#include <QByteArray>
-#include <QObject>
-#include <QString>
-
 class UpdateChecker : public QObject
 {
     Q_OBJECT

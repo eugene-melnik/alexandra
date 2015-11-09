@@ -21,7 +21,6 @@
 #ifndef FILESEXTENSIONS_H
 #define FILESEXTENSIONS_H
 
-#include <QString>
 #include <QStringList>
 
 // This class contains a listing of all currently supported file formats
