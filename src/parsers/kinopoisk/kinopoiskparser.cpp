@@ -56,7 +56,10 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
 
         // Tagline
         QRegExp reTagline( "слоган</td><.*>(.*)</td>" );
-        film.SetTagline( RegExpTools::ParseItem( str, reTagline ) );
+        QString tagline = RegExpTools::ParseItem( str, reTagline );
+
+        if( tagline != "-" )
+            film.SetTagline( tagline );
 
         // Year
         QRegExp reYear( "href=\"/lists/m_act\\[year\\]/.*>(.*)</a>" );
