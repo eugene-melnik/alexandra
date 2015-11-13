@@ -71,7 +71,7 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
         }
     }
 
-    translatorsText.chop( 10 ); // Remove last "<br/><br/>"
+    translatorsText += tr( "<a href=\"%1\">Help with translations</a>" ).arg( Alexandra::linkTranslations );
 
     tContributors->setText( translatorsText );
 

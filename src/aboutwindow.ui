@@ -339,7 +339,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QTextBrowser" name="tContributors"/>
+        <widget class="QTextBrowser" name="tContributors">
+         <property name="openExternalLinks">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

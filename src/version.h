@@ -33,6 +33,9 @@ namespace Alexandra
         const QString appWebsite = "http://alexandra-qt.sourceforge.net/";
         const QString appDescription = QObject::tr( "A small opensource video library with great potential, written in C++ using Qt5 framework." );
 
+        // Links
+        const QString linkTranslations = "https://www.transifex.com/eugene-melnik/alexandra-video-library/";
+
         // Author
         const QString appAuthor = "Eugene Melnik <jeka7js@gmail.com>";
         const QString orgName = "Eugene Melnik";
