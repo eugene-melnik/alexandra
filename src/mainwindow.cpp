@@ -517,6 +517,7 @@ void MainWindow::PlayerClosed()
 void MainWindow::RemoveFilm()
 {
     QStringList films = filmsView->GetSelectedItemsList();
+    int currentIndex = filmsView->GetCurrentItemIndex();
     int res;
 
     if( films.count() == 1 ) // One film selected
@@ -557,7 +558,7 @@ void MainWindow::RemoveFilm()
         }
 
         SaveDatabase();
-        filmsView->SetCurrentItemIndex( 0 );
+        filmsView->SetCurrentItemIndex( currentIndex );
     }
 }
 

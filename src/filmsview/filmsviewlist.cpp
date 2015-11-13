@@ -256,11 +256,15 @@ QStringList FilmsViewList::GetSelectedItemsList() const
 
 void FilmsViewList::SetCurrentItemIndex( int i )
 {
-    if( rowCount() > 0 )
+    if( GetItemsCount() > 0 )
     {
-        if( (i >= rowCount()) || (i < 0) )
+        if( i < 0 )
         {
             i = 0;
+        }
+        else if( i >= GetItemsCount() )
+        {
+            i = GetItemsCount() - 1;
         }
 
         setCurrentCell( i, 0 );
