@@ -55,8 +55,12 @@ void SearchWindow::Search()
     {
         for( const Film& film : *films )
         {
-            if( cTitle->isChecked() && film.GetTitle().contains( word, Qt::CaseInsensitive ) )
+            if( cTitle->isChecked() &&
+                film.GetTitle().contains( word, Qt::CaseInsensitive ) &&
+                film.GetOriginalTitle().contains( word, Qt::CaseInsensitive ) )
+            {
                 founded.push_back( film );
+            }
 
             if( cTags->isChecked() && film.GetTags().contains( word, Qt::CaseInsensitive ) )
                 founded.push_back( film );
@@ -82,8 +86,12 @@ void SearchWindow::Search()
             if( cCountry->isChecked() && film.GetCountry().contains( word, Qt::CaseInsensitive ) )
                 founded.push_back( film );
 
-            if( cDescription->isChecked() && film.GetDescription().contains( word, Qt::CaseInsensitive ) )
+            if( cDescription->isChecked() &&
+                film.GetDescription().contains( word, Qt::CaseInsensitive ) &&
+                film.GetTagline().contains( word, Qt::CaseInsensitive ) )
+            {
                 founded.push_back( film );
+            }
         }
 
         founded.sort();
