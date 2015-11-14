@@ -37,9 +37,9 @@ class AbstractFilmsView
         virtual void ReloadSettings() = 0;
         virtual void SaveSettings() const = 0;
 
-        virtual int AddItem( const Film& film, QColor background = QColor() ) = 0;
+        virtual int AddItem( const Film& film ) = 0;
 
-        virtual void SetItem( int n, const Film& film, QColor background = QColor() ) = 0;
+        virtual void SetItem( int n, const Film& film ) = 0;
         virtual void SetCurrentItemTo( const Film film ) = 0;
 
         virtual void RemoveItem( int n ) = 0;

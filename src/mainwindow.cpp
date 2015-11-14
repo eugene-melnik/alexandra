@@ -26,7 +26,6 @@
 #include "playlist.h"
 #include "version.h"
 
-#include <QColor>
 #include <QCompleter>
 #include <QDesktopWidget>
 #include <QFileInfo>
@@ -230,9 +229,6 @@ void MainWindow::ShowFilms()
     SetProgressMaximum( filmsList->GetFilmsCount() );
     statusbar->ShowLoading();
 
-    bool highlightUnavailable = settings->GetCheckFilesOnStartup();
-    QColor unavailableColor = settings->GetUnavailableFileColor();
-
     int currentIndex = filmsView->GetCurrentItemIndex();
     filmsView->Clear();
 
@@ -240,17 +236,7 @@ void MainWindow::ShowFilms()
 
     for( int i = 0; i < films->size(); i++ )
     {
-        const Film& film = films->at(i);
-
-        if( highlightUnavailable && !QFileInfo( film.GetFileName() ).exists() )
-        {
-            filmsView->AddItem( film, unavailableColor );
-        }
-        else
-        {
-            filmsView->AddItem( film );
-        }
-
+        filmsView->AddItem( films->at(i) );
         SetProgressValue( i + 1 );
     }
 
@@ -664,21 +650,11 @@ void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
     filteredFilms.unique();
 
     // Show founded
-    bool highlightUnavailable = settings->GetCheckFilesOnStartup();
-    QColor unavailableColor = settings->GetUnavailableFileColor();
-
     filmsView->Clear();
 
     for( Film& film : filteredFilms )
     {
-        if( highlightUnavailable && !QFileInfo( film.GetFileName() ).exists() )
-        {
-            filmsView->AddItem( film, unavailableColor );
-        }
-        else
-        {
-            filmsView->AddItem( film );
-        }
+        filmsView->AddItem( film );
     }
 
     if( filteredFilms.empty() )
@@ -693,7 +669,6 @@ void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
     }
 
     filmsView->SetCurrentItemIndex( 0 );
-
     DebugPrint( "Filtered" );
 }
 

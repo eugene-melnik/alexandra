@@ -21,6 +21,7 @@
 #include "alexandrasettings.h"
 #include "filmsviewlist.h"
 
+#include <QFileInfo>
 #include <QHeaderView>
 
 FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
@@ -94,18 +95,20 @@ void FilmsViewList::SaveSettings() const
     s->SetColumnDirectorWidth( columnWidth( DirectorColumn ) );
 }
 
-int FilmsViewList::AddItem( const Film& film, QColor background )
+int FilmsViewList::AddItem( const Film& film )
 {
     int currentRow = GetItemsCount();
 
     setRowCount( currentRow + 1 );
-    SetItem( currentRow, film, background );
+    SetItem( currentRow, film );
 
     return( currentRow );
 }
 
-void FilmsViewList::SetItem( int n, const Film& film, QColor background )
+void FilmsViewList::SetItem( int n, const Film& film )
 {
+    setSortingEnabled( false );
+
     // Viewed
     QTableWidgetItem* viewed = new QTableWidgetItem( film.GetIsViewedSign() );
     viewed->setTextAlignment( Qt::AlignCenter );
@@ -149,26 +152,22 @@ void FilmsViewList::SetItem( int n, const Film& film, QColor background )
     }
 
     // Background for unavailable files
-    if( background.isValid() )
+    AlexandraSettings* s = AlexandraSettings::GetInstance();
+    bool highlightUnavailable = s->GetCheckFilesOnStartup();
+    QColor unavailableColor = s->GetUnavailableFileColor();
+
+    if( highlightUnavailable && !QFileInfo( film.GetFileName() ).exists() )
     {
-        viewed->setBackgroundColor( background );
-        favourite->setBackgroundColor( background );
-        title->setBackgroundColor( background );
-        year->setBackgroundColor( background );
-        genre->setBackgroundColor( background );
-        director->setBackgroundColor( background );
-        rating->setBackgroundColor( background );
+        viewed->setBackgroundColor( unavailableColor );
+        favourite->setBackgroundColor( unavailableColor );
+        title->setBackgroundColor( unavailableColor );
+        year->setBackgroundColor( unavailableColor );
+        genre->setBackgroundColor( unavailableColor );
+        director->setBackgroundColor( unavailableColor );
+        rating->setBackgroundColor( unavailableColor );
     }
-}
 
-void FilmsViewList::SetCurrentItemTo( const Film film )
-{
-    SetItem( GetCurrentItemIndex(), film );
-}
-
-void FilmsViewList::RemoveItem( int n )
-{
-    removeRow( n );
+    setSortingEnabled( true );
 }
 
 void FilmsViewList::RemoveItemByTitle( const QString& title )
@@ -186,20 +185,10 @@ void FilmsViewList::RemoveItemByTitle( const QString& title )
     }
 }
 
-void FilmsViewList::RemoveCurrentItem()
-{
-    RemoveItem( GetCurrentItemIndex() );
-}
-
 void FilmsViewList::Clear()
 {
     clearContents();
     setRowCount( 0 );
-}
-
-void FilmsViewList::SelectItem( const Film& film )
-{
-    SelectItem( film.GetTitle() );
 }
 
 void FilmsViewList::SelectItem( const QString& title )
@@ -230,16 +219,6 @@ void FilmsViewList::SelectRandomItem()
 
         SetCurrentItemIndex( n );
     }
-}
-
-int FilmsViewList::GetItemsCount() const
-{
-    return( rowCount() );
-}
-
-int FilmsViewList::GetCurrentItemIndex() const
-{
-    return( currentRow() );
 }
 
 QStringList FilmsViewList::GetSelectedItemsList() const

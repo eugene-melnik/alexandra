@@ -22,7 +22,6 @@
 #define FILMSVIEWGRIDMODEL_H
 
 #include <QAbstractListModel>
-#include <QColor>
 #include <QList>
 #include <QPixmap>
 
@@ -36,15 +35,15 @@ class FilmViewGridModel : public QAbstractListModel
     public:
         explicit FilmViewGridModel( QObject* parent = nullptr );
 
-        void AppendItem( const Film& film, QColor background );
-        void SetItem( int n, const Film& film, QColor background );
+        void AppendItem( const Film& film );
+        void SetItem( int n, const Film& film );
         void Clear();
         void RemoveRow( int row );
 
-        int GetItemIndexByTitle( const QString& title );
-        QString GetItemTitle( int n );
+        int GetItemIndexByTitle( const QString& title ) { return( itemTitle.indexOf( title ) ); }
+        QString GetItemTitle( int n ) { return( itemTitle.at( n ) ); }
 
-        int rowCount( const QModelIndex& /* parent */ = QModelIndex() ) const;
+        int rowCount( const QModelIndex& /* parent */ = QModelIndex() ) const { return( itemTitle.size() ); }
         QVariant data( const QModelIndex& index, int role ) const;
 
     private:

@@ -21,7 +21,6 @@
 #ifndef FILMSVIEWLIST_H
 #define FILMSVIEWLIST_H
 
-#include <QColor>
 #include <QKeyEvent>
 #include <QPoint>
 #include <QStringList>
@@ -42,21 +41,21 @@ class FilmsViewList : public QTableWidget, public AbstractFilmsView
         void ReloadSettings();
         void SaveSettings() const;
 
-        int AddItem( const Film& film, QColor background = QColor() );
-        void SetItem( int n, const Film& film, QColor background = QColor() );
-        void SetCurrentItemTo( const Film film );
+        int  AddItem( const Film& film );
+        void SetItem( int n, const Film& film );
+        void SetCurrentItemTo( const Film film ) { SetItem( GetCurrentItemIndex(), film ); }
 
-        void RemoveItem( int n );
+        void RemoveItem( int n ) { removeRow( n ); }
         void RemoveItemByTitle( const QString& title );
-        void RemoveCurrentItem();
+        void RemoveCurrentItem() { RemoveItem( GetCurrentItemIndex() ); }
         void Clear();
 
-        void SelectItem( const Film& film );
+        void SelectItem( const Film& film ) { SelectItem( film.GetTitle() ); }
         void SelectItem( const QString& title );
         void SelectRandomItem();
 
-        int GetItemsCount() const;
-        int GetCurrentItemIndex() const;
+        int GetItemsCount() const { return( rowCount() ); }
+        int GetCurrentItemIndex() const { return( currentRow() ); }
         QStringList GetSelectedItemsList() const;
 
         void SetCurrentItemIndex( int i );

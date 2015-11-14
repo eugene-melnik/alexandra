@@ -42,21 +42,21 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void ReloadSettings();
         void SaveSettings() const {}
 
-        int AddItem( const Film& film, QColor background = QColor() );
-        void SetItem( int n, const Film& film, QColor background = QColor() );
-        void SetCurrentItemTo( const Film film );
+        int  AddItem( const Film& film );
+        void SetItem( int n, const Film& film ) { model->SetItem( n, film ); }
+        void SetCurrentItemTo( const Film film ) { SetItem( GetCurrentItemIndex(), film ); }
 
         void RemoveItem( int n );
         void RemoveItemByTitle( const QString& title );
-        void RemoveCurrentItem();
-        void Clear();
+        void RemoveCurrentItem() { RemoveItem( GetCurrentItemIndex() ); }
+        void Clear() { model->Clear(); }
 
-        void SelectItem( const Film& film );
-        void SelectItem( const QString& title );
+        void SelectItem( const Film& film ) { SelectItem( film.GetTitle() ); }
+        void SelectItem( const QString& title ) { SetCurrentItemIndex( model->GetItemIndexByTitle( title ) ); }
         void SelectRandomItem();
 
-        int GetItemsCount() const;
-        int GetCurrentItemIndex() const;
+        int GetItemsCount() const { return( model->rowCount() ); }
+        int GetCurrentItemIndex() const { return( currentIndex().row() ); }
         QStringList GetSelectedItemsList() const;
 
         void SetCurrentItemIndex( int i );

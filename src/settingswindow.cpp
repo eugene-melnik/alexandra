@@ -292,7 +292,7 @@ void SettingsWindow::SelectColorUnavailable()
     if( newColor.isValid() )
     {
         settings->SetUnavailableFileColor( newColor.rgba() );
-        isDatabaseSettingsChanged = true;
+        SetIsDatabaseSettingsChanged();
     }
 }
 
@@ -557,7 +557,7 @@ void SettingsWindow::ConfigureApplicationTab()
     // Database
     connect( eDatabaseFile, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDatabaseSettingsChanged );
     connect( bOpenDatabaseFile, &QPushButton::clicked, this, &SettingsWindow::OpenDatabaseFile );
-    connect( cCheckFilesAtStartup, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( cCheckFilesAtStartup, &QCheckBox::toggled, this, &SettingsWindow::SetIsDatabaseSettingsChanged );
     connect( bSelectColorUnavailable, &QPushButton::clicked, this, &SettingsWindow::SelectColorUnavailable );
     connect( bCreateDatabase, &QPushButton::clicked, this, &SettingsWindow::CreateDatabase );
     connect( bEraseDatabase, &QPushButton::clicked, this, &SettingsWindow::EraseDatabaseQuestion );

@@ -27,7 +27,7 @@ FilmViewGridModel::FilmViewGridModel( QObject* parent ) : QAbstractListModel( pa
     settings = AlexandraSettings::GetInstance();
 }
 
-void FilmViewGridModel::AppendItem( const Film& film, QColor background )
+void FilmViewGridModel::AppendItem( const Film& film )
 {
     // Create item in arrays
     itemTitle.append( QString() );
@@ -35,10 +35,10 @@ void FilmViewGridModel::AppendItem( const Film& film, QColor background )
     itemToolTip.append( QString() );
     itemBackground.append( QColor() );
 
-    SetItem( itemTitle.size() - 1, film, background );
+    SetItem( itemTitle.size()-1, film );
 }
 
-void FilmViewGridModel::SetItem( int n, const Film& film, QColor background )
+void FilmViewGridModel::SetItem( int n, const Film& film )
 {
     // Film title
     itemTitle[ n ] = film.GetTitle();
@@ -107,7 +107,10 @@ void FilmViewGridModel::SetItem( int n, const Film& film, QColor background )
     itemToolTip[ n ] = tooltip;
 
     // Background color
-    itemBackground[ n ] = background;
+    if( settings->GetCheckFilesOnStartup() && !QFileInfo( film.GetFileName() ).exists() )
+    {
+        itemBackground[ n ] = settings->GetUnavailableFileColor();
+    }
 
     emit layoutChanged(); // update the layout
 }
@@ -131,21 +134,6 @@ void FilmViewGridModel::RemoveRow( int row )
     itemBackground.removeAt( row );
 
     emit layoutChanged(); // update the layout
-}
-
-int FilmViewGridModel::GetItemIndexByTitle( const QString& title )
-{
-    return( itemTitle.indexOf( title ) );
-}
-
-QString FilmViewGridModel::GetItemTitle( int n )
-{
-    return( itemTitle.at( n ) );
-}
-
-int FilmViewGridModel::rowCount( const QModelIndex& /* parent */ ) const
-{
-    return( itemTitle.size() );
 }
 
 QVariant FilmViewGridModel::data( const QModelIndex& index, int role ) const

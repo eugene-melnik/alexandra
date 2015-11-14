@@ -22,6 +22,7 @@
 #include "filmsviewgrid.h"
 
 #include <QBrush>
+#include <QFileInfo>
 #include <QHeaderView>
 #include <QScrollBar>
 
@@ -59,20 +60,10 @@ void FilmsViewGrid::ReloadSettings()
     setStyleSheet( QString( "font-size: %1pt" ).arg( AlexandraSettings::GetInstance()->GetGridFontSize() ) );
 }
 
-int FilmsViewGrid::AddItem( const Film& film, QColor background )
+int FilmsViewGrid::AddItem( const Film& film )
 {
-    model->AppendItem( film, background );
+    model->AppendItem( film );
     return( GetItemsCount() - 1 );
-}
-
-void FilmsViewGrid::SetItem( int n, const Film& film, QColor background )
-{
-    model->SetItem( n, film, background );
-}
-
-void FilmsViewGrid::SetCurrentItemTo( const Film film )
-{
-    SetItem( GetCurrentItemIndex(), film );
 }
 
 void FilmsViewGrid::RemoveItem( int n )
@@ -96,26 +87,6 @@ void FilmsViewGrid::RemoveItemByTitle( const QString& title )
     }
 }
 
-void FilmsViewGrid::RemoveCurrentItem()
-{
-    RemoveItem( GetCurrentItemIndex() );
-}
-
-void FilmsViewGrid::Clear()
-{
-    model->Clear();
-}
-
-void FilmsViewGrid::SelectItem( const Film& film )
-{
-    SelectItem( film.GetTitle() );
-}
-
-void FilmsViewGrid::SelectItem( const QString& title )
-{
-    SetCurrentItemIndex( model->GetItemIndexByTitle( title ) );
-}
-
 void FilmsViewGrid::SelectRandomItem()
 {
     if( GetItemsCount() > 1 )
@@ -130,16 +101,6 @@ void FilmsViewGrid::SelectRandomItem()
 
         SetCurrentItemIndex( n );
     }
-}
-
-int FilmsViewGrid::GetItemsCount() const
-{
-    return( model->rowCount() );
-}
-
-int FilmsViewGrid::GetCurrentItemIndex() const
-{
-    return( currentIndex().row() );
 }
 
 QStringList FilmsViewGrid::GetSelectedItemsList() const
