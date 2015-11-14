@@ -256,7 +256,6 @@ void MainWindow::ShowFilms()
 void MainWindow::ShowFilmInformation()
 {
     DebugPrintFunc( "MainWindow::ShowFilmInformation" );
-
     const Film* f = filmsList->GetCurrentFilm();
 
     if( f == nullptr )
@@ -1107,9 +1106,6 @@ void MainWindow::SetAllFunctionsEnabled( bool b )
 
     bViewed->setEnabled( b );
     bFavourite->setEnabled( b );
-    bTechInformation->setEnabled( b );
-    //bPlay->setEnabled( b );
-    //bAddToPlaylist->setEnabled( b );
 }
 
 void MainWindow::SetEmptyMode( bool b )
