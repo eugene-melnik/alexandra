@@ -21,7 +21,6 @@
 #include "alexandrasettings.h"
 #include "filmsviewlist.h"
 
-#include <QFileInfo>
 #include <QHeaderView>
 
 FilmsViewList::FilmsViewList( QWidget* parent ) : QTableWidget( parent )
@@ -156,7 +155,7 @@ void FilmsViewList::SetItem( int n, const Film& film )
     bool highlightUnavailable = s->GetCheckFilesOnStartup();
     QColor unavailableColor = s->GetUnavailableFileColor();
 
-    if( highlightUnavailable && !QFileInfo( film.GetFileName() ).exists() )
+    if( highlightUnavailable && !QFile::exists( film.GetFileName() ) )
     {
         viewed->setBackgroundColor( unavailableColor );
         favourite->setBackgroundColor( unavailableColor );

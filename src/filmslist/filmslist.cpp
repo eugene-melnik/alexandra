@@ -119,7 +119,7 @@ void FilmsList::SaveToFile( const QString& fileName )
         {
             QString databaseDir = QFileInfo( fileName ).absolutePath();
 
-            if( !QDir().exists( databaseDir ) )
+            if( !QFile::exists( databaseDir ) )
             {
                 QDir().mkdir( databaseDir );
             }
@@ -207,7 +207,7 @@ QList<Film*>* FilmsList::GetUnavailablesList()
 
     for( QList<Film>::iterator i = films->begin(); i < films->end(); i++ )
     {
-        if( !i->GetFileName().isEmpty() && !QFileInfo( i->GetFileName() ).exists() )
+        if( !i->GetFileName().isEmpty() && !QFile::exists( i->GetFileName() ) )
         {
             f->append( &(*i) );
         }

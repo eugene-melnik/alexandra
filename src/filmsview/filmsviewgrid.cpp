@@ -22,7 +22,6 @@
 #include "filmsviewgrid.h"
 
 #include <QBrush>
-#include <QFileInfo>
 #include <QHeaderView>
 #include <QScrollBar>
 

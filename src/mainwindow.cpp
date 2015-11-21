@@ -225,6 +225,8 @@ void MainWindow::ShowFilms()
     }
 
     StatusbarShowTotal();
+    DebugPrintFuncDone( "MainWindow::ShowFilms" );
+
     emit Shown();
 }
 
@@ -241,7 +243,7 @@ void MainWindow::ShowFilmInformation()
     DebugPrint( "Selected film: " + film->GetFileName() );
 
     // Buttons and technical information
-    if( QFileInfo( film->GetFileName() ).exists() )
+    if( QFile::exists( film->GetFileName() ) )
     {
         #ifdef MEDIAINFO_SUPPORT
             filmInfoWindow->LoadTechnicalInfoAsync( film->GetFileName() );

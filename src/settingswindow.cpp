@@ -268,7 +268,7 @@ void SettingsWindow::OpenDatabaseFile()
 
         QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
 
-        if( QDir( postersDir ).exists() )
+        if( QFile::exists( postersDir ) )
         {
             int res = QMessageBox::question( this,
                                              tr( "Settings" ),

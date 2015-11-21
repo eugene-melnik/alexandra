@@ -68,25 +68,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="FilmInfoWidget" name="wFilmInfo" native="true">
-       <layout class="QVBoxLayout" name="vlCenter">
-        <property name="spacing">
-         <number>6</number>
-        </property>
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-       </layout>
-      </widget>
+      <widget class="FilmInfoWidget" name="wFilmInfo" native="true"/>
      </widget>
     </item>
     <item>

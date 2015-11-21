@@ -109,7 +109,7 @@ bool FilmScannerAddWorker::SavePosterTo( const QString& sourceName, const QStrin
     int newHeight = settings->GetScalePosterToHeight();
 
     // Creating posters' directory if not exists
-    if( !QDir().exists( postersDir ) )
+    if( !QFile::exists( postersDir ) )
     {
         QDir().mkdir( postersDir );
     }

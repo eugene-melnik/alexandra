@@ -43,12 +43,29 @@ AlexandraSettings* AlexandraSettings::GetInstance()
 
 QString AlexandraSettings::GetDatabaseFilePath() const
 {
-    return( value( "Application/DatabaseFile", "" ).toString() );
+    QString databasePathDefault( QFileInfo( this->fileName() ).absolutePath() + "/database.adat" );
+
+    // In portable version of the program the database file and the posters directory
+    // located in the same directory as the configuration file
+
+    #ifdef PORTABLE_VERSION
+        return( databasePathDefault );
+    #else
+        return( value( "Application/DatabaseFile", databasePathDefault ).toString() );
+    #endif
 }
 
 QString AlexandraSettings::GetExternalPlayer() const
 {
-    return( value( "Application/ExternalPlayer", "" ).toString() );
+    QString externalPlayerDefault;
+
+    #ifdef Q_OS_LINUX
+        externalPlayerDefault = "xdg-open";
+    #elif defined(Q_OS_WIN32)
+        externalPlayerDefault = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
+    #endif
+
+    return( value( "Application/ExternalPlayer", externalPlayerDefault ).toString() );
 }
 
 QString AlexandraSettings::GetLastFilmPath() const
@@ -141,7 +158,15 @@ QString AlexandraSettings::GetCurrentFilmTitle() const
 
 QString AlexandraSettings::GetPostersDirPath() const
 {
-    return( value( "FilmsList/PostersDir", "" ).toString() );
+    QString postersDirDefault = QFileInfo( this->fileName() ).absolutePath() + "/posters";
+
+    // Comment in AlexandraSettings::GetDatabaseFilePath() function
+
+    #ifdef PORTABLE_VERSION
+        return( postersDirDefault );
+    #else
+        return( value( "FilmsList/PostersDir", postersDirDefault ).toString() );
+    #endif
 }
 
 QString AlexandraSettings::GetPosterSavingFormat() const
@@ -167,8 +192,8 @@ QRgb AlexandraSettings::GetUnavailableFileColor() const
 
 int AlexandraSettings::GetListFontSize() const
 {
-    return( value( "ListView/FontSize", 10 ).toInt() ); // In Windows by default font size if '8'...
-                                                        // Need to do something
+    return( value( "ListView/FontSize", 10 ).toInt() ); // In Windows by default font size is '8'...
+                                                        // TODO: Need to do something
 }
 
 int AlexandraSettings::GetListRowHeight() const
@@ -228,7 +253,7 @@ bool AlexandraSettings::GetMainWindowStatusbarIsVisible() const
 
 int AlexandraSettings::GetQuickSearchFilter() const
 {
-    return( value( "MainWindow/QuickSearchFilter", 0b11 ).toInt() ); // FilterBy::Title & Tags by default
+    return( value( "MainWindow/QuickSearchFilter", 0b11 ).toInt() ); // Filter by Title&Tags by default
 }
 
 bool AlexandraSettings::GetAutoLoadTechInfo() const
@@ -583,51 +608,8 @@ void AlexandraSettings::SetPlayerDoubleClickBehavior( const QString& s )
     setValue( "Player/DoubleClickBehavior", s );
 }
 
-AlexandraSettings::AlexandraSettings( const QString& configFile ) : QSettings( configFile, QSettings::IniFormat )
+AlexandraSettings::AlexandraSettings( const QString& configFile )
+    : QSettings( configFile, QSettings::IniFormat )
 {
-    DebugPrintFuncA( "AlexandraSettings::AlexandraSettings", configFile );
-
-    // In portable version of the program the database file and the posters directory
-    // located in the same directory as the configuration file
-    #ifdef PORTABLE_VERSION
-        SetDatabaseFilePath( QFileInfo( this->fileName() ).absolutePath() + "/database.adat" );
-        SetPostersDirPath( QFileInfo( this->fileName() ).absolutePath() + "/posters" );
-    #else
-        // Set database filename
-        QString databaseFileName = GetDatabaseFilePath();
-
-        if( databaseFileName.isEmpty() )
-        {
-            databaseFileName = QFileInfo( this->fileName() ).absolutePath() + "/database.adat";
-            SetDatabaseFilePath( databaseFileName );
-        }
-
-        // Set directory of the posters
-        QString postersFolderName = GetPostersDirPath();
-
-        if( postersFolderName.isEmpty() )
-        {
-            postersFolderName = QFileInfo( databaseFileName ).absolutePath() + "/posters";
-            SetPostersDirPath( postersFolderName );
-        }
-    #endif
-
-    // Set external player
-    QString externalPlayerName = GetExternalPlayer();
-
-    if( externalPlayerName.isEmpty() )
-    {
-        #ifdef Q_OS_LINUX
-            externalPlayerName = "xdg-open";
-        #elif defined(Q_OS_WIN32)
-            externalPlayerName = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
-        #endif
-
-        SetExternalPlayer( externalPlayerName );
-    }
-
-    DebugPrint( "Database: " + databaseFileName );
-    DebugPrint( "Posters dir: " + postersFolderName );
-    DebugPrint( "External player: " + externalPlayerName );
-    sync();
+    DebugPrint( "Config filename: " + this->fileName() );
 }

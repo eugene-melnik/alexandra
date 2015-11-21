@@ -265,7 +265,7 @@ void AddFilmWindow::Save()
         if( QFileInfo( posterFileName ).absolutePath() != postersDir )
         {
             // Create a directory for posters, if it does not exist
-            if( !QDir().exists( postersDir ) )
+            if( !QFile::exists( postersDir ) )
             {
                 QDir().mkdir( postersDir );
             }

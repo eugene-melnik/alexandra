@@ -20,7 +20,7 @@
 
 #include "filmsviewcontextmenu.h"
 
-#include <QFileInfo>
+#include <QFile>
 
 FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
 {
@@ -64,7 +64,7 @@ FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
 
 void FilmsViewContextMenu::SetState( const Film* film )
 {
-    if( QFileInfo( film->GetFileName() ).exists() )
+    if( QFile::exists( film->GetFileName() ) )
     {
         cmaPlay->setEnabled( true );
         cmaShowInfo->setEnabled( true );

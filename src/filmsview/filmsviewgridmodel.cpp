@@ -20,7 +20,7 @@
 
 #include "filmsviewgridmodel.h"
 
-#include <QFileInfo>
+#include <QFile>
 
 FilmViewGridModel::FilmViewGridModel( QObject* parent ) : QAbstractListModel( parent )
 {
@@ -107,7 +107,7 @@ void FilmViewGridModel::SetItem( int n, const Film& film )
     itemToolTip[ n ] = tooltip;
 
     // Background color
-    if( settings->GetCheckFilesOnStartup() && !QFileInfo( film.GetFileName() ).exists() )
+    if( settings->GetCheckFilesOnStartup() && !QFile::exists( film.GetFileName() ) )
     {
         itemBackground[ n ] = settings->GetUnavailableFileColor();
     }
