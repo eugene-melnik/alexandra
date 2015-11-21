@@ -53,12 +53,12 @@ QString AlexandraSettings::GetExternalPlayer() const
 
 QString AlexandraSettings::GetLastFilmPath() const
 {
-    return( value( "Application/LastFilmPath", "" ).toString() );
+    return( value( "Application/LastFilmPath", QDir::homePath() ).toString() );
 }
 
 QString AlexandraSettings::GetLastPosterPath() const
 {
-    return( value( "Application/LastPosterPath", "" ).toString() );
+    return( value( "Application/LastPosterPath", QDir::homePath() ).toString() );
 }
 
 int AlexandraSettings::GetApplicationLocaleIndex() const
