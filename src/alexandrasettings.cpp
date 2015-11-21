@@ -25,6 +25,7 @@
 #include <QApplication>
 #include <QFileInfo>
 #include <QFont>
+#include <QDir>
 
 AlexandraSettings* AlexandraSettings::instance = nullptr;
 
@@ -237,7 +238,7 @@ bool AlexandraSettings::GetAutoLoadTechInfo() const
 
 QString AlexandraSettings::GetFilmsScannerLastDir() const
 {
-    return( value( "FilmsScanner/LastDir", "" ).toString() );
+    return( value( "FilmsScanner/LastDir", QDir::homePath() ).toString() );
 }
 
 int AlexandraSettings::GetDefaultParserIndex() const
