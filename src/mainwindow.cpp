@@ -825,7 +825,7 @@ void MainWindow::LoadShorcuts()
     actionRemove->setShortcut( QKeySequence( settings->GetShortcutRemoveFilm() ) );
 
     actionRandom->setShortcut( QKeySequence( settings->GetShortcutSelectRandomFilm() ) );
-    bActivateQuickSearch->setShortcut( QKeySequence( settings->GetShortcutActivateQuickSearch() ) );
+    quickSearchShortcut->setKey( QKeySequence( settings->GetShortcutActivateQuickSearch() ) );
     actionSearch->setShortcut( QKeySequence( settings->GetShortcutAdvancedSearch() ) );
 
     bPlay->setShortcut( QKeySequence( settings->GetShortcutPlay() ) );
@@ -1057,13 +1057,15 @@ void MainWindow::SetupWindows()
 
     connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
 
-    /// HackZone
-    // There is no ability to set a shortcut on QLineEdit. So here...
-    // Created button 0x0 pixels, which do stuff on shortcut
-    connect( bActivateQuickSearch, &QPushButton::clicked, this, [this] { eFilter->setFocus(); } );
-    connect( bSetViewFocus, &QPushButton::clicked, this, &MainWindow::QuickSearchEscBehavior );
+    /// Shortcuts
+    quickSearchShortcut = new QShortcut( this );
+    quickSearchShortcut->setContext( Qt::ApplicationShortcut );
+    connect( quickSearchShortcut, SIGNAL( activated() ), eFilter, SLOT( setFocus() ) );
 
-    bSetViewFocus->setShortcut( QKeySequence( "Esc" ) );
+    viewFocusShortcut = new QShortcut( this );
+    viewFocusShortcut->setKey( QKeySequence( "Esc" ) );
+    viewFocusShortcut->setContext( Qt::ApplicationShortcut );
+    connect( viewFocusShortcut, &QShortcut::activated, this, &MainWindow::QuickSearchEscBehavior );
 
     DebugPrintFuncDone( "MainWindow::SetupWindows" );
 }

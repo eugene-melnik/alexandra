@@ -41,6 +41,7 @@
 #include <QMainWindow>
 #include <QPoint>
 #include <QProcess>
+#include <QShortcut>
 
 class MainWindow : public QMainWindow, public Ui::MainWindow
 {
@@ -132,6 +133,10 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         SettingsWindow* settingsWindow = nullptr;
         SplashScreen* splashScreen = nullptr;
         StatisticsWindow* statisticsWindow = nullptr;
+
+        // Shortcuts
+        QShortcut* quickSearchShortcut = nullptr;
+        QShortcut* viewFocusShortcut = nullptr;
 
         // Variables
         AbstractFilmsView* filmsView = nullptr;
