@@ -174,52 +174,27 @@ void MainWindow::ReloadView()
 
 void MainWindow::DatabaseReadError()
 {
-    SetAllFunctionsEnabled( false );
     ClearTextFields();
-    lFilmTitle->setText( tr( "Error reading the database!" ) );
+    SetAllFunctionsEnabled( false );
+    wFilmInfo->ShowMessage( tr( "Error reading the database!" ) );
 
-    QMessageBox::critical( this,
-                           tr( "Database" ),
-                           tr( "Error reading the database! Check the permissions or choose another "
-                               "database file in settings (\"Application\" tab)." ) );
+    QMessageBox::critical( this, tr( "Database" ),
+                                 tr( "Error reading the database! Check the permissions or choose another "
+                                     "database file in settings (\"Application\" tab)." ) );
 }
 
 void MainWindow::DatabaseIsEmpty()
 {
     ClearTextFields();
     SetEmptyMode();
-
-    QString title = tr( "Your database is empty" );
-    lFilmTitle->setText( title );
-
-    QString line1 = tr( "Hi! At this point your database is empty. It's time to fill it! To do this, use the following tools:" );
-    lOriginalTitle->setText( line1 + "<br/><br/>" );
-    lOriginalTitle->show();
-
-    QString line2 = tr( "Adding movies one by one (menu \"Film\"→\"Add film\" or the \"Add\" button on the toolbar)." );
-    lTagline->setText( "1. " + line2 );
-    lTagline->show();
-
-    QString line3 = tr( "Scan selected folders on the drive with the automatic addition of the selected films (menu \"Tools\"→\"Films scanner\" or button on the toolbar)." );
-    lGenre->setText( "2. " + line3 );
-    lGenre->show();
-
-    QString line4 = tr( "If you already have filled database, just select it in the settings (\"Application\" tab)." );
-    lCountry->setText( "3. " + line4 );
-    lCountry->show();
-
-    QString line5 = tr( "All of these tools have automatic information retrieval via the Internet, as well as loading a graphic poster for the film. Enjoy! :)" );
-    lScreenwriter->setText( line5 );
-    lScreenwriter->show();
 }
 
 void MainWindow::DatabaseIsReadonly()
 {
     SetReadOnlyMode();
 
-    QMessageBox::information( this,
-                              tr( "Database" ),
-                              tr( "Database is readonly! Editing functions are disabled." ) );
+    QMessageBox::information( this, tr( "Database" ),
+                                    tr( "Database is readonly! Editing functions are disabled." ) );
 }
 
 void MainWindow::ShowFilms()
@@ -256,20 +231,20 @@ void MainWindow::ShowFilms()
 void MainWindow::ShowFilmInformation()
 {
     DebugPrintFunc( "MainWindow::ShowFilmInformation" );
-    const Film* f = filmsList->GetCurrentFilm();
+    const Film* film = filmsList->GetCurrentFilm();
 
-    if( f == nullptr )
+    if( film == nullptr )
     {
         return;
     }
 
-    DebugPrint( "Selected film: " + f->GetFileName() );
+    DebugPrint( "Selected film: " + film->GetFileName() );
 
     // Buttons and technical information
-    if( QFileInfo( f->GetFileName() ).exists() )
+    if( QFileInfo( film->GetFileName() ).exists() )
     {
         #ifdef MEDIAINFO_SUPPORT
-            filmInfoWindow->LoadTechnicalInfoAsync( f->GetFileName() );
+            filmInfoWindow->LoadTechnicalInfoAsync( film->GetFileName() );
             bTechInformation->setEnabled( true );
         #endif
 
@@ -285,62 +260,20 @@ void MainWindow::ShowFilmInformation()
     }
 
     // Main information
-    lFilmTitle->setText( f->GetTitle() );
-
-    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( f->GetOriginalTitle() ) );
-    lOriginalTitle->setVisible( !f->GetOriginalTitle().isEmpty() );
-
-    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( f->GetTagline() ) );
-    lTagline->setVisible( !f->GetTagline().isEmpty() );
-
-    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( f->GetGenre() ) );
-    lGenre->setVisible( !f->GetGenre().isEmpty() );
-
-    lYear->setText( tr( "<b>Year:</b> %1" ).arg( f->GetYear() ) );
-    lYear->setVisible( f->GetYear() != 0 );
-
-    lBudget->setText( tr( "<b>Budget:</b> %1" ).arg( f->GetBudgetStr() ) );
-    lBudget->setVisible( !f->GetBudgetStr().isEmpty() );
-
-    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( f->GetCountry() ) );
-    lCountry->setVisible( !f->GetCountry().isEmpty() );
-
-    lScreenwriter->setText( tr( "<b>Screenwriter:</b> %1" ).arg( f->GetScreenwriter() ) );
-    lScreenwriter->setVisible( !f->GetScreenwriter().isEmpty() );
-
-    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( f->GetDirector() ) );
-    lDirector->setVisible( !f->GetDirector().isEmpty() );
-
-    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( f->GetProducer() ) );
-    lProducer->setVisible( !f->GetProducer().isEmpty() );
-
-    lComposer->setText( tr( "<b>Composer:</b> %1" ).arg( f->GetComposer() ) );
-    lComposer->setVisible( !f->GetComposer().isEmpty() );
-
-    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( f->GetStarring() ) );
-    lStarring->setVisible( !f->GetStarring().isEmpty() );
-
-    lRating->setText( tr( "<b>Rating:</b> %1" ).arg( f->GetRatingStr() ) );
-    lRating->setVisible( f->GetRating() != 1 );
-
-    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( f->GetDescription() ) );
-    lDescription->setVisible( !f->GetDescription().isEmpty() );
-
-    lTags->setText( tr( "<b>Tags:</b> %1" ).arg( f->GetTags() ) );
-    lTags->setVisible( !f->GetTags().isEmpty() );
+    wFilmInfo->ShowFilmInfo( film );
 
     lTechInformation->setVisible( false );
 
     // Buttons
-    bViewed->setChecked( f->GetIsViewed() );
-    bFavourite->setChecked( f->GetIsFavourite() );
+    bViewed->setChecked( film->GetIsViewed() );
+    bFavourite->setChecked( film->GetIsFavourite() );
 
     // Poster
     QPixmap p;
 
-    if( f->GetIsPosterExists() )
+    if( film->GetIsPosterExists() )
     {
-        QString posterFileName = settings->GetPostersDirPath() + "/" + f->GetPosterName();
+        QString posterFileName = settings->GetPostersDirPath() + "/" + film->GetPosterName();
         DebugPrint( "Loading poster: " + posterFileName );
         p.load( posterFileName );
     }
@@ -507,10 +440,9 @@ void MainWindow::RemoveFilm()
 
     if( films.count() == 1 ) // One film selected
     {
-        res = QMessageBox::question( this,
-                                     tr( "Remove film" ),
-                                     tr( "Are you sure to remove \"%1\"?" ).arg( filmsList->GetCurrentFilmTitle() ),
-                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+        res = QMessageBox::question( this, tr( "Remove film" ),
+                                           tr( "Are you sure to remove \"%1\"?" ).arg( filmsList->GetCurrentFilmTitle() ),
+                                           QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
     }
     else // More than one film selected
     {
@@ -528,10 +460,9 @@ void MainWindow::RemoveFilm()
             message.append( "..." );
         }
 
-        res = QMessageBox::question( this,
-                                     tr( "Remove film" ),
-                                     message,
-                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+        res = QMessageBox::question( this, tr( "Remove film" ),
+                                           message,
+                                           QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
     }
 
     if( res == QMessageBox::Yes )
@@ -549,19 +480,17 @@ void MainWindow::RemoveFilm()
 
 void MainWindow::RemoveFile()
 {
-    int res = QMessageBox::question( this,
-                                     tr( "Remove file" ),
-                                     tr( "Are you sure to remove file \"%1\"?" ).arg( filmsList->GetCurrentFilmFileName() ),
-                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+    int res = QMessageBox::question( this, tr( "Remove file" ),
+                                           tr( "Are you sure to remove file \"%1\"?" ).arg( filmsList->GetCurrentFilmFileName() ),
+                                           QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
     if( res == QMessageBox::Yes )
     {
         if( QFile( filmsList->GetCurrentFilmFileName() ).remove() )
         {
-            res = QMessageBox::question( this,
-                                         tr( "Remove file" ),
-                                         tr( "Remove record from database?" ),
-                                         QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+            res = QMessageBox::question( this, tr( "Remove file" ),
+                                               tr( "Remove record from database?" ),
+                                               QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
             if( res == QMessageBox::Yes )
             {
@@ -571,9 +500,8 @@ void MainWindow::RemoveFile()
         }
         else
         {
-            QMessageBox::warning( this,
-                                  tr( "Remove file" ),
-                                  tr( "Unable to remove file \"%1\"!" ).arg( filmsList->GetCurrentFilmFileName() ) );
+            QMessageBox::warning( this, tr( "Remove file" ),
+                                        tr( "Unable to remove file \"%1\"!" ).arg( filmsList->GetCurrentFilmFileName() ) );
         }
     }
 }
@@ -660,7 +588,7 @@ void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
     {
         ClearTextFields();
         statusbar->ShowFounded( 0 );
-        lFilmTitle->setText( tr( "Nothing was found! Try to change keyword or search settings." ) );
+        wFilmInfo->ShowMessage( tr( "Nothing was found! Try to change keyword or search settings." ) );
     }
     else
     {
@@ -947,7 +875,6 @@ void MainWindow::SetupWindows()
     // Playlist
     connect( bAddToPlaylist, &QPushButton::clicked, this, &MainWindow::AddToPlaylist );
     connect( contextMenu, &FilmsViewContextMenu::actionAddToList, this, &MainWindow::AddToPlaylist );
-
     connect( lwPlaylist, &PlayListWidget::Cleared, this, &MainWindow::PlaylistCleared );
     wPlaylist->hide();
 
@@ -976,7 +903,6 @@ void MainWindow::SetupWindows()
 
     /// About window
     aboutWindow = new AboutWindow( this );
-
     connect( actionAbout, &QAction::triggered, aboutWindow, &AboutWindow::show );
     connect( actionAboutQt, &QAction::triggered, aboutWindow, &AboutWindow::AboutQt );
 
@@ -1012,7 +938,6 @@ void MainWindow::SetupWindows()
 
     connect( bTechInformation, &QPushButton::clicked, filmInfoWindow, &FilmInfoWindow::show );
     connect( contextMenu, &FilmsViewContextMenu::actionShowInfo, filmInfoWindow, &FilmInfoWindow::show );
-
     connect( filmInfoWindow, &FilmInfoWindow::ShortInfoLoaded, this, &MainWindow::ShowShortTechnicalInfo );
 #endif // MEDIAINFO_SUPPORT
 
@@ -1026,7 +951,6 @@ void MainWindow::SetupWindows()
 
     /// Settings window
     settingsWindow = new SettingsWindow( this );
-
     connect( actionSettings, &QAction::triggered, settingsWindow, &SettingsWindow::show );
 
     connect( settingsWindow, &SettingsWindow::SettingsChanged, this, &MainWindow::ReloadSettings );
@@ -1052,9 +976,7 @@ void MainWindow::SetupWindows()
 
     /// Statistic window
     statisticsWindow = new StatisticsWindow( this );
-
     connect( actionStatistics, &QAction::triggered, this, &MainWindow::Statistics );
-
     connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
 
     /// Shortcuts
@@ -1072,24 +994,9 @@ void MainWindow::SetupWindows()
 
 void MainWindow::ClearTextFields()
 {
-    lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( wRight->maximumWidth(),
-                                                                           Qt::SmoothTransformation ) );
-    lFilmTitle->clear();
-    lOriginalTitle->clear();
-    lTagline->clear();
-    lGenre->clear();
-    lYear->clear();
-    lBudget->clear();
-    lCountry->clear();
-    lScreenwriter->clear();
-    lDirector->clear();
-    lProducer->clear();
-    lComposer->clear();
-    lStarring->clear();
-    lRating->clear();
-    lDescription->clear();
-    lTags->clear();
+    wFilmInfo->Clear();
     lTechInformation->clear();
+    lPosterImage->setPixmap( QPixmap( ":/standart-poster" ).scaledToWidth( wRight->maximumWidth(),Qt::SmoothTransformation ) );
 }
 
 void MainWindow::SetAllFunctionsEnabled( bool b )
@@ -1127,6 +1034,8 @@ void MainWindow::SetEmptyMode( bool b )
     bTechInformation->setDisabled( b );
     bPlay->setDisabled( b );
     bAddToPlaylist->setDisabled( b );
+
+    wFilmInfo->ShowEmptyDatabaseMessage();
 }
 
 void MainWindow::SetReadOnlyMode( bool b )

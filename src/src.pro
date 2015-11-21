@@ -66,6 +66,7 @@ HEADERS += effects/effectdropshadow.h \
            alexandrasettings.h \
            commandlineparser.h \
            editfilmwindow.h \
+           filminfowidget.h \
            mainwindow.h \
            playlist.h \
            playlistwidget.h \
@@ -105,6 +106,7 @@ SOURCES += effects/effectdropshadow.cpp \
            alexandrasettings.cpp \
            commandlineparser.cpp \
            editfilmwindow.cpp \
+           filminfowidget.cpp \
            main.cpp \
            mainwindow.cpp \
            playlist.cpp \
@@ -121,6 +123,7 @@ FORMS += search/searchwindow.ui \
          scanner/movedfilmswindow.ui \
          aboutwindow.ui \
          addfilmwindow.ui \
+         filminfowidget.ui \
          mainwindow.ui \
          settingswindow.ui \
          splashscreen.ui \
