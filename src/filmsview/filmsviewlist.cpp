@@ -250,6 +250,29 @@ void FilmsViewList::SetCurrentItemIndex( int i )
     }
 }
 
+void FilmsViewList::FilterBy( const QStringList& titles )
+{
+    for( int i = 0; i < GetItemsCount(); i++ )
+    {
+        if( titles.contains( item( i, TitleColumn )->text() ) )
+        {
+            showRow( i );
+        }
+        else
+        {
+            hideRow( i );
+        }
+    }
+}
+
+void FilmsViewList::ResetFilter()
+{
+    for( int i = 0; i < GetItemsCount(); i++ )
+    {
+        showRow( i );
+    }
+}
+
 void FilmsViewList::keyPressEvent( QKeyEvent* event )
 {
     QTableWidget::keyPressEvent( event );
@@ -274,6 +297,7 @@ void FilmsViewList::keyPressEvent( QKeyEvent* event )
         case Qt::Key_PageDown :
         {
             ItemClickedSlot();
+            break;
         }
     }
 }

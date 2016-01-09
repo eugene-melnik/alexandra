@@ -61,6 +61,9 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
 
         void SetCurrentItemIndex( int i );
 
+        void FilterBy( const QStringList& titles );
+        void ResetFilter();
+
     signals:
         void ItemClicked( const QString& );
         void ItemDoubleClicked( const QString& );

@@ -57,6 +57,9 @@ class AbstractFilmsView
 
         virtual void SetCurrentItemIndex( int i ) = 0;
 
+        virtual void FilterBy( const QStringList& titles ) = 0;
+        virtual void ResetFilter() = 0;
+
 //    signals:
 //        void ItemClicked( QString );
 //        void ItemDoubleClicked( QString );

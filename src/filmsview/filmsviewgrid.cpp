@@ -28,7 +28,9 @@
 FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent )
 {
     // Appearance
+    setSelectionBehavior( QAbstractItemView::SelectRows );
     setSelectionMode( QAbstractItemView::ExtendedSelection );
+    setEditTriggers( QAbstractItemView::NoEditTriggers );
     setContextMenuPolicy( Qt::CustomContextMenu );
     setResizeMode( QListView::Adjust );
     setViewMode( QListView::IconMode );
@@ -75,8 +77,7 @@ void FilmsViewGrid::RemoveItemByTitle( const QString& title )
 {
     for( int i = 0; i < GetItemsCount(); i++ )
     {
-        QModelIndex index = model->index( i, 0 );
-        QString t = model->data( index, Qt::DisplayRole ).toString();
+        QString t = model->GetItemTitle( model->index( i, 0 ).row() );
 
         if( t == title )
         {
@@ -94,7 +95,7 @@ void FilmsViewGrid::SelectRandomItem()
 
         do
         {
-            n = qrand() % model->rowCount();
+            n = qrand() % (GetItemsCount() + 1);
         }
         while( n == GetCurrentItemIndex() );
 
@@ -106,9 +107,9 @@ QStringList FilmsViewGrid::GetSelectedItemsList() const
 {
     QStringList res;
 
-    for( const auto& index : selectedIndexes() )
+    for( const QModelIndex& index : selectedIndexes() )
     {
-        res.append( model->data( index, Qt::DisplayRole ).toString() );
+        res.append( model->GetItemTitle( index.row() ) );
     }
 
     return( res );
@@ -132,7 +133,32 @@ void FilmsViewGrid::SetCurrentItemIndex( int i )
     }
 }
 
-void FilmsViewGrid::keyPressEvent(QKeyEvent *event)
+void FilmsViewGrid::FilterBy( const QStringList& titles )
+{
+    for( int i = 0; i < GetItemsCount(); i++ )
+    {
+        if( titles.contains( model->GetItemTitle(i) ) )
+        {
+            setRowHidden( i, false );
+        }
+        else
+        {
+            setRowHidden( i, true );
+        }
+    }
+
+    clicked( model->index( 0, 0 ) );
+}
+
+void FilmsViewGrid::ResetFilter()
+{
+    for( int i = 0; i < GetItemsCount(); i++ )
+    {
+        setRowHidden( i, false );
+    }
+}
+
+void FilmsViewGrid::keyPressEvent( QKeyEvent* event )
 {
     QListView::keyPressEvent( event );
 
@@ -158,6 +184,7 @@ void FilmsViewGrid::keyPressEvent(QKeyEvent *event)
         case Qt::Key_PageDown :
         {
             ItemClickedSlot( currentIndex() );
+            break;
         }
     }
 }

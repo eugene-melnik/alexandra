@@ -107,6 +107,9 @@ void MainWindow::QuickSearchEscBehavior()
 {
     // Pressing key 'Esc' sets focus to the films list,
     // pressing again clears the quick search line
+
+    eFilter->completer()->popup()->close();
+
     QWidget* view = dynamic_cast<QWidget*>( filmsView );
 
     if( view == focusWidget() )
@@ -385,11 +388,11 @@ void MainWindow::PlayFilm()
             fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
         }
 
-    #ifdef Q_OS_LINUX
-        externalPlayer->start( settings->GetExternalPlayer() + " \"" + fileToPlay +"\"" );
-    #elif defined(Q_OS_WIN32)
-        externalPlayer->start( "\"" + settings->GetExternalPlayer() + "\" \"" + fileToPlay +"\"" );
-    #endif
+        #ifdef Q_OS_LINUX
+            externalPlayer->start( settings->GetExternalPlayer() + " \"" + fileToPlay +"\"" );
+        #elif defined(Q_OS_WIN32)
+            externalPlayer->start( "\"" + settings->GetExternalPlayer() + "\" \"" + fileToPlay +"\"" );
+        #endif
     }
     else
     {
@@ -527,12 +530,8 @@ void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
 
     if( key.isEmpty() )
     {
-        QString foundedTitle = filmsList->GetCurrentFilmTitle();
-        ShowFilms();
-        filmsView->SelectItem( foundedTitle );
-
         DebugPrint( "Filter cleared" );
-
+        filmsView->ResetFilter();
         return;
     }
 
@@ -540,51 +539,47 @@ void MainWindow::FilmsFilter( const QString& key, SearchEdit::FilterBy filters )
     statusbar->ShowLoading();
 
     const QList<Film>* films = filmsList->GetFilmsList();
-    std::list<Film> filteredFilms;
+    std::list<QString> filteredFilms;
 
     for( const Film& film : *films ) // TODO: Move algorithm to the separate Search engine class
     {
         if( ( filters & SearchEdit::Title ) && film.GetTitle().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
 
         if( ( filters & SearchEdit::Tags ) && film.GetTags().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
 
         if( ( filters & SearchEdit::Genre ) && film.GetGenre().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
 
         if( ( filters & SearchEdit::Starring ) && film.GetStarring().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
 
         if( ( filters & SearchEdit::Director ) && film.GetDirector().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
 
         if( ( filters & SearchEdit::Producer ) && film.GetProducer().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
 
         if( ( filters & SearchEdit::Screenwriter ) && film.GetScreenwriter().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
 
         if( ( filters & SearchEdit::Composer ) && film.GetComposer().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
 
         if( ( filters & SearchEdit::Country ) && film.GetCountry().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
 
         if( ( filters & SearchEdit::Description ) && film.GetDescription().contains( key, Qt::CaseInsensitive ) )
-            filteredFilms.push_back( film );
+            filteredFilms.push_back( film.GetTitle() );
     }
 
     filteredFilms.sort();
     filteredFilms.unique();
 
     // Show founded
-    filmsView->Clear();
-
-    for( Film& film : filteredFilms )
-    {
-        filmsView->AddItem( film );
-    }
+    filmsView->FilterBy( QStringList::fromStdList( filteredFilms ) );
+    filmsView->SelectRandomItem();
 
     if( filteredFilms.empty() )
     {
