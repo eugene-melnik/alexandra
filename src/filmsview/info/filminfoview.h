@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filminfowidget.h                                                                        *
+ *  file: filminfoview.h                                                                        *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,24 +18,49 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMINFOWIDGET_H
-#define FILMINFOWIDGET_H
+#ifndef FILMINFOVIEW_H
+#define FILMINFOVIEW_H
 
-#include <QWidget>
+#include <QAbstractItemView>
 
-#include "filmslist/film.h"
-#include "ui_filminfowidget.h"
+#include "filmslist/filmslistmodel.h"
+#include "ui_filminfoview.h"
 
-class FilmInfoWidget : public QWidget, public Ui::FilmInfoWidget
+class FilmInfoView : public QAbstractItemView, protected Ui::FilmInfoView
 {
-    public:
-        explicit FilmInfoWidget( QWidget* parent = nullptr );
+    Q_OBJECT
 
-        void ShowFilmInfo( const Film* film );
+    public:
+        explicit FilmInfoView( QWidget* parent = nullptr );
 
         void Clear();
         void ShowEmptyDatabaseMessage() const;
         void ShowMessage( const QString& message ) { lFilmTitle->setText( message ); }
+
+        void setFont( const QFont& font );
+
+        void setSelectionModel( QItemSelectionModel* selectionModel );
+
+        QRect visualRect( const QModelIndex& ) const { return( rect() ); }
+        void scrollTo( const QModelIndex&, ScrollHint ) {}
+        QModelIndex indexAt( const QPoint& ) const { return( currentIndex() ); }
+
+    protected:
+        int horizontalOffset() const { return( 0 ); }
+        int verticalOffset() const { return( 0 ); }
+
+        bool isIndexHidden( const QModelIndex& ) const { return( false ); }
+
+        void setSelection( const QRect&, QItemSelectionModel::SelectionFlags ) {}
+        QRegion visualRegionForSelection( const QItemSelection& ) const { return( rect() ); }
+
+        QModelIndex	moveCursor( CursorAction, Qt::KeyboardModifiers ) { return( currentIndex() ); }
+
+    private slots:
+        void ShowSelected( const QModelIndex& current, const QModelIndex& /* previous */ );
+
+    private:
+        QList< QPair<FilmsListModel::Columns,QLabel*> > textItems;
 };
 
-#endif // FILMINFOWIDGET_H
+#endif // FILMINFOVIEW_H

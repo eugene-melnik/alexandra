@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filminfowidget.cpp                                                                      *
+ *  file: filminfoview.cpp                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,80 +18,50 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "filminfowidget.h"
+#include "filminfoview.h"
+#include "tools/debug.h"
 
-FilmInfoWidget::FilmInfoWidget( QWidget* parent ) : QWidget( parent )
+#include <QList>
+
+
+FilmInfoView::FilmInfoView( QWidget* parent ) : QAbstractItemView( parent )
 {
     setupUi( this );
+///    ShowEmptyDatabaseMessage();
+
+    textItems =
+    {
+          // "first"                              // "second"
+        { FilmsListModel::OriginalTitleColumn,  lOriginalTitle },
+        { FilmsListModel::TaglineColumn,        lTagline },
+        { FilmsListModel::GenreColumn,          lGenre },
+        { FilmsListModel::YearColumn,           lYear },
+        { FilmsListModel::BudgetColumn,         lBudget },
+        { FilmsListModel::RatingColumn,         lRating },
+        { FilmsListModel::CountryColumn,        lCountry },
+        { FilmsListModel::ScreenwriterColumn,   lScreenwriter },
+        { FilmsListModel::DirectorColumn,       lDirector },
+        { FilmsListModel::ProducerColumn,       lProducer },
+        { FilmsListModel::ComposerColumn,       lComposer },
+        { FilmsListModel::StarringColumn,       lStarring },
+        { FilmsListModel::DescriptionColumn,    lDescription },
+        { FilmsListModel::TagsColumn,           lTags }
+    };
 }
 
-void FilmInfoWidget::ShowFilmInfo( const Film* film )
-{
-    lFilmTitle->setText( film->GetTitle() );
 
-    lOriginalTitle->setText( tr( "<b>Original title:</b> %1" ).arg( film->GetOriginalTitle() ) );
-    lOriginalTitle->setVisible( !film->GetOriginalTitle().isEmpty() );
-
-    lTagline->setText( tr( "<b>Tagline:</b> %1" ).arg( film->GetTagline() ) );
-    lTagline->setVisible( !film->GetTagline().isEmpty() );
-
-    lGenre->setText( tr( "<b>Genre:</b> %1" ).arg( film->GetGenre() ) );
-    lGenre->setVisible( !film->GetGenre().isEmpty() );
-
-    lYear->setText( tr( "<b>Year:</b> %1" ).arg( film->GetYear() ) );
-    lYear->setVisible( film->GetYear() != 0 );
-
-    lBudget->setText( tr( "<b>Budget:</b> %1" ).arg( film->GetBudgetStr() ) );
-    lBudget->setVisible( !film->GetBudgetStr().isEmpty() );
-
-    lCountry->setText( tr( "<b>Country:</b> %1" ).arg( film->GetCountry() ) );
-    lCountry->setVisible( !film->GetCountry().isEmpty() );
-
-    lScreenwriter->setText( tr( "<b>Screenwriter:</b> %1" ).arg( film->GetScreenwriter() ) );
-    lScreenwriter->setVisible( !film->GetScreenwriter().isEmpty() );
-
-    lDirector->setText( tr( "<b>Director:</b> %1" ).arg( film->GetDirector() ) );
-    lDirector->setVisible( !film->GetDirector().isEmpty() );
-
-    lProducer->setText( tr( "<b>Producer:</b> %1" ).arg( film->GetProducer() ) );
-    lProducer->setVisible( !film->GetProducer().isEmpty() );
-
-    lComposer->setText( tr( "<b>Composer:</b> %1" ).arg( film->GetComposer() ) );
-    lComposer->setVisible( !film->GetComposer().isEmpty() );
-
-    lStarring->setText( tr( "<b>Starring:</b> %1" ).arg( film->GetStarring() ) );
-    lStarring->setVisible( !film->GetStarring().isEmpty() );
-
-    lRating->setText( tr( "<b>Rating:</b> %1" ).arg( film->GetRatingStr() ) );
-    lRating->setVisible( film->GetRating() != 1 );
-
-    lDescription->setText( tr( "<b>Description:</b> %1" ).arg( film->GetDescription() ) );
-    lDescription->setVisible( !film->GetDescription().isEmpty() );
-
-    lTags->setText( tr( "<b>Tags:</b> %1" ).arg( film->GetTags() ) );
-    lTags->setVisible( !film->GetTags().isEmpty() );
-}
-
-void FilmInfoWidget::Clear()
+void FilmInfoView::Clear()
 {
     lFilmTitle->clear();
-    lOriginalTitle->clear();
-    lTagline->clear();
-    lGenre->clear();
-    lYear->clear();
-    lBudget->clear();
-    lCountry->clear();
-    lScreenwriter->clear();
-    lDirector->clear();
-    lProducer->clear();
-    lComposer->clear();
-    lStarring->clear();
-    lRating->clear();
-    lDescription->clear();
-    lTags->clear();
+
+    for( auto& item : textItems )
+    {
+        item.second->clear();
+    }
 }
 
-void FilmInfoWidget::ShowEmptyDatabaseMessage() const
+
+void FilmInfoView::ShowEmptyDatabaseMessage() const
 {
     QString title = tr( "Your database is empty" );
     lFilmTitle->setText( title );
@@ -116,3 +86,46 @@ void FilmInfoWidget::ShowEmptyDatabaseMessage() const
     lScreenwriter->setText( line5 );
     lScreenwriter->show();
 }
+
+
+void FilmInfoView::setFont( const QFont& font )
+{
+    QAbstractItemView::setFont( font );
+    QList<QLabel*> labels = saFilmInformation->findChildren<QLabel*>();
+
+    for( QLabel* label : labels )
+    {
+        label->setFont( font );
+    }
+}
+
+
+void FilmInfoView::setSelectionModel( QItemSelectionModel* selectionModel )
+{
+    QAbstractItemView::setSelectionModel( selectionModel );
+    connect( selectionModel, &QItemSelectionModel::currentRowChanged, this, &FilmInfoView::ShowSelected );
+}
+
+
+void FilmInfoView::ShowSelected( const QModelIndex& current, const QModelIndex& /* previous */ )
+{
+    if( current.isValid() )
+    {
+        DebugPrintFuncA( "FilmInfoView::ShowSelected", current.row() );
+
+        int row = current.row();
+        QString text = model()->index( row, FilmsListModel::TitleColumn ).data().toString();
+        lFilmTitle->setText( text );
+
+        for( auto& item : textItems )
+        {
+            QString title = model()->headerData( item.first, Qt::Horizontal ).toString();
+            QString text = model()->index( row, item.first ).data().toString();
+            item.second->setText( tr( "<b>%1:</b> %2" ).arg( title, text ) );
+            item.second->setVisible( !text.isEmpty() );
+        }
+
+        DebugPrintFuncDone( "FilmInfoView::ShowSelected" );
+    }
+}
+
