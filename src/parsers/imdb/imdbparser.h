@@ -31,7 +31,7 @@ class ImdbParser : public AbstractParser
         ImdbParser();
 
     private slots:
-        QUrl Parse( const QByteArray& data );
+        QUrl Parse( const QByteArray& data ) override;
 };
 
 #endif // IMDBPARSER_H

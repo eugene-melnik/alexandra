@@ -31,7 +31,7 @@ class OmdbParser : public AbstractParser
         OmdbParser();
 
     private slots:
-        QUrl Parse( const QByteArray& data );
+        QUrl Parse( const QByteArray& data ) override;
 };
 
 #endif // OMDBPARSER_H

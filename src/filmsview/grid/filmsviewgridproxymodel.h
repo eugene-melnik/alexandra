@@ -20,7 +20,7 @@ class FilmsViewGridProxyModel : public QIdentityProxyModel
 
         void SetCacheSize( int size ) { pixmapCache->setMaxCost( size ); }
 
-        QVariant data( const QModelIndex& index, int role ) const;
+        QVariant data( const QModelIndex& index, int role ) const override;
 
     private:
         AlexandraSettings* settings;

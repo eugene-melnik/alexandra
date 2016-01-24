@@ -44,8 +44,8 @@ class FilmScannerWindow : public QDialog, protected Ui::FilmScannerWindow
         void AddFilms( const QList<Film>* );
 
     protected:
-        void reject() { close(); }
-        void closeEvent( QCloseEvent* event );
+        void reject() override { close(); }
+        void closeEvent( QCloseEvent* event ) override;
 
     private slots:
         void SelectDirectory();

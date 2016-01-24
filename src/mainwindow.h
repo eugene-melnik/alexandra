@@ -57,7 +57,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void Shown();
 
     protected:
-        void closeEvent( QCloseEvent* event );
+        void closeEvent( QCloseEvent* event ) override;
 
     private slots:
         void ShowFullScreen( bool isFullScreen ) { isFullScreen ? showFullScreen() : showNormal(); }

@@ -42,8 +42,8 @@ class MovedFilmsWindow : public QDialog, protected Ui::MovedFilmsWindow
         void FilmsMoved();
 
     protected:
-        void reject() { close(); }
-        void closeEvent( QCloseEvent* event );
+        void reject() override { close(); }
+        void closeEvent( QCloseEvent* event ) override;
 
     private slots:
         void SelectDirectory();

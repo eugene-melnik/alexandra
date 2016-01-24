@@ -19,7 +19,7 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void ReloadSettings() override;
 
     protected:
-        void updateGeometries();
+        void updateGeometries() override;
 
 //    private slots:
 //        void ShowHeaderContextMenu( const QPoint& pos );

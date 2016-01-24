@@ -31,7 +31,7 @@ class KinoteatrParser : public AbstractParser
         KinoteatrParser();
 
     private slots:
-        QUrl Parse( const QByteArray& data );
+        QUrl Parse( const QByteArray& data ) override;
 };
 
 #endif // KINOTEATRPARSER_H

@@ -45,8 +45,8 @@ class StatisticsWindow : public QDialog, protected Ui::StatisticsWindow
         void ResetStatistics();
 
     protected:
-        void reject() { close(); }
-        void closeEvent( QCloseEvent* event ) { event->accept(); }
+        void reject() override { close(); }
+        void closeEvent( QCloseEvent* event ) override { event->accept(); }
 
     private slots:
         void IncProgress();

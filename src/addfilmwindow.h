@@ -40,7 +40,7 @@ class AddFilmWindow : public QDialog, protected Ui::AddFilmWindow
         void show();
 
     protected:
-        void closeEvent( QCloseEvent* event );
+        void closeEvent( QCloseEvent* event ) override;
 
         QString filmId;
 

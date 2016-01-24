@@ -39,22 +39,22 @@ class FilmInfoView : public QAbstractItemView, protected Ui::FilmInfoView
 
         void setFont( const QFont& font );
 
-        void setSelectionModel( QItemSelectionModel* selectionModel );
+        void setSelectionModel( QItemSelectionModel* selectionModel ) override;
 
-        QRect visualRect( const QModelIndex& ) const { return( rect() ); }
-        void scrollTo( const QModelIndex&, ScrollHint ) {}
-        QModelIndex indexAt( const QPoint& ) const { return( currentIndex() ); }
+        QRect visualRect( const QModelIndex& ) const override { return( rect() ); }
+        void scrollTo( const QModelIndex&, ScrollHint ) override {}
+        QModelIndex indexAt( const QPoint& ) const override { return( currentIndex() ); }
 
     protected:
-        int horizontalOffset() const { return( 0 ); }
-        int verticalOffset() const { return( 0 ); }
+        int horizontalOffset() const override { return( 0 ); }
+        int verticalOffset() const override { return( 0 ); }
 
-        bool isIndexHidden( const QModelIndex& ) const { return( false ); }
+        bool isIndexHidden( const QModelIndex& ) const override { return( false ); }
 
-        void setSelection( const QRect&, QItemSelectionModel::SelectionFlags ) {}
-        QRegion visualRegionForSelection( const QItemSelection& ) const { return( rect() ); }
+        void setSelection( const QRect&, QItemSelectionModel::SelectionFlags ) override {}
+        QRegion visualRegionForSelection( const QItemSelection& ) const override { return( rect() ); }
 
-        QModelIndex	moveCursor( CursorAction, Qt::KeyboardModifiers ) { return( currentIndex() ); }
+        QModelIndex	moveCursor( CursorAction, Qt::KeyboardModifiers ) override { return( currentIndex() ); }
 
     private slots:
         void ShowSelected( const QModelIndex& current, const QModelIndex& /* previous */ );
