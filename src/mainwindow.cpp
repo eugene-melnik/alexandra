@@ -24,12 +24,14 @@
 #include "tools/debug.h"
 #include "mainwindow.h"
 #include "playlist.h"
+#include "splashscreen.h"
 #include "version.h"
 
 #include <QCompleter>
 #include <QDesktopWidget>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QPixmapCache>
 #include <QRect>
 #include <list>
 
@@ -41,8 +43,9 @@ MainWindow::MainWindow() : QMainWindow(),
 {
     DebugPrintFunc( "MainWindow::MainWindow" );
 
-    setupUi( this );
+    ShowSplashscreen();
     setWindowTitle( Alexandra::appNameGui );
+    setupUi( this );
 
 //    QPixmapCache::setCacheLimit( 20*1024 );///KiB cache
 

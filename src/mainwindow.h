@@ -34,7 +34,6 @@
 #include "editfilmwindow.h"
 #include "filminfowindow.h"
 #include "settingswindow.h"
-#include "splashscreen.h"
 #include "statisticswindow.h"
 #include "ui_mainwindow.h"
 
@@ -128,7 +127,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         MovedFilmsWindow* movedFilmsWindow = nullptr;
         SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
-        SplashScreen* splashScreen = nullptr;
         StatisticsWindow* statisticsWindow = nullptr;
 
         // Shortcuts

@@ -11,7 +11,7 @@ TARGET = alexandra
 TEMPLATE = app
 
 
-CONFIG += release
+#CONFIG += release
 #CONFIG += debug console
 
 QT = core gui widgets network
@@ -19,7 +19,7 @@ CONFIG += qt warn_on thread
 
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -Ofast 
+QMAKE_CXXFLAGS_RELEASE += -Ofast
 
 LIBS += -lstdc++ -lpthread
 
@@ -38,12 +38,15 @@ DEFINES += MEDIAINFO_SUPPORT
 
 HEADERS += effects/effectdropshadow.h \
            filmslist/film.h \
-           filmslist/filmslist.h \
+           filmslist/filmslistmodel.h \
+           filmslist/treeitem.h \
+           filmsview/grid/filmsviewgrid.h \
+           filmsview/grid/filmsviewgridproxymodel.h \
+           filmsview/info/filminfoview.h \
+           filmsview/info/filmposterview.h \
+           filmsview/list/filmsviewlist.h \
            filmsview/abstractfilmsview.h \
            filmsview/filmsviewcontextmenu.h \
-           filmsview/filmsviewgrid.h \
-           filmsview/filmsviewgridmodel.h \
-           filmsview/filmsviewlist.h \
            network/networkrequest.h \
            network/updatechecker.h \
            parsers/abstractparser.h \
@@ -66,7 +69,6 @@ HEADERS += effects/effectdropshadow.h \
            alexandrasettings.h \
            commandlineparser.h \
            editfilmwindow.h \
-           filminfowidget.h \
            mainwindow.h \
            playlist.h \
            playlistwidget.h \
@@ -80,11 +82,13 @@ HEADERS += effects/effectdropshadow.h \
 
 SOURCES += effects/effectdropshadow.cpp \
            filmslist/film.cpp \
-           filmslist/filmslist.cpp \
+           filmslist/filmslistmodel.cpp \
+           filmsview/grid/filmsviewgrid.cpp \
+           filmsview/grid/filmsviewgridproxymodel.cpp \
+           filmsview/info/filminfoview.cpp \
+           filmsview/info/filmposterview.cpp \
+           filmsview/list/filmsviewlist.cpp \
            filmsview/filmsviewcontextmenu.cpp \
-           filmsview/filmsviewgrid.cpp \
-           filmsview/filmsviewgridmodel.cpp \
-           filmsview/filmsviewlist.cpp \
            network/networkrequest.cpp \
            network/updatechecker.cpp \
            parsers/parsermanager.cpp \
@@ -106,7 +110,6 @@ SOURCES += effects/effectdropshadow.cpp \
            alexandrasettings.cpp \
            commandlineparser.cpp \
            editfilmwindow.cpp \
-           filminfowidget.cpp \
            main.cpp \
            mainwindow.cpp \
            playlist.cpp \
@@ -118,12 +121,12 @@ SOURCES += effects/effectdropshadow.cpp \
            statusbar.cpp \
            toolbar.cpp
 
-FORMS += search/searchwindow.ui \
+FORMS += filmsview/info/filminfoview.ui \
+         search/searchwindow.ui \
          scanner/filmscannerwindow.ui \
          scanner/movedfilmswindow.ui \
          aboutwindow.ui \
          addfilmwindow.ui \
-         filminfowidget.ui \
          mainwindow.ui \
          settingswindow.ui \
          splashscreen.ui \

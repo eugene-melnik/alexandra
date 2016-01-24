@@ -25,6 +25,7 @@
 #include <QDesktopWidget>
 #include <QTimer>
 
+
 SplashScreen::SplashScreen( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
@@ -53,14 +54,17 @@ SplashScreen::SplashScreen( QWidget* parent ) : QDialog( parent )
     lLoading->setGraphicsEffect( new EffectDropShadow( 0, 0, "white", lLoading ) );
 }
 
-void SplashScreen::SetProgressValue( int progress )
+
+void SplashScreen::show()
 {
-     progressBar->setValue( progress );
-     progressBar->repaint();
+    QDialog::show();
+    QTimer::singleShot( 1000, this, SLOT( Close() ) ); // 1 second delay
 }
+
 
 void SplashScreen::Close()
 {
-    progressBar->hide();
-    QTimer::singleShot( 500, this, SLOT( close() ) ); // 1/2 second delay
+    close();
+    deleteLater();
 }
+
