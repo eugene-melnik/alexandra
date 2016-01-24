@@ -26,44 +26,18 @@
 #include <QColor>
 #include <QStringList>
 
-// Basic interface for classes that display films in the program window
-
 class AbstractFilmsView
 {
     public:
         virtual ~AbstractFilmsView() {}
 
-        virtual void LoadSettings() = 0;
-        virtual void ReloadSettings() = 0;
-        virtual void SaveSettings() const = 0;
+        virtual void LoadSettings() {}
+        virtual void ReloadSettings() {}
+        virtual void SaveSettings() const {}
 
-        virtual int AddItem( const Film& film ) = 0;
-
-        virtual void SetItem( int n, const Film& film ) = 0;
-        virtual void SetCurrentItemTo( const Film film ) = 0;
-
-        virtual void RemoveItem( int n ) = 0;
-        virtual void RemoveItemByTitle( const QString& title ) = 0;
-        virtual void RemoveCurrentItem() = 0;
-        virtual void Clear() = 0;
-
-        virtual void SelectItem( const Film& film ) = 0;
-        virtual void SelectItem( const QString& title ) = 0;
-        virtual void SelectRandomItem() = 0; /* TODO: Maybe need to move to another place */
-
-        virtual int GetItemsCount() const = 0;
-        virtual int GetCurrentItemIndex() const = 0;
-        virtual QStringList GetSelectedItemsList() const = 0;
-
-        virtual void SetCurrentItemIndex( int i ) = 0;
-
-        virtual void FilterBy( const QStringList& titles ) = 0;
-        virtual void ResetFilter() = 0;
-
-//    signals:
-//        void ItemClicked( QString );
-//        void ItemDoubleClicked( QString );
-//        void ContextMenuRequested( QPoint );
+//        virtual void SetCurrentItemTo( const Film film ) = 0;
+//        virtual void SelectRandomItem() = 0; /* TODO: Maybe need to move to another place */
+//        virtual QStringList GetSelectedItemsList() const = 0;
 };
 
 #endif // ABSTRACTFILMSVIEW_H

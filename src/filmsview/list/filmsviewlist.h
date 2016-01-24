@@ -1,9 +1,9 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmsviewgridmodel.h                                                                    *
+ *  file: filmsviewlist.h                                                                         *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -18,41 +18,33 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSVIEWGRIDMODEL_H
-#define FILMSVIEWGRIDMODEL_H
+#ifndef FILMSVIEWLIST_H
+#define FILMSVIEWLIST_H
 
-#include <QAbstractListModel>
-#include <QList>
-#include <QPixmap>
+#include <QKeyEvent>
+#include <QTableView>
 
-#include "alexandrasettings.h"
-#include "filmslist/film.h"
+#include "../abstractfilmsview.h"
 
-class FilmViewGridModel : public QAbstractListModel
+class FilmsViewList : public QTableView, public AbstractFilmsView
 {
     Q_OBJECT
 
     public:
-        explicit FilmViewGridModel( QObject* parent = nullptr );
+        explicit FilmsViewList( QWidget* parent = nullptr );
 
-        void AppendItem( const Film& film );
-        void SetItem( int n, const Film& film );
-        void Clear();
-        void RemoveRow( int row );
+    public slots:
+        void LoadSettings() override;
+        void ReloadSettings() override;
+        void SaveSettings() const override;
 
-        int GetItemIndexByTitle( const QString& title ) { return( itemTitle.indexOf( title ) ); }
-        QString GetItemTitle( int n ) { return( itemTitle.at( n ) ); }
+    protected:
+        void keyPressEvent( QKeyEvent* event ) override;
 
-        int rowCount( const QModelIndex& /* parent */ = QModelIndex() ) const { return( itemTitle.size() ); }
-        QVariant data( const QModelIndex& index, int role ) const;
-
-    private:
-        AlexandraSettings* settings = nullptr;
-
-        QList<QString> itemTitle;
-        QList<QPixmap> itemImage;
-        QList<QString> itemToolTip;
-        QList<QColor>  itemBackground;
+    private slots:
+        void ShowHeaderContextMenu( const QPoint& pos );
+        void SetDefaultColumnsView();
+        void RestoreColumnsOrder();
 };
 
-#endif // FILMSVIEWGRIDMODEL_H
+#endif // FILMSVIEWLIST_H
