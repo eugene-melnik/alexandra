@@ -29,7 +29,7 @@
 
 #include <QDialog>
 
-class AddFilmWindow : public QDialog, public Ui::AddFilmWindow
+class AddFilmWindow : public QDialog, protected Ui::AddFilmWindow
 {
     Q_OBJECT
 

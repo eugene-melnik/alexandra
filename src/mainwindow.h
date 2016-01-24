@@ -43,7 +43,7 @@
 #include <QProcess>
 #include <QShortcut>
 
-class MainWindow : public QMainWindow, public Ui::MainWindow
+class MainWindow : public QMainWindow, protected Ui::MainWindow
 {
     Q_OBJECT
 

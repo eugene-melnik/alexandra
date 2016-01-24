@@ -30,7 +30,7 @@
 #include <QMap>
 #include <QStringList>
 
-class SettingsWindow : public QDialog, public Ui::SettingsWindow
+class SettingsWindow : public QDialog, protected Ui::SettingsWindow
 {
     Q_OBJECT
 

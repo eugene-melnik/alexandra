@@ -31,7 +31,7 @@
 #include <QList>
 #include <QMutex>
 
-class StatisticsWindow : public QDialog, public Ui::StatisticsWindow
+class StatisticsWindow : public QDialog, protected Ui::StatisticsWindow
 {
     Q_OBJECT
 

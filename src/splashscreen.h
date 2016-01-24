@@ -25,7 +25,7 @@
 
 #include <QDialog>
 
-class SplashScreen : public QDialog, public Ui::SplashScreen
+class SplashScreen : public QDialog, protected Ui::SplashScreen
 {
     Q_OBJECT
 

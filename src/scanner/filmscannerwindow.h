@@ -30,7 +30,7 @@
 #include "filmscanneraddworker.h"
 #include "ui_filmscannerwindow.h"
 
-class FilmScannerWindow : public QDialog, public Ui::FilmScannerWindow
+class FilmScannerWindow : public QDialog, protected Ui::FilmScannerWindow
 {
     Q_OBJECT
 

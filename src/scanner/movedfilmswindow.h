@@ -28,7 +28,7 @@
 #include "filmscannerworker.h"
 #include "ui_movedfilmswindow.h"
 
-class MovedFilmsWindow : public QDialog, public Ui::MovedFilmsWindow
+class MovedFilmsWindow : public QDialog, protected Ui::MovedFilmsWindow
 {
     Q_OBJECT
 

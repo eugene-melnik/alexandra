@@ -28,7 +28,7 @@
 #include <QDialog>
 #include <QList>
 
-class SearchWindow : public QDialog, public Ui::SearchWindow
+class SearchWindow : public QDialog, protected Ui::SearchWindow
 {
     Q_OBJECT
 

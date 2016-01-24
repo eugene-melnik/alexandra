@@ -28,7 +28,7 @@
 #include <QDialog>
 #include <QMutex>
 
-class FilmInfoWindow : public QDialog, public Ui::FilmInfoWindow
+class FilmInfoWindow : public QDialog, protected Ui::FilmInfoWindow
 {
     Q_OBJECT
 

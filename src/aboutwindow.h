@@ -26,7 +26,7 @@
 #include <QDialog>
 #include <QMessageBox>
 
-class AboutWindow : public QDialog, public Ui::AboutWindow
+class AboutWindow : public QDialog, protected Ui::AboutWindow
 {
     Q_OBJECT
 
