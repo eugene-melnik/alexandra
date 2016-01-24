@@ -42,6 +42,7 @@
 #include <QPoint>
 #include <QProcess>
 #include <QShortcut>
+#include <QSortFilterProxyModel>
 
 class MainWindow : public QMainWindow, protected Ui::MainWindow
 {

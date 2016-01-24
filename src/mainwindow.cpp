@@ -18,8 +18,8 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "filmsview/filmsviewgrid.h"
-#include "filmsview/filmsviewlist.h"
+#include "filmsview/grid/filmsviewgrid.h"
+#include "filmsview/list/filmsviewlist.h"
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 #include "mainwindow.h"
@@ -194,106 +194,54 @@ void MainWindow::DatabaseIsReadonly()
                                     tr( "Database is readonly! Editing functions are disabled." ) );
 }
 
-void MainWindow::ShowFilms()
-{
-    DebugPrintFunc( "MainWindow::ShowFilms" );
 
-    SetProgressMaximum( filmsList->GetFilmsCount() );
-    statusbar->ShowLoading();
+//void MainWindow::ShowFilmInformation()
+//{
+//    DebugPrintFunc( "MainWindow::ShowFilmInformation" );
+//    const Film* film = filmsList->GetCurrentFilm();
 
-    int currentIndex = filmsView->GetCurrentItemIndex();
-    filmsView->Clear();
+//    if( film == nullptr )
+//    {
+//        return;
+//    }
 
-    const QList<Film>* films = filmsList->GetFilmsList();
+//    DebugPrint( "Selected film: " + film->GetFileName() );
 
-    for( int i = 0; i < films->size(); i++ )
-    {
-        filmsView->AddItem( films->at(i) );
-        SetProgressValue( i + 1 );
-    }
+//      // Buttons and technical information
+//    if( QFile::exists( film->GetFileName() ) )
+//    {
+//        #ifdef MEDIAINFO_SUPPORT
+//            filmInfoWindow->LoadTechnicalInfoAsync( film->GetFileName() );
+//            bTechInformation->setEnabled( true );
+//        #endif
 
-    if( currentIndex > 0 )
-    {
-        filmsView->SetCurrentItemIndex( currentIndex );
-    }
-    else
-    {
-        filmsView->SelectItem( settings->GetCurrentFilmTitle() );
-    }
+//        bPlay->setEnabled( true );
+//        bAddToPlaylist->setEnabled( true );
+//    }
+//    else
+//    {
+//        // File doesn't exists
+//        bPlay->setEnabled( false );
+//        bAddToPlaylist->setEnabled( false );
+//        bTechInformation->setEnabled( false );
+//    }
 
-    StatusbarShowTotal();
-    DebugPrintFuncDone( "MainWindow::ShowFilms" );
+//    lTechInformation->setVisible( false );
 
-    emit Shown();
-}
+//      // Buttons
+//    bViewed->setChecked( film->GetIsViewed() );
+//    bFavourite->setChecked( film->GetIsFavourite() );
 
-void MainWindow::ShowFilmInformation()
-{
-    DebugPrintFunc( "MainWindow::ShowFilmInformation" );
-    const Film* film = filmsList->GetCurrentFilm();
+//    DebugPrintFuncDone( "MainWindow::ShowFilmInformation" );
+//}
 
-    if( film == nullptr )
-    {
-        return;
-    }
 
-    DebugPrint( "Selected film: " + film->GetFileName() );
+//void MainWindow::ShowFilmContextMenu( QPoint p )
+//{
+//    contextMenu->SetState( filmsList->GetCurrentFilm() );
+//    contextMenu->exec( dynamic_cast<QWidget*>( filmsView )->mapToGlobal( p ) );
+//}
 
-    // Buttons and technical information
-    if( QFile::exists( film->GetFileName() ) )
-    {
-        #ifdef MEDIAINFO_SUPPORT
-            filmInfoWindow->LoadTechnicalInfoAsync( film->GetFileName() );
-            bTechInformation->setEnabled( true );
-        #endif
-
-        bPlay->setEnabled( true );
-        bAddToPlaylist->setEnabled( true );
-    }
-    else
-    {
-        // File doesn't exists
-        bPlay->setEnabled( false );
-        bAddToPlaylist->setEnabled( false );
-        bTechInformation->setEnabled( false );
-    }
-
-    // Main information
-    wFilmInfo->ShowFilmInfo( film );
-
-    lTechInformation->setVisible( false );
-
-    // Buttons
-    bViewed->setChecked( film->GetIsViewed() );
-    bFavourite->setChecked( film->GetIsFavourite() );
-
-    // Poster
-    QPixmap p;
-
-    if( film->GetIsPosterExists() )
-    {
-        QString posterFileName = settings->GetPostersDirPath() + "/" + film->GetPosterName();
-        DebugPrint( "Loading poster: " + posterFileName );
-        p.load( posterFileName );
-    }
-
-    if( p.isNull() )
-    {
-        DebugPrint( "Loading standart poster" );
-        p.load( ":/standart-poster" );
-    }
-
-    p = p.scaledToWidth( wRight->maximumWidth(), Qt::SmoothTransformation );
-    lPosterImage->setPixmap( p );
-
-    DebugPrintFuncDone( "MainWindow::ShowFilmInformation" );
-}
-
-void MainWindow::ShowFilmContextMenu( QPoint p )
-{
-    contextMenu->SetState( filmsList->GetCurrentFilm() );
-    contextMenu->exec( dynamic_cast<QWidget*>( filmsView )->mapToGlobal( p ) );
-}
 
 void MainWindow::ShowShortTechnicalInfo( const QString& info )
 {
