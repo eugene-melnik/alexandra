@@ -3,7 +3,7 @@
  *  file: debug.cpp                                                                               *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -24,46 +24,69 @@
 
 #include <cstdio>
 #include <QTime>
+#include <QMap>
 
 const char* timeFormat = "hh:mm:ss.zzz";
 
+QMap<QString, QTime> funcTime;
+
+
 void DebugPrint( const QString& text )
 {
-    printf( "[%s] %s\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
-                         text.toStdString().c_str() );
+    printf( "[%s] %s\n", QTime::currentTime().toString( timeFormat ).toUtf8().data(),
+                         text.toUtf8().data() );
 }
+
 
 void DebugPrintL( const QString& text )
 {
-    printf( "\n[%s] %s\n\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
-                             text.toStdString().c_str() );
+    printf( "\n[%s] %s\n\n", QTime::currentTime().toString( timeFormat ).toUtf8().data(),
+                             text.toUtf8().data() );
 }
+
 
 void DebugPrintFunc( const char* funcName )
 {
-    printf( "\n[%s] %s()\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
+    QTime a;
+    a.start();
+    funcTime.insert( QString(funcName), a );
+
+    printf( "\n[%s] %s()\n", QTime::currentTime().toString( timeFormat ).toUtf8().data(),
                              funcName );
 }
 
+
 void DebugPrintFuncA( const char* funcName, int argument )
 {
-    printf( "\n[%s] %s( %d )\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
+    QTime a;
+    a.start();
+    funcTime.insert( QString(funcName), a );
+
+    printf( "\n[%s] %s( %d )\n", QTime::currentTime().toString( timeFormat ).toUtf8().data(),
                                  funcName,
                                  argument );
 }
 
+
 void DebugPrintFuncA( const char* funcName, const QString& argument )
 {
-    printf( "\n[%s] %s( %s )\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
+    QTime a;
+    a.start();
+    funcTime.insert( QString(funcName), a );
+
+    printf( "\n[%s] %s( %s )\n", QTime::currentTime().toString( timeFormat ).toUtf8().data(),
                                  funcName,
-                                 argument.toStdString().c_str() );
+                                 argument.toUtf8().data() );
 }
 
 
 void DebugPrintFuncDone( const char* funcName )
 {
-    printf( "[%s] Done <%s>\n", QTime::currentTime().toString( timeFormat ).toStdString().c_str(),
-                                funcName );
+    printf( "[%s] Done <%s> [%i ms]\n", QTime::currentTime().toString( timeFormat ).toUtf8().data(),
+                                        funcName,
+                                        funcTime.value( QString(funcName) ).elapsed() );
+
+    funcTime.remove( QString(funcName) );
 }
 
 #endif // QT_DEBUG

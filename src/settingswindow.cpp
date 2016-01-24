@@ -62,6 +62,8 @@ void SettingsWindow::show()
 
     twMain->setCurrentIndex( 0 );
     QDialog::show();
+
+    DebugPrintFuncDone( "SettingsWindow::show" );
 }
 
 /*************************************************************************************************
@@ -199,6 +201,7 @@ void SettingsWindow::SelectFontDefault()
     bFontSelect->setText( defaultFont.family() + QString( " %1" ).arg( defaultFont.pointSize() ) );
 
     DebugPrint( defaultFont.toString() );
+    DebugPrintFuncDone( "SettingsWindow::SelectFontDefault" );
 }
 
 void SettingsWindow::SelectExternalPlayer()
@@ -372,10 +375,13 @@ void SettingsWindow::ShortcutsKeySequenceHandler()
     SetIsSettingsChanged();
 
     DebugPrint( currentKeyEdit->objectName() + ": " + currentKey );
+    DebugPrintFuncDone( "SettingsWindow::ShortcutsKeySequenceHandler" );
 }
 
 void SettingsWindow::ShortcutsDefaultButtonHandler()
 {
+    DebugPrintFunc( "SettingsWindow::ShortcutsDefaultButtonHandler" );
+
     for( auto& s : shortcuts )
     {
         if( s.buttonDefault == sender() )
@@ -392,6 +398,8 @@ void SettingsWindow::ShortcutsDefaultButtonHandler()
             return;
         }
     }
+
+    DebugPrintFuncDone( "SettingsWindow::ShortcutsDefaultButtonHandler" );
 }
 
 void SettingsWindow::ShortcutsClearButtonHandler()
@@ -410,6 +418,7 @@ void SettingsWindow::ShortcutsClearButtonHandler()
     }
 
     SetIsSettingsChanged();
+    DebugPrintFuncDone( "SettingsWindow::ShortcutsClearButtonHandler" );
 }
 
 bool SettingsWindow::CheckForDuplicates( const QString& currentKey, const QString& objName )

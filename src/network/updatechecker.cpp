@@ -23,18 +23,24 @@
 
 #include <QRegExp>
 
+
 UpdateChecker::UpdateChecker()
 {
     connect( &request, &NetworkRequest::DataLoaded, this, &UpdateChecker::DataLoaded );
     connect( &request, &NetworkRequest::DataLoadError, this, &UpdateChecker::DataLoadError );
 }
 
+
 void UpdateChecker::Run()
 {
     DebugPrintFunc( "UpdateChecker::Run" );
+
     QUrl url( "http://alexandra-qt.sourceforge.net/en/updates/index.html" );
     request.run( url );
+
+    DebugPrintFuncDone( "UpdateChecker::Run" );
 }
+
 
 void UpdateChecker::DataLoaded( const QByteArray& data )
 {
@@ -53,10 +59,13 @@ void UpdateChecker::DataLoaded( const QByteArray& data )
     QRegExp reLatestVersion( "<latest_ver>(.*)</latest_ver>" );
     reLatestVersion.setMinimal( true );
     reLatestVersion.indexIn( str );
+
     DebugPrint( "VERSION -- " + reLatestVersion.cap(1) );
+    DebugPrintFuncDone( "UpdateChecker::DataLoaded" );
 
     emit Loaded( reLatestVersion.cap(1) );
 }
+
 
 void UpdateChecker::DataLoadError( const QString& e )
 {

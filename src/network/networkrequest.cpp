@@ -33,7 +33,10 @@ void NetworkRequest::run( const QUrl& url )
     connect( reply, &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
     connect( reply, &QNetworkReply::finished, this, &NetworkRequest::Finished );
     connect( reply, &QNetworkReply::finished, reply, &QObject::deleteLater );
+
+    DebugPrintFuncDone( "NetworkRequest::run" );
 }
+
 
 QByteArray NetworkRequest::runSync( const QUrl& url )
 {
@@ -50,9 +53,12 @@ QByteArray NetworkRequest::runSync( const QUrl& url )
     loop.exec();
 
     DebugPrint( QString( "Loaded: %1 bytes" ).arg( data.size() ) );
+    DebugPrintFuncDone( "NetworkRequest::runSync" );
+
     reply->deleteLater();
     return( data );
 }
+
 
 QNetworkReply* NetworkRequest::MakeRequest( const QUrl& url )
 {
@@ -70,6 +76,7 @@ QNetworkReply* NetworkRequest::MakeRequest( const QUrl& url )
     return( accessManager.get( request ) );
 }
 
+
 void NetworkRequest::CheckForRedirect()
 {
     DebugPrintFunc( "NetworkRequest::CheckForRedirect" );
@@ -81,14 +88,16 @@ void NetworkRequest::CheckForRedirect()
         DebugPrint( "Redirected to: " + newUrl.toString() );
         runSync( newUrl );
     }
+
+    DebugPrintFuncDone( "NetworkRequest::CheckForRedirect" );
 }
+
 
 void NetworkRequest::ReadyRead()
 {
-    //DebugPrintFunc( "NetworkRequest::ReadyRead" );
     data.append( reply->readAll() );
-    //DebugPrint( QString( "New data size: %1" ).arg( data.size() ) );
 }
+
 
 void NetworkRequest::Finished()
 {
@@ -106,4 +115,7 @@ void NetworkRequest::Finished()
         DebugPrint( QString( "Loaded: %1 bytes" ).arg( data.size() ) );
         emit DataLoaded( data );
     }
+
+    DebugPrintFuncDone( "NetworkRequest::Finished" );
 }
+

@@ -56,6 +56,7 @@ void LoadLocale( QApplication* app, int localeIndex )
     app->installTranslator( qt_translator );
 
     DebugPrint( isInstalled ? "Success" : "Failed!" ); Q_UNUSED(isInstalled)
+    DebugPrintFuncDone( "::LoadLocale" );
 }
 
 int main( int argc, char** argv )
