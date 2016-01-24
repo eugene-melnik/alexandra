@@ -60,7 +60,7 @@ class Film
         QString GetBudgetStr() const;
         int     GetViewsCounter() const     { return( viewsCounter ); }
         bool    GetIsPosterExists() const   { return( isPosterExists ); }
-        QString GetPosterName() const       { return( GetId() ); }
+        QString GetPosterName() const       { return( GetId() ); } // FIXME: return empty string if poster doesnt exist
         bool    GetIsViewed() const         { return( isViewed ); }
         QString GetIsViewedSign() const     { return( isViewed ? "+" : "-" ); }
         bool    GetIsFavourite() const      { return( isFavourite ); }

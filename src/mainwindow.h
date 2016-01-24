@@ -21,7 +21,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "filmslist/filmslist.h"
+#include "filmslist/filmslistmodel.h"
 #include "filmsview/abstractfilmsview.h"
 #include "filmsview/filmsviewcontextmenu.h"
 #include "scanner/filmscannerwindow.h"
@@ -63,9 +63,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void ShowFullScreen( bool isFullScreen ) { isFullScreen ? showFullScreen() : showNormal(); }
         void QuickSearchEscBehavior();
 
-        void SaveDatabase();
-        void EraseDatabase();
-        void ResetStatistics();
+//        void SaveDatabase();
+//        void ResetStatistics();
         void ReloadDatabase();
         void ReloadSettings();
         void ReloadView();
@@ -75,47 +74,44 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 
-        void ShowFilms();
-        void ShowFilmInformation();
-        void ShowFilmContextMenu( QPoint p );
+//        void ShowFilmInformation();
+//        void ShowFilmContextMenu( QPoint p );
         void ShowShortTechnicalInfo( const QString& info );
 
-        void AddToPlaylist();
+//        void AddToPlaylist();
         void PlaylistCleared();
         void DoubleClickBehavior();
 
-        void PlayFilm();
+//        void PlayFilm();
         void PlayerStarted();
-        void PlayerClosed();
+//        void PlayerClosed();
 
-        void EditFilm() { editFilmWindow->show( filmsList->GetCurrentFilm() ); }
-        void RemoveFilm();
-        void RemoveFile();
-        void FilmScanner() { filmScannerWindow->show( filmsList->GetFileNamesList() ); }
-        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailablesList() ); }
-        void Statistics() { statisticsWindow->show( filmsList->GetFilmsList() ); }
+//        void EditFilm() { editFilmWindow->show( filmsList->GetCurrentFilm() ); }
+//        void RemoveFilm();
+//        void RemoveFile();
+//        void FilmScanner() { filmScannerWindow->show( filmsList->GetFileNamesList() ); }
+//        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailablesList() ); }
+//        void Statistics() { statisticsWindow->show( filmsList->GetFilmsList() ); }
 
-        void SetupCompleter();
-        void FilmsFilter( const QString& key, SearchEdit::FilterBy filters );
-        void UpdateCurrentFilm() { UpdateCurrentFilm( Film() ); }
-        void UpdateCurrentFilm( Film film );
+//        void UpdateCurrentFilm() { UpdateCurrentFilm( Film() ); }
+//        void UpdateCurrentFilm( Film film );
 
-        void SetProgressMaximum( int n );
-        void SetProgressValue( int n );
-        void StatusbarShowTotal();
+//        void StatusbarShowTotal();
 
     private:
-        // Additional functions
-        void AddFilmDone( Film film );
-        void AddFilmsDone( const QList<Film>* films );
+          // Additional functions
+//        void AddFilmDone( Film film );
+//        void AddFilmsDone( const QList<Film>* films );
+
+        void ShowSplashscreen();
+        void SetupModels();
+        void SetupWindows();
+        void SetupFilmsView();
 
         void LoadSettings();
         void LoadAppearance();
         void LoadShorcuts();
         void SaveSettings();
-
-        void SetupFilmsView();
-        void SetupWindows();
 
         void ClearTextFields();
         void SetAllFunctionsEnabled( bool b );
@@ -142,9 +138,10 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         AbstractFilmsView* filmsView = nullptr;
         FilmsViewContextMenu* contextMenu = nullptr;
 
-        AlexandraSettings* settings = nullptr;
-        FilmsList* filmsList = nullptr;
-        QProcess* externalPlayer = nullptr;
+        AlexandraSettings* settings;
+        QProcess* externalPlayer;
+        FilmsListModel* filmsListModel;
+        QSortFilterProxyModel* filmsListProxyModel;
 };
 
 #endif // MAINWINDOW_H
