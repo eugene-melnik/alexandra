@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "alexandrasettings.h"
+#include "filmslist/filmslistmodel.h"
 #include "tools/debug.h"
 #include "version.h"
 
@@ -251,10 +252,22 @@ bool AlexandraSettings::GetMainWindowStatusbarIsVisible() const
     return( value( "MainWindow/StatusbarIsVisible", true ).toBool() );
 }
 
-int AlexandraSettings::GetQuickSearchFilter() const
+
+QList<int> AlexandraSettings::GetQuickSearchFilter() const
 {
-    return( value( "MainWindow/QuickSearchFilter", 0b11 ).toInt() ); // Filter by Title&Tags by default
+    QVariantList defaultValue = { FilmsListModel::TitleColumn, FilmsListModel::TagsColumn };
+
+    QVariantList list = value( "MainWindow/QuickSearchFilter", defaultValue ).toList();
+    QList<int> result;
+
+    for( const QVariant& i : list )
+    {
+        result.append( i.toInt() );
+    }
+
+    return( result );
 }
+
 
 bool AlexandraSettings::GetAutoLoadTechInfo() const
 {
@@ -518,10 +531,19 @@ void AlexandraSettings::SetMainWindowStatusbarIsVisible( bool b )
     setValue( "MainWindow/StatusbarIsVisible", b );
 }
 
-void AlexandraSettings::SetQuickSearchFilter( int n )
+
+void AlexandraSettings::SetQuickSearchFilter( QList<int> list )
 {
-    setValue( "MainWindow/QuickSearchFilter", n );
+    QVariantList data;
+
+    for( int i : list )
+    {
+        data.append( i );
+    }
+
+    setValue( "MainWindow/QuickSearchFilter", data );
 }
+
 
 void AlexandraSettings::SetAutoLoadTechInfo( bool b )
 {

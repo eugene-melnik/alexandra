@@ -39,6 +39,7 @@ DEFINES += MEDIAINFO_SUPPORT
 HEADERS += effects/effectdropshadow.h \
            filmslist/film.h \
            filmslist/filmslistmodel.h \
+           filmslist/filmslistproxymodel.h \
            filmslist/treeitem.h \
            filmsview/grid/filmsviewgrid.h \
            filmsview/grid/filmsviewgridproxymodel.h \

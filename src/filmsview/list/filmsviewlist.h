@@ -38,6 +38,8 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
         void ReloadSettings() override;
         void SaveSettings() const override;
 
+        void ScrollToCurrentItem() override { scrollTo( currentIndex() ); }
+
     protected:
         void keyPressEvent( QKeyEvent* event ) override;
 

@@ -18,6 +18,8 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void LoadSettings() override;
         void ReloadSettings() override;
 
+        void ScrollToCurrentItem() override { scrollTo( currentIndex() ); }
+
     protected:
         void updateGeometries() override;
 

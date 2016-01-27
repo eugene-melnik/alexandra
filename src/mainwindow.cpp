@@ -38,8 +38,7 @@
 
 MainWindow::MainWindow() : QMainWindow(),
     settings( AlexandraSettings::GetInstance() ),
-    externalPlayer( new QProcess( this ) ),
-    filmsListProxyModel( new QSortFilterProxyModel( this ) )
+    externalPlayer( new QProcess( this ) )
 {
     DebugPrintFunc( "MainWindow::MainWindow" );
 
@@ -119,9 +118,9 @@ void MainWindow::QuickSearchEscBehavior()
     // Pressing key 'Esc' sets focus to the films list,
     // pressing again clears the quick search line
 
-    eFilter->completer()->popup()->close();
+///    eFilter->completer()->popup()->close();
 
-    QWidget* view = dynamic_cast<QWidget*>( filmsView );
+    QAbstractItemView* view = dynamic_cast<QAbstractItemView*>( filmsView );
 
     if( view == focusWidget() )
     {
@@ -129,6 +128,7 @@ void MainWindow::QuickSearchEscBehavior()
     }
 
     view->setFocus();
+    filmsView->ScrollToCurrentItem();
 }
 
 
@@ -555,14 +555,19 @@ void MainWindow::SetupModels()
     filmsListModel->LoadFromFile( settings->GetDatabaseFilePath() );
 ///    filmsListModel->SetCurrentFilm( settings->GetCurrentFilmTitle() );
 
+    filmsListProxyModel = new FilmsListProxyModel( this );
     filmsListProxyModel->setSourceModel( filmsListModel );
     wFilmInfo->setModel( filmsListProxyModel );
     wFilmPoster->setModel( filmsListProxyModel );
+    eFilter->SetModel( filmsListModel );
 
-    QCompleter* completer = new QCompleter( filmsListModel, this );
-    completer->setCompletionColumn( FilmsListModel::TitleColumn );
-    completer->setCaseSensitivity( Qt::CaseInsensitive );
-    eFilter->setCompleter( completer );
+//    QCompleter* completer = new QCompleter( filmsListModel, this ); // FIXME
+//    completer->setCompletionColumn( FilmsListModel::TitleColumn );
+//    completer->setCaseSensitivity( Qt::CaseInsensitive );
+//    eFilter->setCompleter( completer );
+
+    connect( eFilter, SIGNAL(TextChanged(QString,QList<int>)),
+             filmsListProxyModel, SLOT(SetFilter(const QString&,const QList<int>&)) );
 
     DebugPrintFuncDone( "MainWindow::SetupModels" );
 }
@@ -712,7 +717,9 @@ void MainWindow::SetupFilmsView()
 {
     DebugPrintFunc( "MainWindow::SetupFilmsView" );
 
+    eFilter->clear();
     delete filmsView;
+
     QAbstractItemView* view;
 
     switch( settings->GetFilmsViewMode() )
@@ -750,7 +757,6 @@ void MainWindow::SetupFilmsView()
 
     wFilmInfo->setSelectionModel( view->selectionModel() );
     wFilmPoster->setSelectionModel( view->selectionModel() );
-    eFilter->clear();
 
     DebugPrintFuncDone( "MainWindow::SetupFilmsView" );
 }

@@ -22,6 +22,7 @@
 #define ALEXANDRASETTINGS_H
 
 #include <QColor>
+#include <QList>
 #include <QSettings>
 
 class AlexandraSettings : public QSettings
@@ -71,7 +72,7 @@ class AlexandraSettings : public QSettings
         bool       GetMainWindowShowRightPanel() const;
         int        GetMainWindowRightPanelWidth() const;
         bool       GetMainWindowStatusbarIsVisible() const;
-        int        GetQuickSearchFilter() const;
+        QList<int> GetQuickSearchFilter() const;
         bool       GetAutoLoadTechInfo() const;
 
         QString GetFilmsScannerLastDir() const;
@@ -135,7 +136,7 @@ class AlexandraSettings : public QSettings
         void SetMainWindowShowRightPanel( bool b );
         void SetMainWindowRightPanelWidth( int n );
         void SetMainWindowStatusbarIsVisible( bool b );
-        void SetQuickSearchFilter( int n );
+        void SetQuickSearchFilter( QList<int> list );
         void SetAutoLoadTechInfo( bool b );
 
         void SetFilmsScannerLastDir( const QString& s );

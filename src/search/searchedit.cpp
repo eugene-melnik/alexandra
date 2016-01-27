@@ -21,142 +21,116 @@
 #include "alexandrasettings.h"
 #include "searchedit.h"
 
-SearchEdit::SearchEdit( QWidget* parent ) : QLineEdit( parent )
+
+SearchEdit::SearchEdit( QWidget* parent )
+    : QLineEdit( parent ),
+      menuSelectColumns( new SearchEditMenu( this ) )
 {
-    connect( this, &SearchEdit::textChanged, this, [this] (const QString& s) { emit TextChanged( s, selectedFilters ); } );
+      // Settings icon
+    actionSettings = addAction( QIcon( ":/tool/spanner" ), QLineEdit::TrailingPosition );
+    actionSettings->setToolTip( tr( "Select columns for filtration" ) );
+    connect( actionSettings, &QAction::triggered, this, &SearchEdit::ShowMenu );
 
-    aOptions = addAction( QIcon( ":/tool/spanner" ), QLineEdit::TrailingPosition );
-    aOptions->setToolTip( tr( "Select fields for filtration") );
-    connect( aOptions, &QAction::triggered, this, &SearchEdit::ShowMenu );
-
-    SetupMenu();
+    connect( this, &SearchEdit::textChanged, this, [this] (const QString& s) { emit TextChanged( s, selectedColumns ); } );
 }
+
 
 void SearchEdit::LoadSettings()
 {
-    selectedFilters = FilterBy( AlexandraSettings::GetInstance()->GetQuickSearchFilter() );
+    selectedColumns = AlexandraSettings::GetInstance()->GetQuickSearchFilter();
 
-    for( FilterAction f : filterActions )
+    for( int i = 0; i < actionsColumns.size(); ++i )
     {
-        if( (f.filter & selectedFilters) != 0 )
+        int currentColumn = actionsColumns[i]->data().toInt();
+
+        if( selectedColumns.contains( currentColumn )  )
         {
-            f.action->setChecked( true );
+            actionsColumns[i]->setChecked( true );
         }
     }
 }
+
 
 void SearchEdit::SaveSettings() const
 {
-    AlexandraSettings::GetInstance()->SetQuickSearchFilter( selectedFilters );
+    AlexandraSettings::GetInstance()->SetQuickSearchFilter( selectedColumns );
 }
+
+
+void SearchEdit::SetModel(QAbstractItemModel *model)
+{
+    sourceModel = model;
+    SetupMenu();
+}
+
 
 void SearchEdit::SetupMenu()
 {
-    // Menu header
-    mSelectFields = new SearchEditMenu( this );
-    QAction* a = mSelectFields->addAction( tr( "Filter by:") );
+    menuSelectColumns->clear();
+    actionsColumns.clear();
+
+      // Header
+    QAction* a = menuSelectColumns->addAction( tr( "Filter by:") );
     a->setEnabled( false );
 
-    mSelectFields->addSeparator();
+    menuSelectColumns->addSeparator();
 
-    // Menu options
-    a = mSelectFields->addAction( tr( "Title" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Title, a } );
+      // Columns
+    for( int column = 0; column < sourceModel->columnCount(); ++column )
+    {
+        // TODO: skip "isViewed" and "isFavourite"?
+        QString columnTitle = sourceModel->headerData( column, Qt::Horizontal ).toString();
 
-    a = mSelectFields->addAction( tr( "Tags" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Tags, a } );
+        a = menuSelectColumns->addAction( columnTitle, this, SLOT(CalculateOptions()) );
+        actionsColumns.append( a );
 
-    a = mSelectFields->addAction( tr( "Genre" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Genre, a } );
+        a->setCheckable( true );
+        a->setData( column );
+    }
 
-    a = mSelectFields->addAction( tr( "Starring" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Starring, a } );
-
-    a = mSelectFields->addAction( tr( "Director" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Director, a } );
-
-    a = mSelectFields->addAction( tr( "Producer" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Producer, a } );
-
-    a = mSelectFields->addAction( tr( "Screenwriter" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Screenwriter, a } );
-
-    a = mSelectFields->addAction( tr( "Composer" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Composer, a } );
-
-    a = mSelectFields->addAction( tr( "Country" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Country, a } );
-
-    a = mSelectFields->addAction( tr( "Description" ), this, SLOT( CalculateOptions() ) );
-    a->setCheckable( true );
-    filterActions.append( { Description, a } );
-
-    mSelectFields->addSeparator();
-
-    // Menu "buttons"
-    mSelectFields->addAction( tr( "Select all" ), this, SLOT( SelectAllOptions() ) );
-    mSelectFields->addAction( tr( "Unselect all" ), this, SLOT( UnselectAllOptions() ) );
+      // Select/Unselect
+    menuSelectColumns->addSeparator();
+    menuSelectColumns->addAction( tr( "Select all" ), this, SLOT( SelectAllOptions() ) );
+    menuSelectColumns->addAction( tr( "Unselect all" ), this, SLOT( UnselectAllOptions() ) );
 }
+
 
 void SearchEdit::ShowMenu()
 {
-    mSelectFields->show(); // For retrieving correct menu height at first call
+    menuSelectColumns->show(); // FIXME: For retrieving correct menu height at first call
 
     int posX = cursor().pos().x();
-    int posY = cursor().pos().y() - mSelectFields->height();
-    mSelectFields->exec( QPoint( posX, posY ) );
+    int posY = cursor().pos().y() - menuSelectColumns->height();
+    menuSelectColumns->exec( QPoint( posX, posY ) );
 }
+
 
 void SearchEdit::CalculateOptions()
 {
-    selectedFilters = None;
+    selectedColumns.clear();
 
-    for( FilterAction f : filterActions )
+    for( QAction* action : actionsColumns )
     {
-        if( f.action->isChecked() )
+        if( action->isChecked() )
         {
-            selectedFilters = (FilterBy) (selectedFilters | f.filter);
+            selectedColumns.append( action->data().toInt() );
         }
     }
 
-    if( !this->text().isEmpty() )
+    if( !text().isEmpty() )
     {
-        emit TextChanged( this->text(), selectedFilters );
+        emit TextChanged( text(), selectedColumns );
     }
 }
 
+
 void SearchEdit::SetOptionsChecked( bool b )
 {
-    for( FilterAction f : filterActions )
+    for( QAction* action : actionsColumns )
     {
-        f.action->setChecked( b );
+        action->setChecked( b );
     }
 
     CalculateOptions();
 }
 
-void SearchEditMenu::mouseReleaseEvent(QMouseEvent *event)
-{
-    QAction* action = activeAction();
-
-    if( action && action->isEnabled() )
-    {
-        action->setEnabled( false );
-        QMenu::mouseReleaseEvent( event );
-        action->setEnabled( true );
-        action->trigger();
-    }
-    else
-    {
-        QMenu::mouseReleaseEvent( event );
-    }
-}

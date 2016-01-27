@@ -21,6 +21,7 @@
 #ifndef SEARCHEDIT_H
 #define SEARCHEDIT_H
 
+#include <QAbstractItemModel>
 #include <QAction>
 #include <QLineEdit>
 #include <QList>
@@ -39,24 +40,10 @@ class SearchEdit : public QLineEdit
         void LoadSettings();
         void SaveSettings() const;
 
-        enum FilterBy {
-            None         = 0,
-            Title        = 0b0000000001,
-            Tags         = 0b0000000010,
-            Genre        = 0b0000000100,
-            Starring     = 0b0000001000,
-            Director     = 0b0000010000,
-            Producer     = 0b0000100000,
-            Screenwriter = 0b0001000000,
-            Composer     = 0b0010000000,
-            Country      = 0b0100000000,
-            Description  = 0b1000000000,
-            All = Title|Tags|Genre|Starring|Director|
-                  Producer|Screenwriter|Composer|Country|Description
-        };
+        void SetModel( QAbstractItemModel* model );
 
     signals:
-        void TextChanged( const QString& text, FilterBy fields );
+        void TextChanged( const QString& text, QList<int> selectedColumns );
 
     private slots:
         void SetupMenu();
@@ -68,16 +55,12 @@ class SearchEdit : public QLineEdit
         void SetOptionsChecked( bool b );
 
     private:
-        typedef struct {
-            FilterBy filter;
-            QAction* action;
-        } FilterAction;
+        QAction* actionSettings;
+        QList<QAction*> actionsColumns;
+        SearchEditMenu* menuSelectColumns;
+        QList<int> selectedColumns;
 
-        QList<FilterAction> filterActions;
-
-        QAction* aOptions = nullptr;
-        SearchEditMenu* mSelectFields = nullptr;
-        FilterBy selectedFilters;
+        QAbstractItemModel* sourceModel;
 };
 
 class SearchEditMenu : public QMenu
@@ -88,9 +71,23 @@ class SearchEditMenu : public QMenu
         SearchEditMenu( QWidget* parent = nullptr ) : QMenu( parent ) {}
 
     protected:
-        // Prevent a menu from closing when
-        // one of its actions is triggered
-        void mouseReleaseEvent( QMouseEvent* event );
+          // Prevent a menu from closing when one of its actions was triggered
+        void mouseReleaseEvent( QMouseEvent* event )
+        {
+            QAction* action = activeAction();
+
+            if( action && action->isEnabled() )
+            {
+                action->setEnabled( false );
+                QMenu::mouseReleaseEvent( event );
+                action->setEnabled( true );
+                action->trigger();
+            }
+            else
+            {
+                QMenu::mouseReleaseEvent( event );
+            }
+        }
 };
 
 #endif // SEARCHEDIT_H

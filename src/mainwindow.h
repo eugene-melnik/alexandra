@@ -22,6 +22,7 @@
 #define MAINWINDOW_H
 
 #include "filmslist/filmslistmodel.h"
+#include "filmslist/filmslistproxymodel.h"
 #include "filmsview/abstractfilmsview.h"
 #include "filmsview/filmsviewcontextmenu.h"
 #include "scanner/filmscannerwindow.h"
@@ -140,7 +141,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         AlexandraSettings* settings;
         QProcess* externalPlayer;
         FilmsListModel* filmsListModel;
-        QSortFilterProxyModel* filmsListProxyModel;
+        FilmsListProxyModel* filmsListProxyModel;
 };
 
 #endif // MAINWINDOW_H
