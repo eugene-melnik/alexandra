@@ -147,13 +147,13 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
 {
     if( index.isValid() )
     {
+        TreeItem* item = static_cast<TreeItem*>( index.internalPointer() );
         int column = index.column();
 
         switch( role )
         {
             case Qt::DisplayRole :
             {
-                TreeItem* item = static_cast<TreeItem*>( index.internalPointer() );
                 return( item->GetData( index.column() ) );
             }
 
@@ -165,7 +165,21 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
                     column == IsFavouriteColumn ||
                     column == ViewsCountColumn )
                 {
-                    return( Qt::AlignCenter );
+                    return( (int) Qt::AlignCenter );
+                }
+                else
+                {
+                    return( (int) Qt::AlignLeft|Qt::AlignVCenter );
+                }
+            }
+
+            case Qt::BackgroundColorRole :
+            {
+                bool highlightUnavailable = settings->GetCheckFilesOnStartup();
+
+                if( highlightUnavailable && !QFile::exists( item->GetData( FileNameColumn ).toString() ) )
+                {
+                    return( QColor(settings->GetUnavailableFileColor()) );
                 }
             }
 
@@ -173,7 +187,7 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
             {
                 if( column == PosterColumn )
                 {
-                    QString posterFileName = static_cast<TreeItem*>( index.internalPointer() )->GetData( PosterColumn ).toString();
+                    QString posterFileName = item->GetData( PosterColumn ).toString();
                     QString posterFilePath = settings->GetPostersDirPath() + "/" + posterFileName;
                     QPixmap pixmap;
 

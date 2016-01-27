@@ -12,6 +12,11 @@ QVariant FilmsViewGridProxyModel::data( const QModelIndex& index, int role ) con
 
         switch( role )
         {
+            case Qt::TextAlignmentRole :
+            {
+                return( Qt::AlignCenter );
+            }
+
             case Qt::DecorationRole :
             {
                 QString posterFileName = model->index( row, FilmsListModel::PosterColumn ).data().toString();
