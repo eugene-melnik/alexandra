@@ -27,8 +27,7 @@
 #include <QStringList>
 
 #include "alexandrasettings.h"
-#include "film.h"
-#include "treeitem.h"
+#include "filmitem.h"
 
 class FilmsListModel : public QAbstractItemModel
 {
@@ -38,8 +37,7 @@ class FilmsListModel : public QAbstractItemModel
         explicit FilmsListModel( QObject* parent = nullptr );
         virtual ~FilmsListModel();
 
-
-          // Model reading //
+          // Model reading
         int rowCount( const QModelIndex& parent ) const override;
         int columnCount( const QModelIndex& parent ) const override;
 
@@ -50,36 +48,8 @@ class FilmsListModel : public QAbstractItemModel
         QModelIndex index( int row, int column, const QModelIndex& parent = QModelIndex() ) const override;
         QModelIndex parent( const QModelIndex& index ) const override;
 
-          // Model writing //
-        //bool setData( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole ) override;
-
-
-        enum Columns /// TODO: move to Film? (TreeItem => Film)
-        {
-            TitleColumn,
-            OriginalTitleColumn,
-            TaglineColumn,
-            YearColumn,
-            GenreColumn,
-            CountryColumn,
-            DirectorColumn,
-            ProducerColumn,
-            ScreenwriterColumn,
-            ComposerColumn,
-            BudgetColumn,
-            RatingColumn,
-            IsViewedColumn,
-            IsFavouriteColumn,
-            ViewsCountColumn,
-            StarringColumn,
-            DescriptionColumn,
-            TagsColumn,
-            FileNameColumn,
-            PosterColumn,
-
-            ColumnsCount
-        };
-
+          // Model writing
+//        bool setData( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole ) override;
 
     public slots:
         void LoadFromFile( const QString& fileName );
@@ -115,23 +85,20 @@ class FilmsListModel : public QAbstractItemModel
 //        QStringList         GetFileNamesList() const;       // ScannerFilmsWindow
 //        QList<Film*>        GetUnavailablesList() const;    // MovedFilmsWindow
 
-
     signals:
-        void DatabaseReadError();
-        void DatabaseWriteError();
-        void DatabaseIsWrong();
+        void DatabaseReadError( const QString& );
+//        void DatabaseWriteError();
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 
         void DatabaseLoaded();
-        void DatabaseChanged();
-
+//        void DatabaseChanged();
 
     private:
 //        void RemoveFilm( const Film& film );
 
-          // Variables //
-        TreeItem* rootItem;
+          // Variables
+        FilmItem* rootItem;
         bool      isDatabaseChanged;
         QMutex    mxAsyncSaveToFile;
 

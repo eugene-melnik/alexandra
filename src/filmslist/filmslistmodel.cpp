@@ -19,11 +19,11 @@
   *************************************************************************************************/
 
 #include "filmslistmodel.h"
+#include "old/filmslistoldloader.h"
 #include "tools/debug.h"
 #include "version.h"
 
-#include <QtAlgorithms>
-#include <QFile>
+#include <QFileInfo>
 #include <QPixmap>
 
 
@@ -56,7 +56,7 @@ FilmsListModel::FilmsListModel( QObject* parent ) : QAbstractItemModel( parent )
         tr( "Poster" )
     };
 
-    rootItem = new TreeItem( titles );
+    rootItem = new FilmItem( titles );
     DebugPrintFuncDone( "FilmsListModel::FilmsListModel" );
 }
 
@@ -80,11 +80,11 @@ int FilmsListModel::rowCount( const QModelIndex& parent ) const
         return( 0 );
     }
 
-    TreeItem* parentItem = rootItem;
+    FilmItem* parentItem = rootItem;
 
     if( parent.isValid() )
     {
-        parentItem = static_cast<TreeItem*>( parent.internalPointer() );
+        parentItem = static_cast<FilmItem*>( parent.internalPointer() );
     }
 
     return( parentItem->GetChildCount() );
@@ -95,7 +95,7 @@ int FilmsListModel::columnCount( const QModelIndex& parent ) const
 {
     if( parent.isValid() )
     {
-        return( static_cast<TreeItem*>( parent.internalPointer() )->GetColumnCount() );
+        return( static_cast<FilmItem*>( parent.internalPointer() )->GetColumnCount() );
     }
     else
     {
@@ -124,14 +124,14 @@ QVariant FilmsListModel::headerData( int section, Qt::Orientation orientation, i
             case Qt::DisplayRole :
             case Qt::ToolTipRole :
             {
-                return( rootItem->GetData( section ) );
+                return( rootItem->GetColumnData( section ) );
             }
 
             case Qt::TextAlignmentRole :
             {
-                if( section == IsViewedColumn ||
-                    section == IsFavouriteColumn ||
-                    section == ViewsCountColumn )
+                if( section == FilmItem::IsViewedColumn ||
+                    section == FilmItem::IsFavouriteColumn ||
+                    section == FilmItem::ViewsCountColumn )
                 {
                     return( Qt::AlignLeft );
                 }
@@ -147,47 +147,55 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
 {
     if( index.isValid() )
     {
-        TreeItem* item = static_cast<TreeItem*>( index.internalPointer() );
+        FilmItem* item = static_cast<FilmItem*>( index.internalPointer() );
         int column = index.column();
 
         switch( role )
         {
             case Qt::DisplayRole :
             {
-                return( item->GetData( index.column() ) );
+                return( item->GetColumnData( index.column() ) );
             }
 
             case Qt::TextAlignmentRole :
             {
-                if( column == YearColumn ||
-                    column == RatingColumn ||
-                    column == IsViewedColumn ||
-                    column == IsFavouriteColumn ||
-                    column == ViewsCountColumn )
+                if( column == FilmItem::YearColumn ||
+                    column == FilmItem::RatingColumn ||
+                    column == FilmItem::IsViewedColumn ||
+                    column == FilmItem::IsFavouriteColumn ||
+                    column == FilmItem::ViewsCountColumn )
                 {
-                    return( (int) Qt::AlignCenter );
+                    return( Qt::AlignCenter );
                 }
                 else
                 {
-                    return( (int) Qt::AlignLeft|Qt::AlignVCenter );
+                    return( (int) Qt::AlignLeft | Qt::AlignVCenter );
                 }
             }
 
             case Qt::BackgroundColorRole :
             {
-                bool highlightUnavailable = settings->GetCheckFilesOnStartup();
-
-                if( highlightUnavailable && !QFile::exists( item->GetData( FileNameColumn ).toString() ) )
+                if( settings->GetCheckFilesOnStartup() )
                 {
-                    return( QColor(settings->GetUnavailableFileColor()) );
+                    QColor color = item->GetHighlightColor();
+
+                    if( color.isValid() )
+                    {
+                        return( color );
+                    }
+                    else if( !QFile::exists( item->GetColumnData( FilmItem::FileNameColumn ).toString() ) )
+                    {
+                        item->SetHighlightColor( settings->GetUnavailableFileColor() );
+                        return( item->GetHighlightColor() );
+                    }
                 }
             }
 
             case Qt::DecorationRole :
             {
-                if( column == PosterColumn )
+                if( column == FilmItem::PosterColumn )
                 {
-                    QString posterFileName = item->GetData( PosterColumn ).toString();
+                    QString posterFileName = item->GetColumnData( FilmItem::PosterColumn ).toString();
                     QString posterFilePath = settings->GetPostersDirPath() + "/" + posterFileName;
                     QPixmap pixmap;
 
@@ -208,14 +216,14 @@ QModelIndex FilmsListModel::index( int row, int column, const QModelIndex& paren
 {
     if( hasIndex( row, column, parent ) )
     {
-        TreeItem* parentItem = rootItem;
+        FilmItem* parentItem = rootItem;
 
         if( parent.isValid() )
         {
-            parentItem = static_cast<TreeItem*>( parent.internalPointer() );
+            parentItem = static_cast<FilmItem*>( parent.internalPointer() );
         }
 
-        TreeItem* childItem = parentItem->GetChild( row );
+        FilmItem* childItem = parentItem->GetChild( row );
 
         if( childItem != nullptr )
         {
@@ -231,7 +239,7 @@ QModelIndex FilmsListModel::parent( const QModelIndex& index ) const
 {
     if( index.isValid() )
     {
-        TreeItem* parentItem = static_cast<TreeItem*>( index.internalPointer() )->GetParent();
+        FilmItem* parentItem = static_cast<FilmItem*>( index.internalPointer() )->GetParent();
 
         if( parentItem != rootItem )
         {
@@ -249,82 +257,64 @@ void FilmsListModel::LoadFromFile( const QString& fileName )
 
     beginResetModel();
     rootItem->RemoveChildren();
-
     QFile file( fileName );
 
     if( !file.exists() )
     {
         emit DatabaseIsEmpty();
-        endResetModel();
-        return;
     }
-
-    if( file.open( QIODevice::ReadWrite ) )
+    else if( file.open( QIODevice::ReadOnly ) )
     {
         QDataStream stream( &file );
         QString databaseHeader;
-        quint8 databaseVersion;
-        QList<Film> films;
-
         stream >> databaseHeader;
-        stream >> databaseVersion;
 
-        if( databaseHeader == Alexandra::databaseHeader
-            && databaseVersion == Alexandra::databaseVersion )
+        if( databaseHeader == Alexandra::databaseHeader )
         {
-            stream >> films; // TODO: need to do something
-        }
+            bool isLoaded;
+            quint8 databaseVersion;
+            stream >> databaseVersion;
+            file.close();
 
-        DebugPrint( "Reading done!" );
-        emit DatabaseLoaded();
+            if( databaseVersion == Alexandra::databaseVersion )
+            {
+                ///
+                /// new loading will be here
+                ///
+            }
+            else
+            {
+                isLoaded = FilmsListOldLoader::Populate( rootItem, fileName );
+            }
 
-        if( films.isEmpty() )
-        {
-            emit DatabaseIsEmpty();
+            if( isLoaded )
+            {
+                DebugPrint( "Reading done!" );
+                emit DatabaseLoaded();
+
+                if( rootItem->GetChildCount() == 0 )
+                {
+                    emit DatabaseIsEmpty();
+                }
+
+                if( !QFileInfo(fileName).isWritable() )
+                {
+                    emit DatabaseIsReadonly();
+                }
+            }
+            else
+            {
+                emit DatabaseReadError( tr( "Error while trying to convert old database format to new one." ) );
+            }
         }
         else
         {
-            for( Film& film : films )
-            {
-                QList<QVariant> data;
-
-                data << film.GetTitle()
-                     << film.GetOriginalTitle()
-                     << film.GetTagline()
-                     << film.GetYearStr()
-                     << film.GetGenre()
-                     << film.GetCountry()
-                     << film.GetDirector()
-                     << film.GetProducer()
-                     << film.GetScreenwriter()
-                     << film.GetComposer()
-                     << film.GetBudgetStr()
-                     << film.GetRatingStr()
-                     << film.GetIsViewedSign()
-                     << film.GetIsFavouriteSign()
-                     << film.GetViewsCounter()
-                     << film.GetStarring()
-                     << film.GetDescription()
-                     << film.GetTags()
-                     << film.GetFileName()
-                     << film.GetPosterName();
-
-                TreeItem* item = new TreeItem( data, rootItem );
-                rootItem->AppendChild( item );
-            }
+            emit DatabaseReadError( tr( "Wrong database file format." ) );
         }
-
-        if( !file.isWritable() )
-        {
-            emit DatabaseIsReadonly();
-        }
-
-        file.close();
     }
     else
     {
-        DebugPrint( "Reading failed!" );
-        emit DatabaseReadError();
+        emit DatabaseReadError( tr( "Error while reading database file. Check the access permissions." ) );
     }
 
     endResetModel();

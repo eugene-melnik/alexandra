@@ -19,14 +19,14 @@ QVariant FilmsViewGridProxyModel::data( const QModelIndex& index, int role ) con
 
             case Qt::DecorationRole :
             {
-                QString posterFileName = model->index( row, FilmsListModel::PosterColumn ).data().toString();
+                QString posterFileName = model->index( row, FilmItem::PosterColumn ).data().toString();
 
                 if( pixmapCache->contains(posterFileName) )
                 {
                     return( *pixmapCache->object(posterFileName) );
                 }
 
-                QVariant data = model->index( row, FilmsListModel::PosterColumn ).data( Qt::DecorationRole );
+                QVariant data = model->index( row, FilmItem::PosterColumn ).data( Qt::DecorationRole );
 
                 if( data.isValid() )
                 {

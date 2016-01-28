@@ -3,7 +3,7 @@
  *  file: film.h                                                                                  *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -18,27 +18,20 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILM_H
-#define FILM_H
+#ifndef Film010_H
+#define Film010_H
 
 #include <QDataStream>
 
-class Film
+class Film010
 {
     public:
-        Film();
-        Film( const Film& other ) = default;
+        Film010();
+        Film010( const Film010& other ) = default;
 
-        // Functions needed for comparation (sorting)
-        bool operator > ( const Film& other ) const { return( title > other.title ); }
-        bool operator < ( const Film& other ) const { return( title < other.title ); }
-        bool operator == ( const Film& other ) const { return( title == other.title ); }
+        friend QDataStream& operator >> ( QDataStream& in, Film010& film );
 
-        // Functions needed for serialization
-        friend QDataStream& operator << ( QDataStream& out, const Film& f );
-        friend QDataStream& operator >> ( QDataStream& in, Film& f );
-
-        // Getters
+          // Getters
         const QString& GetId() const        { return( id ); }
         const QString& GetFileName() const  { return( fileName ); }
 
@@ -60,7 +53,7 @@ class Film
         QString GetBudgetStr() const;
         int     GetViewsCounter() const     { return( viewsCounter ); }
         bool    GetIsPosterExists() const   { return( isPosterExists ); }
-        QString GetPosterName() const       { return( GetId() ); } // FIXME: return empty string if poster doesnt exist
+        QString GetPosterName() const;
         bool    GetIsViewed() const         { return( isViewed ); }
         QString GetIsViewedSign() const     { return( isViewed ? "+" : "-" ); }
         bool    GetIsFavourite() const      { return( isFavourite ); }
@@ -69,43 +62,6 @@ class Film
 
         QString GetScreenwriter() const { return( screenwriter ); }
         QString GetComposer() const { return( composer ); }
-#ifdef QT_DEBUG
-        QString DebugGetAllFields() const;
-#endif
-
-        // Setters
-        void SetId( const QString& s )          { id = s; }
-        void SetFileName( const QString& s )    { fileName = s; }
-        void SetTitle( const QString& s )       { title = s; }
-        void SetOriginalTitle( const QString& s ) { originalTitle = s; }
-        void SetTagline( const QString& s )     { tagline = s; }
-        void SetGenre( const QString& s )       { genre = s; }
-        void SetCountry( const QString& s )     { country = s; }
-        void SetYear( quint16 n )               { year = n; }
-        bool SetYearFromStr( const QString& s );
-        void SetDirector( const QString& s )    { director = s; }
-        void SetProducer( const QString& s )    { producer = s; }
-        void SetStarring( const QString& s )    { starring = s; }
-        void SetDescription( const QString& s ) { description = s; }
-        void SetRating( quint8 n )              { rating = n; }
-        bool SetRatingFromStr( const QString& s );
-        void SetTags( const QString& s )        { tags = s; }
-
-        bool SetBudgetFromStr( const QString& s );
-        void IncViewsCounter()              { viewsCounter++; }
-        void SetViewCounter( int count )    { viewsCounter = count; }
-        void SetIsPosterExists( bool b )    { isPosterExists = b; }
-        void SetIsViewed( bool b )          { isViewed = b; }
-        void SetIsFavourite( bool b )       { isFavourite = b; }
-
-        void SetScreenwriter( const QString& s ) { screenwriter = s; }
-        void SetComposer( const QString& s )     { composer = s; }
-
-        void SetNewData( const Film& other );
-
-        // Static
-        static QString GetRandomHash();
-        static QString ClearTitle( QString title );
 
     private:
         QString id;
@@ -125,7 +81,6 @@ class Film
         quint8  rating = 1;
         QString ageRestrictions; // unused
         QString tags;
-        /* QString additionalData; (deprecated) */
 
         quint16 viewsCounter = 0;
 
@@ -133,15 +88,10 @@ class Film
         bool isViewed = false;
         bool isFavourite = false;
 
-        // Additional fields
-        // In order not to change the file format, and maintain compatibility with older
-        // versions, the new films fields will be stored in one string variable "additionalData"
-        // in QByteArray::toHex() format
-
-        int additionalDataVersion = 0x01; // For the future
-
+          // Additional fields (QByteArray::toHex() format)
+          // Compatibility with older versions
         QString screenwriter;
         QString composer;
 };
 
-#endif // FILM_H
+#endif // Film010_H

@@ -154,29 +154,29 @@ void FilmsViewList::SetDefaultColumnsView()
     QHeaderView* header = horizontalHeader();
 
       // Move to start
-    header->moveSection( FilmsListModel::IsFavouriteColumn, 0 );
-    header->moveSection( FilmsListModel::IsViewedColumn + 1, 0 );
+    header->moveSection( FilmItem::IsFavouriteColumn, 0 );
+    header->moveSection( FilmItem::IsViewedColumn + 1, 0 );
 
       // Hide
-    QList<FilmsListModel::Columns> hiddenColumns = {
-        FilmsListModel::OriginalTitleColumn, FilmsListModel::CountryColumn,  FilmsListModel::ProducerColumn,
-        FilmsListModel::ScreenwriterColumn,  FilmsListModel::ComposerColumn, FilmsListModel::BudgetColumn,
-        FilmsListModel::ViewsCountColumn,    FilmsListModel::TaglineColumn,  FilmsListModel::StarringColumn,
-        FilmsListModel::DescriptionColumn,   FilmsListModel::TagsColumn,     FilmsListModel::FileNameColumn,
-        FilmsListModel::PosterColumn
+    QList<FilmItem::Column> hiddenColumns = {
+        FilmItem::OriginalTitleColumn, FilmItem::CountryColumn,  FilmItem::ProducerColumn,
+        FilmItem::ScreenwriterColumn,  FilmItem::ComposerColumn, FilmItem::BudgetColumn,
+        FilmItem::ViewsCountColumn,    FilmItem::TaglineColumn,  FilmItem::StarringColumn,
+        FilmItem::DescriptionColumn,   FilmItem::TagsColumn,     FilmItem::FileNameColumn,
+        FilmItem::PosterColumn
     };
 
-    for( FilmsListModel::Columns col : hiddenColumns )
+    for( FilmItem::Column col : hiddenColumns )
     {
         header->hideSection( col );
     }
 
       // Show and resize
-    QList< QPair<FilmsListModel::Columns,int> > shownColumns = {
-        { FilmsListModel::TitleColumn, 150 }, { FilmsListModel::YearColumn, 50 },
-        { FilmsListModel::GenreColumn, 110 }, { FilmsListModel::DirectorColumn, 110 },
-        { FilmsListModel::RatingColumn, 50 }, { FilmsListModel::IsViewedColumn, 20 },
-        { FilmsListModel::IsFavouriteColumn, 20 }
+    QList< QPair<FilmItem::Column,int> > shownColumns = {
+        { FilmItem::TitleColumn, 150 }, { FilmItem::YearColumn, 50 },
+        { FilmItem::GenreColumn, 110 }, { FilmItem::DirectorColumn, 110 },
+        { FilmItem::RatingColumn, 50 }, { FilmItem::IsViewedColumn, 20 },
+        { FilmItem::IsFavouriteColumn, 20 }
     };
 
     for( auto& p : shownColumns )

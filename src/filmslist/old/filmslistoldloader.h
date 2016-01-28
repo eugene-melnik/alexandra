@@ -1,9 +1,9 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: abstractfilmsview.h                                                                     *
+ *  file: filmslistoldloader.h                                                                    *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -18,26 +18,22 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ABSTRACTFILMSVIEW_H
-#define ABSTRACTFILMSVIEW_H
+#ifndef FILMSLISTOLDLOADER_H
+#define FILMSLISTOLDLOADER_H
 
-#include <QColor>
-#include <QStringList>
+#include <QString>
 
-class AbstractFilmsView
+#include "../filmitem.h"
+
+// TODO: comment
+
+class FilmsListOldLoader
 {
     public:
-        virtual ~AbstractFilmsView() {}
+        static bool Populate( FilmItem* rootItem, const QString& fileName );
 
-        virtual void LoadSettings() {}
-        virtual void ReloadSettings() {}
-        virtual void SaveSettings() const {}
-
-        virtual void ScrollToCurrentItem() = 0;
-
-//        virtual void SetCurrentItemTo( const Film film ) = 0;
-//        virtual void SelectRandomItem() = 0; /* TODO: Maybe need to move to another place */
-//        virtual QStringList GetSelectedItemsList() const = 0;
+    private:
+        static const quint8 OldVersion = 0x10;
 };
 
-#endif // ABSTRACTFILMSVIEW_H
+#endif // FILMSLISTOLDLOADER_H
