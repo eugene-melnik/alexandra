@@ -38,6 +38,9 @@ class AbstractFilmsView
 //        virtual void SetCurrentItemTo( const Film film ) = 0;
 //        virtual void SelectRandomItem() = 0; /* TODO: Maybe need to move to another place */
 //        virtual QStringList GetSelectedItemsList() const = 0;
+
+//    signals:
+//        void CurrentChanged( const QModelIndex& );
 };
 
 #endif // ABSTRACTFILMSVIEW_H

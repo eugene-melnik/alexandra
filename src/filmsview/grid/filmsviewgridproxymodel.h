@@ -18,7 +18,9 @@ class FilmsViewGridProxyModel : public QIdentityProxyModel
             settings( AlexandraSettings::GetInstance() ),
             pixmapCache( new QCache<QString,QPixmap>() ) {}
 
-        void SetCacheSize( int size ) { pixmapCache->setMaxCost( size ); }
+        ~FilmsViewGridProxyModel() { delete pixmapCache; }
+
+        void SetCacheSize( int size ) { pixmapCache->setMaxCost( size + 1 ); }
 
         QVariant data( const QModelIndex& index, int role ) const override;
 

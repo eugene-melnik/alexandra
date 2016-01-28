@@ -37,101 +37,107 @@ DEFINES += MEDIAINFO_SUPPORT
     # Source files #
 
 HEADERS += effects/effectdropshadow.h \
-           filmslist/film.h \
+           filmslist/old/film0x10.h \
+           filmslist/old/filmslistoldloader.h \
+           filmslist/filmitem.h \
            filmslist/filmslistmodel.h \
            filmslist/filmslistproxymodel.h \
-           filmslist/treeitem.h \
            filmsview/grid/filmsviewgrid.h \
            filmsview/grid/filmsviewgridproxymodel.h \
+           filmsview/info/abstractfilminfoview.h \
            filmsview/info/filminfoview.h \
            filmsview/info/filmposterview.h \
+           filmsview/info/filmtechinfoview.h \
            filmsview/list/filmsviewlist.h \
            filmsview/abstractfilmsview.h \
-           filmsview/filmsviewcontextmenu.h \
+#           filmsview/filmsviewcontextmenu.h \
            network/networkrequest.h \
            network/updatechecker.h \
-           parsers/abstractparser.h \
-           parsers/parsermanager.h \
-           parsers/imdb/imdbparser.h \
-           parsers/kinopoisk/kinopoiskparser.h \
-           parsers/kinoteatr/kinoteatrparser.h \
-           parsers/omdb/omdbparser.h \
+#           parsers/abstractparser.h \
+#           parsers/parsermanager.h \
+#           parsers/imdb/imdbparser.h \
+#           parsers/kinopoisk/kinopoiskparser.h \
+#           parsers/kinoteatr/kinoteatrparser.h \
+#           parsers/omdb/omdbparser.h \
            search/searchedit.h \
-           search/searchwindow.h \
-           scanner/filmscannerwindow.h \
-           scanner/filmscannerworker.h \
-           scanner/filmscanneraddworker.h \
-           scanner/movedfilmswindow.h \
+#           search/searchwindow.h \
+#           scanner/filmscannerwindow.h \
+#           scanner/filmscannerworker.h \
+#           scanner/filmscanneraddworker.h \
+#           scanner/movedfilmswindow.h \
            tools/filesextensions.h \
            tools/regexptools.h \
            tools/timecounter.h \
            aboutwindow.h \
-           addfilmwindow.h \
+#           addfilmwindow.h \
            alexandrasettings.h \
            commandlineparser.h \
-           editfilmwindow.h \
+#           editfilmwindow.h \
            mainwindow.h \
            playlist.h \
            playlistwidget.h \
            settingswindow.h \
            splashscreen.h \
-           statisticswindow.h \
-           statisticsworker.h \
+#           statisticswindow.h \
+#           statisticsworker.h \
            statusbar.h \
            toolbar.h \
            version.h
 
 SOURCES += effects/effectdropshadow.cpp \
-           filmslist/film.cpp \
+           filmslist/old/film0x10.cpp \
+           filmslist/old/filmslistoldloader.cpp \
+           filmslist/filmitem.cpp \
            filmslist/filmslistmodel.cpp \
            filmsview/grid/filmsviewgrid.cpp \
            filmsview/grid/filmsviewgridproxymodel.cpp \
            filmsview/info/filminfoview.cpp \
            filmsview/info/filmposterview.cpp \
+           filmsview/info/filmtechinfoview.cpp \
            filmsview/list/filmsviewlist.cpp \
-           filmsview/filmsviewcontextmenu.cpp \
+#           filmsview/filmsviewcontextmenu.cpp \
            network/networkrequest.cpp \
            network/updatechecker.cpp \
-           parsers/parsermanager.cpp \
-           parsers/imdb/imdbparser.cpp \
-           parsers/kinopoisk/kinopoiskparser.cpp \
-           parsers/kinoteatr/kinoteatrparser.cpp \
-           parsers/omdb/omdbparser.cpp \
+#           parsers/parsermanager.cpp \
+#           parsers/imdb/imdbparser.cpp \
+#           parsers/kinopoisk/kinopoiskparser.cpp \
+#           parsers/kinoteatr/kinoteatrparser.cpp \
+#           parsers/omdb/omdbparser.cpp \
            search/searchedit.cpp \
-           search/searchwindow.cpp \
-           scanner/filmscannerwindow.cpp \
-           scanner/filmscannerworker.cpp \
-           scanner/filmscanneraddworker.cpp \
-           scanner/movedfilmswindow.cpp \
+#           search/searchwindow.cpp \
+#           scanner/filmscannerwindow.cpp \
+#           scanner/filmscannerworker.cpp \
+#           scanner/filmscanneraddworker.cpp \
+#           scanner/movedfilmswindow.cpp \
            tools/filesextensions.cpp \
            tools/regexptools.cpp \
            tools/timecounter.cpp \
            aboutwindow.cpp \
-           addfilmwindow.cpp \
+#           addfilmwindow.cpp \
            alexandrasettings.cpp \
            commandlineparser.cpp \
-           editfilmwindow.cpp \
+#           editfilmwindow.cpp \
            main.cpp \
            mainwindow.cpp \
            playlist.cpp \
            playlistwidget.cpp \
            settingswindow.cpp \
            splashscreen.cpp \
-           statisticswindow.cpp \
-           statisticsworker.cpp \
+#           statisticswindow.cpp \
+#           statisticsworker.cpp \
            statusbar.cpp \
            toolbar.cpp
 
 FORMS += filmsview/info/filminfoview.ui \
-         search/searchwindow.ui \
-         scanner/filmscannerwindow.ui \
-         scanner/movedfilmswindow.ui \
+#         search/searchwindow.ui \
+#         scanner/filmscannerwindow.ui \
+#         scanner/movedfilmswindow.ui \
          aboutwindow.ui \
-         addfilmwindow.ui \
+#         addfilmwindow.ui \
          mainwindow.ui \
          settingswindow.ui \
          splashscreen.ui \
-         statisticswindow.ui
+#         statisticswindow.ui
 
     # Translations #
 

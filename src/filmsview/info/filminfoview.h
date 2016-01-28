@@ -21,46 +21,28 @@
 #ifndef FILMINFOVIEW_H
 #define FILMINFOVIEW_H
 
-#include <QAbstractItemView>
+#include <QWidget>
 
-#include "filmslist/filmslistmodel.h"
+#include "abstractfilminfoview.h"
+#include "filmslist/filmitem.h"
 #include "ui_filminfoview.h"
 
-class FilmInfoView : public QAbstractItemView, protected Ui::FilmInfoView
+class FilmInfoView : public QWidget, public AbstractFilmInfoView, protected Ui::FilmInfoView
 {
     Q_OBJECT
 
     public:
         explicit FilmInfoView( QWidget* parent = nullptr );
 
-        void Clear();
+    public slots:
+        void ShowInformation( const QModelIndex& index ) override;
+        void Clear() override;
+
         void ShowEmptyDatabaseMessage() const;
-        void ShowMessage( const QString& message ) { lFilmTitle->setText( message ); }
-
-        void setFont( const QFont& font );
-
-        void setSelectionModel( QItemSelectionModel* selectionModel ) override;
-
-        QRect visualRect( const QModelIndex& ) const override { return( rect() ); }
-        void scrollTo( const QModelIndex&, ScrollHint ) override {}
-        QModelIndex indexAt( const QPoint& ) const override { return( currentIndex() ); }
-
-    protected:
-        int horizontalOffset() const override { return( 0 ); }
-        int verticalOffset() const override { return( 0 ); }
-
-        bool isIndexHidden( const QModelIndex& ) const override { return( false ); }
-
-        void setSelection( const QRect&, QItemSelectionModel::SelectionFlags ) override {}
-        QRegion visualRegionForSelection( const QItemSelection& ) const override { return( rect() ); }
-
-        QModelIndex	moveCursor( CursorAction, Qt::KeyboardModifiers ) override { return( currentIndex() ); }
-
-    private slots:
-        void ShowSelected( const QModelIndex& current, const QModelIndex& /* previous */ );
+        void ShowMessage( const QString& message ) { Clear(); lFilmTitle->setText( message ); }
 
     private:
-        QList< QPair<FilmsListModel::Columns,QLabel*> > textItems;
+        QList< QPair<FilmItem::Column,QLabel*> > textItems;
 };
 
 #endif // FILMINFOVIEW_H

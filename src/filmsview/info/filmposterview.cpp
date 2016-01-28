@@ -3,27 +3,27 @@
 #include "filmslist/filmslistmodel.h"
 #include "tools/debug.h"
 
-#include <QBoxLayout>
+#include <QAbstractProxyModel>
+#include <QResizeEvent>
 
 
-FilmPosterView::FilmPosterView( QWidget* parent ) : QAbstractItemView( parent )
+void FilmPosterView::ShowInformation( const QModelIndex& index )
 {
-    image = new QLabel( this );
+    DebugPrintFuncA( "FilmPosterView::ShowInformation", index.row() );
 
-    QBoxLayout* layout = new QBoxLayout( QBoxLayout::LeftToRight, this );
-    layout->setContentsMargins( 0, 0, 0, 0 );
-    layout->addWidget( image );
+    const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
+    QVariant data = model->index( index.row(), FilmItem::PosterColumn ).data( Qt::DecorationRole );
 
-    setLayout( layout );
-    Clear();
-}
+    if( data.isValid() )
+    {
+        SetPixmap( data.value<QPixmap>() );
+    }
+    else
+    {
+        Clear();
+    }
 
-
-void FilmPosterView::SetPixmap( const QPixmap& pixmap )
-{
-    QPixmap p = pixmap.scaledToWidth( width(), Qt::SmoothTransformation );
-    setMinimumHeight( p.height() );
-    image->setPixmap( p );
+    DebugPrintFuncDone( "FilmPosterView::ShowInformation" );
 }
 
 
@@ -33,28 +33,29 @@ void FilmPosterView::Clear()
 }
 
 
-void FilmPosterView::setSelectionModel( QItemSelectionModel* selectionModel )
+void FilmPosterView::resizeEvent( QResizeEvent* event )
 {
-    QAbstractItemView::setSelectionModel( selectionModel );
-    connect( selectionModel, &QItemSelectionModel::currentRowChanged, this, &FilmPosterView::ShowSelected );
-}
+    QLabel::resizeEvent( event );
 
-void FilmPosterView::ShowSelected( const QModelIndex& current, const QModelIndex& /* previous */ )
-{
-    if( current.isValid() )
+    if( event->oldSize().width() != event->size().width() &&
+        pixmap() != nullptr )
     {
-        DebugPrintFuncA( "FilmPosterView::ShowSelected", current.row() );
-        QVariant data = model()->index( current.row(), FilmsListModel::PosterColumn ).data( Qt::DecorationRole );
-
-        if( data.isValid() )
-        {
-            SetPixmap( data.value<QPixmap>() );
-        }
-        else
-        {
-            Clear();
-        }
-
-        DebugPrintFuncDone( "FilmPosterView::ShowSelected" );
+        SetPixmap( *pixmap() );
     }
 }
+
+
+void FilmPosterView::showEvent( QShowEvent* event )
+{
+    QLabel::showEvent( event );
+    Clear();
+}
+
+
+void FilmPosterView::SetPixmap( const QPixmap& pixmap )
+{
+    QPixmap p = pixmap.scaledToWidth( width(), Qt::SmoothTransformation );
+    setMinimumHeight( p.height() );
+    setPixmap( p );
+}
+

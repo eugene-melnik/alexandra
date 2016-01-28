@@ -24,18 +24,18 @@
 #include "filmslist/filmslistmodel.h"
 #include "filmslist/filmslistproxymodel.h"
 #include "filmsview/abstractfilmsview.h"
-#include "filmsview/filmsviewcontextmenu.h"
-#include "scanner/filmscannerwindow.h"
-#include "scanner/movedfilmswindow.h"
+//#include "filmsview/filmsviewcontextmenu.h"
+//#include "scanner/filmscannerwindow.h"
+//#include "scanner/movedfilmswindow.h"
 #include "search/searchedit.h"
-#include "search/searchwindow.h"
+//#include "search/searchwindow.h"
 #include "aboutwindow.h"
-#include "addfilmwindow.h"
+//#include "addfilmwindow.h"
 #include "alexandrasettings.h"
-#include "editfilmwindow.h"
-#include "filminfowindow.h"
+//#include "editfilmwindow.h"
+//#include "filminfowindow.h"
 #include "settingswindow.h"
-#include "statisticswindow.h"
+//#include "statisticswindow.h"
 #include "ui_mainwindow.h"
 
 #include <QMainWindow>
@@ -71,13 +71,13 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void ReloadView();
 
         void DatabaseIsLoaded() { SetAllFunctionsEnabled( true ); }
-        void DatabaseReadError();
+        void DatabaseReadError( const QString& message );
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 
 //        void ShowFilmInformation();
 //        void ShowFilmContextMenu( QPoint p );
-        void ShowShortTechnicalInfo( const QString& info );
+//        void ShowShortTechnicalInfo( const QString& info );
 
 //        void AddToPlaylist();
         void PlaylistCleared();
@@ -121,14 +121,14 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         // Child windows
         AboutWindow* aboutWindow = nullptr;
-        AddFilmWindow* addFilmWindow = nullptr;
-        EditFilmWindow* editFilmWindow = nullptr;
-        FilmInfoWindow* filmInfoWindow = nullptr;
-        FilmScannerWindow* filmScannerWindow = nullptr;
-        MovedFilmsWindow* movedFilmsWindow = nullptr;
-        SearchWindow* searchWindow = nullptr;
+//        AddFilmWindow* addFilmWindow = nullptr;
+//        EditFilmWindow* editFilmWindow = nullptr;
+//        FilmInfoWindow* filmInfoWindow = nullptr;
+//        FilmScannerWindow* filmScannerWindow = nullptr;
+//        MovedFilmsWindow* movedFilmsWindow = nullptr;
+//        SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
-        StatisticsWindow* statisticsWindow = nullptr;
+//        StatisticsWindow* statisticsWindow = nullptr;
 
         // Shortcuts
         QShortcut* quickSearchShortcut = nullptr;
@@ -136,7 +136,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         // Variables
         AbstractFilmsView* filmsView = nullptr;
-        FilmsViewContextMenu* contextMenu = nullptr;
+//        FilmsViewContextMenu* contextMenu = nullptr;
 
         AlexandraSettings* settings;
         QProcess* externalPlayer;

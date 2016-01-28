@@ -68,11 +68,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="FilmInfoView" name="wFilmInfo" native="true">
-       <property name="styleSheet">
-        <string notr="true">#wFilmInfo { background: transparent; border: none; }</string>
-       </property>
-      </widget>
+      <widget class="FilmInfoView" name="wFilmInfo" native="true"/>
      </widget>
     </item>
     <item>
@@ -97,9 +93,12 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="FilmPosterView" name="wFilmPoster" native="true">
-         <property name="styleSheet">
-          <string notr="true">#wFilmPoster { background: transparent; border: none; }</string>
+        <widget class="FilmPosterView" name="lFilmPoster">
+         <property name="text">
+          <string notr="true">&lt;poster&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -111,7 +110,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="lTechInformation">
+        <widget class="FilmTechInfoView" name="lTechInformation">
          <property name="text">
           <string notr="true">&lt;tech_info&gt;</string>
          </property>
@@ -594,10 +593,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
+   <class>FilmTechInfoView</class>
+   <extends>QLabel</extends>
+   <header>filmsview/info/filmtechinfoview.h</header>
+  </customwidget>
+  <customwidget>
    <class>FilmPosterView</class>
-   <extends>QWidget</extends>
+   <extends>QLabel</extends>
    <header>filmsview/info/filmposterview.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

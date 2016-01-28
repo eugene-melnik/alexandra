@@ -27,14 +27,15 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent )
 void FilmsViewGrid::setModel( QAbstractItemModel* model )
 {
     proxyModel->setSourceModel( model );
-    proxyModel->SetCacheSize( model->rowCount() );
+
+    connect( model, &QAbstractItemModel::modelReset, this, [this, model]
+    {
+        proxyModel->SetCacheSize( model->rowCount() );
+    } );
+
+    connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(MapCurrentChanged(QModelIndex)) );
 }
 
-
-void FilmsViewGrid::LoadSettings()
-{
-    ReloadSettings();
-}
 
 void FilmsViewGrid::ReloadSettings()
 {
@@ -46,4 +47,10 @@ void FilmsViewGrid::updateGeometries()
 {
     QListView::updateGeometries();
     verticalScrollBar()->setSingleStep( AlexandraSettings::GetInstance()->GetGridItemSize() / 5 );
+}
+
+
+void FilmsViewGrid::MapCurrentChanged( const QModelIndex& index )
+{
+    emit CurrentChanged( proxyModel->mapToSource(index) );
 }

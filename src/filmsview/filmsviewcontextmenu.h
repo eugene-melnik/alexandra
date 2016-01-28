@@ -24,8 +24,6 @@
 #include <QAction>
 #include <QMenu>
 
-#include "filmslist/film.h"
-
 class FilmsViewContextMenu : public QMenu
 {
     Q_OBJECT

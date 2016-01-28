@@ -51,20 +51,29 @@ class FilmItem
             ColumnCount
         };
 
+        enum Existing
+        {
+            Unknown,
+            Exists,
+            NotExists
+        };
+
         void AppendChild( FilmItem* item ) { childItems.append( item ); }
-        void SetHighlightColor( const QColor& color ) { highlightColor = color; }
         void RemoveChildren();
 
-        int    GetColumnCount() const { return( columnsData.size() ); }
-        int    GetChildCount() const { return( childItems.size() ); }
-        int    GetRow() const;
-        QColor GetHighlightColor() const { return( highlightColor ); }
+        void SetIsFileExists( Existing exists ) { isFileExists = exists; }
+        void SetIsPosterExists( Existing exists ) { isPosterExists = exists; }
+
+        int GetColumnCount() const { return( columnsData.size() ); }
+        int GetChildCount() const { return( childItems.size() ); }
+        int GetRow() const;
 
         FilmItem* GetParent() { return( parentItem ); }
         FilmItem* GetChild( int row ) { return( childItems.value( row  ) ); }
         QVariant  GetColumnData( int column ) const { return( columnsData.value( column ) ); }
 
-///        QList<FilmItem*>& GetChildren() { return( childItems ); }
+        Existing GetIsFileExists() const { return( isFileExists ); }
+        Existing GetIsPosterExists() const { return( isPosterExists ); }
 
           // Static
         static QString GetRandomHash();
@@ -74,21 +83,14 @@ class FilmItem
         FilmItem*        parentItem;
         QList<FilmItem*> childItems;
 
-        FilmType        filmType;
+        FilmType filmType; ///
+        Existing isFileExists = Unknown;
+        Existing isPosterExists = NotExists; ///
         QList<QVariant> columnsData;
-        QColor          highlightColor;
-        bool            isPosterExists;
 };
 
 
   // Must be quick
-
-inline void FilmItem::RemoveChildren()
-{
-    qDeleteAll( childItems );
-    childItems.clear();
-}
-
 
 inline int FilmItem::GetRow() const
 {

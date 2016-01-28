@@ -177,16 +177,15 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
             {
                 if( settings->GetCheckFilesOnStartup() )
                 {
-                    QColor color = item->GetHighlightColor();
-
-                    if( color.isValid() )
+                    if( item->GetIsFileExists() == FilmItem::Unknown )
                     {
-                        return( color );
+                        bool isExists = QFile::exists( item->GetColumnData( FilmItem::FileNameColumn ).toString() );
+                        item->SetIsFileExists( isExists ? FilmItem::Exists : FilmItem::NotExists );
                     }
-                    else if( !QFile::exists( item->GetColumnData( FilmItem::FileNameColumn ).toString() ) )
+
+                    if( item->GetIsFileExists() == FilmItem::NotExists )
                     {
-                        item->SetHighlightColor( settings->GetUnavailableFileColor() );
-                        return( item->GetHighlightColor() );
+                        return( QColor( settings->GetUnavailableFileColor() ) );
                     }
                 }
             }

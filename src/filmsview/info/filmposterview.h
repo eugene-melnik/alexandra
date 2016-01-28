@@ -2,41 +2,27 @@
 #ifndef FILMPOSTERVIEW_H
 #define FILMPOSTERVIEW_H
 
-#include <QAbstractItemView>
+#include "abstractfilminfoview.h"
+
 #include <QLabel>
 
-class FilmPosterView : public QAbstractItemView
+class FilmPosterView : public QLabel, public AbstractFilmInfoView
 {
     Q_OBJECT
 
     public:
-        explicit FilmPosterView( QWidget* parent = nullptr );
+        explicit FilmPosterView( QWidget* parent = nullptr ) : QLabel( parent ) {}
 
-        void SetPixmap( const QPixmap& pixmap );
-        void Clear();
+    public slots:
+        void ShowInformation( const QModelIndex& index ) override;
+        void Clear() override;
 
-        void setSelectionModel( QItemSelectionModel* selectionModel ) override;
-
-        QRect visualRect( const QModelIndex& ) const override { return( rect() ); }
-        void scrollTo( const QModelIndex&, ScrollHint ) override {}
-        QModelIndex indexAt( const QPoint& ) const override { return( currentIndex() ); }
-
-    protected:
-        int horizontalOffset() const override { return( 0 ); }
-        int verticalOffset() const override { return( 0 ); }
-
-        bool isIndexHidden( const QModelIndex& ) const override { return( false ); }
-
-        void setSelection( const QRect&, QItemSelectionModel::SelectionFlags ) override {}
-        QRegion visualRegionForSelection( const QItemSelection& ) const override { return( rect() ); }
-
-        QModelIndex	moveCursor( CursorAction, Qt::KeyboardModifiers ) override { return( currentIndex() ); }
-
-    private slots:
-        void ShowSelected( const QModelIndex& current, const QModelIndex& /* previous */ );
+    protected slots:
+        void resizeEvent( QResizeEvent* event );
+        void showEvent( QShowEvent* event );
 
     private:
-        QLabel* image;
+        void SetPixmap( const QPixmap& pixmap );
 };
 
 #endif // FILMPOSTERVIEW_H

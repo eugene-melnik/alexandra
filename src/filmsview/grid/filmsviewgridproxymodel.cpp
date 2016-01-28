@@ -21,20 +21,25 @@ QVariant FilmsViewGridProxyModel::data( const QModelIndex& index, int role ) con
             {
                 QString posterFileName = model->index( row, FilmItem::PosterColumn ).data().toString();
 
-                if( pixmapCache->contains(posterFileName) )
+                if( !pixmapCache->contains(posterFileName) )
                 {
-                    return( *pixmapCache->object(posterFileName) );
+                    QVariant data = model->index( row, FilmItem::PosterColumn ).data( Qt::DecorationRole );
+                    QPixmap pixmap;
+
+                    if( data.isValid() )
+                    {
+                        pixmap = data.value<QPixmap>();
+                    }
+                    else
+                    {
+                        pixmap = QPixmap( ":/standart-poster" );
+                    }
+
+                    QPixmap* p = new QPixmap( pixmap.scaledToHeight( settings->GetGridItemSize(), Qt::SmoothTransformation ) );
+                    pixmapCache->insert( posterFileName, p );
                 }
 
-                QVariant data = model->index( row, FilmItem::PosterColumn ).data( Qt::DecorationRole );
-
-                if( data.isValid() )
-                {
-                    QPixmap* pixmap = new QPixmap( data.value<QPixmap>().scaledToHeight( settings->GetGridItemSize(),
-                                                                                         Qt::SmoothTransformation ) );
-                    pixmapCache->insert( posterFileName, pixmap );
-                    return( *pixmap );
-                }
+                return( *pixmapCache->object(posterFileName) );
             }
 
             case Qt::ToolTipRole :

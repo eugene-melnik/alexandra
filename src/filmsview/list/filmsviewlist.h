@@ -33,12 +33,17 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
     public:
         explicit FilmsViewList( QWidget* parent = nullptr );
 
+        void setModel( QAbstractItemModel* model ) override;
+
     public slots:
         void LoadSettings() override;
         void ReloadSettings() override;
         void SaveSettings() const override;
 
         void ScrollToCurrentItem() override { scrollTo( currentIndex() ); }
+
+    signals:
+        void CurrentChanged( const QModelIndex& );
 
     protected:
         void keyPressEvent( QKeyEvent* event ) override;

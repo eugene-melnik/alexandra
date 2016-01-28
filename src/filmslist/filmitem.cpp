@@ -2,6 +2,13 @@
 #include "filmitem.h"
 
 
+void FilmItem::RemoveChildren()
+{
+    qDeleteAll( childItems );
+    childItems.clear();
+}
+
+
 QString FilmItem::GetRandomHash()
 {
     QByteArray hash = QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 );

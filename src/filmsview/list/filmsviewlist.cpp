@@ -53,6 +53,13 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableView( parent )
 }
 
 
+void FilmsViewList::setModel( QAbstractItemModel* model )
+{
+    QTableView::setModel( model );
+    connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SIGNAL(CurrentChanged(QModelIndex)) );
+}
+
+
 void FilmsViewList::LoadSettings()
 {
     AlexandraSettings* settings = AlexandraSettings::GetInstance();

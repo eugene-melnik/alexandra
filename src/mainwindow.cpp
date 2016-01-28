@@ -53,6 +53,9 @@ MainWindow::MainWindow() : QMainWindow(),
     SetupFilmsView();
 
     LoadSettings();
+
+    filmsListModel->LoadFromFile( settings->GetDatabaseFilePath() );
+///    filmsListModel->SetCurrentFilm( settings->GetCurrentFilmTitle() );
     DebugPrintFuncDone( "MainWindow::MainWindow" );
 }
 
@@ -61,45 +64,45 @@ void MainWindow::AddFilmsFromOutside( const QStringList& films )
 {
     DebugPrintFuncA( "MainWindow::AddFilmsFromOutside", films.size() );
 
-    QList<Film> newFilms;
-    QString messageText;
+//    QList<Film> newFilms;
+//    QString messageText;
 
-    for( const QString& film : films )
-    {
-        QFileInfo filmInfo( film );
-        QString fileSuffix = "*." + filmInfo.suffix();
+//    for( const QString& film : films )
+//    {
+//        QFileInfo filmInfo( film );
+//        QString fileSuffix = "*." + filmInfo.suffix();
 
-        if( FilesExtensions().GetFilmExtensionsForDirFilter().contains( fileSuffix ) )
-        {
-            Film f;
-            f.SetFileName( film );
-            f.SetTitle( filmInfo.completeBaseName() );
-            newFilms.append( f );
-            messageText.append( QString::number( newFilms.size() ) + ") " + filmInfo.fileName() + "\n" );
-        }
-    }
+//        if( FilesExtensions().GetFilmExtensionsForDirFilter().contains( fileSuffix ) )
+//        {
+//            Film f;
+//            f.SetFileName( film );
+//            f.SetTitle( filmInfo.completeBaseName() );
+//            newFilms.append( f );
+//            messageText.append( QString::number( newFilms.size() ) + ") " + filmInfo.fileName() + "\n" );
+//        }
+//    }
 
-    if( newFilms.size() == 0 )
-    {
-        QMessageBox::information( this,
-                                  tr( "Add films" ),
-                                  tr( "There is nothing to add." ) );
-        return;
-    }
+//    if( newFilms.size() == 0 )
+//    {
+//        QMessageBox::information( this,
+//                                  tr( "Add films" ),
+//                                  tr( "There is nothing to add." ) );
+//        return;
+//    }
 
-    messageText = tr( "Add the following film(s)?\n" ) + messageText;
+//    messageText = tr( "Add the following film(s)?\n" ) + messageText;
 
-    int res = QMessageBox::question( this,
-                                     tr( "Add films" ),
-                                     messageText,
-                                     QMessageBox::Yes | QMessageBox::No,
-                                     QMessageBox::Yes );
+//    int res = QMessageBox::question( this,
+//                                     tr( "Add films" ),
+//                                     messageText,
+//                                     QMessageBox::Yes | QMessageBox::No,
+//                                     QMessageBox::Yes );
 
-    if( res == QMessageBox::Yes )
-    {
-//        AddFilmsDone( &newFilms );
-        QMessageBox::information( this, tr( "Add films" ), tr( "Done!" ) );
-    }
+//    if( res == QMessageBox::Yes )
+//    {
+////        AddFilmsDone( &newFilms );
+//        QMessageBox::information( this, tr( "Add films" ), tr( "Done!" ) );
+//    }
 
     DebugPrintFuncDone( "MainWindow::AddFilmsFromOutside" );
 }
@@ -170,15 +173,12 @@ void MainWindow::ReloadView()
 }
 
 
-void MainWindow::DatabaseReadError()
+void MainWindow::DatabaseReadError( const QString& message )
 {
     ClearTextFields();
     SetAllFunctionsEnabled( false );
     wFilmInfo->ShowMessage( tr( "Error reading the database!" ) );
-
-    QMessageBox::critical( this, tr( "Database" ),
-                                 tr( "Error reading the database! Check the permissions or choose another "
-                                     "database file in settings (\"Application\" tab)." ) );
+    QMessageBox::critical( this, tr( "Database read error" ), message );
 }
 
 
@@ -246,12 +246,12 @@ void MainWindow::DatabaseIsReadonly()
 //}
 
 
-void MainWindow::ShowShortTechnicalInfo( const QString& info )
-{
-    DebugPrintFunc( "MainWindow::ShowShortTechnicalInfo" );
-    lTechInformation->setText( info );
-    lTechInformation->setVisible( true );
-}
+//void MainWindow::ShowShortTechnicalInfo( const QString& info )
+//{
+//    DebugPrintFunc( "MainWindow::ShowShortTechnicalInfo" );
+//    lTechInformation->setText( info );
+//    lTechInformation->setVisible( true );
+//}
 
 
 //void MainWindow::AddToPlaylist()
@@ -552,22 +552,18 @@ void MainWindow::SetupModels()
     DebugPrintFunc( "MainWindow::SetupModels" );
 
     filmsListModel = new FilmsListModel( this );
-    filmsListModel->LoadFromFile( settings->GetDatabaseFilePath() );
-///    filmsListModel->SetCurrentFilm( settings->GetCurrentFilmTitle() );
-
     filmsListProxyModel = new FilmsListProxyModel( this );
     filmsListProxyModel->setSourceModel( filmsListModel );
-    wFilmInfo->setModel( filmsListProxyModel );
-    wFilmPoster->setModel( filmsListProxyModel );
-    eFilter->SetModel( filmsListModel );
 
 //    QCompleter* completer = new QCompleter( filmsListModel, this ); // FIXME
 //    completer->setCompletionColumn( FilmsListModel::TitleColumn );
 //    completer->setCaseSensitivity( Qt::CaseInsensitive );
 //    eFilter->setCompleter( completer );
 
-    connect( eFilter, SIGNAL(TextChanged(QString,QList<int>)),
-             filmsListProxyModel, SLOT(SetFilter(const QString&,const QList<int>&)) );
+    eFilter->SetModel( filmsListProxyModel );
+
+    connect( filmsListModel, &FilmsListModel::DatabaseReadError, this, &MainWindow::DatabaseReadError );
+    connect( eFilter, &SearchEdit::TextChanged, filmsListProxyModel, &FilmsListProxyModel::SetFilter );
 
     DebugPrintFuncDone( "MainWindow::SetupModels" );
 }
@@ -578,7 +574,7 @@ void MainWindow::SetupWindows()
     DebugPrintFunc( "MainWindow::SetupWindows" );
 
         /// Main window
-    contextMenu = new FilmsViewContextMenu( this );
+//    contextMenu = new FilmsViewContextMenu( this );
 
     connect( actionShowFullscreen, &QAction::toggled,    this, &MainWindow::ShowFullScreen );
     connect( toolbar,              &ToolBar::actionExit, this, &MainWindow::close );
@@ -726,7 +722,7 @@ void MainWindow::SetupFilmsView()
     {
         case Alexandra::GridMode :
         {
-            filmsListProxyModel->sort( FilmsListModel::TitleColumn );
+            filmsListProxyModel->sort( FilmItem::TitleColumn );
             view = new FilmsViewGrid( this );
             DebugPrint( "Grid view mode" );
             break;
@@ -743,6 +739,9 @@ void MainWindow::SetupFilmsView()
     filmsView = dynamic_cast<AbstractFilmsView*>( view );
 
       // Base signals
+    connect( view, SIGNAL(CurrentChanged(QModelIndex)), wFilmInfo, SLOT(ShowInformation(QModelIndex)) );
+    connect( view, SIGNAL(CurrentChanged(QModelIndex)), lFilmPoster, SLOT(ShowInformation(QModelIndex)) );
+    connect( view, SIGNAL(CurrentChanged(QModelIndex)), lTechInformation, SLOT(ShowInformation(QModelIndex)) );
 //    connect( view, SIGNAL( ContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
       // Search window
 //    connect( searchWindow, SIGNAL( FilmSelected(QString) ), view, SLOT( SelectItem(QString) ) );
@@ -754,9 +753,6 @@ void MainWindow::SetupFilmsView()
     vlLeft->insertWidget( 0, view );
     view->show();
     view->setFocus();
-
-    wFilmInfo->setSelectionModel( view->selectionModel() );
-    wFilmPoster->setSelectionModel( view->selectionModel() );
 
     DebugPrintFuncDone( "MainWindow::SetupFilmsView" );
 }
@@ -881,7 +877,7 @@ void MainWindow::SaveSettings()
 void MainWindow::ClearTextFields()
 {
     wFilmInfo->Clear();
-    wFilmPoster->Clear();
+    lFilmPoster->Clear();
     lTechInformation->clear();
 }
 
