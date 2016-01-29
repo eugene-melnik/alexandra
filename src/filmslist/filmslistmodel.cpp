@@ -57,6 +57,13 @@ FilmsListModel::FilmsListModel( QObject* parent ) : QAbstractItemModel( parent )
     };
 
     rootItem = new FilmItem( titles );
+
+    connect( this, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SIGNAL(DatabaseChanged()) ); ///
+    connect( this, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SIGNAL(DatabaseChanged()) );
+    connect( this, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(DatabaseChanged()) );
+    connect( this, SIGNAL(layoutChanged()), this, SIGNAL(DatabaseChanged()) );
+    connect( this, SIGNAL(modelReset()), this, SIGNAL(DatabaseChanged()) );
+
     DebugPrintFuncDone( "FilmsListModel::FilmsListModel" );
 }
 
@@ -332,5 +339,24 @@ void FilmsListModel::EraseAll()
     // TODO: save database
 
     DebugPrintFuncDone( "FilmsListModel::EraseAll" );
+}
+
+
+int FilmsListModel::GetCountOf( FilmItem::Column column, const QString& text ) const
+{
+    int counter = 0;
+
+    for( int i = 0; i < rootItem->GetChildCount(); ++i )
+    {
+        const FilmItem* film = rootItem->GetChild( i );
+        QString sign = film->GetColumnData( column ).toString();
+
+        if( sign == text )
+        {
+            ++counter;
+        }
+    }
+
+    return( counter );
 }
 

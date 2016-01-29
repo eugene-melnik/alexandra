@@ -70,9 +70,9 @@ class FilmsListModel : public QAbstractItemModel
         void EraseAll();
 //        void ResetViews();
 
-//        int GetFilmsCount() const;
-//        int GetIsViewedCount() const;
-//        int GetIsFavouriteCount() const;
+        int GetFilmsCount() const { return( rootItem->GetChildCount() ); }
+        int GetIsViewedFilmsCount() const { return( GetCountOf( FilmItem::IsViewedColumn, "+" ) ); }
+        int GetIsFavouriteFilmsCount() const { return( GetCountOf( FilmItem::IsFavouriteColumn, "+" ) ); }
 
 //        const Film*  GetCurrentFilm() const;
 //        QString      GetCurrentFilmTitle() const;
@@ -92,9 +92,10 @@ class FilmsListModel : public QAbstractItemModel
         void DatabaseIsReadonly();
 
         void DatabaseLoaded();
-//        void DatabaseChanged();
+        void DatabaseChanged();
 
     private:
+        int GetCountOf( FilmItem::Column column, const QString& text ) const;
 //        void RemoveFilm( const Film& film );
 
           // Variables

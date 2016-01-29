@@ -27,11 +27,9 @@
 #include "splashscreen.h"
 #include "version.h"
 
-#include <QCompleter>
 #include <QDesktopWidget>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QPixmapCache>
 #include <QRect>
 #include <list>
 
@@ -46,8 +44,6 @@ MainWindow::MainWindow() : QMainWindow(),
     setWindowTitle( Alexandra::appNameGui );
     setupUi( this );
 
-//    QPixmapCache::setCacheLimit( 20*1024 );///KiB cache
-
     SetupModels();
     SetupWindows();
     SetupFilmsView();
@@ -56,6 +52,7 @@ MainWindow::MainWindow() : QMainWindow(),
 
     filmsListModel->LoadFromFile( settings->GetDatabaseFilePath() );
 ///    filmsListModel->SetCurrentFilm( settings->GetCurrentFilmTitle() );
+
     DebugPrintFuncDone( "MainWindow::MainWindow" );
 }
 
@@ -135,12 +132,14 @@ void MainWindow::QuickSearchEscBehavior()
 }
 
 
-//void MainWindow::SaveDatabase()
-//{
-//    SetupCompleter();
-//    StatusbarShowTotal();
-//    filmsList->SaveToFileAsync( settings->GetDatabaseFilePath() );
-//}
+void MainWindow::DatabaseChanged()
+{
+    statusbar->ShowTotal( filmsListModel->GetFilmsCount(),
+                          filmsListModel->GetIsViewedFilmsCount(),
+                          filmsListModel->GetIsFavouriteFilmsCount() );
+
+///    filmsListModel->SaveToFileAsync( settings->GetDatabaseFilePath() );
+}
 
 
 //void MainWindow::ResetStatistics()
@@ -194,7 +193,15 @@ void MainWindow::DatabaseIsReadonly()
     SetReadOnlyMode();
 
     QMessageBox::information( this, tr( "Database" ),
-                                    tr( "Database is readonly! Editing functions are disabled." ) );
+                              tr( "Database is readonly! Editing functions are disabled." ) );
+}
+
+
+void MainWindow::ShowFilmInformation( const QModelIndex& index )
+{
+    wFilmInfo->ShowInformation( index );
+    lFilmPoster->ShowInformation( index );
+    lTechInformation->ShowInformation( index );
 }
 
 
@@ -491,14 +498,6 @@ void MainWindow::PlayerStarted()
 //}
 
 
-//void MainWindow::StatusbarShowTotal()
-//{
-//    statusbar->ShowTotal( filmsList->GetFilmsCount(),
-//                          filmsList->GetIsViewedCount(),
-//                          filmsList->GetIsFavouriteCount() );
-//}
-
-
 //void MainWindow::AddFilmDone( Film film )
 //{
 //    if( filmsList->GetTitlesList().contains( film.GetTitle() ) )
@@ -555,16 +554,6 @@ void MainWindow::SetupModels()
     filmsListProxyModel = new FilmsListProxyModel( this );
     filmsListProxyModel->setSourceModel( filmsListModel );
 
-//    QCompleter* completer = new QCompleter( filmsListModel, this ); // FIXME
-//    completer->setCompletionColumn( FilmsListModel::TitleColumn );
-//    completer->setCaseSensitivity( Qt::CaseInsensitive );
-//    eFilter->setCompleter( completer );
-
-    eFilter->SetModel( filmsListProxyModel );
-
-    connect( filmsListModel, &FilmsListModel::DatabaseReadError, this, &MainWindow::DatabaseReadError );
-    connect( eFilter, &SearchEdit::TextChanged, filmsListProxyModel, &FilmsListProxyModel::SetFilter );
-
     DebugPrintFuncDone( "MainWindow::SetupModels" );
 }
 
@@ -580,13 +569,13 @@ void MainWindow::SetupWindows()
     connect( toolbar,              &ToolBar::actionExit, this, &MainWindow::close );
 
     connect( filmsListModel, &FilmsListModel::DatabaseLoaded, this, &MainWindow::DatabaseIsLoaded );
-
-//    connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::SaveDatabase );
-//    connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::StatusbarShowTotal );
-
     connect( filmsListModel, &FilmsListModel::DatabaseReadError,  this, &MainWindow::DatabaseReadError );
     connect( filmsListModel, &FilmsListModel::DatabaseIsReadonly, this, &MainWindow::DatabaseIsReadonly );
     connect( filmsListModel, &FilmsListModel::DatabaseIsEmpty,    this, &MainWindow::DatabaseIsEmpty );
+    connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::DatabaseChanged );
+
+    eFilter->SetModel( filmsListProxyModel );
+    connect( eFilter, &SearchEdit::TextChanged, filmsListProxyModel, &FilmsListProxyModel::SetFilter );
 
       // Playlist
 //    connect( bAddToPlaylist, &QPushButton::clicked, this, &MainWindow::AddToPlaylist );
@@ -739,9 +728,7 @@ void MainWindow::SetupFilmsView()
     filmsView = dynamic_cast<AbstractFilmsView*>( view );
 
       // Base signals
-    connect( view, SIGNAL(CurrentChanged(QModelIndex)), wFilmInfo, SLOT(ShowInformation(QModelIndex)) );
-    connect( view, SIGNAL(CurrentChanged(QModelIndex)), lFilmPoster, SLOT(ShowInformation(QModelIndex)) );
-    connect( view, SIGNAL(CurrentChanged(QModelIndex)), lTechInformation, SLOT(ShowInformation(QModelIndex)) );
+    connect( view, SIGNAL(CurrentChanged(QModelIndex)), this, SLOT(ShowFilmInformation(QModelIndex)) );
 //    connect( view, SIGNAL( ContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
       // Search window
 //    connect( searchWindow, SIGNAL( FilmSelected(QString) ), view, SLOT( SelectItem(QString) ) );

@@ -64,7 +64,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void ShowFullScreen( bool isFullScreen ) { isFullScreen ? showFullScreen() : showNormal(); }
         void QuickSearchEscBehavior();
 
-//        void SaveDatabase();
+        void DatabaseChanged();
 //        void ResetStatistics();
         void ReloadDatabase();
         void ReloadSettings();
@@ -75,7 +75,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 
-//        void ShowFilmInformation();
+        void ShowFilmInformation( const QModelIndex& index );
 //        void ShowFilmContextMenu( QPoint p );
 //        void ShowShortTechnicalInfo( const QString& info );
 
@@ -96,8 +96,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
 //        void UpdateCurrentFilm() { UpdateCurrentFilm( Film() ); }
 //        void UpdateCurrentFilm( Film film );
-
-//        void StatusbarShowTotal();
 
     private:
           // Additional functions
