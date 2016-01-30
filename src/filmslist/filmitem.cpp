@@ -9,6 +9,20 @@ void FilmItem::RemoveChildren()
 }
 
 
+bool FilmItem::GetIsFilmViewed() const
+{
+    bool viewed = GetColumnData( IsViewedColumn ).toString() == "+" ? true : false;
+    return( viewed );
+}
+
+
+bool FilmItem::GetIsFilmFavourite() const
+{
+    bool viewed = GetColumnData( IsFavouriteColumn ).toString() == "+" ? true : false;
+    return( viewed );
+}
+
+
 QString FilmItem::GetRandomHash()
 {
     QByteArray hash = QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 );

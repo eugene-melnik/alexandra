@@ -3,7 +3,7 @@
  *  file: filmsviewcontextmenu.h                                                                  *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -24,6 +24,8 @@
 #include <QAction>
 #include <QMenu>
 
+#include "filmslist/filmitem.h"
+
 class FilmsViewContextMenu : public QMenu
 {
     Q_OBJECT
@@ -31,7 +33,7 @@ class FilmsViewContextMenu : public QMenu
     public:
         explicit FilmsViewContextMenu( QWidget* parent = nullptr );
 
-        void SetState( const Film* film );
+        void SetupMenuState( const FilmItem* film );
 
     signals:
         void actionPlay();

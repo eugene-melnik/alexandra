@@ -19,9 +19,9 @@
   *************************************************************************************************/
 
 #include "filminfoview.h"
+#include "filmslist/filmslistproxymodel.h"
 #include "tools/debug.h"
 
-#include <QAbstractProxyModel>
 #include <QList>
 
 
@@ -56,8 +56,8 @@ void FilmInfoView::ShowInformation( const QModelIndex& index )
 {
     DebugPrintFuncA( "FilmInfoView::ShowInformation", index.row() );
 
-    const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
-    FilmItem* film = static_cast<FilmItem*>( model->mapToSource(index).internalPointer() );
+    const FilmsListProxyModel* model = static_cast<const FilmsListProxyModel*>( index.model() );
+    const FilmItem* film = model->GetFilmItem( index );
 
     lFilmTitle->setText( film->GetColumnData( FilmItem::TitleColumn ).toString() );
 

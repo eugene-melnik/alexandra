@@ -24,13 +24,13 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
 
     signals:
         void CurrentChanged( const QModelIndex& );
+        void ContextMenuRequested( const QPoint&, const QModelIndex& );
 
     protected:
         void updateGeometries() override;
 
     private slots:
         void MapCurrentChanged( const QModelIndex& index );
-//        void ShowHeaderContextMenu( const QPoint& pos );
 
     private:
         FilmsViewGridProxyModel* proxyModel;

@@ -72,6 +72,8 @@ class FilmItem
         FilmItem* GetChild( int row ) { return( childItems.value( row  ) ); }
         QVariant  GetColumnData( int column ) const { return( columnsData.value( column ) ); }
 
+        bool GetIsFilmViewed() const;
+        bool GetIsFilmFavourite() const;
         Existing GetIsFileExists() const { return( isFileExists ); }
         Existing GetIsPosterExists() const { return( isPosterExists ); }
 

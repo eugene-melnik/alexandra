@@ -191,74 +191,35 @@ void MainWindow::DatabaseIsEmpty()
 void MainWindow::DatabaseIsReadonly()
 {
     SetReadOnlyMode();
-
-    QMessageBox::information( this, tr( "Database" ),
-                              tr( "Database is readonly! Editing functions are disabled." ) );
+    QMessageBox::information( this, tr( "Database" ), tr( "Database is readonly! Editing functions are disabled." ) );
 }
 
 
 void MainWindow::ShowFilmInformation( const QModelIndex& index )
 {
+    const FilmItem* film = filmsListProxyModel->GetFilmItem( index );
+
+      // Buttons
+    bool isExists = film->GetIsFileExists() == FilmItem::Exists ? true : false;
+    bPlay->setEnabled( isExists );
+    bAddToPlaylist->setEnabled( isExists );
+    bTechInformation->setEnabled( isExists );
+
+    bViewed->setChecked( film->GetIsFilmViewed() );
+    bFavourite->setChecked( film->GetIsFilmFavourite() );
+
+      // Film info
     wFilmInfo->ShowInformation( index );
     lFilmPoster->ShowInformation( index );
     lTechInformation->ShowInformation( index );
 }
 
 
-//void MainWindow::ShowFilmInformation()
-//{
-//    DebugPrintFunc( "MainWindow::ShowFilmInformation" );
-//    const Film* film = filmsList->GetCurrentFilm();
-
-//    if( film == nullptr )
-//    {
-//        return;
-//    }
-
-//    DebugPrint( "Selected film: " + film->GetFileName() );
-
-//      // Buttons and technical information
-//    if( QFile::exists( film->GetFileName() ) )
-//    {
-//        #ifdef MEDIAINFO_SUPPORT
-//            filmInfoWindow->LoadTechnicalInfoAsync( film->GetFileName() );
-//            bTechInformation->setEnabled( true );
-//        #endif
-
-//        bPlay->setEnabled( true );
-//        bAddToPlaylist->setEnabled( true );
-//    }
-//    else
-//    {
-//        // File doesn't exists
-//        bPlay->setEnabled( false );
-//        bAddToPlaylist->setEnabled( false );
-//        bTechInformation->setEnabled( false );
-//    }
-
-//    lTechInformation->setVisible( false );
-
-//      // Buttons
-//    bViewed->setChecked( film->GetIsViewed() );
-//    bFavourite->setChecked( film->GetIsFavourite() );
-
-//    DebugPrintFuncDone( "MainWindow::ShowFilmInformation" );
-//}
-
-
-//void MainWindow::ShowFilmContextMenu( QPoint p )
-//{
-//    contextMenu->SetState( filmsList->GetCurrentFilm() );
-//    contextMenu->exec( dynamic_cast<QWidget*>( filmsView )->mapToGlobal( p ) );
-//}
-
-
-//void MainWindow::ShowShortTechnicalInfo( const QString& info )
-//{
-//    DebugPrintFunc( "MainWindow::ShowShortTechnicalInfo" );
-//    lTechInformation->setText( info );
-//    lTechInformation->setVisible( true );
-//}
+void MainWindow::ShowFilmContextMenu( const QPoint& pos, const QModelIndex& index )
+{
+    contextMenu->SetupMenuState( filmsListProxyModel->GetFilmItem(index) );
+    contextMenu->exec( dynamic_cast<QWidget*>( filmsView )->mapToGlobal( pos ) );
+}
 
 
 //void MainWindow::AddToPlaylist()
@@ -563,7 +524,7 @@ void MainWindow::SetupWindows()
     DebugPrintFunc( "MainWindow::SetupWindows" );
 
         /// Main window
-//    contextMenu = new FilmsViewContextMenu( this );
+    contextMenu = new FilmsViewContextMenu( this );
 
     connect( actionShowFullscreen, &QAction::toggled,    this, &MainWindow::ShowFullScreen );
     connect( toolbar,              &ToolBar::actionExit, this, &MainWindow::close );
@@ -729,7 +690,7 @@ void MainWindow::SetupFilmsView()
 
       // Base signals
     connect( view, SIGNAL(CurrentChanged(QModelIndex)), this, SLOT(ShowFilmInformation(QModelIndex)) );
-//    connect( view, SIGNAL( ContextMenuRequested(QPoint) ), this, SLOT( ShowFilmContextMenu(QPoint) ) );
+    connect( view, SIGNAL( ContextMenuRequested(QPoint,QModelIndex) ), this, SLOT( ShowFilmContextMenu(QPoint,QModelIndex) ) );
       // Search window
 //    connect( searchWindow, SIGNAL( FilmSelected(QString) ), view, SLOT( SelectItem(QString) ) );
       // Random film function
@@ -906,7 +867,7 @@ void MainWindow::SetEmptyMode( bool b )
     bPlay->setDisabled( b );
     bAddToPlaylist->setDisabled( b );
 
-    wFilmInfo->ShowEmptyDatabaseMessage(); // TODO: check in FilmInfoView
+    wFilmInfo->ShowEmptyDatabaseMessage(); // TODO: check in FilmInfoView (?)
 }
 
 

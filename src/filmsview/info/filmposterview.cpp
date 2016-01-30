@@ -1,6 +1,6 @@
 
 #include "filmposterview.h"
-#include "filmslist/filmslistmodel.h"
+#include "filmslist/filmitem.h"
 #include "tools/debug.h"
 
 #include <QAbstractProxyModel>

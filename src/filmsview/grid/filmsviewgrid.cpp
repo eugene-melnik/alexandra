@@ -4,9 +4,8 @@
 #include <QScrollBar>
 
 
-FilmsViewGrid::FilmsViewGrid( QWidget* parent )
-    : QListView( parent ),
-      proxyModel( new FilmsViewGridProxyModel( this ) )
+FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent ),
+    proxyModel( new FilmsViewGridProxyModel( this ) )
 {
     QListView::setModel( proxyModel );
 
@@ -21,6 +20,12 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent )
     setSpacing( 5 );
 
 //    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF: Qt bug?
+
+      // Signals
+    connect( this, &QListView::customContextMenuRequested, this, [this] (const QPoint& pos)
+    {
+        emit ContextMenuRequested( pos, proxyModel->mapToSource( selectionModel()->currentIndex() ) );
+    });
 }
 
 

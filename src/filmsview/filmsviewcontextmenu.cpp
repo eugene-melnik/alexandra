@@ -3,7 +3,7 @@
  *  file: filmsviewcontextmenu.cpp                                                                *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -22,9 +22,10 @@
 
 #include <QFile>
 
+
 FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
 {
-    // Play
+      // Play
     cmaPlay = addAction( QIcon( ":/action/play"), tr( "Play" ) );
     connect( cmaPlay, &QAction::triggered, this, [this] { emit actionPlay(); } );
 
@@ -32,49 +33,47 @@ FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
     connect( cmaAddToList, &QAction::triggered, this, [this] { emit actionAddToList(); } );
     addSeparator();
 
-    // Show technical information
+      // Show technical information
     cmaShowInfo = addAction( QIcon( ":/window/about"), tr( "Show technical information" ) );
     connect( cmaShowInfo, &QAction::triggered, this, [this] { emit actionShowInfo(); } );
     addSeparator();
 
-    // IsViewed
+      // IsViewed
     cmaIsViewed = addAction( tr( "Is viewed" ) );
     cmaIsViewed->setCheckable( true );
     connect( cmaIsViewed, &QAction::triggered, this, [this] (bool b) { emit actionIsViewed( b ); } );
 
-    // IsFavourite
+      // IsFavourite
     cmaIsFavourite = addAction( tr( "Is favourite" ) );
     cmaIsFavourite->setCheckable( true );
     connect( cmaIsFavourite, &QAction::triggered, this, [this] (bool b) { emit actionIsFavourite( b ); } );
     addSeparator();
 
-    // Edit
+      // Edit
     cmaEdit = addAction( QIcon( ":/tool/edit" ), tr( "Edit" ) );
     connect( cmaEdit, &QAction::triggered, this, [this] { emit actionEdit(); } );
 
-    // Remove
+      // Remove
     cmaRemove = addAction( QIcon( ":/tool/delete" ), tr( "Remove" ) );
     connect( cmaRemove, &QAction::triggered, this, [this] { emit actionRemove(); } );
     addSeparator();
 
-    // Remove file
+      // Remove file
     cmaRemoveFile = addAction( QIcon( ":/tool/clear" ), tr( "Remove file" ) );
     connect( cmaRemoveFile, &QAction::triggered, this, [this] { emit actionRemoveFile(); } );
 }
 
-void FilmsViewContextMenu::SetState( const Film* film )
-{
-    if( QFile::exists( film->GetFileName() ) )
-    {
-        cmaPlay->setEnabled( true );
-        cmaShowInfo->setEnabled( true );
-    }
-    else
-    {
-        cmaPlay->setEnabled( false );
-        cmaShowInfo->setEnabled( false );
-    }
 
-    cmaIsViewed->setChecked( film->GetIsViewed() );
-    cmaIsFavourite->setChecked( film->GetIsFavourite() );
+void FilmsViewContextMenu::SetupMenuState( const FilmItem* film )
+{
+    bool isExists = film->GetIsFileExists() == FilmItem::Exists ? true : false;
+
+    cmaPlay->setEnabled( isExists );
+    cmaShowInfo->setEnabled( isExists );
+    cmaAddToList->setEnabled( isExists );
+    cmaRemoveFile->setEnabled( isExists );
+
+    cmaIsViewed->setChecked( film->GetIsFilmViewed() );
+    cmaIsFavourite->setChecked( film->GetIsFilmFavourite() );
 }
+

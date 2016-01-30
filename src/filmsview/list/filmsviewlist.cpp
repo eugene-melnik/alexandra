@@ -50,6 +50,11 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableView( parent )
 
       // Signals
     connect( horizontalHeader(), &QHeaderView::customContextMenuRequested, this, &FilmsViewList::ShowHeaderContextMenu );
+
+    connect( this, &QTableView::customContextMenuRequested, this, [this] (const QPoint& pos)
+    {
+        emit ContextMenuRequested( pos, selectionModel()->currentIndex() );
+    });
 }
 
 
@@ -165,7 +170,8 @@ void FilmsViewList::SetDefaultColumnsView()
     header->moveSection( FilmItem::IsViewedColumn + 1, 0 );
 
       // Hide
-    QList<FilmItem::Column> hiddenColumns = {
+    QList<FilmItem::Column> hiddenColumns =
+    {
         FilmItem::OriginalTitleColumn, FilmItem::CountryColumn,  FilmItem::ProducerColumn,
         FilmItem::ScreenwriterColumn,  FilmItem::ComposerColumn, FilmItem::BudgetColumn,
         FilmItem::ViewsCountColumn,    FilmItem::TaglineColumn,  FilmItem::StarringColumn,
@@ -179,7 +185,8 @@ void FilmsViewList::SetDefaultColumnsView()
     }
 
       // Show and resize
-    QList< QPair<FilmItem::Column,int> > shownColumns = {
+    QList< QPair<FilmItem::Column,int> > shownColumns =
+    {
         { FilmItem::TitleColumn, 150 }, { FilmItem::YearColumn, 50 },
         { FilmItem::GenreColumn, 110 }, { FilmItem::DirectorColumn, 110 },
         { FilmItem::RatingColumn, 50 }, { FilmItem::IsViewedColumn, 20 },

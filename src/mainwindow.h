@@ -24,7 +24,7 @@
 #include "filmslist/filmslistmodel.h"
 #include "filmslist/filmslistproxymodel.h"
 #include "filmsview/abstractfilmsview.h"
-//#include "filmsview/filmsviewcontextmenu.h"
+#include "filmsview/filmsviewcontextmenu.h"
 //#include "scanner/filmscannerwindow.h"
 //#include "scanner/movedfilmswindow.h"
 #include "search/searchedit.h"
@@ -76,8 +76,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void DatabaseIsReadonly();
 
         void ShowFilmInformation( const QModelIndex& index );
-//        void ShowFilmContextMenu( QPoint p );
-//        void ShowShortTechnicalInfo( const QString& info );
+        void ShowFilmContextMenu( const QPoint& pos, const QModelIndex& index );
 
 //        void AddToPlaylist();
         void PlaylistCleared();
@@ -129,12 +128,12 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 //        StatisticsWindow* statisticsWindow = nullptr;
 
         // Shortcuts
-        QShortcut* quickSearchShortcut = nullptr;
-        QShortcut* viewFocusShortcut = nullptr;
+        QShortcut* quickSearchShortcut;
+        QShortcut* viewFocusShortcut;
 
         // Variables
         AbstractFilmsView* filmsView = nullptr;
-//        FilmsViewContextMenu* contextMenu = nullptr;
+        FilmsViewContextMenu* contextMenu;
 
         AlexandraSettings* settings;
         QProcess* externalPlayer;

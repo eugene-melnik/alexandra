@@ -50,7 +50,7 @@ HEADERS += effects/effectdropshadow.h \
            filmsview/info/filmtechinfoview.h \
            filmsview/list/filmsviewlist.h \
            filmsview/abstractfilmsview.h \
-#           filmsview/filmsviewcontextmenu.h \
+           filmsview/filmsviewcontextmenu.h \
            network/networkrequest.h \
            network/updatechecker.h \
 #           parsers/abstractparser.h \
@@ -95,7 +95,7 @@ SOURCES += effects/effectdropshadow.cpp \
            filmsview/info/filmposterview.cpp \
            filmsview/info/filmtechinfoview.cpp \
            filmsview/list/filmsviewlist.cpp \
-#           filmsview/filmsviewcontextmenu.cpp \
+           filmsview/filmsviewcontextmenu.cpp \
            network/networkrequest.cpp \
            network/updatechecker.cpp \
 #           parsers/parsermanager.cpp \

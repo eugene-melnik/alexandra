@@ -5,13 +5,19 @@
 #include <QList>
 #include <QSortFilterProxyModel>
 
+#include "filmslist/filmitem.h"
+
 class FilmsListProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
     public:
-        explicit FilmsListProxyModel( QObject* parent = nullptr )
-          : QSortFilterProxyModel( parent ) {}
+        explicit FilmsListProxyModel( QObject* parent = nullptr ) : QSortFilterProxyModel( parent ) {}
+
+        const FilmItem* GetFilmItem( const QModelIndex& index ) const
+        {
+            return( static_cast<FilmItem*>( mapToSource(index).internalPointer() ) );
+        }
 
     public slots:
         void SetFilter( const QString& string, const QList<int>& columns )

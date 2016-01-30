@@ -1,6 +1,6 @@
 
 #include "filmsviewgridproxymodel.h"
-#include "filmslist/filmslistmodel.h"
+#include "filmslist/filmitem.h"
 
 
 QVariant FilmsViewGridProxyModel::data( const QModelIndex& index, int role ) const

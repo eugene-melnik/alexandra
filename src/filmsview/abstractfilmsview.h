@@ -33,7 +33,7 @@ class AbstractFilmsView
         virtual void ReloadSettings() {}
         virtual void SaveSettings() const {}
 
-        virtual void ScrollToCurrentItem() = 0;
+        virtual void ScrollToCurrentItem() = 0; ///
 
 //        virtual void SetCurrentItemTo( const Film film ) = 0;
 //        virtual void SelectRandomItem() = 0; /* TODO: Maybe need to move to another place */
@@ -41,6 +41,7 @@ class AbstractFilmsView
 
 //    signals:
 //        void CurrentChanged( const QModelIndex& );
+//        void ContextMenuRequested( const QPoint& );
 };
 
 #endif // ABSTRACTFILMSVIEW_H
