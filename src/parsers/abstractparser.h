@@ -21,7 +21,7 @@
 #ifndef ABSTRACTPARSER_H
 #define ABSTRACTPARSER_H
 
-#include "filmslist/film.h"
+#include "filmslist/filmitem.h"
 #include "tools/debug.h"
 #include "network/networkrequest.h"
 
@@ -52,7 +52,7 @@ class AbstractParser : public QObject
             request.run(  url );
         }
 
-        virtual void SyncSearchFor( Film* filmSaveTo, QUrl* posterUrlSaveTo,
+        virtual void SyncSearchFor( FilmItem* filmSaveTo, QUrl* posterUrlSaveTo,
                                     const QString& title, const QString& year = QString() )
         {
             DebugPrintFuncA( "AbstractParser::SyncSearchFor", title );
@@ -68,14 +68,14 @@ class AbstractParser : public QObject
 
             if( filmSaveTo != nullptr )
             {
-                // We must to save these fields
-                QString title = filmSaveTo->GetTitle();
-                QString fileName = filmSaveTo->GetFileName();
+                  // We must to save these fields
+                QString title = filmSaveTo->GetColumnData( FilmItem::TitleColumn ).toString();
+                QString fileName = filmSaveTo->GetColumnData( FilmItem::FileNameColumn ).toString();
 
-                filmSaveTo->SetNewData( film );
+                *filmSaveTo = film;
 
-                filmSaveTo->SetFileName( fileName );
-                filmSaveTo->SetTitle( title );
+                filmSaveTo->SetColumnData( FilmItem::FileNameColumn, fileName );
+                filmSaveTo->SetColumnData( FilmItem::TitleColumn, title );
             }
 
             *posterUrlSaveTo = posterUrl;
@@ -95,7 +95,7 @@ class AbstractParser : public QObject
 
     signals:
         void Progress( quint64 received, quint64 total );
-        void Loaded( const Film& film, const QUrl& posterUrl );
+        void Loaded( const FilmItem& film, const QUrl& posterUrl );
         void Error( const QString& e);
 
     protected:
@@ -103,7 +103,7 @@ class AbstractParser : public QObject
         QString searchUrl;
 
         NetworkRequest request;
-        Film film;
+        FilmItem film;
 };
 
 #endif // ABSTRACTPARSER_H

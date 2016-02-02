@@ -3,7 +3,7 @@
  *  file: kinoteatrparser.cpp                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -48,45 +48,45 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
         RegExpTools::SimplifyText( str );
         DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
 
-        // Title
+          // Title
         QRegExp reTitle( "class='red' itemprop=\"name\">(.*)</strong>" );
-        film.SetTitle( RegExpTools::ParseItem( str, reTitle ) );
+        film.SetColumnData( FilmItem::TitleColumn, RegExpTools::ParseItem( str, reTitle ) );
 
-        // Original title
+          // Original title
         QRegExp reOriginalTitle( "class='grey' itemprop=\"alternativeHeadline\">(.*)</span>" );
-        film.SetOriginalTitle( RegExpTools::ParseItem( str, reOriginalTitle ) );
+        film.SetColumnData( FilmItem::OriginalTitleColumn, RegExpTools::ParseItem( str, reOriginalTitle ) );
 
-        // Year
+          // Year
         QRegExp reYear( "Рік: </strong><.*>(.*)</a>" );
-        film.SetYearFromStr( RegExpTools::ParseItem( str, reYear ) );
+        film.SetColumnData( FilmItem::YearColumn, RegExpTools::ParseItem( str, reYear ).toInt() );
 
-        // Rating
+          // Rating
         QRegExp reRating( "id=\"rating\">(.*) \\/" );
-        film.SetRatingFromStr( RegExpTools::ParseItem( str, reRating ).replace( ",", "." ) );
+        film.SetColumnData( FilmItem::RatingColumn, RegExpTools::ParseItem( str, reRating ).replace( ",", "." ).toDouble() );
 
-        // Country
+          // Country
         QRegExp reCountryList( "Країна:(.*)<br>" );
         QRegExp reName( "<a.*>(.*)</a>" );
-        film.SetCountry( RegExpTools::ParseList( str, reCountryList, reName ) );
+        film.SetColumnData( FilmItem::CountryColumn, RegExpTools::ParseList( str, reCountryList, reName ) );
 
-        // Director
+          // Director
         QRegExp reDirectorList( "Режисери:(.*)</span>" );
-        film.SetDirector( RegExpTools::ParseList( str, reDirectorList, reName ) );
+        film.SetColumnData( FilmItem::DirectorColumn, RegExpTools::ParseList( str, reDirectorList, reName ) );
 
-        // Genre
+          // Genre
         QRegExp reGenreList( "Жанр:(.*)</span>" );
-        film.SetGenre( RegExpTools::ParseList( str, reGenreList, reName ) );
+        film.SetColumnData( FilmItem::GenreColumn, RegExpTools::ParseList( str, reGenreList, reName ) );
 
-        // Starring
+          // Starring
         QRegExp reStarringList( "В ролях:(.*)</ul>" );
         reName = QRegExp( "<a.*>(.*)</a></span>" );
-        film.SetStarring( RegExpTools::ParseList( str, reStarringList, reName ) );
+        film.SetColumnData( FilmItem::StarringColumn, RegExpTools::ParseList( str, reStarringList, reName ) );
 
-        // Description
+          // Description
         QRegExp reDescription( "id='filmText' itemprop=\"description\"><.*>(.*)</p>" );
-        film.SetDescription( RegExpTools::ParseItem( str, reDescription ) );
+        film.SetColumnData( FilmItem::DescriptionColumn, RegExpTools::ParseItem( str, reDescription ) );
 
-        // Advanced information
+          // Advanced information
 
         if( AlexandraSettings::GetInstance()->GetParsersLoadAdvancedInfo() )
         {
@@ -95,25 +95,25 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
             RegExpTools::SimplifyText( str );
             DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
 
-            // Screenwriter
+              // Screenwriter
             QRegExp reScreenwriterList( "сценаристи(.*)</ul></div>" );
             reName = QRegExp( "<div class='liderName'><a.*>(.*)</a>" );
-            film.SetScreenwriter( RegExpTools::ParseList( str, reScreenwriterList, reName ) );
+            film.SetColumnData( FilmItem::ScreenwriterColumn, RegExpTools::ParseList( str, reScreenwriterList, reName ) );
 
-            // Producer
+              // Producer
             QRegExp reProducerList( "продюсери(.*)</ul></div>" );
-            film.SetProducer( RegExpTools::ParseList( str, reProducerList, reName ) );
+            film.SetColumnData( FilmItem::ProducerColumn, RegExpTools::ParseList( str, reProducerList, reName ) );
 
-            // Composer
+              // Composer
             QRegExp reComposerList( "композитори(.*)</ul></div>" );
-            film.SetComposer( RegExpTools::ParseList( str, reComposerList, reName ) );
+            film.SetColumnData( FilmItem::ComposerColumn, RegExpTools::ParseList( str, reComposerList, reName ) );
         }
 
-        // Poster
+          // Poster
 
         if( AlexandraSettings::GetInstance()->GetParsersLoadBigPoster() )
         {
-            // Lot of redirectes... :(
+              // Lot of redirectes... :(
 
             QString newRedirectUrl = redirectUrl;
             str = QString( request.runSync( QUrl( newRedirectUrl.replace( "film", "film-poster" ) ) ) );

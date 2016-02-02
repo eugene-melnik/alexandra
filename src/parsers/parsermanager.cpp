@@ -3,7 +3,7 @@
  *  file: parsermanager.cpp                                                                       *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -29,6 +29,7 @@
 #include <QFile>
 #include <QLocale>
 
+
 ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
 {
     parsers.insert( Auto,       tr( "<Auto>" ) );
@@ -38,6 +39,7 @@ ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
     parsers.insert( OMDB,       "OMDB (http://www.omdbapi.com/)" );
 }
 
+
 void ParserManager::Reset()
 {
     selectedParserId = Auto;
@@ -45,6 +47,7 @@ void ParserManager::Reset()
     year.clear();
     loadPoster = true;
 }
+
 
 void ParserManager::Search()
 {
@@ -55,8 +58,8 @@ void ParserManager::Search()
 
     CreateParser();
     connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
-    connect( currentParser, SIGNAL( Loaded(const Film&, const QUrl&) ), this, SLOT( InformationLoaded(const Film&, const QUrl&) ) );
-    connect( currentParser, SIGNAL( Loaded(const Film&, const QUrl&) ), currentParser, SLOT( deleteLater() ) );
+    connect( currentParser, SIGNAL( Loaded(const FilmItem&, const QUrl&) ), this, SLOT( InformationLoaded(FilmItem, const QUrl&) ) );
+    connect( currentParser, SIGNAL( Loaded(const FilmItem&, const QUrl&) ), currentParser, SLOT( deleteLater() ) );
     connect( currentParser, SIGNAL( Error(const QString&) ), this, SLOT( InformationLoadError(const QString&) ) );
     connect( currentParser, SIGNAL( Error(const QString&) ), currentParser, SLOT( deleteLater() ) );
 
@@ -64,12 +67,17 @@ void ParserManager::Search()
     cp->SearchFor( title, year );
 }
 
-void ParserManager::SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo )
+
+void ParserManager::SearchSync( FilmItem* filmSaveTo, QString* posterFileNameSaveTo )
 {
     DebugPrintFunc( "ParserManager::SearchAsync" );
     time.start();
 
-    if( title.isEmpty() ) return;
+    if( title.isEmpty() )
+    {
+        emit Error( tr( "Nothing to search." ) );
+        return;
+    }
 
     CreateParser();
     connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
@@ -91,29 +99,31 @@ void ParserManager::SearchSync( Film* filmSaveTo, QString* posterFileNameSaveTo 
     cp->deleteLater();
 }
 
-void ParserManager::InformationLoaded( const Film& f, const QUrl& posterUrl )
+
+void ParserManager::InformationLoaded( FilmItem film, const QUrl& posterUrl )
 {
-    DebugPrintFuncA( "ParserManager::InformationLoaded", f.GetOriginalTitle() + ", " + posterUrl.toString() );
+    DebugPrintFuncA( "ParserManager::InformationLoaded", film.GetColumnData( FilmItem::OriginalTitleColumn ).toString() );
     DebugPrint( QString( "Loded in %1 ms" ).arg( time.elapsed() ) );
 
-    if( loadPoster )
+    QString poster;
+
+    if( loadPoster && SavePoster( posterUrl, stdPosterFileName ) )
     {
-        if( SavePoster( posterUrl, stdPosterFileName ) )
-        {
-            emit Loaded( f, stdPosterFileName );
-            return;
-        }
+        film.SetIsPosterExists( FilmItem::Exists );
+        poster = stdPosterFileName;
     }
 
-    emit Loaded( f, QString() );
+    emit Loaded( film, poster );
 }
 
-void ParserManager::InformationLoadError( const QString& e )
+
+void ParserManager::InformationLoadError( const QString& errorString )
 {
-    DebugPrintFuncA( "ParserManager::InformationLoadError", e );
+    DebugPrintFuncA( "ParserManager::InformationLoadError", errorString );
     DebugPrint( QString( "Loded in %1 ms" ).arg( time.elapsed() ) );
-    emit Error( e );
+    emit Error( errorString );
 }
+
 
 void ParserManager::CreateParser()
 {
@@ -168,6 +178,7 @@ void ParserManager::CreateParser()
     }
 }
 
+
 bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
 {
     DebugPrintFunc( "ParserManager::SavePoster" );
@@ -180,10 +191,8 @@ bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
         QByteArray posterData = NetworkRequest().runSync( posterUrl );
         QFile file( posterFileName );
 
-        if( file.open( QIODevice::WriteOnly )
-                && file.write( posterData ) )
+        if( file.open(QIODevice::WriteOnly) && file.write(posterData) )
         {
-            file.close();
             DebugPrintFuncDone( "ParserManager::SavePoster" );
             return( true );
         }
@@ -195,3 +204,4 @@ bool ParserManager::SavePoster( QUrl posterUrl, QString posterFileName )
 
     return( false );
 }
+

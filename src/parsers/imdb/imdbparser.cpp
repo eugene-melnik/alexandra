@@ -3,7 +3,7 @@
  *  file: imdbparser.cpp                                                                          *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -23,12 +23,14 @@
 #include "tools/regexptools.h"
 #include "tools/debug.h"
 
+
 ImdbParser::ImdbParser() : AbstractParser()
 {
     DebugPrintFunc( "ImdbParser::ImdbParser" );
     searchUrlWithYear = QString( "http://www.imdb.com/search/title?title=%1&release_date=%2&view=simple" );
     searchUrl = QString( "http://www.imdb.com/search/title?title=%1&view=simple" );
 }
+
 
 QUrl ImdbParser::Parse( const QByteArray& data )
 {
@@ -51,45 +53,45 @@ QUrl ImdbParser::Parse( const QByteArray& data )
 
         DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
 
-        // Title
+          // Title
         QRegExp reTitle( "class=\"itemprop\".*>(.*)</span>" );
-        film.SetTitle( RegExpTools::ParseItem( str, reTitle ) );
+        film.SetColumnData( FilmItem::TitleColumn, RegExpTools::ParseItem( str, reTitle ) );
 
-        // Original title
+          // Original title
         QRegExp reOriginalTitle( "class=\"title-extra\".*> \"(.*)\" <i>" );
-        film.SetOriginalTitle( RegExpTools::ParseItem( str, reOriginalTitle ) );
+        film.SetColumnData( FilmItem::OriginalTitleColumn, RegExpTools::ParseItem( str, reOriginalTitle ) );
 
-        // Tagline
+          // Tagline
         QRegExp reTagline( "Taglines:</h4>(.*)<" );
-        film.SetTagline( RegExpTools::ParseItem( str, reTagline ) );
+        film.SetColumnData( FilmItem::TaglineColumn, RegExpTools::ParseItem( str, reTagline ) );
 
-        // Year
+          // Year
         QRegExp reYear( "Release Date:</h4>.*([0-9]{4})" );
-        film.SetYearFromStr( RegExpTools::ParseItem( str, reYear ) );
+        film.SetColumnData( FilmItem::YearColumn, RegExpTools::ParseItem( str, reYear ).toInt() );
 
-        // Budget
+          // Budget
         QRegExp reBudget( "Budget:</h4> \\$(.*)<span" );
-        film.SetBudgetFromStr( RegExpTools::ParseItem( str, reBudget ).replace( " ", "" ) );
+        film.SetColumnData( FilmItem::BudgetColumn, RegExpTools::ParseItem( str, reBudget ).replace( " ", "" ).toDouble() );
 
-        // Rating
+          // Rating
         QRegExp reRating( "itemprop=\"ratingValue\">(.*)</span>" );
-        film.SetRatingFromStr( RegExpTools::ParseItem( str, reRating ).replace( ",", "." ) );
+        film.SetColumnData( FilmItem::RatingColumn, RegExpTools::ParseItem( str, reRating ).replace( ",", "." ).toDouble() );
 
-        // Country
+          // Country
         QRegExp reCountryList( "Countr.*</h4>(.*)</div>" );
         QRegExp reCountry( "href=\"/country/.*>(.*)</a>" );
-        film.SetCountry( RegExpTools::ParseList( str, reCountryList, reCountry ) );
+        film.SetColumnData( FilmItem::CountryColumn, RegExpTools::ParseList( str, reCountryList, reCountry ) );
 
-        // Genre
+          // Genre
         QRegExp reGenreList( "Genres:</h4>(.*)</div>" );
         QRegExp reGenre( "href=\"/genre/.*>(.*)</a>" );
-        film.SetGenre( RegExpTools::ParseList( str, reGenreList, reGenre ) );
+        film.SetColumnData( FilmItem::GenreColumn, RegExpTools::ParseList( str, reGenreList, reGenre ) );
 
-        // Description
+          // Description
         QRegExp reDescription( "Storyline</h2><.*><p>(.*)<em class=\"nobr\">" );
-        film.SetDescription( RegExpTools::ParseItem( str, reDescription ).replace( "<br><br>", "<br>\n" ) );
+        film.SetColumnData( FilmItem::DescriptionColumn, RegExpTools::ParseItem( str, reDescription ).replace( "<br><br>", "<br>\n" ) );
 
-        // Advanced information
+          // Advanced information
 
         QRegExp reName( "itemprop=\"name\">(.*)</span>" );
 
@@ -99,49 +101,50 @@ QUrl ImdbParser::Parse( const QByteArray& data )
             RegExpTools::SimplifyText( str );
             DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
 
-            // Starring
+              // Starring
             QRegExp reStarringList( "Cast <span>(.*)Produced by" );
-            film.SetStarring( RegExpTools::ParseList( str, reStarringList, reName, 20 ) );  // 20 first actors
+            film.SetColumnData( FilmItem::StarringColumn, RegExpTools::ParseList( str, reStarringList, reName, 20 ) );  // 20 first actors
 
-            // Director
+              // Director
             QRegExp reDirectorList( "Directed by(.*)Writing Credits" );
             reName = QRegExp( "href=\"/name/.*>(.*)</a>" );
-            film.SetDirector( RegExpTools::ParseList( str, reDirectorList, reName, 10 ) );  // 10 first directors
+            film.SetColumnData( FilmItem::DirectorColumn, RegExpTools::ParseList( str, reDirectorList, reName, 10 ) );  // 10 first directors
 
-            // Screenwriter
+              // Screenwriter
             QRegExp reScreenwriterList( "Writing Credits(.*)Cast" );
-            film.SetScreenwriter( RegExpTools::ParseList( str, reScreenwriterList, reName, 10 ) );  // 10 first writers
+            film.SetColumnData( FilmItem::ScreenwriterColumn, RegExpTools::ParseList( str, reScreenwriterList, reName, 10 ) ); // 10 first writers
 
-            // Producer
+              // Producer
             QRegExp reProducerList( "Produced by(.*)Music by" );
-            film.SetProducer( RegExpTools::ParseList( str, reProducerList, reName, 10 ) );  // 10 first producers
+            film.SetColumnData( FilmItem::ProducerColumn, RegExpTools::ParseList( str, reProducerList, reName, 10 ) );  // 10 first producers
 
-            // Composer
+              // Composer
             QRegExp reComposerList( "Music by(.*)Film Editing by" );
-            film.SetComposer( RegExpTools::ParseList( str, reComposerList, reName ) );
+            film.SetColumnData( FilmItem::ComposerColumn, RegExpTools::ParseList( str, reComposerList, reName ) );
         }
         else
         {
-            // Starring
+              // Starring
             QRegExp reStarringList( "Cast</h2>(.*)</table>" );
-            film.SetStarring( RegExpTools::ParseList( str, reStarringList, reName ) );
+            film.SetColumnData( FilmItem::StarringColumn, RegExpTools::ParseList( str, reStarringList, reName ) );
 
-            // Director
+              // Director
             QRegExp reDirectorList( "Director.*</h4>(.*)</div>" );
             QRegExp reName( "itemprop=\"name\">(.*)</span>" );
-            film.SetDirector( RegExpTools::ParseList( str, reDirectorList, reName ) );
+            film.SetColumnData( FilmItem::DirectorColumn, RegExpTools::ParseList( str, reDirectorList, reName ) );
 
-            // Screenwriter
+              // Screenwriter
             QRegExp reScreenwriterList( "Writer.*</h4>(.*)</div>" );
-            film.SetScreenwriter( RegExpTools::ParseList( str, reScreenwriterList, reName ) );
+            film.SetColumnData( FilmItem::ScreenwriterColumn, RegExpTools::ParseList( str, reScreenwriterList, reName ) );
         }
 
-        // Poster
+          // Poster
 
         if( AlexandraSettings::GetInstance()->GetParsersLoadBigPoster() )
         {
             QRegExp rePoster( "class=\"image\"><a href=\"(/media.*)\"" );
             str = QString( request.runSync( QUrl( "http://www.imdb.com" + RegExpTools::ParseItem( str, rePoster ) ) ) );
+
             RegExpTools::SimplifyText( str );
             DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
 

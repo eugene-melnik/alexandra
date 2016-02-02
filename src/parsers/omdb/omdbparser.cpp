@@ -3,7 +3,7 @@
  *  file: omdbparser.cpp                                                                          *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -24,12 +24,18 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+
 OmdbParser::OmdbParser() : AbstractParser()
 {
     DebugPrintFunc( "OmdbParser::OmdbParser" );
     searchUrlWithYear = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=json" );
     searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=json" );
+
+      // Strings for localization mechanism of Qt
+      // which may be returned by server
+    tr( "Movie not found!" );
 }
+
 
 QUrl OmdbParser::Parse( const QByteArray& data )
 {
@@ -40,30 +46,30 @@ QUrl OmdbParser::Parse( const QByteArray& data )
 
     if( json["Response"].toString() == "True" )
     {
-        film.SetTitle( json["Title"].toString() );
-        film.SetOriginalTitle( json["Title"].toString() );
-        film.SetYearFromStr(   json["Year"].toString() );
+        film.SetColumnData( FilmItem::TitleColumn, json["Title"].toString() );
+        film.SetColumnData( FilmItem::OriginalTitleColumn, json["Title"].toString() );
+        film.SetColumnData( FilmItem::YearColumn, json["Year"].toInt() );
 
         if( json["Country"].toString() != QLatin1String( "N/A" ) )
-            film.SetCountry( json["Country"].toString() );
+            film.SetColumnData( FilmItem::CountryColumn, json["Country"].toString() );
 
         if( json["Director"].toString() != QLatin1String( "N/A" ) )
-            film.SetDirector( json["Director"].toString() );
+            film.SetColumnData( FilmItem::DirectorColumn, json["Director"].toString() );
 
         if( json["Genre"].toString() != QLatin1String( "N/A" ) )
-            film.SetGenre( json["Genre"].toString() );
+            film.SetColumnData( FilmItem::GenreColumn, json["Genre"].toString() );
 
         if( json["Writer"].toString() != QLatin1String( "N/A" ) )
-            film.SetScreenwriter( json["Writer"].toString() );
+            film.SetColumnData( FilmItem::ScreenwriterColumn, json["Writer"].toString() );
 
         if( json["imdbRating"].toString() != QLatin1String( "N/A" ) )
-            film.SetRatingFromStr( json["imdbRating"].toString() );
+            film.SetColumnData( FilmItem::RatingColumn, json["imdbRating"].toDouble() );
 
         if( json["Actors"].toString() != QLatin1String( "N/A" ) )
-            film.SetStarring( json["Actors"].toString() );
+            film.SetColumnData( FilmItem::StarringColumn, json["Actors"].toString() );
 
         if( json["Plot"].toString() != QLatin1String( "N/A" ) )
-            film.SetDescription( json["Plot"].toString() );
+            film.SetColumnData( FilmItem::DescriptionColumn, json["Plot"].toString() );
 
         if( json["Poster"].toString() != QLatin1String( "N/A" ) )
             posterUrl = json["Poster"].toString();
@@ -72,8 +78,9 @@ QUrl OmdbParser::Parse( const QByteArray& data )
     }
     else
     {
-        emit Error( json["Error"].toString() );
+        emit Error( tr( json["Error"].toString().toUtf8() ) );
     }
 
     return( posterUrl );
 }
+

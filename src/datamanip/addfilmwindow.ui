@@ -9,27 +9,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
-    <height>620</height>
+    <width>550</width>
+    <height>530</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>570</width>
-    <height>600</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Add film</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
+   <iconset resource="../icons.qrc">
     <normaloff>:/tool/add</normaloff>:/tool/add</iconset>
   </property>
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="layoutMain">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="layoutFile">
      <item>
@@ -144,6 +138,9 @@
          <property name="text">
           <string>Title</string>
          </property>
+         <property name="buddy">
+          <cstring>eTitle</cstring>
+         </property>
         </widget>
        </item>
        <item>
@@ -157,12 +154,18 @@
          <property name="text">
           <string>Original title</string>
          </property>
+         <property name="buddy">
+          <cstring>eOriginalTitle</cstring>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="labelLoadInformation">
          <property name="text">
           <string>Load information from</string>
+         </property>
+         <property name="buddy">
+          <cstring>cbOnlineSource</cstring>
          </property>
         </widget>
        </item>
@@ -198,7 +201,7 @@
          <item>
           <widget class="QPushButton" name="bLoad">
            <property name="toolTip">
-            <string>Try to fetch information from the selected online source. The search is conducted by fields &quot;Title&quot; and &quot;Year&quot; (optional)</string>
+            <string>Try to fetch information from the selected online source.</string>
            </property>
            <property name="text">
             <string>Load</string>
@@ -231,6 +234,9 @@
        <property name="text">
         <string>Tagline</string>
        </property>
+       <property name="buddy">
+        <cstring>eTagline</cstring>
+       </property>
       </widget>
      </item>
      <item>
@@ -246,7 +252,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="layoutNumbers" stretch="0,0,1,0,0">
+    <layout class="QHBoxLayout" name="layoutNumbers" stretch="0,0,0,0,0">
      <item>
       <layout class="QHBoxLayout" name="layoutYear">
        <item>
@@ -263,27 +269,35 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="eYear">
-         <property name="maximumSize">
+        <widget class="QSpinBox" name="sbYear">
+         <property name="minimumSize">
           <size>
-           <width>80</width>
-           <height>16777215</height>
+           <width>60</width>
+           <height>0</height>
           </size>
          </property>
-         <property name="inputMask">
-          <string notr="true">9999</string>
+         <property name="specialValueText">
+          <string notr="true">-</string>
          </property>
-         <property name="maxLength">
-          <number>4</number>
+         <property name="minimum">
+          <number>1849</number>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         <property name="maximum">
+          <number>2102</number>
          </property>
-         <property name="placeholderText">
-          <string notr="true">xxxx</string>
+         <property name="value">
+          <number>1849</number>
          </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bClearYear">
+         <property name="toolTip">
+          <string>Clear</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../icons.qrc">
+           <normaloff>:/tool/clear</normaloff>:/tool/clear</iconset>
          </property>
         </widget>
        </item>
@@ -302,31 +316,31 @@
         <widget class="QLabel" name="labelBudget">
          <property name="minimumSize">
           <size>
-           <width>60</width>
+           <width>50</width>
            <height>0</height>
           </size>
          </property>
          <property name="text">
-          <string>Budget, $</string>
+          <string>Budget</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="eBudget">
-         <property name="inputMask">
-          <string notr="true">999999999999</string>
+        <widget class="QDoubleSpinBox" name="sbBudget">
+         <property name="specialValueText">
+          <string notr="true">-</string>
          </property>
-         <property name="maxLength">
-          <number>12</number>
+         <property name="prefix">
+          <string notr="true">$</string>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         <property name="decimals">
+          <number>0</number>
          </property>
-         <property name="placeholderText">
-          <string notr="true">xxxxxxxxxxxx</string>
+         <property name="maximum">
+          <double>2000000000.000000000000000</double>
          </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
+         <property name="singleStep">
+          <double>100.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -345,79 +359,47 @@
         <widget class="QLabel" name="labelRating">
          <property name="minimumSize">
           <size>
-           <width>60</width>
+           <width>50</width>
            <height>0</height>
           </size>
          </property>
          <property name="text">
           <string>Rating</string>
          </property>
+         <property name="buddy">
+          <cstring>sbRating</cstring>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="cbRating">
+        <widget class="QDoubleSpinBox" name="sbRating">
          <property name="minimumSize">
           <size>
-           <width>80</width>
+           <width>60</width>
            <height>0</height>
           </size>
          </property>
-         <property name="currentIndex">
-          <number>0</number>
+         <property name="specialValueText">
+          <string notr="true">-</string>
          </property>
-         <property name="maxCount">
-          <number>10</number>
+         <property name="correctionMode">
+          <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
          </property>
-         <item>
-          <property name="text">
-           <string notr="true">1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">3</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">4</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">5</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">6</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">7</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">8</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">9</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">10</string>
-          </property>
-         </item>
+         <property name="decimals">
+          <number>1</number>
+         </property>
+         <property name="minimum">
+          <double>1.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>10.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.500000000000000</double>
+         </property>
+         <property name="value">
+          <double>1.000000000000000</double>
+         </property>
         </widget>
        </item>
       </layout>
@@ -442,6 +424,9 @@
          <property name="text">
           <string>Country</string>
          </property>
+         <property name="buddy">
+          <cstring>eCountry</cstring>
+         </property>
         </widget>
        </item>
        <item>
@@ -455,6 +440,9 @@
          <property name="text">
           <string>Director</string>
          </property>
+         <property name="buddy">
+          <cstring>eDirector</cstring>
+         </property>
         </widget>
        </item>
        <item>
@@ -467,6 +455,9 @@
          </property>
          <property name="text">
           <string>Screenwriter</string>
+         </property>
+         <property name="buddy">
+          <cstring>eScreenwriter</cstring>
          </property>
         </widget>
        </item>
@@ -553,6 +544,9 @@
          <property name="text">
           <string>Genre</string>
          </property>
+         <property name="buddy">
+          <cstring>eGenre</cstring>
+         </property>
         </widget>
        </item>
        <item>
@@ -566,6 +560,9 @@
          <property name="text">
           <string>Producer</string>
          </property>
+         <property name="buddy">
+          <cstring>eProducer</cstring>
+         </property>
         </widget>
        </item>
        <item>
@@ -578,6 +575,9 @@
          </property>
          <property name="text">
           <string>Composer</string>
+         </property>
+         <property name="buddy">
+          <cstring>eComposer</cstring>
          </property>
         </widget>
        </item>
@@ -629,7 +629,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="layoutStarring">
+    <layout class="QHBoxLayout" name="layoutStarring" stretch="0,1,0,0">
      <item>
       <widget class="QLabel" name="labelStarring">
        <property name="minimumSize">
@@ -644,16 +644,42 @@
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="tStarring">
-       <property name="toolTip">
-        <string>The actors, who played in the film (comma separated)</string>
+      <widget class="CutLabel" name="lStarringText">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string notr="true"/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>1</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bStarringEdit">
+       <property name="text">
+        <string>Edit</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="layoutDescription">
+    <layout class="QHBoxLayout" name="layoutDescription" stretch="0,1,0,0">
      <item>
       <widget class="QLabel" name="labelDescription">
        <property name="minimumSize">
@@ -668,12 +694,35 @@
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="tDescription">
-       <property name="toolTip">
-        <string>Short description of the plot</string>
+      <widget class="CutLabel" name="lDescriptionText">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAsNeeded</enum>
+       <property name="text">
+        <string notr="true"/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>1</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bDescriptionEdit">
+       <property name="text">
+        <string>Edit</string>
        </property>
       </widget>
      </item>
@@ -695,15 +744,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="eTags">
-       <property name="toolTip">
-        <string>User-defined words and phrases for faster search</string>
-       </property>
-       <property name="maxLength">
-        <number>500</number>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>true</bool>
+      <widget class="QPlainTextEdit" name="eTags">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>20</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -786,8 +832,37 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CutLabel</class>
+   <extends>QLabel</extends>
+   <header>datamanip/cutlabel.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>bOpenFile</tabstop>
+  <tabstop>bOpenPoster</tabstop>
+  <tabstop>eTitle</tabstop>
+  <tabstop>eOriginalTitle</tabstop>
+  <tabstop>cbOnlineSource</tabstop>
+  <tabstop>bLoad</tabstop>
+  <tabstop>eTagline</tabstop>
+  <tabstop>sbRating</tabstop>
+  <tabstop>eCountry</tabstop>
+  <tabstop>eDirector</tabstop>
+  <tabstop>eScreenwriter</tabstop>
+  <tabstop>eGenre</tabstop>
+  <tabstop>eProducer</tabstop>
+  <tabstop>eComposer</tabstop>
+  <tabstop>bStarringEdit</tabstop>
+  <tabstop>bDescriptionEdit</tabstop>
+  <tabstop>cIsViewed</tabstop>
+  <tabstop>cIsFavourite</tabstop>
+  <tabstop>bOk</tabstop>
+  <tabstop>bCancel</tabstop>
+ </tabstops>
  <resources>
-  <include location="icons.qrc"/>
+  <include location="../icons.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -797,8 +872,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>456</x>
-     <y>541</y>
+     <x>498</x>
+     <y>509</y>
     </hint>
     <hint type="destinationlabel">
      <x>299</x>

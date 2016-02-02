@@ -3,7 +3,7 @@
  *  file: addfilmwindow.h                                                                         *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -24,8 +24,9 @@
 #include "ui_addfilmwindow.h"
 
 #include "alexandrasettings.h"
-#include "filmslist/film.h"
+#include "filmslist/filmitem.h"
 #include "parsers/parsermanager.h"
+#include "tools/debug.h"
 
 #include <QDialog>
 
@@ -35,35 +36,33 @@ class AddFilmWindow : public QDialog, protected Ui::AddFilmWindow
 
     public:
         explicit AddFilmWindow( QWidget* parent = nullptr );
-        virtual ~AddFilmWindow() { delete parser; }
-
-        void show();
-
-    protected:
-        void closeEvent( QCloseEvent* event ) override;
-
-        QString filmId;
+        virtual ~AddFilmWindow();
 
     signals:
-        void PosterMovingError();
-        void Done( const Film& f );
+        void Done( FilmItem* );
 
-    private slots:
+    protected:
+        QString filmId;
+        AlexandraSettings* settings;
+
+    protected slots:
         void OpenFilm();
         void OpenPosterFileClicked();
         void LoadInformation();
 
+        void EditStarring() { ShowEditor( lStarringText, tr( "Starring" ) ); }
+        void EditDescription() { ShowEditor( lDescriptionText, tr( "Description" ) ); }
+
+        void ShowEditor( CutLabel* editDataIn, const QString& title );
+
+        bool CanBeSaved();
         void OkClicked();
         void Save();
 
-        void InformationLoaded( const Film& f, const QString& posterFileName );
-        void InformationLoadError( const QString& e );
+        void InformationLoaded( const FilmItem& film, const QString& posterFileName );
+        void InformationLoadError( const QString& error );
 
     private:
-        void ClearFields();
-        bool CanBeSaved();
-
-        AlexandraSettings* settings = nullptr;
         ParserManager* parser = nullptr;
 };
 
