@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmtechinfoview.h                                                                      *
+ *  file: editfilmwindow.cpp                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,41 +18,32 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMTECHINFOVIEW_H
-#define FILMTECHINFOVIEW_H
+#include "editfilmwindow.h"
+#include "tools/debug.h"
 
-#include "abstractfilminfoview.h"
-#include "alexandrasettings.h"
+#include <QProcessEnvironment>
 
-#include <QLabel>
-#include <QMutex>
 
-class FilmTechInfoView : public QLabel, public AbstractFilmInfoView
+EditFilmWindow::EditFilmWindow( QWidget* parent ) : AddFilmWindow( parent )
 {
-    Q_OBJECT
+    setWindowTitle( tr( "Edit film" ) );
+}
 
-    public:
-        explicit FilmTechInfoView( QWidget* parent = nullptr );
-        ~FilmTechInfoView();
 
-    public slots:
-        void ShowInformation( const QModelIndex& index ) override;
-        void Clear() override { clear(); repaint(); }
+void EditFilmWindow::SetData( const FilmItem* film )
+{
+    QString posterFileName;
 
-    signals:
-        void ShortInfoLoaded( const QString& );
+    if( film->GetIsPosterExists() )
+    {
+        posterFileName = settings->GetPostersDirPath() + "/" + film->GetFilmId();
+    }
 
-    protected slots:
-        void resizeEvent( QResizeEvent* event );
-        void showEvent( QShowEvent* event );
+    eFilmFileName->setText( film->GetColumnData( FilmItem::FileNameColumn ).toString() );
+    eTags->setPlainText( film->GetColumnData( FilmItem::TagsColumn ).toString() );
+    cIsViewed->setChecked( film->GetColumnData( FilmItem::IsViewedColumn ).toBool() );
+    cIsFavourite->setChecked( film->GetColumnData( FilmItem::IsFavouriteColumn ).toBool() );
 
-    private slots:
-        void LoadTechnicalInfo( const QString& fileName );
-        void ShowShortInfo( const QString& text ) { setText( text ); }
+    InformationLoaded( *film, posterFileName );
+}
 
-    private:
-        AlexandraSettings* settings;
-        QMutex mutexInfoLoad;
-};
-
-#endif // FILMTECHINFOVIEW_H

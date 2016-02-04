@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
-    <height>350</height>
+    <width>318</width>
+    <height>352</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="layoutFilmInfo">
@@ -65,7 +65,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>334</width>
+        <width>318</width>
         <height>312</height>
        </rect>
       </property>
@@ -136,10 +136,7 @@
             <string notr="true">&lt;year&gt;</string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -156,7 +153,7 @@
             <string notr="true">&lt;rating&gt;</string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+            <set>Qt::AlignCenter</set>
            </property>
            <property name="wordWrap">
             <bool>true</bool>

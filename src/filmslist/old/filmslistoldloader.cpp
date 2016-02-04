@@ -52,17 +52,17 @@ bool FilmsListOldLoader::Populate( FilmItem* rootItem, const QString& fileName )
                 data << film.GetTitle()
                      << film.GetOriginalTitle()
                      << film.GetTagline()
-                     << film.GetYearStr()
+                     << film.GetYear()
                      << film.GetGenre()
                      << film.GetCountry()
                      << film.GetDirector()
                      << film.GetProducer()
                      << film.GetScreenwriter()
                      << film.GetComposer()
-                     << film.GetBudgetStr()
-                     << film.GetRatingStr()
-                     << film.GetIsViewedSign()
-                     << film.GetIsFavouriteSign()
+                     << film.GetBudget()
+                     << film.GetRating()
+                     << film.GetIsViewed()
+                     << film.GetIsFavourite()
                      << film.GetViewsCounter()
                      << film.GetStarring()
                      << film.GetDescription()
@@ -71,6 +71,10 @@ bool FilmsListOldLoader::Populate( FilmItem* rootItem, const QString& fileName )
                      << film.GetPosterName();
 
                 FilmItem* item = new FilmItem( data, rootItem );
+                item->SetIsPosterExists( film.GetIsPosterExists() ? FilmItem::Exists : FilmItem::NotExists );
+                item->SetFilmType( FilmItem::Movie );
+                item->SetFilmId( film.GetId() );
+
                 rootItem->AppendChild( item );
             }
 

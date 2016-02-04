@@ -22,6 +22,8 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
 
         void ScrollToCurrentItem() override { scrollTo( currentIndex() ); }
 
+        QModelIndex GetCurrentIndex() { return( proxyModel->mapToSource( currentIndex() ) ); }
+
     signals:
         void CurrentChanged( const QModelIndex& );
         void ContextMenuRequested( const QPoint&, const QModelIndex& );

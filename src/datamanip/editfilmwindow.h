@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmtechinfoview.h                                                                      *
+ *  file: editfilmwindow.h                                                                        *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,41 +18,19 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMTECHINFOVIEW_H
-#define FILMTECHINFOVIEW_H
+#ifndef EDITFILMWINDOW_H
+#define EDITFILMWINDOW_H
 
-#include "abstractfilminfoview.h"
-#include "alexandrasettings.h"
+#include "addfilmwindow.h"
 
-#include <QLabel>
-#include <QMutex>
-
-class FilmTechInfoView : public QLabel, public AbstractFilmInfoView
+class EditFilmWindow : public AddFilmWindow
 {
     Q_OBJECT
 
     public:
-        explicit FilmTechInfoView( QWidget* parent = nullptr );
-        ~FilmTechInfoView();
+        explicit EditFilmWindow( QWidget* parent = nullptr );
 
-    public slots:
-        void ShowInformation( const QModelIndex& index ) override;
-        void Clear() override { clear(); repaint(); }
-
-    signals:
-        void ShortInfoLoaded( const QString& );
-
-    protected slots:
-        void resizeEvent( QResizeEvent* event );
-        void showEvent( QShowEvent* event );
-
-    private slots:
-        void LoadTechnicalInfo( const QString& fileName );
-        void ShowShortInfo( const QString& text ) { setText( text ); }
-
-    private:
-        AlexandraSettings* settings;
-        QMutex mutexInfoLoad;
+        void SetData( const FilmItem* film );
 };
 
-#endif // FILMTECHINFOVIEW_H
+#endif // EDITFILMWINDOW_H

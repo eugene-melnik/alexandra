@@ -26,38 +26,32 @@
 class Film010
 {
     public:
-        Film010();
+        Film010() = default;
         Film010( const Film010& other ) = default;
 
         friend QDataStream& operator >> ( QDataStream& in, Film010& film );
 
           // Getters
-        const QString& GetId() const        { return( id ); }
-        const QString& GetFileName() const  { return( fileName ); }
-
-        const QString& GetTitle() const     { return( title ); }
-        const QString& GetOriginalTitle() const { return( originalTitle ); }
-        const QString& GetTagline() const   { return( tagline ); }
-        const QString& GetGenre() const     { return( genre ); }
-        const QString& GetCountry() const   { return( country ); }
-        quint16 GetYear() const             { return( year ); }
-        QString GetYearStr() const          { return( QString::number( year ) ); }
-        const QString& GetDirector() const  { return( director ); }
-        const QString& GetProducer() const  { return( producer ); }
-        const QString& GetStarring() const  { return( starring ); }
-        const QString& GetDescription() const { return( description ); }
-        quint8 GetRating() const            { return( rating ); }
-        QString GetRatingStr() const        { return( QString( "%1/10" ).arg( rating ) ); }
-        const QString &GetTags() const      { return( tags ); }
-
-        QString GetBudgetStr() const;
-        int     GetViewsCounter() const     { return( viewsCounter ); }
-        bool    GetIsPosterExists() const   { return( isPosterExists ); }
+        QString GetId() const           { return( id ); }
+        QString GetFileName() const     { return( fileName ); }
+        QString GetTitle() const        { return( title ); }
+        QString GetOriginalTitle() const { return( originalTitle ); }
+        QString GetTagline() const      { return( tagline ); }
+        QString GetGenre() const        { return( genre ); }
+        QString GetCountry() const      { return( country ); }
+        int     GetYear() const               { return( year ); }
+        QString GetDirector() const     { return( director ); }
+        QString GetProducer() const     { return( producer ); }
+        QString GetStarring() const     { return( starring ); }
+        QString GetDescription() const  { return( description ); }
+        double  GetRating() const       { return( rating * 1.0 ); }
+        QString GetTags() const         { return( tags ); }
+        double  GetBudget() const       { return( budget ); }
+        int     GetViewsCounter() const { return( viewsCounter ); }
+        bool    GetIsPosterExists() const { return( isPosterExists ); }
         QString GetPosterName() const;
-        bool    GetIsViewed() const         { return( isViewed ); }
-        QString GetIsViewedSign() const     { return( isViewed ? "+" : "-" ); }
-        bool    GetIsFavourite() const      { return( isFavourite ); }
-        QString GetIsFavouriteSign() const  { return( isFavourite ? "+" : "-" ); }
+        bool    GetIsViewed() const     { return( isViewed ); }
+        bool    GetIsFavourite() const  { return( isFavourite ); }
 
 
         QString GetScreenwriter() const { return( screenwriter ); }

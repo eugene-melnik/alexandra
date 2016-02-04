@@ -31,7 +31,7 @@ FilmInfoView::FilmInfoView( QWidget* parent ) : QWidget( parent )
 
     textItems =
     {
-          // "first"                              // "second"
+          // "first"                        // "second"
         { FilmItem::OriginalTitleColumn,  lOriginalTitle },
         { FilmItem::TaglineColumn,        lTagline },
         { FilmItem::GenreColumn,          lGenre },
@@ -57,14 +57,13 @@ void FilmInfoView::ShowInformation( const QModelIndex& index )
     DebugPrintFuncA( "FilmInfoView::ShowInformation", index.row() );
 
     const FilmsListProxyModel* model = static_cast<const FilmsListProxyModel*>( index.model() );
-    const FilmItem* film = model->GetFilmItem( index );
 
-    lFilmTitle->setText( film->GetColumnData( FilmItem::TitleColumn ).toString() );
+    lFilmTitle->setText( model->index( index.row(), FilmItem::TitleColumn ).data().toString() );
 
     for( auto& item : textItems )
     {
         QString title = model->headerData( item.first, Qt::Horizontal, Qt::DisplayRole ).toString();
-        QString text = film->GetColumnData( item.first ).toString();
+        QString text = model->index( index.row(), item.first ).data().toString();
         item.second->setText( tr( "<b>%1:</b> %2" ).arg( title, text ) );
         item.second->setVisible( !text.isEmpty() );
     }

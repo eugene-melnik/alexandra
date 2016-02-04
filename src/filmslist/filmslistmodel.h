@@ -41,9 +41,9 @@ class FilmsListModel : public QAbstractItemModel
         int rowCount( const QModelIndex& parent ) const override;
         int columnCount( const QModelIndex& parent ) const override;
 
-        Qt::ItemFlags  flags( const QModelIndex& index ) const override;
-        QVariant       headerData( int section, Qt::Orientation orientation, int role ) const override;
-        QVariant       data( const QModelIndex &index, int role ) const override;
+        Qt::ItemFlags flags( const QModelIndex& index ) const override;
+        QVariant headerData( int section, Qt::Orientation orientation, int role ) const override;
+        QVariant data( const QModelIndex &index, int role ) const override;
 
         QModelIndex index( int row, int column, const QModelIndex& parent = QModelIndex() ) const override;
         QModelIndex parent( const QModelIndex& index ) const override;
@@ -56,8 +56,8 @@ class FilmsListModel : public QAbstractItemModel
 //        void SaveToFile( const QString& fileName );
 //        void SaveToFileAsync( const QString& fileName );
 
-//        void AddFilm( const Film& film );
-//        void EditCurrentFilm( const Film& film );
+        void AddFilmItem( FilmItem* film );
+        void EditFilmItem( FilmItem* film, const QModelIndex& index );
 
 //        void SetCurrentFilm( const QString& title ); /// SelectionModel?
 //        void SetCurrentFilmIsViewed( bool state );
@@ -70,9 +70,9 @@ class FilmsListModel : public QAbstractItemModel
         void EraseAll();
 //        void ResetViews();
 
-        int GetFilmsCount() const { return( rootItem->GetChildCount() ); }
-        int GetIsViewedFilmsCount() const { return( GetCountOf( FilmItem::IsViewedColumn, "+" ) ); }
-        int GetIsFavouriteFilmsCount() const { return( GetCountOf( FilmItem::IsFavouriteColumn, "+" ) ); }
+        int GetFilmsCount() const { return( rootItem->GetChildrenCount() ); }
+        int GetIsViewedFilmsCount() const { return( GetCountOf( FilmItem::IsViewedColumn, true ) ); }
+        int GetIsFavouriteFilmsCount() const { return( GetCountOf( FilmItem::IsFavouriteColumn, true ) ); }
 
 //        const Film*  GetCurrentFilm() const;
 //        QString      GetCurrentFilmTitle() const;
@@ -95,7 +95,7 @@ class FilmsListModel : public QAbstractItemModel
         void DatabaseChanged();
 
     private:
-        int GetCountOf( FilmItem::Column column, const QString& text ) const;
+        int GetCountOf( FilmItem::Column column, const QVariant& data ) const;
 //        void RemoveFilm( const Film& film );
 
           // Variables

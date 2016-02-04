@@ -22,26 +22,9 @@
 #include "tools/debug.h"
 
 
-Film010::Film010() : viewsCounter( 0 ), isPosterExists( false ), isViewed( false ), isFavourite( false )
-{}
-
-
-QString Film010::GetBudgetStr() const
-{
-    QString result;
-
-    if( budget > 1 )
-    {
-        result = QString( "$%L1" ).arg( budget, 0, 'f', 0 );
-    }
-
-    return( result );
-}
-
-
 QString Film010::GetPosterName() const
 {
-    if( GetIsPosterExists() )
+    if( isPosterExists )
     {
         return( GetId() );
     }
@@ -80,7 +63,7 @@ QDataStream& operator >> ( QDataStream& in, Film010& film )
        >> film.isFavourite;
 
       // Additional fields
-    int version; // unused
+    int version; // useless
     QByteArray dataArray = QByteArray::fromHex( additionalData.toLatin1() );
     QDataStream stream( dataArray );
     stream >> version >> film.screenwriter >> film.composer;

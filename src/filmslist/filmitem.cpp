@@ -1,25 +1,73 @@
+/*************************************************************************************************
+ *                                                                                                *
+ *  file: filmitem.cpp                                                                            *
+ *                                                                                                *
+ *  Alexandra Video Library                                                                       *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *                                                                                                *
+ *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
+ *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
+ *  the License, or (at your option) any later version.                                           *
+ *                                                                                                *
+ *  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;     *
+ *  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     *
+ *  See the GNU General Public License for more details.                                          *
+ *                                                                                                *
+ *  You should have received a copy of the GNU General Public License along with this program.    *
+ *  If not, see <http://www.gnu.org/licenses/>.                                                   *
+ *                                                                                                *
+  *************************************************************************************************/
 
 #include "filmitem.h"
+
+
+FilmItem::FilmItem() : filmId( GetRandomHash() )
+{
+    int i = ColumnCount;
+    columnsData.reserve( i );
+
+    while( i-- > 0 )
+    {
+        columnsData.append( QVariant() );
+    }
+}
+
+FilmItem& FilmItem::operator = ( const FilmItem& item )
+{
+    parentItem = item.parentItem;
+    filmId = item.filmId;
+    filmType = item.filmType;
+    isFileExists = item.isFileExists;
+    isPosterExists = item.isPosterExists;
+
+    columnsData.clear();
+    columnsData = item.columnsData;
+    RemoveChildren();
+
+    for( FilmItem* film : childItems )
+    {
+        childItems.append( new FilmItem( *film ) );
+    }
+
+    return( *this );
+}
+
+
+void FilmItem::AppendChild( FilmItem* item )
+{
+    if( item->GetParent() == nullptr )
+    {
+        item->SetParent( this );
+    }
+
+    childItems.append( item );
+}
 
 
 void FilmItem::RemoveChildren()
 {
     qDeleteAll( childItems );
     childItems.clear();
-}
-
-
-bool FilmItem::GetIsFilmViewed() const
-{
-    bool viewed = GetColumnData( IsViewedColumn ).toString() == "+" ? true : false;
-    return( viewed );
-}
-
-
-bool FilmItem::GetIsFilmFavourite() const
-{
-    bool viewed = GetColumnData( IsFavouriteColumn ).toString() == "+" ? true : false;
-    return( viewed );
 }
 
 

@@ -24,7 +24,7 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent ),
       // Signals
     connect( this, &QListView::customContextMenuRequested, this, [this] (const QPoint& pos)
     {
-        emit ContextMenuRequested( pos, proxyModel->mapToSource( selectionModel()->currentIndex() ) );
+        emit ContextMenuRequested( pos, proxyModel->mapToSource( currentIndex() ) );
     });
 }
 
@@ -33,12 +33,18 @@ void FilmsViewGrid::setModel( QAbstractItemModel* model )
 {
     proxyModel->setSourceModel( model );
 
+    connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(MapCurrentChanged(QModelIndex)) );
+
     connect( model, &QAbstractItemModel::modelReset, this, [this, model]
     {
         proxyModel->SetCacheSize( model->rowCount() );
     } );
 
-    connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(MapCurrentChanged(QModelIndex)) );
+    connect( model, &QAbstractItemModel::dataChanged, this, [this]
+    {
+        QModelIndex index = currentIndex();
+        selectionModel()->currentChanged( index, index );
+    } );
 }
 
 

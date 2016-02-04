@@ -94,7 +94,7 @@ int FilmsListModel::rowCount( const QModelIndex& parent ) const
         parentItem = static_cast<FilmItem*>( parent.internalPointer() );
     }
 
-    return( parentItem->GetChildCount() );
+    return( parentItem->GetChildrenCount() );
 }
 
 
@@ -161,7 +161,14 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
         {
             case Qt::DisplayRole :
             {
-                return( item->GetColumnData( index.column() ) );
+                if( column == FilmItem::PosterColumn )
+                {
+                    return( item->GetFilmId() );
+                }
+                else
+                {
+                    return( item->GetColumnData( index.column() ) );
+                }
             }
 
             case Qt::TextAlignmentRole :
@@ -199,10 +206,9 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
 
             case Qt::DecorationRole :
             {
-                if( column == FilmItem::PosterColumn )
+                if( column == FilmItem::PosterColumn && item->GetIsPosterExists() )
                 {
-                    QString posterFileName = item->GetColumnData( FilmItem::PosterColumn ).toString();
-                    QString posterFilePath = settings->GetPostersDirPath() + "/" + posterFileName;
+                    QString posterFilePath = settings->GetPostersDirPath() + "/" + item->GetFilmId();
                     QPixmap pixmap;
 
                     if( pixmap.load( posterFilePath ) )
@@ -298,7 +304,7 @@ void FilmsListModel::LoadFromFile( const QString& fileName )
                 DebugPrint( "Reading done!" );
                 emit DatabaseLoaded();
 
-                if( rootItem->GetChildCount() == 0 )
+                if( rootItem->GetChildrenCount() == 0 )
                 {
                     emit DatabaseIsEmpty();
                 }
@@ -328,6 +334,28 @@ void FilmsListModel::LoadFromFile( const QString& fileName )
 }
 
 
+void FilmsListModel::AddFilmItem( FilmItem* film )
+{
+    int pos = rootItem->GetChildrenCount();
+    beginInsertRows( QModelIndex(), pos, pos );
+    rootItem->AppendChild( film );
+    endInsertRows();
+}
+
+
+void FilmsListModel::EditFilmItem( FilmItem* film, const QModelIndex& index )
+{
+    int row = index.row();
+    film->SetParent( rootItem );
+
+    FilmItem* oldFilm = static_cast<FilmItem*>( index.internalPointer() );
+    *oldFilm = *film;
+    delete film;
+
+    dataChanged( this->index( row, 0 ), this->index( row, FilmItem::ColumnCount - 1 ) );
+}
+
+
 void FilmsListModel::EraseAll()
 {
     DebugPrintFunc( "FilmsListModel::EraseAll" );
@@ -342,16 +370,15 @@ void FilmsListModel::EraseAll()
 }
 
 
-int FilmsListModel::GetCountOf( FilmItem::Column column, const QString& text ) const
+int FilmsListModel::GetCountOf( FilmItem::Column column, const QVariant& data ) const
 {
     int counter = 0;
 
-    for( int i = 0; i < rootItem->GetChildCount(); ++i )
+    for( int i = 0; i < rootItem->GetChildrenCount(); ++i )
     {
         const FilmItem* film = rootItem->GetChild( i );
-        QString sign = film->GetColumnData( column ).toString();
 
-        if( sign == text )
+        if( film->GetColumnData( column ) == data )
         {
             ++counter;
         }

@@ -14,12 +14,14 @@ class FilmsListProxyModel : public QSortFilterProxyModel
     public:
         explicit FilmsListProxyModel( QObject* parent = nullptr ) : QSortFilterProxyModel( parent ) {}
 
-        const FilmItem* GetFilmItem( const QModelIndex& index ) const
+        QVariant data( const QModelIndex &index, int role ) const override;
+
+    public slots:
+        const FilmItem* GetFilmItemByIndex( const QModelIndex& index ) const
         {
             return( static_cast<FilmItem*>( mapToSource(index).internalPointer() ) );
         }
 
-    public slots:
         void SetFilter( const QString& string, const QList<int>& columns )
         {
             filterString = string;
@@ -30,19 +32,13 @@ class FilmsListProxyModel : public QSortFilterProxyModel
     protected:
         bool filterAcceptsRow( int sourceRow, const QModelIndex& sourceParent ) const
         {
-            if( filterString.isEmpty() || filterColumns.isEmpty() )
-            {
-                return( true );
-            }
+            if( filterString.isEmpty() ) return( true );
+            if( filterColumns.isEmpty() ) return( false );
 
             for( int column : filterColumns )
             {
                 QString columnString = sourceModel()->index( sourceRow, column, sourceParent ).data().toString();
-
-                if( columnString.contains( filterString, Qt::CaseInsensitive ) )
-                {
-                    return( true );
-                }
+                if( columnString.contains( filterString, Qt::CaseInsensitive ) ) return( true );
             }
 
             return( false );

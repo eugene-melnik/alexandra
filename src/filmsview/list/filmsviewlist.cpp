@@ -61,7 +61,14 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableView( parent )
 void FilmsViewList::setModel( QAbstractItemModel* model )
 {
     QTableView::setModel( model );
+
     connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SIGNAL(CurrentChanged(QModelIndex)) );
+
+    connect( model, &QAbstractItemModel::dataChanged, this, [this]
+    {
+        QModelIndex index = currentIndex();
+        selectionModel()->currentChanged( index, index );
+    } );
 }
 
 
@@ -126,16 +133,17 @@ void FilmsViewList::ShowHeaderContextMenu( const QPoint& pos )
     QHeaderView* header = horizontalHeader();
     QMenu menu( tr( "Columns" ) );
 
-    for( int i = 1; i < model()->columnCount(); ++i )
+      // "Title" always enabled
+      // "Filename" and "Poster" always disabled
+    for( int column = 1; column < model()->columnCount() - 2; ++column )
     {
-        QAction* action = menu.addAction( model()->headerData( i, Qt::Horizontal ).toString() );
+        QAction* action = menu.addAction( model()->headerData( column, Qt::Horizontal ).toString() );
         action->setCheckable( true );
-        action->setChecked( !header->isSectionHidden( i ) );
-        action->setData( i );
+        action->setChecked( !header->isSectionHidden( column ) );
+        action->setData( column );
     }
 
     menu.addSeparator();
-
     QAction* resetAction = menu.addAction( tr( "Reset to defaults" ) );
     resetAction->setData( model()->columnCount() );
 
@@ -163,9 +171,9 @@ void FilmsViewList::ShowHeaderContextMenu( const QPoint& pos )
 void FilmsViewList::SetDefaultColumnsView()
 {
     DebugPrintFunc( "FilmsViewList::SetDefaultColumnsView" );
-    QHeaderView* header = horizontalHeader();
 
       // Move to start
+    QHeaderView* header = horizontalHeader();
     header->moveSection( FilmItem::IsFavouriteColumn, 0 );
     header->moveSection( FilmItem::IsViewedColumn + 1, 0 );
 

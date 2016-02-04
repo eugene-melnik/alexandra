@@ -1,3 +1,22 @@
+/*************************************************************************************************
+ *                                                                                                *
+ *  file: filmitem.h                                                                              *
+ *                                                                                                *
+ *  Alexandra Video Library                                                                       *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *                                                                                                *
+ *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
+ *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
+ *  the License, or (at your option) any later version.                                           *
+ *                                                                                                *
+ *  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;     *
+ *  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     *
+ *  See the GNU General Public License for more details.                                          *
+ *                                                                                                *
+ *  You should have received a copy of the GNU General Public License along with this program.    *
+ *  If not, see <http://www.gnu.org/licenses/>.                                                   *
+ *                                                                                                *
+  *************************************************************************************************/
 
 #ifndef FILMITEM_H
 #define FILMITEM_H
@@ -10,12 +29,20 @@
 class FilmItem
 {
     public:
+        FilmItem();
+
         FilmItem( const QList<QVariant>& data, FilmItem* parent = nullptr )
             : parentItem( parent ), columnsData( data ) {}
 
+        FilmItem( const FilmItem& item ) { *this = item; }
+
         ~FilmItem() { qDeleteAll( childItems ); }
 
+        FilmItem& operator = ( const FilmItem& item );
+
         /* TODO: describe */
+
+          // Types
 
         enum FilmType
         {
@@ -58,34 +85,47 @@ class FilmItem
             NotExists
         };
 
-        void AppendChild( FilmItem* item ) { childItems.append( item ); }
+          // Set
+
+        void AppendChild( FilmItem* item );
         void RemoveChildren();
 
+        void SetParent( FilmItem* parent ) { parentItem = parent; }
+        void SetColumnData( int column, const QVariant& data ) { columnsData[column] = data; }
+
+        void SetFilmId( QString id ) { filmId = id; }
+        void SetFilmType( FilmType type ) { filmType = type; }
         void SetIsFileExists( Existing exists ) { isFileExists = exists; }
         void SetIsPosterExists( Existing exists ) { isPosterExists = exists; }
 
+          // Get
+
         int GetColumnCount() const { return( columnsData.size() ); }
-        int GetChildCount() const { return( childItems.size() ); }
+        int GetChildrenCount() const { return( childItems.size() ); }
         int GetRow() const;
 
         FilmItem* GetParent() { return( parentItem ); }
-        FilmItem* GetChild( int row ) { return( childItems.value( row  ) ); }
-        QVariant  GetColumnData( int column ) const { return( columnsData.value( column ) ); }
+        FilmItem* GetChild( int row ) { return( childItems.value(row) ); }
+        QVariant  GetColumnData( int column ) const { return( columnsData.value(column) ); }
 
-        bool GetIsFilmViewed() const;
-        bool GetIsFilmFavourite() const;
+        bool     GetIsFilmViewed() const { return( GetColumnData(IsViewedColumn).toBool() ); }
+        bool     GetIsFilmFavourite() const { return( GetColumnData(IsFavouriteColumn).toBool() ); }
+        QString  GetFilmId() const { return( filmId ); }
+        FilmType GetFilmType() const { return( filmType ); }
         Existing GetIsFileExists() const { return( isFileExists ); }
         Existing GetIsPosterExists() const { return( isPosterExists ); }
 
           // Static
+
         static QString GetRandomHash();
         static QString ClearTitle( const QString& title );
 
     private:
-        FilmItem*        parentItem;
+        FilmItem* parentItem = nullptr;
         QList<FilmItem*> childItems;
 
-        FilmType filmType; ///
+        QString  filmId;
+        FilmType filmType = Movie;
         Existing isFileExists = Unknown;
         Existing isPosterExists = NotExists; ///
         QList<QVariant> columnsData;

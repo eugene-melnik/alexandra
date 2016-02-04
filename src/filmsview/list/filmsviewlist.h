@@ -21,10 +21,13 @@
 #ifndef FILMSVIEWLIST_H
 #define FILMSVIEWLIST_H
 
+
 #include <QKeyEvent>
 #include <QTableView>
 
+
 #include "../abstractfilmsview.h"
+
 
 class FilmsViewList : public QTableView, public AbstractFilmsView
 {
@@ -42,6 +45,8 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
 
         void ScrollToCurrentItem() override { scrollTo( currentIndex() ); }
 
+        QModelIndex GetCurrentIndex() { return( currentIndex() ); }
+
     signals:
         void CurrentChanged( const QModelIndex& );
         void ContextMenuRequested( const QPoint&, const QModelIndex& );
@@ -55,4 +60,6 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
         void RestoreColumnsOrder();
 };
 
+
 #endif // FILMSVIEWLIST_H
+
