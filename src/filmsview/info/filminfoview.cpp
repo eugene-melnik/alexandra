@@ -54,7 +54,7 @@ FilmInfoView::FilmInfoView( QWidget* parent ) : QWidget( parent )
 
 void FilmInfoView::ShowInformation( const QModelIndex& index )
 {
-    DebugPrintFuncA( "FilmInfoView::ShowInformation", index.row() );
+    DebugPrintFunc( "FilmInfoView::ShowInformation", index.row() );
 
     const FilmsListProxyModel* model = static_cast<const FilmsListProxyModel*>( index.model() );
 

@@ -102,7 +102,7 @@ void ParserManager::SearchSync( FilmItem* filmSaveTo, QString* posterFileNameSav
 
 void ParserManager::InformationLoaded( FilmItem film, const QUrl& posterUrl )
 {
-    DebugPrintFuncA( "ParserManager::InformationLoaded", film.GetColumnData( FilmItem::OriginalTitleColumn ).toString() );
+    DebugPrintFunc( "ParserManager::InformationLoaded", film.GetColumnData( FilmItem::OriginalTitleColumn ).toString() );
     DebugPrint( QString( "Loded in %1 ms" ).arg( time.elapsed() ) );
 
     QString poster;
@@ -119,7 +119,7 @@ void ParserManager::InformationLoaded( FilmItem film, const QUrl& posterUrl )
 
 void ParserManager::InformationLoadError( const QString& errorString )
 {
-    DebugPrintFuncA( "ParserManager::InformationLoadError", errorString );
+    DebugPrintFunc( "ParserManager::InformationLoadError", errorString );
     DebugPrint( QString( "Loded in %1 ms" ).arg( time.elapsed() ) );
     emit Error( errorString );
 }

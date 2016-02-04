@@ -86,7 +86,7 @@ void FilmTechInfoView::showEvent( QShowEvent* event )
 
 void FilmTechInfoView::LoadTechnicalInfo( const QString& fileName )
 {
-    DebugPrintFuncA( "FilmTechInfoView::LoadTechnicalInfo", fileName );
+    DebugPrintFunc( "FilmTechInfoView::LoadTechnicalInfo", fileName );
 
     QMutexLocker locker( &mutexInfoLoad );///
     MediaInfo* mi = new MediaInfo( fileName );

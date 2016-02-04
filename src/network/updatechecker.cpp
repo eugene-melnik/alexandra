@@ -44,7 +44,8 @@ void UpdateChecker::Run()
 
 void UpdateChecker::DataLoaded( const QByteArray& data )
 {
-    DebugPrintFuncA( "UpdateChecker::DataLoaded", data.size() );
+    DebugPrintFunc( "UpdateChecker::DataLoaded", data.size() );
+
     QString str( data );
 
     QRegExp reCounterUrl( "<counter_lnk>(.*)</counter_lnk>" );
@@ -69,5 +70,6 @@ void UpdateChecker::DataLoaded( const QByteArray& data )
 
 void UpdateChecker::DataLoadError( const QString& e )
 {
-    DebugPrintFuncA( "UpdateChecker::DataLoadError", e ); Q_UNUSED(e)
+    DebugPrintFunc( "UpdateChecker::DataLoadError", e );
+    Q_UNUSED(e)
 }

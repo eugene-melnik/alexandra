@@ -39,7 +39,7 @@ OmdbParser::OmdbParser() : AbstractParser()
 
 QUrl OmdbParser::Parse( const QByteArray& data )
 {
-    DebugPrintFuncA( "OmdbParser::Parse", data.size() );
+    DebugPrintFunc( "OmdbParser::Parse", data.size() );
 
     QJsonObject json = QJsonDocument::fromJson( data ).object();
     QUrl posterUrl;

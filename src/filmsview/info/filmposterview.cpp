@@ -28,7 +28,7 @@
 
 void FilmPosterView::ShowInformation( const QModelIndex& index )
 {
-    DebugPrintFuncA( "FilmPosterView::ShowInformation", index.row() );
+    DebugPrintFunc( "FilmPosterView::ShowInformation", index.row() );
 
     const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
     QVariant data = model->index( index.row(), FilmItem::PosterColumn ).data( Qt::DecorationRole );

@@ -56,7 +56,7 @@ void DebugPrintFunc( const char* funcName )
 }
 
 
-void DebugPrintFuncA( const char* funcName, int argument )
+void DebugPrintFunc( const char* funcName, int argument )
 {
     QTime a;
     a.start();
@@ -68,7 +68,7 @@ void DebugPrintFuncA( const char* funcName, int argument )
 }
 
 
-void DebugPrintFuncA( const char* funcName, const QString& argument )
+void DebugPrintFunc( const char* funcName, const QString& argument )
 {
     QTime a;
     a.start();

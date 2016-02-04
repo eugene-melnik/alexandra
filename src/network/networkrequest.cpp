@@ -25,7 +25,7 @@
 
 void NetworkRequest::run( const QUrl& url )
 {
-    DebugPrintFuncA( "NetworkRequest::run", url.toString() );
+    DebugPrintFunc( "NetworkRequest::run", url.toString() );
 
     data.clear();
     reply = MakeRequest( url );
@@ -41,7 +41,7 @@ void NetworkRequest::run( const QUrl& url )
 
 QByteArray NetworkRequest::runSync( const QUrl& url )
 {
-    DebugPrintFuncA( "NetworkRequest::runSync", url.toString() );
+    DebugPrintFunc( "NetworkRequest::runSync", url.toString() );
 
     data.clear();
     reply = MakeRequest( url );

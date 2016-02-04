@@ -30,7 +30,7 @@
 
 bool FilmsListOldLoader::Populate( FilmItem* rootItem, const QString& fileName )
 {
-    DebugPrintFuncA( "FilmsListOldLoader::Populate", fileName );
+    DebugPrintFunc( "FilmsListOldLoader::Populate", fileName );
     QFile file( fileName );
 
     if( file.open( QIODevice::ReadOnly ) )

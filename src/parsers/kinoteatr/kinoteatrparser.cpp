@@ -32,7 +32,7 @@ KinoteatrParser::KinoteatrParser() : AbstractParser()
 
 QUrl KinoteatrParser::Parse( const QByteArray& data )
 {
-    DebugPrintFuncA( "KinoteatrParser::Parse", data.size() );
+    DebugPrintFunc( "KinoteatrParser::Parse", data.size() );
 
     QString foundedPage( data );
     RegExpTools::SimplifyText( foundedPage );

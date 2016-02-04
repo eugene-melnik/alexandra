@@ -35,7 +35,7 @@ PlayListWidget::PlayListWidget( QWidget* parent ) : QListWidget( parent )
 
 void PlayListWidget::AddItem( const QString& title , const QString& filePath )
 {
-    DebugPrintFuncA( "PlayListWidget::AddItem", title );
+    DebugPrintFunc( "PlayListWidget::AddItem", title );
 
     QListWidgetItem* item = new QListWidgetItem( title, this );
     item->setToolTip( filePath ); // TODO: setData()

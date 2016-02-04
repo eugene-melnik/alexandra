@@ -44,8 +44,8 @@
  */
 
     void DebugPrintFunc( const char* funcName );
-    void DebugPrintFuncA( const char* funcName, int argument );
-    void DebugPrintFuncA( const char* funcName, const QString& argument );
+    void DebugPrintFunc( const char* funcName, int argument );
+    void DebugPrintFunc( const char* funcName, const QString& argument );
 
 /*
  * Output format:
@@ -56,13 +56,11 @@
 
 #else
 
-    #define DebugPrint(text)
-    #define DebugPrintL(text)
+    #define DebugPrint(...)
+    #define DebugPrintL(...)
 
     #define DebugPrintFunc(...)
-///    #define DebugPrintFuncA(funcName, argument)
-
-    #define DebugPrintFuncDone(funcName)
+    #define DebugPrintFuncDone(...)
 
 #endif
 

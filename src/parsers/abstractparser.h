@@ -41,7 +41,7 @@ class AbstractParser : public QObject
 
         virtual void SearchFor( const QString& title, const QString& year = QString() )
         {
-            DebugPrintFuncA( "AbstractParser::SearchFor", title );
+            DebugPrintFunc( "AbstractParser::SearchFor", title );
             QUrl url( searchUrlWithYear.arg( QUrl::toPercentEncoding( title ).data() ).arg( year ) );
 
             if( year.isEmpty() )
@@ -55,7 +55,7 @@ class AbstractParser : public QObject
         virtual void SyncSearchFor( FilmItem* filmSaveTo, QUrl* posterUrlSaveTo,
                                     const QString& title, const QString& year = QString() )
         {
-            DebugPrintFuncA( "AbstractParser::SyncSearchFor", title );
+            DebugPrintFunc( "AbstractParser::SyncSearchFor", title );
             QUrl url( searchUrlWithYear.arg( title ).arg( year ) );
 
             if( year.isEmpty() )
@@ -89,7 +89,7 @@ class AbstractParser : public QObject
 
         virtual void DataLoaded( const QByteArray& data )
         {
-            DebugPrintFuncA( "AbstractParser::DataLoaded", data.size() );
+            DebugPrintFunc( "AbstractParser::DataLoaded", data.size() );
             Parse( data );
         }
 

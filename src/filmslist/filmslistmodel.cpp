@@ -265,7 +265,7 @@ QModelIndex FilmsListModel::parent( const QModelIndex& index ) const
 
 void FilmsListModel::LoadFromFile( const QString& fileName )
 {
-    DebugPrintFuncA( "FilmsList::LoadFromFile", fileName );
+    DebugPrintFunc( "FilmsList::LoadFromFile", fileName );
 
     beginResetModel();
     rootItem->RemoveChildren();

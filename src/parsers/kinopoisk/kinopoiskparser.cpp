@@ -36,7 +36,7 @@ KinopoiskParser::KinopoiskParser() : AbstractParser()
 
 QUrl KinopoiskParser::Parse( const QByteArray& data )
 {
-    DebugPrintFuncA( "KinopoiskParser::Parse", data.size() );
+    DebugPrintFunc( "KinopoiskParser::Parse", data.size() );
 
     QTextCodec* codec = QTextCodec::codecForName( "Windows-1251" );
     QString str = codec->toUnicode( data );

@@ -61,7 +61,7 @@ MainWindow::MainWindow() : QMainWindow(),
 
 void MainWindow::AddFilmsFromOutside( const QStringList& films )
 {
-    DebugPrintFuncA( "MainWindow::AddFilmsFromOutside", films.size() );
+    DebugPrintFunc( "MainWindow::AddFilmsFromOutside", films.size() );
 
 //    QList<Film> newFilms;
 //    QString messageText;
@@ -431,7 +431,7 @@ void MainWindow::PlayerStarted()
 //void MainWindow::UpdateCurrentFilm( Film film )
 //{
 //    QString newCurrentTitle = film.GetTitle();
-//    DebugPrintFuncA( "MainWindow::UpdateCurrentFilm", newCurrentTitle );
+//    DebugPrintFunc( "MainWindow::UpdateCurrentFilm", newCurrentTitle );
 
 //    if( !newCurrentTitle.isEmpty() ) // if not just update view
 //    {

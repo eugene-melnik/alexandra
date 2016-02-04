@@ -34,7 +34,7 @@ ImdbParser::ImdbParser() : AbstractParser()
 
 QUrl ImdbParser::Parse( const QByteArray& data )
 {
-    DebugPrintFuncA( "ImdbParser::Parse", data.size() );
+    DebugPrintFunc( "ImdbParser::Parse", data.size() );
 
     QString foundedPage( data );
     RegExpTools::SimplifyText( foundedPage );
