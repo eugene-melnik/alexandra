@@ -59,8 +59,8 @@
     #define DebugPrint(text)
     #define DebugPrintL(text)
 
-    #define DebugPrintFunc(funcName)
-    #define DebugPrintFuncA(funcName, argument)
+    #define DebugPrintFunc(...)
+///    #define DebugPrintFuncA(funcName, argument)
 
     #define DebugPrintFuncDone(funcName)
 

@@ -22,6 +22,7 @@
 
 #include <QStringList>
 
+
 void RegExpTools::SimplifyText( QString& str )
 {
     str = str.simplified();
@@ -40,6 +41,7 @@ void RegExpTools::SimplifyText( QString& str )
     str.replace( "> <",     "><" );
 }
 
+
 QString RegExpTools::ParseList( const QString& str, QRegExp& reList, QRegExp& reItem, quint16 stripTo )
 {
     reItem.setMinimal( true );
@@ -57,9 +59,9 @@ QString RegExpTools::ParseList( const QString& str, QRegExp& reList, QRegExp& re
         nextPosition += reItem.matchedLength();
     }
 
-    result.removeDuplicates(); // TODO: solution or not?
+    result.removeDuplicates(); // FIXME: solution or not?
 
-    // Leave only 'stripTo' first elements
+      // Leave only 'stripTo' first elements
     if( stripTo != 0 && stripTo < result.size() )
     {
         result.erase( result.begin() + stripTo, result.end() );
@@ -68,9 +70,11 @@ QString RegExpTools::ParseList( const QString& str, QRegExp& reList, QRegExp& re
     return( result.join( ", " ) );
 }
 
+
 QString RegExpTools::ParseItem( const QString& str, QRegExp& reItem )
 {
     reItem.setMinimal( true );
     reItem.indexIn( str );
     return( reItem.cap(1).trimmed() );
 }
+

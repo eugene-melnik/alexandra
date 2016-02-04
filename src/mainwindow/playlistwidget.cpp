@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: editfilmwindow.cpp                                                                      *
+ *  file: playlistwidget.cpp                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,54 +18,68 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "editfilmwindow.h"
+#include "playlistwidget.h"
 #include "tools/debug.h"
 
-#include <QProcessEnvironment>
+#include <QAction>
+#include <QMenu>
 
-EditFilmWindow::EditFilmWindow( QWidget* parent ) : AddFilmWindow( parent )
+PlayListWidget::PlayListWidget( QWidget* parent ) : QListWidget( parent )
 {
-    settings = AlexandraSettings::GetInstance();
-    setWindowTitle( tr( "Edit film" ) );
+    setAlternatingRowColors( true );
+    setContextMenuPolicy( Qt::CustomContextMenu );
+    setDragDropMode( QAbstractItemView::InternalMove );
+
+    connect( this, &PlayListWidget::customContextMenuRequested, this, &PlayListWidget::ShowContextMenu );
 }
 
-void EditFilmWindow::show( const Film* f )
+void PlayListWidget::AddItem( const QString& title , const QString& filePath )
 {
-    DebugPrintFuncA( "EditFilmWindow::show", f->GetFileName() );
+    DebugPrintFuncA( "PlayListWidget::AddItem", title );
 
-    // Setting button "Open poster" state depending on the availability of the image
-    if( f->GetIsPosterExists() )
+    QListWidgetItem* item = new QListWidgetItem( title, this );
+    item->setToolTip( filePath ); // TODO: setData()
+    addItem( item );
+    setCurrentItem( item );
+}
+
+void PlayListWidget::Clear()
+{
+    DebugPrintFunc( "PlayListWidget::Clear" );
+
+    clear();
+    emit Cleared();
+}
+
+QStringList PlayListWidget::GetPathes() const
+{
+    QStringList pathes;
+
+    for( int i = 0; i < count(); i++ )
     {
-        ePosterFileName->setText( settings->GetPostersDirPath() + "/" + f->GetPosterName() );
-        bOpenPoster->setText( tr( "Clear" ) );
+        pathes.append( item( i )->toolTip() );
     }
-    else
+
+    return( pathes );
+}
+
+void PlayListWidget::ShowContextMenu( const QPoint& pos )
+{
+    if( count() > 0 && currentRow() >= 0 )
     {
-        bOpenPoster->setText( tr( "Open" ) );
+        QMenu menu;
+        menu.addAction( QIcon( ":/tool/delete" ), tr( "Remove from playlist" ), this, SLOT( RemoveFromList() ) );
+        menu.addAction( QIcon( ":/tool/clear" ), tr( "Clear all" ), this, SLOT( Clear() ) );
+        menu.exec( mapToGlobal( pos ) );
     }
+}
 
-    // Filling the fields
-    filmId = f->GetId();
-    eFilmFileName->setText( f->GetFileName() );
-    eTitle->setText( f->GetTitle() );
-    eOriginalTitle->setText( f->GetOriginalTitle() );
-    eTagline->setText( f->GetTagline() );
-    eYear->setText( f->GetYearStr() );
-    eCountry->setText( f->GetCountry() );
-    eGenre->setText( f->GetGenre() );
-    cbRating->setCurrentIndex( f->GetRating() - 1 );
-    eDirector->setText( f->GetDirector() );
-    eProducer->setText( f->GetProducer() );
-    tStarring->setPlainText( f->GetStarring() );
-    tDescription->setPlainText( f->GetDescription() );
-    eTags->setText( f->GetTags() );
-    cIsViewed->setChecked( f->GetIsViewed() );
-    cIsFavourite->setChecked( f->GetIsFavourite() );
-    eBudget->setText( f->GetBudgetStr() );
-    eScreenwriter->setText( f->GetScreenwriter() );
-    eComposer->setText( f->GetComposer() );
+void PlayListWidget::RemoveFromList()
+{
+    model()->removeRow( currentRow() );
 
-    cbOnlineSource->setCurrentIndex( settings->GetDefaultParserIndex() );
-    eTitle->setFocus();
-    QDialog::show();
+    if( count() == 0 )
+    {
+        emit Cleared();
+    }
 }

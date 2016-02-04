@@ -21,9 +21,7 @@
 #ifndef STATUSBAR_H
 #define STATUSBAR_H
 
-#include <QFont>
 #include <QLabel>
-#include <QProgressBar>
 #include <QStatusBar>
 
 class StatusBar : public QStatusBar
@@ -34,10 +32,6 @@ class StatusBar : public QStatusBar
         explicit StatusBar( QWidget* parent = nullptr );
         virtual ~StatusBar() = default;
 
-        void SetProgresMaximum( int maximum ) { progress->setMaximum( maximum ); }
-        void SetProgressValue( int value ) { progress->setValue( value ); repaint(); }
-
-        void ShowLoading();
         void ShowFounded( int founded );
         void ShowTotal( int total, int viewed, int favourite );
 
@@ -45,7 +39,6 @@ class StatusBar : public QStatusBar
 
     private:
         QLabel* text = nullptr;
-        QProgressBar* progress = nullptr;
 };
 
 #endif // STATUSBAR_H

@@ -30,9 +30,7 @@
 #include "search/searchedit.h"
 //#include "search/searchwindow.h"
 #include "aboutwindow.h"
-//#include "addfilmwindow.h"
 #include "alexandrasettings.h"
-//#include "editfilmwindow.h"
 //#include "filminfowindow.h"
 #include "settingswindow.h"
 //#include "statisticswindow.h"
@@ -86,7 +84,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void PlayerStarted();
 //        void PlayerClosed();
 
-//        void EditFilm() { editFilmWindow->show( filmsList->GetCurrentFilm() ); }
 //        void RemoveFilm();
 //        void RemoveFile();
 //        void FilmScanner() { filmScannerWindow->show( filmsList->GetFileNamesList() ); }
@@ -96,9 +93,12 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 //        void UpdateCurrentFilm() { UpdateCurrentFilm( Film() ); }
 //        void UpdateCurrentFilm( Film film );
 
+        void ShowAddFilmWindow();
+        void ShowEditFilmWindow();
+
     private:
-          // Additional functions
-//        void AddFilmDone( Film film );
+        void AddFilmDone( FilmItem* film );
+        void EditFilmDone( FilmItem* film );
 //        void AddFilmsDone( const QList<Film>* films );
 
         void ShowSplashscreen();
@@ -117,9 +117,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void SetReadOnlyMode( bool b = true );
 
         // Child windows
-        AboutWindow* aboutWindow = nullptr;
-//        AddFilmWindow* addFilmWindow = nullptr;
-//        EditFilmWindow* editFilmWindow = nullptr;
+        AboutWindow* aboutWindow;
 //        FilmInfoWindow* filmInfoWindow = nullptr;
 //        FilmScannerWindow* filmScannerWindow = nullptr;
 //        MovedFilmsWindow* movedFilmsWindow = nullptr;

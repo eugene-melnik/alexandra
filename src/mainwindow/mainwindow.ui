@@ -584,7 +584,7 @@
   <customwidget>
    <class>PlayListWidget</class>
    <extends>QListWidget</extends>
-   <header>playlistwidget.h</header>
+   <header>mainwindow/playlistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>FilmInfoView</class>

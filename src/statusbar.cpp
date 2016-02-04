@@ -3,7 +3,7 @@
  *  file: statusbar.cpp                                                                           *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -20,47 +20,32 @@
 
 #include "statusbar.h"
 
-StatusBar::StatusBar( QWidget* parent ) : QStatusBar( parent ),
-    text( new QLabel( this ) ),
-    progress( new QProgressBar( this ) )
-{
-    progress->setAlignment( Qt::AlignCenter );
-    progress->setTextVisible( false );
-    progress->hide();
 
+StatusBar::StatusBar( QWidget* parent ) : QStatusBar( parent ), text( new QLabel( this ) )
+{
     addWidget( text );
-    addPermanentWidget( progress );
-    setStyleSheet( "QStatusBar::item { border: 0px solid black };" );
+    setStyleSheet( "QStatusBar::item { border: none };" );
 }
 
-void StatusBar::ShowLoading()
-{
-    progress->setMaximumHeight( height() / 2 );
-    progress->setMaximumWidth( 200 );
-    progress->setValue( 0 );
-    progress->show();
-
-    text->setText( tr( "Loading..." ) );
-    repaint();
-}
 
 void StatusBar::ShowFounded( int founded )
 {
-    progress->hide();
     text->setText( tr( "Founded: %1" ).arg( founded ) );
 }
 
+
 void StatusBar::ShowTotal( int total, int viewed, int favourite )
 {
-    progress->hide();
     text->setText( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
                    .arg( total )
                    .arg( viewed )
                    .arg( favourite ) );
 }
 
+
 void StatusBar::setFont( const QFont& font )
 {
     QStatusBar::setFont( font );
     text->setFont( font );
 }
+
