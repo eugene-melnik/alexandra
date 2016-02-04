@@ -31,7 +31,6 @@
 //#include "search/searchwindow.h"
 #include "aboutwindow.h"
 #include "alexandrasettings.h"
-//#include "filminfowindow.h"
 #include "settingswindow.h"
 //#include "statisticswindow.h"
 #include "ui_mainwindow.h"
@@ -95,11 +94,17 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         void ShowAddFilmWindow();
         void ShowEditFilmWindow();
+        void ShowTechInfoWindow();
+
+        void SetCurrentFilmIsViewed() { ToggleCurrentFilmValue( FilmItem::IsViewedColumn ); }
+        void SetCurrentFilmIsFavourite() { ToggleCurrentFilmValue( FilmItem::IsFavouriteColumn ); }
 
     private:
         void AddFilmDone( FilmItem* film );
         void EditFilmDone( FilmItem* film );
 //        void AddFilmsDone( const QList<Film>* films );
+
+        void ToggleCurrentFilmValue( FilmItem::Column column );
 
         void ShowSplashscreen();
         void SetupModels();
@@ -118,7 +123,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         // Child windows
         AboutWindow* aboutWindow;
-//        FilmInfoWindow* filmInfoWindow = nullptr;
 //        FilmScannerWindow* filmScannerWindow = nullptr;
 //        MovedFilmsWindow* movedFilmsWindow = nullptr;
 //        SearchWindow* searchWindow = nullptr;

@@ -3,7 +3,7 @@
  *  file: filminfowindow.h                                                                        *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,12 +21,15 @@
 #ifndef FILMINFOWINDOW_H
 #define FILMINFOWINDOW_H
 
+
+#include "tools/mediainfo.h"
 #include "alexandrasettings.h"
 #include "ui_filminfowindow.h"
-#include "mediainfo.h"
+
 
 #include <QDialog>
 #include <QMutex>
+
 
 class FilmInfoWindow : public QDialog, protected Ui::FilmInfoWindow
 {
@@ -39,21 +42,15 @@ class FilmInfoWindow : public QDialog, protected Ui::FilmInfoWindow
         void LoadTechnicalInfoAsync( const QString& fileName );
         void LoadTechnicalInfo( const QString& fileName );
 
-        void show();
-
     signals:
-        void ShortInfoLoaded( const QString& shortInfo );
         void FullInfoLoaded( const QString& shortInfo );
 
     private slots:
-        void ShowFullInfo( const QString& s ) { eTechInfo->setPlainText( s ); }
         void CopyToClipboard();
-        void ActuallyLoad();
 
     private:
-        AlexandraSettings* settings = nullptr;
-        QString savedFileName;
         QMutex loadInfoMutex;
 };
+
 
 #endif // FILMINFOWINDOW_H

@@ -25,6 +25,7 @@
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 #include "tools/playlist.h"
+#include "filminfowindow.h"
 #include "mainwindow.h"
 #include "splashscreen.h"
 #include "version.h"
@@ -467,23 +468,31 @@ void MainWindow::ShowEditFilmWindow()
     EditFilmWindow* editFilmWindow = new EditFilmWindow( this );
     connect( editFilmWindow, &EditFilmWindow::Done, this, &MainWindow::EditFilmDone );
 
-    editFilmWindow->SetData( filmsListProxyModel->GetFilmItemByIndex( filmsView->GetCurrentIndex() ) );
+    editFilmWindow->SetData( filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()) );
     editFilmWindow->show();
+}
+
+
+void MainWindow::ShowTechInfoWindow()
+{
+    FilmInfoWindow* filmInfoWindow = new FilmInfoWindow( this );
+    filmInfoWindow->show();
+
+    const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()); /// get film from view (?)
+    filmInfoWindow->LoadTechnicalInfoAsync( film->GetColumnData( FilmItem::FileNameColumn ).toString() );
 }
 
 
 void MainWindow::AddFilmDone( FilmItem* film )
 {
     filmsListModel->AddFilmItem( film );
-
-///    SaveDatabase(); // => on DataChanged (?)
-///    SetAllFunctionsEnabled( true ); // if model was empty
+    SetAllFunctionsEnabled( true );  // If model was empty
 }
+
 
 void MainWindow::EditFilmDone( FilmItem* film )
 {
     filmsListModel->EditFilmItem( film, filmsListProxyModel->mapToSource(filmsView->GetCurrentIndex()) );
-    //delete film;
 }
 
 
@@ -506,6 +515,14 @@ void MainWindow::EditFilmDone( FilmItem* film )
 //    SetAllFunctionsEnabled( true );
 //    ShowFilms();
 //}
+
+
+void MainWindow::ToggleCurrentFilmValue( FilmItem::Column column )
+{
+    FilmItem* film = new FilmItem( *filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()) );
+    film->SetColumnData( column, !film->GetColumnData( column ).toBool() );
+    EditFilmDone( film );
+}
 
 
 void MainWindow::ShowSplashscreen()
@@ -550,31 +567,28 @@ void MainWindow::SetupWindows()
     eFilter->SetModel( filmsListProxyModel );
     connect( eFilter, &SearchEdit::TextChanged, filmsListProxyModel, &FilmsListProxyModel::SetFilter );
 
+      // Quick search input
+//    connect( eFilter, &SearchEdit::TextChanged, this, &MainWindow::FilmsFilter );
+//    connect( filmsListModel, &FilmsListModel::DatabaseLoaded, this, &MainWindow::SetupCompleter );
+//    connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::SetupCompleter );
+
       // Playlist
 //    connect( bAddToPlaylist, &QPushButton::clicked, this, &MainWindow::AddToPlaylist );
 //    connect( contextMenu, &FilmsViewContextMenu::actionAddToList, this, &MainWindow::AddToPlaylist );
 //    connect( lwPlaylist, &PlayListWidget::Cleared, this, &MainWindow::PlaylistCleared );
     wPlaylist->hide();
 
+      // Viewed button
+    connect( bViewed,     &QPushButton::clicked,                 this, &MainWindow::SetCurrentFilmIsViewed );
+    connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, this, &MainWindow::SetCurrentFilmIsViewed );
+      // Favourite button
+    connect( bFavourite,  &QPushButton::clicked,                    this, &MainWindow::SetCurrentFilmIsFavourite );
+    connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, this, &MainWindow::SetCurrentFilmIsFavourite );
+      // TechInfo button
+    connect( bTechInformation, &QPushButton::clicked, this, &MainWindow::ShowTechInfoWindow );
       // Play button
 //    connect( bPlay, &QPushButton::clicked, this, &MainWindow::PlayFilm );
 //    connect( contextMenu, &FilmsViewContextMenu::actionPlay, this, &MainWindow::PlayFilm );
-      // Viewed button
-//    connect( bViewed, &QPushButton::clicked, filmsListModel, &FilmsListModel::SetCurrentFilmIsViewed );
-//    connect( bViewed, SIGNAL( clicked() ), this, SLOT( UpdateCurrentFilm() ) );
-//    connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, filmsListModel, &FilmsListModel::SetCurrentFilmIsViewed );
-//    connect( contextMenu, SIGNAL( actionIsViewed(bool) ), this, SLOT( UpdateCurrentFilm() ) );
-//    connect( contextMenu, &FilmsViewContextMenu::actionIsViewed, bViewed, &QPushButton::setChecked );
-      // Favourite button
-//    connect( bFavourite, &QPushButton::clicked, filmsListModel, &FilmsListModel::SetCurrentFilmIsFavourite );
-//    connect( bFavourite, SIGNAL( clicked() ), this, SLOT( UpdateCurrentFilm() ) );
-//    connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, filmsListModel, &FilmsListModel::SetCurrentFilmIsFavourite );
-//    connect( contextMenu, SIGNAL( actionIsFavourite(bool) ), this, SLOT( UpdateCurrentFilm() ) );
-//    connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, bFavourite, &QPushButton::setChecked );
-      // Quick search input
-//    connect( eFilter, &SearchEdit::TextChanged, this, &MainWindow::FilmsFilter );
-//    connect( filmsListModel, &FilmsListModel::DatabaseLoaded, this, &MainWindow::SetupCompleter );
-//    connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::SetupCompleter );
       // Player setup
 //    connect( externalPlayer, &QProcess::started, this, &MainWindow::PlayerStarted );
 //    connect( externalPlayer, SIGNAL( finished(int) ), this, SLOT( PlayerClosed() ) );

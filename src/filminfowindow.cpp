@@ -3,7 +3,7 @@
  *  file: filminfowindow.cpp                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -22,60 +22,48 @@
 #include "tools/debug.h"
 
 #include <QMessageBox>
-#include <memory>
+#include <QMutexLocker>
 #include <thread>
+
 
 FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
 {
-    settings = AlexandraSettings::GetInstance();
-
     setupUi( this );
-    connect( this, &FilmInfoWindow::FullInfoLoaded, this, &FilmInfoWindow::ShowFullInfo );
+    setAttribute( Qt::WA_DeleteOnClose );
     connect( bCopyToClipboard, &QPushButton::clicked, this, &FilmInfoWindow::CopyToClipboard );
+    connect( this, &FilmInfoWindow::FullInfoLoaded, this, [this] (const QString& text){ eTechInfo->setPlainText( text ); } );
 }
+
 
 FilmInfoWindow::~FilmInfoWindow()
 {
-    // Behavior on program exit while data loading
-    // Wait for 5 seconds, must siffice
+      // Behavior on program exit while data loading
+      // Wait for 5 seconds, must siffice
     if( loadInfoMutex.tryLock( 5000 ) )
     {
         loadInfoMutex.unlock();
     }
 }
 
+
 void FilmInfoWindow::LoadTechnicalInfoAsync( const QString& fileName )
 {
-    eTechInfo->clear();
     std::thread( &FilmInfoWindow::LoadTechnicalInfo, this, fileName ).detach();
 }
 
+
 void FilmInfoWindow::LoadTechnicalInfo( const QString& fileName )
 {
-    DebugPrintFuncA( "FilmInfoWindow::LoadTechnicalInfo", fileName );
-    savedFileName = fileName;
+    DebugPrintFunc( "FilmInfoWindow::LoadTechnicalInfo", fileName );
+    QMutexLocker locker( &loadInfoMutex );
 
-    if( settings->GetAutoLoadTechInfo() && settings->GetMainWindowShowRightPanel() )
-    {
-        loadInfoMutex.lock();
+    MediaInfo* mi = new MediaInfo( fileName );
+    emit FullInfoLoaded( mi->GetCompleteData() );
+    delete mi;
 
-        ActuallyLoad();
-
-        loadInfoMutex.unlock();
-        DebugPrintFuncDone( "FilmInfoWindow::LoadTechnicalInfo" );
-    }
+    DebugPrintFuncDone( "FilmInfoWindow::LoadTechnicalInfo" );
 }
 
-void FilmInfoWindow::show()
-{
-    if( !settings->GetAutoLoadTechInfo() || !settings->GetMainWindowShowRightPanel() )
-    {
-        eTechInfo->clear();
-        std::thread( &FilmInfoWindow::ActuallyLoad, this).detach();
-    }
-
-    QDialog::show();
-}
 
 void FilmInfoWindow::CopyToClipboard()
 {
@@ -84,21 +72,3 @@ void FilmInfoWindow::CopyToClipboard()
     QMessageBox::information( this, tr( "Technical information" ), tr( "Successfully copied." ) );
 }
 
-void FilmInfoWindow::ActuallyLoad()
-{
-    std::unique_ptr<MediaInfo> mi( new MediaInfo( savedFileName ) );
-
-    // Short info
-    QString shortInfo = QString( "%1 &bull; %2 &bull; %3<br/>" ).arg( mi->GetFormat(),
-                                                                      mi->GetFileSize(),
-                                                                      mi->GetOverallBitRate() );
-    shortInfo += tr( "%1&times;%2 px &bull; %3 fps<br/>" ).arg( mi->GetWidth(), // TRANSLATORS: Translate only "px" and "fps"
-                                                                mi->GetHeight(),
-                                                                mi->GetFrameRate() );
-    shortInfo += tr( "Duration &mdash; %1" ).arg( mi->GetDuration() ); // TRANSLATORS: Translate only "Duration"
-
-    emit ShortInfoLoaded( shortInfo );
-
-    // Full info
-    emit FullInfoLoaded( mi->GetCompleteData() );
-}

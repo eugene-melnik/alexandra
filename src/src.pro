@@ -36,7 +36,11 @@ DEFINES += MEDIAINFO_SUPPORT
 
     # Source files #
 
-HEADERS += effects/effectdropshadow.h \
+HEADERS += datamanip/addfilmwindow.h \
+           datamanip/cutlabel.h \
+           datamanip/editfilmwindow.h \
+           datamanip/texteditor.h \
+           effects/effectdropshadow.h \
            filmslist/old/film0x10.h \
            filmslist/old/filmslistoldloader.h \
            filmslist/filmitem.h \
@@ -51,44 +55,46 @@ HEADERS += effects/effectdropshadow.h \
            filmsview/list/filmsviewlist.h \
            filmsview/abstractfilmsview.h \
            filmsview/filmsviewcontextmenu.h \
+           mainwindow/mainwindow.h \
+           mainwindow/playlistwidget.h \
+           mainwindow/splashscreen.h \
            network/networkrequest.h \
            network/updatechecker.h \
-#           parsers/abstractparser.h \
-#           parsers/parsermanager.h \
-#           parsers/imdb/imdbparser.h \
-#           parsers/kinopoisk/kinopoiskparser.h \
-#           parsers/kinoteatr/kinoteatrparser.h \
-#           parsers/omdb/omdbparser.h \
+           parsers/abstractparser.h \
+           parsers/parsermanager.h \
+           parsers/imdb/imdbparser.h \
+           parsers/kinopoisk/kinopoiskparser.h \
+           parsers/kinoteatr/kinoteatrparser.h \
+           parsers/omdb/omdbparser.h \
            search/searchedit.h \
 #           search/searchwindow.h \
 #           scanner/filmscannerwindow.h \
 #           scanner/filmscannerworker.h \
 #           scanner/filmscanneraddworker.h \
 #           scanner/movedfilmswindow.h \
+#           statistics/statisticswindow.h \
+#           statistics/statisticsworker.h \
+           tools/commandlineparser.h \
            tools/filesextensions.h \
+           tools/playlist.h \
            tools/regexptools.h \
            tools/timecounter.h \
            aboutwindow.h \
-#           addfilmwindow.h \
            alexandrasettings.h \
-           commandlineparser.h \
-#           editfilmwindow.h \
-           mainwindow.h \
-           playlist.h \
-           playlistwidget.h \
            settingswindow.h \
-           splashscreen.h \
-#           statisticswindow.h \
-#           statisticsworker.h \
            statusbar.h \
            toolbar.h \
            version.h
 
-SOURCES += effects/effectdropshadow.cpp \
+SOURCES += datamanip/addfilmwindow.cpp \
+           datamanip/editfilmwindow.cpp \
+           datamanip/texteditor.cpp \
+           effects/effectdropshadow.cpp \
            filmslist/old/film0x10.cpp \
            filmslist/old/filmslistoldloader.cpp \
            filmslist/filmitem.cpp \
            filmslist/filmslistmodel.cpp \
+           filmslist/filmslistproxymodel.cpp \
            filmsview/grid/filmsviewgrid.cpp \
            filmsview/grid/filmsviewgridproxymodel.cpp \
            filmsview/info/filminfoview.cpp \
@@ -96,48 +102,48 @@ SOURCES += effects/effectdropshadow.cpp \
            filmsview/info/filmtechinfoview.cpp \
            filmsview/list/filmsviewlist.cpp \
            filmsview/filmsviewcontextmenu.cpp \
+           mainwindow/mainwindow.cpp \
+           mainwindow/playlistwidget.cpp \
+           mainwindow/splashscreen.cpp \
            network/networkrequest.cpp \
            network/updatechecker.cpp \
-#           parsers/parsermanager.cpp \
-#           parsers/imdb/imdbparser.cpp \
-#           parsers/kinopoisk/kinopoiskparser.cpp \
-#           parsers/kinoteatr/kinoteatrparser.cpp \
-#           parsers/omdb/omdbparser.cpp \
+           parsers/parsermanager.cpp \
+           parsers/imdb/imdbparser.cpp \
+           parsers/kinopoisk/kinopoiskparser.cpp \
+           parsers/kinoteatr/kinoteatrparser.cpp \
+           parsers/omdb/omdbparser.cpp \
            search/searchedit.cpp \
 #           search/searchwindow.cpp \
 #           scanner/filmscannerwindow.cpp \
 #           scanner/filmscannerworker.cpp \
 #           scanner/filmscanneraddworker.cpp \
 #           scanner/movedfilmswindow.cpp \
+#           statistics/statisticswindow.cpp \
+#           statistics/statisticsworker.cpp \
+           tools/commandlineparser.cpp \
            tools/filesextensions.cpp \
+           tools/playlist.cpp \
            tools/regexptools.cpp \
            tools/timecounter.cpp \
            aboutwindow.cpp \
-#           addfilmwindow.cpp \
            alexandrasettings.cpp \
-           commandlineparser.cpp \
-#           editfilmwindow.cpp \
            main.cpp \
-           mainwindow.cpp \
-           playlist.cpp \
-           playlistwidget.cpp \
            settingswindow.cpp \
-           splashscreen.cpp \
-#           statisticswindow.cpp \
-#           statisticsworker.cpp \
            statusbar.cpp \
            toolbar.cpp
 
-FORMS += filmsview/info/filminfoview.ui \
+FORMS += datamanip/addfilmwindow.ui \
+         datamanip/texteditor.ui \
+         filmsview/info/filminfoview.ui \
+         mainwindow/mainwindow.ui \
+         mainwindow/splashscreen.ui \
 #         search/searchwindow.ui \
 #         scanner/filmscannerwindow.ui \
 #         scanner/movedfilmswindow.ui \
          aboutwindow.ui \
-#         addfilmwindow.ui \
-         mainwindow.ui \
-         settingswindow.ui \
-         splashscreen.ui \
+         settingswindow.ui
 #         statisticswindow.ui
+
 
     # Translations #
 
@@ -145,6 +151,7 @@ TRANSLATIONS += ../lang/alexandra-cs.ts \
                 ../lang/alexandra-fr.ts \
                 ../lang/alexandra-ru_RU.ts \
                 ../lang/alexandra-uk_UA.ts
+
 
     # Resources #
 
@@ -158,8 +165,8 @@ RESOURCES = icons.qrc \
 contains( DEFINES, MEDIAINFO_SUPPORT ) {
     message( "MediaInfo support enabled." )
 
-    HEADERS += filminfowindow.h mediainfo.h
-    SOURCES += filminfowindow.cpp mediainfo.cpp
+    HEADERS += filminfowindow.h tools/mediainfo.h
+    SOURCES += filminfowindow.cpp tools/mediainfo.cpp
     FORMS += filminfowindow.ui
 
     linux:LIBS += -lmediainfo
@@ -172,6 +179,7 @@ contains( DEFINES, MEDIAINFO_SUPPORT ) {
 contains( DEFINES, PORTABLE_VERSION ) {
     message( "Portable version." )
 }
+
 
     # Debug & Release #
 
