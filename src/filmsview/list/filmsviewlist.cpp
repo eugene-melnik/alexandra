@@ -105,6 +105,25 @@ void FilmsViewList::SaveSettings() const
 }
 
 
+QModelIndexList FilmsViewList::GetSelectedItemsList()
+{
+    QModelIndexList indexes = selectedIndexes();
+    QMap<int,QModelIndex> resultIndexes;
+
+    for( const QModelIndex& index : indexes )
+    {
+        int row = index.row();
+
+        if( !resultIndexes.contains(row) )
+        {
+            resultIndexes.insert( row, index );
+        }
+    }
+
+    return( resultIndexes.values() );
+}
+
+
 void FilmsViewList::keyPressEvent( QKeyEvent* event )
 {
     switch( event->key() )

@@ -22,6 +22,11 @@ class FilmsListProxyModel : public QSortFilterProxyModel
             return( static_cast<FilmItem*>( mapToSource(index).internalPointer() ) );
         }
 
+        QString GetFilmTitleByIndex( const QModelIndex& index ) const
+        {
+            return( GetFilmItemByIndex(index)->GetColumnData( FilmItem::TitleColumn ).toString() );
+        }
+
         void SetFilter( const QString& string, const QList<int>& columns )
         {
             filterString = string;

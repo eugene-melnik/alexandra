@@ -21,10 +21,12 @@
 #ifndef FILMITEM_H
 #define FILMITEM_H
 
+
 #include <QColor>
 #include <QCryptographicHash>
 #include <QList>
 #include <QVariant>
+
 
 class FilmItem
 {
@@ -88,6 +90,8 @@ class FilmItem
           // Set
 
         void AppendChild( FilmItem* item );
+
+        void RemoveChild( FilmItem* item ) { delete childItems.takeAt( childItems.indexOf(item) ); }
         void RemoveChildren();
 
         void SetParent( FilmItem* parent ) { parentItem = parent; }
@@ -127,7 +131,7 @@ class FilmItem
         QString  filmId;
         FilmType filmType = Movie;
         Existing isFileExists = Unknown;
-        Existing isPosterExists = NotExists; ///
+        Existing isPosterExists = NotExists;
         QList<QVariant> columnsData;
 };
 
@@ -145,5 +149,6 @@ inline int FilmItem::GetRow() const
         return( 0 );
     }
 }
+
 
 #endif // FILMITEM_H

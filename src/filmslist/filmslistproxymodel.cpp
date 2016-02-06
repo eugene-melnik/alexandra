@@ -11,7 +11,7 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
             case Qt::DisplayRole :
             {
                 const FilmItem* item = GetFilmItemByIndex( index );
-                int column = index.column();
+                const int column = index.column();
 
                 switch( column )
                 {

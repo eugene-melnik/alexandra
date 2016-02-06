@@ -59,13 +59,9 @@ class FilmsListModel : public QAbstractItemModel
         void AddFilmItem( FilmItem* film );
         void EditFilmItem( FilmItem* film, const QModelIndex& index );
 
-//        void SetCurrentFilm( const QString& title ); /// SelectionModel?
-//        void SetCurrentFilmIsViewed( bool state );
-//        void SetCurrentFilmIsFavourite( bool state );
 //        void IncCurrentFilmViewsCounter();
 
-//        void RemoveCurrentFilm();
-//        void RemoveFilmByTitle( const QString& title );
+        void RemoveFilmByIndex( const QModelIndex& index );
 
         void EraseAll();
 //        void ResetViews();
@@ -100,7 +96,7 @@ class FilmsListModel : public QAbstractItemModel
 
           // Variables
         FilmItem* rootItem;
-        bool      isDatabaseChanged;
+//        bool      isDatabaseChanged;
         QMutex    mxAsyncSaveToFile;
 
         AlexandraSettings* settings;

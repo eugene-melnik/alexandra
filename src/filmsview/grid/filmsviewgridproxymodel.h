@@ -22,6 +22,7 @@ class FilmsViewGridProxyModel : public QIdentityProxyModel
 
         void SetCacheSize( int size ) { pixmapCache->setMaxCost( size + 1 ); }
 
+        int columnCount( const QModelIndex& ) const override { return( 1 ); }
         QVariant data( const QModelIndex& index, int role ) const override;
 
     private:

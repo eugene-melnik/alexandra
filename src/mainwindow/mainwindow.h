@@ -21,6 +21,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+
 #include "filmslist/filmslistmodel.h"
 #include "filmslist/filmslistproxymodel.h"
 #include "filmsview/abstractfilmsview.h"
@@ -35,11 +36,13 @@
 //#include "statisticswindow.h"
 #include "ui_mainwindow.h"
 
+
 #include <QMainWindow>
 #include <QPoint>
 #include <QProcess>
 #include <QShortcut>
 #include <QSortFilterProxyModel>
+
 
 class MainWindow : public QMainWindow, protected Ui::MainWindow
 {
@@ -83,17 +86,17 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void PlayerStarted();
 //        void PlayerClosed();
 
-//        void RemoveFilm();
-//        void RemoveFile();
 //        void FilmScanner() { filmScannerWindow->show( filmsList->GetFileNamesList() ); }
 //        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailablesList() ); }
 //        void Statistics() { statisticsWindow->show( filmsList->GetFilmsList() ); }
 
-//        void UpdateCurrentFilm() { UpdateCurrentFilm( Film() ); }
-//        void UpdateCurrentFilm( Film film );
+        void ShowSplashscreen();
 
         void ShowAddFilmWindow();
         void ShowEditFilmWindow();
+        void ShowRemoveFilmWindow();
+        void ShowRemoveFileWindow();
+
         void ShowTechInfoWindow();
 
         void SetCurrentFilmIsViewed() { ToggleCurrentFilmValue( FilmItem::IsViewedColumn ); }
@@ -106,7 +109,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         void ToggleCurrentFilmValue( FilmItem::Column column );
 
-        void ShowSplashscreen();
         void SetupModels();
         void SetupWindows();
         void SetupFilmsView();
@@ -142,5 +144,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         FilmsListModel* filmsListModel;
         FilmsListProxyModel* filmsListProxyModel;
 };
+
 
 #endif // MAINWINDOW_H

@@ -356,103 +356,15 @@ void MainWindow::PlayerStarted()
 //}
 
 
-//void MainWindow::RemoveFilm()
-//{
-//    QStringList films = filmsView->GetSelectedItemsList();
-//    int currentIndex = filmsView->GetCurrentItemIndex();
-//    int res;
-
-//    if( films.count() == 1 ) // One film selected
-//    {
-//        res = QMessageBox::question( this, tr( "Remove film" ),
-//                                     tr( "Are you sure to remove \"%1\"?" ).arg( filmsList->GetCurrentFilmTitle() ),
-//                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
-//    }
-//    else // More than one film selected
-//    {
-//        QString message = tr( "Are you sure to remove following films?\n" );
-//        const int maxFilmsCount = 20;
-//        int counter = 1;
-
-//        for( int i = 0; i < std::min( films.size(), maxFilmsCount ); i++ )
-//        {
-//            message.append( QString( "%1) %2\n" ).arg( counter++ ).arg( films[i] ) );
-//        }
-
-//        if( films.size() > maxFilmsCount )
-//        {
-//            message.append( "..." );
-//        }
-
-//        res = QMessageBox::question( this, tr( "Remove film" ), message,
-//                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
-//    }
-
-//    if( res == QMessageBox::Yes )
-//    {
-//        for( const QString& s : films )
-//        {
-//            filmsList->RemoveFilmByTitle( s );
-//        }
-
-//        SaveDatabase();
-//        filmsView->SetCurrentItemIndex( currentIndex );
-//    }
-//}
-
-
-//void MainWindow::RemoveFile()
-//{
-//    int res = QMessageBox::question( this, tr( "Remove file" ),
-//                                     tr( "Are you sure to remove file \"%1\"?" ).arg( filmsList->GetCurrentFilmFileName() ),
-//                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
-
-//    if( res == QMessageBox::Yes )
-//    {
-//        if( QFile( filmsList->GetCurrentFilmFileName() ).remove() )
-//        {
-//            res = QMessageBox::question( this, tr( "Remove file" ), tr( "Remove record from database?" ),
-//                                         QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
-
-//            if( res == QMessageBox::Yes )
-//            {
-//                filmsList->RemoveCurrentFilm();
-//                filmsView->RemoveCurrentItem();
-//            }
-//        }
-//        else
-//        {
-//            QMessageBox::warning( this, tr( "Remove file" ),
-//                                  tr( "Unable to remove file \"%1\"!" ).arg( filmsList->GetCurrentFilmFileName() ) );
-//        }
-//    }
-//}
-
-
-//void MainWindow::UpdateCurrentFilm( Film film )
-//{
-//    QString newCurrentTitle = film.GetTitle();
-//    DebugPrintFunc( "MainWindow::UpdateCurrentFilm", newCurrentTitle );
-
-//    if( !newCurrentTitle.isEmpty() ) // if not just update view
-//    {
-//        QStringList titles = filmsList->GetTitlesList();
-
-//        if( newCurrentTitle != filmsList->GetCurrentFilmTitle()
-//                && titles.contains( newCurrentTitle )  )
-//        {
-//            film.SetTitle( newCurrentTitle + tr( " (another)") );
-//        }
-
-//        filmsList->ChangeCurrentFilm( film );
-//        DebugPrint( "Film information changed." );
-//    }
-
-//    if( filmsList->GetCurrentFilm() != nullptr )
-//    {
-//        filmsView->SetCurrentItemTo( *filmsList->GetCurrentFilm() );
-//    }
-//}
+void MainWindow::ShowSplashscreen()
+{
+    if( settings->GetApplicationShowSplashScreen() )
+    {
+        SplashScreen* splashScreen = new SplashScreen();
+        splashScreen->show();
+        qApp->processEvents();
+    }
+}
 
 
 void MainWindow::ShowAddFilmWindow()
@@ -470,6 +382,105 @@ void MainWindow::ShowEditFilmWindow()
 
     editFilmWindow->SetData( filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()) );
     editFilmWindow->show();
+}
+
+
+void MainWindow::ShowRemoveFilmWindow()
+{
+    QModelIndexList selectedIndexes = filmsView->GetSelectedItemsList();
+    QString windowTitle = tr( "Remove film" );
+    QString windowMessage;
+
+    if( selectedIndexes.count() == 0 )
+    {
+        QMessageBox::warning( this, windowTitle, tr( "Nothing was selected!") );
+        return;
+    }
+    else if( selectedIndexes.count() == 1 ) // One film selected
+    {
+        QString filmTitle = filmsListProxyModel->GetFilmTitleByIndex( selectedIndexes.at(0) );
+        windowMessage = tr( "Are you sure to remove \"%1\"?" ).arg( filmTitle );
+    }
+    else // More than one film selected
+    {
+        auto AppendFilm = [this, selectedIndexes, &windowMessage] (int i)
+        {
+            QString filmTitle = filmsListProxyModel->GetFilmTitleByIndex( selectedIndexes.at(i) );
+            windowMessage.append( QString( "%1) %2\n" ).arg( i + 1 ).arg( filmTitle ) );
+        };
+
+        windowMessage = tr( "Are you sure to remove following films?\n" );
+        const int maxItemCount = 20;
+
+        for( int i = 0; i < std::min( maxItemCount - 1, selectedIndexes.count() ); i++ )
+        {
+            AppendFilm( i );
+        }
+
+        if( selectedIndexes.count() == maxItemCount )
+        {
+            AppendFilm( maxItemCount - 1 );
+        }
+        else if( selectedIndexes.count() > maxItemCount )
+        {
+            windowMessage.append( "...\n" );
+            AppendFilm( selectedIndexes.count() - 1 );
+        }
+    }
+
+    int answer = QMessageBox::question( this, windowTitle, windowMessage );
+
+    if( answer == QMessageBox::Yes )
+    {
+        QModelIndexList mappedIndexes;
+
+        for( const QModelIndex& index : selectedIndexes )
+        {
+            mappedIndexes.append( filmsListProxyModel->mapToSource(index) );
+        }
+
+        for( const QModelIndex& index : mappedIndexes )
+        {
+            filmsListModel->RemoveFilmByIndex( index );
+        }
+    }
+}
+
+
+void MainWindow::ShowRemoveFileWindow()
+{
+    QModelIndex index = filmsView->GetCurrentIndex();
+    const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex( index );
+    QString filmTitle = film->GetColumnData( FilmItem::TitleColumn ).toString();
+
+    int answer = QMessageBox::question( this, tr( "Remove file" ),
+                                        tr( "Are you sure to remove file \"%1\"?" ).arg( filmTitle ) );
+
+    if( answer == QMessageBox::Yes )
+    {
+        QString filmFileName = film->GetColumnData( FilmItem::FileNameColumn ).toString();
+
+        if( QFile(filmFileName).remove() )
+        {
+            answer = QMessageBox::question( this, tr( "Remove file" ),
+                                            tr( "File was successfully removed. Do you want to remove record from the database?" ) );
+
+            if( answer == QMessageBox::Yes )
+            {
+                filmsListModel->RemoveFilmByIndex( filmsListProxyModel->mapToSource(index) );
+            }
+            else
+            {
+                FilmItem* newFilm = new FilmItem( *film );
+                newFilm->SetIsFileExists( FilmItem::NotExists );
+                EditFilmDone( newFilm );
+            }
+        }
+        else
+        {
+            QMessageBox::warning( this, tr( "Remove file" ), tr( "Unable to remove file \"%1\"!" ).arg( filmFileName ) );
+        }
+    }
 }
 
 
@@ -525,17 +536,6 @@ void MainWindow::ToggleCurrentFilmValue( FilmItem::Column column )
 }
 
 
-void MainWindow::ShowSplashscreen()
-{
-    if( settings->GetApplicationShowSplashScreen() )
-    {
-        SplashScreen* splashScreen = new SplashScreen();
-        splashScreen->show();
-        qApp->processEvents();
-    }
-}
-
-
 void MainWindow::SetupModels()
 {
     DebugPrintFunc( "MainWindow::SetupModels" );
@@ -584,8 +584,6 @@ void MainWindow::SetupWindows()
       // Favourite button
     connect( bFavourite,  &QPushButton::clicked,                    this, &MainWindow::SetCurrentFilmIsFavourite );
     connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, this, &MainWindow::SetCurrentFilmIsFavourite );
-      // TechInfo button
-    connect( bTechInformation, &QPushButton::clicked, this, &MainWindow::ShowTechInfoWindow );
       // Play button
 //    connect( bPlay, &QPushButton::clicked, this, &MainWindow::PlayFilm );
 //    connect( contextMenu, &FilmsViewContextMenu::actionPlay, this, &MainWindow::PlayFilm );
@@ -607,22 +605,19 @@ void MainWindow::SetupWindows()
     connect( toolbar,     &ToolBar::actionEdit,              this, &MainWindow::ShowEditFilmWindow );
     connect( contextMenu, &FilmsViewContextMenu::actionEdit, this, &MainWindow::ShowEditFilmWindow );
 
-
-        /// Remove film dialog
-//    connect( actionRemove, &QAction::triggered, this, &MainWindow::RemoveFilm );
-//    connect( toolbar, &ToolBar::actionRemove, this, &MainWindow::RemoveFilm );
-//    connect( contextMenu, &FilmsViewContextMenu::actionRemove, this, &MainWindow::RemoveFilm );
+        /// Remove film window
+    connect( actionRemove, &QAction::triggered,                 this, &MainWindow::ShowRemoveFilmWindow );
+    connect( toolbar,      &ToolBar::actionRemove,              this, &MainWindow::ShowRemoveFilmWindow );
+    connect( contextMenu,  &FilmsViewContextMenu::actionRemove, this, &MainWindow::ShowRemoveFilmWindow );
 
         /// Remove file
-//    connect( contextMenu, &FilmsViewContextMenu::actionRemoveFile, this, &MainWindow::RemoveFile );
+    connect( contextMenu, &FilmsViewContextMenu::actionRemoveFile, this, &MainWindow::ShowRemoveFileWindow );
 
         /// Film info window
-//#ifdef MEDIAINFO_SUPPORT
-//    filmInfoWindow = new FilmInfoWindow( this );
-
-//    connect( bTechInformation, &QPushButton::clicked, filmInfoWindow, &FilmInfoWindow::show );
-//    connect( contextMenu, &FilmsViewContextMenu::actionShowInfo, filmInfoWindow, &FilmInfoWindow::show );
-//#endif // MEDIAINFO_SUPPORT
+#ifdef MEDIAINFO_SUPPORT
+    connect( bTechInformation, &QPushButton::clicked,                 this, &MainWindow::ShowTechInfoWindow );
+    connect( contextMenu,      &FilmsViewContextMenu::actionShowInfo, this, &MainWindow::ShowTechInfoWindow );
+#endif // MEDIAINFO_SUPPORT
 
         /// Search window
 //    searchWindow = new SearchWindow( filmsListModel->GetFilmsList(), this );

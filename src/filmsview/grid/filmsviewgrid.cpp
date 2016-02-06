@@ -54,6 +54,20 @@ void FilmsViewGrid::ReloadSettings()
 }
 
 
+QModelIndexList FilmsViewGrid::GetSelectedItemsList()
+{
+    QModelIndexList indexes = selectedIndexes();
+    QModelIndexList mappedIndexes;
+
+    for( const QModelIndex& index : indexes )
+    {
+        mappedIndexes.append( proxyModel->mapToSource(index) );
+    }
+
+    return( mappedIndexes );
+}
+
+
 void FilmsViewGrid::updateGeometries()
 {
     QListView::updateGeometries();

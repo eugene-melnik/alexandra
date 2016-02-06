@@ -28,7 +28,7 @@
 
 
 FilmsListModel::FilmsListModel( QObject* parent ) : QAbstractItemModel( parent ),
-      rootItem( nullptr ), isDatabaseChanged( false ), settings( AlexandraSettings::GetInstance() )
+      rootItem( nullptr ), settings( AlexandraSettings::GetInstance() )
 {
     DebugPrintFunc( "FilmsListModel::FilmsListModel" );
 
@@ -58,7 +58,7 @@ FilmsListModel::FilmsListModel( QObject* parent ) : QAbstractItemModel( parent )
 
     rootItem = new FilmItem( titles );
 
-    connect( this, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SIGNAL(DatabaseChanged()) ); ///
+    connect( this, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SIGNAL(DatabaseChanged()) );
     connect( this, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SIGNAL(DatabaseChanged()) );
     connect( this, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(DatabaseChanged()) );
     connect( this, SIGNAL(layoutChanged()), this, SIGNAL(DatabaseChanged()) );
@@ -291,7 +291,7 @@ void FilmsListModel::LoadFromFile( const QString& fileName )
             if( databaseVersion == Alexandra::databaseVersion )
             {
                 ///
-                /// new loading will be here
+                ///  new loading will be here
                 ///
             }
             else
@@ -353,6 +353,22 @@ void FilmsListModel::EditFilmItem( FilmItem* film, const QModelIndex& index )
     delete film;
 
     dataChanged( this->index( row, 0 ), this->index( row, FilmItem::ColumnCount - 1 ) );
+}
+
+
+void FilmsListModel::RemoveFilmByIndex( const QModelIndex& index )
+{
+    if( index.isValid() )
+    {
+        beginResetModel(); // FIXME: beginRemoveRows should be better, but doesn't work
+        FilmItem* item = static_cast<FilmItem*>( index.internalPointer() );
+        rootItem->RemoveChild( item );
+        endResetModel();
+    }
+    else
+    {
+        DebugPrint( "Trying to remove film by invalid index." );
+    }
 }
 
 
