@@ -3,7 +3,7 @@
  *  file: toolbar.cpp                                                                             *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -23,6 +23,7 @@
 
 #include <QIcon>
 
+
 ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
 {
     // Disable context menu
@@ -30,37 +31,39 @@ ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
 
     // Items
     tbaAdd = addAction( QIcon( ":/tool/add" ), tr( "Add" ) );
-    connect( tbaAdd, &QAction::triggered, this, [this] { emit actionAdd(); } );
+    connect( tbaAdd, &QAction::triggered, this, &ToolBar::actionAdd );
 
     tbaEdit = addAction( QIcon( ":/tool/edit" ), tr( "Edit" ) );
-    connect( tbaEdit, &QAction::triggered, this, [this] { emit actionEdit(); } );
+    connect( tbaEdit, &QAction::triggered, this, &ToolBar::actionEdit );
 
     tbaRemove = addAction( QIcon( ":/tool/delete" ), tr( "Remove" ) );
-    connect( tbaRemove, &QAction::triggered, this, [this] { emit actionRemove(); } );
+    connect( tbaRemove, &QAction::triggered, this, &ToolBar::actionRemove );
 
     addSeparator();
 
     tbaFilmScanner = addAction( QIcon( ":/window/film-scanner" ), tr( "Film scanner" ) );
-    connect( tbaFilmScanner, &QAction::triggered, this, [this] { emit actionFilmScanner(); } );
+    connect( tbaFilmScanner, &QAction::triggered, this, &ToolBar::actionFilmScanner );
 
     addSeparator();
 
     tbaRandom = addAction( QIcon( ":/tool/random" ), tr( "Random" ) );
-    connect( tbaRandom, &QAction::triggered, this, [this] { emit actionRandom(); } );
+    connect( tbaRandom, &QAction::triggered, this, &ToolBar::actionRandom );
 
     tbaSearch = addAction( QIcon( ":/tool/find" ), tr( "Search" ) );
-    connect( tbaSearch, &QAction::triggered, this, [this] { emit actionSearch(); } );
+    connect( tbaSearch, &QAction::triggered, this, &ToolBar::actionSearch );
 
     addSeparator();
 
     tbaExit = addAction( QIcon( ":/action/exit" ), tr( "Exit" ) );
-    connect( tbaExit, &QAction::triggered, this, [this] { emit actionExit(); } );
+    connect( tbaExit, &QAction::triggered, this, &ToolBar::actionExit );
 }
+
 
 void ToolBar::LoadSettings()
 {
     setToolButtonStyle( Qt::ToolButtonStyle( AlexandraSettings::GetInstance()->GetMainWindowToolbarStyle() ) );
 }
+
 
 void ToolBar::SetAllFunctionsEnabled( bool b )
 {
@@ -72,6 +75,7 @@ void ToolBar::SetAllFunctionsEnabled( bool b )
     tbaSearch->setEnabled( b );
 }
 
+
 void ToolBar::SetEmptyDatabaseMode( bool b )
 {
     tbaEdit->setDisabled( b );
@@ -80,6 +84,7 @@ void ToolBar::SetEmptyDatabaseMode( bool b )
     tbaSearch->setDisabled( b );
 }
 
+
 void ToolBar::SetReadOnlyMode( bool b )
 {
     tbaAdd->setDisabled( b );
@@ -87,3 +92,4 @@ void ToolBar::SetReadOnlyMode( bool b )
     tbaRemove->setDisabled( b );
     tbaFilmScanner->setDisabled( b );
 }
+
