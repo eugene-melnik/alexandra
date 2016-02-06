@@ -494,6 +494,30 @@ void MainWindow::ShowTechInfoWindow()
 }
 
 
+void MainWindow::SelectRandomFilm()
+{
+    int count = filmsView->GetRowCount();
+
+    if( count > 1 )
+    {
+        int currentRow = filmsView->GetCurrentIndex().row();
+        int newRow;
+
+        do
+        {
+            newRow = qrand() % count;
+        }
+        while( newRow == currentRow );
+
+        filmsView->SetCurrentRow( newRow );
+    }
+    else
+    {
+        filmsView->SetCurrentRow( 0 );
+    }
+}
+
+
 void MainWindow::AddFilmDone( FilmItem* film )
 {
     filmsListModel->AddFilmItem( film );
@@ -613,6 +637,10 @@ void MainWindow::SetupWindows()
         /// Remove file
     connect( contextMenu, &FilmsViewContextMenu::actionRemoveFile, this, &MainWindow::ShowRemoveFileWindow );
 
+        /// Random film function
+    connect( actionRandom, &QAction::triggered,    this, &MainWindow::SelectRandomFilm );
+    connect( toolbar,      &ToolBar::actionRandom, this, &MainWindow::SelectRandomFilm );
+
         /// Film info window
 #ifdef MEDIAINFO_SUPPORT
     connect( bTechInformation, &QPushButton::clicked,                 this, &MainWindow::ShowTechInfoWindow );
@@ -702,12 +730,9 @@ void MainWindow::SetupFilmsView()
 
       // Base signals
     connect( view, SIGNAL(CurrentChanged(QModelIndex)), this, SLOT(ShowFilmInformation(QModelIndex)) );
-    connect( view, SIGNAL( ContextMenuRequested(QPoint,QModelIndex) ), this, SLOT( ShowFilmContextMenu(QPoint,QModelIndex) ) );
+    connect( view, SIGNAL(ContextMenuRequested(QPoint,QModelIndex)), this, SLOT(ShowFilmContextMenu(QPoint,QModelIndex)) );
       // Search window
 //    connect( searchWindow, SIGNAL( FilmSelected(QString) ), view, SLOT( SelectItem(QString) ) );
-      // Random film function
-//    connect( actionRandom, SIGNAL( triggered() ), view, SLOT( SelectRandomItem() ) );
-//    connect( toolbar, SIGNAL( actionRandom() ), view, SLOT( SelectRandomItem() ) );
 
     view->setModel( filmsListProxyModel );
     vlLeft->insertWidget( 0, view );

@@ -45,8 +45,11 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
 
         void ScrollToCurrentItem() override { scrollTo( currentIndex() ); }
 
+        int GetRowCount() { return( model()->rowCount() ); }
         QModelIndex GetCurrentIndex() { return( currentIndex() ); }
         QModelIndexList GetSelectedItemsList();
+
+        void SetCurrentRow( int r ) { setCurrentIndex( model()->index( r, 0 ) ); }
 
     signals:
         void CurrentChanged( const QModelIndex& );
