@@ -83,7 +83,7 @@ void AddFilmWindow::OpenFilm()
 
     if( !eFilmFileName->text().isEmpty() )
     {
-        openPath = eFilmFileName->text(); /// without fileinfo?
+        openPath = eFilmFileName->text();
     }
 
       // Open file dialog
@@ -270,6 +270,7 @@ void AddFilmWindow::Save()
          << filmId;
 
     FilmItem* film = new FilmItem( data );
+    film->SetIsFileExists( eFilmFileName->text().isEmpty() ? FilmItem::NotExists : FilmItem::Exists );
     film->SetFilmId( filmId );
 
       // Manipulations with poster
@@ -289,7 +290,7 @@ void AddFilmWindow::Save()
         QPixmap pixmap( posterFileName );
 
           // Move to directory of the posters with selected format and quality
-          // Scaling if set in options
+          // with or without scaling (if set in settings)
         if( newHeight != 0 && newHeight < pixmap.height() )
         {
             pixmap = pixmap.scaledToHeight( newHeight, Qt::SmoothTransformation );

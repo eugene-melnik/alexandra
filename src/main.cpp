@@ -18,10 +18,10 @@
  *                                                                                                *
   *************************************************************************************************/
 
+#include "mainwindow/mainwindow.h"
+#include "tools/commandlineparser.h"
 #include "alexandrasettings.h"
-#include "commandlineparser.h"
 #include "tools/debug.h"
-#include "mainwindow.h"
 #include "version.h"
 
 #include <QApplication>
@@ -29,6 +29,7 @@
 #include <QTextCodec>
 #include <QTranslator>
 #include <QTime>
+#include <QThread>
 
 void LoadLocale( QApplication* app, int localeIndex )
 {
@@ -64,10 +65,10 @@ int main( int argc, char** argv )
     DebugPrintFunc( "::main" );
     DebugPrint( QString( "IdealThreadCount = %1" ).arg( QThread::idealThreadCount() ) );
 
-    // Create seed for the random
+      // Create seed for the random
     qsrand( QTime::currentTime().msecsSinceStartOfDay() );
 
-    // Configure application
+      // Configure application
     QApplication::setOrganizationName( Alexandra::orgName );
     QApplication::setOrganizationDomain( Alexandra::orgDomain );
     QApplication::setApplicationName( Alexandra::appNameGui );
@@ -75,18 +76,18 @@ int main( int argc, char** argv )
 
     QApplication alexandra( argc, argv );
 
-    // Command line options
+      // Command line options
     CommandLineParser parser;
     parser.process( alexandra );
 
-    // Config file
+      // Config file
     AlexandraSettings::Initialize( parser.GetConfigLocation() );
 
-    // Translation
+      // Translation
     QTextCodec::setCodecForLocale( QTextCodec::codecForName( "utf8" ) );
     LoadLocale( &alexandra, AlexandraSettings::GetInstance()->GetApplicationLocaleIndex() );
 
-    // Run
+      // Run
     MainWindow* mainWindow = new MainWindow();
 
     if( parser.GetFilmsToAdd().size() > 0 )
@@ -94,12 +95,12 @@ int main( int argc, char** argv )
         mainWindow->AddFilmsFromOutside( parser.GetFilmsToAdd() );
     }
 
-    DebugPrintFunc( "alexandra.exec" );
+    mainWindow->show();
 
+    DebugPrintFunc( "alexandra.exec" );
     int res = alexandra.exec();
 
     DebugPrintL( "Closed" );
-
     delete mainWindow;
     return( res );
 }

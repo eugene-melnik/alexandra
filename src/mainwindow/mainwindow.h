@@ -52,6 +52,8 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         explicit MainWindow();
         virtual ~MainWindow() = default;
 
+        void show();
+
         void AddFilmsFromOutside( const QStringList& films );
 
     signals:
@@ -101,6 +103,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         void SetCurrentFilmIsViewed() { ToggleCurrentFilmValue( FilmItem::IsViewedColumn ); }
         void SetCurrentFilmIsFavourite() { ToggleCurrentFilmValue( FilmItem::IsFavouriteColumn ); }
+        void SelectRandomFilm();
 
     private:
         void AddFilmDone( FilmItem* film );
@@ -108,6 +111,8 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 //        void AddFilmsDone( const QList<Film>* films );
 
         void ToggleCurrentFilmValue( FilmItem::Column column );
+
+        void SetCurrentFilmByTitle( const QString& title );
 
         void SetupModels();
         void SetupWindows();
@@ -119,9 +124,9 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void SaveSettings();
 
         void ClearTextFields();
-        void SetAllFunctionsEnabled( bool b );
-        void SetEmptyMode( bool b = true );
-        void SetReadOnlyMode( bool b = true );
+        void SetAllFunctionsEnabled( bool enabled );
+        void SetEmptyMode( bool empty = true );
+        void SetReadOnlyMode( bool readOnly = true );
 
         // Child windows
         AboutWindow* aboutWindow;

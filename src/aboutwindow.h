@@ -3,7 +3,7 @@
  *  file: aboutwindow.h                                                                           *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,10 +21,13 @@
 #ifndef ABOUTWINDOW_H
 #define ABOUTWINDOW_H
 
+
 #include "ui_aboutwindow.h"
+
 
 #include <QDialog>
 #include <QMessageBox>
+
 
 class AboutWindow : public QDialog, protected Ui::AboutWindow
 {
@@ -38,8 +41,13 @@ class AboutWindow : public QDialog, protected Ui::AboutWindow
     public slots:
         void AboutQt() { QMessageBox::aboutQt( this->parentWidget() ); }
 
+    signals:
+        void UpdateAvailable( const QString& version );
+
     private slots:
         void CompareVersions( const QString& latestVersion );
 };
 
+
 #endif // ABOUTWINDOW_H
+

@@ -20,6 +20,9 @@
 
 #include "alexandrasettings.h"
 #include "searchedit.h"
+#include "filmslist/filmitem.h"
+
+#include <QCompleter>
 
 
 SearchEdit::SearchEdit( QWidget* parent )
@@ -60,6 +63,12 @@ void SearchEdit::SaveSettings() const
 void SearchEdit::SetModel(QAbstractItemModel *model)
 {
     sourceModel = model;
+
+    QCompleter* completer = new QCompleter( model, this ); ///
+    completer->setCaseSensitivity( Qt::CaseInsensitive );
+    completer->setCompletionColumn( 0 );
+    setCompleter( completer );
+
     SetupMenu();
 }
 
@@ -70,25 +79,28 @@ void SearchEdit::SetupMenu()
     actionsColumns.clear();
 
       // Header
-    QAction* a = menuSelectColumns->addAction( tr( "Filter by:") );
+    QAction* a = menuSelectColumns->addAction( tr( "Filter by") );
     a->setEnabled( false );
 
     menuSelectColumns->addSeparator();
 
       // Columns
-    for( int column = 0; column < sourceModel->columnCount(); ++column )
+      // Without "Filename", "Poster", "IsViewed" and "IsFavourite"
+    for( int column = 0; column < sourceModel->columnCount() - 2; ++column )
     {
-        // TODO: skip "isViewed" and "isFavourite"?
-        QString columnTitle = sourceModel->headerData( column, Qt::Horizontal ).toString();
+        if( column == FilmItem::IsViewedColumn || column == FilmItem::IsFavouriteColumn )
+        {
+            continue;
+        }
 
+        QString columnTitle = sourceModel->headerData( column, Qt::Horizontal ).toString();
         a = menuSelectColumns->addAction( columnTitle, this, SLOT(CalculateOptions()) );
         actionsColumns.append( a );
-
         a->setCheckable( true );
         a->setData( column );
     }
 
-      // Select/Unselect
+      // Select/Unselect buttons
     menuSelectColumns->addSeparator();
     menuSelectColumns->addAction( tr( "Select all" ), this, SLOT( SelectAllOptions() ) );
     menuSelectColumns->addAction( tr( "Unselect all" ), this, SLOT( UnselectAllOptions() ) );

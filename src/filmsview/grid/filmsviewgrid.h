@@ -26,6 +26,7 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         QModelIndex GetCurrentIndex() { return( proxyModel->mapToSource( currentIndex() ) ); }
         QModelIndexList GetSelectedItemsList();
 
+        void SetCurrentIndex( const QModelIndex& index ) { setCurrentIndex( proxyModel->mapFromSource(index) ); }
         void SetCurrentRow( int r ) { setCurrentIndex( model()->index( r, 0 ) ); }
 
     signals:

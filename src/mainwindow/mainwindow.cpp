@@ -54,9 +54,15 @@ MainWindow::MainWindow() : QMainWindow(),
     LoadSettings();
 
     filmsListModel->LoadFromFile( settings->GetDatabaseFilePath() );
-///    filmsListModel->SetCurrentFilm( settings->GetCurrentFilmTitle() );
 
     DebugPrintFuncDone( "MainWindow::MainWindow" );
+}
+
+
+void MainWindow::show()
+{
+    QMainWindow::show();
+    SetCurrentFilmByTitle( settings->GetCurrentFilmTitle() );
 }
 
 
@@ -95,7 +101,7 @@ void MainWindow::AddFilmsFromOutside( const QStringList& films )
 
 //    if( res == QMessageBox::Yes )
 //    {
-///        AddFilmsDone( &newFilms );
+//        AddFilmsDone( &newFilms );
 //        QMessageBox::information( this, tr( "Add films" ), tr( "Done!" ) );
 //    }
 
@@ -496,6 +502,8 @@ void MainWindow::ShowTechInfoWindow()
 
 void MainWindow::SelectRandomFilm()
 {
+    DebugPrintFunc( "MainWindow::SelectRandomFilm" );
+
     int count = filmsView->GetRowCount();
 
     if( count > 1 )
@@ -515,12 +523,15 @@ void MainWindow::SelectRandomFilm()
     {
         filmsView->SetCurrentRow( 0 );
     }
+
+    DebugPrintFuncDone( "MainWindow::SelectRandomFilm" );
 }
 
 
 void MainWindow::AddFilmDone( FilmItem* film )
 {
     filmsListModel->AddFilmItem( film );
+    SetCurrentFilmByTitle( film->GetColumnData(FilmItem::TitleColumn).toString() );
     SetAllFunctionsEnabled( true );  // If model was empty
 }
 
@@ -557,6 +568,21 @@ void MainWindow::ToggleCurrentFilmValue( FilmItem::Column column )
     FilmItem* film = new FilmItem( *filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()) );
     film->SetColumnData( column, !film->GetColumnData( column ).toBool() );
     EditFilmDone( film );
+}
+
+
+void MainWindow::SetCurrentFilmByTitle( const QString& title )
+{
+    QModelIndex index = filmsListModel->GetFilmIndex( title );
+
+    if( index.isValid() )
+    {
+        filmsView->SetCurrentIndex( filmsListProxyModel->mapFromSource(index) );
+    }
+    else
+    {
+        filmsView->SetCurrentRow( 0 );
+    }
 }
 
 
@@ -747,8 +773,6 @@ void MainWindow::LoadSettings()
 {
     DebugPrintFunc( "MainWindow::LoadSettings" );
 
-///    QPixmapCache::setCacheLimit();
-
     LoadAppearance();
     LoadShorcuts();
 
@@ -851,10 +875,9 @@ void MainWindow::SaveSettings()
     eFilter->SaveSettings();
     filmsView->SaveSettings();
 
-      // Choosen film
-///    settings->SetCurrentFilmTitle( filmsList->GetCurrentFilmTitle() );
-
+    settings->SetCurrentFilmTitle( filmsListProxyModel->GetFilmTitleByIndex( filmsView->GetCurrentIndex() ) );
     settings->sync();
+
     DebugPrintFuncDone( "MainWindow::SaveSettings" );
 }
 
@@ -867,60 +890,60 @@ void MainWindow::ClearTextFields()
 }
 
 
-void MainWindow::SetAllFunctionsEnabled( bool b )
+void MainWindow::SetAllFunctionsEnabled( bool enabled )
 {
-    toolbar->SetAllFunctionsEnabled( b );
+    toolbar->SetAllFunctionsEnabled( enabled );
 
-    actionAdd->setEnabled( b );
-    actionEdit->setEnabled( b );
-    actionRemove->setEnabled( b );
-    actionRandom->setEnabled( b );
-    actionSearch->setEnabled( b );
+    actionAdd->setEnabled( enabled );
+    actionEdit->setEnabled( enabled );
+    actionRemove->setEnabled( enabled );
+    actionRandom->setEnabled( enabled );
+    actionSearch->setEnabled( enabled );
 
-    actionFilmScanner->setEnabled( b );
-    actionMovedFilms->setEnabled( b );
-    actionStatistics->setEnabled( b );
+    actionFilmScanner->setEnabled( enabled );
+    actionMovedFilms->setEnabled( enabled );
+    actionStatistics->setEnabled( enabled );
 
-    bViewed->setEnabled( b );
-    bFavourite->setEnabled( b );
+    bViewed->setEnabled( enabled );
+    bFavourite->setEnabled( enabled );
 }
 
 
-void MainWindow::SetEmptyMode( bool b )
+void MainWindow::SetEmptyMode( bool empty )
 {
-    toolbar->SetEmptyDatabaseMode( b );
+    toolbar->SetEmptyDatabaseMode( empty );
 
-    actionEdit->setDisabled( b );
-    actionRemove->setDisabled( b );
-    actionRandom->setDisabled( b );
-    actionSearch->setDisabled( b );
+    actionEdit->setDisabled( empty );
+    actionRemove->setDisabled( empty );
+    actionRandom->setDisabled( empty );
+    actionSearch->setDisabled( empty );
 
-    actionMovedFilms->setDisabled( b );
-    actionStatistics->setDisabled( b );
+    actionMovedFilms->setDisabled( empty );
+    actionStatistics->setDisabled( empty );
 
-    bViewed->setDisabled( b );
-    bFavourite->setDisabled( b );
-    bTechInformation->setDisabled( b );
-    bPlay->setDisabled( b );
-    bAddToPlaylist->setDisabled( b );
+    bViewed->setDisabled( empty );
+    bFavourite->setDisabled( empty );
+    bTechInformation->setDisabled( empty );
+    bPlay->setDisabled( empty );
+    bAddToPlaylist->setDisabled( empty );
 
     wFilmInfo->ShowEmptyDatabaseMessage(); // TODO: check in FilmInfoView (?)
 }
 
 
-void MainWindow::SetReadOnlyMode( bool b )
+void MainWindow::SetReadOnlyMode( bool readOnly )
 {
-    toolbar->SetReadOnlyMode( b );
+    toolbar->SetReadOnlyMode( readOnly );
 
-    actionAdd->setDisabled( b );
-    actionEdit->setDisabled( b );
-    actionRemove->setDisabled( b );
+    actionAdd->setDisabled( readOnly );
+    actionEdit->setDisabled( readOnly );
+    actionRemove->setDisabled( readOnly );
 
-    actionFilmScanner->setDisabled( b );
-    actionMovedFilms->setDisabled( b );
-    actionStatistics->setDisabled( b );
+    actionFilmScanner->setDisabled( readOnly );
+    actionMovedFilms->setDisabled( readOnly );
+    actionStatistics->setDisabled( readOnly );
 
-    bViewed->setDisabled( b );
-    bFavourite->setDisabled( b );
+    bViewed->setDisabled( readOnly );
+    bFavourite->setDisabled( readOnly );
 }
 

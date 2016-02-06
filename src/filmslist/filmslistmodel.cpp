@@ -386,6 +386,22 @@ void FilmsListModel::EraseAll()
 }
 
 
+QModelIndex FilmsListModel::GetFilmIndex( const QString& title )
+{
+    for( int i = 0; i < rootItem->GetChildrenCount(); ++i )
+    {
+        FilmItem* film = rootItem->GetChild(i);
+
+        if( title == film->GetColumnData(FilmItem::TitleColumn).toString() )
+        {
+            return( index( i, 0 ) );
+        }
+    }
+
+    return( QModelIndex() );
+}
+
+
 int FilmsListModel::GetCountOf( FilmItem::Column column, const QVariant& data ) const
 {
     int counter = 0;

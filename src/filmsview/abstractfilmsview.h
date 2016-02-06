@@ -40,6 +40,7 @@ class AbstractFilmsView
         virtual QModelIndex GetCurrentIndex() = 0;
         virtual QModelIndexList GetSelectedItemsList() = 0;
 
+        virtual void SetCurrentIndex( const QModelIndex& index ) = 0;
         virtual void SetCurrentRow( int r ) = 0;
 
 //        virtual void SetCurrentItemTo( const Film film ) = 0;

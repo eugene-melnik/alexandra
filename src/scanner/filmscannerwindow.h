@@ -25,7 +25,6 @@
 #include <QList>
 #include <QStringList>
 
-#include "filmslist/film.h"
 #include "filmscannerworker.h"
 #include "filmscanneraddworker.h"
 #include "ui_filmscannerwindow.h"

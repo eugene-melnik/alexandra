@@ -3,7 +3,7 @@
  *  file: aboutwindow.cpp                                                                         *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -20,12 +20,13 @@
 
 #include "effects/effectdropshadow.h"
 #include "network/updatechecker.h"
+#include "tools/mediainfo.h"
 #include "aboutwindow.h"
-#include "mediainfo.h"
 #include "version.h"
 
 #include <QColor>
 #include <QPixmap>
+
 
 AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
 {
@@ -84,12 +85,14 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
     uc->Run();
 }
 
+
 void AboutWindow::show()
 {
-    // Random picture for each show() :)
+      // Random picture for each show() :)
     image->setPixmap( QPixmap( QString( ":/cats/%1" ).arg( rand() % 6 + 1 ) ) );
     QDialog::show();
 }
+
 
 void AboutWindow::CompareVersions( const QString& latestVersion )
 {
@@ -97,5 +100,7 @@ void AboutWindow::CompareVersions( const QString& latestVersion )
     {
         lLinkLatestVersion->setText( lLinkLatestVersion->text().arg( latestVersion ) );
         lLinkLatestVersion->show();
+        emit UpdateAvailable( latestVersion );
     }
 }
+

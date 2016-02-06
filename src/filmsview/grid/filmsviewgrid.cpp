@@ -24,7 +24,10 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent ),
       // Signals
     connect( this, &QListView::customContextMenuRequested, this, [this] (const QPoint& pos)
     {
-        emit ContextMenuRequested( pos, proxyModel->mapToSource( currentIndex() ) );
+        if( currentIndex().isValid() )
+        {
+            emit ContextMenuRequested( pos, proxyModel->mapToSource( currentIndex() ) );
+        }
     });
 }
 

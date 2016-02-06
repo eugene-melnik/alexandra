@@ -3,7 +3,7 @@
  *  file: settingswindow.h                                                                        *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,14 +21,17 @@
 #ifndef SETTINGSWINDOW_H
 #define SETTINGSWINDOW_H
 
+
 #include "ui_settingswindow.h"
 #include "alexandrasettings.h"
+
 
 #include <functional>
 #include <QDialog>
 #include <QList>
 #include <QMap>
 #include <QStringList>
+
 
 class SettingsWindow : public QDialog, protected Ui::SettingsWindow
 {
@@ -79,7 +82,7 @@ class SettingsWindow : public QDialog, protected Ui::SettingsWindow
         void ConfigureSourcesTab();
         void ReconfigureSourcesTab();
 
-        // Variables
+          // Variables
         AlexandraSettings* settings;
 
         bool isSettingsChanged;
@@ -87,39 +90,45 @@ class SettingsWindow : public QDialog, protected Ui::SettingsWindow
         bool isViewChanged;
         bool isNeedReboot;
 
-        // App styles
+          // App styles
         QStringList appStyles;
 
-        // Toolbar styles
-        QMap<int, QString> toolStyles;
+          // Toolbar styles
+        QMap<int,QString> toolStyles;
 
-        // Player double click behavior
+          // Player double click behavior
         QMap<QString, QString> playerBehaviors;
 
-        // Saving formats
-        typedef struct {
+          // Saving formats
+        struct PosterFormat
+        {
             QString title;
             QString format;
             int quality;
-        } PosterFormat;
+        };
 
-        const QList<PosterFormat> savingFormats = { { tr( "PNG (compressed)" ),   "png",  0 },
-                                                    { tr( "JPG (quality 95)" ),   "jpg", 95 },
-                                                    { tr( "JPG (quality 85)" ),   "jpg", 85 },
-                                                    { tr( "JPG (quality 75)" ),   "jpg", 75 },
-                                                    { tr( "BMP (uncompressed)" ), "bmp", -1 } };
+        const QList<PosterFormat> savingFormats =
+        {
+            { tr( "PNG (compressed)" ),   "png",  0 },
+            { tr( "JPG (quality 95)" ),   "jpg", 95 },
+            { tr( "JPG (quality 85)" ),   "jpg", 85 },
+            { tr( "JPG (quality 75)" ),   "jpg", 75 },
+            { tr( "BMP (uncompressed)" ), "bmp", -1 }
+        };
 
-        // Shortcuts
-        typedef struct {
+          // Shortcuts
+        struct Shortcut
+        {
             QString defaultKey;
             QKeySequenceEdit* keyEdit;
             QPushButton* buttonDefault;
             QPushButton* buttonClear;
             std::function<QString(AlexandraSettings*)> GetSetting;       // Using: s = var.GetSetting( settings );
             std::function<void(AlexandraSettings*, QString)> SetSetting; // Using: var.SetSetting( settings, value );
-        } Shortcut;
+        };
 
         QList<Shortcut> shortcuts;
 };
+
 
 #endif // SETTINGSWINDOW_H

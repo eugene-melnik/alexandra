@@ -46,12 +46,7 @@ class AlexandraSettings : public QSettings
         int     GetFilmsViewMode() const;
 
         bool    GetCheckFilesOnStartup() const;
-        int     GetColumnViewedWidth() const;
-        int     GetColumnFavouriteWidth() const;
-        int     GetColumnTitleWidth() const;
-        int     GetColumnYearWidth() const;
-        int     GetColumnGenreWidth() const;
-        int     GetColumnDirectorWidth() const;
+        QByteArray GetListViewHeaderState() const;
         QString GetCurrentFilmTitle() const;
         QString GetPostersDirPath() const;
         QString GetPosterSavingFormat() const;
@@ -73,7 +68,7 @@ class AlexandraSettings : public QSettings
         int        GetMainWindowRightPanelWidth() const;
         bool       GetMainWindowStatusbarIsVisible() const;
         QList<int> GetQuickSearchFilter() const;
-        bool       GetAutoLoadTechInfo() const;
+        bool       GetShowTechInfo() const;
 
         QString GetFilmsScannerLastDir() const;
         int     GetDefaultParserIndex() const;
@@ -110,12 +105,7 @@ class AlexandraSettings : public QSettings
         void SetFilmsViewMode( int n );
 
         void SetCheckFilesOnStartup( bool b );
-        void SetColumnViewedWidth( int n );
-        void SetColumnFavouriteWidth( int n );
-        void SetColumnTitleWidth( int n );
-        void SetColumnYearWidth( int n );
-        void SetColumnGenreWidth( int n );
-        void SetColumnDirectorWidth( int n );
+        void SetListViewHeaderState( const QByteArray& a );
         void SetCurrentFilmTitle( const QString& s );
         void SetPostersDirPath( const QString& s );
         void SetPosterSavingFormat( const QString& s );
@@ -137,7 +127,7 @@ class AlexandraSettings : public QSettings
         void SetMainWindowRightPanelWidth( int n );
         void SetMainWindowStatusbarIsVisible( bool b );
         void SetQuickSearchFilter( QList<int> list );
-        void SetAutoLoadTechInfo( bool b );
+        void SetShowTechInfo( bool b );
 
         void SetFilmsScannerLastDir( const QString& s );
         void SetDefaultParserIndex( int n );

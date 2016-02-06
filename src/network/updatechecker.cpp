@@ -20,6 +20,7 @@
 
 #include "updatechecker.h"
 #include "tools/debug.h"
+#include "version.h"
 
 #include <QRegExp>
 
@@ -33,12 +34,8 @@ UpdateChecker::UpdateChecker()
 
 void UpdateChecker::Run()
 {
-    DebugPrintFunc( "UpdateChecker::Run" );
-
-    QUrl url( "http://alexandra-qt.sourceforge.net/en/updates/index.html" );
+    QUrl url( Alexandra::linkUpdates );
     request.run( url );
-
-    DebugPrintFuncDone( "UpdateChecker::Run" );
 }
 
 
@@ -51,9 +48,10 @@ void UpdateChecker::DataLoaded( const QByteArray& data )
     QRegExp reCounterUrl( "<counter_lnk>(.*)</counter_lnk>" );
     reCounterUrl.setMinimal( true );
     reCounterUrl.indexIn( str );
-    DebugPrint( "COUNTER -- " + reCounterUrl.cap(1) );
+    DebugPrint( "COUNTER URL -- " + reCounterUrl.cap(1) );
 
 #ifndef QT_DEBUG
+      // Don't count launches of debug version of an app
     request.runSync( reCounterUrl.cap(1) );
 #endif
 
@@ -61,7 +59,7 @@ void UpdateChecker::DataLoaded( const QByteArray& data )
     reLatestVersion.setMinimal( true );
     reLatestVersion.indexIn( str );
 
-    DebugPrint( "VERSION -- " + reLatestVersion.cap(1) );
+    DebugPrint( "LATEST VERSION -- " + reLatestVersion.cap(1) );
     DebugPrintFuncDone( "UpdateChecker::DataLoaded" );
 
     emit Loaded( reLatestVersion.cap(1) );

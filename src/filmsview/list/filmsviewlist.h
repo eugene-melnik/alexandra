@@ -49,6 +49,7 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
         QModelIndex GetCurrentIndex() { return( currentIndex() ); }
         QModelIndexList GetSelectedItemsList();
 
+        void SetCurrentIndex( const QModelIndex& index ) { setCurrentIndex(index); }
         void SetCurrentRow( int r ) { setCurrentIndex( model()->index( r, 0 ) ); }
 
     signals:

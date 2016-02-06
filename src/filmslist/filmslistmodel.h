@@ -70,6 +70,8 @@ class FilmsListModel : public QAbstractItemModel
         int GetIsViewedFilmsCount() const { return( GetCountOf( FilmItem::IsViewedColumn, true ) ); }
         int GetIsFavouriteFilmsCount() const { return( GetCountOf( FilmItem::IsFavouriteColumn, true ) ); }
 
+        QModelIndex GetFilmIndex( const QString& title );
+
 //        const Film*  GetCurrentFilm() const;
 //        QString      GetCurrentFilmTitle() const;
 //        QString      GetCurrentFilmFileName() const;

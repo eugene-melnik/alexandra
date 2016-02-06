@@ -3,7 +3,7 @@
  *  file: settingswindow.cpp                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -33,10 +33,9 @@
 #include <QMessageBox>
 #include <QStyleFactory>
 
-SettingsWindow::SettingsWindow( QWidget* parent ) : QDialog( parent )
+SettingsWindow::SettingsWindow( QWidget* parent ) : QDialog( parent ),
+    settings( AlexandraSettings::GetInstance() )
 {
-    settings = AlexandraSettings::GetInstance();
-
     setupUi( this );
     connect( bOk, &QPushButton::clicked, this, &SettingsWindow::OkButtonClicked );
 
@@ -117,7 +116,7 @@ void SettingsWindow::OkButtonClicked()
 
         settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
         settings->SetMainWindowRightPanelWidth( sbPanelWidth->value() );
-        settings->SetAutoLoadTechInfo( cbAutoLoadTechInfo->isChecked() );
+        settings->SetShowTechInfo( cbShowTechInfo->isChecked() );
 
         // Application tab
 
@@ -243,33 +242,8 @@ void SettingsWindow::OpenDatabaseFile()
 
     if( !databaseFileName.isEmpty() )
     {
-        QFile file( databaseFileName );
-
-        if( file.open( QIODevice::ReadOnly ) )
-        {
-            // Reading from file
-            QDataStream stream( &file );
-            QString databaseHeader;
-            quint8 databaseVersion;
-
-            stream >> databaseHeader;
-            stream >> databaseVersion;
-            file.close();
-
-            if( databaseHeader != Alexandra::databaseHeader
-                    || databaseVersion != Alexandra::databaseVersion )
-            {
-                QMessageBox::warning( this,
-                                      tr( "Database" ),
-                                      tr( "Not a database file or incorrect version!" ) );
-                return;
-            }
-
-        }
-
-        eDatabaseFile->setText( databaseFileName );
-
         QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
+        eDatabaseFile->setText( databaseFileName );
 
         if( QFile::exists( postersDir ) )
         {
@@ -464,7 +438,7 @@ void SettingsWindow::ConfigureAppearanceTab()
     // Right panel
     connect( cShowRightPanel, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
     connect( sbPanelWidth, SIGNAL( valueChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( cbAutoLoadTechInfo, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
+    connect( cbShowTechInfo, &QCheckBox::toggled, this,  &SettingsWindow::SetIsSettingsChanged );
 
     // Application styles
     appStyles.append( tr( "<Theme>" ) );
@@ -536,7 +510,7 @@ void SettingsWindow::ReconfigureAppearanceTab()
     // Right panel
     cShowRightPanel->setChecked( settings->GetMainWindowShowRightPanel() );
     sbPanelWidth->setValue( settings->GetMainWindowRightPanelWidth() );
-    cbAutoLoadTechInfo->setChecked( settings->GetAutoLoadTechInfo() );
+    cbShowTechInfo->setChecked( settings->GetShowTechInfo() );
 }
 
 /*************************************************************************************************
@@ -654,28 +628,28 @@ void SettingsWindow::ReconfigureApplicationTab()
 
 void SettingsWindow::ConfigureShortcutsTab()
 {
-    // Main setup, large and terrible
+      // Main setup, large and terrible
     shortcuts =
     {
-        // Add, Edit, Remove
+          // Add, Edit, Remove
         { "Ctrl+A",     kseAddFilm,     bDefaultAddFilm,    bClearAddFilm,      &AlexandraSettings::GetShortcutAddFilm,     &AlexandraSettings::SetShortcutAddFilm },
         { "Ctrl+E",     kseEditFilm,    bDefaultEditFilm,   bClearEditFilm,     &AlexandraSettings::GetShortcutEditFilm,    &AlexandraSettings::SetShortcutEditFilm },
         { "Ctrl+Del",   kseRemoveFilm,  bDefaultRemoveFilm, bClearRemoveFilm,   &AlexandraSettings::GetShortcutRemoveFilm,  &AlexandraSettings::SetShortcutRemoveFilm },
-        // Random, Quick search, Search
+          // Random, Quick search, Search
         { "Ctrl+R",     kseSelectRandomFilm,    bDefaultSelectRandomFilm,       bClearSelectRandomFilm,     &AlexandraSettings::GetShortcutSelectRandomFilm,    &AlexandraSettings::SetShortcutSelectRandomFilm },
         { "Backspace",  kseActivateQuickSearch, bDefaultActivateQuickSearch,    bClearActivateQuickSearch,  &AlexandraSettings::GetShortcutActivateQuickSearch, &AlexandraSettings::SetShortcutActivateQuickSearch },
         { "Ctrl+F",     kseAdvancedSearch,      bDefaultAdvancedSearch,         bClearAdvancedSearch,       &AlexandraSettings::GetShortcutAdvancedSearch,      &AlexandraSettings::SetShortcutAdvancedSearch },
-        // Play
+          // Play
         { "Alt+Return", ksePlay, bDefaultPlay, bClearPlay, &AlexandraSettings::GetShortcutPlay, &AlexandraSettings::SetShortcutPlay },
-        // Settings, Toolbar, Fullscreen
+          // Settings, Toolbar, Fullscreen
         { "Ctrl+P", kseSettings,        bDefaultSettings,       bClearSettings,         &AlexandraSettings::GetShortcutSettings,        &AlexandraSettings::SetShortcutSettings },
         { "Ctrl+T", kseShowToolbar,     bDefaultShowToolbar,    bClearShowToolbar,      &AlexandraSettings::GetShortcutShowToolbar,     &AlexandraSettings::SetShortcutShowToolbar },
         { "F11",    kseShowFullscreen,  bDefaultShowFullscreen, bClearShowFullscreen,   &AlexandraSettings::GetShortcutShowFullscreen,  &AlexandraSettings::SetShortcutShowFullscreen },
-        // Exit
+          // Exit
         { "Ctrl+Q", kseExit, bDefaultExit, bClearExit, &AlexandraSettings::GetShortcutExit, &AlexandraSettings::SetShortcutExit }
     };
 
-    // Signals
+      // Signals
     for( auto& s : shortcuts )
     {
         // Key sequence changed

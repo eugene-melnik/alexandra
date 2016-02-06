@@ -23,6 +23,13 @@
    <item>
     <layout class="QHBoxLayout" name="layoutFooter">
      <item>
+      <widget class="QPushButton" name="bClear">
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="spacerFooter">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -47,5 +54,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>bClear</sender>
+   <signal>clicked()</signal>
+   <receiver>eTextEdit</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>226</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>107</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

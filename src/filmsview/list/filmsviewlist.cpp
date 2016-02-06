@@ -53,7 +53,10 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableView( parent )
 
     connect( this, &QTableView::customContextMenuRequested, this, [this] (const QPoint& pos)
     {
-        emit ContextMenuRequested( pos, selectionModel()->currentIndex() );
+        if( currentIndex().isValid() )
+        {
+            emit ContextMenuRequested( pos, selectionModel()->currentIndex() );
+        }
     });
 }
 
