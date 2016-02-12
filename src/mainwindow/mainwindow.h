@@ -80,13 +80,13 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void ShowFilmInformation( const QModelIndex& index );
         void ShowFilmContextMenu( const QPoint& pos, const QModelIndex& index );
 
-//        void AddToPlaylist();
+        void AddToPlaylist();
         void PlaylistCleared();
         void DoubleClickBehavior();
 
-//        void PlayFilm();
+        void PlayFilm();
         void PlayerStarted();
-//        void PlayerClosed();
+        void PlayerClosed();
 
 //        void FilmScanner() { filmScannerWindow->show( filmsList->GetFileNamesList() ); }
 //        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailablesList() ); }

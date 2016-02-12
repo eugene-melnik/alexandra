@@ -3,7 +3,7 @@
  *  file: playlist.cpp                                                                            *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -25,8 +25,9 @@
 #include <QFile>
 #include <QTextStream>
 
+
 QString PlayList::CreateTempListM3U8() const
-{   
+{
     DebugPrintFunc( "PlayList::CreateTempListM3U8" );
 
     if( pathes.isEmpty() )
@@ -48,7 +49,6 @@ QString PlayList::CreateTempListM3U8() const
     }
 
     DebugPrintFuncDone( "PlayList::CreateTempListM3U8" );
-
-    fileToSave.close();
     return( fileName );
 }
+

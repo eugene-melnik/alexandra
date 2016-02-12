@@ -3,7 +3,7 @@
  *  file: playlistwidget.h                                                                        *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,8 +21,10 @@
 #ifndef PLAYLISTWIDGET_H
 #define PLAYLISTWIDGET_H
 
+
 #include <QListWidget>
 #include <QStringList>
+
 
 class PlayListWidget : public QListWidget
 {
@@ -31,13 +33,13 @@ class PlayListWidget : public QListWidget
     public:
         explicit PlayListWidget( QWidget* parent = nullptr );
 
-    public slots:
-        void AddItem( const QString& title, const QString& filePath );
-        void Clear();
-
         bool IsEmpty() const { return( !count() ); }
 
         QStringList GetPathes() const;
+
+    public slots:
+        void AddItem( const QString& title, const QString& filePath );
+        void Clear() { clear(); emit Cleared(); }
 
     signals:
         void Cleared();
@@ -47,4 +49,6 @@ class PlayListWidget : public QListWidget
         void RemoveFromList();
 };
 
+
 #endif // PLAYLISTWIDGET_H
+

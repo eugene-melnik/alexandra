@@ -123,6 +123,11 @@ QModelIndexList FilmsViewList::GetSelectedItemsList()
         }
     }
 
+    if( resultIndexes.isEmpty() )
+    {
+        resultIndexes.insert( 0, currentIndex() );
+    }
+
     return( resultIndexes.values() );
 }
 

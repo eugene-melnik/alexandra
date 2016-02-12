@@ -3,7 +3,7 @@
  *  file: playlist.h                                                                              *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,7 +21,9 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
 
+
 #include <QStringList>
+
 
 class PlayList
 {
@@ -39,4 +41,6 @@ class PlayList
         QStringList pathes;
 };
 
+
 #endif // PLAYLIST_H
+

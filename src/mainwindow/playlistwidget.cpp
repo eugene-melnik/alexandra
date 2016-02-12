@@ -3,7 +3,7 @@
  *  file: playlistwidget.cpp                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -24,32 +24,20 @@
 #include <QAction>
 #include <QMenu>
 
+
 PlayListWidget::PlayListWidget( QWidget* parent ) : QListWidget( parent )
 {
     setAlternatingRowColors( true );
     setContextMenuPolicy( Qt::CustomContextMenu );
     setDragDropMode( QAbstractItemView::InternalMove );
 
+    setEditTriggers( QAbstractItemView::NoEditTriggers );
+    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
+    setHorizontalScrollMode( QAbstractItemView::ScrollPerPixel );
+
     connect( this, &PlayListWidget::customContextMenuRequested, this, &PlayListWidget::ShowContextMenu );
 }
 
-void PlayListWidget::AddItem( const QString& title , const QString& filePath )
-{
-    DebugPrintFunc( "PlayListWidget::AddItem", title );
-
-    QListWidgetItem* item = new QListWidgetItem( title, this );
-    item->setToolTip( filePath ); // TODO: setData()
-    addItem( item );
-    setCurrentItem( item );
-}
-
-void PlayListWidget::Clear()
-{
-    DebugPrintFunc( "PlayListWidget::Clear" );
-
-    clear();
-    emit Cleared();
-}
 
 QStringList PlayListWidget::GetPathes() const
 {
@@ -57,11 +45,27 @@ QStringList PlayListWidget::GetPathes() const
 
     for( int i = 0; i < count(); i++ )
     {
-        pathes.append( item( i )->toolTip() );
+        pathes.append( item(i)->data( Qt::UserRole ).toString() );
     }
 
     return( pathes );
 }
+
+
+void PlayListWidget::AddItem( const QString& title , const QString& filePath )
+{
+    DebugPrintFunc( "PlayListWidget::AddItem", title );
+
+    QListWidgetItem* item = new QListWidgetItem( this );
+    item->setData( Qt::DisplayRole, title );
+    item->setData( Qt::UserRole, filePath );
+
+    addItem( item );
+    setCurrentItem( item );
+
+    DebugPrintFuncDone( "PlayListWidget::AddItem" );
+}
+
 
 void PlayListWidget::ShowContextMenu( const QPoint& pos )
 {
@@ -69,10 +73,11 @@ void PlayListWidget::ShowContextMenu( const QPoint& pos )
     {
         QMenu menu;
         menu.addAction( QIcon( ":/tool/delete" ), tr( "Remove from playlist" ), this, SLOT( RemoveFromList() ) );
-        menu.addAction( QIcon( ":/tool/clear" ), tr( "Clear all" ), this, SLOT( Clear() ) );
+        menu.addAction( QIcon( ":/tool/clear" ),  tr( "Clear all" ),            this, SLOT( Clear() ) );
         menu.exec( mapToGlobal( pos ) );
     }
 }
+
 
 void PlayListWidget::RemoveFromList()
 {
@@ -83,3 +88,4 @@ void PlayListWidget::RemoveFromList()
         emit Cleared();
     }
 }
+

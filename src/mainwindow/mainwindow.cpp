@@ -240,27 +240,29 @@ void MainWindow::ShowFilmContextMenu( const QPoint& pos, const QModelIndex& inde
 }
 
 
-//void MainWindow::AddToPlaylist()
-//{
-//    DebugPrintFunc( "MainWindow::AddToPlaylist" );
-//    QStringList filmsTitles = filmsView->GetSelectedItemsList();
+void MainWindow::AddToPlaylist()
+{
+    QModelIndexList indexes = filmsView->GetSelectedItemsList();
 
-//    if( filmsTitles.size() > 0 )
-//    {
-//        for( QString t : filmsTitles )
-//        {
-//            const Film* film = filmsList->GetFilmByTitle( t );
-//            lwPlaylist->AddItem( film->GetTitle(), film->GetFileName() );
-//        }
-//    }
-//    else
-//    {
-//        lwPlaylist->AddItem( filmsList->GetCurrentFilmTitle(), filmsList->GetCurrentFilmFileName() );
-//    }
+    if( indexes.count() > 0 )
+    {
+        for( const QModelIndex& index : indexes )
+        {
+            const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex(index);
+            bool isExists = film->GetIsFileExists() == FilmItem::Exists ? true : false;
 
-//    bPlay->setText( tr( "Play list" ) );
-//    wPlaylist->show();
-//}
+            if( isExists )
+            {
+                QString filmTitle = film->GetColumnData( FilmItem::TitleColumn ).toString();
+                QString filmFileName = film->GetColumnData( FilmItem::FileNameColumn ).toString();
+                lwPlaylist->AddItem( filmTitle, filmFileName );
+            }
+        }
+    }
+
+    bPlay->setText( tr( "Play list" ) );
+    wPlaylist->show();
+}
 
 
 void MainWindow::PlaylistCleared()
@@ -276,63 +278,55 @@ void MainWindow::DoubleClickBehavior()
 
     if( s == "play" )
     {
-//        PlayFilm();
+        PlayFilm();
     }
     else if( s == "add-to-list" )
     {
-//        AddToPlaylist();
+        AddToPlaylist();
     }
     else
-    // "auto" mode -- plays film if playlist is empty
-    // and adds film to playlist otherwise
+      // "auto" mode -- plays film if playlist is empty
+      // and adds film to playlist otherwise
     {
         if( lwPlaylist->IsEmpty() )
         {
-//            PlayFilm();
+            PlayFilm();
         }
         else
         {
-//            AddToPlaylist();
+            AddToPlaylist();
         }
     }
 }
 
 
-//void MainWindow::PlayFilm()
-//{
-//    DebugPrintFunc( "MainWindow::PlayFilm" );
+void MainWindow::PlayFilm()
+{
+    DebugPrintFunc( "MainWindow::PlayFilm" );
 
-//    if( !bPlay->isEnabled() ) return;
+    if( externalPlayer->state() == QProcess::Running )
+    {
+        externalPlayer->close(); /// terminate (?)
+    }
+    else
+    {
+        if( lwPlaylist->IsEmpty() )
+        {
+            AddToPlaylist();
+        }
 
-//    if( externalPlayer->state() == QProcess::NotRunning )
-//    {
-//        if( filmsView->GetSelectedItemsList().size() > 1 )
-//        {
-//            AddToPlaylist();
-//        }
+        QString fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
+        QString playerPath = settings->GetExternalPlayer();
 
-//        QString fileToPlay;
+        #ifdef Q_OS_LINUX
+            externalPlayer->start( playerPath + " \"" + fileToPlay +"\"" );
+        #elif defined(Q_OS_WIN32)
+            externalPlayer->start( "\"" + playerPath + "\" \"" + fileToPlay +"\"" );
+        #endif
+    }
 
-//        if( lwPlaylist->IsEmpty() )
-//        {
-//            fileToPlay = filmsList->GetCurrentFilmFileName();
-//        }
-//        else
-//        {
-//            fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
-//        }
-
-//        #ifdef Q_OS_LINUX
-//            externalPlayer->start( settings->GetExternalPlayer() + " \"" + fileToPlay +"\"" );
-//        #elif defined(Q_OS_WIN32)
-//            externalPlayer->start( "\"" + settings->GetExternalPlayer() + "\" \"" + fileToPlay +"\"" );
-//        #endif
-//    }
-//    else
-//    {
-//        externalPlayer->close();
-//    }
-//}
+    DebugPrintFuncDone( "MainWindow::PlayFilm" );
+}
 
 
 void MainWindow::PlayerStarted()
@@ -345,16 +339,16 @@ void MainWindow::PlayerStarted()
 }
 
 
-//void MainWindow::PlayerClosed()
-//{
-//    dynamic_cast<QWidget*>( filmsView )->setEnabled( true );
-//    eFilter->setEnabled( true );
-//    bPlay->setText( tr( "&PLAY" ) );
+void MainWindow::PlayerClosed()
+{
+    dynamic_cast<QWidget*>( filmsView )->setEnabled( true );
+    eFilter->setEnabled( true );
+    bPlay->setText( tr( "&PLAY" ) );
 
-//    // TODO: make all films of playlist is viewed
-//    // need to think about this
-//    if( lwPlaylist->IsEmpty() )
-//    {
+    // TODO: make all films of playlist is viewed
+    // need to think about this
+    if( lwPlaylist->IsEmpty() )
+    {
 //        filmsList->IncCurrentFilmViewsCounter();
 
 //        if( bViewed->isEnabled() && !bViewed->isChecked() )
@@ -362,15 +356,15 @@ void MainWindow::PlayerStarted()
 //            bViewed->setChecked( true );
 //            UpdateCurrentFilm();
 //        }
-//    }
-//    else
-//    {
-//        lwPlaylist->Clear();
-//    }
+    }
+    else
+    {
+        lwPlaylist->Clear();
+    }
 
 //    dynamic_cast<QWidget*>( filmsView )->setFocus();
-//    DebugPrint( "Player stopped" );
-//}
+    DebugPrint( "Player stopped" );
+}
 
 
 void MainWindow::ShowSplashscreen()
@@ -624,9 +618,9 @@ void MainWindow::SetupWindows()
 //    connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::SetupCompleter );
 
       // Playlist
-//    connect( bAddToPlaylist, &QPushButton::clicked, this, &MainWindow::AddToPlaylist );
-//    connect( contextMenu, &FilmsViewContextMenu::actionAddToList, this, &MainWindow::AddToPlaylist );
-//    connect( lwPlaylist, &PlayListWidget::Cleared, this, &MainWindow::PlaylistCleared );
+    connect( bAddToPlaylist, &QPushButton::clicked,                  this, &MainWindow::AddToPlaylist );
+    connect( contextMenu,    &FilmsViewContextMenu::actionAddToList, this, &MainWindow::AddToPlaylist );
+    connect( lwPlaylist,     &PlayListWidget::Cleared,               this, &MainWindow::PlaylistCleared );
     wPlaylist->hide();
 
       // Viewed button
@@ -636,11 +630,11 @@ void MainWindow::SetupWindows()
     connect( bFavourite,  &QPushButton::clicked,                    this, &MainWindow::SetCurrentFilmIsFavourite );
     connect( contextMenu, &FilmsViewContextMenu::actionIsFavourite, this, &MainWindow::SetCurrentFilmIsFavourite );
       // Play button
-//    connect( bPlay, &QPushButton::clicked, this, &MainWindow::PlayFilm );
-//    connect( contextMenu, &FilmsViewContextMenu::actionPlay, this, &MainWindow::PlayFilm );
+    connect( bPlay,       &QPushButton::clicked,             this, &MainWindow::PlayFilm );
+    connect( contextMenu, &FilmsViewContextMenu::actionPlay, this, &MainWindow::PlayFilm );
       // Player setup
-//    connect( externalPlayer, &QProcess::started, this, &MainWindow::PlayerStarted );
-//    connect( externalPlayer, SIGNAL( finished(int) ), this, SLOT( PlayerClosed() ) );
+    connect( externalPlayer, &QProcess::started, this, &MainWindow::PlayerStarted );
+    connect( externalPlayer, SIGNAL( finished(int) ), this, SLOT( PlayerClosed() ) );
 
         /// About window
     aboutWindow = new AboutWindow( this );

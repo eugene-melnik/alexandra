@@ -67,6 +67,11 @@ QModelIndexList FilmsViewGrid::GetSelectedItemsList()
         mappedIndexes.append( proxyModel->mapToSource(index) );
     }
 
+    if( mappedIndexes.isEmpty() )
+    {
+        mappedIndexes.append( currentIndex() );
+    }
+
     return( mappedIndexes );
 }
 
