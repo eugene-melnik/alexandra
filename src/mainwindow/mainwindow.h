@@ -54,7 +54,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         void show();
 
-        void AddFilmsFromOutside( const QStringList& films );
+        void AddFilmsFromOutside( const QStringList& filmsFileNames );
 
     signals:
         void Shown();
@@ -108,7 +108,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
     private:
         void AddFilmDone( FilmItem* film );
         void EditFilmDone( FilmItem* film );
-//        void AddFilmsDone( const QList<Film>* films );
+        void RemoveFilmByIndex( const QModelIndex& index );
 
         void ToggleCurrentFilmValue( FilmItem::Column column );
 

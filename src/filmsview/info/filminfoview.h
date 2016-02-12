@@ -38,7 +38,7 @@ class FilmInfoView : public QWidget, public AbstractFilmInfoView, protected Ui::
         void ShowInformation( const QModelIndex& index ) override;
         void Clear() override;
 
-        void ShowEmptyDatabaseMessage() const;
+        void ShowEmptyDatabaseMessage();
         void ShowMessage( const QString& message ) { Clear(); lFilmTitle->setText( message ); }
 
     private:

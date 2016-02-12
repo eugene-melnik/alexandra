@@ -66,44 +66,55 @@ void MainWindow::show()
 }
 
 
-void MainWindow::AddFilmsFromOutside( const QStringList& films )
+void MainWindow::AddFilmsFromOutside( const QStringList& filmsFileNames )
 {
-    DebugPrintFunc( "MainWindow::AddFilmsFromOutside", films.size() );
+    DebugPrintFunc( "MainWindow::AddFilmsFromOutside", filmsFileNames.size() );
 
-//    QList<Film> newFilms;
-//    QString messageText;
+    QList<FilmItem*> newFilms;
+    QString messageText;
 
-//    for( const QString& film : films )
-//    {
-//        QFileInfo filmInfo( film );
-//        QString fileSuffix = "*." + filmInfo.suffix();
+    for( const QString& filmFileName : filmsFileNames )
+    {
+        QFileInfo filmInfo( filmFileName );
+        QString fileSuffix = "*." + filmInfo.suffix();
 
-//        if( FilesExtensions().GetFilmExtensionsForDirFilter().contains( fileSuffix ) )
-//        {
-//            Film f;
-//            f.SetFileName( film );
-//            f.SetTitle( filmInfo.completeBaseName() );
-//            newFilms.append( f );
-//            messageText.append( QString::number( newFilms.size() ) + ") " + filmInfo.fileName() + "\n" );
-//        }
-//    }
+        if( FilesExtensions::GetFilmExtensionsForDirFilter().contains( fileSuffix ) )
+        {
+            QString filmTitle = filmInfo.completeBaseName();
+            messageText.append( QString( "%1) %2\n" ).arg( newFilms.count() + 1 ).arg( filmTitle ) );
 
-//    if( newFilms.size() == 0 )
-//    {
-//        QMessageBox::information( this, tr( "Add films" ), tr( "There is nothing to add." ) );
-//        return;
-//    }
+            FilmItem* film = new FilmItem();
+            film->SetColumnData( FilmItem::FileNameColumn, filmFileName );
+            film->SetColumnData( FilmItem::TitleColumn, filmTitle );
+            newFilms.append( film );
+        }
+    }
 
-//    messageText = tr( "Add the following film(s)?\n" ) + messageText;
+    if( newFilms.size() == 0 )
+    {
+        QMessageBox::information( this, tr( "Add films" ), tr( "Nothing to add." ) );
+    }
+    else
+    {
+        messageText = tr( "Add the following film(s)?\n" ) + messageText;
 
-//    int res = QMessageBox::question( this, tr( "Add films" ), messageText,
-//                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes );
+        int answer = QMessageBox::question( this, tr( "Add films" ), messageText,
+                                            QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes );
 
-//    if( res == QMessageBox::Yes )
-//    {
-//        AddFilmsDone( &newFilms );
-//        QMessageBox::information( this, tr( "Add films" ), tr( "Done!" ) );
-//    }
+        if( answer == QMessageBox::Yes )
+        {
+            for( FilmItem* film : newFilms )
+            {
+                filmsListModel->AddFilmItem( film );
+            }
+
+            QMessageBox::information( this, tr( "Add films" ), tr( "Done!" ) );
+        }
+        else
+        {
+            qDeleteAll( newFilms );
+        }
+    }
 
     DebugPrintFuncDone( "MainWindow::AddFilmsFromOutside" );
 }
@@ -156,7 +167,7 @@ void MainWindow::DatabaseChanged()
 void MainWindow::ReloadDatabase()
 {
     filmsListModel->LoadFromFile( settings->GetDatabaseFilePath() );
-///    filmsView->SelectItem( settings->GetCurrentFilmTitle() );
+    SetCurrentFilmByTitle( settings->GetCurrentFilmTitle() );
 }
 
 
@@ -213,12 +224,12 @@ void MainWindow::ShowFilmInformation( const QModelIndex& index )
 
         bViewed->setChecked( film->GetIsFilmViewed() );
         bFavourite->setChecked( film->GetIsFilmFavourite() );
-
-          // Film info
-        wFilmInfo->ShowInformation( index );
-        lFilmPoster->ShowInformation( index );
-        lTechInformation->ShowInformation( index );
     }
+
+      // Film info
+    wFilmInfo->ShowInformation( index );
+    lFilmPoster->ShowInformation( index );
+    lTechInformation->ShowInformation( index );
 }
 
 
@@ -447,7 +458,7 @@ void MainWindow::ShowRemoveFilmWindow()
 
         for( const QModelIndex& index : mappedIndexes )
         {
-            filmsListModel->RemoveFilmByIndex( index );
+            RemoveFilmByIndex( index );
         }
     }
 }
@@ -473,7 +484,7 @@ void MainWindow::ShowRemoveFileWindow()
 
             if( answer == QMessageBox::Yes )
             {
-                filmsListModel->RemoveFilmByIndex( filmsListProxyModel->mapToSource(index) );
+                RemoveFilmByIndex( filmsListProxyModel->mapToSource(index) );
             }
             else
             {
@@ -542,25 +553,15 @@ void MainWindow::EditFilmDone( FilmItem* film )
 }
 
 
-//void MainWindow::AddFilmsDone( const QList<Film>* films )
-//{
-//    QStringList titles = filmsList->GetTitlesList();
+void MainWindow::RemoveFilmByIndex( const QModelIndex& index )
+{
+    filmsListModel->RemoveFilmByIndex( index );
 
-//    for( Film film : *films )
-//    {
-//        while( titles.contains( film.GetTitle() ) )
-//        {
-//            film.SetTitle( film.GetTitle() + tr( " (another)") );
-//        }
-
-//        filmsList->AddFilm( film );
-//        titles.append( film.GetTitle() );
-//    }
-
-//    SaveDatabase();
-//    SetAllFunctionsEnabled( true );
-//    ShowFilms();
-//}
+    if( filmsListModel->GetIsEmpty() )
+    {
+        SetEmptyMode();
+    }
+}
 
 
 void MainWindow::ToggleCurrentFilmValue( FilmItem::Column column )
@@ -928,6 +929,8 @@ void MainWindow::SetEmptyMode( bool empty )
     bAddToPlaylist->setDisabled( empty );
 
     wFilmInfo->ShowEmptyDatabaseMessage(); // TODO: check in FilmInfoView (?)
+    lFilmPoster->Clear();
+    lTechInformation->Clear();
 }
 
 

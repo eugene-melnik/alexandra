@@ -56,8 +56,8 @@ void FilmPosterView::resizeEvent( QResizeEvent* event )
 {
     QLabel::resizeEvent( event );
 
-    if( event->oldSize().width() != event->size().width() &&
-        pixmap() != nullptr )
+    if( event->oldSize().width() != event->size().width()
+        && pixmap() != nullptr )
     {
         SetPixmap( *pixmap() );
     }
@@ -73,8 +73,6 @@ void FilmPosterView::showEvent( QShowEvent* event )
 
 void FilmPosterView::SetPixmap( const QPixmap& pixmap )
 {
-    QPixmap p = pixmap.scaledToWidth( width(), Qt::SmoothTransformation );
-    setMinimumHeight( p.height() );
-    setPixmap( p );
+    setPixmap( pixmap.scaledToWidth( width(), Qt::SmoothTransformation ) );
 }
 

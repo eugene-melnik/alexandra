@@ -83,8 +83,10 @@ void FilmInfoView::Clear()
 }
 
 
-void FilmInfoView::ShowEmptyDatabaseMessage() const
+void FilmInfoView::ShowEmptyDatabaseMessage()
 {
+    Clear();
+
     const QString title = tr( "Your database is empty" );
     lFilmTitle->setText( title );
 

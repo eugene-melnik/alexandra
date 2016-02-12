@@ -58,23 +58,19 @@ class FilmsListModel : public QAbstractItemModel
 
         void AddFilmItem( FilmItem* film );
         void EditFilmItem( FilmItem* film, const QModelIndex& index );
+        void RemoveFilmByIndex( const QModelIndex& index );
 
 //        void IncCurrentFilmViewsCounter();
-
-        void RemoveFilmByIndex( const QModelIndex& index );
 
         void EraseAll();
 //        void ResetViews();
 
+        bool GetIsEmpty() const { return( GetFilmsCount() == 0 ); }
         int GetFilmsCount() const { return( rootItem->GetChildrenCount() ); }
         int GetIsViewedFilmsCount() const { return( GetCountOf( FilmItem::IsViewedColumn, true ) ); }
         int GetIsFavouriteFilmsCount() const { return( GetCountOf( FilmItem::IsFavouriteColumn, true ) ); }
 
         QModelIndex GetFilmIndex( const QString& title );
-
-//        const Film*  GetCurrentFilm() const;
-//        QString      GetCurrentFilmTitle() const;
-//        QString      GetCurrentFilmFileName() const;
 
 //        const Film* GetFilmByTitle( const QString& title );
 
@@ -94,7 +90,6 @@ class FilmsListModel : public QAbstractItemModel
 
     private:
         int GetCountOf( FilmItem::Column column, const QVariant& data ) const;
-//        void RemoveFilm( const Film& film );
 
           // Variables
         FilmItem* rootItem;
