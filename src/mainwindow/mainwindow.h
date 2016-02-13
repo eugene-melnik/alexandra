@@ -107,7 +107,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
     private:
         void AddFilmDone( FilmItem* film );
         void EditFilmDone( FilmItem* film );
-        void RemoveFilmByIndex( const QModelIndex& index );
 
         void ToggleCurrentFilmValue( FilmItem::Column column );
 

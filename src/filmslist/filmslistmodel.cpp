@@ -362,8 +362,20 @@ void FilmsListModel::RemoveFilmByIndex( const QModelIndex& index )
     {
         beginResetModel(); // FIXME: beginRemoveRows should be better, but doesn't work
         FilmItem* item = static_cast<FilmItem*>( index.internalPointer() );
+
+        if( item->GetIsPosterExists() )
+        {
+            QString posterFileName = settings->GetPostersDirPath() + "/" + item->GetFilmId();
+            QFile( posterFileName ).remove();
+        }
+
         rootItem->RemoveChild( item );
         endResetModel();
+
+        if( GetIsEmpty() )
+        {
+            emit DatabaseIsEmpty();
+        }
     }
     else
     {

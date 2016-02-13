@@ -442,6 +442,7 @@ void MainWindow::ShowRemoveFilmWindow()
 
     if( answer == QMessageBox::Yes )
     {
+        DebugPrintFunc( "MainWindow::ShowRemoveFilmWindow" );
         QModelIndexList mappedIndexes;
 
         for( const QModelIndex& index : selectedIndexes )
@@ -451,8 +452,10 @@ void MainWindow::ShowRemoveFilmWindow()
 
         for( const QModelIndex& index : mappedIndexes )
         {
-            RemoveFilmByIndex( index );
+            filmsListModel->RemoveFilmByIndex( index );
         }
+
+        DebugPrintFuncDone( "MainWindow::ShowRemoveFilmWindow" );
     }
 }
 
@@ -477,7 +480,7 @@ void MainWindow::ShowRemoveFileWindow()
 
             if( answer == QMessageBox::Yes )
             {
-                RemoveFilmByIndex( filmsListProxyModel->mapToSource(index) );
+                filmsListModel->RemoveFilmByIndex( filmsListProxyModel->mapToSource(index) );
             }
             else
             {
@@ -556,17 +559,6 @@ void MainWindow::AddFilmDone( FilmItem* film )
 void MainWindow::EditFilmDone( FilmItem* film )
 {
     filmsListModel->EditFilmItem( film, filmsListProxyModel->mapToSource(filmsView->GetCurrentIndex()) );
-}
-
-
-void MainWindow::RemoveFilmByIndex( const QModelIndex& index )
-{
-    filmsListModel->RemoveFilmByIndex( index );
-
-    if( filmsListModel->GetIsEmpty() )
-    {
-        SetEmptyMode();
-    }
 }
 
 
