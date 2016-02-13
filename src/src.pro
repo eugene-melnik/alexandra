@@ -72,7 +72,7 @@ HEADERS += datamanip/addfilmwindow.h \
            scanner/filmscannerwindow.h \
            scanner/filmscannerworker.h \
            scanner/filmscanneraddworker.h \
-#           scanner/movedfilmswindow.h \
+           scanner/movedfilmswindow.h \
 #           statistics/statisticswindow.h \
 #           statistics/statisticsworker.h \
            tools/commandlineparser.h \
@@ -119,7 +119,7 @@ SOURCES += datamanip/addfilmwindow.cpp \
            scanner/filmscannerwindow.cpp \
            scanner/filmscannerworker.cpp \
            scanner/filmscanneraddworker.cpp \
-#           scanner/movedfilmswindow.cpp \
+           scanner/movedfilmswindow.cpp \
 #           statistics/statisticswindow.cpp \
 #           statistics/statisticsworker.cpp \
            tools/commandlineparser.cpp \
@@ -142,7 +142,7 @@ FORMS += datamanip/addfilmwindow.ui \
 #         search/searchwindow.ui \
          scanner/foundedlistwidget.ui \
          scanner/filmscannerwindow.ui \
-#         scanner/movedfilmswindow.ui \
+         scanner/movedfilmswindow.ui \
          aboutwindow.ui \
          settingswindow.ui
 #         statisticswindow.ui

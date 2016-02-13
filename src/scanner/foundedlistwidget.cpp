@@ -40,6 +40,7 @@ void FoundedListWidget::AppendItem( QTableWidgetItem* item )
     int row = twFounded->rowCount();
     twFounded->setRowCount( row + 1 );
     twFounded->setItem( row, 0, item );
+    emit ItemsCountChanged( row + 1 );
 }
 
 
@@ -47,6 +48,8 @@ void FoundedListWidget::Clear()
 {
     twFounded->clearContents();
     twFounded->setRowCount( 0 );
+    emit ItemsCountChanged( 0 );
+    emit SelectionChanged( 0 );
 }
 
 

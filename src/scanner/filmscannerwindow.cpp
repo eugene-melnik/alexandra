@@ -33,7 +33,7 @@ FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent ),
     filmScannerWorker( new FilmScannerWorker() ),
     filmAddWorker( new FilmScannerAddWorker() )
 {
-    DebugPrint( "FilmScannerWindow::FilmScannerWindow()" );
+    DebugPrintFunc( "FilmScannerWindow::FilmScannerWindow()" );
 
     setupUi( this );
     setAttribute( Qt::WA_DeleteOnClose );
@@ -59,10 +59,17 @@ FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent ),
     connect( bScan,            &QPushButton::clicked, this, &FilmScannerWindow::Scan );
     connect( bAdd,             &QPushButton::clicked, this, &FilmScannerWindow::AddSelected );
 
-    connect( gbFounded, &FoundedListWidget::SelectionChanged, this, [this] (int count)
+    connect( gbFounded, &FoundedListWidget::ItemsCountChanged, this, [this] (int count)
     {
         lTotalFounded->setText( QString::number(count) );
     } );
+
+    connect( gbFounded, &FoundedListWidget::SelectionChanged, this, [this] (int count)
+    {
+        lSelected->setText( QString::number(count) );
+    } );
+
+    DebugPrintFuncDone( "FilmScannerWindow::FilmScannerWindow()" );
 }
 
 
@@ -111,7 +118,6 @@ void FilmScannerWindow::Scan()
     }
 
     gbFounded->Clear();
-    lTotalFounded->setText( "0" );
 
       // Messages
     if( eDirectory->text().isEmpty() )
@@ -197,8 +203,6 @@ void FilmScannerWindow::ShowFounded( QStringList fileNames )
     }
 
       // Show
-    lTotalFounded->setText( QString::number( fileNames.count() ) );
-
     for( const QString& fileName : fileNames )
     {
         QTableWidgetItem* item = new QTableWidgetItem( fileName );
@@ -218,11 +222,9 @@ void FilmScannerWindow::ShowFounded( QStringList fileNames )
 
 void FilmScannerWindow::DisableFilm( FilmItem* film )
 {
-    QString fileName = film->GetColumnData( FilmItem::FileNameColumn ).toString();
-
     for( QTableWidgetItem* item : gbFounded->GetItems() )
     {
-        if( item->checkState() == Qt::Checked && item->text() == fileName )
+        if( item->checkState() == Qt::Checked && item->text() == film->GetFileName() )
         {
               // Uncheck and disable
             item->setCheckState( Qt::Unchecked );

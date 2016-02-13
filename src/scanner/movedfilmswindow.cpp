@@ -3,7 +3,7 @@
  *  file: movedfilmswindow.cpp                                                                    *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -22,84 +22,62 @@
 #include "tools/debug.h"
 
 #include <QDir>
-#include <QCloseEvent>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
 
-MovedFilmsWindow::MovedFilmsWindow( QWidget* parent ) : QDialog( parent ), filmScannerWorker( new FilmScannerWorker() )
-{
-    setupUi( this );
 
-    // Worker
+MovedFilmsWindow::MovedFilmsWindow( QWidget* parent ) : QDialog( parent ),
+    filmScannerWorker( new FilmScannerWorker() )
+{
+    DebugPrintFunc( "MovedFilmsWindow::MovedFilmsWindow" );
+
+    setupUi( this );
+    setAttribute( Qt::WA_DeleteOnClose );
+    eDirectory->setText( QDir::homePath() );
+    progressBar->hide();
+
+      // Worker
     connect( filmScannerWorker, &FilmScannerWorker::Scanned, this, &MovedFilmsWindow::ShowFounded );
 
-    // Buttons
+      // Buttons and view
     connect( bSelectDirectory, &QPushButton::clicked, this, &MovedFilmsWindow::SelectDirectory );
     connect( bScan, &QPushButton::clicked, this, &MovedFilmsWindow::Scan );
-
-    connect( bSelectAll, &QPushButton::clicked, this, &MovedFilmsWindow::SelectAll );
-    connect( bSelectAll, &QPushButton::clicked, this, &MovedFilmsWindow::CalculateSelected );
-    connect( bUnselectAll, &QPushButton::clicked, this, &MovedFilmsWindow::UnselectAll );
-    connect( bUnselectAll, &QPushButton::clicked, this, &MovedFilmsWindow::CalculateSelected );
-    connect( bInvertSelection, &QPushButton::clicked, this, &MovedFilmsWindow::InvertSelection );
-    connect( bInvertSelection, &QPushButton::clicked, this, &MovedFilmsWindow::CalculateSelected );
-
     connect( bMove, &QPushButton::clicked, this, &MovedFilmsWindow::MoveSelected );
-    connect( twFounded, &QTableWidget::clicked, this, &MovedFilmsWindow::CalculateSelected );
+
+    connect( gbFounded, &FoundedListWidget::ItemsCountChanged, this, [this] (int count)
+    {
+        lTotalFounded->setText( QString::number(count) );
+    } );
+
+    connect( gbFounded, &FoundedListWidget::SelectionChanged, this, [this] (int count)
+    {
+        lSelected->setText( QString::number(count) );
+    } );
+
+    DebugPrintFuncDone( "MovedFilmsWindow::MovedFilmsWindow" );
 }
+
 
 MovedFilmsWindow::~MovedFilmsWindow()
 {
-    delete filmScannerWorker;
-}
+    DebugPrintFunc( "MovedFilmsWindow::~MovedFilmsWindow" );
 
-void MovedFilmsWindow::show( QList<Film*>* f )
-{
-    DebugPrintFuncA( "MovedFilmsWindow::show", f->size() );
-
-    films = f;
-
-    if( films->size() == 0 )
-    {
-        QMessageBox::information( dynamic_cast<QWidget*>( parent() ),
-                                  tr( "Moved films" ),
-                                  tr( "Nothing to move." ) );
-    }
-    else
-    {
-        progressBar->hide();
-        QDialog::show();
-    }
-}
-
-void MovedFilmsWindow::closeEvent( QCloseEvent* event )
-{
-    // Stop worker if scans
-    if( bScan->text() == tr( "Cancel" ) )
+    if( filmScannerWorker->isRunning() )
     {
         filmScannerWorker->Terminate();
-        bScan->setText( tr( "Scan" ) );
+        filmScannerWorker->wait();
     }
 
-    // Clear contents
-    eDirectory->clear();
-    cSearchInSubdirs->setChecked( true );
-    twFounded->clearContents();
-    twFounded->setRowCount( 0 );
-    lTotalFounded->setText( "0" );
-    lSelected->setText( "0" );
-    // Temporary data
-    delete films;
+    delete filmScannerWorker;
 
-    event->accept();
+    DebugPrintFuncDone( "MovedFilmsWindow::~MovedFilmsWindow" );
 }
+
 
 void MovedFilmsWindow::SelectDirectory()
 {
-    QString directory = QFileDialog::getExistingDirectory( this,
-                                                           tr( "Select directory for scanning" ),
-                                                           eDirectory->text() );
+    QString directory = QFileDialog::getExistingDirectory( this, tr( "Select directory for scanning" ), eDirectory->text() );
 
     if( !directory.isEmpty() )
     {
@@ -107,184 +85,105 @@ void MovedFilmsWindow::SelectDirectory()
     }
 }
 
+
 void MovedFilmsWindow::Scan()
 {
     DebugPrintFunc( "MovedFilmsWindow::Scan" );
 
-    // If scans
-    if( bScan->text() == tr( "Cancel" ) )
+      // If scans
+    if( filmScannerWorker->isRunning() )
     {
         filmScannerWorker->Cancel();
         return;
     }
 
-    twFounded->clearContents();
-    twFounded->setRowCount( 0 );
+    gbFounded->Clear();
 
-    // Messages
+      // Messages
     if( eDirectory->text().isEmpty() )
     {
-        QMessageBox::information( this,
-                                  tr( "Moved films" ),
-                                  tr( "First select the directory to scan." ) );
+        QMessageBox::information( this, tr( "Moved films" ), tr( "First select the directory to scan." ) );
         return;
     }
 
-    // Scan
+      // Scan
     filmScannerWorker->SetIsRecursive( cSearchInSubdirs->isChecked() );
     filmScannerWorker->SetDir( eDirectory->text() );
     filmScannerWorker->start();
 
-    // Flip button
+      // Flip button
     bScan->setText( tr( "Cancel" ) );
     progressBar->show();
 }
 
-void MovedFilmsWindow::ShowFounded( QList<QString>* fileNames )
-{
-    DebugPrintFuncA( "MovedFilmsWindow::ShowFounded", fileNames->size() );
 
-    // Flip button
+void MovedFilmsWindow::ShowFounded( QStringList fileNames )
+{
+    DebugPrintFunc( "MovedFilmsWindow::ShowFounded", fileNames.size() );
+
+      // Flip button
     bScan->setText( tr( "Scan" ) );
     progressBar->hide();
 
-    // Messages
-    if( fileNames->empty() )
+      // Show
+    for( FilmItem* film : unavailableFilms )
     {
-        QMessageBox::information( this,
-                                  tr( "Moved films" ),
-                                  tr( "Nothing was found." ) );
-        return;
-    }
+        QString unavailFilePath = film->GetFileName();
+        QString unavailFileName = QFileInfo(unavailFilePath).fileName();
 
-    // Show
-    int row = 0;
-
-    for( QList<QString>::iterator i = fileNames->begin(); i < fileNames->end(); i++ )
-    {
-        QString newFileNameFull = *i;
-
-        QTableWidgetItem* item = new QTableWidgetItem( newFileNameFull );
-        item->setCheckState( Qt::Unchecked );
-
-        QString newFileName = QFileInfo( newFileNameFull ).fileName();
-
-        for( int i = 0; i < films->size(); i++ )
+        for( QString newFilePath : fileNames )
         {
-            QString unavailFileNameFull = films->at(i)->GetFileName();
-            QString unavailFileName = QFileInfo( unavailFileNameFull ).fileName();
+            QString newFileName = QFileInfo( newFilePath ).fileName();
 
-            if( newFileName == unavailFileName
-                    && newFileNameFull != unavailFileNameFull ) // Protection from multiple moving
+            if( newFileName == unavailFileName && newFilePath != unavailFilePath ) // Protection from multiple moving
             {
-                twFounded->setRowCount( twFounded->rowCount() + 1 );
-                twFounded->setItem( row++, 0, item );
+                QTableWidgetItem* item = new QTableWidgetItem();
+                item->setData( Qt::DisplayRole, newFilePath );
+                item->setData( Qt::UserRole, qVariantFromValue( (void*)film ) );
+                gbFounded->AppendItem( item );
+
+                fileNames.removeOne( newFilePath );
                 break;
             }
         }
     }
 
-    lTotalFounded->setText( QString::number( row ) );
-    delete fileNames;
-}
-
-void MovedFilmsWindow::SelectAll()
-{
-    for( int i = 0; i < twFounded->rowCount(); i++ )
+    if( gbFounded->GetItemsCount() == 0 )
     {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-        item->setCheckState( Qt::Checked );
-    }
-}
-
-void MovedFilmsWindow::UnselectAll()
-{
-    for( int i = 0; i < twFounded->rowCount(); i++ )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-        item->setCheckState( Qt::Unchecked );
-    }
-}
-
-void MovedFilmsWindow::InvertSelection()
-{
-    for( int i = 0; i < twFounded->rowCount(); i++ )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
-        if( item->checkState() == Qt::Unchecked )
-        {
-            item->setCheckState( Qt::Checked );
-        }
-        else
-        {
-            item->setCheckState( Qt::Unchecked );
-        }
-    }
-}
-
-void MovedFilmsWindow::CalculateSelected()
-{
-    int count = 0;
-
-    for( int i = 0; i < twFounded->rowCount(); i++ )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
-        if( item->checkState() == Qt::Checked )
-        {
-            count++;
-        }
+        QMessageBox::information( this, tr( "Moved films" ), tr( "Nothing was found." ) );
     }
 
-    lSelected->setText( QString::number( count ) );
+    DebugPrintFuncDone( "MovedFilmsWindow::ShowFounded" );
 }
+
 
 void MovedFilmsWindow::MoveSelected()
 {
-    QList<QString> newPathes;
-
-    for( int i = 0; i < twFounded->rowCount(); i++ )
+    if( lSelected->text().toInt() == 0 )
     {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
+        QMessageBox::information( this, tr( "Moved films" ), tr( "First select the files to move." ) );
+    }
 
+    for( QTableWidgetItem* item : gbFounded->GetItems() )
+    {
         if( item->checkState() == Qt::Checked )
         {
-            // Saving new pathes
-            newPathes.append( twFounded->item( i, 0 )->text() );
-            // Removing checked rows
-            twFounded->removeRow( i-- );
+              // Uncheck and disable
+            item->setCheckState( Qt::Unchecked );
+            item->setFlags( Qt::NoItemFlags );
+            item->setBackgroundColor( existedFileColor );
+
+              // Change filename
+            FilmItem* film = (FilmItem*) item->data( Qt::UserRole ).value<void*>();
+            film->SetColumnData( FilmItem::FileNameColumn, item->text() );
+            film->SetIsFileExists( FilmItem::Exists );
+
+            gbFounded->ScrollToItem( item );
+            unavailableFilms.removeOne( film );
         }
     }
 
-    if( newPathes.empty() )
-    {
-        QMessageBox::information( this,
-                                  tr( "Moved films" ),
-                                  tr( "First select the files to move." ) );
-    }
-    else
-    {
-        for( int i = 0; i < newPathes.size(); i++ )
-        {
-            QString newFileName = QFileInfo( newPathes.at( i ) ).fileName();
-
-            for( int j = 0; j < films->size(); j++ )
-            {
-                QString oldFileName = QFileInfo( films->at( j )->GetFileName() ).fileName();
-
-                if( newFileName == oldFileName )
-                {
-                    // Setting new file path
-                    films->at( j )->SetFileName( newPathes.at( i ) );
-                    break;
-                }
-            }
-        }
-
-        emit FilmsMoved();
-    }
-
-    lTotalFounded->setText( QString::number( twFounded->rowCount() ) );
     lSelected->setText( "0" );
+    emit FilmsMoved();
 }
+

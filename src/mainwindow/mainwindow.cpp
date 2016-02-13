@@ -23,6 +23,7 @@
 #include "filmsview/grid/filmsviewgrid.h"
 #include "filmsview/list/filmsviewlist.h"
 #include "scanner/filmscannerwindow.h"
+#include "scanner/movedfilmswindow.h"
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 #include "tools/playlist.h"
@@ -522,6 +523,32 @@ void MainWindow::ShowFilmScannerWindow()
     filmScannerWindow->show();
 }
 
+void MainWindow::ShowMovedFilmsWindow()
+{
+    QList<FilmItem*> films;
+
+    for( int row = 0; row < filmsListModel->GetFilmsCount(); ++row )
+    {
+        FilmItem* film = static_cast<FilmItem*>( filmsListModel->index( row, 0 ).internalPointer() );
+
+        if( film->GetIsFileExists() == FilmItem::NotExists )
+        {
+            films.append( film );
+        }
+    }
+
+    if( films.isEmpty() )
+    {
+        QMessageBox::information( this, tr( "Moved films" ), tr( "Nothing to move." ) );
+    }
+    else
+    {
+        MovedFilmsWindow* movedFilmsWindow = new MovedFilmsWindow( this );
+        movedFilmsWindow->SetUnavailableFilms( films );
+        movedFilmsWindow->show();
+    }
+}
+
 
 void MainWindow::SelectRandomFilm()
 {
@@ -694,12 +721,7 @@ void MainWindow::SetupWindows()
     connect( toolbar,           &ToolBar::actionFilmScanner, this, &MainWindow::ShowFilmScannerWindow );
 
         /// Moved films window
-//    movedFilmsWindow = new MovedFilmsWindow( this );
-
-//    connect( actionMovedFilms, &QAction::triggered, this, &MainWindow::MovedFilms );
-
-//    connect( movedFilmsWindow, &MovedFilmsWindow::FilmsMoved, this, &MainWindow::ShowFilms );
-//    connect( movedFilmsWindow, &MovedFilmsWindow::FilmsMoved, filmsListModel, &FilmsListModel::FilmsMoved );
+    connect( actionMovedFilms, &QAction::triggered, this, &MainWindow::ShowMovedFilmsWindow );
 
         /// Statistic window
 //    statisticsWindow = new StatisticsWindow( this );

@@ -40,9 +40,11 @@ class FoundedListWidget : public QWidget, public Ui::FoundedListWidget
 
         void ScrollToItem( QTableWidgetItem* item ) { twFounded->scrollToItem( item, QAbstractItemView::PositionAtCenter ); }
 
+        int GetItemsCount() const { return( twFounded->rowCount() ); }
         QList<QTableWidgetItem*> GetItems() const;
 
     signals:
+        void ItemsCountChanged( int newCount );
         void SelectionChanged( int selectedCount );
 
     private slots:

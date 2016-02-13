@@ -26,7 +26,6 @@
 #include "filmslist/filmslistproxymodel.h"
 #include "filmsview/abstractfilmsview.h"
 #include "filmsview/filmsviewcontextmenu.h"
-//#include "scanner/movedfilmswindow.h"
 #include "search/searchedit.h"
 //#include "search/searchwindow.h"
 #include "aboutwindow.h"
@@ -97,7 +96,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void ShowTechInfoWindow();
 
         void ShowFilmScannerWindow();
-//        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailablesList() ); }
+        void ShowMovedFilmsWindow();
 //        void Statistics() { statisticsWindow->show( filmsList->GetFilmsList() ); }
 
         void SetCurrentFilmIsViewed() { ToggleCurrentFilmValue( FilmItem::IsViewedColumn ); }
@@ -128,7 +127,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         // Child windows
         AboutWindow* aboutWindow;
-//        MovedFilmsWindow* movedFilmsWindow = nullptr;
 //        SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
 //        StatisticsWindow* statisticsWindow = nullptr;

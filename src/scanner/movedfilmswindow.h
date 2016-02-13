@@ -3,7 +3,7 @@
  *  file: movedfilmswindow.h                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,12 +21,15 @@
 #ifndef MOVEDFILMSWINDOW_H
 #define MOVEDFILMSWINDOW_H
 
+
 #include <QDialog>
 #include <QList>
 
-#include "filmslist/film.h"
+
+#include "filmslist/filmitem.h"
 #include "filmscannerworker.h"
 #include "ui_movedfilmswindow.h"
+
 
 class MovedFilmsWindow : public QDialog, protected Ui::MovedFilmsWindow
 {
@@ -36,31 +39,25 @@ class MovedFilmsWindow : public QDialog, protected Ui::MovedFilmsWindow
         explicit MovedFilmsWindow( QWidget* parent = nullptr );
         virtual ~MovedFilmsWindow();
 
-        void show( QList<Film*>* f );
+        void SetUnavailableFilms( QList<FilmItem*> films ) { unavailableFilms = films; }
 
     signals:
         void FilmsMoved();
 
-    protected:
-        void reject() override { close(); }
-        void closeEvent( QCloseEvent* event ) override;
-
     private slots:
         void SelectDirectory();
-
         void Scan();
-        void ShowFounded( QList<QString>* fileNames );
 
-        void SelectAll();
-        void UnselectAll();
-        void InvertSelection();
-        void CalculateSelected();
-
+        void ShowFounded( QStringList fileNames );
         void MoveSelected();
 
     private:
-        QList<Film*>* films = nullptr;
-        FilmScannerWorker* filmScannerWorker = nullptr;
+        FilmScannerWorker* filmScannerWorker;
+        QList<FilmItem*> unavailableFilms;
+
+        const QColor existedFileColor = QColor( 0, 255, 0, 40 ); // Light green
 };
 
+
 #endif // MOVEDFILMSWINDOW_H
+

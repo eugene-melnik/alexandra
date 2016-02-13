@@ -103,9 +103,7 @@
     </layout>
    </item>
    <item>
-    <widget class="FoundedListWidget" name="gbFounded" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout"/>
-    </widget>
+    <widget class="FoundedListWidget" name="gbFounded" native="true"/>
    </item>
    <item>
     <widget class="QCheckBox" name="cSearchForPoster">
