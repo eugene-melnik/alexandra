@@ -56,8 +56,7 @@ void FilmTechInfoView::ShowInformation( const QModelIndex& index )
 
         if( film->GetIsFileExists() == FilmItem::Exists )
         {
-            QString fileName = film->GetColumnData( FilmItem::FileNameColumn ).toString();
-            std::thread( &FilmTechInfoView::LoadTechnicalInfo, this, fileName ).detach();
+            std::thread( &FilmTechInfoView::LoadTechnicalInfo, this, film->GetFileName() ).detach();
         }
         else
         {

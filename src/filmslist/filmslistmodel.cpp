@@ -193,7 +193,7 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
                 {
                     if( item->GetIsFileExists() == FilmItem::Unknown )
                     {
-                        bool isExists = QFile::exists( item->GetColumnData( FilmItem::FileNameColumn ).toString() );
+                        bool isExists = QFile::exists( item->GetFileName() );
                         item->SetIsFileExists( isExists ? FilmItem::Exists : FilmItem::NotExists );
                     }
 
@@ -404,7 +404,7 @@ QModelIndex FilmsListModel::GetFilmIndex( const QString& title )
     {
         FilmItem* film = rootItem->GetChild(i);
 
-        if( title == film->GetColumnData(FilmItem::TitleColumn).toString() )
+        if( title == film->GetTitle() )
         {
             return( index( i, 0 ) );
         }

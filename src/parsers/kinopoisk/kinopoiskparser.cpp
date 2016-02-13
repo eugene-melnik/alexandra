@@ -50,7 +50,7 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
     QRegExp reTitle( "class=\"moviename-big\".*>(.*)</h1>" );
     film.SetColumnData( FilmItem::TitleColumn, RegExpTools::ParseItem( str, reTitle ) );
 
-    if( !film.GetColumnData( FilmItem::TitleColumn ).toString().isEmpty() )
+    if( !film.GetTitle().isEmpty() )
     {
           // Original title
         QRegExp reOriginalTitle( "itemprop=\"alternativeHeadline\">(.*)</span>" );

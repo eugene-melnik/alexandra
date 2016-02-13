@@ -20,8 +20,6 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void LoadSettings() override { ReloadSettings(); }
         void ReloadSettings() override;
 
-        void ScrollToCurrentItem() override { scrollTo( currentIndex() ); }
-
         int GetRowCount() { return( proxyModel->rowCount() ); }
         QModelIndex GetCurrentIndex() { return( proxyModel->mapToSource( currentIndex() ) ); }
         QModelIndexList GetSelectedItemsList();

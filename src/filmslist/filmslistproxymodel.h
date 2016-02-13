@@ -28,7 +28,7 @@ class FilmsListProxyModel : public QSortFilterProxyModel
 
             if( film != nullptr )
             {
-                return( film->GetColumnData( FilmItem::TitleColumn ).toString() );
+                return( film->GetTitle() );
             }
             else
             {

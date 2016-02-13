@@ -145,7 +145,6 @@ void MainWindow::QuickSearchEscBehavior()
     }
 
     view->setFocus();
-    filmsView->ScrollToCurrentItem();
 }
 
 
@@ -255,9 +254,7 @@ void MainWindow::AddToPlaylist()
 
             if( isExists )
             {
-                QString filmTitle = film->GetColumnData( FilmItem::TitleColumn ).toString();
-                QString filmFileName = film->GetColumnData( FilmItem::FileNameColumn ).toString();
-                lwPlaylist->AddItem( filmTitle, filmFileName );
+                lwPlaylist->AddItem( film->GetTitle(), film->GetFileName() );
             }
         }
     }
@@ -465,14 +462,13 @@ void MainWindow::ShowRemoveFileWindow()
 {
     QModelIndex index = filmsView->GetCurrentIndex();
     const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex( index );
-    QString filmTitle = film->GetColumnData( FilmItem::TitleColumn ).toString();
 
     int answer = QMessageBox::question( this, tr( "Remove file" ),
-                                        tr( "Are you sure to remove file \"%1\"?" ).arg( filmTitle ) );
+                                        tr( "Are you sure to remove file \"%1\"?" ).arg( film->GetTitle() ) );
 
     if( answer == QMessageBox::Yes )
     {
-        QString filmFileName = film->GetColumnData( FilmItem::FileNameColumn ).toString();
+        QString filmFileName = film->GetFileName();
 
         if( QFile(filmFileName).remove() )
         {
@@ -504,7 +500,7 @@ void MainWindow::ShowTechInfoWindow()
     filmInfoWindow->show();
 
     const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()); /// get film from view (?)
-    filmInfoWindow->LoadTechnicalInfoAsync( film->GetColumnData( FilmItem::FileNameColumn ).toString() );
+    filmInfoWindow->LoadTechnicalInfoAsync( film->GetFileName() );
 }
 
 
@@ -578,7 +574,7 @@ void MainWindow::SelectRandomFilm()
 void MainWindow::AddFilmDone( FilmItem* film )
 {
     filmsListModel->AddFilmItem( film );
-    SetCurrentFilmByTitle( film->GetColumnData(FilmItem::TitleColumn).toString() );
+    SetCurrentFilmByTitle( film->GetTitle() );
     SetAllFunctionsEnabled( true ); // If model was empty
 }
 

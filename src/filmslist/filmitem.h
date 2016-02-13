@@ -119,6 +119,9 @@ class FilmItem
         Existing GetIsFileExists() const { return( isFileExists ); }
         Existing GetIsPosterExists() const { return( isPosterExists ); }
 
+        QString GetTitle() const { return( columnsData.at(TitleColumn).toString() ); }
+        QString GetFileName() const { return( columnsData.at(FileNameColumn).toString() ); }
+
           // Static
 
         static QString GetRandomHash();

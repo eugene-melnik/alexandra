@@ -325,7 +325,7 @@ void AddFilmWindow::InformationLoaded( const FilmItem& film, const QString& post
 
     if( eTitle->text().isEmpty() )
     {
-        eTitle->setText( film.GetColumnData( FilmItem::TitleColumn ).toString() );
+        eTitle->setText( film.GetTitle() );
     }
 
     eOriginalTitle->setText( film.GetColumnData( FilmItem::OriginalTitleColumn ).toString() );

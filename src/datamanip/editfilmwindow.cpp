@@ -39,7 +39,7 @@ void EditFilmWindow::SetData( const FilmItem* film )
         posterFileName = settings->GetPostersDirPath() + "/" + film->GetFilmId();
     }
 
-    eFilmFileName->setText( film->GetColumnData( FilmItem::FileNameColumn ).toString() );
+    eFilmFileName->setText( film->GetFileName() );
     eTags->setPlainText( film->GetColumnData( FilmItem::TagsColumn ).toString() );
     cIsViewed->setChecked( film->GetColumnData( FilmItem::IsViewedColumn ).toBool() );
     cIsFavourite->setChecked( film->GetColumnData( FilmItem::IsFavouriteColumn ).toBool() );

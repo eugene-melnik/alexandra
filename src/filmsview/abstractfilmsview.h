@@ -34,8 +34,6 @@ class AbstractFilmsView
         virtual void ReloadSettings() {}
         virtual void SaveSettings() const {}
 
-        virtual void ScrollToCurrentItem() = 0; ///
-
         virtual int GetRowCount() = 0;
         virtual QModelIndex GetCurrentIndex() = 0;
         virtual QModelIndexList GetSelectedItemsList() = 0;
@@ -44,7 +42,6 @@ class AbstractFilmsView
         virtual void SetCurrentRow( int r ) = 0;
 
 //        virtual void SetCurrentItemTo( const Film film ) = 0;
-//        virtual void SelectRandomItem() = 0; /* TODO: Maybe need to move to another place */
 //        virtual QStringList GetSelectedItemsList() const = 0;
 
 //    signals:

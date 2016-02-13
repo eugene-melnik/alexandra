@@ -69,8 +69,8 @@ class AbstractParser : public QObject
             if( filmSaveTo != nullptr )
             {
                   // We must to save these fields
-                QString title = filmSaveTo->GetColumnData( FilmItem::TitleColumn ).toString();
-                QString fileName = filmSaveTo->GetColumnData( FilmItem::FileNameColumn ).toString();
+                QString title = filmSaveTo->GetTitle();
+                QString fileName = filmSaveTo->GetFileName();
 
                 *filmSaveTo = film;
 
