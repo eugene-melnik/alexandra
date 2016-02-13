@@ -3,7 +3,7 @@
  *  file: filesextensions.h                                                                       *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,31 +21,30 @@
 #ifndef FILESEXTENSIONS_H
 #define FILESEXTENSIONS_H
 
+
 #include <QStringList>
 
-// This class contains a listing of all currently supported file formats
+
+/**
+ * @brief This class contains a listing of all currently supported file formats
+ */
 
 class FilesExtensions
 {
     public:
-        FilesExtensions() = default;
+        static QString GetFilmExtensionsForFilter();
+        static QString GetImageExtensionsForFilter();
 
-        QString GetFilmExtensionsForFilter() const;
-        QString GetImageExtensionsForFilter() const;
+        static const QStringList& GetFilmExtensionsForDirFilter() { return( videos ); }
+        static const QStringList& GetImageExtensionsForDirFilter() { return( images ); }
 
-        const QStringList& GetFilmExtensionsForDirFilter() const { return( videos ); }
-        const QStringList& GetImageExtensionsForDirFilter() const { return( images ); }
-
-        QString SearchForEponymousImage( const QString& fileName ) const;
+        static QString SearchForEponymousImage( const QString& fileName );
 
     private:
-        const QStringList videos = { "*.avi",  "*.bik", "*.divx", "*.dv",  "*.flv",  "*.m1v",  "*.m2t",
-                                     "*.m2ts", "*.m2v", "*.m4v",  "*.mkv", "*.mov",  "*.mp4",  "*.mpv",
-                                     "*.mpeg", "*.mpg", "*.mts",  "*.ogm", "*.ogv",  "*.ogx",  "*.rm",
-                                     "*.ts",   "*.vcd", "*.vob",  "*.vp8", "*.webm", "*.wmv" };
-
-        const QStringList images = { "*.bmp", "*.gif", "*.jpg", "*.jpeg", "*.png",
-                                     "*.pbm", "*.pgm", "*.ppm", "*.xbm",  "*.xpm" };
+        static QStringList videos;
+        static QStringList images;
 };
 
+
 #endif // FILESEXTENSIONS_H
+

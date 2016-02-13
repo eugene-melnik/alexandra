@@ -122,7 +122,7 @@ class FilmItem
           // Static
 
         static QString GetRandomHash();
-        static QString ClearTitle( const QString& title );
+        static QString GetClearedTitle( const QString& title, int* year = nullptr );
 
     private:
         FilmItem* parentItem = nullptr;

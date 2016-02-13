@@ -3,7 +3,7 @@
  *  file: filmscannerworker.cpp                                                                   *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -25,12 +25,13 @@
 #include <QFileInfo>
 #include <memory>
 
+
 void FilmScannerWorker::run()
 {
     isCanceled = false;
     isTerminated = false;
 
-    QList<QString>* result = new QList<QString>();
+    QStringList result;
 
     if( isRecursive )
     {
@@ -47,37 +48,39 @@ void FilmScannerWorker::run()
     }
 }
 
-QList<QString>* FilmScannerWorker::ScanDirectory( const QString& dir )
+
+QStringList FilmScannerWorker::ScanDirectory( const QString& dir )
 {
-    QList<QString>* result = new QList<QString>();
+    QStringList result;
     QFileInfoList files = QDir( dir ).entryInfoList( FilesExtensions().GetFilmExtensionsForDirFilter() );
 
-    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
+    for( const QFileInfo& fileInfo : files )
     {
-        if( isCanceled ) break; // Scanning canceled
+        if( isCanceled ) break;
 
-        result->append( i->absoluteFilePath() );
+        result.append( fileInfo.absoluteFilePath() );
         emit IncFoundedTotal();
     }
 
     return( result );
 }
 
-QList<QString>* FilmScannerWorker::ScanDirectoryRecursive( const QString& dir )
-{
-    // Scan files in directory
-    QList<QString>* result = ScanDirectory( dir );
 
-    // Scan files in subdirectories recursively
+QStringList FilmScannerWorker::ScanDirectoryRecursive( const QString& dir )
+{
+      // Scan files in directory
+    QStringList result = ScanDirectory( dir );
+
+      // Scan files in subdirectories recursively
     QFileInfoList files = QDir( dir ).entryInfoList( QDir::NoDotAndDotDot | QDir::Dirs );
 
-    for( QList<QFileInfo>::iterator i = files.begin(); i < files.end(); i++ )
+    for( const QFileInfo& filmInfo : files )
     {
-        if( isCanceled ) break; // Scanning canceled
+        if( isCanceled ) break;
 
-        std::unique_ptr<QList<QString>> subdirFiles( ScanDirectoryRecursive( i->absoluteFilePath() ) );
-        result->append( *subdirFiles );
+        result.append( ScanDirectoryRecursive( filmInfo.absoluteFilePath() ) );
     }
 
     return( result );
 }
+

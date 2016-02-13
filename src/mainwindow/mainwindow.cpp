@@ -22,6 +22,7 @@
 #include "datamanip/editfilmwindow.h"
 #include "filmsview/grid/filmsviewgrid.h"
 #include "filmsview/list/filmsviewlist.h"
+#include "scanner/filmscannerwindow.h"
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 #include "tools/playlist.h"
@@ -382,7 +383,6 @@ void MainWindow::ShowAddFilmWindow()
 {
     AddFilmWindow* addFilmWindow = new AddFilmWindow( this );
     connect( addFilmWindow, &AddFilmWindow::Done, this, &MainWindow::AddFilmDone );
-
     addFilmWindow->show();
 }
 
@@ -390,7 +390,6 @@ void MainWindow::ShowEditFilmWindow()
 {
     EditFilmWindow* editFilmWindow = new EditFilmWindow( this );
     connect( editFilmWindow, &EditFilmWindow::Done, this, &MainWindow::EditFilmDone );
-
     editFilmWindow->SetData( filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()) );
     editFilmWindow->show();
 }
@@ -505,6 +504,22 @@ void MainWindow::ShowTechInfoWindow()
 }
 
 
+void MainWindow::ShowFilmScannerWindow()
+{
+    QStringList fileNames;
+
+    for( int row = 0; row < filmsListModel->GetFilmsCount(); ++row )
+    {
+        fileNames.append( filmsListModel->index( row, FilmItem::FileNameColumn ).data().toString() );
+    }
+
+    FilmScannerWindow* filmScannerWindow = new FilmScannerWindow( this );
+    connect( filmScannerWindow, &FilmScannerWindow::AddFilm, this, &MainWindow::AddFilmDone );
+    filmScannerWindow->SetExistedFileNames( fileNames );
+    filmScannerWindow->show();
+}
+
+
 void MainWindow::SelectRandomFilm()
 {
     DebugPrintFunc( "MainWindow::SelectRandomFilm" );
@@ -516,10 +531,7 @@ void MainWindow::SelectRandomFilm()
         int currentRow = filmsView->GetCurrentIndex().row();
         int newRow;
 
-        do
-        {
-            newRow = qrand() % count;
-        }
+        do { newRow = qrand() % count; }
         while( newRow == currentRow );
 
         filmsView->SetCurrentRow( newRow );
@@ -537,7 +549,7 @@ void MainWindow::AddFilmDone( FilmItem* film )
 {
     filmsListModel->AddFilmItem( film );
     SetCurrentFilmByTitle( film->GetColumnData(FilmItem::TitleColumn).toString() );
-    SetAllFunctionsEnabled( true );  // If model was empty
+    SetAllFunctionsEnabled( true ); // If model was empty
 }
 
 
@@ -686,12 +698,8 @@ void MainWindow::SetupWindows()
     connect( settingsWindow, &SettingsWindow::EraseDatabase,           filmsListModel, &FilmsListModel::EraseAll );
 
         /// Film scanner window
-//    filmScannerWindow = new FilmScannerWindow( this );
-
-//    connect( actionFilmScanner, &QAction::triggered, this, &MainWindow::FilmScanner );
-//    connect( toolbar, &ToolBar::actionFilmScanner, this, &MainWindow::FilmScanner );
-
-//    connect( filmScannerWindow, &FilmScannerWindow::AddFilms, this, &MainWindow::AddFilmsDone );
+    connect( actionFilmScanner, &QAction::triggered,         this, &MainWindow::ShowFilmScannerWindow );
+    connect( toolbar,           &ToolBar::actionFilmScanner, this, &MainWindow::ShowFilmScannerWindow );
 
         /// Moved films window
 //    movedFilmsWindow = new MovedFilmsWindow( this );

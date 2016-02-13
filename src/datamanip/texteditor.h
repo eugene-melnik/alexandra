@@ -22,6 +22,7 @@ class TextEditor : public QDialog, protected Ui::TextEditor
 
     protected:
         void closeEvent( QCloseEvent* event ) override;
+        void reject() override { close(); }
 
     protected:
         void SetIsTextChanged() { isTextChanged = true; }

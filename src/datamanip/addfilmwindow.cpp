@@ -75,43 +75,36 @@ AddFilmWindow::~AddFilmWindow()
 
 void AddFilmWindow::OpenFilm()
 {
-    DebugPrintFunc( "AddFilmWindow::OpenFilm" );
+    QString openPath = eFilmFileName->text();
 
-      // Set path to the file depending on the settings
-      // or the selected movie (if already selected)
-    QString openPath = settings->GetLastFilmPath();
-
-    if( !eFilmFileName->text().isEmpty() )
+    if( openPath.isEmpty() )
     {
-        openPath = eFilmFileName->text();
+        openPath = settings->GetLastFilmPath();
     }
 
-      // Open file dialog
     QFileInfo fileName = QFileDialog::getOpenFileName( this, tr( "Select film" ), openPath,
-                                                       tr( "Video files (%1)" ).arg( FilesExtensions().GetFilmExtensionsForFilter() ) );
+                                                       tr( "Video files (%1)" ).arg( FilesExtensions::GetFilmExtensionsForFilter() ) );
 
     if( fileName.isFile() )
     {
-          // If a file is selected set the file name, title and the year (if presents
-          // in file name) of the film (with the replacement of characters '_' to spaces)
         eFilmFileName->setText( fileName.absoluteFilePath() );
+
+          // Set the file name, title and year (if presents in file name)
         QString title = fileName.completeBaseName();
+        int year;
 
         if( eTitle->text().isEmpty() )
         {
-            eTitle->setText( FilmItem::ClearTitle( title ) );
+            eTitle->setText( FilmItem::GetClearedTitle( title, &year ) );
         }
-
-        QRegExp regexp( "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])" ); // Years between 1850 and 2019
-        regexp.indexIn( title );
 
         if( sbYear->value() == sbYear->minimum() )
         {
-            sbYear->setValue( regexp.cap(1).toInt() );
+            sbYear->setValue( year );
         }
 
           // Setting the path to the image file, if found in the same directory
-        QString posterFileName = FilesExtensions().SearchForEponymousImage( fileName.absoluteFilePath() );
+        QString posterFileName = FilesExtensions::SearchForEponymousImage( fileName.absoluteFilePath() );
 
         if( !posterFileName.isEmpty() )
         {
@@ -127,14 +120,12 @@ void AddFilmWindow::OpenFilm()
 
 void AddFilmWindow::OpenPosterFileClicked()
 {
-    DebugPrintFunc( "AddFilmWindow::OpenPosterFileClicked" );
-
     if( ePosterFileName->text().isEmpty() ) // If poster isn't selected
     {
         DebugPrint( "Selecting new poster" );
 
         QFileInfo fileName = QFileDialog::getOpenFileName( this, tr( "Select image" ), settings->GetLastPosterPath(),
-                                                           tr( "Images (%1)" ).arg( FilesExtensions().GetImageExtensionsForFilter() ) );
+                                                           tr( "Images (%1)" ).arg( FilesExtensions::GetImageExtensionsForFilter() ) );
 
         if( fileName.isFile() )
         {
@@ -157,9 +148,9 @@ void AddFilmWindow::OpenPosterFileClicked()
 
         if( posterPath == postersDirPath )
         {
-            int res = QMessageBox::question( this, tr( "Clear poster" ), tr( "Remove image file?" ) );
+            int answer = QMessageBox::question( this, tr( "Clear poster" ), tr( "Remove image file?" ) );
 
-            if( res == QMessageBox::Yes )
+            if( answer == QMessageBox::Yes )
             {
                 if( !CanBeSaved() ) return;
 
@@ -352,7 +343,6 @@ void AddFilmWindow::InformationLoaded( const FilmItem& film, const QString& post
     eComposer->setText( film.GetColumnData( FilmItem::ComposerColumn ).toString() );
 
     lStarringText->setText( film.GetColumnData( FilmItem::StarringColumn ).toString() );
-
     lDescriptionText->setText( film.GetColumnData( FilmItem::DescriptionColumn ).toString() );
 
     bLoad->setEnabled( true );
@@ -366,6 +356,7 @@ void AddFilmWindow::InformationLoadError( const QString& error )
 {
     bLoad->setEnabled( true );
     progressBar->hide();
+
     QMessageBox::warning( this, tr( "Loading information" ), tr( "Error!\n%1" ).arg( tr( error.toUtf8() ) ) );
 
     if( sbYear->value() != sbYear->minimum() )

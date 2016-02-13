@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: filmscanneraddworker.h                                                                  *
+ *  file: foundedlistwidget.h                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,51 +18,39 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FILMSCANNERADDWORKER_H
-#define FILMSCANNERADDWORKER_H
+#ifndef FOUNDEDLISTWIDGET_H
+#define FOUNDEDLISTWIDGET_H
 
 
-#include "alexandrasettings.h"
-#include "filmslist/filmitem.h"
+#include "ui_foundedlistwidget.h"
 
 
-#include <QList>
-#include <QMetaType>
-#include <QStringList>
-#include <QTableWidget>
-#include <QThread>
+#include <QWidget>
 
 
-class FilmScannerAddWorker : public QThread
+class FoundedListWidget : public QWidget, public Ui::FoundedListWidget
 {
     Q_OBJECT
 
     public:
-        FilmScannerAddWorker();
+        explicit FoundedListWidget( QWidget* parent = nullptr );
 
-        void SetFoundedFilms( QStringList founded ) { foundedFilms = founded; }
-        void SetLoadInformation( bool b ) { loadInformation = b; }
-        void SetSearchForPoster( bool b ) { searchForPoster = b; }
+        void AppendItem( QTableWidgetItem* item );
+        void Clear();
 
-        void Cancel() { isCanceled = true; }
+        void ScrollToItem( QTableWidgetItem* item ) { twFounded->scrollToItem( item, QAbstractItemView::PositionAtCenter ); }
+
+        QList<QTableWidgetItem*> GetItems() const;
 
     signals:
-        void FilmCreated( FilmItem* );
+        void SelectionChanged( int selectedCount );
 
-    protected:
-        void run() override;
-
-    private:
-        bool SavePosterTo( QString sourceName, QString destinationName );
-
-        QStringList foundedFilms;
-        bool loadInformation;
-        bool searchForPoster;
-        bool isCanceled;
-
-        AlexandraSettings* settings;
+    private slots:
+        void SelectAll();
+        void UnselectAll();
+        void InvertSelection();
+        void CalculateSelected();
 };
 
 
-#endif // FILMSCANNERADDWORKER_H
-
+#endif // FOUNDEDLISTWIDGET_H

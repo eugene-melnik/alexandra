@@ -26,7 +26,6 @@
 #include "filmslist/filmslistproxymodel.h"
 #include "filmsview/abstractfilmsview.h"
 #include "filmsview/filmsviewcontextmenu.h"
-//#include "scanner/filmscannerwindow.h"
 //#include "scanner/movedfilmswindow.h"
 #include "search/searchedit.h"
 //#include "search/searchwindow.h"
@@ -88,10 +87,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void PlayerStarted();
         void PlayerClosed();
 
-//        void FilmScanner() { filmScannerWindow->show( filmsList->GetFileNamesList() ); }
-//        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailablesList() ); }
-//        void Statistics() { statisticsWindow->show( filmsList->GetFilmsList() ); }
-
         void ShowSplashscreen();
 
         void ShowAddFilmWindow();
@@ -100,6 +95,10 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void ShowRemoveFileWindow();
 
         void ShowTechInfoWindow();
+
+        void ShowFilmScannerWindow();
+//        void MovedFilms() { movedFilmsWindow->show( filmsList->GetUnavailablesList() ); }
+//        void Statistics() { statisticsWindow->show( filmsList->GetFilmsList() ); }
 
         void SetCurrentFilmIsViewed() { ToggleCurrentFilmValue( FilmItem::IsViewedColumn ); }
         void SetCurrentFilmIsFavourite() { ToggleCurrentFilmValue( FilmItem::IsFavouriteColumn ); }
@@ -130,7 +129,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         // Child windows
         AboutWindow* aboutWindow;
-//        FilmScannerWindow* filmScannerWindow = nullptr;
 //        MovedFilmsWindow* movedFilmsWindow = nullptr;
 //        SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;

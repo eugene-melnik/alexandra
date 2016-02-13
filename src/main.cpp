@@ -28,7 +28,6 @@
 #include <QLocale>
 #include <QTextCodec>
 #include <QTranslator>
-#include <QTime>
 #include <QThread>
 
 void LoadLocale( QApplication* app, int localeIndex )
@@ -64,9 +63,6 @@ int main( int argc, char** argv )
 {
     DebugPrintFunc( "::main" );
     DebugPrint( QString( "IdealThreadCount = %1" ).arg( QThread::idealThreadCount() ) );
-
-      // Create seed for the random
-    qsrand( QTime::currentTime().msecsSinceStartOfDay() );
 
       // Configure application
     QApplication::setOrganizationName( Alexandra::orgName );

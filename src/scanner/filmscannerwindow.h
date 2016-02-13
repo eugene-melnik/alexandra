@@ -3,7 +3,7 @@
  *  file: filmscannerwindow.h                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,13 +21,16 @@
 #ifndef FILMSCANNERWINDOW_H
 #define FILMSCANNERWINDOW_H
 
+
 #include <QDialog>
-#include <QList>
 #include <QStringList>
 
+
+#include "alexandrasettings.h"
 #include "filmscannerworker.h"
 #include "filmscanneraddworker.h"
 #include "ui_filmscannerwindow.h"
+
 
 class FilmScannerWindow : public QDialog, protected Ui::FilmScannerWindow
 {
@@ -37,35 +40,31 @@ class FilmScannerWindow : public QDialog, protected Ui::FilmScannerWindow
         explicit FilmScannerWindow( QWidget* parent = nullptr );
         virtual ~FilmScannerWindow();
 
-        void show( QStringList* l );
+        void SetExistedFileNames( QStringList list ) { existedFileNames = list; }
 
     signals:
-        void AddFilms( const QList<Film>* );
-
-    protected:
-        void reject() override { close(); }
-        void closeEvent( QCloseEvent* event ) override;
+        void AddFilm( FilmItem* );
 
     private slots:
         void SelectDirectory();
-
         void Scan();
-        void IncFoundedTotal();
-        void ShowFounded( QList<QString>* fileNames );
-
-        void SelectAll();
-        void UnselectAll();
-        void InvertSelection();
-        void CalculateSelected();
-
         void AddSelected();
-        void FilmsCreated( QList<Film> films );
+
+        void IncFoundedTotal();
+        void ShowFounded( QStringList fileNames );
+        void DisableFilm( FilmItem* film );
 
     private:
-        QStringList* existsFileNames = nullptr;
-        FilmScannerWorker* filmScannerWorker = nullptr;
-        QList<Film>* newFilms = nullptr;
+        QStringList existedFileNames;
+
+        AlexandraSettings* settings;
+        FilmScannerWorker* filmScannerWorker;
+        FilmScannerAddWorker* filmAddWorker;
         int newFilmsCount;
+
+        const QColor existedFileColor = QColor( 0, 255, 0, 40 ); // Light green
 };
 
+
 #endif // FILMSCANNERWINDOW_H
+

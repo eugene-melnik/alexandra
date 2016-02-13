@@ -20,6 +20,9 @@
 
 #include "filmitem.h"
 
+#include <QRegExp>
+#include <QTime>
+
 
 FilmItem::FilmItem() : filmId( GetRandomHash() )
 {
@@ -73,17 +76,23 @@ void FilmItem::RemoveChildren()
 
 QString FilmItem::GetRandomHash()
 {
+    qsrand( QTime::currentTime().msecsSinceStartOfDay() );
     QByteArray hash = QCryptographicHash::hash( QByteArray::number( qrand() ), QCryptographicHash::Sha1 );
     return( QString( hash.toHex() ) );
 }
 
 
-QString FilmItem::ClearTitle( const QString& title )
+QString FilmItem::GetClearedTitle( const QString& title, int* year )
 {
-    QString newTitle = title;
+    QRegExp yearRegexp( "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])" ); // Years between 1850 and 2019
 
-      // List of words (of course not all), which may be present
-      // in the file name, but are not part of the title
+    if( year != nullptr )
+    {
+        yearRegexp.indexIn( title );
+        *year = yearRegexp.cap(1).toInt();
+    }
+
+      // List of words, which can be presented in the file name, but are not part of the title
     QStringList wordsToRemove =
     {
         "DHT-Movies",  "TheaterRip",  "BlueBird",  "HDTV720",  "HDTVRip",  "NeroAVC",  "UNRATED",  "BluRay",
@@ -92,6 +101,8 @@ QString FilmItem::ClearTitle( const QString& title )
         "JRG",         "MKV",         "MVO",       "Fra",      "Rus",      "Ukr",      "HD"
     };
 
+    QString newTitle = title;
+
     for( const QString& word : wordsToRemove )
     {
         newTitle.replace( word, "", Qt::CaseInsensitive );
@@ -99,7 +110,7 @@ QString FilmItem::ClearTitle( const QString& title )
 
     QStringList regexpsToRemove =
     {
-        "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])", // Years between 1850 and 2019
+        yearRegexp.pattern(),
         "\\[(.+)\\]|\\((.+)\\)",                                // Round and square brackets with the contents
         "\\(\\)|\\[\\]",                                        // Round and square brackets whithout contents
         "\\.|_|\\-",                                            // Dots, underscores and dashes (hyphens)

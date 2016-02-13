@@ -3,7 +3,7 @@
  *  file: filmscannerwindow.cpp                                                                   *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -18,84 +18,79 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "alexandrasettings.h"
 #include "filmscannerwindow.h"
+#include "parsers/parsermanager.h"
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 
 #include <string>
-#include <QCloseEvent>
 #include <QFileDialog>
 #include <QMessageBox>
 
-FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent ), newFilms( new QList<Film>() )
-{
-    setupUi( this );
 
-    // Scanner worker
-    filmScannerWorker = new FilmScannerWorker();
-    connect( filmScannerWorker, &FilmScannerWorker::Scanned, this, &FilmScannerWindow::ShowFounded );
+FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent ),
+    settings( AlexandraSettings::GetInstance() ),
+    filmScannerWorker( new FilmScannerWorker() ),
+    filmAddWorker( new FilmScannerAddWorker() )
+{
+    DebugPrint( "FilmScannerWindow::FilmScannerWindow()" );
+
+    setupUi( this );
+    setAttribute( Qt::WA_DeleteOnClose );
+    eDirectory->setText( settings->GetFilmsScannerLastDir() );
+    progressBar->hide();
+
+      // Scanner worker
+    connect( filmScannerWorker, &FilmScannerWorker::Scanned,         this, &FilmScannerWindow::ShowFounded );
     connect( filmScannerWorker, &FilmScannerWorker::IncFoundedTotal, this, &FilmScannerWindow::IncFoundedTotal );
 
-    // Buttons
+      // Add worker
+    connect( filmAddWorker, &FilmScannerAddWorker::FilmCreated, this, &FilmScannerWindow::AddFilm );
+    connect( filmAddWorker, &FilmScannerAddWorker::FilmCreated, this, &FilmScannerWindow::DisableFilm );
+
+      // Parsers
+    cbSource->addItems( ParserManager().GetAvailableParsers() );
+    cbSource->setCurrentIndex( settings->GetDefaultParserIndex() );
+    cDownloadBigPoster->setChecked( settings->GetParsersLoadBigPoster() );
+    cDownloadMoreInformation->setChecked( settings->GetParsersLoadAdvancedInfo() );
+
+      // Buttons and view
     connect( bSelectDirectory, &QPushButton::clicked, this, &FilmScannerWindow::SelectDirectory );
-    connect( bScan, &QPushButton::clicked, this, &FilmScannerWindow::Scan );
-    connect( bAdd, &QPushButton::clicked, this, &FilmScannerWindow::AddSelected );
+    connect( bScan,            &QPushButton::clicked, this, &FilmScannerWindow::Scan );
+    connect( bAdd,             &QPushButton::clicked, this, &FilmScannerWindow::AddSelected );
 
-    connect( bSelectAll, &QPushButton::clicked, this, &FilmScannerWindow::SelectAll );
-    connect( bSelectAll, &QPushButton::clicked, this, &FilmScannerWindow::CalculateSelected );
-    connect( bUnselectAll, &QPushButton::clicked, this, &FilmScannerWindow::UnselectAll );
-    connect( bUnselectAll, &QPushButton::clicked, this, &FilmScannerWindow::CalculateSelected );
-    connect( bInvertSelection, &QPushButton::clicked, this, &FilmScannerWindow::InvertSelection );
-    connect( bInvertSelection, &QPushButton::clicked, this, &FilmScannerWindow::CalculateSelected );
-
-    connect( twFounded, &QTableWidget::clicked, this, &FilmScannerWindow::CalculateSelected );
+    connect( gbFounded, &FoundedListWidget::SelectionChanged, this, [this] (int count)
+    {
+        lTotalFounded->setText( QString::number(count) );
+    } );
 }
+
 
 FilmScannerWindow::~FilmScannerWindow()
 {
-    delete newFilms;
-    delete filmScannerWorker;
-}
+    DebugPrintFunc( "FilmScannerWindow::~FilmScannerWindow" );
 
-void FilmScannerWindow::show( QStringList* l )
-{
-    DebugPrintFunc( "FilmScannerWindow::show" );
-
-    existsFileNames = l;
-    progressBar->hide();
-    eDirectory->setText( AlexandraSettings::GetInstance()->GetFilmsScannerLastDir() );
-
-    QDialog::show();
-}
-
-void FilmScannerWindow::closeEvent( QCloseEvent* event )
-{
-    // Stop worker if scans
-    if( bScan->text() == tr( "Cancel" ) )
+    if( filmScannerWorker->isRunning() )
     {
         filmScannerWorker->Terminate();
-        bScan->setText( tr( "Scan" ) );
+        filmScannerWorker->wait();
+    }
+    else if( filmAddWorker->isRunning() )
+    {
+        filmAddWorker->Cancel();
+        filmAddWorker->wait();
     }
 
-    // Clear contents
-    eDirectory->clear();
-    cSearchInSubdirs->setChecked( true );
-    twFounded->clearContents();
-    twFounded->setRowCount( 0 );
-    lTotalFounded->setText( "0" );
-    lSelected->setText( "0" );
-    // Temporary data
-    delete existsFileNames;
+    delete filmScannerWorker;
+    delete filmAddWorker;
 
-    event->accept();
+    DebugPrintFuncDone( "FilmScannerWindow::~FilmScannerWindow" );
 }
+
 
 void FilmScannerWindow::SelectDirectory()
 {
-    QString directory = QFileDialog::getExistingDirectory( this,
-                                                           tr( "Select directory for scanning" ),
-                                                           eDirectory->text() );
+    QString directory = QFileDialog::getExistingDirectory( this, tr( "Select directory for scanning" ), eDirectory->text() );
 
     if( !directory.isEmpty() )
     {
@@ -103,236 +98,150 @@ void FilmScannerWindow::SelectDirectory()
     }
 }
 
+
 void FilmScannerWindow::Scan()
 {
     DebugPrintFunc( "FilmScannerWindow::Scan" );
 
-    // If scans
-    if( bScan->text() == tr( "Cancel" ) )
+      // If scans
+    if( filmScannerWorker->isRunning() )
     {
         filmScannerWorker->Cancel();
         return;
     }
 
-    twFounded->clearContents();
-    twFounded->setRowCount( 0 );
+    gbFounded->Clear();
     lTotalFounded->setText( "0" );
 
-    // Messages
+      // Messages
     if( eDirectory->text().isEmpty() )
     {
-        QMessageBox::information( this,
-                                  tr( "Film scanner" ),
-                                  tr( "First select the directory to scan." ) );
+        QMessageBox::information( this, tr( "Film scanner" ), tr( "First select the directory to scan." ) );
         return;
     }
 
-    AlexandraSettings::GetInstance()->SetFilmsScannerLastDir( eDirectory->text() );
+    settings->SetFilmsScannerLastDir( eDirectory->text() );
 
-    // Scan
+      // Scan
     filmScannerWorker->SetIsRecursive( cSearchInSubdirs->isChecked() );
     filmScannerWorker->SetDir( eDirectory->text() );
     filmScannerWorker->start();
 
-    // Flip button
+      // Flip button
+    bScan->setEnabled( true );
     bScan->setText( tr( "Cancel" ) );
     progressBar->show();
+
+    DebugPrintFuncDone( "FilmScannerWindow::Scan" );
 }
 
-void FilmScannerWindow::IncFoundedTotal()
-{
-    bool isOk;
-    int n = lTotalFounded->text().toInt( &isOk ) + 1;
-    if( isOk ) lTotalFounded->setText( QString::number( n ) );
-}
-
-void FilmScannerWindow::ShowFounded( QList<QString>* fileNames )
-{
-    DebugPrintFuncA( "FilmScannerWindow::ShowFounded", fileNames->size() );
-
-    // Flip button
-    bScan->setText( tr( "Scan" ) );
-    progressBar->hide();
-
-    // Messages
-    if( fileNames->empty() )
-    {
-        QMessageBox::information( this,
-                                  tr( "Film scanner" ),
-                                  tr( "Nothing was found." ) );
-        return;
-    }
-
-    // Show
-    lTotalFounded->setText( QString::number( fileNames->size() ) );
-    twFounded->setRowCount( fileNames->size() );
-    int row = 0;
-
-    for( QList<QString>::iterator i = fileNames->begin(); i < fileNames->end(); i++ )
-    {
-        QString fileName = *i;
-
-        QTableWidgetItem* item = new QTableWidgetItem( fileName );
-        item->setCheckState( Qt::Unchecked );
-
-        if( existsFileNames->contains( fileName ) )
-        {
-            item->setBackgroundColor( QColor( 0, 255, 0, 40 ) );
-            item->setFlags( Qt::NoItemFlags );
-        }
-
-        twFounded->setItem( row++, 0, item );
-    }
-
-    delete fileNames;
-}
-
-void FilmScannerWindow::SelectAll()
-{
-    for( int i = 0; i < twFounded->rowCount(); i++ )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
-        if( item->flags() != Qt::NoItemFlags )
-        {
-            item->setCheckState( Qt::Checked );
-        }
-    }
-}
-
-void FilmScannerWindow::UnselectAll()
-{
-    for( int i = 0; i < twFounded->rowCount(); i++ )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
-        if( item->flags() != Qt::NoItemFlags )
-        {
-            item->setCheckState( Qt::Unchecked );
-        }
-    }
-}
-
-void FilmScannerWindow::InvertSelection()
-{
-    for( int i = 0; i < twFounded->rowCount(); i++ )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
-        if( item->flags() != Qt::NoItemFlags )
-        {
-            if( item->checkState() == Qt::Unchecked )
-            {
-                item->setCheckState( Qt::Checked );
-            }
-            else
-            {
-                item->setCheckState( Qt::Unchecked );
-            }
-        }
-    }
-}
-
-void FilmScannerWindow::CalculateSelected()
-{
-    int count = 0;
-
-    for( int i = 0; i < twFounded->rowCount(); i++ )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
-        if( item->checkState() == Qt::Checked )
-        {
-            count++;
-        }
-    }
-
-    lSelected->setText( QString::number( count ) );
-}
 
 void FilmScannerWindow::AddSelected()
 {
     QStringList selectedFilms;
 
-    for( int i = 0; i < twFounded->rowCount(); i++ )
+    for( QTableWidgetItem* item : gbFounded->GetItems() )
     {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
         if( item->checkState() == Qt::Checked )
         {
-            selectedFilms.append( twFounded->item( i, 0 )->text() );
+            selectedFilms.append( item->text() );
         }
     }
 
     if( selectedFilms.empty() ) // Nothing was selected
     {
-        QMessageBox::information( this,
-                                  tr( "Film scanner" ),
-                                  tr( "First select the files to add." ) );
+        QMessageBox::information( this, tr( "Film scanner" ), tr( "First select the files to add." ) );
     }
     else
     {
         newFilmsCount = selectedFilms.size();
+        progressBar->setMaximum( newFilmsCount );
+        progressBar->setValue( 1 );
+
         bAdd->setEnabled( false );
         progressBar->show();
 
-        // Threads create
-        int threadCount = 1; /* QThread::idealThreadCount(); */ // FIXME: Problems in QPixmap::save in multithread
-        int subListLength = selectedFilms.size() / threadCount;
+          // Save parser settings
+        settings->SetDefaultParserIndex( cbSource->currentIndex() );
+        settings->SetParsersLoadBigPoster( cDownloadBigPoster->isChecked() );
+        settings->SetParsersLoadAdvancedInfo( cDownloadMoreInformation->isChecked() );
+        settings->sync();
 
-        for( int threadNum = 0; threadNum < threadCount; threadNum++ )
-        {
-            int subListPos = threadNum * subListLength;
-
-            if( threadNum == (threadCount - 1) ) // Last thread
-            {
-                subListLength = -1;
-            }
-
-            FilmScannerAddWorker* addWorker = new FilmScannerAddWorker();
-            connect( addWorker, &FilmScannerAddWorker::FilmsCreated, this, &FilmScannerWindow::FilmsCreated );
-            connect( addWorker, &FilmScannerAddWorker::finished, addWorker, &QWidget::deleteLater );
-            connect( addWorker, &FilmScannerAddWorker::Progress, this, [this] (quint64 value, quint64 total)
-            {
-                progressBar->setMaximum( total );
-                progressBar->setValue( value );
-            } );
-
-            addWorker->SetFoundedFilms( selectedFilms.mid( subListPos, subListLength ) );
-            addWorker->SetLoadInformation( cLoadInformation->isChecked() );
-            addWorker->SetSearchForPoster( cSearchForPoster->isChecked() );
-            addWorker->start();
-        }
+          // Adding worker
+        filmAddWorker->SetFoundedFilms( selectedFilms );
+        filmAddWorker->SetLoadInformation( cLoadInformation->isChecked() );
+        filmAddWorker->SetSearchForPoster( cSearchForPoster->isChecked() );
+        filmAddWorker->start();
     }
 }
 
-void FilmScannerWindow::FilmsCreated( QList<Film> films )
+
+void FilmScannerWindow::IncFoundedTotal()
 {
-    newFilms->append( films );
+    int n = lTotalFounded->text().toInt() + 1;
+    lTotalFounded->setText( QString::number( n ) );
+}
 
-    if( newFilms->size() == newFilmsCount )
+
+void FilmScannerWindow::ShowFounded( QStringList fileNames )
+{
+    DebugPrintFunc( "FilmScannerWindow::ShowFounded", fileNames.size() );
+
+    bScan->setText( tr( "Scan" ) );
+    progressBar->hide();
+
+    if( fileNames.isEmpty() )
     {
-        // Disabling already added files
-        for( int i = 0; i < twFounded->rowCount(); i++ )
-        {
-            QTableWidgetItem* item = twFounded->item( i, 0 );
+        QMessageBox::information( this, tr( "Film scanner" ), tr( "Nothing was found." ) );
+        return;
+    }
 
-            if( item->checkState() == Qt::Checked )
-            {
-                // Uncheck
-                item->setCheckState( Qt::Unchecked );
-                item->setFlags( Qt::NoItemFlags );
-                item->setBackgroundColor( QColor( 0, 255, 0, 40 ) );
-                // Add to list of existing films
-                existsFileNames->append( item->text() );
-            }
+      // Show
+    lTotalFounded->setText( QString::number( fileNames.count() ) );
+
+    for( const QString& fileName : fileNames )
+    {
+        QTableWidgetItem* item = new QTableWidgetItem( fileName );
+
+        if( existedFileNames.contains( fileName ) )
+        {
+            item->setBackgroundColor( existedFileColor );
+            item->setFlags( Qt::NoItemFlags );
         }
 
-        emit AddFilms( newFilms );
+        gbFounded->AppendItem( item );
+    }
 
-        lSelected->setText( "0" );
+    DebugPrintFuncDone( "FilmScannerWindow::ShowFounded" );
+}
+
+
+void FilmScannerWindow::DisableFilm( FilmItem* film )
+{
+    QString fileName = film->GetColumnData( FilmItem::FileNameColumn ).toString();
+
+    for( QTableWidgetItem* item : gbFounded->GetItems() )
+    {
+        if( item->checkState() == Qt::Checked && item->text() == fileName )
+        {
+              // Uncheck and disable
+            item->setCheckState( Qt::Unchecked );
+            item->setFlags( Qt::NoItemFlags );
+            item->setBackgroundColor( existedFileColor );
+
+            existedFileNames.append( item->text() );
+            gbFounded->ScrollToItem( item );
+            break;
+        }
+    }
+
+    lSelected->setText( QString::number(--newFilmsCount) );
+    progressBar->setValue( progressBar->maximum() - newFilmsCount );
+
+    if( newFilmsCount == 0 )
+    {
         bAdd->setEnabled( true );
         progressBar->hide();
-        newFilms->clear();
     }
 }
+

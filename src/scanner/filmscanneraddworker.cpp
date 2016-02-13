@@ -3,7 +3,7 @@
  *  file: filmscanneraddworker.cpp                                                                *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -18,113 +18,113 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "alexandrasettings.h"
 #include "filmscanneraddworker.h"
 #include "tools/filesextensions.h"
 #include "parsers/parsermanager.h"
 
 #include <QDir>
 #include <QFileInfo>
-#include <QRegExp>
+
+
+FilmScannerAddWorker::FilmScannerAddWorker() : QThread(),
+    settings( AlexandraSettings::GetInstance() )
+{
+    qRegisterMetaType<QList<FilmItem*>>( "QList<FilmItem*>" );
+}
+
 
 void FilmScannerAddWorker::run()
 {
-    AlexandraSettings* settings = AlexandraSettings::GetInstance();
-
-    QList<Film> newFilms;
     ParserManager parser;
-    int count = 0;
 
     for( const QString& fileName : foundedFilms )
     {
-        Film film;
-        film.SetId( Film::GetRandomHash() );
-        QString title = Film::ClearTitle( QFileInfo( fileName ).completeBaseName() );
-        film.SetFileName( fileName );
-        film.SetTitle( title );
+        if( isCanceled ) break;
 
+        int year;
+        QString title = FilmItem::GetClearedTitle( QFileInfo(fileName).completeBaseName(), &year );
+
+        FilmItem* film = new FilmItem();
+        film->SetIsFileExists( FilmItem::Exists );
+        film->SetColumnData( FilmItem::FileNameColumn, fileName );
+        film->SetColumnData( FilmItem::TitleColumn, title );
+        film->SetColumnData( FilmItem::YearColumn, year );
+
+        QString newPosterFileName = settings->GetPostersDirPath() + "/" + film->GetFilmId();
         QString posterFileName;
-        QString newPosterFileName = settings->GetPostersDirPath() + "/" + film.GetPosterName();
 
-        QRegExp regexp( "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])" ); // Years between 1850 and 2019
-        regexp.indexIn( fileName );
-        film.SetYearFromStr( regexp.cap(1) );
-
-        // Search for a poster on the disk
+          // Search for a poster on the disk
         if( searchForPoster )
         {
-            posterFileName = FilesExtensions().SearchForEponymousImage( fileName );
+            posterFileName = FilesExtensions::SearchForEponymousImage( fileName );
         }
 
-        // Load information from online source
+          // Load information from online source
         if( loadInformation )
         {
             parser.Reset();
             parser.SetTitle( title );
             parser.SetParserId( ParserManager::Parser( settings->GetDefaultParserIndex() ) );
 
-            if( film.GetYearStr().length() == 4 )
+            if( year > 0 )
             {
-                parser.SetYear( film.GetYearStr() );
+                parser.SetYear( year );
             }
 
             if( posterFileName.isEmpty() )
             {
                 parser.SetLoadPoster( true );
-                parser.SearchSync( &film, &posterFileName );
+                parser.SearchSync( film, &posterFileName );
             }
             else
             {
                 parser.SetLoadPoster( false );
-                parser.SearchSync( &film, nullptr );
+                parser.SearchSync( film, nullptr );
             }
         }
 
-        // Moving poster
+          // Moving poster
         if( !posterFileName.isEmpty() )
         {
             if( SavePosterTo( posterFileName, newPosterFileName ) )
             {
-                film.SetIsPosterExists( true );
+                film->SetIsPosterExists( FilmItem::Exists );
             }
             else
             {
-                film.SetIsPosterExists( false );
+                film->SetIsPosterExists( FilmItem::NotExists );
             }
         }
 
-        // Adding film to the list
-        newFilms.append( film );
-        emit Progress( ++count, foundedFilms.size() );
+          // Adding film to the list
+        emit FilmCreated( film );
     }
-
-    emit FilmsCreated( newFilms );
 }
 
-bool FilmScannerAddWorker::SavePosterTo( const QString& sourceName, const QString& destinationName )
-{
-    AlexandraSettings* settings = AlexandraSettings::GetInstance();
 
+bool FilmScannerAddWorker::SavePosterTo( QString sourceName, QString destinationName )
+{
     QString postersDir = settings->GetPostersDirPath();
     int newHeight = settings->GetScalePosterToHeight();
 
-    // Creating posters' directory if not exists
+      // Creating posters' directory if not exists
     if( !QFile::exists( postersDir ) )
     {
         QDir().mkdir( postersDir );
     }
 
-    QPixmap p( sourceName );
+    QPixmap pixmap( sourceName );
 
-    // Scale to height
-    if( newHeight != 0 && newHeight < p.height() )
+      // Scale to height
+    if( newHeight != 0 && newHeight < pixmap.height() )
     {
-        p = p.scaledToHeight( newHeight, Qt::SmoothTransformation );
+        pixmap = pixmap.scaledToHeight( newHeight, Qt::SmoothTransformation );
     }
 
-    // Move to posters' folder
+      // Move to posters' folder
     QString format = settings->GetPosterSavingFormat();
     int quality = settings->GetPosterSavingQuality();
 
-    return( p.save( destinationName, format.toUtf8(), quality ) );
+    return( pixmap.save( destinationName, format.toUtf8(), quality ) );
 }
+

@@ -3,7 +3,7 @@
  *  file: filesextensions.cpp                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -23,9 +23,23 @@
 #include <QDir>
 #include <QFileInfoList>
 
-QString FilesExtensions::GetFilmExtensionsForFilter() const
+
+QStringList FilesExtensions::videos =
 {
-    // Creating a string with format "*.ext1 *.ext2 ... *.extN"
+    "*.avi", "*.bik", "*.divx", "*.dv",  "*.flv",  "*.m1v",  "*.m2t", "*.m2ts", "*.m2v", "*.m4v",
+    "*.mkv", "*.mov", "*.mp4",  "*.mpv", "*.mpeg", "*.mpg",  "*.mts", "*.ogm",  "*.ogv", "*.ogx",
+    "*.rm",  "*.ts",  "*.vcd",  "*.vob", "*.vp8",  "*.webm", "*.wmv"
+};
+
+QStringList FilesExtensions::images =
+{
+    "*.bmp", "*.gif", "*.jpg", "*.jpeg", "*.png", "*.pbm", "*.pgm", "*.ppm", "*.xbm",  "*.xpm"
+};
+
+
+QString FilesExtensions::GetFilmExtensionsForFilter()
+{
+      // Creating a string with format "*.ext1 *.ext2 ... *.extN"
     QString res;
 
     for( auto i = videos.begin(); i < videos.end(); i++ )
@@ -36,7 +50,8 @@ QString FilesExtensions::GetFilmExtensionsForFilter() const
     return( res );
 }
 
-QString FilesExtensions::GetImageExtensionsForFilter() const
+
+QString FilesExtensions::GetImageExtensionsForFilter()
 {
     QString res;
 
@@ -48,18 +63,19 @@ QString FilesExtensions::GetImageExtensionsForFilter() const
     return( res );
 }
 
-QString FilesExtensions::SearchForEponymousImage( const QString& fileName ) const
+
+QString FilesExtensions::SearchForEponymousImage( const QString& fileName )
 {
-    // Searching for file "/path/to/film/filename.videoformat"
-    // eponymous file "/path/to/film/filename.imageformat"
+      // Searching for file "/path/to/film/filename.videoformat"
+      // eponymous file "/path/to/film/filename.imageformat"
 
     QFileInfo fileInfo( fileName );
 
-    // The problem with files that have in their names the square brackets, replaces them with '?'
-    // TODO: Need to optimize
+      // The problem with files that have in their names the square brackets, replaces them with '?'
+      // TODO: Need to optimize
     QStringList filter( QString( fileInfo.completeBaseName() + ".*" ).replace( "[", "?" ).replace( "]", "?" ) );
 
-    // Searching
+      // Searching
     QFileInfoList eponymousFiles = QDir( fileInfo.absolutePath() ).entryInfoList( filter, QDir::Files );
 
     if( eponymousFiles.size() > 1 )
@@ -75,6 +91,7 @@ QString FilesExtensions::SearchForEponymousImage( const QString& fileName ) cons
         }
     }
 
-    // If nothing was found
+      // Nothing was found
     return( QString() );
 }
+

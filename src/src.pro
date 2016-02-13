@@ -68,9 +68,10 @@ HEADERS += datamanip/addfilmwindow.h \
            parsers/omdb/omdbparser.h \
            search/searchedit.h \
 #           search/searchwindow.h \
-#           scanner/filmscannerwindow.h \
-#           scanner/filmscannerworker.h \
-#           scanner/filmscanneraddworker.h \
+           scanner/foundedlistwidget.h \
+           scanner/filmscannerwindow.h \
+           scanner/filmscannerworker.h \
+           scanner/filmscanneraddworker.h \
 #           scanner/movedfilmswindow.h \
 #           statistics/statisticswindow.h \
 #           statistics/statisticsworker.h \
@@ -114,9 +115,10 @@ SOURCES += datamanip/addfilmwindow.cpp \
            parsers/omdb/omdbparser.cpp \
            search/searchedit.cpp \
 #           search/searchwindow.cpp \
-#           scanner/filmscannerwindow.cpp \
-#           scanner/filmscannerworker.cpp \
-#           scanner/filmscanneraddworker.cpp \
+           scanner/foundedlistwidget.cpp \
+           scanner/filmscannerwindow.cpp \
+           scanner/filmscannerworker.cpp \
+           scanner/filmscanneraddworker.cpp \
 #           scanner/movedfilmswindow.cpp \
 #           statistics/statisticswindow.cpp \
 #           statistics/statisticsworker.cpp \
@@ -138,7 +140,8 @@ FORMS += datamanip/addfilmwindow.ui \
          mainwindow/mainwindow.ui \
          mainwindow/splashscreen.ui \
 #         search/searchwindow.ui \
-#         scanner/filmscannerwindow.ui \
+         scanner/foundedlistwidget.ui \
+         scanner/filmscannerwindow.ui \
 #         scanner/movedfilmswindow.ui \
          aboutwindow.ui \
          settingswindow.ui

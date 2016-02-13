@@ -21,14 +21,16 @@
 #ifndef ADDFILMWINDOW_H
 #define ADDFILMWINDOW_H
 
-#include "ui_addfilmwindow.h"
 
+#include "ui_addfilmwindow.h"
 #include "alexandrasettings.h"
 #include "filmslist/filmitem.h"
 #include "parsers/parsermanager.h"
 #include "tools/debug.h"
 
+
 #include <QDialog>
+
 
 class AddFilmWindow : public QDialog, protected Ui::AddFilmWindow
 {
@@ -66,4 +68,6 @@ class AddFilmWindow : public QDialog, protected Ui::AddFilmWindow
         ParserManager* parser = nullptr;
 };
 
+
 #endif // ADDFILMWINDOW_H
+
