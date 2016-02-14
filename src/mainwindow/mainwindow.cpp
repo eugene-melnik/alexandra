@@ -30,6 +30,7 @@
 #include "tools/playlist.h"
 #include "filminfowindow.h"
 #include "mainwindow.h"
+#include "settingswindow.h"
 #include "splashscreen.h"
 #include "version.h"
 
@@ -562,6 +563,17 @@ void MainWindow::ShowStatisticsWindow()
 }
 
 
+void MainWindow::ShowSettingsWindow()
+{
+    SettingsWindow* settingsWindow = new SettingsWindow( this );
+    connect( settingsWindow, &SettingsWindow::SettingsChanged,   this,           &MainWindow::ReloadSettings );
+    connect( settingsWindow, &SettingsWindow::ViewChanged,       this,           &MainWindow::ReloadView );
+    connect( settingsWindow, &SettingsWindow::DbSettingsChanged, this,           &MainWindow::ReloadDatabase );
+    connect( settingsWindow, &SettingsWindow::EraseDatabase,     filmsListModel, &FilmsListModel::EraseAll );
+    settingsWindow->show();
+}
+
+
 void MainWindow::SelectRandomFilm()
 {
     DebugPrintFunc( "MainWindow::SelectRandomFilm" );
@@ -720,13 +732,7 @@ void MainWindow::SetupWindows()
 //    connect( searchWindow, &SearchWindow::FilmSelected, filmsListModel, &FilmsListModel::SetCurrentFilm );
 
         /// Settings window
-    settingsWindow = new SettingsWindow( this );
-    connect( actionSettings, &QAction::triggered, settingsWindow, &SettingsWindow::show );
-
-    connect( settingsWindow, &SettingsWindow::SettingsChanged,         this,           &MainWindow::ReloadSettings );
-    connect( settingsWindow, &SettingsWindow::ViewChanged,             this,           &MainWindow::ReloadView );
-    connect( settingsWindow, &SettingsWindow::DatabaseSettingsChanged, this,           &MainWindow::ReloadDatabase );
-    connect( settingsWindow, &SettingsWindow::EraseDatabase,           filmsListModel, &FilmsListModel::EraseAll );
+    connect( actionSettings, &QAction::triggered, this, &MainWindow::ShowSettingsWindow );
 
         /// Film scanner window
     connect( actionFilmScanner, &QAction::triggered,         this, &MainWindow::ShowFilmScannerWindow );

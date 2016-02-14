@@ -22,8 +22,9 @@
 #define SETTINGSWINDOW_H
 
 
-#include "ui_settingswindow.h"
+#include "tools/debug.h"
 #include "alexandrasettings.h"
+#include "ui_settingswindow.h"
 
 
 #include <functional>
@@ -40,63 +41,58 @@ class SettingsWindow : public QDialog, protected Ui::SettingsWindow
     public:
         explicit SettingsWindow( QWidget* parent = nullptr );
 
-        void show();
-
     signals:
-        void DatabaseSettingsChanged();
+        void DbSettingsChanged();
         void SettingsChanged();
         void ViewChanged();
         void EraseDatabase();
 
     private slots:
-        void OkButtonClicked();
         void SetIsSettingsChanged() { isSettingsChanged = true; }
         void SetIsViewChanged() { SetIsSettingsChanged(); isViewChanged = true; }
         void SetIsNeedReboot() { SetIsSettingsChanged(); isNeedReboot = true; }
-        void SetIsDatabaseSettingsChanged() { SetIsSettingsChanged(); isDatabaseSettingsChanged = true; }
+        void SetIsDbSettingsChanged() { SetIsSettingsChanged(); isDbSettingsChanged = true; }
 
+          // Appearance
+        void ConfigureAppearanceTab();
         void StyleChanged();
         void SelectFont();
         void SelectFontDefault();
+          // Application
+        void ConfigureApplicationTab();
         void SelectExternalPlayer();
         void SetDefaultExternalPlayer();
-
         void OpenDatabaseFile();
-        void SelectColorUnavailable();
         void CreateDatabase();
         void EraseDatabaseQuestion();
+        void SelectColorUnavailable();
         void OpenPostersFolder();
-
+          // Shortcuts
+        void ConfigureShortcutsTab();
         void ShortcutsKeySequenceHandler();
         void ShortcutsDefaultButtonHandler();
         void ShortcutsClearButtonHandler();
-        bool CheckForDuplicates( const QString& currentKey, const QString& objName );
+        bool HasDuplicate( QString currentKey, QString objName );
+          // Sources
+        void ConfigureSourcesTab();
+
+          // Saving
+        void OkButtonClicked();
 
     private:
-        void ConfigureAppearanceTab();
-        void ReconfigureAppearanceTab();
-        void ConfigureApplicationTab();
-        void ReconfigureApplicationTab();
-        void ConfigureShortcutsTab();
-        void ReconfigureShortcutsTab();
-        void ConfigureSourcesTab();
-        void ReconfigureSourcesTab();
-
           // Variables
         AlexandraSettings* settings;
 
-        bool isSettingsChanged;
-        bool isDatabaseSettingsChanged;
-        bool isViewChanged;
-        bool isNeedReboot;
+        bool isSettingsChanged = false;
+        bool isDbSettingsChanged = false;
+        bool isViewChanged = false;
+        bool isNeedReboot = false;
 
-          // App styles
+          // Styles
         QStringList appStyles;
-
-          // Toolbar styles
         QMap<int,QString> toolStyles;
 
-          // Player double click behavior
+          // Player double click
         QMap<QString, QString> playerBehaviors;
 
           // Saving formats
@@ -132,3 +128,4 @@ class SettingsWindow : public QDialog, protected Ui::SettingsWindow
 
 
 #endif // SETTINGSWINDOW_H
+

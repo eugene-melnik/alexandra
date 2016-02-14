@@ -30,7 +30,6 @@
 //#include "search/searchwindow.h"
 #include "aboutwindow.h"
 #include "alexandrasettings.h"
-#include "settingswindow.h"
 #include "ui_mainwindow.h"
 
 
@@ -98,6 +97,8 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void ShowMovedFilmsWindow();
         void ShowStatisticsWindow();
 
+        void ShowSettingsWindow();
+
         void SetCurrentFilmIsViewed() { ToggleCurrentFilmValue( FilmItem::IsViewedColumn ); }
         void SetCurrentFilmIsFavourite() { ToggleCurrentFilmValue( FilmItem::IsFavouriteColumn ); }
         void SelectRandomFilm();
@@ -127,7 +128,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         // Child windows
         AboutWindow* aboutWindow;
 //        SearchWindow* searchWindow = nullptr;
-        SettingsWindow* settingsWindow = nullptr;
 
         // Shortcuts
         QShortcut* quickSearchShortcut;
