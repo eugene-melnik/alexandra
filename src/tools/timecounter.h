@@ -3,7 +3,7 @@
  *  file: timecounter.h                                                                           *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,7 +21,9 @@
 #ifndef TIMECOUNTER_H
 #define TIMECOUNTER_H
 
+
 #include <QTime>
+
 
 class TimeCounter
 {
@@ -33,8 +35,9 @@ class TimeCounter
         TimeCounter( const QTime& t );
         TimeCounter( const TimeCounter& t ) = default;
 
-        void Add( const TimeCounter& t );
-        void Add( const QTime& t );
+        TimeCounter& operator += ( const TimeCounter& t );
+        TimeCounter& operator += ( const QTime& t ) {return( *this += TimeCounter(t) ); }
+        TimeCounter& operator *= ( int i );
 
         void Reset();
 
@@ -50,4 +53,6 @@ class TimeCounter
         quint16 mseconds;
 };
 
+
 #endif // TIMECOUNTER_H
+

@@ -3,7 +3,7 @@
  *  file: statisticsworker.h                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,44 +21,52 @@
 #ifndef STATISTICSWORKER_H
 #define STATISTICSWORKER_H
 
+
 #include <QList>
 #include <QMetaType>
 #include <QThread>
 
-#include "filmslist/film.h"
+
+#include "filmslist/filmitem.h"
 #include "tools/timecounter.h"
 
-typedef struct {
-    int viewsCount;
-    QString filmTitle;
-} TopFilm;
+
+struct TopFilm
+{
+    QString  filmTitle;
+    int      viewsCount;
+};
 
 typedef QList<TopFilm> TopFilmList;
+
 
 class StatisticsWorker : public QThread
 {
     Q_OBJECT
 
     public:
-        StatisticsWorker() : QThread() { qRegisterMetaType<TimeCounter>( "TimeCounter" ); }
+        StatisticsWorker();
 
-        void SetFilms( const QList<Film>& f ) { films = f; }
+        void SetFilms( QList<FilmItem*> films ) { this->films = films; }
         void Terminate() { isTerminate = true; }
 
     signals:
         void IncProgress();
-        void MainStatisticsLoaded( int          /* viewedFilms */,
-                                   int          /* totalViewsCount */,
-                                   TimeCounter  /* wastedTime */,
-                                   bool         /* allFilesOk */,
-                                   TopFilmList* /* topFilms */ );
+
+        void MainStatisticsLoaded( int         /* viewedFilms */,
+                                   int         /* totalViewsCount */,
+                                   TimeCounter /* wastedTime */,
+                                   bool        /* allFilesOk */,
+                                   TopFilmList /* topFilms */ );
 
     protected:
         void run() override;
 
     private:
-        QList<Film> films;
+        QList<FilmItem*> films;
         bool isTerminate = false;
 };
 
+
 #endif // STATISTICSWORKER_H
+

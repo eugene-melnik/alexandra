@@ -66,15 +66,15 @@ HEADERS += datamanip/addfilmwindow.h \
            parsers/kinopoisk/kinopoiskparser.h \
            parsers/kinoteatr/kinoteatrparser.h \
            parsers/omdb/omdbparser.h \
-           search/searchedit.h \
-#           search/searchwindow.h \
            scanner/foundedlistwidget.h \
            scanner/filmscannerwindow.h \
            scanner/filmscannerworker.h \
            scanner/filmscanneraddworker.h \
            scanner/movedfilmswindow.h \
-#           statistics/statisticswindow.h \
-#           statistics/statisticsworker.h \
+           search/searchedit.h \
+#           search/searchwindow.h \
+           statistics/statisticswindow.h \
+           statistics/statisticsworker.h \
            tools/commandlineparser.h \
            tools/filesextensions.h \
            tools/playlist.h \
@@ -113,15 +113,15 @@ SOURCES += datamanip/addfilmwindow.cpp \
            parsers/kinopoisk/kinopoiskparser.cpp \
            parsers/kinoteatr/kinoteatrparser.cpp \
            parsers/omdb/omdbparser.cpp \
-           search/searchedit.cpp \
-#           search/searchwindow.cpp \
            scanner/foundedlistwidget.cpp \
            scanner/filmscannerwindow.cpp \
            scanner/filmscannerworker.cpp \
            scanner/filmscanneraddworker.cpp \
            scanner/movedfilmswindow.cpp \
-#           statistics/statisticswindow.cpp \
-#           statistics/statisticsworker.cpp \
+           search/searchedit.cpp \
+#           search/searchwindow.cpp \
+           statistics/statisticswindow.cpp \
+           statistics/statisticsworker.cpp \
            tools/commandlineparser.cpp \
            tools/filesextensions.cpp \
            tools/playlist.cpp \
@@ -139,13 +139,13 @@ FORMS += datamanip/addfilmwindow.ui \
          filmsview/info/filminfoview.ui \
          mainwindow/mainwindow.ui \
          mainwindow/splashscreen.ui \
-#         search/searchwindow.ui \
          scanner/foundedlistwidget.ui \
          scanner/filmscannerwindow.ui \
          scanner/movedfilmswindow.ui \
+#         search/searchwindow.ui \
+         statistics/statisticswindow.ui \
          aboutwindow.ui \
          settingswindow.ui
-#         statisticswindow.ui
 
 
     # Translations #

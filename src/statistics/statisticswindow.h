@@ -3,7 +3,7 @@
  *  file: statisticswindow.h                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,15 +21,19 @@
 #ifndef STATISTICSWINDOW_H
 #define STATISTICSWINDOW_H
 
-#include "filmslist/film.h"
+
+#include "filmslist/filmitem.h"
 #include "tools/timecounter.h"
 #include "statisticsworker.h"
 #include "ui_statisticswindow.h"
 
+
+#include <QAbstractItemModel>
 #include <QCloseEvent>
 #include <QDialog>
 #include <QList>
 #include <QMutex>
+
 
 class StatisticsWindow : public QDialog, protected Ui::StatisticsWindow
 {
@@ -39,35 +43,38 @@ class StatisticsWindow : public QDialog, protected Ui::StatisticsWindow
         explicit StatisticsWindow( QWidget* parent = nullptr );
         virtual ~StatisticsWindow();
 
-        void show( const QList<Film>* films );
+        void SetModel( QAbstractItemModel* model );
 
     signals:
         void ResetStatistics();
 
-    protected:
-        void reject() override { close(); }
-        void closeEvent( QCloseEvent* event ) override { event->accept(); }
-
     private slots:
+        void LoadStatistics( QList<FilmItem*> films );
+
         void IncProgress();
-        void ShowMainStatistics( int          threadViewedFilms,
-                                 int          threadTotalViewsCount,
-                                 TimeCounter  threadWastedTime,
-                                 bool         threadAllFilesOk,
-                                 TopFilmList* threadTopFilms );
+        void ShowMainStatistics( int         threadViewedFilms,
+                                 int         threadTotalViewsCount,
+                                 TimeCounter threadWastedTime,
+                                 bool        threadAllFilesOk,
+                                 TopFilmList threadTopFilms );
         void Reset();
 
     private:
+        QAbstractItemModel* model = nullptr;
+
         QMutex progressMutex;
         QMutex calculateMutex;
 
         int threadsCount;
 
-        int viewedFilms;
-        int totalViewsCount;
+        int viewedFilms = 0;
+        int totalViewsCount = 0;
+        bool allFilesOk = true;
         TimeCounter wastedTime;
-        bool allFilesOk;
+
         QList<TopFilm> topFilms;
 };
 
+
 #endif // STATISTICSWINDOW_H
+

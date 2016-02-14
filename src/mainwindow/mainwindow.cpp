@@ -24,6 +24,7 @@
 #include "filmsview/list/filmsviewlist.h"
 #include "scanner/filmscannerwindow.h"
 #include "scanner/movedfilmswindow.h"
+#include "statistics/statisticswindow.h"
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 #include "tools/playlist.h"
@@ -221,7 +222,10 @@ void MainWindow::ShowFilmInformation( const QModelIndex& index )
         bool isExists = film->GetIsFileExists() == FilmItem::Exists ? true : false;
         bPlay->setEnabled( isExists );
         bAddToPlaylist->setEnabled( isExists );
-        bTechInformation->setEnabled( isExists );
+
+        #ifdef MEDIAINFO_SUPPORT
+            bTechInformation->setEnabled( isExists );
+        #endif
 
         bViewed->setChecked( film->GetIsFilmViewed() );
         bFavourite->setChecked( film->GetIsFilmFavourite() );
@@ -496,11 +500,13 @@ void MainWindow::ShowRemoveFileWindow()
 
 void MainWindow::ShowTechInfoWindow()
 {
-    FilmInfoWindow* filmInfoWindow = new FilmInfoWindow( this );
-    filmInfoWindow->show();
+    #ifdef MEDIAINFO_SUPPORT
+        FilmInfoWindow* filmInfoWindow = new FilmInfoWindow( this );
+        filmInfoWindow->show();
 
-    const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()); /// get film from view (?)
-    filmInfoWindow->LoadTechnicalInfoAsync( film->GetFileName() );
+        const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()); /// get film from view (?)
+        filmInfoWindow->LoadTechnicalInfoAsync( film->GetFileName() );
+    #endif // MEDIAINFO_SUPPORT
 }
 
 
@@ -518,6 +524,7 @@ void MainWindow::ShowFilmScannerWindow()
     filmScannerWindow->SetExistedFileNames( fileNames );
     filmScannerWindow->show();
 }
+
 
 void MainWindow::ShowMovedFilmsWindow()
 {
@@ -543,6 +550,15 @@ void MainWindow::ShowMovedFilmsWindow()
         movedFilmsWindow->SetUnavailableFilms( films );
         movedFilmsWindow->show();
     }
+}
+
+
+void MainWindow::ShowStatisticsWindow()
+{
+    StatisticsWindow* statisticsWindow = new StatisticsWindow( this );
+//    connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
+    statisticsWindow->SetModel( filmsListModel );
+    statisticsWindow->show();
 }
 
 
@@ -720,9 +736,7 @@ void MainWindow::SetupWindows()
     connect( actionMovedFilms, &QAction::triggered, this, &MainWindow::ShowMovedFilmsWindow );
 
         /// Statistic window
-//    statisticsWindow = new StatisticsWindow( this );
-//    connect( actionStatistics, &QAction::triggered, this, &MainWindow::Statistics );
-//    connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
+    connect( actionStatistics, &QAction::triggered, this, &MainWindow::ShowStatisticsWindow );
 
         /// Shortcuts
     quickSearchShortcut = new QShortcut( this );

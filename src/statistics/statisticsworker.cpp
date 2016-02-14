@@ -3,7 +3,7 @@
  *  file: statisticsworker.cpp                                                                    *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -18,54 +18,58 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "mediainfo.h"
 #include "statisticsworker.h"
+#include "tools/mediainfo.h"
+
+
+StatisticsWorker::StatisticsWorker() : QThread()
+{
+    qRegisterMetaType<TimeCounter>( "TimeCounter" );
+    qRegisterMetaType<TopFilmList>( "TopFilmList" );
+}
+
 
 void StatisticsWorker::run()
 {
-    isTerminate = false;
-
-    // Calculations
     int viewedFilms = 0;
     int totalViewsCount = 0;
-    TimeCounter wastedTime;
     bool allFilesOk = true;
 
-    QList<TopFilm>* topFilms = new QList<TopFilm>();
+    TimeCounter wastedTime;
+    QList<TopFilm> topFilms;
 
-    for( QList<Film>::const_iterator i = films.begin(); i < films.end(); i++ )
+      // Calculations
+    for( FilmItem* film : films )
     {
         if( isTerminate ) return; // statistics window closed
 
-        if( i->GetIsViewed() )
+        if( film->GetIsFilmViewed() )
         {
             viewedFilms++;
+            int viewsCount = film->GetColumnData( FilmItem::ViewsCountColumn ).toInt();
 
-            if( i->GetViewsCounter() != 0 )
+            if( viewsCount != 0 )
             {
-                totalViewsCount += i->GetViewsCounter();
+                totalViewsCount += viewsCount;
 
-                // Wasted time
-#ifdef MEDIAINFO_SUPPORT
-                MediaInfo f( i->GetFileName() );
+                  // Wasted time
+                #ifdef MEDIAINFO_SUPPORT
+                    MediaInfo mi( film->GetFileName() );
 
-                if( f.IsOpened() )
-                {
-                    TimeCounter duration( f.GetDurationTime() );
-
-                    for( int j = i->GetViewsCounter(); j > 0; j-- )
+                    if( mi.IsOpened() )
                     {
-                        wastedTime.Add( duration );
+                        TimeCounter duration( mi.GetDurationTime() );
+                        wastedTime = duration;
+                        wastedTime *= viewsCount;
                     }
-                }
-                else
-                {
-                    allFilesOk = false;
-                }
-#endif // MEDIAINFO_SUPPORT
+                    else
+                    {
+                        allFilesOk = false;
+                    }
+                #endif // MEDIAINFO_SUPPORT
 
-                // Most popular
-                topFilms->append( { i->GetViewsCounter(), i->GetTitle() } );
+                  // Most popular
+                topFilms.append( { film->GetTitle(), viewsCount } );
             }
         }
 
@@ -74,3 +78,4 @@ void StatisticsWorker::run()
 
     emit MainStatisticsLoaded( viewedFilms, totalViewsCount, wastedTime, allFilesOk, topFilms );
 }
+

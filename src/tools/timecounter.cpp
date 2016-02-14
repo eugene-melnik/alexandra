@@ -3,7 +3,7 @@
  *  file: timecounter.cpp                                                                         *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -20,6 +20,7 @@
 
 #include "timecounter.h"
 
+
 TimeCounter::TimeCounter( quint64 s )
 {
     days = s / (24 * 60 * 60);
@@ -31,6 +32,7 @@ TimeCounter::TimeCounter( quint64 s )
     mseconds = 0;
 }
 
+
 TimeCounter::TimeCounter( quint16 h, quint16 m, quint16 s, quint16 ms )
 {
     days = 0;
@@ -39,6 +41,7 @@ TimeCounter::TimeCounter( quint16 h, quint16 m, quint16 s, quint16 ms )
     seconds = s;
     mseconds = ms;
 }
+
 
 TimeCounter::TimeCounter( quint16 d, quint16 h, quint16 m, quint16 s, quint16 ms )
 {
@@ -49,6 +52,7 @@ TimeCounter::TimeCounter( quint16 d, quint16 h, quint16 m, quint16 s, quint16 ms
     mseconds = ms;
 }
 
+
 TimeCounter::TimeCounter( const QTime& t )
 {
     days = 0;
@@ -58,7 +62,8 @@ TimeCounter::TimeCounter( const QTime& t )
     mseconds = t.msec();
 }
 
-void TimeCounter::Add( const TimeCounter& t )
+
+TimeCounter& TimeCounter::operator += ( const TimeCounter& t )
 {
     if( (mseconds += t.mseconds) >= 1000 )
     {
@@ -85,12 +90,22 @@ void TimeCounter::Add( const TimeCounter& t )
     }
 
     days += t.days;
+    return( *this );
 }
 
-void TimeCounter::Add( const QTime& t )
+
+TimeCounter& TimeCounter::operator *= ( int i )
 {
-    Add( TimeCounter( t ) );
+    TimeCounter other( *this );
+
+    for( int j = 0; j < i; ++j )
+    {
+        *this += other;
+    }
+
+    return( *this );
 }
+
 
 void TimeCounter::Reset()
 {
@@ -101,6 +116,7 @@ void TimeCounter::Reset()
     mseconds = 0;
 }
 
+
 QString TimeCounter::ToString() const
 {
     QString result = QString( "%1:%2:%3" )
@@ -110,6 +126,7 @@ QString TimeCounter::ToString() const
 
     return( result );
 }
+
 
 QString TimeCounter::ToStringWithDays() const
 {
@@ -122,6 +139,7 @@ QString TimeCounter::ToStringWithDays() const
     return( result );
 }
 
+
 QString TimeCounter::ToStringWithMs() const
 {
     QString result = QString( "%1/%2:%3:%4.%5" )
@@ -133,3 +151,4 @@ QString TimeCounter::ToStringWithMs() const
 
     return( result );
 }
+

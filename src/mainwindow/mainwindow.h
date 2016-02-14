@@ -31,7 +31,6 @@
 #include "aboutwindow.h"
 #include "alexandrasettings.h"
 #include "settingswindow.h"
-//#include "statisticswindow.h"
 #include "ui_mainwindow.h"
 
 
@@ -97,7 +96,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         void ShowFilmScannerWindow();
         void ShowMovedFilmsWindow();
-//        void Statistics() { statisticsWindow->show( filmsList->GetFilmsList() ); }
+        void ShowStatisticsWindow();
 
         void SetCurrentFilmIsViewed() { ToggleCurrentFilmValue( FilmItem::IsViewedColumn ); }
         void SetCurrentFilmIsFavourite() { ToggleCurrentFilmValue( FilmItem::IsFavouriteColumn ); }
@@ -129,7 +128,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         AboutWindow* aboutWindow;
 //        SearchWindow* searchWindow = nullptr;
         SettingsWindow* settingsWindow = nullptr;
-//        StatisticsWindow* statisticsWindow = nullptr;
 
         // Shortcuts
         QShortcut* quickSearchShortcut;

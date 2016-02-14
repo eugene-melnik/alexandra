@@ -3,7 +3,7 @@
  *  file: statisticswindow.cpp                                                                    *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -23,41 +23,56 @@
 
 #include <algorithm>
 #include <QMessageBox>
+#include <QMutexLocker>
+
 
 StatisticsWindow::StatisticsWindow( QWidget* parent ) : QDialog( parent )
 {
+    DebugPrint( "StatisticsWindow::StatisticsWindow" );
+
     setupUi( this );
+    setAttribute( Qt::WA_DeleteOnClose );
     connect( bReset, &QPushButton::clicked, this, &StatisticsWindow::Reset );
 }
 
+
 StatisticsWindow::~StatisticsWindow()
 {
+    DebugPrint( "StatisticsWindow::~StatisticsWindow" );
+
     if( calculateMutex.tryLock( 5000 ) )
     {
         calculateMutex.unlock();
     }
 }
 
-void StatisticsWindow::show( const QList<Film>* films )
+
+void StatisticsWindow::SetModel( QAbstractItemModel* model )
 {
-    DebugPrintFuncA( "StatisticsWindow::show", films->size() );
+    this->model = model;
+    QList<FilmItem*> films;
 
-    viewedFilms = 0;
-    totalViewsCount = 0;
-    wastedTime.Reset();
-    allFilesOk = true;
-
-    // Calculations in multithread
-    threadsCount = QThread::idealThreadCount();
-
-    if( threadsCount < 1 )
+    for( int row = 0; row < model->rowCount(); ++row )
     {
-        threadsCount = 1;
+        FilmItem* film = static_cast<FilmItem*>( model->index( row, 0 ).internalPointer() );
+        films.append( film );
     }
 
-    int subListLength = films->size() / threadsCount;
+    lTotalFilmsInLibrary->setText( QString::number( films.size() ) );
+    progressBar->setMaximum( films.size() );
+    progressBar->setValue( 0 );
 
-    for( int threadNum = 0; threadNum < threadsCount; threadNum++ )
+    LoadStatistics( films );
+}
+
+
+void StatisticsWindow::LoadStatistics( QList<FilmItem*> films )
+{
+      // Calculations in multithread
+    threadsCount = QThread::idealThreadCount() > 0 ? QThread::idealThreadCount() : 1;
+    int subListLength = films.size() / threadsCount;
+
+    for( int threadNum = 0; threadNum < threadsCount; ++threadNum )
     {
         int subListPos = threadNum * subListLength;
 
@@ -67,72 +82,60 @@ void StatisticsWindow::show( const QList<Film>* films )
         }
 
         StatisticsWorker* calcWorker = new StatisticsWorker();
-        connect( calcWorker, &StatisticsWorker::IncProgress, this, &StatisticsWindow::IncProgress );
+        connect( calcWorker, &StatisticsWorker::IncProgress,          this, &StatisticsWindow::IncProgress );
         connect( calcWorker, &StatisticsWorker::MainStatisticsLoaded, this, &StatisticsWindow::ShowMainStatistics );
-        connect( calcWorker, &StatisticsWorker::finished, calcWorker, &QWidget::deleteLater );
-
-        calcWorker->SetFilms( films->mid( subListPos, subListLength ) );
+        connect( calcWorker, &StatisticsWorker::finished,             calcWorker, &QWidget::deleteLater );
+        calcWorker->SetFilms( films.mid( subListPos, subListLength ) );
         calcWorker->start();
     }
-
-    // Show
-    tabWidget->setCurrentIndex( 0 ); // Activate first tab
-    lTotalFilmsInLibrary->setText( QString::number( films->size() ) );
-    lWastedTime->setToolTip( "" );
-
-    progressBar->setMaximum( films->size() );
-    progressBar->setValue( 0 );
-    progressBar->show();
-
-    QDialog::show();
 }
+
 
 void StatisticsWindow::IncProgress()
 {
-     progressMutex.lock();
-     progressBar->setValue( progressBar->value() + 1 );
-     progressBar->repaint();
-     progressMutex.unlock();
+    QMutexLocker locker( &progressMutex );
+    progressBar->setValue( progressBar->value() + 1 );
+    progressBar->repaint();
 }
 
-void StatisticsWindow::ShowMainStatistics( int          threadViewedFilms,
-                                           int          threadTotalViewsCount,
-                                           TimeCounter  threadWastedTime,
-                                           bool         threadAllFilesOk,
-                                           TopFilmList* threadTopFilms )
-{
-    calculateMutex.lock();
 
-    // Appending data
+void StatisticsWindow::ShowMainStatistics( int         threadViewedFilms,
+                                           int         threadTotalViewsCount,
+                                           TimeCounter threadWastedTime,
+                                           bool        threadAllFilesOk,
+                                           TopFilmList threadTopFilms )
+{
+    QMutexLocker locker( &calculateMutex );
+
+      // Appending data
     viewedFilms += threadViewedFilms;
     totalViewsCount += threadTotalViewsCount;
-    wastedTime.Add( threadWastedTime );
+    wastedTime += threadWastedTime;
     allFilesOk |= threadAllFilesOk;
 
-    topFilms.append( *threadTopFilms );
-    delete threadTopFilms;
+    topFilms.append( threadTopFilms );
 
-    // Other information
+      // Other information
     lFilmsViewed->setText( QString::number( viewedFilms ) );
     lTotalViews->setText( QString::number( totalViewsCount ) );
     lWastedTime->setText( wastedTime.ToString() );
 
     if( --threadsCount == 0 ) // End of scanning
     {
-#ifdef MEDIAINFO_SUPPORT
-        if( !allFilesOk ) // Condition when unable to access all the files
-        {
-            lWastedTime->setText( lWastedTime->text() + " (?)" );
-            lWastedTime->setToolTip( tr( "The calculation is not accurate, because some files are not available." ) );
-        }
-#else
-        labelWastedTime->hide();
-        lWastedTime->hide();
-#endif
+        #ifdef MEDIAINFO_SUPPORT
+            if( !allFilesOk ) // Condition when unable to access all the files
+            {
+                lWastedTime->setText( lWastedTime->text() + " (?)" );
+                lWastedTime->setToolTip( tr( "The calculation is not accurate, because some files are not available." ) );
+            }
+        #else
+            labelWastedTime->hide();
+            lWastedTime->hide();
+        #endif
 
-        // List of most popular films
-        // Sorting by views count and alphabet
-        std::sort( topFilms.begin(), topFilms.end(), [] ( TopFilm a, TopFilm b )
+          // List of most popular films
+          // Sorting by views count and alphabet
+        std::sort( topFilms.begin(), topFilms.end(), [] (TopFilm a, TopFilm b)
         {
             if( a.viewsCount == b.viewsCount )
             {
@@ -144,7 +147,7 @@ void StatisticsWindow::ShowMainStatistics( int          threadViewedFilms,
             }
         } );
 
-        // Show in list widget
+          // Show in list widget
         for( int i = 0; i < topFilms.size(); i++ )
         {
             QString itemText = QString( "(%1) " ).arg( topFilms.at(i).viewsCount ) + topFilms.at(i).filmTitle;
@@ -152,23 +155,19 @@ void StatisticsWindow::ShowMainStatistics( int          threadViewedFilms,
         }
 
         progressBar->hide();
-        topFilms.clear();
     }
-
-    calculateMutex.unlock();
 }
+
 
 void StatisticsWindow::Reset()
 {
-    int res = QMessageBox::warning( this,
-                                    tr( "Reset statistics" ),
-                                    tr( "Are you sure?" ),
-                                    QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+    int answer = QMessageBox::warning( this, tr( "Reset statistics" ), tr( "Are you sure?" ),
+                                       QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
-    if( res == QMessageBox::Yes )
+    if( answer == QMessageBox::Yes )
     {
         emit ResetStatistics();
+        close();
     }
-
-    close();
 }
+

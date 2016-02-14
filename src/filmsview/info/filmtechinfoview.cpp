@@ -85,24 +85,25 @@ void FilmTechInfoView::showEvent( QShowEvent* event )
 
 void FilmTechInfoView::LoadTechnicalInfo( const QString& fileName )
 {
-    DebugPrintFunc( "FilmTechInfoView::LoadTechnicalInfo", fileName );
+    #ifdef MEDIAINFO_SUPPORT
+        DebugPrintFunc( "FilmTechInfoView::LoadTechnicalInfo", fileName );
+        QMutexLocker locker( &mutexInfoLoad );///
+        MediaInfo* mi = new MediaInfo( fileName );
 
-    QMutexLocker locker( &mutexInfoLoad );///
-    MediaInfo* mi = new MediaInfo( fileName );
+          // Filling
+        QString shortInfo = QString( "%1 &bull; %2 &bull; %3<br/>" ).arg( mi->GetFormat(),
+                                                                          mi->GetFileSize(),
+                                                                          mi->GetOverallBitRate() );
 
-      // Filling
-    QString shortInfo = QString( "%1 &bull; %2 &bull; %3<br/>" ).arg( mi->GetFormat(),
-                                                                      mi->GetFileSize(),
-                                                                      mi->GetOverallBitRate() );
+        shortInfo += tr( "%1&times;%2 px &bull; %3 fps<br/>" ).arg( mi->GetWidth(), // TRANSLATORS: Translate only "px" and "fps"
+                                                                    mi->GetHeight(),
+                                                                    mi->GetFrameRate() );
 
-    shortInfo += tr( "%1&times;%2 px &bull; %3 fps<br/>" ).arg( mi->GetWidth(), // TRANSLATORS: Translate only "px" and "fps"
-                                                                mi->GetHeight(),
-                                                                mi->GetFrameRate() );
+        shortInfo += tr( "Duration &mdash; %1" ).arg( mi->GetDuration() ); // TRANSLATORS: Translate only "Duration"
 
-    shortInfo += tr( "Duration &mdash; %1" ).arg( mi->GetDuration() ); // TRANSLATORS: Translate only "Duration"
-
-    DebugPrintFuncDone( "FilmTechInfoView::LoadTechnicalInfo" );
-    emit ShortInfoLoaded( shortInfo );
-    delete mi;
+        DebugPrintFuncDone( "FilmTechInfoView::LoadTechnicalInfo" );
+        emit ShortInfoLoaded( shortInfo );
+        delete mi;
+    #endif // MEDIAINFO_SUPPORT
 }
 

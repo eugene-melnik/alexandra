@@ -108,8 +108,8 @@ class FilmItem
         int GetChildrenCount() const { return( childItems.size() ); }
         int GetRow() const;
 
-        FilmItem* GetParent() { return( parentItem ); }
-        FilmItem* GetChild( int row ) { return( childItems.value(row) ); }
+        FilmItem* GetParent() const { return( parentItem ); }
+        FilmItem* GetChild( int row ) const { return( childItems.value(row) ); }
         QVariant  GetColumnData( int column ) const { return( columnsData.value(column) ); }
 
         bool     GetIsFilmViewed() const { return( GetColumnData(IsViewedColumn).toBool() ); }
