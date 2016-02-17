@@ -85,13 +85,17 @@ void SearchEdit::SetupMenu()
     menuSelectColumns->addSeparator();
 
       // Columns
-      // Without "Filename", "Poster", "IsViewed" and "IsFavourite"
-    for( int column = 0; column < sourceModel->columnCount() - 2; ++column )
+    QList<int> disabledColumns =
     {
-        if( column == FilmItem::IsViewedColumn || column == FilmItem::IsFavouriteColumn )
-        {
-            continue;
-        }
+        FilmItem::BudgetColumn, FilmItem::RatingColumn,
+        FilmItem::IsViewedColumn, FilmItem::IsFavouriteColumn,
+        FilmItem::ViewsCountColumn,
+        FilmItem::FileNameColumn, FilmItem::PosterColumn
+    };
+
+    for( int column = 0; column < sourceModel->columnCount(); ++column )
+    {
+        if( disabledColumns.contains(column) ) continue;
 
         QString columnTitle = sourceModel->headerData( column, Qt::Horizontal ).toString();
         a = menuSelectColumns->addAction( columnTitle, this, SLOT(CalculateOptions()) );
@@ -102,8 +106,8 @@ void SearchEdit::SetupMenu()
 
       // Select/Unselect buttons
     menuSelectColumns->addSeparator();
-    menuSelectColumns->addAction( tr( "Select all" ), this, SLOT( SelectAllOptions() ) );
-    menuSelectColumns->addAction( tr( "Unselect all" ), this, SLOT( UnselectAllOptions() ) );
+    menuSelectColumns->addAction( tr( "Select all" ), this, SLOT(SelectAllOptions()) );
+    menuSelectColumns->addAction( tr( "Unselect all" ), this, SLOT(UnselectAllOptions()) );
 }
 
 

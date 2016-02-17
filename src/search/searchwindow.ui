@@ -2,219 +2,912 @@
 <ui version="4.0">
  <class>SearchWindow</class>
  <widget class="QDialog" name="SearchWindow">
-  <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>450</height>
+    <width>720</width>
+    <height>506</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>450</width>
-    <height>320</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Search film</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
+   <iconset resource="../icons.qrc">
     <normaloff>:/tool/find</normaloff>:/tool/find</iconset>
   </property>
-  <property name="modal">
-   <bool>true</bool>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0,0">
    <item>
-    <layout class="QHBoxLayout" name="hl1">
-     <item>
-      <widget class="QGroupBox" name="gbSearchIn">
-       <property name="title">
-        <string>Search in</string>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <layout class="QVBoxLayout" name="vl1">
-          <item>
-           <widget class="QCheckBox" name="cTitle">
-            <property name="text">
-             <string>Title</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="cTags">
-            <property name="text">
-             <string>Tags</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="vl2">
-          <item>
-           <widget class="QCheckBox" name="cGenre">
-            <property name="text">
-             <string>Genre</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="cStarring">
-            <property name="text">
-             <string>Starring</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="vl3">
-          <item>
-           <widget class="QCheckBox" name="cDirector">
-            <property name="text">
-             <string>Director</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="cProducer">
-            <property name="text">
-             <string>Producer</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="vl3_2">
-          <item>
-           <widget class="QCheckBox" name="cScreenwriter">
-            <property name="text">
-             <string>Screenwriter</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="cComposer">
-            <property name="text">
-             <string>Composer</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="vl4">
-          <item>
-           <widget class="QCheckBox" name="cCountry">
-            <property name="text">
-             <string>Country</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="cDescription">
-            <property name="text">
-             <string>Description</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="vl5">
-          <item>
-           <widget class="QPushButton" name="bSelectAll">
-            <property name="text">
-             <string>Select all</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="bUnselectAll">
-            <property name="text">
-             <string>Unselect all</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="gbKeywords">
-     <property name="title">
-      <string>Keywords</string>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLineEdit" name="eKeywords">
-        <property name="clearButtonEnabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bSearch">
-        <property name="text">
-         <string>Search</string>
-        </property>
-        <property name="default">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="tabSimpleSearch">
+      <attribute name="title">
+       <string>Simple search</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="layoutTabSimpleSearch" stretch="0,1">
+       <item>
+        <widget class="QGroupBox" name="gbSearchIn">
+         <property name="title">
+          <string>Search in</string>
+         </property>
+         <layout class="QHBoxLayout" name="layoutSearchIn">
+          <item>
+           <layout class="QVBoxLayout" name="layoutSearchInGroup1">
+            <item>
+             <widget class="QCheckBox" name="cTitle">
+              <property name="text">
+               <string>Title</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cOriginalTitle">
+              <property name="text">
+               <string>Original title</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cTagline">
+              <property name="text">
+               <string>Tagline</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="layoutSearchInGroup2">
+            <item>
+             <widget class="QCheckBox" name="cYear">
+              <property name="text">
+               <string>Year</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cGenre">
+              <property name="text">
+               <string>Genre</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cCountry">
+              <property name="text">
+               <string>Country</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="layoutSearchInGroup3">
+            <item>
+             <widget class="QCheckBox" name="cDirector">
+              <property name="text">
+               <string>Director</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cProducer">
+              <property name="text">
+               <string>Producer</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cScreenwriter">
+              <property name="text">
+               <string>Screenwriter</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="layoutSearchInGroup4">
+            <item>
+             <widget class="QCheckBox" name="cComposer">
+              <property name="text">
+               <string>Composer</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cBudget">
+              <property name="text">
+               <string>Budget</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cTags">
+              <property name="text">
+               <string>Tags</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="layoutSearchInGroup5">
+            <item>
+             <widget class="QCheckBox" name="cStarring">
+              <property name="text">
+               <string>Starring</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cDescription">
+              <property name="text">
+               <string>Description</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="layoutSearchInButtons">
+            <item>
+             <widget class="QPushButton" name="bSelectAll0">
+              <property name="text">
+               <string>Select all</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="bUnselectAll0">
+              <property name="text">
+               <string>Unselect all</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutKeyword">
+         <item>
+          <widget class="QLabel" name="labelKeyword">
+           <property name="text">
+            <string>Keyword</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="eKeyword">
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bSearchSimple">
+           <property name="text">
+            <string>Search</string>
+           </property>
+           <property name="default">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabAdvancedSearch">
+      <attribute name="title">
+       <string>Advanced search</string>
+      </attribute>
+      <layout class="QGridLayout" name="layoutTabAdvancedSearch">
+       <item row="0" column="1">
+        <widget class="QScrollArea" name="scrollAreaAdvancedSearch">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>160</height>
+          </size>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+         <widget class="QWidget" name="scrollAreaAdvancedSearchContents">
+          <property name="geometry">
+           <rect>
+            <x>-123</x>
+            <y>0</y>
+            <width>1609</width>
+            <height>143</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="layoutScrollAreaAdvancedSearch">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QGroupBox" name="gbTitleContains">
+             <property name="minimumSize">
+              <size>
+               <width>125</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>130</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Complete or partial title</string>
+             </property>
+             <property name="title">
+              <string>Title contains</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <layout class="QVBoxLayout" name="layoutTitleContains">
+              <item>
+               <widget class="QLineEdit" name="eTitleContains"/>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cSearchInDescription">
+                <property name="toolTip">
+                 <string>Search in description</string>
+                </property>
+                <property name="text">
+                 <string>Description</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cSearchInTagline">
+                <property name="toolTip">
+                 <string>Search in tagline</string>
+                </property>
+                <property name="text">
+                 <string>Tagline</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="spacerTitleContains">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="gbYear">
+             <property name="minimumSize">
+              <size>
+               <width>125</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>130</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Range of years or a specific value</string>
+             </property>
+             <property name="title">
+              <string>Year</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="layoutYear">
+              <item row="0" column="0">
+               <widget class="QLabel" name="labelYearFrom">
+                <property name="text">
+                 <string>From</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" rowspan="2">
+               <layout class="QVBoxLayout" name="layoutYearSpinboxes">
+                <item>
+                 <widget class="QSpinBox" name="sbYearFrom">
+                  <property name="correctionMode">
+                   <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+                  </property>
+                  <property name="minimum">
+                   <number>1849</number>
+                  </property>
+                  <property name="maximum">
+                   <number>2102</number>
+                  </property>
+                  <property name="value">
+                   <number>1849</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbYearTo">
+                  <property name="correctionMode">
+                   <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+                  </property>
+                  <property name="minimum">
+                   <number>1849</number>
+                  </property>
+                  <property name="maximum">
+                   <number>2102</number>
+                  </property>
+                  <property name="value">
+                   <number>2102</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="labelYearTo">
+                <property name="text">
+                 <string>To</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <spacer name="spacerYear">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="gbRating">
+             <property name="minimumSize">
+              <size>
+               <width>125</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>130</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Rating</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="layoutRating">
+              <item row="0" column="0">
+               <widget class="QLabel" name="labelRatingFrom">
+                <property name="text">
+                 <string>From</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" rowspan="2">
+               <layout class="QVBoxLayout" name="layoutRatingSpinboxes">
+                <item>
+                 <widget class="QDoubleSpinBox" name="sbRatingFrom">
+                  <property name="correctionMode">
+                   <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+                  </property>
+                  <property name="decimals">
+                   <number>1</number>
+                  </property>
+                  <property name="minimum">
+                   <double>1.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.100000000000000</double>
+                  </property>
+                  <property name="value">
+                   <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDoubleSpinBox" name="sbRatingTo">
+                  <property name="correctionMode">
+                   <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+                  </property>
+                  <property name="decimals">
+                   <number>1</number>
+                  </property>
+                  <property name="minimum">
+                   <double>1.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.100000000000000</double>
+                  </property>
+                  <property name="value">
+                   <double>10.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="labelRatingTo">
+                <property name="text">
+                 <string>To</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <spacer name="spacerRating">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="gbGenre">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>130</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Genre</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="layoutGenre">
+              <item row="0" column="0">
+               <widget class="CheckedListWidget" name="lwGenre">
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="verticalScrollMode">
+                 <enum>QAbstractItemView::ScrollPerPixel</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="lineAdvancedSearch1">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutStartAdvancedSearch">
+             <item>
+              <spacer name="spacerAdvancedSearch1">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cHideViewed">
+               <property name="text">
+                <string>Hide viewed</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cHideFavourite">
+               <property name="text">
+                <string>Hide favourite</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="bSearchAdvanced">
+               <property name="text">
+                <string>Search</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="spacerAdvancedSearch2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="Line" name="lineAdvancedSearch2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="gbDirector">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>130</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Director</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="layoutDirector">
+              <item row="0" column="1">
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="0">
+               <widget class="CheckedListWidget" name="lwDirector">
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="verticalScrollMode">
+                 <enum>QAbstractItemView::ScrollPerPixel</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="gbCountry">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>130</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Country</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="layoutCountry">
+              <item row="0" column="0">
+               <widget class="CheckedListWidget" name="lwCountry">
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="verticalScrollMode">
+                 <enum>QAbstractItemView::ScrollPerPixel</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="gbStarring">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>130</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Starring</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="layoutStarring">
+              <item row="0" column="0">
+               <widget class="CheckedListWidget" name="lwStarring">
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="verticalScrollMode">
+                 <enum>QAbstractItemView::ScrollPerPixel</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="gbScreenwriter">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>130</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Screenwriter</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="layouScreenwriter">
+              <item row="0" column="0">
+               <widget class="CheckedListWidget" name="lwScreenwriter">
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="verticalScrollMode">
+                 <enum>QAbstractItemView::ScrollPerPixel</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="gbTags">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>130</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Tags</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="layoutTags">
+              <item row="0" column="0">
+               <widget class="CheckedListWidget" name="lwTags">
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="verticalScrollMode">
+                 <enum>QAbstractItemView::ScrollPerPixel</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
     <widget class="QGroupBox" name="gbResult">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Result</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_6">
+     <layout class="QVBoxLayout" name="layoutResult">
       <item>
-       <widget class="QTableWidget" name="twResult">
+       <widget class="QTableView" name="tvResult">
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
@@ -233,15 +926,12 @@
         <property name="horizontalScrollMode">
          <enum>QAbstractItemView::ScrollPerPixel</enum>
         </property>
-        <property name="showGrid">
-         <bool>false</bool>
-        </property>
         <property name="sortingEnabled">
          <bool>true</bool>
         </property>
-        <property name="columnCount">
-         <number>7</number>
-        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>true</bool>
+        </attribute>
         <attribute name="horizontalHeaderHighlightSections">
          <bool>false</bool>
         </attribute>
@@ -254,20 +944,20 @@
         <attribute name="verticalHeaderDefaultSectionSize">
          <number>20</number>
         </attribute>
-        <column/>
-        <column/>
-        <column/>
-        <column/>
-        <column/>
-        <column/>
-        <column/>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="hl2">
+    <widget class="Line" name="lineFooter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="layoutFooter">
      <item>
       <widget class="QLabel" name="labelTotalFounded">
        <property name="text">
@@ -312,9 +1002,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="bOk">
+      <widget class="QPushButton" name="bShow">
        <property name="text">
-        <string>&amp;OK</string>
+        <string>&amp;Show</string>
        </property>
        <property name="autoDefault">
         <bool>false</bool>
@@ -324,9 +1014,43 @@
     </layout>
    </item>
   </layout>
+  <zorder>gbResult</zorder>
+  <zorder>tabWidget</zorder>
+  <zorder>lineFooter</zorder>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CheckedListWidget</class>
+   <extends>QListWidget</extends>
+   <header>search/checkedlistwidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>eKeyword</tabstop>
+  <tabstop>bSearchSimple</tabstop>
+  <tabstop>cTitle</tabstop>
+  <tabstop>cOriginalTitle</tabstop>
+  <tabstop>cTagline</tabstop>
+  <tabstop>cYear</tabstop>
+  <tabstop>cGenre</tabstop>
+  <tabstop>cCountry</tabstop>
+  <tabstop>cDirector</tabstop>
+  <tabstop>cProducer</tabstop>
+  <tabstop>cScreenwriter</tabstop>
+  <tabstop>cComposer</tabstop>
+  <tabstop>cBudget</tabstop>
+  <tabstop>cTags</tabstop>
+  <tabstop>cStarring</tabstop>
+  <tabstop>cDescription</tabstop>
+  <tabstop>bSelectAll0</tabstop>
+  <tabstop>bUnselectAll0</tabstop>
+  <tabstop>tvResult</tabstop>
+  <tabstop>bShow</tabstop>
+  <tabstop>bClose</tabstop>
+ </tabstops>
  <resources>
-  <include location="icons.qrc"/>
+  <include location="../icons.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -336,8 +1060,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>164</x>
-     <y>414</y>
+     <x>553</x>
+     <y>449</y>
     </hint>
     <hint type="destinationlabel">
      <x>349</x>

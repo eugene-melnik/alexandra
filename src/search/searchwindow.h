@@ -3,7 +3,7 @@
  *  file: searchwindow.h                                                                          *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,48 +21,55 @@
 #ifndef SEARCHWINDOW_H
 #define SEARCHWINDOW_H
 
-#include "filmslist/film.h"
+
+#include "advancedsearchproxymodel.h"
+#include "filmslist/filmitem.h"
 #include "ui_searchwindow.h"
 
+
 #include <list>
+#include <QAbstractItemModel>
+#include <QAbstractProxyModel>
 #include <QDialog>
 #include <QList>
+
 
 class SearchWindow : public QDialog, protected Ui::SearchWindow
 {
     Q_OBJECT
 
     public:
-        explicit SearchWindow( const QList<Film>* f, QWidget* parent = nullptr );
+        explicit SearchWindow( QWidget* parent = nullptr );
+        ~SearchWindow();
+
+        void SetModel( QAbstractItemModel* model );
 
     signals:
-        void FilmSelected( const QString& film );
+        void ShowSelectedItem( QModelIndex index );
 
     private slots:
-        void Search();
-        void OkButtonClicked();
-
-        void SetOptionsIsChecked( bool isChecked );
+          // Simple search
+        void ConfigureSimpleSearchTab();
         void SelectAll() { SetOptionsIsChecked( true ); }
         void UnselectAll() { SetOptionsIsChecked( false ); }
+        void SetOptionsIsChecked( bool isChecked );
+        void SimpleSearchStart();
+
+          // Advanced search
+        void ConfigureAdvancedSearchTab();
+        void AdvancedSearchStart();
+        void SetupAdvancedProxy( AdvancedSearchProxyModel* proxy );
+
+          // Global
+        void SetupModel( QAbstractProxyModel* proxy );
+        void SetupResultHeader();
+        void ShowInMainWindow();
 
     private:
-        void ConfigureTable();
-        void UpdateTable( std::list<Film>& founded );
-
-        const QList<Film>* films;
-        std::list<Film> founded;
-
-        // Structures and enumerations
-        enum ColumnIndexes {
-            TitleColumn     = 0,
-            GenreColumn     = 1,
-            YearColumn      = 2,
-            DirectorColumn  = 3,
-            ProducerColumn  = 4,
-            CountryColumn   = 5,
-            RatingColumn    = 6
-        };
+        QAbstractItemModel* model = nullptr;
+        QAbstractProxyModel* proxyModel = nullptr;
 };
 
+
 #endif // SEARCHWINDOW_H
+

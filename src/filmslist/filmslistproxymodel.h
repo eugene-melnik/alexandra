@@ -44,7 +44,7 @@ class FilmsListProxyModel : public QSortFilterProxyModel
         }
 
     protected:
-        bool filterAcceptsRow( int sourceRow, const QModelIndex& sourceParent ) const
+        bool filterAcceptsRow( int sourceRow, const QModelIndex& sourceParent ) const override
         {
             if( filterString.isEmpty() ) return( true );
             if( filterColumns.isEmpty() ) return( false );

@@ -54,21 +54,24 @@ FilmInfoView::FilmInfoView( QWidget* parent ) : QWidget( parent )
 
 void FilmInfoView::ShowInformation( const QModelIndex& index )
 {
-    DebugPrintFunc( "FilmInfoView::ShowInformation", index.row() );
-
-    const FilmsListProxyModel* model = static_cast<const FilmsListProxyModel*>( index.model() );
-
-    lFilmTitle->setText( model->index( index.row(), FilmItem::TitleColumn ).data().toString() );
-
-    for( auto& item : textItems )
+    if( index.isValid() )
     {
-        QString title = model->headerData( item.first, Qt::Horizontal, Qt::DisplayRole ).toString();
-        QString text = model->index( index.row(), item.first ).data().toString();
-        item.second->setText( tr( "<b>%1:</b> %2" ).arg( title, text ) );
-        item.second->setVisible( !text.isEmpty() );
-    }
+        DebugPrintFunc( "FilmInfoView::ShowInformation", index.row() );
 
-    DebugPrintFuncDone( "FilmInfoView::ShowInformation" );
+        const FilmsListProxyModel* model = static_cast<const FilmsListProxyModel*>( index.model() );
+
+        lFilmTitle->setText( model->index( index.row(), FilmItem::TitleColumn ).data().toString() );
+
+        for( QPair<FilmItem::Column,QLabel*>& item : textItems )
+        {
+            QString title = model->headerData( item.first, Qt::Horizontal, Qt::DisplayRole ).toString();
+            QString text = model->index( index.row(), item.first ).data().toString();
+            item.second->setText( tr( "<b>%1:</b> %2" ).arg( title, text ) );
+            item.second->setVisible( !text.isEmpty() );
+        }
+
+        DebugPrintFuncDone( "FilmInfoView::ShowInformation" );
+    }
 }
 
 
@@ -76,7 +79,7 @@ void FilmInfoView::Clear()
 {
     lFilmTitle->clear();
 
-    for( auto& item : textItems )
+    for( QPair<FilmItem::Column,QLabel*>& item : textItems )
     {
         item.second->clear();
     }

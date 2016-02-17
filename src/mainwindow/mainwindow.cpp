@@ -22,6 +22,7 @@
 #include "datamanip/editfilmwindow.h"
 #include "filmsview/grid/filmsviewgrid.h"
 #include "filmsview/list/filmsviewlist.h"
+#include "search/searchwindow.h"
 #include "scanner/filmscannerwindow.h"
 #include "scanner/movedfilmswindow.h"
 #include "statistics/statisticswindow.h"
@@ -557,9 +558,18 @@ void MainWindow::ShowMovedFilmsWindow()
 void MainWindow::ShowStatisticsWindow()
 {
     StatisticsWindow* statisticsWindow = new StatisticsWindow( this );
-//    connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
+///    connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
     statisticsWindow->SetModel( filmsListModel );
     statisticsWindow->show();
+}
+
+
+void MainWindow::ShowSearchWindow()
+{
+    SearchWindow* searchWindow = new SearchWindow( this );
+    connect( searchWindow, &SearchWindow::ShowSelectedItem, this, &MainWindow::SetCurrentFilmByIndex );
+    searchWindow->SetModel( filmsListModel );
+    searchWindow->show();
 }
 
 
@@ -621,10 +631,8 @@ void MainWindow::ToggleCurrentFilmValue( FilmItem::Column column )
 }
 
 
-void MainWindow::SetCurrentFilmByTitle( const QString& title )
+void MainWindow::SetCurrentFilmByIndex( const QModelIndex& index )
 {
-    QModelIndex index = filmsListModel->GetFilmIndex( title );
-
     if( index.isValid() )
     {
         filmsView->SetCurrentIndex( filmsListProxyModel->mapFromSource(index) );
@@ -633,6 +641,13 @@ void MainWindow::SetCurrentFilmByTitle( const QString& title )
     {
         filmsView->SetCurrentRow( 0 );
     }
+}
+
+
+void MainWindow::SetCurrentFilmByTitle( const QString& title )
+{
+    QModelIndex index = filmsListModel->GetFilmIndex( title );
+    SetCurrentFilmByIndex( index );
 }
 
 
@@ -724,12 +739,8 @@ void MainWindow::SetupWindows()
 #endif // MEDIAINFO_SUPPORT
 
         /// Search window
-//    searchWindow = new SearchWindow( filmsListModel->GetFilmsList(), this );
-
-//    connect( actionSearch, &QAction::triggered, searchWindow, &SearchWindow::show );
-//    connect( toolbar, &ToolBar::actionSearch, searchWindow, &SearchWindow::show );
-
-//    connect( searchWindow, &SearchWindow::FilmSelected, filmsListModel, &FilmsListModel::SetCurrentFilm );
+    connect( actionSearch, &QAction::triggered,    this, &MainWindow::ShowSearchWindow );
+    connect( toolbar,      &ToolBar::actionSearch, this, &MainWindow::ShowSearchWindow );
 
         /// Settings window
     connect( actionSettings, &QAction::triggered, this, &MainWindow::ShowSettingsWindow );
@@ -790,8 +801,6 @@ void MainWindow::SetupFilmsView()
       // Base signals
     connect( view, SIGNAL(CurrentChanged(QModelIndex)), this, SLOT(ShowFilmInformation(QModelIndex)) );
     connect( view, SIGNAL(ContextMenuRequested(QPoint,QModelIndex)), this, SLOT(ShowFilmContextMenu(QPoint,QModelIndex)) );
-      // Search window
-//    connect( searchWindow, SIGNAL( FilmSelected(QString) ), view, SLOT( SelectItem(QString) ) );
 
     view->setModel( filmsListProxyModel );
     vlLeft->insertWidget( 0, view );

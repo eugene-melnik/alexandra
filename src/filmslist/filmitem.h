@@ -155,3 +155,4 @@ inline int FilmItem::GetRow() const
 
 
 #endif // FILMITEM_H
+

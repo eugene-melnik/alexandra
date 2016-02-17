@@ -21,13 +21,16 @@
 #ifndef FILMSLISTMODEL_H
 #define FILMSLISTMODEL_H
 
+
 #include <QAbstractItemModel>
 #include <QMutex>
 #include <QObject>
 #include <QStringList>
 
+
 #include "alexandrasettings.h"
 #include "filmitem.h"
+
 
 class FilmsListModel : public QAbstractItemModel
 {
@@ -50,6 +53,11 @@ class FilmsListModel : public QAbstractItemModel
 
           // Model writing
 //        bool setData( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole ) override;
+
+        enum UserRoles
+        {
+            StringListRole = Qt::UserRole
+        };
 
     public slots:
         void LoadFromFile( const QString& fileName );
@@ -98,6 +106,7 @@ class FilmsListModel : public QAbstractItemModel
 
         AlexandraSettings* settings;
 };
+
 
 #endif // FILMSLISTMODEL_H
 

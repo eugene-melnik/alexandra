@@ -205,7 +205,7 @@ void FilmsViewList::SetDefaultColumnsView()
     header->moveSection( FilmItem::IsViewedColumn + 1, 0 );
 
       // Hide
-    QList<FilmItem::Column> hiddenColumns =
+    QList<int> hiddenColumns =
     {
         FilmItem::OriginalTitleColumn, FilmItem::CountryColumn,  FilmItem::ProducerColumn,
         FilmItem::ScreenwriterColumn,  FilmItem::ComposerColumn, FilmItem::BudgetColumn,
@@ -214,13 +214,13 @@ void FilmsViewList::SetDefaultColumnsView()
         FilmItem::PosterColumn
     };
 
-    for( FilmItem::Column col : hiddenColumns )
+    for( int column : hiddenColumns )
     {
-        header->hideSection( col );
+        header->hideSection( column );
     }
 
       // Show and resize
-    QList< QPair<FilmItem::Column,int> > shownColumns =
+    QList< QPair<int,int> > shownColumns =
     {
         { FilmItem::TitleColumn, 150 }, { FilmItem::YearColumn, 50 },
         { FilmItem::GenreColumn, 110 }, { FilmItem::DirectorColumn, 110 },
@@ -228,10 +228,10 @@ void FilmsViewList::SetDefaultColumnsView()
         { FilmItem::IsFavouriteColumn, 20 }
     };
 
-    for( auto& p : shownColumns )
+    for( QPair<int,int>& column : shownColumns )
     {
-        header->showSection( p.first );
-        header->resizeSection( p.first, p.second );
+        header->showSection( column.first );
+        header->resizeSection( column.first, column.second );
     }
 
     DebugPrintFuncDone( "FilmsViewList::SetDefaultColumnsView" );

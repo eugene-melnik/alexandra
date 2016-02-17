@@ -18,12 +18,12 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
                     case FilmItem::IsViewedColumn :
                     case FilmItem::IsFavouriteColumn :
                     {
-                        return( item->GetColumnData( column ).toBool() ? "+" : "-" );
+                        return( item->GetColumnData(column).toBool() ? "+" : "-" );
                     }
 
                     case FilmItem::YearColumn :
                     {
-                        int year = item->GetColumnData( column ).toInt();
+                        int year = item->GetColumnData(column).toInt();
 
                         if( year > 1849 ) // See at "addfilmwindow.ui" file "sbYear" widget
                         {

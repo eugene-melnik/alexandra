@@ -27,7 +27,6 @@
 #include "filmsview/abstractfilmsview.h"
 #include "filmsview/filmsviewcontextmenu.h"
 #include "search/searchedit.h"
-//#include "search/searchwindow.h"
 #include "aboutwindow.h"
 #include "alexandrasettings.h"
 #include "ui_mainwindow.h"
@@ -97,6 +96,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void ShowMovedFilmsWindow();
         void ShowStatisticsWindow();
 
+        void ShowSearchWindow();
         void ShowSettingsWindow();
 
         void SetCurrentFilmIsViewed() { ToggleCurrentFilmValue( FilmItem::IsViewedColumn ); }
@@ -109,6 +109,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         void ToggleCurrentFilmValue( FilmItem::Column column );
 
+        void SetCurrentFilmByIndex( const QModelIndex& index );
         void SetCurrentFilmByTitle( const QString& title );
 
         void SetupModels();
@@ -125,15 +126,14 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void SetEmptyMode( bool empty = true );
         void SetReadOnlyMode( bool readOnly = true );
 
-        // Child windows
+          // Child windows
         AboutWindow* aboutWindow;
-//        SearchWindow* searchWindow = nullptr;
 
-        // Shortcuts
+          // Shortcuts
         QShortcut* quickSearchShortcut;
         QShortcut* viewFocusShortcut;
 
-        // Variables
+          // Variables
         AbstractFilmsView* filmsView = nullptr;
         FilmsViewContextMenu* contextMenu;
 

@@ -28,21 +28,24 @@
 
 void FilmPosterView::ShowInformation( const QModelIndex& index )
 {
-    DebugPrintFunc( "FilmPosterView::ShowInformation", index.row() );
-
-    const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
-    QVariant data = model->index( index.row(), FilmItem::PosterColumn ).data( Qt::DecorationRole );
-
-    if( data.isValid() )
+    if( index.isValid() )
     {
-        SetPixmap( data.value<QPixmap>() );
-    }
-    else
-    {
-        Clear();
-    }
+        DebugPrintFunc( "FilmPosterView::ShowInformation", index.row() );
 
-    DebugPrintFuncDone( "FilmPosterView::ShowInformation" );
+        const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
+        QVariant data = model->index( index.row(), FilmItem::PosterColumn ).data( Qt::DecorationRole );
+
+        if( data.isValid() )
+        {
+            SetPixmap( data.value<QPixmap>() );
+        }
+        else
+        {
+            Clear();
+        }
+
+        DebugPrintFuncDone( "FilmPosterView::ShowInformation" );
+    }
 }
 
 

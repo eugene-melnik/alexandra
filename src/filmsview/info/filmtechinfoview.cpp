@@ -49,19 +49,22 @@ FilmTechInfoView::~FilmTechInfoView()
 
 void FilmTechInfoView::ShowInformation( const QModelIndex& index )
 {
-    if( settings->GetShowTechInfo() && settings->GetMainWindowShowRightPanel() )
+    if( index.isValid() )
     {
-        const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
-        FilmItem* film = static_cast<FilmItem*>( model->mapToSource(index).internalPointer() );
+        if( settings->GetShowTechInfo() && settings->GetMainWindowShowRightPanel() )
+        {
+            const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
+            FilmItem* film = static_cast<FilmItem*>( model->mapToSource(index).internalPointer() );
 
-        if( film->GetIsFileExists() == FilmItem::Exists )
-        {
-            std::thread( &FilmTechInfoView::LoadTechnicalInfo, this, film->GetFileName() ).detach();
-        }
-        else
-        {
-            // TODO: maybe need to show 'loading' image?
-            Clear();
+            if( film->GetIsFileExists() == FilmItem::Exists )
+            {
+                std::thread( &FilmTechInfoView::LoadTechnicalInfo, this, film->GetFileName() ).detach();
+            }
+            else
+            {
+                // TODO: maybe need to show 'loading' image?
+                Clear();
+            }
         }
     }
 }

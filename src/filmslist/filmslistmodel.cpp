@@ -217,6 +217,35 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
                     }
                 }
             }
+
+            case UserRoles::StringListRole :
+            {
+                if( column == FilmItem::GenreColumn ||
+                    column == FilmItem::CountryColumn ||
+                    column == FilmItem::DirectorColumn ||
+                    column == FilmItem::ScreenwriterColumn ||
+                    column == FilmItem::StarringColumn ||
+                    column == FilmItem::TagsColumn )
+                {
+                    QString str = item->GetColumnData( column ).toString();
+
+                    if( str.isEmpty() )
+                    {
+                        return( QStringList() );
+                    }
+                    else
+                    {
+                        QStringList strings = str.split( "," );
+
+                        for( QString& s : strings )
+                        {
+                            s = s.trimmed();
+                        }
+
+                        return( strings );
+                    }
+                }
+            }
         }
     }
 
