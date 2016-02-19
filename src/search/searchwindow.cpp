@@ -23,6 +23,7 @@
 #include "filmslist/filmslistproxymodel.h"
 #include "tools/debug.h"
 
+#include <functional>
 #include <QHeaderView>
 #include <QMessageBox>
 #include <QStringList>
@@ -276,17 +277,40 @@ void SearchWindow::SetupAdvancedProxy( AdvancedSearchProxyModel* proxy )
     if( gbTitleContains->isChecked() && !eTitleContains->text().isEmpty() )
     {
         QStringList words = { eTitleContains->text() };
-        proxy->AddColumnFilter( FilmItem::TitleColumn, words );
+
+        if( cSearchInDescription->isChecked() || cSearchInTagline->isChecked() )
+        {
+            proxy->AddColumnOrFilter( FilmItem::TitleColumn, words );
+        }
+        else
+        {
+            proxy->AddColumnAndFilter( FilmItem::TitleColumn, words );
+        }
 
         if( cSearchInDescription->isChecked() )
-        {
-            proxy->AddColumnFilter( FilmItem::DescriptionColumn, words );
-        }
+            proxy->AddColumnOrFilter( FilmItem::DescriptionColumn, words );
 
         if( cSearchInTagline->isChecked() )
-        {
-            proxy->AddColumnFilter( FilmItem::TaglineColumn, words );
-        }
+            proxy->AddColumnOrFilter( FilmItem::TaglineColumn, words );
+    }
+
+      // Hide viewed and favourite
+    if( cHideViewed->isChecked() )
+        proxy->AddColumnAndFilter( FilmItem::IsViewedColumn, QStringList("false") );
+
+    if( cHideFavourite->isChecked() )
+        proxy->AddColumnAndFilter( FilmItem::IsFavouriteColumn, QStringList("false") );
+
+      // Approximate or exact search
+    std::function<void(AdvancedSearchProxyModel*,int,QStringList)> AddColumnFilter;
+
+    if( cApproximate->isChecked() )
+    {
+        AddColumnFilter = &AdvancedSearchProxyModel::AddColumnOrFilter;
+    }
+    else
+    {
+        AddColumnFilter = &AdvancedSearchProxyModel::AddColumnAndFilter;
     }
 
       // Year and rating
@@ -294,67 +318,59 @@ void SearchWindow::SetupAdvancedProxy( AdvancedSearchProxyModel* proxy )
     {
         QStringList years;
 
-        for( int i = sbYearFrom->value(); i <= sbYearTo->value(); ++i )
+        if( bYearRange->isChecked() )
         {
-            years.append( QString::number(i) );
+            for( int i = sbYearFrom->value(); i <= sbYearTo->value(); ++i )
+            {
+                years.append( QString::number(i) );
+            }
+        }
+        else
+        {
+            years.append( sbYearFrom->text() );
         }
 
-        proxy->AddColumnFilter( FilmItem::YearColumn, years );
+        AddColumnFilter( proxy, FilmItem::YearColumn, years );
     }
 
     if( gbRating->isChecked() )
     {
         QStringList ratings;
 
-        for( double i = sbRatingFrom->value(); i <= sbRatingTo->value(); i += 0.1 )
+        if( bRatingRange->isChecked() )
         {
-            ratings.append( QString::number(i) );
+            for( double i = sbRatingFrom->value(); i <= sbRatingTo->value(); i += 0.1 )
+            {
+                ratings.append( QString::number(i) );
+            }
+        }
+        else
+        {
+              // Can't use "text()" -- in different locales may be different delimiters
+            ratings.append( QString::number(sbRatingFrom->value()) );
         }
 
-        proxy->AddColumnFilter( FilmItem::RatingColumn, ratings );
-    }
-
-      // Hide viewed and favourite
-    if( cHideViewed->isChecked() )
-    {
-        proxy->SetHideViewed();
-    }
-
-    if( cHideFavourite->isChecked() )
-    {
-        proxy->SetHideFavourite();
+        AddColumnFilter( proxy, FilmItem::RatingColumn, ratings );
     }
 
       // All the rest
     if( gbGenre->isChecked() )
-    {
-        proxy->AddColumnFilter( FilmItem::GenreColumn, lwGenre->GetSelectedItems() );
-    }
+        AddColumnFilter( proxy, FilmItem::GenreColumn, lwGenre->GetSelectedItems() );
 
     if( gbDirector->isChecked() )
-    {
-        proxy->AddColumnFilter( FilmItem::DirectorColumn, lwDirector->GetSelectedItems() );
-    }
+        AddColumnFilter( proxy, FilmItem::DirectorColumn, lwDirector->GetSelectedItems() );
 
     if( gbCountry->isChecked() )
-    {
-        proxy->AddColumnFilter( FilmItem::CountryColumn, lwCountry->GetSelectedItems() );
-    }
+        AddColumnFilter( proxy, FilmItem::CountryColumn, lwCountry->GetSelectedItems() );
 
     if( gbStarring->isChecked() )
-    {
-        proxy->AddColumnFilter( FilmItem::StarringColumn, lwStarring->GetSelectedItems() );
-    }
+        AddColumnFilter( proxy, FilmItem::StarringColumn, lwStarring->GetSelectedItems() );
 
     if( gbScreenwriter->isChecked() )
-    {
-        proxy->AddColumnFilter( FilmItem::ScreenwriterColumn, lwScreenwriter->GetSelectedItems() );
-    }
+        AddColumnFilter( proxy, FilmItem::ScreenwriterColumn, lwScreenwriter->GetSelectedItems() );
 
     if( gbTags->isChecked() )
-    {
-        proxy->AddColumnFilter( FilmItem::TagsColumn, lwTags->GetSelectedItems() );
-    }
+        AddColumnFilter( proxy, FilmItem::TagsColumn, lwTags->GetSelectedItems() );
 
     proxy->ApplyFilter();
 }

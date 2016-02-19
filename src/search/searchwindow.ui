@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>720</width>
-    <height>506</height>
+    <height>510</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabSimpleSearch">
       <attribute name="title">
@@ -273,10 +273,10 @@
          <widget class="QWidget" name="scrollAreaAdvancedSearchContents">
           <property name="geometry">
            <rect>
-            <x>-123</x>
+            <x>0</x>
             <y>0</y>
             <width>1609</width>
-            <height>143</height>
+            <height>147</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="layoutScrollAreaAdvancedSearch">
@@ -381,58 +381,79 @@
              <property name="checked">
               <bool>false</bool>
              </property>
-             <layout class="QGridLayout" name="layoutYear">
-              <item row="0" column="0">
-               <widget class="QLabel" name="labelYearFrom">
-                <property name="text">
-                 <string>From</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1" rowspan="2">
-               <layout class="QVBoxLayout" name="layoutYearSpinboxes">
+             <layout class="QVBoxLayout" name="layoutYear">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout">
                 <item>
-                 <widget class="QSpinBox" name="sbYearFrom">
-                  <property name="correctionMode">
-                   <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
-                  </property>
-                  <property name="minimum">
-                   <number>1849</number>
-                  </property>
-                  <property name="maximum">
-                   <number>2102</number>
-                  </property>
-                  <property name="value">
-                   <number>1849</number>
-                  </property>
-                 </widget>
+                 <layout class="QVBoxLayout" name="verticalLayout">
+                  <item>
+                   <widget class="QLabel" name="labelYearFrom">
+                    <property name="text">
+                     <string>From</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="labelYearTo">
+                    <property name="text">
+                     <string>To</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="sbYearTo">
-                  <property name="correctionMode">
-                   <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
-                  </property>
-                  <property name="minimum">
-                   <number>1849</number>
-                  </property>
-                  <property name="maximum">
-                   <number>2102</number>
-                  </property>
-                  <property name="value">
-                   <number>2102</number>
-                  </property>
-                 </widget>
+                 <layout class="QVBoxLayout" name="layoutYearSpinboxes">
+                  <item>
+                   <widget class="QSpinBox" name="sbYearFrom">
+                    <property name="correctionMode">
+                     <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+                    </property>
+                    <property name="minimum">
+                     <number>1849</number>
+                    </property>
+                    <property name="maximum">
+                     <number>2102</number>
+                    </property>
+                    <property name="value">
+                     <number>1849</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="sbYearTo">
+                    <property name="correctionMode">
+                     <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+                    </property>
+                    <property name="minimum">
+                     <number>1849</number>
+                    </property>
+                    <property name="maximum">
+                     <number>2102</number>
+                    </property>
+                    <property name="value">
+                     <number>2102</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="labelYearTo">
+              <item>
+               <widget class="QPushButton" name="bYearRange">
                 <property name="text">
-                 <string>To</string>
+                 <string>Range</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item>
                <spacer name="spacerYear">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -471,70 +492,91 @@
              <property name="checked">
               <bool>false</bool>
              </property>
-             <layout class="QGridLayout" name="layoutRating">
-              <item row="0" column="0">
-               <widget class="QLabel" name="labelRatingFrom">
-                <property name="text">
-                 <string>From</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1" rowspan="2">
-               <layout class="QVBoxLayout" name="layoutRatingSpinboxes">
+             <layout class="QVBoxLayout" name="layoutRating">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
-                 <widget class="QDoubleSpinBox" name="sbRatingFrom">
-                  <property name="correctionMode">
-                   <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
-                  </property>
-                  <property name="decimals">
-                   <number>1</number>
-                  </property>
-                  <property name="minimum">
-                   <double>1.000000000000000</double>
-                  </property>
-                  <property name="maximum">
-                   <double>10.000000000000000</double>
-                  </property>
-                  <property name="singleStep">
-                   <double>0.100000000000000</double>
-                  </property>
-                  <property name="value">
-                   <double>1.000000000000000</double>
-                  </property>
-                 </widget>
+                 <layout class="QVBoxLayout" name="verticalLayout_3">
+                  <item>
+                   <widget class="QLabel" name="labelRatingFrom">
+                    <property name="text">
+                     <string>From</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="labelRatingTo">
+                    <property name="text">
+                     <string>To</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                 <item>
-                 <widget class="QDoubleSpinBox" name="sbRatingTo">
-                  <property name="correctionMode">
-                   <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
-                  </property>
-                  <property name="decimals">
-                   <number>1</number>
-                  </property>
-                  <property name="minimum">
-                   <double>1.000000000000000</double>
-                  </property>
-                  <property name="maximum">
-                   <double>10.000000000000000</double>
-                  </property>
-                  <property name="singleStep">
-                   <double>0.100000000000000</double>
-                  </property>
-                  <property name="value">
-                   <double>10.000000000000000</double>
-                  </property>
-                 </widget>
+                 <layout class="QVBoxLayout" name="layoutRatingSpinboxes">
+                  <item>
+                   <widget class="QDoubleSpinBox" name="sbRatingFrom">
+                    <property name="correctionMode">
+                     <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+                    </property>
+                    <property name="decimals">
+                     <number>1</number>
+                    </property>
+                    <property name="minimum">
+                     <double>1.000000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>10.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                    <property name="value">
+                     <double>1.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QDoubleSpinBox" name="sbRatingTo">
+                    <property name="correctionMode">
+                     <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+                    </property>
+                    <property name="decimals">
+                     <number>1</number>
+                    </property>
+                    <property name="minimum">
+                     <double>1.000000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>10.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                    <property name="value">
+                     <double>10.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="labelRatingTo">
+              <item>
+               <widget class="QPushButton" name="bRatingRange">
                 <property name="text">
-                 <string>To</string>
+                 <string>Range</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item>
                <spacer name="spacerRating">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -626,6 +668,13 @@
               <widget class="QCheckBox" name="cHideFavourite">
                <property name="text">
                 <string>Hide favourite</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cApproximate">
+               <property name="text">
+                <string>Approximate</string>
                </property>
               </widget>
              </item>
@@ -979,7 +1028,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="hs0">
+      <spacer name="spacerFooter">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -1060,12 +1109,108 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>553</x>
-     <y>449</y>
+     <x>618</x>
+     <y>495</y>
     </hint>
     <hint type="destinationlabel">
      <x>349</x>
      <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bYearRange</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>labelYearFrom</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>218</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>184</x>
+     <y>125</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bYearRange</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>labelYearTo</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>218</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>184</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bYearRange</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>sbYearTo</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>218</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>237</x>
+     <y>155</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bRatingRange</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>labelRatingFrom</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>349</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bRatingRange</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>labelRatingTo</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>349</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bRatingRange</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>sbRatingTo</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>349</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>122</y>
     </hint>
    </hints>
   </connection>

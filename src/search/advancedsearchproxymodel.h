@@ -36,27 +36,49 @@ class AdvancedSearchProxyModel : public FilmsListProxyModel
     public:
         explicit AdvancedSearchProxyModel( QObject* parent = nullptr ) : FilmsListProxyModel(parent) {}
 
-        void SetHideViewed( bool hide = true ) { hideViewed = hide; }
-        void SetHideFavourite( bool hide = true ) { hideFavourite = hide; }
-
-        void AddColumnFilter( int column, QStringList words ) { filterColumns.insert( column, words ); }
+        void AddColumnOrFilter( int column, QStringList words ) { filterColumnsOr.insert( column, words ); }
+        void AddColumnAndFilter( int column, QStringList words ) { filterColumnsAnd.insert( column, words ); }
 
         void ApplyFilter() { invalidateFilter(); }
 
     protected:
         bool filterAcceptsRow( int sourceRow, const QModelIndex& sourceParent ) const override
         {
-            if( filterColumns.empty() ) return( false );
+              // Filter wasn't set
+            if( filterColumnsAnd.empty() && filterColumnsOr.isEmpty() ) return( false );
 
             FilmItem* film = static_cast<FilmItem*>( sourceModel()->index( sourceRow, 0, sourceParent ).internalPointer() );
 
-            if( hideViewed && film->GetIsFilmViewed() ) return( false );
-            if( hideFavourite && film->GetIsFilmFavourite() ) return( false );
+              // "OR" filter
+            if( !filterColumnsOr.isEmpty() )
+            {
+                bool isContains = false;
 
-            for( int column : filterColumns.keys() )
+                for( int column : filterColumnsOr.keys() )
+                {
+                    QString columnData = film->GetColumnData( column ).toString();
+                    QStringList words = filterColumnsOr.value( column );
+
+                    for( QString word : words )
+                    {
+                        if( columnData.contains( word, Qt::CaseInsensitive ) )
+                        {
+                            isContains = true;
+                            break;
+                        }
+                    }
+
+                    if( isContains ) break;
+                }
+
+                if( !isContains ) return( false );
+            }
+
+              // "AND" filter
+            for( int column : filterColumnsAnd.keys() )
             {
                 QString columnData = film->GetColumnData( column ).toString();
-                QStringList words = filterColumns.value( column );
+                QStringList words = filterColumnsAnd.value( column );
                 bool isContains = false;
 
                 for( QString word : words )
@@ -68,31 +90,15 @@ class AdvancedSearchProxyModel : public FilmsListProxyModel
                     }
                 }
 
-                if( !isContains )
-                {
-//                    if( column == FilmItem::TitleColumn && (filterColumns.contains(FilmItem::DescriptionColumn) ||
-//                                                            filterColumns.contains(FilmItem::TaglineColumn)) )
-//                    {
-//                        continue;
-//                    }
-//                    else if( column == FilmItem::DescriptionColumn || column == FilmItem::TaglineColumn )
-//                    {
-//                        continue;
-//                    }
-//                    else
-                    {
-                        return( false );
-                    }
-                }
+                if( !isContains ) return( false );
             }
 
             return( true );
         }
 
     private:
-        bool hideViewed = false;
-        bool hideFavourite = false;
-        QMap<int,QStringList> filterColumns;
+        QMap<int,QStringList> filterColumnsOr;
+        QMap<int,QStringList> filterColumnsAnd;
 };
 
 
