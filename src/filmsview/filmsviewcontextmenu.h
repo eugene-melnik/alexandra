@@ -21,10 +21,13 @@
 #ifndef FILMSVIEWCONTEXTMENU_H
 #define FILMSVIEWCONTEXTMENU_H
 
+
 #include <QAction>
 #include <QMenu>
 
+
 #include "filmslist/filmitem.h"
+
 
 class FilmsViewContextMenu : public QMenu
 {
@@ -56,4 +59,6 @@ class FilmsViewContextMenu : public QMenu
         QAction* cmaRemoveFile = nullptr;
 };
 
+
 #endif // FILMSVIEWCONTEXTMENU_H
+

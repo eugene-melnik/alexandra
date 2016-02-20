@@ -21,7 +21,9 @@
 #ifndef EDITFILMWINDOW_H
 #define EDITFILMWINDOW_H
 
+
 #include "addfilmwindow.h"
+
 
 class EditFilmWindow : public AddFilmWindow
 {
@@ -33,4 +35,6 @@ class EditFilmWindow : public AddFilmWindow
         void SetData( const FilmItem* film );
 };
 
+
 #endif // EDITFILMWINDOW_H
+

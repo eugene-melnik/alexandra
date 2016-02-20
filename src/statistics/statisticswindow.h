@@ -29,7 +29,6 @@
 
 
 #include <QAbstractItemModel>
-#include <QCloseEvent>
 #include <QDialog>
 #include <QList>
 #include <QMutex>

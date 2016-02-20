@@ -21,11 +21,14 @@
 #ifndef FILMINFOVIEW_H
 #define FILMINFOVIEW_H
 
+
 #include <QWidget>
+
 
 #include "abstractfilminfoview.h"
 #include "filmslist/filmitem.h"
 #include "ui_filminfoview.h"
+
 
 class FilmInfoView : public QWidget, public AbstractFilmInfoView, protected Ui::FilmInfoView
 {
@@ -45,4 +48,6 @@ class FilmInfoView : public QWidget, public AbstractFilmInfoView, protected Ui::
         QList< QPair<FilmItem::Column,QLabel*> > textItems;
 };
 
+
 #endif // FILMINFOVIEW_H
+

@@ -21,9 +21,12 @@
 #ifndef FILMPOSTERVIEW_H
 #define FILMPOSTERVIEW_H
 
+
 #include "abstractfilminfoview.h"
 
+
 #include <QLabel>
+
 
 class FilmPosterView : public QLabel, public AbstractFilmInfoView
 {
@@ -44,4 +47,6 @@ class FilmPosterView : public QLabel, public AbstractFilmInfoView
         void SetPixmap( const QPixmap& pixmap );
 };
 
+
 #endif // FILMPOSTERVIEW_H
+

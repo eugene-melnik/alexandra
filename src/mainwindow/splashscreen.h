@@ -3,7 +3,7 @@
  *  file: splashscreen.h                                                                          *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,9 +21,12 @@
 #ifndef SPLASHSCREEN_H
 #define SPLASHSCREEN_H
 
+
 #include "ui_splashscreen.h"
 
+
 #include <QDialog>
+
 
 class SplashScreen : public QDialog, protected Ui::SplashScreen
 {
@@ -38,4 +41,6 @@ class SplashScreen : public QDialog, protected Ui::SplashScreen
         void Close();
 };
 
+
 #endif // SPLASHSCREEN_H
+

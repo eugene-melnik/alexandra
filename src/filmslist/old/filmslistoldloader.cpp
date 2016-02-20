@@ -88,3 +88,4 @@ bool FilmsListOldLoader::Populate( FilmItem* rootItem, const QString& fileName )
     DebugPrintFuncDone( "FilmsListOldLoader::Populate" );
     return( false );
 }
+

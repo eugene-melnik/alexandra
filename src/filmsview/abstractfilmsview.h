@@ -3,7 +3,7 @@
  *  file: abstractfilmsview.h                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2015 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -21,9 +21,11 @@
 #ifndef ABSTRACTFILMSVIEW_H
 #define ABSTRACTFILMSVIEW_H
 
+
 #include <QColor>
 #include <QModelIndex>
 #include <QStringList>
+
 
 class AbstractFilmsView
 {
@@ -41,12 +43,11 @@ class AbstractFilmsView
         virtual void SetCurrentIndex( const QModelIndex& index ) = 0;
         virtual void SetCurrentRow( int r ) = 0;
 
-//        virtual void SetCurrentItemTo( const Film film ) = 0;
-//        virtual QStringList GetSelectedItemsList() const = 0;
-
 //    signals:
 //        void CurrentChanged( const QModelIndex& );
 //        void ContextMenuRequested( const QPoint& );
 };
 
+
 #endif // ABSTRACTFILMSVIEW_H
+

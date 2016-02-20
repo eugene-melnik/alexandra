@@ -21,11 +21,14 @@
 #ifndef FILMTECHINFOVIEW_H
 #define FILMTECHINFOVIEW_H
 
+
 #include "abstractfilminfoview.h"
 #include "alexandrasettings.h"
 
+
 #include <QLabel>
 #include <QMutex>
+
 
 class FilmTechInfoView : public QLabel, public AbstractFilmInfoView
 {
@@ -55,4 +58,6 @@ class FilmTechInfoView : public QLabel, public AbstractFilmInfoView
         QMutex mutexInfoLoad;
 };
 
+
 #endif // FILMTECHINFOVIEW_H
+
