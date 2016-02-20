@@ -111,12 +111,13 @@ void StatisticsWindow::ShowMainStatistics( int         threadViewedFilms,
     viewedFilms += threadViewedFilms;
     totalViewsCount += threadTotalViewsCount;
     wastedTime += threadWastedTime;
-    allFilesOk |= threadAllFilesOk;
+    allFilesOk &= threadAllFilesOk;
 
     topFilms.append( threadTopFilms );
 
       // Other information
-    lFilmsViewed->setText( QString::number( viewedFilms ) );
+    double ratio = viewedFilms * 100.0 / lTotalFilmsInLibrary->text().toInt();
+    lFilmsViewed->setText( QString( "%1 (%L2%)" ).arg(viewedFilms).arg(ratio, 0, 'f', 1) );
     lTotalViews->setText( QString::number( totalViewsCount ) );
     lWastedTime->setText( wastedTime.ToString() );
 
@@ -126,12 +127,12 @@ void StatisticsWindow::ShowMainStatistics( int         threadViewedFilms,
             if( !allFilesOk ) // Condition when unable to access all the files
             {
                 lWastedTime->setText( lWastedTime->text() + " (?)" );
-                lWastedTime->setToolTip( tr( "The calculation is not accurate, because some files are not available." ) );
+                lWastedTime->setToolTip( tr( "The calculations are inaccurate because some of files aren't available." ) );
             }
         #else
             labelWastedTime->hide();
             lWastedTime->hide();
-        #endif
+        #endif // MEDIAINFO_SUPPORT
 
           // List of most popular films
           // Sorting by views count and alphabet
@@ -167,7 +168,6 @@ void StatisticsWindow::Reset()
     if( answer == QMessageBox::Yes )
     {
         emit ResetStatistics();
-        close();
     }
 }
 
