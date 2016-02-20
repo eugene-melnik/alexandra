@@ -29,7 +29,7 @@
 FilmScannerAddWorker::FilmScannerAddWorker() : QThread(),
     settings( AlexandraSettings::GetInstance() )
 {
-    qRegisterMetaType<QList<FilmItem*>>( "QList<FilmItem*>" );
+    qRegisterMetaType<FilmItemList>( "FilmItemList" );
 }
 
 

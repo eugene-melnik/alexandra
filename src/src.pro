@@ -44,6 +44,7 @@ HEADERS += datamanip/addfilmwindow.h \
            filmslist/old/film0x10.h \
            filmslist/old/filmslistoldloader.h \
            filmslist/filmitem.h \
+           filmslist/filmslistloader.h \
            filmslist/filmslistmodel.h \
            filmslist/filmslistproxymodel.h \
            filmsview/grid/filmsviewgrid.h \
@@ -93,9 +94,9 @@ SOURCES += datamanip/addfilmwindow.cpp \
            datamanip/editfilmwindow.cpp \
            datamanip/texteditor.cpp \
            effects/effectdropshadow.cpp \
-           filmslist/old/film0x10.cpp \
            filmslist/old/filmslistoldloader.cpp \
            filmslist/filmitem.cpp \
+           filmslist/filmslistloader.cpp \
            filmslist/filmslistmodel.cpp \
            filmslist/filmslistproxymodel.cpp \
            filmsview/grid/filmsviewgrid.cpp \

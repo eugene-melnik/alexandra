@@ -39,7 +39,7 @@ class MovedFilmsWindow : public QDialog, protected Ui::MovedFilmsWindow
         explicit MovedFilmsWindow( QWidget* parent = nullptr );
         virtual ~MovedFilmsWindow();
 
-        void SetUnavailableFilms( QList<FilmItem*> films ) { unavailableFilms = films; }
+        void SetUnavailableFilms( FilmItemList films ) { unavailableFilms = films; }
 
     signals:
         void FilmsMoved();
@@ -53,7 +53,7 @@ class MovedFilmsWindow : public QDialog, protected Ui::MovedFilmsWindow
 
     private:
         FilmScannerWorker* filmScannerWorker;
-        QList<FilmItem*> unavailableFilms;
+        FilmItemList unavailableFilms;
 
         const QColor existedFileColor = QColor( 0, 255, 0, 40 ); // Light green
 };

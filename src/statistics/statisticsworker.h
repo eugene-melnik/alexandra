@@ -47,7 +47,7 @@ class StatisticsWorker : public QThread
     public:
         StatisticsWorker();
 
-        void SetFilms( QList<FilmItem*> films ) { this->films = films; }
+        void SetFilms( FilmItemList films ) { this->films = films; }
         void Terminate() { isTerminate = true; }
 
     signals:
@@ -63,7 +63,7 @@ class StatisticsWorker : public QThread
         void run() override;
 
     private:
-        QList<FilmItem*> films;
+        FilmItemList films;
         bool isTerminate = false;
 };
 

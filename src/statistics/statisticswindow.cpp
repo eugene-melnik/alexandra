@@ -50,7 +50,7 @@ StatisticsWindow::~StatisticsWindow()
 void StatisticsWindow::SetModel( QAbstractItemModel* model )
 {
     this->model = model;
-    QList<FilmItem*> films;
+    FilmItemList films;
 
     for( int row = 0; row < model->rowCount(); ++row )
     {
@@ -66,7 +66,7 @@ void StatisticsWindow::SetModel( QAbstractItemModel* model )
 }
 
 
-void StatisticsWindow::LoadStatistics( QList<FilmItem*> films )
+void StatisticsWindow::LoadStatistics( FilmItemList films )
 {
       // Calculations in multithread
     threadsCount = QThread::idealThreadCount() > 0 ? QThread::idealThreadCount() : 1;

@@ -28,31 +28,48 @@
 #include <QJsonDocument>
 
 
-bool FilmsListLoader::Populate( FilmItem* rootItem, const QString& fileName )
+bool FilmsListLoader::Populate( FilmItem* rootItem, QString fileName )
 {
-    DebugPrintFunc( "FilmsListOldLoader::Populate", fileName );
+    DebugPrintFunc( "FilmsListLoader::Populate", fileName );
 
+    QFile file( fileName );
 
-//    QFile file( fileName );
+    if( file.open(QIODevice::ReadOnly) )
+    {
+        QDataStream stream( &file );
+        stream.setVersion( QDataStream::Qt_5_3 );
 
-//    if( file.open( QIODevice::ReadOnly ) )
-//    {
-//        QDataStream stream( &file );
-//        stream.setVersion( QDataStream::Qt_5_3 );
+        QString databaseHeader; quint8 databaseVersion;
+        stream >> databaseHeader >> databaseVersion;
 
-//        DebugPrint( "Success!" );
-//        DebugPrintFuncDone( "FilmsListOldLoader::Populate" );
-//        return( true );
-//        }
-//    }
+        QByteArray data;
+        stream >> data;
+        file.close();
+
+        if( !data.isEmpty() )
+        {
+            QJsonDocument rootDocument = QJsonDocument::fromJson(data);
+            QJsonObject rootObject = rootDocument.object();
+            QJsonArray filmsArray = rootObject["films"].toArray();
+
+            for( int i = 0; i < filmsArray.count(); ++i )
+            {
+                rootItem->AppendChild( FromJsonObjectToFilm( filmsArray.at(i).toObject() ) );
+            }
+        }
+
+        DebugPrint( "Success!" );
+        DebugPrintFuncDone( "FilmsListLoader::Populate" );
+        return( true );
+    }
 
     DebugPrint( "Failed!" );
-    DebugPrintFuncDone( "FilmsListOldLoader::Populate" );
+    DebugPrintFuncDone( "FilmsListLoader::Populate" );
     return( false );
 }
 
 
-bool FilmsListLoader::Save( FilmItem* rootItem, const QString& fileName )
+bool FilmsListLoader::Save( FilmItem* rootItem, QString fileName )
 {
     DebugPrintFunc( "FilmsListLoader::Save", fileName );
 
@@ -65,7 +82,8 @@ bool FilmsListLoader::Save( FilmItem* rootItem, const QString& fileName )
     }
 
     QJsonObject rootObject;
-    rootObject.insert( "films", filmsArray );
+    rootObject["films"] = filmsArray;
+
     QJsonDocument rootDocument( rootObject );
     QByteArray data = rootDocument.toJson( QJsonDocument::Compact );
 
@@ -91,9 +109,43 @@ bool FilmsListLoader::Save( FilmItem* rootItem, const QString& fileName )
 }
 
 
+bool FilmsListLoader::CreateEmptyDatabase( QString fileName )
+{
+    QFile file( fileName );
+
+    if( file.open(QIODevice::WriteOnly) )
+    {
+        QDataStream stream( &file );
+        stream.setVersion( QDataStream::Qt_5_3 );
+        stream << Alexandra::databaseHeader;
+        stream << Alexandra::databaseVersion;
+        return( true );
+    }
+
+    return( false );
+}
+
+
+FilmItem* FilmsListLoader::FromJsonObjectToFilm( QJsonObject object )
+{
+    FilmItem* film = new FilmItem();
+
+    for( int column = 0; column < film->GetColumnCount(); ++column )
+    {
+        film->SetColumnData( column, object[ QString::number(column) ].toString() );
+    }
+
+    int viewsCount = film->GetColumnData( FilmItem::ViewsCountColumn ).toInt();
+    film->SetColumnData( FilmItem::IsViewedColumn, (viewsCount > 0) );
+
+    return( film );
+}
+
+
 QJsonObject FilmsListLoader::FromFilmToJsonObject( FilmItem* film )
 {
     QJsonObject filmObject;
+    filmObject["type"] = film->GetFilmType();
 
     for( int column = 0; column < film->GetColumnCount(); ++column )
     {
@@ -105,10 +157,12 @@ QJsonObject FilmsListLoader::FromFilmToJsonObject( FilmItem* film )
 
         QString key = QString::number( column );
         QString value = film->GetColumnData( column ).toString();
-        filmObject[ key ] = value;
-    }
 
-    filmObject[ "type" ] = film->GetFilmType();
+        if( !value.isEmpty() )
+        {
+            filmObject[ key ] = value;
+        }
+    }
 
     return( filmObject );
 }

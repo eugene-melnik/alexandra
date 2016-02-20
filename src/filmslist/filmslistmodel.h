@@ -52,45 +52,38 @@ class FilmsListModel : public QAbstractItemModel
         QModelIndex parent( const QModelIndex& index ) const override;
 
           // Model writing
-//        bool setData( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole ) override;
+        bool setData( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole ) override;
 
+          // Types
         enum UserRoles
         {
             StringListRole = Qt::UserRole
         };
 
     public slots:
-        void LoadFromFile( const QString& fileName );
-//        void SaveToFile( const QString& fileName );
-//        void SaveToFileAsync( const QString& fileName );
+        void LoadFromFile( QString fileName );
+        void SaveToFile( QString fileName );
+        void SaveToFileAsync( QString fileName );
 
         void AddFilmItem( FilmItem* film );
         void EditFilmItem( FilmItem* film, const QModelIndex& index );
         void RemoveFilmByIndex( const QModelIndex& index );
 
-//        void IncCurrentFilmViewsCounter();
-
+        void FilmsMoved();
         void EraseAll();
-//        void ResetViews();
+        void ResetViews();
 
         bool GetIsEmpty() const { return( GetFilmsCount() == 0 ); }
         int GetFilmsCount() const { return( rootItem->GetChildrenCount() ); }
         int GetIsViewedFilmsCount() const { return( GetCountOf( FilmItem::IsViewedColumn, true ) ); }
         int GetIsFavouriteFilmsCount() const { return( GetCountOf( FilmItem::IsFavouriteColumn, true ) ); }
 
-        QModelIndex GetFilmIndex( const QString& title );
-
-//        const Film* GetFilmByTitle( const QString& title );
-
-//        const QList<Film>*  GetFilmsList() const;           // depraceted?
-//        QStringList         GetTitlesList() const;          // Completer/AddFilm(s)Done
-//        QStringList         GetFileNamesList() const;       // ScannerFilmsWindow
-//        QList<Film*>        GetUnavailablesList() const;    // MovedFilmsWindow
+        QModelIndex GetFilmIndex( QString title ) const;
 
     signals:
         void DatabaseConvertOld();
-        void DatabaseReadError( const QString& );
-//        void DatabaseWriteError();
+        void DatabaseReadError( QString );
+        void DatabaseWriteError();
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 
@@ -101,11 +94,10 @@ class FilmsListModel : public QAbstractItemModel
         int GetCountOf( FilmItem::Column column, const QVariant& data ) const;
 
           // Variables
-        FilmItem* rootItem;
-//        bool      isDatabaseChanged;
-        QMutex    mxAsyncSaveToFile;
-
         AlexandraSettings* settings;
+        FilmItem* rootItem;
+        QMutex mutexDataEdit;
+        bool isDatabaseChanged = false;
 };
 
 

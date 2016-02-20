@@ -162,6 +162,7 @@ void MovedFilmsWindow::MoveSelected()
     if( lSelected->text().toInt() == 0 )
     {
         QMessageBox::information( this, tr( "Moved films" ), tr( "First select the files to move." ) );
+        return;
     }
 
     for( QTableWidgetItem* item : gbFounded->GetItems() )

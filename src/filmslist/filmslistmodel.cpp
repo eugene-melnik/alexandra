@@ -24,12 +24,13 @@
 #include "tools/debug.h"
 #include "version.h"
 
+#include <thread>
 #include <QFileInfo>
 #include <QPixmap>
 
 
 FilmsListModel::FilmsListModel( QObject* parent ) : QAbstractItemModel( parent ),
-      rootItem( nullptr ), settings( AlexandraSettings::GetInstance() )
+      settings( AlexandraSettings::GetInstance() ), rootItem( nullptr )
 {
     DebugPrintFunc( "FilmsListModel::FilmsListModel" );
 
@@ -72,9 +73,9 @@ FilmsListModel::FilmsListModel( QObject* parent ) : QAbstractItemModel( parent )
 FilmsListModel::~FilmsListModel()
 {
       // Behavior on program exit while data saving
-    if( mxAsyncSaveToFile.tryLock( 5000 ) ) // 5 sec
+    if( mutexDataEdit.tryLock( 5000 ) ) // 5 sec
     {
-        mxAsyncSaveToFile.unlock();
+        mutexDataEdit.unlock();
     }
 
     delete rootItem;
@@ -187,6 +188,8 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
                 {
                     return( QColor( settings->GetUnavailableFileColor() ) );
                 }
+
+                break;
             }
 
             case Qt::DecorationRole :
@@ -200,6 +203,8 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
                         return( pixmap );
                     }
                 }
+
+                break;
             }
 
             case UserRoles::StringListRole :
@@ -213,11 +218,7 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
                 {
                     QString str = item->GetColumnData( column ).toString();
 
-                    if( str.isEmpty() )
-                    {
-                        return( QStringList() );
-                    }
-                    else
+                    if( !str.isEmpty() )
                     {
                         QStringList strings = str.split( "," );
 
@@ -276,7 +277,24 @@ QModelIndex FilmsListModel::parent( const QModelIndex& index ) const
 }
 
 
-void FilmsListModel::LoadFromFile( const QString& fileName )
+bool FilmsListModel::setData( const QModelIndex& index, const QVariant& value, int role )
+{
+    if( index.isValid() && role == Qt::EditRole )
+    {
+        QMutexLocker locker( &mutexDataEdit );
+        isDatabaseChanged = true;
+
+        FilmItem* film = static_cast<FilmItem*>( index.internalPointer() );
+        film->SetColumnData( index.column(), value );
+        emit dataChanged( index, index );
+        return( true );
+    }
+
+    return( false );
+}
+
+
+void FilmsListModel::LoadFromFile( QString fileName )
 {
     DebugPrintFunc( "FilmsList::LoadFromFile", fileName );
 
@@ -286,6 +304,7 @@ void FilmsListModel::LoadFromFile( const QString& fileName )
 
     if( !file.exists() )
     {
+        isDatabaseChanged = true; // Will be created
         emit DatabaseIsEmpty();
     }
     else if( file.open( QIODevice::ReadOnly ) )
@@ -307,12 +326,12 @@ void FilmsListModel::LoadFromFile( const QString& fileName )
             }
             else
             {
-                emit DatabaseConvertOld();
                 isLoaded = FilmsListOldLoader::Populate( rootItem, fileName );
 
                 if( isLoaded )
                 {
-                    FilmsListLoader::Save( rootItem, fileName + ".json" );
+                    emit DatabaseConvertOld();
+                    FilmsListLoader::Save( rootItem, fileName );
                 }
             }
 
@@ -351,8 +370,32 @@ void FilmsListModel::LoadFromFile( const QString& fileName )
 }
 
 
+void FilmsListModel::SaveToFile( QString fileName )
+{
+    if( isDatabaseChanged )
+    {
+        QMutexLocker locker( &mutexDataEdit );
+        isDatabaseChanged = false;
+
+        if( !FilmsListLoader::Save( rootItem, fileName ) )
+        {
+            emit DatabaseWriteError();
+        }
+    }
+}
+
+
+void FilmsListModel::SaveToFileAsync( QString fileName )
+{
+    std::thread( &FilmsListModel::SaveToFile, this, fileName ).detach();
+}
+
+
 void FilmsListModel::AddFilmItem( FilmItem* film )
 {
+    QMutexLocker locker( &mutexDataEdit );
+    isDatabaseChanged = true;
+
     int pos = rootItem->GetChildrenCount();
     beginInsertRows( QModelIndex(), pos, pos );
     rootItem->AppendChild( film );
@@ -362,6 +405,9 @@ void FilmsListModel::AddFilmItem( FilmItem* film )
 
 void FilmsListModel::EditFilmItem( FilmItem* film, const QModelIndex& index )
 {
+    QMutexLocker locker( &mutexDataEdit );
+    isDatabaseChanged = true;
+
     int row = index.row();
     film->SetParent( rootItem );
 
@@ -377,13 +423,15 @@ void FilmsListModel::RemoveFilmByIndex( const QModelIndex& index )
 {
     if( index.isValid() )
     {
+        QMutexLocker locker( &mutexDataEdit );
+        isDatabaseChanged = true;
+
         beginResetModel(); // FIXME: beginRemoveRows should be better, but doesn't work
         FilmItem* item = static_cast<FilmItem*>( index.internalPointer() );
 
         if( item->GetIsPosterExists() )
         {
-            QString posterFileName = settings->GetPostersDirPath() + "/" + item->GetFileName();
-            QFile( posterFileName ).remove();
+            QFile::remove( item->GetPosterFilePath() );
         }
 
         rootItem->RemoveChild( item );
@@ -401,21 +449,46 @@ void FilmsListModel::RemoveFilmByIndex( const QModelIndex& index )
 }
 
 
+void FilmsListModel::FilmsMoved()
+{
+    isDatabaseChanged = true;
+    emit DatabaseChanged();
+}
+
+
 void FilmsListModel::EraseAll()
 {
     DebugPrintFunc( "FilmsListModel::EraseAll" );
+
+    QMutexLocker locker( &mutexDataEdit );
+    isDatabaseChanged = true;
 
     beginResetModel();
     rootItem->RemoveChildren();
     endResetModel();
 
-    // TODO: save database
-
     DebugPrintFuncDone( "FilmsListModel::EraseAll" );
 }
 
 
-QModelIndex FilmsListModel::GetFilmIndex( const QString& title )
+void FilmsListModel::ResetViews()
+{
+    QMutexLocker locker( &mutexDataEdit );
+    isDatabaseChanged = true;
+    beginResetModel();
+
+    for( int row = 0; row < rootItem->GetChildrenCount(); ++row )
+    {
+        FilmItem* film = rootItem->GetChild(row);
+        film->SetColumnData( FilmItem::ViewsCountColumn, 0 );
+        film->SetColumnData( FilmItem::IsViewedColumn, false );
+    }
+
+    endResetModel();
+}
+
+
+QModelIndex FilmsListModel::GetFilmIndex( QString title ) const
 {
     for( int i = 0; i < rootItem->GetChildrenCount(); ++i )
     {

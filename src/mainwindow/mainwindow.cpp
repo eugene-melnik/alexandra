@@ -36,6 +36,7 @@
 #include "version.h"
 
 #include <QDesktopWidget>
+#include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QRect>
@@ -75,7 +76,7 @@ void MainWindow::AddFilmsFromOutside( const QStringList& filmsFileNames )
 {
     DebugPrintFunc( "MainWindow::AddFilmsFromOutside", filmsFileNames.size() );
 
-    QList<FilmItem*> newFilms;
+    FilmItemList newFilms;
     QString messageText;
 
     for( const QString& filmFileName : filmsFileNames )
@@ -151,21 +152,65 @@ void MainWindow::QuickSearchEscBehavior()
 }
 
 
+void MainWindow::DatabaseConvertOld()
+{
+    QMessageBox::information( this,
+                              Alexandra::appNameGui,
+                              tr( "It seems you are running the new version of Alexandra for the old version of database. "
+                                  "Backup your database in the next dialog before automatic conversion." ) );
+
+    QFileInfo f( settings->GetDatabaseFilePath() );
+    QString backupFileName = f.absolutePath() + "/" + f.baseName() + "_backup." + f.suffix();
+    bool isDone = false;
+
+    do
+    {
+        QString newName = QFileDialog::getSaveFileName( this, tr( "Save backup" ), backupFileName, tr( "Alexandra DB (*.adat)" ) );
+
+        if( newName.isEmpty() )
+        {
+            int answer = QMessageBox::warning( this,
+                                               tr( "Save backup" ),
+                                               tr( "Are you sure you don't want to save a backup? You can lose "
+                                                   "your data if the conversion fails!" ),
+                                               QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
+
+            isDone = (answer == QMessageBox::Yes) ? true : false;
+        }
+        else
+        {
+            QFile::remove( newName );
+
+            if( QFile::copy( f.absoluteFilePath(), newName ) )
+            {
+                isDone = true;
+            }
+            else
+            {
+                QMessageBox::warning( this, tr( "Save backup" ), tr( "Unable to save file. Try to select another location." ) );
+            }
+        }
+    }
+    while( !isDone );
+
+}
+
+
 void MainWindow::DatabaseChanged()
 {
     statusbar->ShowTotal( filmsListModel->GetFilmsCount(),
                           filmsListModel->GetIsViewedFilmsCount(),
                           filmsListModel->GetIsFavouriteFilmsCount() );
 
-///    filmsListModel->SaveToFileAsync( settings->GetDatabaseFilePath() );
+    filmsListModel->SaveToFileAsync( settings->GetDatabaseFilePath() );
 }
 
 
-//void MainWindow::ResetStatistics()
-//{
-//    filmsList->ResetViews();
-//    QMessageBox::information( this, tr( "Reset statistics" ), tr( "Done!" ) );
-//}
+void MainWindow::ResetStatistics()
+{
+    filmsListModel->ResetViews();
+    QMessageBox::information( this, tr( "Reset statistics" ), tr( "Done!" ) );
+}
 
 
 void MainWindow::ReloadDatabase()
@@ -529,13 +574,13 @@ void MainWindow::ShowFilmScannerWindow()
 
 void MainWindow::ShowMovedFilmsWindow()
 {
-    QList<FilmItem*> films;
+    FilmItemList films;
 
     for( int row = 0; row < filmsListModel->GetFilmsCount(); ++row )
     {
         FilmItem* film = static_cast<FilmItem*>( filmsListModel->index( row, 0 ).internalPointer() );
 
-        if( !film->GetIsFileExists() )
+        if( !film->GetIsFileExists() && !film->GetFileName().isEmpty() )
         {
             films.append( film );
         }
@@ -548,6 +593,7 @@ void MainWindow::ShowMovedFilmsWindow()
     else
     {
         MovedFilmsWindow* movedFilmsWindow = new MovedFilmsWindow( this );
+        connect( movedFilmsWindow, &MovedFilmsWindow::FilmsMoved, filmsListModel, &FilmsListModel::FilmsMoved );
         movedFilmsWindow->SetUnavailableFilms( films );
         movedFilmsWindow->show();
     }
@@ -557,7 +603,7 @@ void MainWindow::ShowMovedFilmsWindow()
 void MainWindow::ShowStatisticsWindow()
 {
     StatisticsWindow* statisticsWindow = new StatisticsWindow( this );
-///    connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
+    connect( statisticsWindow, &StatisticsWindow::ResetStatistics, this, &MainWindow::ResetStatistics );
     statisticsWindow->SetModel( filmsListModel );
     statisticsWindow->show();
 }
@@ -655,6 +701,8 @@ void MainWindow::SetupModels()
     DebugPrintFunc( "MainWindow::SetupModels" );
 
     filmsListModel = new FilmsListModel( this );
+    connect( filmsListModel, &FilmsListModel::DatabaseConvertOld, this, &MainWindow::DatabaseConvertOld );
+
     filmsListProxyModel = new FilmsListProxyModel( this );
     filmsListProxyModel->setSourceModel( filmsListModel );
 

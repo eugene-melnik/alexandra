@@ -48,7 +48,7 @@ class StatisticsWindow : public QDialog, protected Ui::StatisticsWindow
         void ResetStatistics();
 
     private slots:
-        void LoadStatistics( QList<FilmItem*> films );
+        void LoadStatistics( FilmItemList films );
 
         void IncProgress();
         void ShowMainStatistics( int         threadViewedFilms,

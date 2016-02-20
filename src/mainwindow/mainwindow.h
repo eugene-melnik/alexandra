@@ -61,8 +61,9 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void ShowFullScreen( bool isFullScreen ) { isFullScreen ? showFullScreen() : showNormal(); }
         void QuickSearchEscBehavior();
 
+        void DatabaseConvertOld();
         void DatabaseChanged();
-//        void ResetStatistics();
+        void ResetStatistics();
         void ReloadDatabase();
         void ReloadSettings();
         void ReloadView();
@@ -126,21 +127,19 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void SetEmptyMode( bool empty = true );
         void SetReadOnlyMode( bool readOnly = true );
 
-          // Child windows
+          // Data //
+
         AboutWindow* aboutWindow;
 
-          // Shortcuts
+        AlexandraSettings* settings;
         QShortcut* quickSearchShortcut;
         QShortcut* viewFocusShortcut;
-
-          // Variables
-        AbstractFilmsView* filmsView = nullptr;
-        FilmsViewContextMenu* contextMenu;
-
-        AlexandraSettings* settings;
         QProcess* externalPlayer;
+
         FilmsListModel* filmsListModel;
         FilmsListProxyModel* filmsListProxyModel;
+        AbstractFilmsView* filmsView = nullptr;
+        FilmsViewContextMenu* contextMenu;
 };
 
 

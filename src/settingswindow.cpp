@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "settingswindow.h"
+#include "filmslist/filmslistloader.h"
 #include "parsers/parsermanager.h"
 #include "version.h"
 
@@ -435,7 +436,7 @@ void SettingsWindow::CreateDatabase()
     if( !databaseFileName.isEmpty() )
     {
         eDatabaseFile->setText( databaseFileName );
-        QFile( databaseFileName ).remove();
+        FilmsListLoader::CreateEmptyDatabase( databaseFileName );
 
           // Posters dir
         QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";

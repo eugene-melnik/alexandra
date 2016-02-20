@@ -32,10 +32,13 @@
 class FilmsListLoader
 {
     public:
-        static bool Populate( FilmItem* rootItem, const QString& fileName );
-        static bool Save( FilmItem* rootItem, const QString& fileName );
+        static bool Populate( FilmItem* rootItem, QString fileName );
+        static bool Save( FilmItem* rootItem, QString fileName );
+
+        static bool CreateEmptyDatabase( QString fileName );
 
     private:
+        static FilmItem* FromJsonObjectToFilm( QJsonObject object );
         static QJsonObject FromFilmToJsonObject( FilmItem* film );
 };
 

@@ -58,7 +58,7 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
                     {
                         double rating = item->GetColumnData( FilmItem::RatingColumn ).toDouble();
 
-                        if( rating > 0.1 )
+                        if( rating > 1.0 )
                         {
                             return( QString( "%L1/10" ).arg( rating, 0, 'f', 1 ) );
                         }
@@ -72,7 +72,7 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
                     {
                         double budget = item->GetColumnData( FilmItem::BudgetColumn ).toDouble();
 
-                        if( budget > 1 )
+                        if( budget > 1.0 )
                         {
                             return( QString( "$%L1" ).arg( budget, 0, 'f', 0 ) );
                         }

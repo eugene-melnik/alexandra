@@ -23,10 +23,10 @@
 #include "tools/debug.h"
 #include "tools/mediainfo.h"
 
+#include <thread>
 #include <QAbstractProxyModel>
 #include <QMutexLocker>
 #include <QResizeEvent>
-#include <thread>
 
 
 FilmTechInfoView::FilmTechInfoView( QWidget* parent ) : QLabel( parent ),
@@ -90,7 +90,9 @@ void FilmTechInfoView::LoadTechnicalInfo( const QString& fileName )
 {
     #ifdef MEDIAINFO_SUPPORT
         DebugPrintFunc( "FilmTechInfoView::LoadTechnicalInfo", fileName );
-        QMutexLocker locker( &mutexInfoLoad );///
+
+        QMutexLocker locker( &mutexInfoLoad );
+
         MediaInfo* mi = new MediaInfo( fileName );
 
           // Filling

@@ -180,5 +180,8 @@ inline bool FilmItem::GetIsPosterExists() const
 }
 
 
+typedef QList<FilmItem*> FilmItemList;
+
+
 #endif // FILMITEM_H
 
