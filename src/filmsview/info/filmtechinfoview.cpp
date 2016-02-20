@@ -56,7 +56,7 @@ void FilmTechInfoView::ShowInformation( const QModelIndex& index )
             const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
             FilmItem* film = static_cast<FilmItem*>( model->mapToSource(index).internalPointer() );
 
-            if( film->GetIsFileExists() == FilmItem::Exists )
+            if( film->GetIsFileExists() )
             {
                 std::thread( &FilmTechInfoView::LoadTechnicalInfo, this, film->GetFileName() ).detach();
             }

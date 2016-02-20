@@ -66,7 +66,7 @@ FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
 
 void FilmsViewContextMenu::SetupMenuState( const FilmItem* film )
 {
-    bool isExists = film->GetIsFileExists() == FilmItem::Exists ? true : false;
+    bool isExists = film->GetIsFileExists();
 
     cmaPlay->setEnabled( isExists );
     cmaShowInfo->setEnabled( isExists );

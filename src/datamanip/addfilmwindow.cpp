@@ -30,7 +30,7 @@
 
 
 AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent ),
-    filmId( FilmItem::GetRandomHash() ),
+    filmNewPosterName( FilmItem::GetRandomHash() ),
     settings( AlexandraSettings::GetInstance() )
 {
     DebugPrint( "AddFilmWindow::AddFilmWindow()" );
@@ -258,11 +258,9 @@ void AddFilmWindow::Save()
          << lDescriptionText->text()
          << eTags->toPlainText()
          << eFilmFileName->text()
-         << filmId;
+         << filmNewPosterName;
 
     FilmItem* film = new FilmItem( data );
-    film->SetIsFileExists( eFilmFileName->text().isEmpty() ? FilmItem::NotExists : FilmItem::Exists );
-    film->SetFilmId( filmId );
 
       // Manipulations with poster
     QString posterFileName = ePosterFileName->text();
@@ -287,7 +285,7 @@ void AddFilmWindow::Save()
             pixmap = pixmap.scaledToHeight( newHeight, Qt::SmoothTransformation );
         }
 
-        QString newPosterFileName = postersDir + "/" + film->GetFilmId();
+        QString newPosterFileName = film->GetPosterFilePath();
 
         if( newPosterFileName == posterFileName ) // "EditFilmWindow" mode
         {
@@ -315,7 +313,7 @@ void AddFilmWindow::Save()
 
 void AddFilmWindow::InformationLoaded( const FilmItem& film, const QString& posterFileName )
 {
-    filmId = film.GetFilmId();
+    filmNewPosterName = film.GetColumnData( FilmItem::PosterColumn ).toString();
 
     if( ePosterFileName->text().isEmpty() && !posterFileName.isEmpty() )
     {

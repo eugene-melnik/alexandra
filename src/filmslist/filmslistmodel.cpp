@@ -19,6 +19,7 @@
   *************************************************************************************************/
 
 #include "filmslistmodel.h"
+#include "filmslistloader.h"
 #include "old/filmslistoldloader.h"
 #include "tools/debug.h"
 #include "version.h"
@@ -161,14 +162,7 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
         {
             case Qt::DisplayRole :
             {
-                if( column == FilmItem::PosterColumn )
-                {
-                    return( item->GetFilmId() );
-                }
-                else
-                {
-                    return( item->GetColumnData( index.column() ) );
-                }
+                return( item->GetColumnData( index.column() ) );
             }
 
             case Qt::TextAlignmentRole :
@@ -189,18 +183,9 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
 
             case Qt::BackgroundColorRole :
             {
-                if( settings->GetCheckFilesOnStartup() )
+                if( settings->GetCheckFilesOnStartup() && !item->GetIsFileExists() )
                 {
-                    if( item->GetIsFileExists() == FilmItem::Unknown )
-                    {
-                        bool isExists = QFile::exists( item->GetFileName() );
-                        item->SetIsFileExists( isExists ? FilmItem::Exists : FilmItem::NotExists );
-                    }
-
-                    if( item->GetIsFileExists() == FilmItem::NotExists )
-                    {
-                        return( QColor( settings->GetUnavailableFileColor() ) );
-                    }
+                    return( QColor( settings->GetUnavailableFileColor() ) );
                 }
             }
 
@@ -208,10 +193,9 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
             {
                 if( column == FilmItem::PosterColumn && item->GetIsPosterExists() )
                 {
-                    QString posterFilePath = settings->GetPostersDirPath() + "/" + item->GetFilmId();
                     QPixmap pixmap;
 
-                    if( pixmap.load( posterFilePath ) )
+                    if( pixmap.load( item->GetPosterFilePath() ) )
                     {
                         return( pixmap );
                     }
@@ -319,13 +303,17 @@ void FilmsListModel::LoadFromFile( const QString& fileName )
 
             if( databaseVersion == Alexandra::databaseVersion )
             {
-                ///
-                ///  new loading will be here
-                ///
+                isLoaded = FilmsListLoader::Populate( rootItem, fileName );
             }
             else
             {
+                emit DatabaseConvertOld();
                 isLoaded = FilmsListOldLoader::Populate( rootItem, fileName );
+
+                if( isLoaded )
+                {
+                    FilmsListLoader::Save( rootItem, fileName + ".json" );
+                }
             }
 
             if( isLoaded )
@@ -345,7 +333,7 @@ void FilmsListModel::LoadFromFile( const QString& fileName )
             }
             else
             {
-                emit DatabaseReadError( tr( "Error while trying to convert old database format to new one." ) );
+                emit DatabaseReadError( tr( "Can't load database!" ) );
             }
         }
         else
@@ -394,7 +382,7 @@ void FilmsListModel::RemoveFilmByIndex( const QModelIndex& index )
 
         if( item->GetIsPosterExists() )
         {
-            QString posterFileName = settings->GetPostersDirPath() + "/" + item->GetFilmId();
+            QString posterFileName = settings->GetPostersDirPath() + "/" + item->GetFileName();
             QFile( posterFileName ).remove();
         }
 

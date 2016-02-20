@@ -221,7 +221,7 @@ void MainWindow::ShowFilmInformation( const QModelIndex& index )
         const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex( index );
 
           // Buttons
-        bool isExists = film->GetIsFileExists() == FilmItem::Exists ? true : false;
+        bool isExists = film->GetIsFileExists();
         bPlay->setEnabled( isExists );
         bAddToPlaylist->setEnabled( isExists );
 
@@ -256,9 +256,8 @@ void MainWindow::AddToPlaylist()
         for( const QModelIndex& index : indexes )
         {
             const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex(index);
-            bool isExists = film->GetIsFileExists() == FilmItem::Exists ? true : false;
 
-            if( isExists )
+            if( film->GetIsFileExists() )
             {
                 lwPlaylist->AddItem( film->GetTitle(), film->GetFileName() );
             }
@@ -536,7 +535,7 @@ void MainWindow::ShowMovedFilmsWindow()
     {
         FilmItem* film = static_cast<FilmItem*>( filmsListModel->index( row, 0 ).internalPointer() );
 
-        if( film->GetIsFileExists() == FilmItem::NotExists )
+        if( !film->GetIsFileExists() )
         {
             films.append( film );
         }

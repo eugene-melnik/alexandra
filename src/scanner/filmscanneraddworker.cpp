@@ -50,7 +50,7 @@ void FilmScannerAddWorker::run()
         film->SetColumnData( FilmItem::TitleColumn, title );
         film->SetColumnData( FilmItem::YearColumn, year );
 
-        QString newPosterFileName = settings->GetPostersDirPath() + "/" + film->GetFilmId();
+        QString newPosterFileName = film->GetPosterFilePath();
         QString posterFileName;
 
           // Search for a poster on the disk

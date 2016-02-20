@@ -24,8 +24,12 @@
 
 #include <QColor>
 #include <QCryptographicHash>
+#include <QFileInfo>
 #include <QList>
 #include <QVariant>
+
+
+#include "alexandrasettings.h"
 
 
 class FilmItem
@@ -87,7 +91,7 @@ class FilmItem
             NotExists
         };
 
-          // Set
+          // Set //
 
         void AppendChild( FilmItem* item );
 
@@ -97,12 +101,11 @@ class FilmItem
         void SetParent( FilmItem* parent ) { parentItem = parent; }
         void SetColumnData( int column, const QVariant& data ) { columnsData[column] = data; }
 
-        void SetFilmId( QString id ) { filmId = id; }
         void SetFilmType( FilmType type ) { filmType = type; }
         void SetIsFileExists( Existing exists ) { isFileExists = exists; }
         void SetIsPosterExists( Existing exists ) { isPosterExists = exists; }
 
-          // Get
+          // Get //
 
         int GetColumnCount() const { return( columnsData.size() ); }
         int GetChildrenCount() const { return( childItems.size() ); }
@@ -112,30 +115,31 @@ class FilmItem
         FilmItem* GetChild( int row ) const { return( childItems.value(row) ); }
         QVariant  GetColumnData( int column ) const { return( columnsData.value(column) ); }
 
-        bool     GetIsFilmViewed() const { return( GetColumnData(IsViewedColumn).toBool() ); }
-        bool     GetIsFilmFavourite() const { return( GetColumnData(IsFavouriteColumn).toBool() ); }
-        QString  GetFilmId() const { return( filmId ); }
+        bool GetIsFilmViewed() const { return( GetColumnData(IsViewedColumn).toBool() ); }
+        bool GetIsFilmFavourite() const { return( GetColumnData(IsFavouriteColumn).toBool() ); }
+
         FilmType GetFilmType() const { return( filmType ); }
-        Existing GetIsFileExists() const { return( isFileExists ); }
-        Existing GetIsPosterExists() const { return( isPosterExists ); }
+        bool GetIsFileExists() const;
+        bool GetIsPosterExists() const;
 
         QString GetTitle() const { return( columnsData.at(TitleColumn).toString() ); }
         QString GetFileName() const { return( columnsData.at(FileNameColumn).toString() ); }
+        QString GetPosterFilePath() const;
 
-          // Static
+          // Static //
 
         static QString GetRandomHash();
-        static QString GetClearedTitle( const QString& title, int* year = nullptr );
+        static QString GetClearedTitle( QString title, int* year = nullptr );
 
     private:
         FilmItem* parentItem = nullptr;
         QList<FilmItem*> childItems;
 
-        QString  filmId;
         FilmType filmType = Movie;
-        Existing isFileExists = Unknown;
-        Existing isPosterExists = NotExists;
         QList<QVariant> columnsData;
+
+        mutable Existing isFileExists = Unknown;
+        mutable Existing isPosterExists = Unknown;
 };
 
 
@@ -151,6 +155,28 @@ inline int FilmItem::GetRow() const
     {
         return( 0 );
     }
+}
+
+
+inline bool FilmItem::GetIsFileExists() const
+{
+    if( isFileExists == FilmItem::Unknown )
+    {
+        isFileExists = QFileInfo::exists(GetFileName()) ? FilmItem::Exists : FilmItem::NotExists;
+    }
+
+    return( isFileExists == FilmItem::Exists );
+}
+
+
+inline bool FilmItem::GetIsPosterExists() const
+{
+    if( isPosterExists == FilmItem::Unknown )
+    {
+        isPosterExists = QFileInfo::exists(GetPosterFilePath()) ? FilmItem::Exists : FilmItem::NotExists;
+    }
+
+    return( isPosterExists == FilmItem::Exists );
 }
 
 

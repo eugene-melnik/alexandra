@@ -88,6 +88,7 @@ class FilmsListModel : public QAbstractItemModel
 //        QList<Film*>        GetUnavailablesList() const;    // MovedFilmsWindow
 
     signals:
+        void DatabaseConvertOld();
         void DatabaseReadError( const QString& );
 //        void DatabaseWriteError();
         void DatabaseIsEmpty();

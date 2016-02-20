@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: film.cpp                                                                                *
+ *  file: filmslistloader.h                                                                       *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,56 +18,27 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "film0x10.h"
-#include "tools/debug.h"
+#ifndef FILMSLISTLOADER_H
+#define FILMSLISTLOADER_H
 
 
-QString Film010::GetPosterName() const
+#include <QJsonObject>
+#include <QString>
+
+
+#include "filmitem.h"
+
+
+class FilmsListLoader
 {
-    if( isPosterExists )
-    {
-        return( GetId() );
-    }
-    else
-    {
-        return( QString() );
-    }
-}
+    public:
+        static bool Populate( FilmItem* rootItem, const QString& fileName );
+        static bool Save( FilmItem* rootItem, const QString& fileName );
+
+    private:
+        static QJsonObject FromFilmToJsonObject( FilmItem* film );
+};
 
 
-QDataStream& operator >> ( QDataStream& in, Film010& film )
-{
-    QString additionalData;
-
-    in >> film.id
-       >> film.section
-       >> film.fileName
-       >> film.title
-       >> film.originalTitle
-       >> film.tagline
-       >> film.genre
-       >> film.country
-       >> film.year
-       >> film.director
-       >> film.producer
-       >> film.starring
-       >> film.budget
-       >> film.description
-       >> film.rating
-       >> film.ageRestrictions
-       >> film.tags
-       >> additionalData
-       >> film.viewsCounter
-       >> film.isPosterExists
-       >> film.isViewed
-       >> film.isFavourite;
-
-      // Additional fields
-    int version; // useless
-    QByteArray dataArray = QByteArray::fromHex( additionalData.toLatin1() );
-    QDataStream stream( dataArray );
-    stream >> version >> film.screenwriter >> film.composer;
-
-    return( in );
-}
+#endif // FILMSLISTLOADER_H
 

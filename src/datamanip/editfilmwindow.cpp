@@ -36,7 +36,7 @@ void EditFilmWindow::SetData( const FilmItem* film )
 
     if( film->GetIsPosterExists() )
     {
-        posterFileName = settings->GetPostersDirPath() + "/" + film->GetFilmId();
+        posterFileName = film->GetPosterFilePath();
     }
 
     eFilmFileName->setText( film->GetFileName() );

@@ -24,21 +24,20 @@
 #include <QTime>
 
 
-FilmItem::FilmItem() : filmId( GetRandomHash() )
+FilmItem::FilmItem()
 {
-    int i = ColumnCount;
-    columnsData.reserve( i );
-
-    while( i-- > 0 )
+    for( int i = 0; i < ColumnCount; ++i )
     {
         columnsData.append( QVariant() );
     }
+
+    columnsData[PosterColumn] = GetRandomHash();
 }
+
 
 FilmItem& FilmItem::operator = ( const FilmItem& item )
 {
     parentItem = item.parentItem;
-    filmId = item.filmId;
     filmType = item.filmType;
     isFileExists = item.isFileExists;
     isPosterExists = item.isPosterExists;
@@ -74,6 +73,14 @@ void FilmItem::RemoveChildren()
 }
 
 
+QString FilmItem::GetPosterFilePath() const
+{
+    QString path = AlexandraSettings::GetInstance()->GetPostersDirPath();
+    QString file = columnsData.at( FilmItem::PosterColumn ).toString();
+    return( path + "/" + file );
+}
+
+
 QString FilmItem::GetRandomHash()
 {
     qsrand( QTime::currentTime().msecsSinceStartOfDay() );
@@ -82,7 +89,7 @@ QString FilmItem::GetRandomHash()
 }
 
 
-QString FilmItem::GetClearedTitle( const QString& title, int* year )
+QString FilmItem::GetClearedTitle( QString title, int* year )
 {
     QRegExp yearRegexp( "(185[0-9]|18[6-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9])" ); // Years between 1850 and 2019
 

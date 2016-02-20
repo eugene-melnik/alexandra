@@ -31,7 +31,41 @@ class Film010
         Film010() = default;
         Film010( const Film010& other ) = default;
 
-        friend QDataStream& operator >> ( QDataStream& in, Film010& film );
+        friend QDataStream& operator >> ( QDataStream& in, Film010& film )
+        {
+            QString additionalData;
+
+            in >> film.id
+               >> film.section
+               >> film.fileName
+               >> film.title
+               >> film.originalTitle
+               >> film.tagline
+               >> film.genre
+               >> film.country
+               >> film.year
+               >> film.director
+               >> film.producer
+               >> film.starring
+               >> film.budget
+               >> film.description
+               >> film.rating
+               >> film.ageRestrictions
+               >> film.tags
+               >> additionalData
+               >> film.viewsCounter
+               >> film.isPosterExists
+               >> film.isViewed
+               >> film.isFavourite;
+
+              // Additional fields
+            int version; // useless
+            QByteArray dataArray = QByteArray::fromHex( additionalData.toLatin1() );
+            QDataStream stream( dataArray );
+            stream >> version >> film.screenwriter >> film.composer;
+
+            return( in );
+        }
 
           // Getters
         QString GetId() const           { return( id ); }
@@ -51,17 +85,26 @@ class Film010
         double  GetBudget() const       { return( budget ); }
         int     GetViewsCounter() const { return( viewsCounter ); }
         bool    GetIsPosterExists() const { return( isPosterExists ); }
-        QString GetPosterName() const;
         bool    GetIsViewed() const     { return( isViewed ); }
         bool    GetIsFavourite() const  { return( isFavourite ); }
-
-
         QString GetScreenwriter() const { return( screenwriter ); }
         QString GetComposer() const { return( composer ); }
 
+        QString GetPosterName() const
+        {
+            if( isPosterExists )
+            {
+                return( GetId() );
+            }
+            else
+            {
+                return( QString() );
+            }
+        }
+
     private:
         QString id;
-        quint8  section = 0; // unused
+        quint8  section; // unused
         QString fileName;
         QString title;
         QString originalTitle;

@@ -36,17 +36,25 @@ bool FilmsListOldLoader::Populate( FilmItem* rootItem, const QString& fileName )
     if( file.open( QIODevice::ReadOnly ) )
     {
         QDataStream stream( &file );
-        QString header;
-        quint8 version;
+        QString header; quint8 version;
         stream >> header >> version;
 
-        if( version == OldVersion )
+        if( version == OldVersion10 )
         {
             QList<Film010> films;
             stream >> films;
 
             for( Film010& film : films )
             {
+                int viewsCount = film.GetViewsCounter();
+
+                if( film.GetIsViewed() && viewsCount == 0 )
+                {
+                    viewsCount = 1;
+                }
+
+                bool isViewed = (viewsCount > 0) ? true : false;
+
                 QList<QVariant> data;
 
                 data << film.GetTitle()
@@ -61,20 +69,16 @@ bool FilmsListOldLoader::Populate( FilmItem* rootItem, const QString& fileName )
                      << film.GetComposer()
                      << film.GetBudget()
                      << film.GetRating()
-                     << film.GetIsViewed()
+                     << isViewed
                      << film.GetIsFavourite()
-                     << film.GetViewsCounter()
+                     << viewsCount
                      << film.GetStarring()
                      << film.GetDescription()
                      << film.GetTags()
                      << film.GetFileName()
-                     << film.GetPosterName();
+                     << film.GetId(); // PosterName
 
                 FilmItem* item = new FilmItem( data, rootItem );
-                item->SetIsPosterExists( film.GetIsPosterExists() ? FilmItem::Exists : FilmItem::NotExists );
-                item->SetFilmType( FilmItem::Movie );
-                item->SetFilmId( film.GetId() );
-
                 rootItem->AppendChild( item );
             }
 

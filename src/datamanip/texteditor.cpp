@@ -49,20 +49,16 @@ void TextEditor::show()
 }
 
 
-void TextEditor::closeEvent( QCloseEvent* event )
+void TextEditor::reject()
 {
     if( isTextChanged )
     {
-        int res = QMessageBox::question( this, windowTitle(), tr( "Are you sure you want to discard changes?" ) );
+        int answer = QMessageBox::question( this, windowTitle(), tr( "Are you sure you want to discard changes?" ) );
 
-        if( res == QMessageBox::No )
-        {
-            event->ignore();
-            return;
-        }
+        if( answer == QMessageBox::No ) return;
     }
 
-    QDialog::closeEvent( event );
+    QDialog::reject();
 }
 
 

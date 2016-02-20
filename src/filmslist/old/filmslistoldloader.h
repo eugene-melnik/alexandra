@@ -37,7 +37,9 @@ class FilmsListOldLoader
         static bool Populate( FilmItem* rootItem, const QString& fileName );
 
     private:
-        static const quint8 OldVersion = 0x10;
+        static const quint8 OldVersion10 = 0x10;
 };
 
+
 #endif // FILMSLISTOLDLOADER_H
+
