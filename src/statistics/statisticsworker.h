@@ -47,6 +47,7 @@ class StatisticsWorker : public QThread
     public:
         StatisticsWorker();
 
+    public slots:
         void SetFilms( FilmItemList films ) { this->films = films; }
         void Terminate() { isTerminate = true; }
 

@@ -82,6 +82,7 @@ void StatisticsWindow::LoadStatistics( FilmItemList films )
         }
 
         StatisticsWorker* calcWorker = new StatisticsWorker();
+        connect( this, SIGNAL(destroyed()), calcWorker, SLOT(Terminate()) ); // On window close while calculating
         connect( calcWorker, &StatisticsWorker::IncProgress,          this, &StatisticsWindow::IncProgress );
         connect( calcWorker, &StatisticsWorker::MainStatisticsLoaded, this, &StatisticsWindow::ShowMainStatistics );
         connect( calcWorker, &StatisticsWorker::finished,             calcWorker, &QWidget::deleteLater );
