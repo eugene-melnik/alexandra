@@ -105,6 +105,9 @@ class FilmItem
         void SetIsFileExists( Existing exists ) { isFileExists = exists; }
         void SetIsPosterExists( Existing exists ) { isPosterExists = exists; }
 
+        void IncViewsCounter();
+        void ResetViewsCounter();
+
           // Get //
 
         int GetColumnCount() const { return( columnsData.size() ); }

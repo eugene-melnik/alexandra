@@ -359,13 +359,24 @@ void MainWindow::PlayFilm()
     }
     else
     {
+        QString playerPath = settings->GetExternalPlayer();
+        QString fileToPlay;
+
         if( lwPlaylist->IsEmpty() )
         {
-            AddToPlaylist();
+            if( filmsView->GetSelectedItemsList().count() > 1)
+            {
+                AddToPlaylist();
+            }
+            else
+            {
+                fileToPlay = filmsListProxyModel->GetFilmFileNameByIndex( filmsView->GetCurrentIndex() );
+            }
         }
-
-        QString fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
-        QString playerPath = settings->GetExternalPlayer();
+        else
+        {
+            fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
+        }
 
         #ifdef Q_OS_LINUX
             externalPlayer->start( playerPath + " \"" + fileToPlay +"\"" );
@@ -380,39 +391,35 @@ void MainWindow::PlayFilm()
 
 void MainWindow::PlayerStarted()
 {
+    DebugPrint( "Player started" );
+
     dynamic_cast<QWidget*>( filmsView )->setEnabled( false );
+    wPlaylist->setEnabled( false );
     eFilter->setEnabled( false );
     bPlay->setText( tr( "STOP" ) );
-
-    DebugPrint( "Player started" );
 }
 
 
 void MainWindow::PlayerClosed()
 {
+    DebugPrint( "Player stopped" );
+
     dynamic_cast<QWidget*>( filmsView )->setEnabled( true );
+    wPlaylist->setEnabled( true );
     eFilter->setEnabled( true );
     bPlay->setText( tr( "&PLAY" ) );
 
-    // TODO: make all films of playlist is viewed
-    // need to think about this
+      // TODO: make all films of playlist is viewed
+      // need to think about this
     if( lwPlaylist->IsEmpty() )
     {
-//        filmsList->IncCurrentFilmViewsCounter();
-
-//        if( bViewed->isEnabled() && !bViewed->isChecked() )
-//        {
-//            bViewed->setChecked( true );
-//            UpdateCurrentFilm();
-//        }
+        QModelIndex index = filmsListProxyModel->mapToSource( filmsView->GetCurrentIndex() );
+        filmsListModel->IncViewsCounterForIndex( index );
     }
     else
     {
         lwPlaylist->Clear();
     }
-
-//    dynamic_cast<QWidget*>( filmsView )->setFocus();
-    DebugPrint( "Player stopped" );
 }
 
 
@@ -593,7 +600,7 @@ void MainWindow::ShowMovedFilmsWindow()
     else
     {
         MovedFilmsWindow* movedFilmsWindow = new MovedFilmsWindow( this );
-        connect( movedFilmsWindow, &MovedFilmsWindow::FilmsMoved, filmsListModel, &FilmsListModel::FilmsMoved );
+        connect( movedFilmsWindow, &MovedFilmsWindow::FilmsMoved, filmsListModel, &FilmsListModel::Invalidate );
         movedFilmsWindow->SetUnavailableFilms( films );
         movedFilmsWindow->show();
     }
@@ -626,6 +633,27 @@ void MainWindow::ShowSettingsWindow()
     connect( settingsWindow, &SettingsWindow::DbSettingsChanged, this,           &MainWindow::ReloadDatabase );
     connect( settingsWindow, &SettingsWindow::EraseDatabase,     filmsListModel, &FilmsListModel::EraseAll );
     settingsWindow->show();
+}
+
+
+void MainWindow::SetCurrentFilmIsViewed()
+{
+    QModelIndex index = filmsListProxyModel->mapToSource( filmsView->GetCurrentIndex() );
+
+    if( bViewed->isChecked() )
+    {
+        filmsListModel->IncViewsCounterForIndex( index );
+    }
+    else // Uncheck
+    {
+        int answer = QMessageBox::question( this, tr( "Films statistics" ),
+                                            tr( "Are you sure you want to reset the count of views for the current film?" ) );
+
+        if( answer == QMessageBox::Yes )
+        {
+            filmsListModel->ResetViewsCounterForIndex( index );
+        }
+    }
 }
 
 

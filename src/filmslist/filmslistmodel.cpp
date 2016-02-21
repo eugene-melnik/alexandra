@@ -449,7 +449,7 @@ void FilmsListModel::RemoveFilmByIndex( const QModelIndex& index )
 }
 
 
-void FilmsListModel::FilmsMoved()
+void FilmsListModel::Invalidate()
 {
     isDatabaseChanged = true;
     emit DatabaseChanged();
@@ -485,6 +485,27 @@ void FilmsListModel::ResetViews()
     }
 
     endResetModel();
+}
+
+
+void FilmsListModel::IncViewsCounterForIndex( const QModelIndex& index )
+{
+    QMutexLocker locker( &mutexDataEdit );
+    isDatabaseChanged = true;
+
+    FilmItem* film = static_cast<FilmItem*>( index.internalPointer() );
+    film->IncViewsCounter();
+    dataChanged( index, index );
+}
+
+void FilmsListModel::ResetViewsCounterForIndex( const QModelIndex& index )
+{
+    QMutexLocker locker( &mutexDataEdit );
+    isDatabaseChanged = true;
+
+    FilmItem* film = static_cast<FilmItem*>( index.internalPointer() );
+    film->ResetViewsCounter();
+    dataChanged( index, index );
 }
 
 

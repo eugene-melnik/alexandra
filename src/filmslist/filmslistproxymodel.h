@@ -58,6 +58,20 @@ class FilmsListProxyModel : public QSortFilterProxyModel
             }
         }
 
+        QString GetFilmFileNameByIndex( const QModelIndex& index ) const
+        {
+            const FilmItem* film = GetFilmItemByIndex(index);
+
+            if( film != nullptr )
+            {
+                return( film->GetFileName() );
+            }
+            else
+            {
+                return( QString() );
+            }
+        }
+
         void SetFilter( const QString& string, const QList<int>& columns )
         {
             filterString = string;

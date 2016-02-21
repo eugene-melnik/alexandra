@@ -69,9 +69,12 @@ class FilmsListModel : public QAbstractItemModel
         void EditFilmItem( FilmItem* film, const QModelIndex& index );
         void RemoveFilmByIndex( const QModelIndex& index );
 
-        void FilmsMoved();
+        void Invalidate();
         void EraseAll();
         void ResetViews();
+
+        void IncViewsCounterForIndex( const QModelIndex& index );
+        void ResetViewsCounterForIndex( const QModelIndex& index );
 
         bool GetIsEmpty() const { return( GetFilmsCount() == 0 ); }
         int GetFilmsCount() const { return( rootItem->GetChildrenCount() ); }

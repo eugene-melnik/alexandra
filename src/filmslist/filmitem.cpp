@@ -73,6 +73,21 @@ void FilmItem::RemoveChildren()
 }
 
 
+void FilmItem::IncViewsCounter()
+{
+    int value = columnsData.at( ViewsCountColumn ).toInt();
+    columnsData[ViewsCountColumn] = value + 1;
+    columnsData[IsViewedColumn] = true;
+}
+
+
+void FilmItem::ResetViewsCounter()
+{
+    columnsData[ViewsCountColumn] = 0;
+    columnsData[IsViewedColumn] = false;
+}
+
+
 QString FilmItem::GetPosterFilePath() const
 {
     QString path = AlexandraSettings::GetInstance()->GetPostersDirPath();
