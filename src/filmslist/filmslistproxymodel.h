@@ -23,6 +23,7 @@
 
 
 #include <QList>
+#include <QPixmap>
 #include <QSortFilterProxyModel>
 
 
@@ -97,6 +98,10 @@ class FilmsListProxyModel : public QSortFilterProxyModel
     private:
         QList<int> filterColumns;
         QString filterString;
+
+        mutable QPixmap pixmapIsViewed;
+        mutable QPixmap pixmapIsFavourite;
+        mutable QMap<double,QPixmap> mapPixRatings;
 };
 
 

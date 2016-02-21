@@ -19,25 +19,29 @@
   *************************************************************************************************/
 
 #include "filmslistproxymodel.h"
+#include "filmslistmodel.h"
+
+#include <QPainter>
 
 
 QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
 {
     if( index.isValid() )
     {
+        const FilmItem* item = GetFilmItemByIndex( index );
+        const int column = index.column();
+
         switch( role )
         {
             case Qt::DisplayRole :
             {
-                const FilmItem* item = GetFilmItemByIndex( index );
-                const int column = index.column();
-
                 switch( column )
                 {
                     case FilmItem::IsViewedColumn :
                     case FilmItem::IsFavouriteColumn :
+                    case FilmItem::RatingColumn :
                     {
-                        return( item->GetColumnData(column).toBool() ? "+" : "-" );
+                        return( QVariant() );
                     }
 
                     case FilmItem::YearColumn :
@@ -47,20 +51,6 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
                         if( year > 1849 ) // See at "addfilmwindow.ui" file "sbYear" widget
                         {
                             return( year );
-                        }
-                        else
-                        {
-                            return( QVariant() );
-                        }
-                    }
-
-                    case FilmItem::RatingColumn :
-                    {
-                        double rating = item->GetColumnData( FilmItem::RatingColumn ).toDouble();
-
-                        if( rating > 1.0 )
-                        {
-                            return( QString( "%L1/10" ).arg( rating, 0, 'f', 1 ) );
                         }
                         else
                         {
@@ -82,6 +72,87 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
                         }
                     }
                 }
+
+                break;
+            }
+
+            case Qt::DecorationRole :
+            {
+                int scaleHeight = 10;
+
+                switch( column )
+                {
+                    case FilmItem::IsViewedColumn :
+                    {
+                        if( item->GetIsFilmViewed() )
+                        {
+                            if( pixmapIsViewed.isNull() )
+                            {
+                                pixmapIsViewed = QPixmap( ":/action/viewed" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+                            }
+
+                            return( pixmapIsViewed );
+                        }
+
+                        break;
+                    }
+
+                    case FilmItem::IsFavouriteColumn :
+                    {
+                        if( item->GetIsFilmFavourite() )
+                        {
+                            if( pixmapIsFavourite.isNull() )
+                            {
+                                pixmapIsFavourite = QPixmap( ":/action/favourite" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+                            }
+
+                            return( pixmapIsFavourite );
+                        }
+
+                        break;
+                    }
+
+                    case FilmItem::RatingColumn :
+                    {
+                        double rating = item->GetColumnData( FilmItem::RatingColumn ).toDouble();
+
+                        if( !mapPixRatings.contains(rating) )
+                        {
+                            QPixmap overlay = QPixmap( ":/info/rating-full" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+                            int copyWidth = overlay.width() * rating / 10.0;
+                            overlay = overlay.copy( 0, 0, copyWidth, overlay.height() );
+
+                            QPixmap base = QPixmap( ":/info/rating-zero" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+                            QPainter painter( &base );
+                            painter.drawPixmap( 0, 0, overlay );
+
+                            mapPixRatings.insert( rating, base );
+                        }
+
+                        return( mapPixRatings.value(rating) );
+                    }
+                }
+
+                break;
+            }
+
+            case Qt::ToolTipRole :
+            {
+                if( column == FilmItem::RatingColumn )
+                {
+                    double rating = item->GetColumnData( FilmItem::RatingColumn ).toDouble();
+
+                    if( rating > 1.0 )
+                    {
+                        return( QString( "%L1/10" ).arg( rating, 0, 'f', 1 ) );
+                    }
+                    else
+                    {
+                        return( QVariant() );
+                    }
+                }
+
+                break;
             }
         }
     }

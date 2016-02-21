@@ -21,6 +21,8 @@
 #include "filmsviewgridproxymodel.h"
 #include "filmslist/filmitem.h"
 
+#include <QPainter>
+
 
 QVariant FilmsViewGridProxyModel::data( const QModelIndex& index, int role ) const
 {
@@ -55,10 +57,19 @@ QVariant FilmsViewGridProxyModel::data( const QModelIndex& index, int role ) con
                     }
 
                     QPixmap* p = new QPixmap( pixmap.scaledToHeight( settings->GetGridItemSize(), Qt::SmoothTransformation ) );
+
                     pixmapCache->insert( posterFileName, p );
                 }
 
-                return( *pixmapCache->object(posterFileName) );
+                  // Rating stars over poster
+                /// TODO: add option in settings
+                QPixmap* p = pixmapCache->object( posterFileName );
+                QVariant data = model->index( row, FilmItem::RatingColumn ).data( Qt::DecorationRole );
+                QPixmap pixmap = data.value<QPixmap>();
+                QPainter painter( p );
+                painter.drawPixmap( 0, p->height() - pixmap.height(), pixmap );
+
+                return( *p );
             }
 
             case Qt::ToolTipRole :

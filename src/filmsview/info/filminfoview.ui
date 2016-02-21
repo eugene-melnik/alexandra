@@ -6,19 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>318</width>
-    <height>352</height>
+    <width>320</width>
+    <height>330</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="layoutFilmInfo">
-   <property name="spacing">
-    <number>6</number>
-   </property>
+  <layout class="QGridLayout" name="layoutMain">
    <property name="leftMargin">
     <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>9</number>
    </property>
    <property name="rightMargin">
     <number>0</number>
@@ -26,7 +20,7 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <item>
+   <item row="0" column="0">
     <widget class="QLabel" name="lFilmTitle">
      <property name="minimumSize">
       <size>
@@ -52,7 +46,7 @@
      </property>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0">
     <widget class="QScrollArea" name="saFilmInformation">
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
@@ -65,8 +59,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>318</width>
-        <height>312</height>
+        <width>320</width>
+        <height>290</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="layoutVLFI">
@@ -148,17 +142,31 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="lRating">
-           <property name="text">
-            <string notr="true">&lt;rating&gt;</string>
+          <layout class="QHBoxLayout" name="layoutRating">
+           <property name="spacing">
+            <number>4</number>
            </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
+           <item>
+            <widget class="QLabel" name="lRating">
+             <property name="text">
+              <string notr="true">&lt;rating&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lRatingImg">
+             <property name="text">
+              <string notr="true">&lt;ratingimg&gt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -255,7 +263,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>10</height>
           </size>
          </property>
         </spacer>

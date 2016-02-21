@@ -25,4 +25,8 @@
         <file alias="default">../icons/default.png</file>
         <file alias="clear">../icons/clear.png</file>
     </qresource>
+    <qresource prefix="/info">
+        <file alias="rating-zero">../icons/info-rating-zero.png</file>
+        <file alias="rating-full">../icons/info-rating-full.png</file>
+    </qresource>
 </RCC>

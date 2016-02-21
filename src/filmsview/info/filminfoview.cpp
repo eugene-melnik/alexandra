@@ -37,7 +37,6 @@ FilmInfoView::FilmInfoView( QWidget* parent ) : QWidget( parent )
         { FilmItem::GenreColumn,          lGenre },
         { FilmItem::YearColumn,           lYear },
         { FilmItem::BudgetColumn,         lBudget },
-        { FilmItem::RatingColumn,         lRating },
         { FilmItem::CountryColumn,        lCountry },
         { FilmItem::ScreenwriterColumn,   lScreenwriter },
         { FilmItem::DirectorColumn,       lDirector },
@@ -57,8 +56,8 @@ void FilmInfoView::ShowInformation( const QModelIndex& index )
     if( index.isValid() )
     {
         DebugPrintFunc( "FilmInfoView::ShowInformation", index.row() );
-
         const FilmsListProxyModel* model = static_cast<const FilmsListProxyModel*>( index.model() );
+        QString pattern = "<b>%1:</b> %2";
 
         lFilmTitle->setText( model->index( index.row(), FilmItem::TitleColumn ).data().toString() );
 
@@ -66,9 +65,18 @@ void FilmInfoView::ShowInformation( const QModelIndex& index )
         {
             QString title = model->headerData( item.first, Qt::Horizontal, Qt::DisplayRole ).toString();
             QString text = model->index( index.row(), item.first ).data().toString();
-            item.second->setText( tr( "<b>%1:</b> %2" ).arg( title, text ) );
+            item.second->setText( pattern.arg( title, text ) );
             item.second->setVisible( !text.isEmpty() );
         }
+
+        QString title = model->headerData( FilmItem::RatingColumn, Qt::Horizontal, Qt::DisplayRole ).toString();
+        QString text = model->index( index.row(), FilmItem::RatingColumn ).data( Qt::ToolTipRole ).toString();
+        lRating->setText( pattern.arg( title, text ) );
+        lRating->setVisible( !text.isEmpty() );
+
+        QVariant pixmap = model->index( index.row(), FilmItem::RatingColumn ).data( Qt::DecorationRole );
+        lRatingImg->setPixmap( pixmap.value<QPixmap>() );
+        lRatingImg->setVisible( !text.isEmpty() );
 
         DebugPrintFuncDone( "FilmInfoView::ShowInformation" );
     }
@@ -77,11 +85,9 @@ void FilmInfoView::ShowInformation( const QModelIndex& index )
 
 void FilmInfoView::Clear()
 {
-    lFilmTitle->clear();
-
-    for( QPair<FilmItem::Column,QLabel*>& item : textItems )
+    for( QLabel* label : this->findChildren<QLabel*>() )
     {
-        item.second->clear();
+        label->clear();
     }
 }
 
