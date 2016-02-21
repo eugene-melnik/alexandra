@@ -61,7 +61,7 @@ void SearchWindow::SetModel( QAbstractItemModel* model )
       // Show all films
     FilmsListProxyModel* proxy = new FilmsListProxyModel( this );
     proxy->setSourceModel( model );
-    SetupModel( proxy );
+    SetupProxyModel( proxy );
     SetupResultHeader();
 
     DebugPrintFuncDone( "SearchWindow::SetModel" );
@@ -130,7 +130,7 @@ void SearchWindow::SimpleSearchStart()
     proxy->SetFilter( keyword, columns );
 
     DebugPrintFuncDone( "SearchWindow::SimpleSearchStart" );
-    SetupModel( proxy );
+    SetupProxyModel( proxy );
 }
 
 
@@ -267,7 +267,7 @@ void SearchWindow::AdvancedSearchStart()
     SetupAdvancedProxy( proxy );
 
     DebugPrintFuncDone( "SearchWindow::AdvancedSearchStart" );
-    SetupModel( proxy );
+    SetupProxyModel( proxy );
 }
 
 
@@ -380,18 +380,21 @@ void SearchWindow::SetupAdvancedProxy( AdvancedSearchProxyModel* proxy )
  *  Global                                                                                        *
   *************************************************************************************************/
 
-void SearchWindow::SetupModel( QAbstractProxyModel* proxy )
+void SearchWindow::SetupProxyModel( QAbstractProxyModel* proxy )
 {
     delete proxyModel;
     proxyModel = proxy;
     tvResult->setModel( proxyModel );
-    tvResult->horizontalHeader()->setSortIndicator( FilmItem::RatingColumn, Qt::DescendingOrder );
     lTotalFounded->setText( QString::number(proxy->rowCount()) );
 
     if( proxy->rowCount() == 0 )
     {
         QMessageBox::information( this, tr( "Simple search" ), tr( "Nothing was found." ) );
     }
+
+      // FIXME: Only Qt::DescendingOrder doesn't work
+    tvResult->horizontalHeader()->setSortIndicator( FilmItem::RatingColumn, Qt::AscendingOrder );
+    tvResult->horizontalHeader()->setSortIndicator( FilmItem::RatingColumn, Qt::DescendingOrder );
 }
 
 

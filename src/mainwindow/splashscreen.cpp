@@ -30,15 +30,15 @@ SplashScreen::SplashScreen( QWidget* parent ) : QDialog( parent )
 {
     setupUi( this );
 
-    // On top + no decoration
+      // On top + no decoration
     setWindowFlags( Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint );
 
-    // Center of the screen
+      // Center of the screen
     QRect rect = frameGeometry();
     rect.moveCenter( QDesktopWidget().availableGeometry().center() );
     move( rect.topLeft() );
 
-    // Information
+      // Information
     lAppName->setGraphicsEffect( new EffectDropShadow( 0, 0, "white", lAppName ) );
     lAppName->setText( Alexandra::appNameGui );
 

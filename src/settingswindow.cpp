@@ -166,7 +166,13 @@ void SettingsWindow::ConfigureAppearanceTab()
     }
     else
     {
-        cbStyle->setCurrentIndex( appStyles.indexOf(appStyle) + 1 ); // skeep "Default"
+        cbStyle->setCurrentIndex( appStyles.indexOf(appStyle) + 1 ); // skip "Default"
+
+        if( cbStyle->currentIndex() == 1 ) // "Theme"
+        {
+            labelTheme->setEnabled( true );
+            cbTheme->setEnabled( true );
+        }
     }
 
     connect( cbStyle, SIGNAL(currentIndexChanged(int)), this, SLOT(StyleChanged()) );

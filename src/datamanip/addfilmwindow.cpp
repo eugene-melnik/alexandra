@@ -253,7 +253,7 @@ void AddFilmWindow::Save()
          << sbRating->value()
          << cIsViewed->isChecked()
          << cIsFavourite->isChecked()
-         << 0 // Views count
+         << viewsCount
          << lStarringText->text()
          << lDescriptionText->text()
          << eTags->toPlainText()

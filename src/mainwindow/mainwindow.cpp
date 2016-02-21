@@ -60,7 +60,6 @@ MainWindow::MainWindow() : QMainWindow(),
     LoadSettings();
 
     filmsListModel->LoadFromFile( settings->GetDatabaseFilePath() );
-
     DebugPrintFuncDone( "MainWindow::MainWindow" );
 }
 
@@ -351,41 +350,44 @@ void MainWindow::DoubleClickBehavior()
 
 void MainWindow::PlayFilm()
 {
-    DebugPrintFunc( "MainWindow::PlayFilm" );
-
-    if( externalPlayer->state() == QProcess::Running )
+    if( bPlay->isEnabled() )
     {
-        externalPlayer->close(); /// terminate (?)
-    }
-    else
-    {
-        QString playerPath = settings->GetExternalPlayer();
-        QString fileToPlay;
+        DebugPrintFunc( "MainWindow::PlayFilm" );
 
-        if( lwPlaylist->IsEmpty() )
+        if( externalPlayer->state() == QProcess::Running )
         {
-            if( filmsView->GetSelectedItemsList().count() > 1)
-            {
-                AddToPlaylist();
-            }
-            else
-            {
-                fileToPlay = filmsListProxyModel->GetFilmFileNameByIndex( filmsView->GetCurrentIndex() );
-            }
+            externalPlayer->close(); /// terminate (?)
         }
         else
         {
-            fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
+            QString playerPath = settings->GetExternalPlayer();
+            QString fileToPlay;
+
+            if( lwPlaylist->IsEmpty() )
+            {
+                if( filmsView->GetSelectedItemsList().count() > 1)
+                {
+                    AddToPlaylist();
+                }
+                else
+                {
+                    fileToPlay = filmsListProxyModel->GetFilmFileNameByIndex( filmsView->GetCurrentIndex() );
+                }
+            }
+            else
+            {
+                fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
+            }
+
+            #ifdef Q_OS_LINUX
+                externalPlayer->start( playerPath + " \"" + fileToPlay +"\"" );
+            #elif defined(Q_OS_WIN32)
+                externalPlayer->start( "\"" + playerPath + "\" \"" + fileToPlay +"\"" );
+            #endif
         }
 
-        #ifdef Q_OS_LINUX
-            externalPlayer->start( playerPath + " \"" + fileToPlay +"\"" );
-        #elif defined(Q_OS_WIN32)
-            externalPlayer->start( "\"" + playerPath + "\" \"" + fileToPlay +"\"" );
-        #endif
+        DebugPrintFuncDone( "MainWindow::PlayFilm" );
     }
-
-    DebugPrintFuncDone( "MainWindow::PlayFilm" );
 }
 
 
@@ -404,7 +406,10 @@ void MainWindow::PlayerClosed()
 {
     DebugPrint( "Player stopped" );
 
-    dynamic_cast<QWidget*>( filmsView )->setEnabled( true );
+    QWidget* view = dynamic_cast<QWidget*>( filmsView );
+    view->setEnabled( true );
+    view->setFocus();
+
     wPlaylist->setEnabled( true );
     eFilter->setEnabled( true );
     bPlay->setText( tr( "&PLAY" ) );

@@ -61,7 +61,7 @@ class SearchWindow : public QDialog, protected Ui::SearchWindow
         void SetupAdvancedProxy( AdvancedSearchProxyModel* proxy );
 
           // Global
-        void SetupModel( QAbstractProxyModel* proxy );
+        void SetupProxyModel( QAbstractProxyModel* proxy );
         void SetupResultHeader();
         void ShowInMainWindow();
 
