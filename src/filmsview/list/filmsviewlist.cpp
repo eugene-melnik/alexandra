@@ -51,6 +51,8 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableView( parent )
       // Signals
     connect( horizontalHeader(), &QHeaderView::customContextMenuRequested, this, &FilmsViewList::ShowHeaderContextMenu );
 
+    connect( this, SIGNAL(activated(QModelIndex)), this, SIGNAL(CurrentActivated(QModelIndex)) );
+
     connect( this, &QTableView::customContextMenuRequested, this, [this] (const QPoint& pos)
     {
         if( currentIndex().isValid() )

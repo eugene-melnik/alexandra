@@ -52,6 +52,7 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
 
     signals:
         void CurrentChanged( const QModelIndex& );
+        void CurrentActivated( const QModelIndex& );
         void ContextMenuRequested( const QPoint&, const QModelIndex& );
 
     protected:

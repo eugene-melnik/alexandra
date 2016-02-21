@@ -41,6 +41,8 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent ),
 //    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF: Qt bug?
 
       // Signals
+    connect( this, SIGNAL(activated(QModelIndex)), this, SIGNAL(CurrentActivated(QModelIndex)) );
+
     connect( this, &QListView::customContextMenuRequested, this, [this] (const QPoint& pos)
     {
         if( currentIndex().isValid() )
