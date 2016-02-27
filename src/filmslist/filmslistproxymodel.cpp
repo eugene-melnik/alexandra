@@ -144,7 +144,7 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
 
                     if( rating > 1.0 )
                     {
-                        return( QString( "%L1/10" ).arg( rating, 0, 'f', 1 ) );
+                        return( QString( "%L1/10" ).arg( rating, 0, 'f', 2 ) );
                     }
                     else
                     {
