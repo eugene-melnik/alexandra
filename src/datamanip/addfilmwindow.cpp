@@ -313,10 +313,9 @@ void AddFilmWindow::Save()
 
 void AddFilmWindow::InformationLoaded( const FilmItem& film, const QString& posterFileName )
 {
-    filmNewPosterName = film.GetColumnData( FilmItem::PosterColumn ).toString();
-
     if( ePosterFileName->text().isEmpty() && !posterFileName.isEmpty() )
     {
+        filmNewPosterName = film.GetColumnData( FilmItem::PosterColumn ).toString();
         ePosterFileName->setText( posterFileName );
         bOpenPoster->setText( tr( "Clear" ) );
     }
