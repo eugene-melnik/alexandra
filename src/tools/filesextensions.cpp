@@ -42,9 +42,9 @@ QString FilesExtensions::GetFilmExtensionsForFilter()
       // Creating a string with format "*.ext1 *.ext2 ... *.extN"
     QString res;
 
-    for( auto i = videos.begin(); i < videos.end(); i++ )
+    for( QString str : videos )
     {
-        res += *i + " ";
+        res += str + " ";
     }
 
     return( res );
@@ -55,9 +55,9 @@ QString FilesExtensions::GetImageExtensionsForFilter()
 {
     QString res;
 
-    for( auto i = images.begin(); i < images.end(); i++ )
+    for( QString str : images )
     {
-        res += *i + " ";
+        res += str + " ";
     }
 
     return( res );
@@ -80,13 +80,13 @@ QString FilesExtensions::SearchForEponymousImage( const QString& fileName )
 
     if( eponymousFiles.size() > 1 )
     {
-        for( auto i = eponymousFiles.begin(); i < eponymousFiles.end(); i++)
+        for( QFileInfo& info : eponymousFiles )
         {
-            QString extension = "*." + i->suffix();
+            QString extension = "*." + info.suffix();
 
             if( images.contains( extension, Qt::CaseInsensitive ) )
             {
-                return( i->absoluteFilePath() );
+                return( info.absoluteFilePath() );
             }
         }
     }

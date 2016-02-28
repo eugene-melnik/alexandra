@@ -35,11 +35,11 @@ void FilmScannerWorker::run()
 
     if( isRecursive )
     {
-        result = ScanDirectoryRecursive( dir );
+        result = ScanDirectoryRecursive( selectedDir );
     }
     else
     {
-        result = ScanDirectory( dir );
+        result = ScanDirectory( selectedDir );
     }
 
     if( !isTerminated ) // If window isn't closed

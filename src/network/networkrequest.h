@@ -48,7 +48,6 @@ class NetworkRequest : public QObject
         void Finished();
 
     private:
-        QUrl url;
         QNetworkAccessManager accessManager;
         QNetworkReply* reply = nullptr;
 

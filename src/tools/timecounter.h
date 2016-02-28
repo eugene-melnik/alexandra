@@ -35,8 +35,9 @@ class TimeCounter
         TimeCounter( const QTime& t );
         TimeCounter( const TimeCounter& t ) = default;
 
+        TimeCounter& operator = ( const TimeCounter& t ) = default;
         TimeCounter& operator += ( const TimeCounter& t );
-        TimeCounter& operator += ( const QTime& t ) {return( *this += TimeCounter(t) ); }
+        TimeCounter& operator += ( const QTime& t ) { return( *this += TimeCounter(t) ); }
         TimeCounter& operator *= ( int i );
 
         void Reset();

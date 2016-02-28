@@ -91,7 +91,7 @@ void AddFilmWindow::OpenFilm()
 
           // Set the file name, title and year (if presents in file name)
         QString title = fileName.completeBaseName();
-        int year;
+        int year = 0;
 
         if( eTitle->text().isEmpty() )
         {

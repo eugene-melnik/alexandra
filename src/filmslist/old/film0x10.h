@@ -29,7 +29,6 @@ class Film010
 {
     public:
         Film010() = default;
-        Film010( const Film010& other ) = default;
 
         friend QDataStream& operator >> ( QDataStream& in, Film010& film )
         {

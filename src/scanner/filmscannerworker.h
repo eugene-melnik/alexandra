@@ -34,7 +34,7 @@ class FilmScannerWorker : public QThread
         FilmScannerWorker() = default;
 
         void SetIsRecursive( bool b ) { isRecursive = b; }
-        void SetDir( const QString& d ) { dir = d; }
+        void SetDir( const QString& d ) { selectedDir = d; }
 
         void Cancel() { isCanceled = true; }
         void Terminate() { isTerminated = true; isCanceled = true; }
@@ -50,7 +50,7 @@ class FilmScannerWorker : public QThread
         QStringList ScanDirectory( const QString& dir );
         QStringList ScanDirectoryRecursive( const QString& dir );
 
-        QString dir;
+        QString selectedDir;
         bool isRecursive = false;
         bool isCanceled;
         bool isTerminated;
