@@ -39,100 +39,16 @@ SettingsWindow::SettingsWindow( QWidget* parent ) : QDialog( parent ), settings(
 
     setupUi( this );
     setAttribute( Qt::WA_DeleteOnClose );
-    connect( bOk, &QPushButton::clicked, this, &SettingsWindow::OkButtonClicked );
 
     ConfigureAppearanceTab();
     ConfigureApplicationTab();
     ConfigureShortcutsTab();
     ConfigureSourcesTab();
 
+    connect( bApply, &QPushButton::clicked, this, &SettingsWindow::SaveSettings );
+    connect( bOk, &QPushButton::clicked, this, [this] { SaveSettings(); close(); } );
+
     DebugPrintFuncDone( "SettingsWindow::SettingsWindow" );
-}
-
-
-void SettingsWindow::OkButtonClicked()
-{
-    DebugPrintFunc( "SettingsWindow::OkButtonClicked" );
-
-    if( isNeedReboot )
-    {
-        QMessageBox::information( this, tr( "Settings" ), tr( "For taking all settings, restart the application." ) );
-    }
-
-    if( isSettingsChanged )
-    {
-          /// Appearance tab
-
-        settings->SetApplicationFont( bFontSelect->font().toString() );
-        settings->SetApplicationStyleName( (cbStyle->currentIndex() == 0) ? "" : cbStyle->currentText() );
-        settings->SetApplicationThemeIndex( cbTheme->currentIndex() );
-        settings->SetMainWindowToolbarStyle( cbToolbarStyle->currentIndex() );
-
-        if( rbListView->isChecked() )
-        {
-            settings->SetFilmsViewMode( Alexandra::ListMode );
-            settings->SetListFontSize( sbListFontSize->value() );
-            settings->SetListRowHeight( sbListRowHeight->value() );
-        }
-        else
-        {
-            settings->SetFilmsViewMode( Alexandra::GridMode );
-            settings->SetGridItemSize( sbGridImageSize->value() );
-            settings->SetGridFontSize( sbGridFontSize->value() );
-            settings->SetGridShowTooltip( cShowTooltip->isChecked() );
-        }
-
-        settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
-        settings->SetMainWindowRightPanelWidth( sbPanelWidth->value() );
-        settings->SetShowTechInfo( cbShowTechInfo->isChecked() );
-
-          /// Application tab
-
-        settings->SetApplicationShowSplashScreen( cShowSplashScreen->isChecked() );
-        settings->SetApplicationLocaleIndex( cbLanguage->currentIndex()-1 );
-
-        settings->SetExternalPlayer( eExternalPlayer->text() );
-        settings->SetPlayerDoubleClickBehavior( playerBehaviors.key( cbDoubleClickBehavior->currentText() ) );
-
-        settings->SetDatabaseFilePath( eDatabaseFile->text() );
-        settings->SetCheckFilesOnStartup( cCheckFilesAtStartup->isChecked() );
-
-        settings->SetPostersDirPath( ePostersFolder->text() );
-        settings->SetPosterSavingFormat( savingFormats[ cbSavingFormat->currentIndex() ].format );
-        settings->SetPosterSavingQuality( savingFormats[ cbSavingFormat->currentIndex() ].quality );
-        settings->SetScalePostersToHeight( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
-
-          /// Shortcuts tab
-
-        for( Shortcut& s : shortcuts )
-        {
-            QString currentKey = s.keyEdit->keySequence().toString();
-            s.SetSetting( settings, currentKey );
-        }
-
-          /// Sources tab
-
-        settings->SetDefaultParserIndex( cbDefaultOnlineSource->currentIndex() );
-        settings->SetParsersLoadBigPoster( cDownloadBigPoster->isChecked() );
-        settings->SetParsersLoadAdvancedInfo( cDownloadMoreInformation->isChecked() );
-
-          /// Save
-
-        settings->sync();
-        emit SettingsChanged();
-
-        if( isDbSettingsChanged )
-        {
-            emit DbSettingsChanged();
-        }
-        if( isViewChanged )
-        {
-            emit ViewChanged();
-        }
-    }
-
-    close();
-    DebugPrintFuncDone( "SettingsWindow::OkButtonClicked" );
 }
 
 
@@ -614,5 +530,90 @@ void SettingsWindow::ConfigureSourcesTab()
     connect( cbDefaultOnlineSource, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
     connect( cDownloadBigPoster, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
     connect( cDownloadMoreInformation, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+}
+
+
+void SettingsWindow::SaveSettings()
+{
+    DebugPrintFunc( "SettingsWindow::SaveSettings" );
+
+    if( isNeedReboot )
+    {
+        QMessageBox::information( this, tr( "Settings" ), tr( "For taking all settings, restart the application." ) );
+    }
+
+    if( isSettingsChanged )
+    {
+          /// Appearance tab
+
+        settings->SetApplicationFont( bFontSelect->font().toString() );
+        settings->SetApplicationStyleName( (cbStyle->currentIndex() == 0) ? "" : cbStyle->currentText() );
+        settings->SetApplicationThemeIndex( cbTheme->currentIndex() );
+        settings->SetMainWindowToolbarStyle( cbToolbarStyle->currentIndex() );
+
+        if( rbListView->isChecked() )
+        {
+            settings->SetFilmsViewMode( Alexandra::ListMode );
+            settings->SetListFontSize( sbListFontSize->value() );
+            settings->SetListRowHeight( sbListRowHeight->value() );
+        }
+        else
+        {
+            settings->SetFilmsViewMode( Alexandra::GridMode );
+            settings->SetGridItemSize( sbGridImageSize->value() );
+            settings->SetGridFontSize( sbGridFontSize->value() );
+            settings->SetGridShowTooltip( cShowTooltip->isChecked() );
+        }
+
+        settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );
+        settings->SetMainWindowRightPanelWidth( sbPanelWidth->value() );
+        settings->SetShowTechInfo( cbShowTechInfo->isChecked() );
+
+          /// Application tab
+
+        settings->SetApplicationShowSplashScreen( cShowSplashScreen->isChecked() );
+        settings->SetApplicationLocaleIndex( cbLanguage->currentIndex()-1 );
+
+        settings->SetExternalPlayer( eExternalPlayer->text() );
+        settings->SetPlayerDoubleClickBehavior( playerBehaviors.key( cbDoubleClickBehavior->currentText() ) );
+
+        settings->SetDatabaseFilePath( eDatabaseFile->text() );
+        settings->SetCheckFilesOnStartup( cCheckFilesAtStartup->isChecked() );
+
+        settings->SetPostersDirPath( ePostersFolder->text() );
+        settings->SetPosterSavingFormat( savingFormats[ cbSavingFormat->currentIndex() ].format );
+        settings->SetPosterSavingQuality( savingFormats[ cbSavingFormat->currentIndex() ].quality );
+        settings->SetScalePostersToHeight( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
+
+          /// Shortcuts tab
+
+        for( Shortcut& s : shortcuts )
+        {
+            QString currentKey = s.keyEdit->keySequence().toString();
+            s.SetSetting( settings, currentKey );
+        }
+
+          /// Sources tab
+
+        settings->SetDefaultParserIndex( cbDefaultOnlineSource->currentIndex() );
+        settings->SetParsersLoadBigPoster( cDownloadBigPoster->isChecked() );
+        settings->SetParsersLoadAdvancedInfo( cDownloadMoreInformation->isChecked() );
+
+          /// Save
+
+        settings->sync();
+        emit SettingsChanged();
+
+        if( isDbSettingsChanged )
+        {
+            emit DbSettingsChanged();
+        }
+        if( isViewChanged )
+        {
+            emit ViewChanged();
+        }
+    }
+
+    DebugPrintFuncDone( "SettingsWindow::SaveSettings" );
 }
 

@@ -1422,6 +1422,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="bApply">
+       <property name="text">
+        <string>&amp;Apply</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="bOk">
        <property name="text">
         <string>&amp;OK</string>

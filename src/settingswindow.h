@@ -77,7 +77,7 @@ class SettingsWindow : public QDialog, protected Ui::SettingsWindow
         void ConfigureSourcesTab();
 
           // Saving
-        void OkButtonClicked();
+        void SaveSettings();
 
     private:
           // Variables
