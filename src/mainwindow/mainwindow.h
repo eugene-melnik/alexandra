@@ -100,7 +100,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
         void ShowSearchWindow();
         void ShowSettingsWindow();
 
-        void SetCurrentFilmIsViewed();
+        void SetCurrentFilmIsViewed( bool setViewed );
         void SetCurrentFilmIsFavourite() { ToggleCurrentFilmValue( FilmItem::IsFavouriteColumn ); }
         void SelectRandomFilm();
 

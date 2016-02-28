@@ -286,7 +286,14 @@ void MainWindow::ShowFilmInformation( const QModelIndex& index )
 
 void MainWindow::ShowFilmContextMenu( const QPoint& pos, const QModelIndex& index )
 {
-    contextMenu->SetupMenuState( filmsListProxyModel->GetFilmItemByIndex(index) );
+    const FilmItem* film = nullptr; // Few films selected
+
+    if( filmsView->GetSelectedItemsList().count() == 1 )
+    {
+        film = filmsListProxyModel->GetFilmItemByIndex(index);
+    }
+
+    contextMenu->SetupMenuState( film );
     contextMenu->exec( dynamic_cast<QWidget*>( filmsView )->mapToGlobal( pos ) );
 }
 
@@ -641,11 +648,11 @@ void MainWindow::ShowSettingsWindow()
 }
 
 
-void MainWindow::SetCurrentFilmIsViewed()
+void MainWindow::SetCurrentFilmIsViewed( bool setViewed )
 {
     QModelIndex index = filmsListProxyModel->mapToSource( filmsView->GetCurrentIndex() );
 
-    if( bViewed->isChecked() )
+    if( setViewed )
     {
         filmsListModel->IncViewsCounterForIndex( index );
     }
@@ -1059,6 +1066,7 @@ void MainWindow::SetEmptyMode( bool empty )
 void MainWindow::SetReadOnlyMode( bool readOnly )
 {
     toolbar->SetReadOnlyMode( readOnly );
+    contextMenu->SetReadOnlyMode( readOnly );
 
     actionAdd->setDisabled( readOnly );
     actionEdit->setDisabled( readOnly );

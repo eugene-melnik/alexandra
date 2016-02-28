@@ -66,14 +66,41 @@ FilmsViewContextMenu::FilmsViewContextMenu( QWidget* parent ) : QMenu( parent )
 
 void FilmsViewContextMenu::SetupMenuState( const FilmItem* film )
 {
-    bool isExists = film->GetIsFileExists();
+    if( film == nullptr )
+    {
+          // Multiple selection
+        cmaPlay->setEnabled( false );
+        cmaAddToList->setEnabled( true );
+        cmaShowInfo->setEnabled( false );
 
-    cmaPlay->setEnabled( isExists );
-    cmaShowInfo->setEnabled( isExists );
-    cmaAddToList->setEnabled( isExists );
-    cmaRemoveFile->setEnabled( isExists );
+        cmaIsViewed->setEnabled( false );
+        cmaIsViewed->setChecked( false );
 
-    cmaIsViewed->setChecked( film->GetIsFilmViewed() );
-    cmaIsFavourite->setChecked( film->GetIsFilmFavourite() );
+        cmaIsFavourite->setEnabled( false );
+        cmaIsFavourite->setChecked( false );
+
+        cmaEdit->setEnabled( false );
+        cmaRemove->setEnabled( true );
+        cmaRemoveFile->setEnabled( false );
+    }
+    else
+    {
+          // Single selection
+        bool isExists = film->GetIsFileExists();
+
+        cmaPlay->setEnabled( isExists );
+        cmaAddToList->setEnabled( isExists );
+        cmaShowInfo->setEnabled( isExists );
+
+        cmaIsViewed->setEnabled( isReadWrite );
+        cmaIsViewed->setChecked( film->GetIsFilmViewed() );
+
+        cmaIsFavourite->setEnabled( isReadWrite );
+        cmaIsFavourite->setChecked( film->GetIsFilmFavourite() );
+
+        cmaEdit->setEnabled( isReadWrite );
+        cmaRemove->setEnabled( isReadWrite );
+        cmaRemoveFile->setEnabled( isReadWrite && isExists );
+    }
 }
 

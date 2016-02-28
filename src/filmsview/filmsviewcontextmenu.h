@@ -36,6 +36,8 @@ class FilmsViewContextMenu : public QMenu
     public:
         explicit FilmsViewContextMenu( QWidget* parent = nullptr );
 
+        void SetReadOnlyMode( bool readOnly ) { isReadWrite = !readOnly; }
+
         void SetupMenuState( const FilmItem* film );
 
     signals:
@@ -57,6 +59,8 @@ class FilmsViewContextMenu : public QMenu
         QAction* cmaEdit = nullptr;
         QAction* cmaRemove = nullptr;
         QAction* cmaRemoveFile = nullptr;
+
+        bool isReadWrite = true;
 };
 
 
