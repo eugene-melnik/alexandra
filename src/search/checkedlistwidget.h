@@ -26,6 +26,7 @@
 #include <QMenu>
 #include <QPoint>
 #include <QStringList>
+#include <QTimer>
 
 
 class CheckedListWidget : public QListWidget
@@ -33,78 +34,30 @@ class CheckedListWidget : public QListWidget
     Q_OBJECT
 
     public:
-        explicit CheckedListWidget( QWidget* parent = nullptr ) : QListWidget( parent )
-        {
-            setContextMenuPolicy( Qt::CustomContextMenu );
-            connect( this, &QWidget::customContextMenuRequested, this, &CheckedListWidget::ShowContextMenu );
-        }
+        explicit CheckedListWidget( QWidget* parent = nullptr );
 
-        void AddItem( QString itemTitle )
-        {
-            QListWidgetItem* item = new QListWidgetItem( itemTitle, this );
-            item->setCheckState( Qt::Unchecked );
-            addItem( item );
-        }
+        void AddItem( QString itemTitle );
+        void AddItems( QStringList itemsTitles );
 
-        void AddItems( QStringList itemsTitles )
-        {
-            for( QString title : itemsTitles )
-            {
-                AddItem( title );
-            }
-        }
+        QStringList GetSelectedItems() const;
 
-        QStringList GetSelectedItems() const
-        {
-            QStringList result;
-
-            for( int row = 0; row < count(); ++row )
-            {
-                if( item(row)->checkState() == Qt::Checked )
-                {
-                    result.append( item(row)->text() );
-                }
-            }
-
-            return( result );
-        }
+    protected:
+        void keyPressEvent( QKeyEvent* event ) override;
 
     private slots:
-        void ShowContextMenu( QPoint pos )
-        {
-            if( count() > 0 )
-            {
-                QMenu menu;
-                menu.addAction( "Select all", this, SLOT(SelectAll()) );
-                menu.addAction( "Unselect all", this, SLOT(UnselectAll()) );
-                menu.addAction( "Invert selection", this, SLOT(InvertSelection()) );
-                menu.exec( this->mapToGlobal(pos) );
-            }
-        }
+        void ShowContextMenu( QPoint pos );
 
-        void SelectAll()
-        {
-            for( int row = 0; row < count(); ++row )
-            {
-                item(row)->setCheckState( Qt::Checked );
-            }
-        }
+        void SelectAll() { SetAllChecked(Qt::Checked); }
+        void UnselectAll() { SetAllChecked(Qt::Unchecked); }
+        void SetAllChecked( Qt::CheckState checked );
+        void InvertSelection();
+        void ScrollToChecked();
 
-        void UnselectAll()
-        {
-            for( int row = 0; row < count(); ++row )
-            {
-                item(row)->setCheckState( Qt::Unchecked );
-            }
-        }
+        void ClearSearch() { searchText.clear(); searchTimer.stop(); }
 
-        void InvertSelection()
-        {
-            for( int row = 0; row < count(); ++row )
-            {
-                item(row)->setCheckState( (item(row)->checkState() == Qt::Unchecked) ? Qt::Checked : Qt::Unchecked );
-            }
-        }
+    private:
+        QString searchText;
+        QTimer searchTimer;
 };
 
 

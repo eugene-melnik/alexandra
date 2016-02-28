@@ -121,6 +121,7 @@ SOURCES += datamanip/addfilmwindow.cpp \
            scanner/filmscannerworker.cpp \
            scanner/filmscanneraddworker.cpp \
            scanner/movedfilmswindow.cpp \
+           search/checkedlistwidget.cpp \
            search/searchedit.cpp \
            search/searchwindow.cpp \
            statistics/statisticswindow.cpp \

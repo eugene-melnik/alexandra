@@ -36,6 +36,17 @@ SearchWindow::SearchWindow( QWidget* parent ) : QDialog( parent )
     setupUi( this );
     setAttribute( Qt::WA_DeleteOnClose );
 
+      // Set focus to ListWidget inside GroupBox on checkbox click
+    for( QGroupBox* gbox : this->findChildren<QGroupBox*>() )
+    {
+        QListWidget* glist = gbox->findChild<QListWidget*>();
+
+        if( glist != nullptr )
+        {
+            connect( gbox, SIGNAL(toggled(bool)), glist, SLOT(setFocus()) );
+        }
+    }
+
     connect( tvResult, &QTableView::doubleClicked, this, &SearchWindow::ShowInMainWindow );
     connect( bShow,    &QPushButton::clicked,      this, &SearchWindow::ShowInMainWindow );
 
@@ -120,7 +131,7 @@ void SearchWindow::SimpleSearchStart()
 
     if( keyword.isEmpty() || columns.isEmpty() )
     {
-        QMessageBox::information( this, tr( "Simple search" ),
+        QMessageBox::information( this, tr( "Search" ),
                                   tr( "Nothing to search. Input keyword and select at least one field." ) );
         return;
     }
@@ -141,7 +152,7 @@ void SearchWindow::SimpleSearchStart()
 void SearchWindow::ConfigureAdvancedSearchTab()
 {
     QStringList genres, directors, countries, starring, screenwriters, tags;
-    double ratingMin = 0, ratingMax = 0;
+    double ratingMin = 0.0, ratingMax = 0.0;
     int yearMin = 0, yearMax = 0;
 
     for( int row = 0; row < model->rowCount(); ++row )
@@ -149,7 +160,7 @@ void SearchWindow::ConfigureAdvancedSearchTab()
         double filmRating = model->index( row, FilmItem::RatingColumn ).data().toDouble();
 
           // Minimal rating
-        if( ratingMin == 0 )
+        if( ratingMin == 0.0 )
         {
             ratingMin = filmRating;
         }
@@ -392,7 +403,7 @@ void SearchWindow::SetupProxyModel( QAbstractProxyModel* proxy )
         QMessageBox::information( this, tr( "Simple search" ), tr( "Nothing was found." ) );
     }
 
-      // FIXME: Only Qt::DescendingOrder doesn't work
+      // FIXME: One Qt::DescendingOrder doesn't work
     tvResult->horizontalHeader()->setSortIndicator( FilmItem::RatingColumn, Qt::AscendingOrder );
     tvResult->horizontalHeader()->setSortIndicator( FilmItem::RatingColumn, Qt::DescendingOrder );
 }

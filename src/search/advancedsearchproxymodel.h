@@ -79,13 +79,13 @@ class AdvancedSearchProxyModel : public FilmsListProxyModel
             {
                 QString columnData = film->GetColumnData( column ).toString();
                 QStringList words = filterColumnsAnd.value( column );
-                bool isContains = false;
+                bool isContains = true;
 
                 for( QString word : words )
                 {
-                    if( columnData.contains( word, Qt::CaseInsensitive ) )
+                    if( !columnData.contains( word, Qt::CaseInsensitive ) )
                     {
-                        isContains = true;
+                        isContains = false;
                         break;
                     }
                 }
