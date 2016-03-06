@@ -658,12 +658,27 @@ void MainWindow::SetCurrentFilmIsViewed( bool setViewed )
     }
     else // Uncheck
     {
-        int answer = QMessageBox::question( this, tr( "Films statistics" ),
-                                            tr( "Are you sure you want to reset the count of views for the current film?" ) );
+        QMessageBox mb( this );
+        mb.setWindowTitle( tr( "Views counter" ) );
+        mb.setText( tr( "What do you want to do?" ) );
+        QAbstractButton* cancelButton = mb.addButton( QMessageBox::Cancel );
+        QAbstractButton* addViewButton = mb.addButton( tr( "Add view"), QMessageBox::AcceptRole );
+        QAbstractButton* resetViewsButton = mb.addButton( tr( "Reset views"), QMessageBox::ResetRole);
+        mb.setEscapeButton( cancelButton );
 
-        if( answer == QMessageBox::Yes )
+        mb.exec();
+
+        if( mb.clickedButton() == addViewButton )
+        {
+            filmsListModel->IncViewsCounterForIndex( index );
+        }
+        else if( mb.clickedButton() == resetViewsButton )
         {
             filmsListModel->ResetViewsCounterForIndex( index );
+        }
+        else
+        {
+            bViewed->toggle();
         }
     }
 }
