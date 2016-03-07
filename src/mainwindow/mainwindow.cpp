@@ -202,7 +202,7 @@ void MainWindow::DatabaseChanged()
                           filmsListModel->GetIsViewedFilmsCount(),
                           filmsListModel->GetIsFavouriteFilmsCount() );
 
-    filmsListModel->SaveToFileAsync( settings->GetDatabaseFilePath() );
+    filmsListModel->SaveToFile( settings->GetDatabaseFilePath() );
 }
 
 

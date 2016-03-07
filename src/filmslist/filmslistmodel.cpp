@@ -66,6 +66,11 @@ FilmsListModel::FilmsListModel( QObject* parent ) : QAbstractItemModel( parent )
     connect( this, SIGNAL(layoutChanged()), this, SIGNAL(DatabaseChanged()) );
     connect( this, SIGNAL(modelReset()), this, SIGNAL(DatabaseChanged()) );
 
+    connect( &savingTimer, &QTimer::timeout, this, [this]
+    {
+        SaveToFileAsync( savingFileName );
+    } );
+
     DebugPrintFuncDone( "FilmsListModel::FilmsListModel" );
 }
 
@@ -76,6 +81,12 @@ FilmsListModel::~FilmsListModel()
     if( mutexDataEdit.tryLock( 5000 ) ) // 5 sec
     {
         mutexDataEdit.unlock();
+    }
+
+    if( savingTimer.isActive() )
+    {
+        savingTimer.stop();
+        SaveToFileSync( savingFileName );
     }
 
     delete rootItem;
@@ -372,22 +383,9 @@ void FilmsListModel::LoadFromFile( QString fileName )
 
 void FilmsListModel::SaveToFile( QString fileName )
 {
-    if( isDatabaseChanged )
-    {
-        QMutexLocker locker( &mutexDataEdit );
-        isDatabaseChanged = false;
-
-        if( !FilmsListLoader::Save( rootItem, fileName ) )
-        {
-            emit DatabaseWriteError();
-        }
-    }
-}
-
-
-void FilmsListModel::SaveToFileAsync( QString fileName )
-{
-    std::thread( &FilmsListModel::SaveToFile, this, fileName ).detach();
+    savingTimer.stop();
+    savingFileName = fileName;
+    savingTimer.start( 5000 ); // 5 seconds
 }
 
 
@@ -498,6 +496,7 @@ void FilmsListModel::IncViewsCounterForIndex( const QModelIndex& index )
     dataChanged( index, index );
 }
 
+
 void FilmsListModel::ResetViewsCounterForIndex( const QModelIndex& index )
 {
     QMutexLocker locker( &mutexDataEdit );
@@ -522,6 +521,32 @@ QModelIndex FilmsListModel::GetFilmIndex( QString title ) const
     }
 
     return( QModelIndex() );
+}
+
+
+void FilmsListModel::SaveToFileSync( QString fileName )
+{
+    if( isDatabaseChanged )
+    {
+        QMutexLocker locker( &mutexDataEdit );
+        isDatabaseChanged = false;
+
+        if( !FilmsListLoader::Save( rootItem, fileName ) )
+        {
+            emit DatabaseWriteError();
+        }
+    }
+}
+
+
+void FilmsListModel::SaveToFileAsync( QString fileName )
+{
+    if( savingTimer.isActive() )
+    {
+        savingTimer.stop();
+    }
+
+    std::thread( &FilmsListModel::SaveToFileSync, this, fileName ).detach();
 }
 
 

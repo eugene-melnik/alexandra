@@ -26,6 +26,7 @@
 #include <QMutex>
 #include <QObject>
 #include <QStringList>
+#include <QTimer>
 
 
 #include "alexandrasettings.h"
@@ -63,7 +64,6 @@ class FilmsListModel : public QAbstractItemModel
     public slots:
         void LoadFromFile( QString fileName );
         void SaveToFile( QString fileName );
-        void SaveToFileAsync( QString fileName );
 
         void AddFilmItem( FilmItem* film );
         void EditFilmItem( FilmItem* film, const QModelIndex& index );
@@ -94,6 +94,9 @@ class FilmsListModel : public QAbstractItemModel
         void DatabaseChanged();
 
     private:
+        void SaveToFileSync( QString fileName );
+        void SaveToFileAsync( QString fileName );
+
         int GetCountOf( FilmItem::Column column, const QVariant& data ) const;
 
           // Variables
@@ -101,6 +104,9 @@ class FilmsListModel : public QAbstractItemModel
         FilmItem* rootItem;
         QMutex mutexDataEdit;
         bool isDatabaseChanged = false;
+
+        QString savingFileName;
+        QTimer savingTimer;
 };
 
 
