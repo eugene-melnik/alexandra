@@ -36,17 +36,6 @@ StatisticsWindow::StatisticsWindow( QWidget* parent ) : QDialog( parent )
 }
 
 
-StatisticsWindow::~StatisticsWindow()
-{
-    DebugPrint( "StatisticsWindow::~StatisticsWindow" );
-
-    if( calculateMutex.tryLock( 5000 ) )
-    {
-        calculateMutex.unlock();
-    }
-}
-
-
 void StatisticsWindow::SetModel( QAbstractItemModel* model )
 {
     this->model = model;
@@ -58,7 +47,7 @@ void StatisticsWindow::SetModel( QAbstractItemModel* model )
         films.append( film );
     }
 
-    lTotalFilmsInLibrary->setText( QString::number( films.size() ) );
+    lTotalFilmsInLibrary->setText( QString::number(films.size()) );
     progressBar->setMaximum( films.size() );
     progressBar->setValue( 0 );
 
@@ -68,27 +57,13 @@ void StatisticsWindow::SetModel( QAbstractItemModel* model )
 
 void StatisticsWindow::LoadStatistics( FilmItemList films )
 {
-      // Calculations in multithread
-    threadsCount = QThread::idealThreadCount() > 0 ? QThread::idealThreadCount() : 1;
-    int subListLength = films.size() / threadsCount;
-
-    for( int threadNum = 0; threadNum < threadsCount; ++threadNum )
-    {
-        int subListPos = threadNum * subListLength;
-
-        if( threadNum == (threadsCount - 1) ) // Last thread
-        {
-            subListLength = -1;
-        }
-
-        StatisticsWorker* calcWorker = new StatisticsWorker();
-        connect( this, SIGNAL(destroyed()), calcWorker, SLOT(Terminate()) ); // On window close while calculating
-        connect( calcWorker, &StatisticsWorker::IncProgress,          this, &StatisticsWindow::IncProgress );
-        connect( calcWorker, &StatisticsWorker::MainStatisticsLoaded, this, &StatisticsWindow::ShowMainStatistics );
-        connect( calcWorker, &StatisticsWorker::finished,             calcWorker, &QWidget::deleteLater );
-        calcWorker->SetFilms( films.mid( subListPos, subListLength ) );
-        calcWorker->start();
-    }
+    StatisticsWorker* calcWorker = new StatisticsWorker();
+    connect( this, SIGNAL(destroyed()), calcWorker, SLOT(Terminate()) ); // On window close while calculating
+    connect( calcWorker, &StatisticsWorker::IncProgress,          this, &StatisticsWindow::IncProgress );
+    connect( calcWorker, &StatisticsWorker::MainStatisticsLoaded, this, &StatisticsWindow::ShowMainStatistics );
+    connect( calcWorker, &StatisticsWorker::finished,             calcWorker, &QWidget::deleteLater );
+    calcWorker->SetFilms( films );
+    calcWorker->start();
 }
 
 
@@ -100,64 +75,54 @@ void StatisticsWindow::IncProgress()
 }
 
 
-void StatisticsWindow::ShowMainStatistics( int         threadViewedFilms,
-                                           int         threadTotalViewsCount,
-                                           TimeCounter threadWastedTime,
-                                           bool        threadAllFilesOk,
-                                           TopFilmList threadTopFilms )
+void StatisticsWindow::ShowMainStatistics( MainStatistics mainStat )
 {
-    QMutexLocker locker( &calculateMutex );
+    lFavouriteFilms->setText( QString::number( mainStat.favouriteFilms ) );
+    double ratio = mainStat.viewedFilms * 100.0 / lTotalFilmsInLibrary->text().toInt();
+    lFilmsViewed->setText( QString( "%1 (%L2%)" ).arg( mainStat.viewedFilms ).arg( ratio, 0, 'f', 1 ) );
+    lTotalViews->setText( QString::number(mainStat.totalViewsCount) );
+    lWastedTime->setText( mainStat.wastedTime.ToString() );
 
-      // Appending data
-    viewedFilms += threadViewedFilms;
-    totalViewsCount += threadTotalViewsCount;
-    wastedTime += threadWastedTime;
-    allFilesOk &= threadAllFilesOk;
-
-    topFilms.append( threadTopFilms );
-
-      // Other information
-    double ratio = viewedFilms * 100.0 / lTotalFilmsInLibrary->text().toInt();
-    lFilmsViewed->setText( QString( "%1 (%L2%)" ).arg(viewedFilms).arg(ratio, 0, 'f', 1) );
-    lTotalViews->setText( QString::number( totalViewsCount ) );
-    lWastedTime->setText( wastedTime.ToString() );
-
-    if( --threadsCount == 0 ) // End of scanning
-    {
-        #ifdef MEDIAINFO_SUPPORT
-            if( !allFilesOk ) // Condition when unable to access all the files
-            {
-                lWastedTime->setText( lWastedTime->text() + " (?)" );
-                lWastedTime->setToolTip( tr( "The calculations are inaccurate because some of files aren't available." ) );
-            }
-        #else
-            labelWastedTime->hide();
-            lWastedTime->hide();
-        #endif // MEDIAINFO_SUPPORT
-
-          // List of most popular films
-          // Sorting by views count and alphabet
-        std::sort( topFilms.begin(), topFilms.end(), [] (TopFilm a, TopFilm b)
+    #ifdef MEDIAINFO_SUPPORT
+        if( !mainStat.allFilesOk ) // Condition when unable to access all the files
         {
-            if( a.viewsCount == b.viewsCount )
-            {
-                return( a.filmTitle > b.filmTitle );
-            }
-            else
-            {
-                return( a.viewsCount < b.viewsCount );
-            }
-        } );
-
-          // Show in list widget
-        for( int i = 0; i < topFilms.size(); i++ )
-        {
-            QString itemText = QString( "(%1) " ).arg( topFilms.at(i).viewsCount ) + topFilms.at(i).filmTitle;
-            lwMostPopularFilms->insertItem( 0, itemText );
+            lWastedTime->setText( lWastedTime->text() + " (?)" );
+            lWastedTime->setToolTip( tr( "The calculations are inaccurate because some of files aren't available." ) );
         }
+    #else
+        labelWastedTime->hide();
+        lWastedTime->hide();
+    #endif // MEDIAINFO_SUPPORT
 
-        progressBar->hide();
+      // List of most popular films
+      // Sorting by views count and alphabet
+    std::sort( mainStat.topFilms.begin(), mainStat.topFilms.end(), [] (TopFilm a, TopFilm b)
+    {
+        if( a.viewsCount == b.viewsCount )
+        {
+            return( a.filmTitle > b.filmTitle );
+        }
+        else
+        {
+            return( a.viewsCount < b.viewsCount );
+        }
+    } );
+
+      // Numbers of
+    lNumberOfDirectors->setText( QString::number(mainStat.directorsCount) );
+    lNumberOfScreenwriters->setText( QString::number(mainStat.screenwritersCount) );
+    lNumberOfGenres->setText( QString::number(mainStat.genresCount) );
+    lNumberOfActors->setText( QString::number(mainStat.actorsCount) );
+    lNumberOfCountries->setText( QString::number(mainStat.countriesCount) );
+
+      // Show in list widget
+    for( int i = 0; i < mainStat.topFilms.size(); ++i )
+    {
+        QString itemText = QString( "(%1) " ).arg( mainStat.topFilms.at(i).viewsCount ) + mainStat.topFilms.at(i).filmTitle;
+        lwMostPopularFilms->insertItem( 0, itemText );
     }
+
+    progressBar->hide();
 }
 
 

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>490</width>
-    <height>350</height>
+    <width>570</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,7 +23,7 @@
    <string>Statistics</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
+   <iconset resource="../icons.qrc">
     <normaloff>:/window/film-statistic</normaloff>:/window/film-statistic</iconset>
   </property>
   <property name="modal">
@@ -39,85 +39,175 @@
       <attribute name="title">
        <string>Main statistics</string>
       </attribute>
-      <layout class="QVBoxLayout" name="layoutTabMain">
+      <layout class="QVBoxLayout" name="layoutMainStatisticsTab">
        <item>
-        <layout class="QHBoxLayout" name="layoutStaff">
+        <layout class="QHBoxLayout" name="layoutMainStatisticsData">
+         <property name="bottomMargin">
+          <number>6</number>
+         </property>
          <item>
-          <layout class="QVBoxLayout" name="layoutStaffLabels">
+          <layout class="QHBoxLayout" name="layoutMainStatisticsDataLeft">
            <item>
-            <widget class="QLabel" name="labelTotalFilmsInLibrary">
-             <property name="text">
-              <string>Total films in the library:</string>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" name="layoutMainStatisticsDataLeftLabels">
+             <item>
+              <widget class="QLabel" name="labelTotalFilmsInLibrary">
+               <property name="text">
+                <string>Total films in the library:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelFavouriteFilms">
+               <property name="text">
+                <string>Favourite films:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelFilmsViewed">
+               <property name="text">
+                <string>Films viewed:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelTotalViews">
+               <property name="text">
+                <string>Total views:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelWastedTime">
+               <property name="text">
+                <string>Wasted time:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
-            <widget class="QLabel" name="labelFilmsViewed">
-             <property name="text">
-              <string>Films viewed:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="labelTotalViews">
-             <property name="text">
-              <string>Total views:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="labelWastedTime">
-             <property name="text">
-              <string>Wasted time:</string>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" name="layoutMainStatisticsDataLeftValues">
+             <item>
+              <widget class="QLabel" name="lTotalFilmsInLibrary">
+               <property name="text">
+                <string notr="true">0</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lFavouriteFilms">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lFilmsViewed">
+               <property name="text">
+                <string notr="true">0</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lTotalViews">
+               <property name="text">
+                <string notr="true">0</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lWastedTime">
+               <property name="text">
+                <string notr="true">0</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="layoutStaffValues">
+          <layout class="QHBoxLayout" name="layoutMainStatisticsDataRight">
            <item>
-            <widget class="QLabel" name="lTotalFilmsInLibrary">
-             <property name="text">
-              <string notr="true">0</string>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" name="layoutMainStatisticsDataRightLabels">
+             <item>
+              <widget class="QLabel" name="labelNumberOfDirectors">
+               <property name="text">
+                <string>Number of directors:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelNumberOfScreenwriters">
+               <property name="text">
+                <string>Number of screenwriters:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelNumberOfGenres">
+               <property name="text">
+                <string>Number of genres:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelNumberOfActors">
+               <property name="text">
+                <string>Number of actors:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelNumberOfCountries">
+               <property name="text">
+                <string>Number of countries:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
-            <widget class="QLabel" name="lFilmsViewed">
-             <property name="text">
-              <string notr="true">0</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="lTotalViews">
-             <property name="text">
-              <string notr="true">0</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="lWastedTime">
-             <property name="text">
-              <string notr="true">0</string>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" name="layoutMainStatisticsDataRightValues">
+             <item>
+              <widget class="QLabel" name="lNumberOfDirectors">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lNumberOfScreenwriters">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lNumberOfGenres">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lNumberOfActors">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lNumberOfCountries">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
-         </item>
-         <item>
-          <spacer name="spacerStaff">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </item>
@@ -153,7 +243,7 @@
       <attribute name="title">
        <string>Reset</string>
       </attribute>
-      <layout class="QVBoxLayout" name="layoutTabReset">
+      <layout class="QVBoxLayout" name="layoutResetTab">
        <item>
         <widget class="QLabel" name="labelWarning">
          <property name="text">
@@ -194,7 +284,7 @@
             <string notr="true">color: rgb(200, 0, 0);</string>
            </property>
            <property name="text">
-            <string>Reset statistics</string>
+            <string>Reset view counters</string>
            </property>
           </widget>
          </item>
@@ -273,7 +363,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="icons.qrc"/>
+  <include location="../icons.qrc"/>
  </resources>
  <connections>
   <connection>

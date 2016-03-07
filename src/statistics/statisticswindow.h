@@ -40,7 +40,6 @@ class StatisticsWindow : public QDialog, protected Ui::StatisticsWindow
 
     public:
         explicit StatisticsWindow( QWidget* parent = nullptr );
-        virtual ~StatisticsWindow();
 
         void SetModel( QAbstractItemModel* model );
 
@@ -51,27 +50,12 @@ class StatisticsWindow : public QDialog, protected Ui::StatisticsWindow
         void LoadStatistics( FilmItemList films );
 
         void IncProgress();
-        void ShowMainStatistics( int         threadViewedFilms,
-                                 int         threadTotalViewsCount,
-                                 TimeCounter threadWastedTime,
-                                 bool        threadAllFilesOk,
-                                 TopFilmList threadTopFilms );
+        void ShowMainStatistics( MainStatistics mainStat );
         void Reset();
 
     private:
         QAbstractItemModel* model = nullptr;
-
         QMutex progressMutex;
-        QMutex calculateMutex;
-
-        int threadsCount;
-
-        int viewedFilms = 0;
-        int totalViewsCount = 0;
-        bool allFilesOk = true;
-        TimeCounter wastedTime;
-
-        QList<TopFilm> topFilms;
 };
 
 

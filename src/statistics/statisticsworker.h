@@ -40,6 +40,24 @@ struct TopFilm
 typedef QList<TopFilm> TopFilmList;
 
 
+struct MainStatistics
+{
+    int favouriteFilms;
+    int viewedFilms;
+    int totalViewsCount;
+    bool allFilesOk = true;
+    TimeCounter wastedTime;
+
+    int directorsCount;
+    int screenwritersCount;
+    int genresCount;
+    int actorsCount;
+    int countriesCount;
+
+    TopFilmList topFilms;
+};
+
+
 class StatisticsWorker : public QThread
 {
     Q_OBJECT
@@ -54,16 +72,14 @@ class StatisticsWorker : public QThread
     signals:
         void IncProgress();
 
-        void MainStatisticsLoaded( int         /* viewedFilms */,
-                                   int         /* totalViewsCount */,
-                                   TimeCounter /* wastedTime */,
-                                   bool        /* allFilesOk */,
-                                   TopFilmList /* topFilms */ );
+        void MainStatisticsLoaded( MainStatistics );
 
     protected:
         void run() override;
 
     private:
+        QStringList StringToList( const QString& str );
+
         FilmItemList films;
         bool isTerminate = false;
 };

@@ -24,33 +24,28 @@
 
 StatisticsWorker::StatisticsWorker() : QThread()
 {
-    qRegisterMetaType<TimeCounter>( "TimeCounter" );
-    qRegisterMetaType<TopFilmList>( "TopFilmList" );
+    qRegisterMetaType<MainStatistics>( "MainStatistics" );
 }
 
 
 void StatisticsWorker::run()
 {
-    int viewedFilms = 0;
-    int totalViewsCount = 0;
-    bool allFilesOk = true;
+    MainStatistics mainStat = MainStatistics();
+    QStringList directors, screenwriters, genres, actors, countries;
 
-    TimeCounter wastedTime;
-    QList<TopFilm> topFilms;
-
-      // Calculations
+      // Viewed
     for( FilmItem* film : films )
     {
-        if( isTerminate ) return; // statistics window closed
+        if( isTerminate ) return; // Statistics window closed
 
         if( film->GetIsFilmViewed() )
         {
-            viewedFilms++;
+            mainStat.viewedFilms++;
             int viewsCount = film->GetColumnData( FilmItem::ViewsCountColumn ).toInt();
 
             if( viewsCount != 0 )
             {
-                totalViewsCount += viewsCount;
+                mainStat.totalViewsCount += viewsCount;
 
                   // Wasted time
                 #ifdef MEDIAINFO_SUPPORT
@@ -59,23 +54,81 @@ void StatisticsWorker::run()
                     if( mi.IsOpened() )
                     {
                         TimeCounter duration( mi.GetDurationTime() );
-                        wastedTime = duration;
-                        wastedTime *= viewsCount;
+                        duration *= viewsCount;
+                        mainStat.wastedTime += duration;
                     }
                     else
                     {
-                        allFilesOk = false;
+                        mainStat.allFilesOk = false;
                     }
                 #endif // MEDIAINFO_SUPPORT
 
                   // Most popular
-                topFilms.append( { film->GetTitle(), viewsCount } );
+                TopFilm topFilm = { film->GetTitle(), viewsCount };
+                mainStat.topFilms.append( topFilm );
             }
         }
+
+          // Favourite
+        if( film->GetIsFilmFavourite() )
+        {
+            mainStat.favouriteFilms++;
+        }
+
+          // Directors
+        QString filmDirectors = film->GetColumnData( FilmItem::DirectorColumn ).toString();
+        directors.append( StringToList(filmDirectors) );
+        directors.removeDuplicates();
+
+          // Screenwriters
+        QString filmScreenwriters = film->GetColumnData( FilmItem::ScreenwriterColumn ).toString();
+        screenwriters.append( StringToList(filmScreenwriters) );
+        screenwriters.removeDuplicates();
+
+          // Genres
+        QString filmGenres = film->GetColumnData( FilmItem::GenreColumn ).toString();
+        genres.append( StringToList(filmGenres) );
+        genres.removeDuplicates();
+
+          // Actors
+        QString filmStarring = film->GetColumnData( FilmItem::StarringColumn ).toString();
+        actors.append( StringToList(filmStarring) );
+        actors.removeDuplicates();
+
+          // Countries
+        QString filmCountries = film->GetColumnData( FilmItem::CountryColumn ).toString();
+        countries.append( StringToList(filmCountries) );
+        countries.removeDuplicates();
 
         emit IncProgress();
     }
 
-    emit MainStatisticsLoaded( viewedFilms, totalViewsCount, wastedTime, allFilesOk, topFilms );
+    mainStat.directorsCount = directors.count();
+    mainStat.screenwritersCount = screenwriters.count();
+    mainStat.genresCount = genres.count();
+    mainStat.actorsCount = actors.count();
+    mainStat.countriesCount = countries.count();
+
+    emit MainStatisticsLoaded( mainStat );
+}
+
+
+QStringList StatisticsWorker::StringToList( const QString& str )
+{
+    if( str.isEmpty() )
+    {
+        return( QStringList() );
+    }
+    else
+    {
+        QStringList strings = str.split( "," );
+
+        for( QString& s : strings )
+        {
+            s = s.trimmed();
+        }
+
+        return( strings );
+    }
 }
 
