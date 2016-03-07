@@ -371,6 +371,12 @@ QString AlexandraSettings::GetPlayerDoubleClickBehavior() const
 }
 
 
+QByteArray AlexandraSettings::GetPlaylistData() const
+{
+    return( value( "MainWindow/PlaylistData" ).toByteArray() );
+}
+
+
   /* Set */
 
 void AlexandraSettings::SetDatabaseFilePath( const QString& s )
@@ -665,6 +671,12 @@ void AlexandraSettings::SetShortcutExit( const QString& s )
 void AlexandraSettings::SetPlayerDoubleClickBehavior( const QString& s )
 {
     setValue( "Player/DoubleClickBehavior", s );
+}
+
+
+void AlexandraSettings::SetPlaylistData( const QByteArray& a )
+{
+    setValue( "MainWindow/PlaylistData", a );
 }
 
 

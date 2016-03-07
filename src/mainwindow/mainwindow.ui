@@ -235,7 +235,7 @@
               <string>Play film or playlist</string>
              </property>
              <property name="text">
-              <string>&amp;PLAY</string>
+              <string>Play</string>
              </property>
              <property name="icon">
               <iconset resource="../icons.qrc">
@@ -296,7 +296,13 @@
         </spacer>
        </item>
        <item>
-        <widget class="QWidget" name="wPlaylist" native="true">
+        <widget class="PlaylistWidget" name="wPlaylist" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <property name="spacing">
            <number>4</number>
@@ -313,26 +319,6 @@
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item>
-           <widget class="QLabel" name="labelPlaylist">
-            <property name="text">
-             <string>Playlist:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="PlayListWidget" name="lwPlaylist">
-            <property name="horizontalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
-            </property>
-            <property name="verticalScrollMode">
-             <enum>QAbstractItemView::ScrollPerPixel</enum>
-            </property>
-            <property name="horizontalScrollMode">
-             <enum>QAbstractItemView::ScrollPerPixel</enum>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
@@ -579,11 +565,6 @@
    <header>search/searchedit.h</header>
   </customwidget>
   <customwidget>
-   <class>PlayListWidget</class>
-   <extends>QListWidget</extends>
-   <header>mainwindow/playlistwidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>FilmInfoView</class>
    <extends>QWidget</extends>
    <header>filmsview/info/filminfoview.h</header>
@@ -598,6 +579,12 @@
    <class>FilmPosterView</class>
    <extends>QLabel</extends>
    <header>filmsview/info/filmposterview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PlaylistWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/playlistwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

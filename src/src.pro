@@ -56,8 +56,8 @@ HEADERS += datamanip/addfilmwindow.h \
            filmsview/list/filmsviewlist.h \
            filmsview/abstractfilmsview.h \
            filmsview/filmsviewcontextmenu.h \
+           mainwindow/checkvieweddialog.h \
            mainwindow/mainwindow.h \
-           mainwindow/playlistwidget.h \
            mainwindow/splashscreen.h \
            network/networkrequest.h \
            network/updatechecker.h \
@@ -83,6 +83,7 @@ HEADERS += datamanip/addfilmwindow.h \
            tools/timecounter.h \
            widgets/checkedlistwidget.h \
            widgets/foundedlistwidget.h \
+           widgets/playlistwidget.h \
            aboutwindow.h \
            alexandrasettings.h \
            settingswindow.h \
@@ -107,7 +108,6 @@ SOURCES += datamanip/addfilmwindow.cpp \
            filmsview/list/filmsviewlist.cpp \
            filmsview/filmsviewcontextmenu.cpp \
            mainwindow/mainwindow.cpp \
-           mainwindow/playlistwidget.cpp \
            mainwindow/splashscreen.cpp \
            network/networkrequest.cpp \
            network/updatechecker.cpp \
@@ -131,6 +131,7 @@ SOURCES += datamanip/addfilmwindow.cpp \
            tools/timecounter.cpp \
            widgets/checkedlistwidget.cpp \
            widgets/foundedlistwidget.cpp \
+           widgets/playlistwidget.cpp \
            aboutwindow.cpp \
            alexandrasettings.cpp \
            main.cpp \
@@ -141,6 +142,7 @@ SOURCES += datamanip/addfilmwindow.cpp \
 FORMS += datamanip/addfilmwindow.ui \
          datamanip/texteditor.ui \
          filmsview/info/filminfoview.ui \
+         mainwindow/checkvieweddialog.ui \
          mainwindow/mainwindow.ui \
          mainwindow/splashscreen.ui \
          scanner/filmscannerwindow.ui \
@@ -148,6 +150,7 @@ FORMS += datamanip/addfilmwindow.ui \
          search/searchwindow.ui \
          statistics/statisticswindow.ui \
          widgets/foundedlistwidget.ui \
+         widgets/playlistwidget.ui \
          aboutwindow.ui \
          settingswindow.ui
 

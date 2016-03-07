@@ -21,9 +21,11 @@
 #ifndef ALEXANDRASETTINGS_H
 #define ALEXANDRASETTINGS_H
 
+
 #include <QColor>
 #include <QList>
 #include <QSettings>
+
 
 class AlexandraSettings : public QSettings
 {
@@ -89,6 +91,7 @@ class AlexandraSettings : public QSettings
         QString GetShortcutExit() const;
 
         QString GetPlayerDoubleClickBehavior() const;
+        QByteArray GetPlaylistData() const;
 
         /* Set */
 
@@ -148,6 +151,7 @@ class AlexandraSettings : public QSettings
         void SetShortcutExit( const QString& s );
 
         void SetPlayerDoubleClickBehavior( const QString& s );
+        void SetPlaylistData( const QByteArray& a );
 
     private:
         AlexandraSettings( const QString& configFile );

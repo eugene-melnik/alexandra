@@ -29,6 +29,7 @@
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 #include "tools/playlist.h"
+#include "checkvieweddialog.h"
 #include "filminfowindow.h"
 #include "mainwindow.h"
 #include "settingswindow.h"
@@ -310,20 +311,21 @@ void MainWindow::AddToPlaylist()
 
             if( film->GetIsFileExists() )
             {
-                lwPlaylist->AddItem( film->GetTitle(), film->GetFileName() );
+                wPlaylist->AddItem( film->GetTitle(), film->GetFileName() );
             }
         }
-    }
 
-    bPlay->setText( tr( "Play list" ) );
-    wPlaylist->show();
+        if( !wPlaylist->IsEmpty() )
+        {
+            bPlay->setText( tr( "Play list" ) );
+        }
+    }
 }
 
 
 void MainWindow::PlaylistCleared()
 {
-    bPlay->setText( tr( "&PLAY" ) );
-    wPlaylist->hide();
+    bPlay->setText( tr( "Play" ) );
 }
 
 
@@ -343,7 +345,7 @@ void MainWindow::DoubleClickBehavior()
       // "auto" mode -- plays film if playlist is empty
       // and adds film to playlist otherwise
     {
-        if( lwPlaylist->IsEmpty() )
+        if( wPlaylist->IsEmpty() )
         {
             PlayFilm();
         }
@@ -370,7 +372,7 @@ void MainWindow::PlayFilm()
             QString playerPath = settings->GetExternalPlayer();
             QString fileToPlay;
 
-            if( lwPlaylist->IsEmpty() )
+            if( wPlaylist->IsEmpty() )
             {
                 if( filmsView->GetSelectedItemsList().count() > 1)
                 {
@@ -383,7 +385,7 @@ void MainWindow::PlayFilm()
             }
             else
             {
-                fileToPlay = PlayList( lwPlaylist->GetPathes() ).CreateTempListM3U8();
+                fileToPlay = PlayList( wPlaylist->GetPathes() ).CreateTempListM3U8();
             }
 
             #ifdef Q_OS_LINUX
@@ -405,7 +407,7 @@ void MainWindow::PlayerStarted()
     dynamic_cast<QWidget*>( filmsView )->setEnabled( false );
     wPlaylist->setEnabled( false );
     eFilter->setEnabled( false );
-    bPlay->setText( tr( "STOP" ) );
+    bPlay->setText( tr( "Stop" ) );
 }
 
 
@@ -419,18 +421,24 @@ void MainWindow::PlayerClosed()
 
     wPlaylist->setEnabled( true );
     eFilter->setEnabled( true );
-    bPlay->setText( tr( "&PLAY" ) );
+    bPlay->setText( tr( "Play" ) );
 
-      // TODO: make all films of playlist is viewed
-      // need to think about this
-    if( lwPlaylist->IsEmpty() )
+    if( wPlaylist->IsEmpty() )
     {
         QModelIndex index = filmsListProxyModel->mapToSource( filmsView->GetCurrentIndex() );
         filmsListModel->IncViewsCounterForIndex( index );
     }
     else
     {
-        lwPlaylist->Clear();
+        CheckViewedDialog list( wPlaylist->GetTitles(), this );
+        QStringList viewedTitles = list.Exec();
+
+        for( const QString& title : viewedTitles )
+        {
+            QModelIndex index = filmsListModel->GetFilmIndex( title );
+            filmsListModel->IncViewsCounterForIndex( index );
+            wPlaylist->RemoveItem( title );
+        }
     }
 }
 
@@ -452,6 +460,7 @@ void MainWindow::ShowAddFilmWindow()
     connect( addFilmWindow, &AddFilmWindow::Done, this, &MainWindow::AddFilmDone );
     addFilmWindow->show();
 }
+
 
 void MainWindow::ShowEditFilmWindow()
 {
@@ -790,10 +799,10 @@ void MainWindow::SetupWindows()
 //    connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::SetupCompleter );
 
       // Playlist
-    connect( bAddToPlaylist, &QPushButton::clicked,                  this, &MainWindow::AddToPlaylist );
     connect( contextMenu,    &FilmsViewContextMenu::actionAddToList, this, &MainWindow::AddToPlaylist );
-    connect( lwPlaylist,     &PlayListWidget::Cleared,               this, &MainWindow::PlaylistCleared );
-    wPlaylist->hide();
+    connect( bAddToPlaylist, &QPushButton::clicked,         this, &MainWindow::AddToPlaylist );
+    connect( wPlaylist,      &PlaylistWidget::Cleared,      this, &MainWindow::PlaylistCleared );
+    connect( wPlaylist,      &PlaylistWidget::ItemSelected, this, &MainWindow::SetCurrentFilmByTitle );
 
       // Viewed button
     connect( bViewed,     &QPushButton::clicked,                 this, &MainWindow::SetCurrentFilmIsViewed );
@@ -947,6 +956,12 @@ void MainWindow::LoadSettings()
     toolbar->LoadSettings();
     eFilter->LoadSettings();
     filmsView->LoadSettings();
+    wPlaylist->LoadSettings();
+
+    if( !wPlaylist->IsEmpty() )
+    {
+        bPlay->setText( tr( "Play list" ) );
+    }
 
     DebugPrintFuncDone( "MainWindow::LoadSettings" );
 }
@@ -1019,6 +1034,7 @@ void MainWindow::SaveSettings()
       // Widgets
     eFilter->SaveSettings();
     filmsView->SaveSettings();
+    wPlaylist->SaveSettings();
 
     settings->SetCurrentFilmTitle( filmsListProxyModel->GetFilmTitleByIndex( filmsView->GetCurrentIndex() ) );
     settings->sync();

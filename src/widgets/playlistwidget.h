@@ -22,31 +22,46 @@
 #define PLAYLISTWIDGET_H
 
 
-#include <QListWidget>
+#include <QList>
+#include <QPair>
 #include <QStringList>
+#include <QWidget>
 
 
-class PlayListWidget : public QListWidget
+#include "ui_playlistwidget.h"
+
+
+typedef QPair<QString,QString> PlaylistPair;
+typedef QList<PlaylistPair> PlaylistPairList;
+
+
+class PlaylistWidget : public QWidget, protected Ui::PlaylistWidget
 {
     Q_OBJECT
 
     public:
-        explicit PlayListWidget( QWidget* parent = nullptr );
+        explicit PlaylistWidget( QWidget* parent = nullptr );
 
-        bool IsEmpty() const { return( !count() ); }
-
-        QStringList GetPathes() const;
+        void LoadSettings();
+        void SaveSettings() const;
 
     public slots:
         void AddItem( const QString& title, const QString& filePath );
-        void Clear() { clear(); emit Cleared(); }
+        void RemoveItem( const QString& title );
+        void Clear() { lwMain->clear(); emit Cleared(); }
+
+        QStringList GetTitles() const;
+        QStringList GetPathes() const;
+        bool IsEmpty() const { return( !lwMain->count() ); }
 
     signals:
         void Cleared();
+        void ItemSelected( const QString& title );
 
     private slots:
         void ShowContextMenu( const QPoint& pos );
-        void RemoveFromList();
+        void SelectClickedItem( const QModelIndex& index );
+        void RemoveCurrentFromList();
 };
 
 
