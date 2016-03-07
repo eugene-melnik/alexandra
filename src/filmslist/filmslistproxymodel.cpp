@@ -24,6 +24,18 @@
 #include <QPainter>
 
 
+FilmsListProxyModel::FilmsListProxyModel( QObject* parent ) : QSortFilterProxyModel( parent )
+{
+    pixmapIsViewed = QPixmap( ":/action/viewed" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+    pixmapIsFavourite = QPixmap( ":/action/favourite" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+
+    QPixmap zeroRating = QPixmap( ":/info/rating-zero" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+    mapPixRatings.insert( 1.0, zeroRating );
+    QPixmap fullRating = QPixmap( ":/info/rating-full" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+    mapPixRatings.insert( 10.0, fullRating );
+}
+
+
 QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
 {
     if( index.isValid() )
@@ -78,19 +90,12 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
 
             case Qt::DecorationRole :
             {
-                int scaleHeight = 10;
-
                 switch( column )
                 {
                     case FilmItem::IsViewedColumn :
                     {
                         if( item->GetIsFilmViewed() )
                         {
-                            if( pixmapIsViewed.isNull() )
-                            {
-                                pixmapIsViewed = QPixmap( ":/action/viewed" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
-                            }
-
                             return( pixmapIsViewed );
                         }
 
@@ -101,11 +106,6 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
                     {
                         if( item->GetIsFilmFavourite() )
                         {
-                            if( pixmapIsFavourite.isNull() )
-                            {
-                                pixmapIsFavourite = QPixmap( ":/action/favourite" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
-                            }
-
                             return( pixmapIsFavourite );
                         }
 
@@ -118,11 +118,11 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
 
                         if( !mapPixRatings.contains(rating) )
                         {
-                            QPixmap overlay = QPixmap( ":/info/rating-full" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+                            QPixmap overlay = mapPixRatings.value( 10.0 );
                             int copyWidth = overlay.width() * rating / 10.0;
                             overlay = overlay.copy( 0, 0, copyWidth, overlay.height() );
 
-                            QPixmap base = QPixmap( ":/info/rating-zero" ).scaledToHeight( scaleHeight, Qt::SmoothTransformation );
+                            QPixmap base = mapPixRatings.value( 1.0 );
                             QPainter painter( &base );
                             painter.drawPixmap( 0, 0, overlay );
 

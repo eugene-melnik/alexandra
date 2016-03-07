@@ -205,8 +205,8 @@ void SearchWindow::ConfigureAdvancedSearchTab()
         QStringList filmGenres = model->index( row, FilmItem::GenreColumn ).data(FilmsListModel::StringListRole).toStringList();
         genres.append( filmGenres );
           // Directors
-        QStringList filmDerectors = model->index( row, FilmItem::DirectorColumn ).data(FilmsListModel::StringListRole).toStringList();
-        directors.append( filmDerectors );
+        QStringList filmDirectors = model->index( row, FilmItem::DirectorColumn ).data(FilmsListModel::StringListRole).toStringList();
+        directors.append( filmDirectors );
           // Countries
         QStringList filmCountries = model->index( row, FilmItem::CountryColumn ).data(FilmsListModel::StringListRole).toStringList();
         countries.append( filmCountries );

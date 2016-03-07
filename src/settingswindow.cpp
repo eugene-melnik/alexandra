@@ -379,7 +379,9 @@ void SettingsWindow::CreateDatabase()
 
 void SettingsWindow::EraseDatabaseQuestion()
 {
-    int answer = QMessageBox::warning( this, tr( "Erase database" ), tr( "Are you sure you want to erase the database and posters?" ) );
+    int answer = QMessageBox::warning( this, tr( "Erase database" ),
+                                       tr( "Are you sure you want to erase the database and posters?" ),
+                                       QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
     if( answer == QMessageBox::Yes )
     {

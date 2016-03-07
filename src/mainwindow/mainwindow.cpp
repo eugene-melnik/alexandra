@@ -377,6 +377,7 @@ void MainWindow::PlayFilm()
                 if( filmsView->GetSelectedItemsList().count() > 1)
                 {
                     AddToPlaylist();
+                    fileToPlay = PlayList( wPlaylist->GetPathes() ).CreateTempListM3U8();
                 }
                 else
                 {

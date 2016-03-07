@@ -110,6 +110,9 @@
      <property name="text">
       <string>Search for a poster with the same filename in the directory</string>
      </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item>

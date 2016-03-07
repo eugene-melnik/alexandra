@@ -35,7 +35,7 @@ class FilmsListProxyModel : public QSortFilterProxyModel
     Q_OBJECT
 
     public:
-        explicit FilmsListProxyModel( QObject* parent = nullptr ) : QSortFilterProxyModel( parent ) {}
+        explicit FilmsListProxyModel( QObject* parent = nullptr );
 
         QVariant data( const QModelIndex &index, int role ) const override;
 
@@ -102,6 +102,7 @@ class FilmsListProxyModel : public QSortFilterProxyModel
         mutable QPixmap pixmapIsViewed;
         mutable QPixmap pixmapIsFavourite;
         mutable QMap<double,QPixmap> mapPixRatings;
+        const int scaleHeight = 10;
 };
 
 
