@@ -31,6 +31,8 @@ FilmItem::FilmItem()
         columnsData.append( QVariant() );
     }
 
+    columnsData[RatingColumn] = 1.0;
+    columnsData[ViewsCountColumn] = 0;
     columnsData[PosterColumn] = GetRandomHash();
 }
 

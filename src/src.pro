@@ -67,13 +67,11 @@ HEADERS += datamanip/addfilmwindow.h \
            parsers/kinopoisk/kinopoiskparser.h \
            parsers/kinoteatr/kinoteatrparser.h \
            parsers/omdb/omdbparser.h \
-           scanner/foundedlistwidget.h \
            scanner/filmscannerwindow.h \
            scanner/filmscannerworker.h \
            scanner/filmscanneraddworker.h \
            scanner/movedfilmswindow.h \
            search/advancedsearchproxymodel.h \
-           search/checkedlistwidget.h \
            search/searchedit.h \
            search/searchwindow.h \
            statistics/statisticswindow.h \
@@ -83,6 +81,8 @@ HEADERS += datamanip/addfilmwindow.h \
            tools/playlist.h \
            tools/regexptools.h \
            tools/timecounter.h \
+           widgets/checkedlistwidget.h \
+           widgets/foundedlistwidget.h \
            aboutwindow.h \
            alexandrasettings.h \
            settingswindow.h \
@@ -116,12 +116,10 @@ SOURCES += datamanip/addfilmwindow.cpp \
            parsers/kinopoisk/kinopoiskparser.cpp \
            parsers/kinoteatr/kinoteatrparser.cpp \
            parsers/omdb/omdbparser.cpp \
-           scanner/foundedlistwidget.cpp \
            scanner/filmscannerwindow.cpp \
            scanner/filmscannerworker.cpp \
            scanner/filmscanneraddworker.cpp \
            scanner/movedfilmswindow.cpp \
-           search/checkedlistwidget.cpp \
            search/searchedit.cpp \
            search/searchwindow.cpp \
            statistics/statisticswindow.cpp \
@@ -131,6 +129,8 @@ SOURCES += datamanip/addfilmwindow.cpp \
            tools/playlist.cpp \
            tools/regexptools.cpp \
            tools/timecounter.cpp \
+           widgets/checkedlistwidget.cpp \
+           widgets/foundedlistwidget.cpp \
            aboutwindow.cpp \
            alexandrasettings.cpp \
            main.cpp \
@@ -143,11 +143,11 @@ FORMS += datamanip/addfilmwindow.ui \
          filmsview/info/filminfoview.ui \
          mainwindow/mainwindow.ui \
          mainwindow/splashscreen.ui \
-         scanner/foundedlistwidget.ui \
          scanner/filmscannerwindow.ui \
          scanner/movedfilmswindow.ui \
          search/searchwindow.ui \
          statistics/statisticswindow.ui \
+         widgets/foundedlistwidget.ui \
          aboutwindow.ui \
          settingswindow.ui
 

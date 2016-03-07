@@ -23,7 +23,6 @@
 #include "tools/filesextensions.h"
 #include "tools/debug.h"
 
-#include <string>
 #include <QFileDialog>
 #include <QMessageBox>
 
@@ -33,7 +32,7 @@ FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent ),
     filmScannerWorker( new FilmScannerWorker() ),
     filmAddWorker( new FilmScannerAddWorker() )
 {
-    DebugPrintFunc( "FilmScannerWindow::FilmScannerWindow()" );
+    DebugPrintFunc( "FilmScannerWindow::FilmScannerWindow" );
 
     setupUi( this );
     setAttribute( Qt::WA_DeleteOnClose );
@@ -144,15 +143,7 @@ void FilmScannerWindow::Scan()
 
 void FilmScannerWindow::AddSelected()
 {
-    QStringList selectedFilms;
-
-    for( QTableWidgetItem* item : gbFounded->GetItems() )
-    {
-        if( item->checkState() == Qt::Checked )
-        {
-            selectedFilms.append( item->text() );
-        }
-    }
+    QStringList selectedFilms = gbFounded->GetSelectedItems();
 
     if( selectedFilms.empty() ) // Nothing was selected
     {
@@ -202,18 +193,10 @@ void FilmScannerWindow::ShowFounded( QStringList fileNames )
         return;
     }
 
-      // Show
     for( const QString& fileName : fileNames )
     {
-        QTableWidgetItem* item = new QTableWidgetItem( fileName );
-
-        if( existedFileNames.contains( fileName ) )
-        {
-            item->setBackgroundColor( existedFileColor );
-            item->setFlags( Qt::NoItemFlags );
-        }
-
-        gbFounded->AppendItem( item );
+        bool setDisabled = existedFileNames.contains( fileName );
+        gbFounded->AddItem( fileName, setDisabled );
     }
 
     DebugPrintFuncDone( "FilmScannerWindow::ShowFounded" );
@@ -222,20 +205,9 @@ void FilmScannerWindow::ShowFounded( QStringList fileNames )
 
 void FilmScannerWindow::DisableFilm( FilmItem* film )
 {
-    for( QTableWidgetItem* item : gbFounded->GetItems() )
-    {
-        if( item->checkState() == Qt::Checked && item->text() == film->GetFileName() )
-        {
-              // Uncheck and disable
-            item->setCheckState( Qt::Unchecked );
-            item->setFlags( Qt::NoItemFlags );
-            item->setBackgroundColor( existedFileColor );
-
-            existedFileNames.append( item->text() );
-            gbFounded->ScrollToItem( item );
-            break;
-        }
-    }
+    QString filmFilename = film->GetFileName();
+    existedFileNames.append( filmFilename );
+    gbFounded->DisableItem( filmFilename, true );
 
     lSelected->setText( QString::number(--newFilmsCount) );
     progressBar->setValue( progressBar->maximum() - newFilmsCount );

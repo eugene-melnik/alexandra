@@ -22,8 +22,10 @@
 #define CHECKEDLISTWIDGET_H
 
 
+#include <QList>
 #include <QListWidget>
 #include <QMenu>
+#include <QPair>
 #include <QPoint>
 #include <QStringList>
 #include <QTimer>
@@ -36,22 +38,26 @@ class CheckedListWidget : public QListWidget
     public:
         explicit CheckedListWidget( QWidget* parent = nullptr );
 
-        void AddItem( QString itemTitle );
-        void AddItems( QStringList itemsTitles );
+        void AddItem( QString itemText, bool setDisabled = false, QColor disabledColor = QColor() );
+        void AddItem( QString itemText, QVariant data, bool setDisabled = false, QColor disabledColor = QColor() );
+        void AddItems( QStringList itemsText );
+        void Clear() { clear(); }
 
         QStringList GetSelectedItems() const;
+        QList<QPair<QString,QVariant>> GetSelectedItemsData() const;
+
+    public slots:
+        void SelectAll() { SetAllChecked(Qt::Checked); }
+        void UnselectAll() { SetAllChecked(Qt::Unchecked); }
+        void InvertSelection();
+        void ScrollToChecked();
 
     protected:
         void keyPressEvent( QKeyEvent* event ) override;
 
     private slots:
         void ShowContextMenu( QPoint pos );
-
-        void SelectAll() { SetAllChecked(Qt::Checked); }
-        void UnselectAll() { SetAllChecked(Qt::Unchecked); }
         void SetAllChecked( Qt::CheckState checked );
-        void InvertSelection();
-        void ScrollToChecked();
 
         void ClearSearch() { searchText.clear(); searchTimer.stop(); }
 

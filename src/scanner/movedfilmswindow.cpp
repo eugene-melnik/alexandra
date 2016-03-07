@@ -70,7 +70,6 @@ MovedFilmsWindow::~MovedFilmsWindow()
     }
 
     delete filmScannerWorker;
-
     DebugPrintFuncDone( "MovedFilmsWindow::~MovedFilmsWindow" );
 }
 
@@ -137,11 +136,7 @@ void MovedFilmsWindow::ShowFounded( QStringList fileNames )
 
             if( newFileName == unavailFileName && newFilePath != unavailFilePath ) // Protection from multiple moving
             {
-                QTableWidgetItem* item = new QTableWidgetItem();
-                item->setData( Qt::DisplayRole, newFilePath );
-                item->setData( Qt::UserRole, qVariantFromValue( (void*)film ) );
-                gbFounded->AppendItem( item );
-
+                gbFounded->AddItem( newFileName, qVariantFromValue( (void*)film ) );
                 fileNames.removeOne( newFilePath );
                 break;
             }
@@ -165,23 +160,17 @@ void MovedFilmsWindow::MoveSelected()
         return;
     }
 
-    for( QTableWidgetItem* item : gbFounded->GetItems() )
+    for( QPair<QString,QVariant> itemData : gbFounded->GetSelectedItemsData() )
     {
-        if( item->checkState() == Qt::Checked )
-        {
-              // Uncheck and disable
-            item->setCheckState( Qt::Unchecked );
-            item->setFlags( Qt::NoItemFlags );
-            item->setBackgroundColor( existedFileColor );
+          // Uncheck and disable
+        gbFounded->DisableItem( itemData.first, true );
 
-              // Change filename
-            FilmItem* film = (FilmItem*) item->data( Qt::UserRole ).value<void*>();
-            film->SetColumnData( FilmItem::FileNameColumn, item->text() );
-            film->SetIsFileExists( FilmItem::Exists );
+          // Change filename
+        FilmItem* film = (FilmItem*) itemData.second.value<void*>();
+        film->SetColumnData( FilmItem::FileNameColumn, itemData.first );
+        film->SetIsFileExists( FilmItem::Exists );
 
-            gbFounded->ScrollToItem( item );
-            unavailableFilms.removeOne( film );
-        }
+        unavailableFilms.removeOne( film );
     }
 
     lSelected->setText( "0" );

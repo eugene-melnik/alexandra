@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>364</width>
+    <width>486</width>
     <height>263</height>
    </rect>
   </property>
@@ -39,46 +39,21 @@
        <number>9</number>
       </property>
       <item>
-       <widget class="QTableWidget" name="twFounded">
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
+       <widget class="CheckedListWidget" name="lwFounded">
         <property name="alternatingRowColors">
          <bool>true</bool>
         </property>
-        <property name="selectionMode">
-         <enum>QAbstractItemView::NoSelection</enum>
-        </property>
-        <property name="verticalScrollMode">
-         <enum>QAbstractItemView::ScrollPerPixel</enum>
-        </property>
-        <property name="horizontalScrollMode">
-         <enum>QAbstractItemView::ScrollPerPixel</enum>
-        </property>
-        <property name="showGrid">
-         <bool>false</bool>
-        </property>
-        <attribute name="horizontalHeaderHighlightSections">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="horizontalHeaderStretchLastSection">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderDefaultSectionSize">
-         <number>20</number>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Filename</string>
-         </property>
-        </column>
        </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="layoutSelection">
+        <item>
+         <widget class="QPushButton" name="bScrollToChecked">
+          <property name="text">
+           <string>Scroll to selected</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <spacer name="spacerSelection">
           <property name="orientation">
@@ -120,6 +95,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CheckedListWidget</class>
+   <extends>QListWidget</extends>
+   <header>widgets/checkedlistwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

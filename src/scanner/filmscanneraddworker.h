@@ -41,8 +41,8 @@ class FilmScannerAddWorker : public QThread
         FilmScannerAddWorker();
 
         void SetFoundedFilms( QStringList founded ) { foundedFilms = founded; }
-        void SetLoadInformation( bool b ) { loadInformation = b; }
-        void SetSearchForPoster( bool b ) { searchForPoster = b; }
+        void SetLoadInformation( bool load ) { loadInformation = load; }
+        void SetSearchForPoster( bool load ) { searchForPoster = load; }
 
         void Cancel() { isCanceled = true; }
 
@@ -56,9 +56,9 @@ class FilmScannerAddWorker : public QThread
         bool SavePosterTo( QString sourceName, QString destinationName );
 
         QStringList foundedFilms;
-        bool loadInformation;
-        bool searchForPoster;
-        bool isCanceled;
+        bool loadInformation = false;
+        bool searchForPoster = false;
+        bool isCanceled = false;
 
         AlexandraSettings* settings;
 };

@@ -1017,7 +1017,7 @@
   <customwidget>
    <class>CheckedListWidget</class>
    <extends>QListWidget</extends>
-   <header>search/checkedlistwidget.h</header>
+   <header>widgets/checkedlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

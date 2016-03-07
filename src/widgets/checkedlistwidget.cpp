@@ -36,19 +36,34 @@ CheckedListWidget::CheckedListWidget( QWidget* parent ) : QListWidget( parent )
 }
 
 
-void CheckedListWidget::AddItem( QString itemTitle )
+void CheckedListWidget::AddItem( QString itemText , bool setDisabled, QColor disabledColor )
 {
-    QListWidgetItem* item = new QListWidgetItem( itemTitle, this );
+    AddItem( itemText, QVariant(), setDisabled, disabledColor );
+}
+
+
+void CheckedListWidget::AddItem( QString itemText, QVariant data, bool setDisabled, QColor disabledColor )
+{
+    QListWidgetItem* item = new QListWidgetItem( itemText, this );
+    item->setToolTip( itemText );
     item->setCheckState( Qt::Unchecked );
+    item->setData( Qt::UserRole, data );
+
+    if( setDisabled )
+    {
+        item->setFlags( Qt::NoItemFlags );
+        item->setBackgroundColor( disabledColor );
+    }
+
     addItem( item );
 }
 
 
-void CheckedListWidget::AddItems( QStringList itemsTitles )
+void CheckedListWidget::AddItems( QStringList itemsText )
 {
-    for( QString title : itemsTitles )
+    for( QString text : itemsText )
     {
-        AddItem( title );
+        AddItem( text );
     }
 }
 
@@ -66,6 +81,52 @@ QStringList CheckedListWidget::GetSelectedItems() const
     }
 
     return( result );
+}
+
+
+QList<QPair<QString,QVariant>> CheckedListWidget::GetSelectedItemsData() const
+{
+    QList<QPair<QString,QVariant>> itemsData;
+
+    for( int row = 0; row < count(); ++row )
+    {
+        QListWidgetItem* it = item(row);
+
+        if( it->checkState() == Qt::Checked )
+        {
+            QPair<QString,QVariant> pair;
+            pair.first = it->text();
+            pair.second = it->data( Qt::UserRole );
+            itemsData.append( pair );
+        }
+    }
+
+    return( itemsData );
+}
+
+
+void CheckedListWidget::InvertSelection()
+{
+    for( int row = 0; row < count(); ++row )
+    {
+        if( item(row)->flags() != Qt::NoItemFlags )
+        {
+            item(row)->setCheckState( (item(row)->checkState() == Qt::Unchecked) ? Qt::Checked : Qt::Unchecked );
+        }
+    }
+}
+
+
+void CheckedListWidget::ScrollToChecked()
+{
+    for( int row = 0; row < count(); ++row )
+    {
+        if( item(row)->checkState() == Qt::Checked )
+        {
+            setCurrentItem( item(row) );
+            break;
+        }
+    }
 }
 
 
@@ -117,28 +178,9 @@ void CheckedListWidget::SetAllChecked( Qt::CheckState checked )
 {
     for( int row = 0; row < count(); ++row )
     {
-        item(row)->setCheckState( checked );
-    }
-}
-
-
-void CheckedListWidget::InvertSelection()
-{
-    for( int row = 0; row < count(); ++row )
-    {
-        item(row)->setCheckState( (item(row)->checkState() == Qt::Unchecked) ? Qt::Checked : Qt::Unchecked );
-    }
-}
-
-
-void CheckedListWidget::ScrollToChecked()
-{
-    for( int row = 0; row < count(); ++row )
-    {
-        if( item(row)->checkState() == Qt::Checked )
+        if( item(row)->flags() != Qt::NoItemFlags )
         {
-            setCurrentItem( item(row) );
-            break;
+            item(row)->setCheckState( checked );
         }
     }
 }

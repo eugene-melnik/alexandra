@@ -35,23 +35,25 @@ class FoundedListWidget : public QWidget, public Ui::FoundedListWidget
     public:
         explicit FoundedListWidget( QWidget* parent = nullptr );
 
-        void AppendItem( QTableWidgetItem* item );
+        void AddItem( QString itemText, bool setDisabled = false );
+        void AddItem( QString itemText, QVariant data, bool setDisabled = false );
+        void DisableItem( QString itemText, bool scrollToItem = false );
         void Clear();
 
-        void ScrollToItem( QTableWidgetItem* item ) { twFounded->scrollToItem( item, QAbstractItemView::PositionAtCenter ); }
-
-        int GetItemsCount() const { return( twFounded->rowCount() ); }
-        QList<QTableWidgetItem*> GetItems() const;
+        QStringList GetItems() const;
+        QStringList GetSelectedItems() const { return( lwFounded->GetSelectedItems() ); }
+        QList<QPair<QString,QVariant>> GetSelectedItemsData() const { return( lwFounded->GetSelectedItemsData() ); }
+        int GetItemsCount() const { return( lwFounded->count() ); }
 
     signals:
         void ItemsCountChanged( int newCount );
         void SelectionChanged( int selectedCount );
 
     private slots:
-        void SelectAll();
-        void UnselectAll();
-        void InvertSelection();
         void CalculateSelected();
+
+    private:
+        QColor disabledColor = QColor( 0, 255, 0, 40 ); // light green
 };
 
 

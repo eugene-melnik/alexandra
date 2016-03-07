@@ -195,7 +195,7 @@
   <customwidget>
    <class>FoundedListWidget</class>
    <extends>QWidget</extends>
-   <header>scanner/foundedlistwidget.h</header>
+   <header>widgets/foundedlistwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

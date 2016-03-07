@@ -20,104 +20,76 @@
 
 #include "foundedlistwidget.h"
 
-#include <QTableWidgetItem>
-
 
 FoundedListWidget::FoundedListWidget(QWidget* parent) : QWidget(parent)
 {
     setupUi( this );
-
-    connect( bSelectAll,       &QPushButton::clicked,  this, &FoundedListWidget::SelectAll );
-    connect( bUnselectAll,     &QPushButton::clicked,  this, &FoundedListWidget::UnselectAll );
-    connect( bInvertSelection, &QPushButton::clicked,  this, &FoundedListWidget::InvertSelection );
-    connect( twFounded,        &QTableWidget::clicked, this, &FoundedListWidget::CalculateSelected );
+    connect( bScrollToChecked, &QPushButton::clicked, lwFounded, &CheckedListWidget::ScrollToChecked );
+    connect( bSelectAll,       &QPushButton::clicked, lwFounded, &CheckedListWidget::SelectAll );
+    connect( bSelectAll,       &QPushButton::clicked, this,      &FoundedListWidget::CalculateSelected );
+    connect( bUnselectAll,     &QPushButton::clicked, lwFounded, &CheckedListWidget::UnselectAll );
+    connect( bUnselectAll,     &QPushButton::clicked, this,      &FoundedListWidget::CalculateSelected );
+    connect( bInvertSelection, &QPushButton::clicked, lwFounded, &CheckedListWidget::InvertSelection );
+    connect( bInvertSelection, &QPushButton::clicked, this,      &FoundedListWidget::CalculateSelected );
+    connect( lwFounded,        &QListWidget::clicked, this,      &FoundedListWidget::CalculateSelected );
 }
 
 
-void FoundedListWidget::AppendItem( QTableWidgetItem* item )
+void FoundedListWidget::AddItem( QString itemText, bool setDisabled )
 {
-    item->setCheckState( Qt::Unchecked );
-    int row = twFounded->rowCount();
-    twFounded->setRowCount( row + 1 );
-    twFounded->setItem( row, 0, item );
-    emit ItemsCountChanged( row + 1 );
+    lwFounded->AddItem( itemText, setDisabled, disabledColor );
+    emit ItemsCountChanged( lwFounded->count() );
+}
+
+
+void FoundedListWidget::AddItem( QString itemText, QVariant data, bool setDisabled )
+{
+    lwFounded->AddItem( itemText, data, setDisabled, disabledColor );
+    emit ItemsCountChanged( lwFounded->count() );
+}
+
+
+void FoundedListWidget::DisableItem( QString itemText, bool scrollToItem )
+{
+    for( int row = 0; row < lwFounded->count(); ++row )
+    {
+        QListWidgetItem* item = lwFounded->item(row);
+
+        if( item->text() == itemText )
+        {
+            item->setFlags( Qt::NoItemFlags );
+            item->setCheckState( Qt::Unchecked );
+            item->setBackgroundColor( disabledColor );
+
+            if( scrollToItem )
+            {
+                lwFounded->scrollToItem( item, QAbstractItemView::PositionAtCenter );
+            }
+
+            break;
+        }
+    }
 }
 
 
 void FoundedListWidget::Clear()
 {
-    twFounded->clearContents();
-    twFounded->setRowCount( 0 );
+    lwFounded->clear();
     emit ItemsCountChanged( 0 );
     emit SelectionChanged( 0 );
 }
 
 
-QList<QTableWidgetItem*> FoundedListWidget::GetItems() const
+QStringList FoundedListWidget::GetItems() const
 {
-    QList<QTableWidgetItem*> items;
+    QStringList items;
 
-    for( int row = 0; row < twFounded->rowCount(); ++row )
+    for( int row = 0; row < lwFounded->count(); ++row )
     {
-        items.append( twFounded->item( row, 0 ) );
+        items.append( lwFounded->item(row)->text() );
     }
 
     return( items );
-}
-
-
-void FoundedListWidget::SelectAll()
-{
-    for( int i = 0; i < twFounded->rowCount(); ++i )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
-        if( item->flags() != Qt::NoItemFlags )
-        {
-            item->setCheckState( Qt::Checked );
-        }
-    }
-
-    CalculateSelected();
-}
-
-
-void FoundedListWidget::UnselectAll()
-{
-    for( int i = 0; i < twFounded->rowCount(); ++i )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
-        if( item->flags() != Qt::NoItemFlags )
-        {
-            item->setCheckState( Qt::Unchecked );
-        }
-    }
-
-    CalculateSelected();
-}
-
-
-void FoundedListWidget::InvertSelection()
-{
-    for( int i = 0; i < twFounded->rowCount(); ++i )
-    {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
-
-        if( item->flags() != Qt::NoItemFlags )
-        {
-            if( item->checkState() == Qt::Unchecked )
-            {
-                item->setCheckState( Qt::Checked );
-            }
-            else
-            {
-                item->setCheckState( Qt::Unchecked );
-            }
-        }
-    }
-
-    CalculateSelected();
 }
 
 
@@ -125,9 +97,9 @@ void FoundedListWidget::CalculateSelected()
 {
     int count = 0;
 
-    for( int i = 0; i < twFounded->rowCount(); ++i )
+    for( int row = 0; row < lwFounded->count(); ++row )
     {
-        QTableWidgetItem* item = twFounded->item( i, 0 );
+        QListWidgetItem* item = lwFounded->item(row);
 
         if( item->checkState() == Qt::Checked )
         {
