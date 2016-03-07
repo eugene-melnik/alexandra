@@ -28,6 +28,7 @@
 
 #include <QLabel>
 #include <QMutex>
+#include <QTimer>
 
 
 class FilmTechInfoView : public QLabel, public AbstractFilmInfoView
@@ -40,7 +41,7 @@ class FilmTechInfoView : public QLabel, public AbstractFilmInfoView
 
     public slots:
         void ShowInformation( const QModelIndex& index ) override;
-        void Clear() override { clear(); repaint(); }
+        void Clear() override;
 
     signals:
         void ShortInfoLoaded( const QString& );
@@ -50,12 +51,18 @@ class FilmTechInfoView : public QLabel, public AbstractFilmInfoView
         void showEvent( QShowEvent* event );
 
     private slots:
+        void ShowLoading();
         void LoadTechnicalInfo( const QString& fileName );
         void ShowShortInfo( const QString& text ) { setText( text ); }
 
     private:
         AlexandraSettings* settings;
         QMutex mutexInfoLoad;
+
+        QString loadingPath;
+        QTimer loadingTimer;
+
+        const QPixmap loadPixmap = QPixmap( ":/info/loading" );
 };
 
 

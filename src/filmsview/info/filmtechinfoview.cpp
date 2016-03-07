@@ -33,6 +33,12 @@ FilmTechInfoView::FilmTechInfoView( QWidget* parent ) : QLabel( parent ),
     settings( AlexandraSettings::GetInstance() )
 {
     connect( this, &FilmTechInfoView::ShortInfoLoaded, this, &FilmTechInfoView::ShowShortInfo );
+
+    connect( &loadingTimer, &QTimer::timeout, this, [this]
+    {
+        loadingTimer.stop();
+        std::thread( &FilmTechInfoView::LoadTechnicalInfo, this, loadingPath ).detach();
+    } );
 }
 
 
@@ -49,24 +55,31 @@ FilmTechInfoView::~FilmTechInfoView()
 
 void FilmTechInfoView::ShowInformation( const QModelIndex& index )
 {
-    if( index.isValid() )
-    {
-        if( settings->GetShowTechInfo() && settings->GetMainWindowShowRightPanel() )
-        {
-            const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
-            FilmItem* film = static_cast<FilmItem*>( model->mapToSource(index).internalPointer() );
+    loadingTimer.stop();
 
-            if( film->GetIsFileExists() )
-            {
-                std::thread( &FilmTechInfoView::LoadTechnicalInfo, this, film->GetFileName() ).detach();
-            }
-            else
-            {
-                // TODO: maybe need to show 'loading' image?
-                Clear();
-            }
+    if( index.isValid() && settings->GetShowTechInfo() && settings->GetMainWindowShowRightPanel() )
+    {
+        const QAbstractProxyModel* model = static_cast<const QAbstractProxyModel*>( index.model() );
+        FilmItem* film = static_cast<FilmItem*>( model->mapToSource(index).internalPointer() );
+
+        if( film->GetIsFileExists() )
+        {
+            ShowLoading();
+            loadingPath = film->GetFileName();
+            loadingTimer.start( 200 ); // ms
+            return;
         }
     }
+
+    Clear();
+}
+
+
+void FilmTechInfoView::Clear()
+{
+    setMinimumHeight( 0 );
+    clear();
+    repaint();
 }
 
 
@@ -86,11 +99,17 @@ void FilmTechInfoView::showEvent( QShowEvent* event )
 }
 
 
+void FilmTechInfoView::ShowLoading()
+{
+    setPixmap( loadPixmap );
+    setMinimumHeight( loadPixmap.height() );
+}
+
+
 void FilmTechInfoView::LoadTechnicalInfo( const QString& fileName )
 {
     #ifdef MEDIAINFO_SUPPORT
         DebugPrintFunc( "FilmTechInfoView::LoadTechnicalInfo", fileName );
-
         QMutexLocker locker( &mutexInfoLoad );
 
         MediaInfo* mi = new MediaInfo( fileName );
