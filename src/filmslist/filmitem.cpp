@@ -26,7 +26,7 @@
 
 FilmItem::FilmItem()
 {
-    for( int i = 0; i < ColumnCount; ++i )
+    for( int i = 0; i < AllColumnCount; ++i )
     {
         columnsData.append( QVariant() );
     }
@@ -80,6 +80,8 @@ void FilmItem::IncViewsCounter()
     int value = columnsData.at( ViewsCountColumn ).toInt();
     columnsData[ViewsCountColumn] = value + 1;
     columnsData[IsViewedColumn] = true;
+    QString viewingDates = columnsData[ViewingDates].toString();
+    columnsData[ViewingDates] = viewingDates + QDateTime::currentDateTime().toString( DatetimeFormat );
 }
 
 
@@ -87,6 +89,7 @@ void FilmItem::ResetViewsCounter()
 {
     columnsData[ViewsCountColumn] = 0;
     columnsData[IsViewedColumn] = false;
+    columnsData[ViewingDates] = "";
 }
 
 

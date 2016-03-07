@@ -45,6 +45,7 @@ void EditFilmWindow::SetData( const FilmItem* film )
     cIsFavourite->setChecked( film->GetColumnData( FilmItem::IsFavouriteColumn ).toBool() );
 
     viewsCount = film->GetColumnData( FilmItem::ViewsCountColumn ).toInt();
+    viewingDates = film->GetColumnData( FilmItem::ViewingDates ).toInt();
 
     InformationLoaded( *film, posterFileName );
 }

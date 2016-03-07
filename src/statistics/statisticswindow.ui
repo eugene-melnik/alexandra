@@ -93,12 +93,18 @@
                <property name="text">
                 <string notr="true">0</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lFavouriteFilms">
                <property name="text">
                 <string>0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -107,6 +113,9 @@
                <property name="text">
                 <string notr="true">0</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
              <item>
@@ -114,12 +123,18 @@
                <property name="text">
                 <string notr="true">0</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lWastedTime">
                <property name="text">
                 <string notr="true">0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -175,12 +190,18 @@
                <property name="text">
                 <string>0</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lNumberOfScreenwriters">
                <property name="text">
                 <string>0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -189,6 +210,9 @@
                <property name="text">
                 <string>0</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
              <item>
@@ -196,12 +220,18 @@
                <property name="text">
                 <string>0</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lNumberOfCountries">
                <property name="text">
                 <string>0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>

@@ -81,7 +81,11 @@ class FilmItem
             FileNameColumn,
             PosterColumn,
 
-            ColumnCount
+            VisibleColumnCount,
+
+            ViewingDates = VisibleColumnCount,
+
+            AllColumnCount
         };
 
         enum Existing
@@ -110,7 +114,7 @@ class FilmItem
 
           // Get //
 
-        int GetColumnCount() const { return( columnsData.size() ); }
+        int GetColumnCount() const { return( VisibleColumnCount ); }
         int GetChildrenCount() const { return( childItems.size() ); }
         int GetRow() const;
 
@@ -143,7 +147,13 @@ class FilmItem
 
         mutable Existing isFileExists = Unknown;
         mutable Existing isPosterExists = Unknown;
+
+          // Constants
+        const QString DatetimeFormat = "yyyy.MM.dd--hh:mm,";
 };
+
+
+typedef QList<FilmItem*> FilmItemList;
 
 
   // Must be quick
@@ -181,9 +191,6 @@ inline bool FilmItem::GetIsPosterExists() const
 
     return( isPosterExists == FilmItem::Exists );
 }
-
-
-typedef QList<FilmItem*> FilmItemList;
 
 
 #endif // FILMITEM_H

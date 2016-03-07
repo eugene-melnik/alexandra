@@ -45,6 +45,7 @@ class AddFilmWindow : public QDialog, protected Ui::AddFilmWindow
 
     protected:
         int viewsCount = 0;
+        QString viewingDates;
         QString filmNewPosterName;
         AlexandraSettings* settings;
 

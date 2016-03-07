@@ -258,7 +258,9 @@ void AddFilmWindow::Save()
          << lDescriptionText->text()
          << eTags->toPlainText()
          << eFilmFileName->text()
-         << filmNewPosterName;
+         << filmNewPosterName
+            // Invisible items
+         << viewingDates;
 
     FilmItem* film = new FilmItem( data );
 

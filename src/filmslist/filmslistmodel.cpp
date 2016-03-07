@@ -413,7 +413,7 @@ void FilmsListModel::EditFilmItem( FilmItem* film, const QModelIndex& index )
     *oldFilm = *film;
     delete film;
 
-    dataChanged( this->index( row, 0 ), this->index( row, FilmItem::ColumnCount - 1 ) );
+    dataChanged( this->index( row, 0 ), this->index( row, FilmItem::VisibleColumnCount - 1 ) );
 }
 
 
@@ -477,9 +477,7 @@ void FilmsListModel::ResetViews()
 
     for( int row = 0; row < rootItem->GetChildrenCount(); ++row )
     {
-        FilmItem* film = rootItem->GetChild(row);
-        film->SetColumnData( FilmItem::ViewsCountColumn, 0 );
-        film->SetColumnData( FilmItem::IsViewedColumn, false );
+        rootItem->GetChild(row)->ResetViewsCounter();
     }
 
     endResetModel();

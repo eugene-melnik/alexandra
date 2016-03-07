@@ -83,9 +83,13 @@ bool FilmsListLoader::Save( FilmItem* rootItem, QString fileName )
 
     QJsonObject rootObject;
     rootObject["films"] = filmsArray;
-
     QJsonDocument rootDocument( rootObject );
-    QByteArray data = rootDocument.toJson( QJsonDocument::Compact );
+
+    #ifdef QT_DEBUG
+        QByteArray data = rootDocument.toJson( QJsonDocument::Indented );
+    #else
+        QByteArray data = rootDocument.toJson( QJsonDocument::Compact );
+    #endif
 
     QFile file( fileName );
 
@@ -130,7 +134,7 @@ FilmItem* FilmsListLoader::FromJsonObjectToFilm( QJsonObject object )
 {
     FilmItem* film = new FilmItem();
 
-    for( int column = 0; column < film->GetColumnCount(); ++column )
+    for( int column = 0; column < FilmItem::AllColumnCount; ++column )
     {
         film->SetColumnData( column, object[ QString::number(column) ].toString() );
     }
@@ -147,7 +151,7 @@ QJsonObject FilmsListLoader::FromFilmToJsonObject( FilmItem* film )
     QJsonObject filmObject;
     filmObject["type"] = film->GetFilmType();
 
-    for( int column = 0; column < film->GetColumnCount(); ++column )
+    for( int column = 0; column < FilmItem::AllColumnCount; ++column )
     {
         if( column == FilmItem::IsViewedColumn )
         {
