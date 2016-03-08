@@ -458,12 +458,10 @@ void FilmsListModel::EraseAll()
 {
     DebugPrintFunc( "FilmsListModel::EraseAll" );
 
-    QMutexLocker locker( &mutexDataEdit );
-    isDatabaseChanged = true;
-
-    beginResetModel();
-    rootItem->RemoveChildren();
-    endResetModel();
+    while( rowCount(QModelIndex()) != 0 )
+    {
+        RemoveFilmByIndex( index( 0, 0 ) );
+    }
 
     DebugPrintFuncDone( "FilmsListModel::EraseAll" );
 }
