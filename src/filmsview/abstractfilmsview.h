@@ -26,6 +26,7 @@
 #include <QModelIndex>
 #include <QStringList>
 
+// TODO: docs
 
 class AbstractFilmsView
 {
@@ -41,7 +42,9 @@ class AbstractFilmsView
         virtual QModelIndexList GetSelectedItemsList() = 0;
 
         virtual void SetCurrentIndex( const QModelIndex& index ) = 0;
-        virtual void SetCurrentRow( int r ) = 0;
+        virtual void SetCurrentRow( int row ) = 0;
+
+        virtual void ScrollToCurrent() = 0;
 
 //    signals:
 //        void CurrentChanged( const QModelIndex& );

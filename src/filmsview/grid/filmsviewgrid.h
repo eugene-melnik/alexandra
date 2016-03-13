@@ -42,12 +42,14 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
         void LoadSettings() override { ReloadSettings(); }
         void ReloadSettings() override;
 
-        int GetRowCount() { return( proxyModel->rowCount() ); }
-        QModelIndex GetCurrentIndex() { return( proxyModel->mapToSource( currentIndex() ) ); }
-        QModelIndexList GetSelectedItemsList();
+        int GetRowCount() override { return( proxyModel->rowCount() ); }
+        QModelIndex GetCurrentIndex() override { return( proxyModel->mapToSource( currentIndex() ) ); }
+        QModelIndexList GetSelectedItemsList() override;
 
-        void SetCurrentIndex( const QModelIndex& index ) { setCurrentIndex( proxyModel->mapFromSource(index) ); }
-        void SetCurrentRow( int r ) { setCurrentIndex( model()->index( r, 0 ) ); }
+        void SetCurrentIndex( const QModelIndex& index ) override { setCurrentIndex( proxyModel->mapFromSource(index) ); }
+        void SetCurrentRow( int row ) override { setCurrentIndex( model()->index( row, 0 ) ); }
+
+        void ScrollToCurrent() override { scrollTo( currentIndex() ); }
 
     signals:
         void CurrentChanged( const QModelIndex& );

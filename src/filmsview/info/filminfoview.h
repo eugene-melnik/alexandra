@@ -42,7 +42,7 @@ class FilmInfoView : public QWidget, public AbstractFilmInfoView, protected Ui::
         void Clear() override;
 
         void ShowEmptyDatabaseMessage();
-        void ShowMessage( const QString& message ) { Clear(); lFilmTitle->setText( message ); }
+        void ShowMessage( const QString& title, const QString& message = QString() );
 
     private:
         QList< QPair<FilmItem::Column,QLabel*> > textItems;

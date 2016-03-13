@@ -43,12 +43,14 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
         void ReloadSettings() override;
         void SaveSettings() const override;
 
-        int GetRowCount() { return( model()->rowCount() ); }
-        QModelIndex GetCurrentIndex() { return( currentIndex() ); }
-        QModelIndexList GetSelectedItemsList();
+        int GetRowCount() override { return( model()->rowCount() ); }
+        QModelIndex GetCurrentIndex() override { return( currentIndex() ); }
+        QModelIndexList GetSelectedItemsList() override;
 
-        void SetCurrentIndex( const QModelIndex& index ) { setCurrentIndex(index); }
-        void SetCurrentRow( int r ) { setCurrentIndex( model()->index( r, 0 ) ); }
+        void SetCurrentIndex( const QModelIndex& index ) override { setCurrentIndex(index); }
+        void SetCurrentRow( int row ) override { setCurrentIndex( model()->index( row, 0 ) ); }
+
+        void ScrollToCurrent() override { currentChanged( currentIndex(), currentIndex() ); }
 
     signals:
         void CurrentChanged( const QModelIndex& );

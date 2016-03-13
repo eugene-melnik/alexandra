@@ -26,6 +26,7 @@
         <file alias="clear">../icons/clear.png</file>
     </qresource>
     <qresource prefix="/info">
+        <file alias="file">../icons/info-file.png</file>
         <file alias="rating-zero">../icons/info-rating-zero.png</file>
         <file alias="rating-full">../icons/info-rating-full.png</file>
         <file alias="loading">../icons/info-loading.png</file>

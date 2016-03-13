@@ -60,6 +60,7 @@ void FilmInfoView::ShowInformation( const QModelIndex& index )
         QString pattern = "<b>%1:</b> %2";
 
         lFilmTitle->setText( model->index( index.row(), FilmItem::TitleColumn ).data().toString() );
+        lFilmTitle->show();
 
         for( QPair<FilmItem::Column,QLabel*>& item : textItems )
         {
@@ -88,6 +89,7 @@ void FilmInfoView::Clear()
     for( QLabel* label : this->findChildren<QLabel*>() )
     {
         label->clear();
+        label->hide();
     }
 }
 
@@ -98,6 +100,7 @@ void FilmInfoView::ShowEmptyDatabaseMessage()
 
     const QString title = tr( "Your database is empty" );
     lFilmTitle->setText( title );
+    lFilmTitle->show();
 
     const QString line1 = tr( "Hi! At this point your database is empty. It's time to fill it! To do this, use the following tools:" );
     lOriginalTitle->setText( line1 + "<br/><br/>" );
@@ -118,5 +121,15 @@ void FilmInfoView::ShowEmptyDatabaseMessage()
     const QString line5 = tr( "All of these tools have automatic information retrieval via the Internet, as well as loading a graphic poster for the film. Enjoy! :)" );
     lScreenwriter->setText( line5 );
     lScreenwriter->show();
+}
+
+
+void FilmInfoView::ShowMessage( const QString& title, const QString& message )
+{
+    Clear();
+    lFilmTitle->setText( title );
+    lFilmTitle->show();
+    lOriginalTitle->setText( message );
+    lOriginalTitle->show();
 }
 

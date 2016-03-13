@@ -21,31 +21,59 @@
 #include "statusbar.h"
 
 
-StatusBar::StatusBar( QWidget* parent ) : QStatusBar( parent ), text( new QLabel( this ) )
+StatusBar::StatusBar( QWidget* parent ) : QStatusBar( parent ),
+    mainText( new QLabel(this) ),
+    separator( new QLabel("|", this) ),
+    shownText( new QLabel(this) ),
+    additionalText( new QLabel(this) )
+
 {
-    addWidget( text );
+    addWidget( mainText );
+    addWidget( separator );
+    addWidget( shownText );
+
+    additionalText->setOpenExternalLinks( true );
+    addPermanentWidget( additionalText );
+
     setStyleSheet( "QStatusBar::item { border: none };" );
-}
-
-
-void StatusBar::ShowFounded( int founded )
-{
-    text->setText( tr( "Founded: %1" ).arg( founded ) );
+    SetShown(0);
 }
 
 
 void StatusBar::ShowTotal( int total, int viewed, int favourite )
 {
-    text->setText( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
-                   .arg( total )
-                   .arg( viewed )
-                   .arg( favourite ) );
+    totalCount = total;
+
+    mainText->setText( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
+                       .arg( total )
+                       .arg( viewed )
+                       .arg( favourite ) );
+}
+
+
+void StatusBar::SetShown( int shown )
+{
+    if( shown == totalCount )
+    {
+        separator->hide();
+        shownText->hide();
+    }
+    else
+    {
+        separator->show();
+        shownText->show();
+        shownText->setText( tr( "Shown: %1" ).arg( shown ) );
+    }
 }
 
 
 void StatusBar::setFont( const QFont& font )
 {
     QStatusBar::setFont( font );
-    text->setFont( font );
+
+    for( QLabel* label : findChildren<QLabel*>() )
+    {
+        label->setFont( font );
+    }
 }
 

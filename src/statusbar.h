@@ -32,13 +32,20 @@ class StatusBar : public QStatusBar
         explicit StatusBar( QWidget* parent = nullptr );
         virtual ~StatusBar() = default;
 
-        void ShowFounded( int founded );
         void ShowTotal( int total, int viewed, int favourite );
+        void SetShown( int shown );
+
+        void SetAdditionalText( const QString& text ) { additionalText->setText( text ); }
 
         void setFont( const QFont& font );
 
     private:
-        QLabel* text = nullptr;
+        QLabel* mainText;
+        QLabel* separator;
+        QLabel* shownText;
+        QLabel* additionalText;
+
+        int totalCount = 0;
 };
 
 #endif // STATUSBAR_H

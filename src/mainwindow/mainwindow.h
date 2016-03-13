@@ -59,7 +59,6 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
     private slots:
         void ShowFullScreen( bool isFullScreen ) { isFullScreen ? showFullScreen() : showNormal(); }
-        void QuickSearchEscBehavior();
 
         void DatabaseConvertOld();
         void DatabaseChanged();
@@ -75,6 +74,11 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         void ShowFilmInformation( const QModelIndex& index );
         void ShowFilmContextMenu( const QPoint& pos, const QModelIndex& index );
+
+        void QuickSearchSetFilterButton( int button, bool state );
+        void QuickSearchSetFilter( const QString& text, QList<int> selectedColumns );
+        void QuickSearchCheckResult();
+        void QuickSearchEscape();
 
         void AddToPlaylist();
         void PlaylistCleared();

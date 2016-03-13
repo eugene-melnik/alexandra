@@ -36,33 +36,12 @@
          <enum>QLayout::SetDefaultConstraint</enum>
         </property>
         <item>
-         <widget class="SearchEdit" name="eFilter">
+         <widget class="SearchEdit" name="eFilter" native="true">
           <property name="minimumSize">
            <size>
-            <width>0</width>
+            <width>200</width>
             <height>0</height>
            </size>
-          </property>
-          <property name="toolTip">
-           <string>Type keyword for filtering films list</string>
-          </property>
-          <property name="text">
-           <string notr="true"/>
-          </property>
-          <property name="maxLength">
-           <number>256</number>
-          </property>
-          <property name="frame">
-           <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-          <property name="placeholderText">
-           <string>&lt;type to search&gt;</string>
-          </property>
-          <property name="clearButtonEnabled">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -543,11 +522,6 @@
    <header>statusbar.h</header>
   </customwidget>
   <customwidget>
-   <class>SearchEdit</class>
-   <extends>QLineEdit</extends>
-   <header>search/searchedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>FilmInfoView</class>
    <extends>QWidget</extends>
    <header>filmsview/info/filminfoview.h</header>
@@ -567,6 +541,12 @@
    <class>PlaylistWidget</class>
    <extends>QWidget</extends>
    <header>widgets/playlistwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SearchEdit</class>
+   <extends>QWidget</extends>
+   <header>search/searchedit.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

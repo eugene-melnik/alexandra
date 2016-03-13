@@ -134,24 +134,6 @@ void MainWindow::closeEvent( QCloseEvent* event )
 }
 
 
-void MainWindow::QuickSearchEscBehavior()
-{
-    // Pressing key 'Esc' sets focus to the films list,
-    // pressing again clears the quick search line
-
-///    eFilter->completer()->popup()->close();
-
-    QAbstractItemView* view = dynamic_cast<QAbstractItemView*>( filmsView );
-
-    if( view == focusWidget() )
-    {
-        eFilter->clear();
-    }
-
-    view->setFocus();
-}
-
-
 void MainWindow::DatabaseConvertOld()
 {
     QMessageBox::information( this,
@@ -264,18 +246,25 @@ void MainWindow::ShowFilmInformation( const QModelIndex& index )
     if( index.isValid() )
     {
         const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex( index );
-
-          // Buttons
         bool isExists = film->GetIsFileExists();
-        bPlay->setEnabled( isExists );
-        bAddToPlaylist->setEnabled( isExists );
+
+        bViewed->setChecked( film->GetIsFilmViewed() );
+        bFavourite->setChecked( film->GetIsFilmFavourite() );
 
         #ifdef MEDIAINFO_SUPPORT
             bTechInformation->setEnabled( isExists );
         #endif
 
-        bViewed->setChecked( film->GetIsFilmViewed() );
-        bFavourite->setChecked( film->GetIsFilmFavourite() );
+        bPlay->setEnabled( isExists );
+        bAddToPlaylist->setEnabled( isExists );
+    }
+    else
+    {
+        bViewed->setEnabled( false );
+        bFavourite->setEnabled( false );
+        bTechInformation->setEnabled( false );
+        bPlay->setEnabled( false );
+        bAddToPlaylist->setEnabled( false );
     }
 
       // Film info
@@ -296,6 +285,83 @@ void MainWindow::ShowFilmContextMenu( const QPoint& pos, const QModelIndex& inde
 
     contextMenu->SetupMenuState( film );
     contextMenu->exec( dynamic_cast<QWidget*>( filmsView )->mapToGlobal( pos ) );
+}
+
+
+void MainWindow::QuickSearchSetFilterButton( int button, bool state )
+{
+    switch( button )
+    {
+        case SearchEdit::ShowViewed :
+        {
+            filmsListProxyModel->SetShowViewed( state );
+            break;
+        }
+        case SearchEdit::ShowFavourite :
+        {
+            filmsListProxyModel->SetShowFavourite( state );
+            break;
+        }
+        case SearchEdit::HideUnavailable :
+        {
+            filmsListProxyModel->SetHideUnavailable( state );
+            break;
+        }
+    }
+
+    statusbar->SetShown( filmsListProxyModel->rowCount() );
+    QuickSearchCheckResult();
+}
+
+
+void MainWindow::QuickSearchSetFilter( const QString& text, QList<int> selectedColumns )
+{
+    filmsListProxyModel->SetFilter( text, selectedColumns );
+    statusbar->SetShown( filmsListProxyModel->rowCount() );
+
+    if( text.isEmpty() )
+    {
+        if( filmsView->GetCurrentIndex().isValid() )
+        {
+            filmsView->ScrollToCurrent();
+        }
+        else
+        {
+            filmsView->SetCurrentRow(0);
+        }
+    }
+    else
+    {
+        QuickSearchCheckResult();
+    }
+}
+
+
+void MainWindow::QuickSearchCheckResult()
+{
+    filmsView->SetCurrentRow(0);
+
+    if( filmsListProxyModel->rowCount() == 0 )
+    {
+        lFilmPoster->Clear();
+        wFilmInfo->ShowMessage( tr("Nothing was found"),
+                                tr("Make sure all words are spelled correctly or try using other keywords.") );
+    }
+}
+
+
+void MainWindow::QuickSearchEscape()
+{
+      // Pressing key 'Esc' sets focus to the films list,
+      // pressing again clears the quick search line
+    QAbstractItemView* view = dynamic_cast<QAbstractItemView*>( filmsView );
+
+    if( view == focusWidget() )
+    {
+        eFilter->clear();
+    }
+
+    view->setFocus();
 }
 
 
@@ -408,7 +474,7 @@ void MainWindow::PlayerStarted()
     dynamic_cast<QWidget*>( filmsView )->setEnabled( false );
     wPlaylist->setEnabled( false );
     eFilter->setEnabled( false );
-    bPlay->setText( tr( "Stop" ) );
+    bPlay->setText( tr("Stop") );
 }
 
 
@@ -422,7 +488,7 @@ void MainWindow::PlayerClosed()
 
     wPlaylist->setEnabled( true );
     eFilter->setEnabled( true );
-    bPlay->setText( tr( "Play" ) );
+    bPlay->setText( tr("Play") );
 
     if( wPlaylist->IsEmpty() )
     {
@@ -465,15 +531,25 @@ void MainWindow::ShowAddFilmWindow()
 
 void MainWindow::ShowEditFilmWindow()
 {
-    EditFilmWindow* editFilmWindow = new EditFilmWindow( this );
-    connect( editFilmWindow, &EditFilmWindow::Done, this, &MainWindow::EditFilmDone );
-    editFilmWindow->SetData( filmsListProxyModel->GetFilmItemByIndex(filmsView->GetCurrentIndex()) );
-    editFilmWindow->show();
+    QModelIndex index = filmsView->GetCurrentIndex();
+
+    if( index.isValid() )
+    {
+        EditFilmWindow* editFilmWindow = new EditFilmWindow( this );
+        connect( editFilmWindow, &EditFilmWindow::Done, this, &MainWindow::EditFilmDone );
+        editFilmWindow->SetData( filmsListProxyModel->GetFilmItemByIndex(index) );
+        editFilmWindow->show();
+    }
 }
 
 
 void MainWindow::ShowRemoveFilmWindow()
 {
+    if( !filmsView->GetCurrentIndex().isValid() )
+    {
+        return;
+    }
+
     QModelIndexList selectedIndexes = filmsView->GetSelectedItemsList();
     QString windowTitle = tr( "Remove film" );
     QString windowMessage;
@@ -791,13 +867,10 @@ void MainWindow::SetupWindows()
     connect( filmsListModel, &FilmsListModel::DatabaseIsEmpty,    this, &MainWindow::DatabaseIsEmpty );
     connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::DatabaseChanged );
 
-    eFilter->SetModel( filmsListProxyModel );
-    connect( eFilter, &SearchEdit::TextChanged, filmsListProxyModel, &FilmsListProxyModel::SetFilter );
-
       // Quick search input
-//    connect( eFilter, &SearchEdit::TextChanged, this, &MainWindow::FilmsFilter );
-//    connect( filmsListModel, &FilmsListModel::DatabaseLoaded, this, &MainWindow::SetupCompleter );
-//    connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::SetupCompleter );
+    eFilter->SetModel( filmsListProxyModel );
+    connect( eFilter, &SearchEdit::ButtonFilterChanged, this, &MainWindow::QuickSearchSetFilterButton );
+    connect( eFilter, &SearchEdit::FilterChanged, this, &MainWindow::QuickSearchSetFilter );
 
       // Playlist
     connect( contextMenu,    &FilmsViewContextMenu::actionAddToList, this, &MainWindow::AddToPlaylist );
@@ -845,10 +918,10 @@ void MainWindow::SetupWindows()
     connect( toolbar,      &ToolBar::actionRandom, this, &MainWindow::SelectRandomFilm );
 
         /// Film info window
-#ifdef MEDIAINFO_SUPPORT
-    connect( bTechInformation, &QPushButton::clicked,                 this, &MainWindow::ShowTechInfoWindow );
-    connect( contextMenu,      &FilmsViewContextMenu::actionShowInfo, this, &MainWindow::ShowTechInfoWindow );
-#endif // MEDIAINFO_SUPPORT
+    #ifdef MEDIAINFO_SUPPORT
+        connect( bTechInformation, &QPushButton::clicked,                 this, &MainWindow::ShowTechInfoWindow );
+        connect( contextMenu,      &FilmsViewContextMenu::actionShowInfo, this, &MainWindow::ShowTechInfoWindow );
+    #endif // MEDIAINFO_SUPPORT
 
         /// Search window
     connect( actionSearch, &QAction::triggered,    this, &MainWindow::ShowSearchWindow );
@@ -870,12 +943,12 @@ void MainWindow::SetupWindows()
         /// Shortcuts
     quickSearchShortcut = new QShortcut( this );
     quickSearchShortcut->setContext( Qt::ApplicationShortcut );
-    connect( quickSearchShortcut, SIGNAL( activated() ), eFilter, SLOT( setFocus() ) );
+    connect( quickSearchShortcut, SIGNAL(activated()), eFilter, SLOT(setFocus()) );
 
     viewFocusShortcut = new QShortcut( this );
     viewFocusShortcut->setKey( QKeySequence( "Esc" ) );
     viewFocusShortcut->setContext( Qt::ApplicationShortcut );
-    connect( viewFocusShortcut, &QShortcut::activated, this, &MainWindow::QuickSearchEscBehavior );
+    connect( viewFocusShortcut, &QShortcut::activated, this, &MainWindow::QuickSearchEscape );
 
     DebugPrintFuncDone( "MainWindow::SetupWindows" );
 }
@@ -1068,6 +1141,7 @@ void MainWindow::SetAllFunctionsEnabled( bool enabled )
 
     bViewed->setEnabled( enabled );
     bFavourite->setEnabled( enabled );
+    eFilter->setEnabled( enabled );
 }
 
 
@@ -1089,6 +1163,7 @@ void MainWindow::SetEmptyMode( bool empty )
     bPlay->setDisabled( empty );
     bAddToPlaylist->setDisabled( empty );
 
+    eFilter->setDisabled( empty );
     wFilmInfo->ShowEmptyDatabaseMessage(); // TODO: check in FilmInfoView (?)
     lFilmPoster->Clear();
     lTechInformation->Clear();

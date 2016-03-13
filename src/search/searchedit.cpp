@@ -22,19 +22,24 @@
 #include "searchedit.h"
 #include "filmslist/filmitem.h"
 
-#include <QCompleter>
+#include <QAction>
 
 
 SearchEdit::SearchEdit( QWidget* parent )
-    : QLineEdit( parent ),
+    : QWidget( parent ),
       menuSelectColumns( new SearchEditMenu( this ) )
 {
-      // Settings icon
-    actionSettings = addAction( QIcon( ":/tool/spanner" ), QLineEdit::TrailingPosition );
+    setupUi( this );
+    connect( bViewed, &QPushButton::toggled, this, [this] (bool toggled) { ButtonFilterChanged( ShowViewed, toggled ); } );
+    connect( bFavourite, &QPushButton::toggled, this, [this] (bool toggled) { ButtonFilterChanged( ShowFavourite, toggled ); } );
+    connect( bUnavailable, &QPushButton::toggled, this, [this] (bool toggled) { ButtonFilterChanged( HideUnavailable, toggled ); } );
+    connect( lineEdit, &QLineEdit::textChanged, this, &SearchEdit::SetFilter );
+
+    QAction* actionSettings = lineEdit->addAction( QIcon( ":/tool/spanner" ), QLineEdit::TrailingPosition );
     actionSettings->setToolTip( tr( "Select columns for filtration" ) );
     connect( actionSettings, &QAction::triggered, this, &SearchEdit::ShowMenu );
 
-    connect( this, &SearchEdit::textChanged, this, [this] (const QString& s) { emit TextChanged( s, selectedColumns ); } );
+    lineEdit->setClearButtonEnabled( true );
 }
 
 
@@ -60,15 +65,9 @@ void SearchEdit::SaveSettings() const
 }
 
 
-void SearchEdit::SetModel(QAbstractItemModel *model)
+void SearchEdit::SetModel( QAbstractItemModel* model )
 {
     sourceModel = model;
-
-    QCompleter* completer = new QCompleter( model, this ); ///
-    completer->setCaseSensitivity( Qt::CaseInsensitive );
-    completer->setCompletionColumn( 0 );
-    setCompleter( completer );
-
     SetupMenu();
 }
 
@@ -85,7 +84,7 @@ void SearchEdit::SetupMenu()
     menuSelectColumns->addSeparator();
 
       // Columns
-    QList<int> disabledColumns =
+    QList<int> invisibleColumns =
     {
         FilmItem::BudgetColumn, FilmItem::RatingColumn,
         FilmItem::IsViewedColumn, FilmItem::IsFavouriteColumn,
@@ -95,7 +94,7 @@ void SearchEdit::SetupMenu()
 
     for( int column = 0; column < sourceModel->columnCount(); ++column )
     {
-        if( disabledColumns.contains(column) ) continue;
+        if( invisibleColumns.contains(column) ) continue;
 
         QString columnTitle = sourceModel->headerData( column, Qt::Horizontal ).toString();
         a = menuSelectColumns->addAction( columnTitle, this, SLOT(CalculateOptions()) );
@@ -133,9 +132,9 @@ void SearchEdit::CalculateOptions()
         }
     }
 
-    if( !text().isEmpty() )
+    if( !lineEdit->text().isEmpty() )
     {
-        emit TextChanged( text(), selectedColumns );
+        emit FilterChanged( lineEdit->text(), selectedColumns );
     }
 }
 
@@ -148,5 +147,11 @@ void SearchEdit::SetOptionsChecked( bool b )
     }
 
     CalculateOptions();
+}
+
+
+void SearchEdit::SetFilter()
+{
+    emit FilterChanged( lineEdit->text(), selectedColumns );
 }
 

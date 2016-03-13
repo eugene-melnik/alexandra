@@ -80,15 +80,25 @@ class FilmsListProxyModel : public QSortFilterProxyModel
             invalidateFilter();
         }
 
+        void SetShowViewed( bool show ) { hideViewed = !show; invalidateFilter(); }
+        void SetShowFavourite( bool show ) { hideFavourite = !show; invalidateFilter(); }
+        void SetHideUnavailable( bool hide ) { hideUnavailable = hide; invalidateFilter(); }
+
     protected:
         bool filterAcceptsRow( int sourceRow, const QModelIndex& sourceParent ) const override
         {
+            const FilmItem* film = static_cast<FilmItem*>( sourceModel()->index( sourceRow, 0, sourceParent ).internalPointer() );
+
+            if( hideViewed && film->GetIsFilmViewed() ) return( false );
+            if( hideFavourite && film->GetIsFilmFavourite() ) return( false );
+            if( hideUnavailable && !film->GetIsFileExists() ) return( false );
+
             if( filterString.isEmpty() ) return( true );
             if( filterColumns.isEmpty() ) return( false );
 
             for( int column : filterColumns )
             {
-                QString columnString = sourceModel()->index( sourceRow, column, sourceParent ).data().toString();
+                QString columnString = film->GetColumnData( column ).toString();
                 if( columnString.contains( filterString, Qt::CaseInsensitive ) ) return( true );
             }
 
@@ -98,6 +108,10 @@ class FilmsListProxyModel : public QSortFilterProxyModel
     private:
         QList<int> filterColumns;
         QString filterString;
+
+        bool hideViewed = false;
+        bool hideFavourite = false;
+        bool hideUnavailable = false;
 
         mutable QPixmap pixmapIsViewed;
         mutable QPixmap pixmapIsFavourite;

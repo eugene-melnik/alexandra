@@ -147,6 +147,7 @@ FORMS += datamanip/addfilmwindow.ui \
          mainwindow/splashscreen.ui \
          scanner/filmscannerwindow.ui \
          scanner/movedfilmswindow.ui \
+         search/searchedit.ui \
          search/searchwindow.ui \
          statistics/statisticswindow.ui \
          widgets/foundedlistwidget.ui \

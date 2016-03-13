@@ -21,16 +21,19 @@
 #ifndef SEARCHEDIT_H
 #define SEARCHEDIT_H
 
+
 #include <QAbstractItemModel>
-#include <QAction>
-#include <QLineEdit>
 #include <QList>
 #include <QMenu>
-#include <QPoint>
+
+
+#include "ui_searchedit.h"
+
 
 class SearchEditMenu;
 
-class SearchEdit : public QLineEdit
+
+class SearchEdit : public QWidget, protected Ui::SearchEdit
 {
     Q_OBJECT
 
@@ -42,8 +45,20 @@ class SearchEdit : public QLineEdit
 
         void SetModel( QAbstractItemModel* model );
 
+        enum Buttons
+        {
+            ShowViewed,
+            ShowFavourite,
+            HideUnavailable
+        };
+
+    public slots:
+        void setFocus() { lineEdit->setFocus(); }
+        void clear() { lineEdit->clear(); }
+
     signals:
-        void TextChanged( const QString& text, QList<int> selectedColumns );
+        void ButtonFilterChanged( int button, bool show );
+        void FilterChanged( const QString& text, QList<int> selectedColumns );
 
     private slots:
         void SetupMenu();
@@ -54,14 +69,16 @@ class SearchEdit : public QLineEdit
         void UnselectAllOptions() { SetOptionsChecked( false ); }
         void SetOptionsChecked( bool b );
 
+        void SetFilter();
+
     private:
-        QAction* actionSettings;
         QList<QAction*> actionsColumns;
         SearchEditMenu* menuSelectColumns;
         QList<int> selectedColumns;
 
         QAbstractItemModel* sourceModel;
 };
+
 
 class SearchEditMenu : public QMenu
 {
@@ -90,4 +107,6 @@ class SearchEditMenu : public QMenu
         }
 };
 
+
 #endif // SEARCHEDIT_H
+
