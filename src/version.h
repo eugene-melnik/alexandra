@@ -69,6 +69,7 @@ namespace Alexandra
         const QList<Locale> supportedLocales =
         {
             { "Czech",      "Čeština",     "cs",     "Pavel Fric <pfri@users.sf.net>" },
+            { "German",     "Deutsch",     "de",     "Martin Gansser <martinkg@fedoraproject.org> " },
             { "French",     "Français",    "fr",     "David Geiger <david.david@mageialinux-online.org>, "
                                                      "Adrien Daugabel <adrien.d@mageialinux-online.org>" },
             { "English",    "English",     "en",     appAuthor },
