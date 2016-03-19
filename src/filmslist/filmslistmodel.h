@@ -76,6 +76,7 @@ class FilmsListModel : public QAbstractItemModel
         void IncViewsCounterForIndex( const QModelIndex& index );
         void ResetViewsCounterForIndex( const QModelIndex& index );
 
+        bool GetIsReadonly() const { return( isReadonly ); }
         bool GetIsEmpty() const { return( GetFilmsCount() == 0 ); }
         int GetFilmsCount() const { return( rootItem->GetChildrenCount() ); }
         int GetIsViewedFilmsCount() const { return( GetCountOf( FilmItem::IsViewedColumn, true ) ); }
@@ -104,6 +105,7 @@ class FilmsListModel : public QAbstractItemModel
         FilmItem* rootItem;
         QMutex mutexDataEdit;
         bool isDatabaseChanged = false;
+        bool isReadonly = false;
 
         QString savingFileName;
         QTimer savingTimer;

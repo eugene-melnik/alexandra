@@ -248,7 +248,9 @@ void MainWindow::ShowFilmInformation( const QModelIndex& index )
         const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex( index );
         bool isExists = film->GetIsFileExists();
 
+        bViewed->setEnabled( !filmsListModel->GetIsReadonly() );
         bViewed->setChecked( film->GetIsFilmViewed() );
+        bFavourite->setEnabled( !filmsListModel->GetIsReadonly() );
         bFavourite->setChecked( film->GetIsFilmFavourite() );
 
         #ifdef MEDIAINFO_SUPPORT

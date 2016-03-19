@@ -351,6 +351,7 @@ void FilmsListModel::LoadFromFile( QString fileName )
             {
                 DebugPrint( "Reading done!" );
                 emit DatabaseLoaded();
+                isReadonly = false;
 
                 if( rootItem->GetChildrenCount() == 0 )
                 {
@@ -360,6 +361,7 @@ void FilmsListModel::LoadFromFile( QString fileName )
                 if( !QFileInfo(fileName).isWritable() )
                 {
                     emit DatabaseIsReadonly();
+                    isReadonly = true;
                 }
             }
             else
