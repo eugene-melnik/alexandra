@@ -895,6 +895,7 @@ void MainWindow::SetupWindows()
 
         /// About window
     aboutWindow = new AboutWindow( this );
+    connect( aboutWindow, &AboutWindow::UpdateAvailable, statusbar, &StatusBar::SetAdditionalText );
     connect( actionAbout,   &QAction::triggered, aboutWindow, &AboutWindow::show );
     connect( actionAboutQt, &QAction::triggered, aboutWindow, &AboutWindow::AboutQt );
 

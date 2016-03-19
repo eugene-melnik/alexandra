@@ -100,7 +100,8 @@ void AboutWindow::CompareVersions( const QString& latestVersion )
     {
         lLinkLatestVersion->setText( lLinkLatestVersion->text().arg( latestVersion ) );
         lLinkLatestVersion->show();
-        emit UpdateAvailable( latestVersion );
+        QString link = "<a href='%1'>%2</a>";
+        emit UpdateAvailable( link.arg(Alexandra::linkUpdates, lLinkLatestVersion->text()) );
     }
 }
 

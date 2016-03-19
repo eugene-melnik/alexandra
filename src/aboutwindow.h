@@ -42,7 +42,7 @@ class AboutWindow : public QDialog, protected Ui::AboutWindow
         void AboutQt() { QMessageBox::aboutQt( this->parentWidget() ); }
 
     signals:
-        void UpdateAvailable( const QString& version );
+        void UpdateAvailable( const QString& link );
 
     private slots:
         void CompareVersions( const QString& latestVersion );

@@ -40,6 +40,17 @@ StatusBar::StatusBar( QWidget* parent ) : QStatusBar( parent ),
 }
 
 
+void StatusBar::setFont( const QFont& font )
+{
+    QStatusBar::setFont( font );
+
+    for( QLabel* label : findChildren<QLabel*>() )
+    {
+        label->setFont( font );
+    }
+}
+
+
 void StatusBar::ShowTotal( int total, int viewed, int favourite )
 {
     totalCount = total;
@@ -63,17 +74,6 @@ void StatusBar::SetShown( int shown )
         separator->show();
         shownText->show();
         shownText->setText( tr( "Shown: %1" ).arg( shown ) );
-    }
-}
-
-
-void StatusBar::setFont( const QFont& font )
-{
-    QStatusBar::setFont( font );
-
-    for( QLabel* label : findChildren<QLabel*>() )
-    {
-        label->setFont( font );
     }
 }
 
