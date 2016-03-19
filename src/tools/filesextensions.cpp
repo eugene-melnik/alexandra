@@ -78,16 +78,13 @@ QString FilesExtensions::SearchForEponymousImage( const QString& fileName )
       // Searching
     QFileInfoList eponymousFiles = QDir( fileInfo.absolutePath() ).entryInfoList( filter, QDir::Files );
 
-    if( eponymousFiles.size() > 1 )
+    for( QFileInfo& info : eponymousFiles )
     {
-        for( QFileInfo& info : eponymousFiles )
-        {
-            QString extension = "*." + info.suffix();
+        QString extension = "*." + info.suffix();
 
-            if( images.contains( extension, Qt::CaseInsensitive ) )
-            {
-                return( info.absoluteFilePath() );
-            }
+        if( images.contains( extension, Qt::CaseInsensitive ) )
+        {
+            return( info.absoluteFilePath() );
         }
     }
 

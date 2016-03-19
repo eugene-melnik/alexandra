@@ -20,10 +20,12 @@
 
 #include "filmslistoldloader.h"
 #include "film0x10.h"
+#include "tools/filesextensions.h"
 #include "tools/debug.h"
 
 #include <QDataStream>
 #include <QFile>
+#include <QDir>
 #include <QList>
 #include <QVariant>
 
@@ -34,10 +36,13 @@ bool FilmsListOldLoader::Populate( FilmItem* rootItem, const QString& fileName )
 
     QFile file( fileName );
 
-    if( file.open( QIODevice::ReadOnly ) )
+    if( file.open(QIODevice::ReadOnly) )
     {
+        AlexandraSettings* settings = AlexandraSettings::GetInstance();
+
         QDataStream stream( &file );
-        QString header; quint8 version;
+        QString header;
+        quint8 version;
         stream >> header >> version;
 
         if( version == OldVersion10 )
@@ -47,6 +52,7 @@ bool FilmsListOldLoader::Populate( FilmItem* rootItem, const QString& fileName )
 
             for( Film010& film : films )
             {
+                // Views counter
                 int viewsCount = film.GetViewsCounter();
 
                 if( film.GetIsViewed() && viewsCount == 0 )
@@ -56,6 +62,28 @@ bool FilmsListOldLoader::Populate( FilmItem* rootItem, const QString& fileName )
 
                 bool isViewed = (viewsCount > 0) ? true : false;
 
+                // Poster files renaming (for very old databases)
+                QString posterFilename = film.GetPosterName();
+
+                if( !posterFilename.isEmpty() )
+                {
+                    QString posterFilepath = settings->GetPostersDirPath() + "/" + posterFilename;
+                    QFile posterFile( posterFilepath );
+
+                    if( !posterFile.exists() )
+                    {
+                        QString maybeOldPoster = FilesExtensions::SearchForEponymousImage(posterFilepath);
+
+                        if ( !maybeOldPoster.isEmpty() )
+                        {
+                            QFileInfo fileinfo( maybeOldPoster );
+                            QDir postersDir( fileinfo.absolutePath() );
+                            postersDir.rename( fileinfo.fileName(), posterFilename );
+                        }
+                    }
+                }
+
+                // Filling data
                 QList<QVariant> data;
 
                 data << film.GetTitle()

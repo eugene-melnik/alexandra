@@ -337,11 +337,12 @@ void FilmsListModel::LoadFromFile( QString fileName )
             }
             else
             {
+                emit DatabaseConvertOld();
+
                 isLoaded = FilmsListOldLoader::Populate( rootItem, fileName );
 
                 if( isLoaded )
                 {
-                    emit DatabaseConvertOld();
                     FilmsListLoader::Save( rootItem, fileName );
                 }
             }
