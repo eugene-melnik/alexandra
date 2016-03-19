@@ -616,6 +616,11 @@ void SettingsWindow::SaveSettings()
         }
     }
 
+    isSettingsChanged = false;
+    isDbSettingsChanged = false;
+    isViewChanged = false;
+    isNeedReboot = false;
+
     DebugPrintFuncDone( "SettingsWindow::SaveSettings" );
 }
 

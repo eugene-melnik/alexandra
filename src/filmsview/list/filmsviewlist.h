@@ -47,8 +47,8 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
         QModelIndex GetCurrentIndex() override { return( currentIndex() ); }
         QModelIndexList GetSelectedItemsList() override;
 
-        void SetCurrentIndex( const QModelIndex& index ) override { setCurrentIndex(index); }
-        void SetCurrentRow( int row ) override { setCurrentIndex( model()->index( row, 0 ) ); }
+        void SetCurrentIndex( const QModelIndex& index ) override { setCurrentIndex(index); scrollTo(index, ScrollHint::PositionAtCenter); }
+        void SetCurrentRow( int row ) override { SetCurrentIndex( model()->index( row, 0 ) ); }
 
         void ScrollToCurrent() override { currentChanged( currentIndex(), currentIndex() ); }
 
