@@ -684,5 +684,45 @@ AlexandraSettings::AlexandraSettings( const QString& configFile )
     : QSettings( configFile, QSettings::IniFormat )
 {
     DebugPrint( "Config filename: " + this->fileName() );
+
+    quint8 version = value( "Application/SettingsVersion" ).toUInt();
+
+    if( version != Alexandra::settingsVersion )
+    {
+          // Remove old keys
+        QMap<QString,QStringList> oldKeys =
+        {
+            { "FilmsList", QStringList {
+                  "ColumnDirectorW",
+                  "ColumnFavouriteW",
+                  "ColumnGenreW",
+                  "ColumnTitleW",
+                  "ColumnViewedW",
+                  "ColumnYearW"
+              }
+            },
+            { "ListView", QStringList {
+                  "ColumnDirectorW",
+                  "ColumnFavouriteW",
+                  "ColumnGenreW",
+                  "ColumnTitleW",
+                  "ColumnViewedW",
+                  "ColumnYearW"
+              }
+            }
+        };
+
+        for( const QString& key : oldKeys.keys() )
+        {
+            for( const QString& value : oldKeys.value(key) )
+            {
+                remove( key + "/" + value );
+            }
+        }
+
+          //Save
+        setValue( "Application/SettingsVersion", Alexandra::settingsVersion );
+        this->sync();
+    }
 }
 
