@@ -1,15 +1,27 @@
-# Alexandra Video Library v1.4 
-##### A small opensource video library with great potential, written in C++ using Qt5 framework
+# Alexandra Video Library v1.5
+##### Small, fast, but powerful video library, written in C++ with Qt5.
 [![Build Status](https://travis-ci.org/jeka-js/alexandra.svg)](https://travis-ci.org/jeka-js/alexandra)
 
 
-Alexandra Video Library — a simple and comfortable program for organization and management of the home video library. You can completely customize your movies in a list or a grid, add a description, detailed information, user tags and posters. You can also use the films scanner that will find and add all video files on your disk.
+Alexandra Video Library — a simple and comfortable program for organization and management of the your video library. You can completely customize your movies in a list or a grid, add detailed information, tags, posters, view technical information about the file and use advanced search.
 
-Directly from the program you can start playing the film or playlist of films with any video player installed on your computer.
+**Features:**
 
-If you move your films to another folder, the wizard of moved files will find them for your convenience.
+ - Lot of fields with information about the film.
+ - Automatically retrieving data from the internet.
+ - Fast filtration in the view and powerful advanced search.
+ - Fully customizable user interface.
+ - Selection of your favourite player.
+ - Hard drive scanner.
+ - Random film selection.
+ - Views statistics.
+ - MediaInfo built-in.
 
-Also here you can find quick search, advanced search, random play function, technical information about files, lot of settings and much more. Enjoy!
+![Main window List](/doc/screenshots/01_MainWindow_List.png "Main window -- list")
+
+![Main window Grid](/doc/screenshots/02_MainWindow_Grid.png "Main window -- grid")
+
+View, manage, collect. Alexandra Video Library.
 
 =
 

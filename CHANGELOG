@@ -1,3 +1,18 @@
+alexandra (1.5.0) unstable; urgency=low
+
+  * Completely redesigned internal architecture of the application -- instant launch
+    and new level of application performance.
+  * The new database format with automatic converting for old databases.
+  * Improvements to quick search and new powerful advanced search engine.
+  * More information and notification area in statusbar.
+  * New settings, fixes, small but comfortable features.
+  * Kino-teatr.ua parser added; IMDB parser fixed.
+  * German translation (by Martin Gansser).
+  * Link for translators in About window.
+  * Saving of playlist data on exit.
+
+ -- Eugene Melnik <jeka7js@gmail.com>  Sun, 27 Mar 2016 16:46:02 +0300
+
 alexandra (1.4.0) unstable; urgency=low
 
   * Quick search improvements.
@@ -11,7 +26,7 @@ alexandra (1.4.0) unstable; urgency=low
 
  -- Eugene Melnik <jeka7js@gmail.com>  Thu, 14 Oct 2015 11:51:52 +0300
 
-alexandra (1.3.0) unstable; urgency=high
+alexandra (1.3.0) unstable; urgency=low
 
   * Statistics function added (first version).
   * Application font selection.
