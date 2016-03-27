@@ -136,7 +136,7 @@ void MovedFilmsWindow::ShowFounded( QStringList fileNames )
 
             if( newFileName == unavailFileName && newFilePath != unavailFilePath ) // Protection from multiple moving
             {
-                gbFounded->AddItem( newFileName, qVariantFromValue( (void*)film ) );
+                gbFounded->AddItem( newFilePath, qVariantFromValue( (void*)film ) );
                 fileNames.removeOne( newFilePath );
                 break;
             }
