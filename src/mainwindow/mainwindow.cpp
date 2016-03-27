@@ -237,7 +237,7 @@ void MainWindow::DatabaseIsEmpty()
 void MainWindow::DatabaseIsReadonly()
 {
     SetReadOnlyMode();
-    QMessageBox::information( this, tr( "Database" ), tr( "Database is readonly! Editing functions are disabled." ) );
+    statusbar->SetAdditionalText( tr( "The database file is read-only." ) );
 }
 
 
@@ -267,6 +267,16 @@ void MainWindow::ShowFilmInformation( const QModelIndex& index )
         bTechInformation->setEnabled( false );
         bPlay->setEnabled( false );
         bAddToPlaylist->setEnabled( false );
+    }
+
+    if( !wPlaylist->IsEmpty() )
+    {
+        bPlay->setEnabled( true );
+    }
+
+    if( filmsView->GetSelectedItemsList().count() > 1 )
+    {
+        bAddToPlaylist->setEnabled( true );
     }
 
       // Film info
@@ -386,6 +396,7 @@ void MainWindow::AddToPlaylist()
         if( !wPlaylist->IsEmpty() )
         {
             bPlay->setText( tr( "Play list" ) );
+            bPlay->setEnabled( true );
         }
     }
 }
@@ -393,7 +404,8 @@ void MainWindow::AddToPlaylist()
 
 void MainWindow::PlaylistCleared()
 {
-    bPlay->setText( tr( "Play" ) );
+    bPlay->setText( tr("Play") );
+    ShowFilmInformation( filmsView->GetCurrentIndex() );
 }
 
 

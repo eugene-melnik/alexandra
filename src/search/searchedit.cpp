@@ -77,12 +77,6 @@ void SearchEdit::SetupMenu()
     menuSelectColumns->clear();
     actionsColumns.clear();
 
-      // Header
-    QAction* a = menuSelectColumns->addAction( tr( "Filter by") );
-    a->setEnabled( false );
-
-    menuSelectColumns->addSeparator();
-
       // Columns
     QList<int> invisibleColumns =
     {
@@ -97,7 +91,7 @@ void SearchEdit::SetupMenu()
         if( invisibleColumns.contains(column) ) continue;
 
         QString columnTitle = sourceModel->headerData( column, Qt::Horizontal ).toString();
-        a = menuSelectColumns->addAction( columnTitle, this, SLOT(CalculateOptions()) );
+        QAction* a = menuSelectColumns->addAction( columnTitle, this, SLOT(CalculateOptions()) );
         actionsColumns.append( a );
         a->setCheckable( true );
         a->setData( column );

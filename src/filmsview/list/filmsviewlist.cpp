@@ -236,6 +236,7 @@ void FilmsViewList::SetDefaultColumnsView()
         header->resizeSection( column.first, column.second );
     }
 
+    header->setSortIndicator( FilmItem::TitleColumn, Qt::AscendingOrder );
     DebugPrintFuncDone( "FilmsViewList::SetDefaultColumnsView" );
 }
 
