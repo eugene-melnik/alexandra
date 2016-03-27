@@ -36,7 +36,7 @@ SearchEdit::SearchEdit( QWidget* parent )
     connect( lineEdit, &QLineEdit::textChanged, this, &SearchEdit::SetFilter );
 
     QAction* actionSettings = lineEdit->addAction( QIcon( ":/tool/spanner" ), QLineEdit::TrailingPosition );
-    actionSettings->setToolTip( tr( "Select columns for filtration" ) );
+    actionSettings->setToolTip( tr("Select columns for searching") );
     connect( actionSettings, &QAction::triggered, this, &SearchEdit::ShowMenu );
 
     lineEdit->setClearButtonEnabled( true );
@@ -99,8 +99,8 @@ void SearchEdit::SetupMenu()
 
       // Select/Unselect buttons
     menuSelectColumns->addSeparator();
-    menuSelectColumns->addAction( tr( "Select all" ), this, SLOT(SelectAllOptions()) );
-    menuSelectColumns->addAction( tr( "Unselect all" ), this, SLOT(UnselectAllOptions()) );
+    menuSelectColumns->addAction( tr("Select all"), this, SLOT(SelectAllOptions()) );
+    menuSelectColumns->addAction( tr("Unselect all"), this, SLOT(UnselectAllOptions()) );
 }
 
 

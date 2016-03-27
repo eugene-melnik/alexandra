@@ -54,11 +54,7 @@ void StatusBar::setFont( const QFont& font )
 void StatusBar::ShowTotal( int total, int viewed, int favourite )
 {
     totalCount = total;
-
-    mainText->setText( tr( "Total films: %1 (%2 viewed, %3 favourite)" )
-                       .arg( total )
-                       .arg( viewed )
-                       .arg( favourite ) );
+    mainText->setText( tr("Total films: %1 (%2 viewed, %3 favourite)").arg( total ).arg( viewed ).arg( favourite ) );
 }
 
 
@@ -73,7 +69,7 @@ void StatusBar::SetShown( int shown )
     {
         separator->show();
         shownText->show();
-        shownText->setText( tr( "Shown: %1" ).arg( shown ) );
+        shownText->setText( tr("Shown: %1").arg(shown) );
     }
 }
 

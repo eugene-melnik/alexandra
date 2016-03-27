@@ -119,11 +119,13 @@ void FilmTechInfoView::LoadTechnicalInfo( const QString& fileName )
                                                                           mi->GetFileSize(),
                                                                           mi->GetOverallBitRate() );
 
-        shortInfo += tr( "%1&times;%2 px &bull; %3 fps<br/>" ).arg( mi->GetWidth(), // TRANSLATORS: Translate only "px" and "fps"
-                                                                    mi->GetHeight(),
-                                                                    mi->GetFrameRate() );
+        shortInfo += QString( "%1&times;%2 %3 &bull; %4 %5<br/>" ).arg( mi->GetWidth(),
+                                                                        mi->GetHeight(),
+                                                                        tr("px"),
+                                                                        mi->GetFrameRate(),
+                                                                        tr("fps") );
 
-        shortInfo += tr( "Duration &mdash; %1" ).arg( mi->GetDuration() ); // TRANSLATORS: Translate only "Duration"
+        shortInfo += QString( "%1 &mdash; %2" ).arg( tr("Duration"), mi->GetDuration() );
 
         DebugPrintFuncDone( "FilmTechInfoView::LoadTechnicalInfo" );
         emit ShortInfoLoaded( shortInfo );

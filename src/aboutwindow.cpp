@@ -60,7 +60,7 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
 
     // List of contributors
     QString headerStyle = "<p align=\"center\"><b>%1</b></p>";
-    QString translatorsText = headerStyle.arg( tr( "TRANSLATORS" ) );
+    QString translatorsText = headerStyle.arg( tr("TRANSLATORS") );
 
     for( Alexandra::Locale locale : Alexandra::supportedLocales )
     {
@@ -72,8 +72,7 @@ AboutWindow::AboutWindow( QWidget* parent ) : QDialog( parent )
         }
     }
 
-    translatorsText += tr( "<a href=\"%1\">Help with translations</a>" ).arg( Alexandra::linkTranslations );
-
+    translatorsText += QString("<a href=\"%1\">%2</a>").arg(Alexandra::linkTranslations).arg(tr("Help with translations"));
     tContributors->setText( translatorsText );
 
     // Check for updates

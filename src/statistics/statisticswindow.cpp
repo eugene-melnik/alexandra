@@ -87,7 +87,7 @@ void StatisticsWindow::ShowMainStatistics( MainStatistics mainStat )
         if( !mainStat.allFilesOk ) // Condition when unable to access all the files
         {
             lWastedTime->setText( lWastedTime->text() + " (?)" );
-            lWastedTime->setToolTip( tr( "The calculations are inaccurate because some of files aren't available." ) );
+            lWastedTime->setToolTip( tr("The calculations are inaccurate because some of files aren't available.") );
         }
     #else
         labelWastedTime->hide();
@@ -128,7 +128,7 @@ void StatisticsWindow::ShowMainStatistics( MainStatistics mainStat )
 
 void StatisticsWindow::Reset()
 {
-    int answer = QMessageBox::warning( this, tr( "Reset statistics" ), tr( "Are you sure?" ),
+    int answer = QMessageBox::warning( this, tr("Reset statistics"), tr("Are you sure?"),
                                        QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
     if( answer == QMessageBox::Yes )

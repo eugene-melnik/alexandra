@@ -105,11 +105,11 @@ class SettingsWindow : public QDialog, protected Ui::SettingsWindow
 
         const QList<PosterFormat> savingFormats =
         {
-            { tr( "PNG (compressed)" ),   "png",  0 },
-            { tr( "JPG (quality 95)" ),   "jpg", 95 },
-            { tr( "JPG (quality 85)" ),   "jpg", 85 },
-            { tr( "JPG (quality 75)" ),   "jpg", 75 },
-            { tr( "BMP (uncompressed)" ), "bmp", -1 }
+            { tr("PNG (compressed)"),   "png",  0 },
+            { tr("JPG (quality 95)"),   "jpg", 95 },
+            { tr("JPG (quality 85)"),   "jpg", 85 },
+            { tr("JPG (quality 75)"),   "jpg", 75 },
+            { tr("BMP (uncompressed)"), "bmp", -1 }
         };
 
           // Shortcuts

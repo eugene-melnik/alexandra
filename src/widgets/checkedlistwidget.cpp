@@ -164,11 +164,11 @@ void CheckedListWidget::ShowContextMenu( QPoint pos )
     if( count() > 0 )
     {
         QMenu menu;
-        menu.addAction( tr( "Select all" ), this, SLOT(SelectAll()) );
-        menu.addAction( tr( "Unselect all" ), this, SLOT(UnselectAll()) );
-        menu.addAction( tr( "Invert selection" ), this, SLOT(InvertSelection()) );
+        menu.addAction( tr("Select all"), this, SLOT(SelectAll()) );
+        menu.addAction( tr("Unselect all"), this, SLOT(UnselectAll()) );
+        menu.addAction( tr("Invert selection"), this, SLOT(InvertSelection()) );
         menu.addSeparator();
-        menu.addAction( tr( "Scroll to checked" ), this, SLOT(ScrollToChecked()) );
+        menu.addAction( tr("Scroll to checked"), this, SLOT(ScrollToChecked()) );
         menu.exec( this->mapToGlobal(pos) );
     }
 }

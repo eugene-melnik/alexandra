@@ -31,10 +31,7 @@ namespace Alexandra
         const QString appNameGui = "Alexandra Video Library";
         const QString appLicense = "GNU GPL v2";
         const QString appWebsite = "http://alexandra-qt.sourceforge.net/";
-        const QString appDescription = QObject::tr
-        (
-            "A small opensource video library with great potential, written in C++ using Qt5 framework." /// rewrite
-        );
+        const QString appDescription = QObject::tr( "Small, fast, but powerful video library, written in C++ with Qt5." );
 
           // Links
         const QString linkUpdates = "http://alexandra-qt.sourceforge.net/en/updates/index.html";

@@ -30,31 +30,31 @@ ToolBar::ToolBar( QWidget* parent ) : QToolBar( parent )
     setContextMenuPolicy( Qt::PreventContextMenu );
 
     // Items
-    tbaAdd = addAction( QIcon( ":/tool/add" ), tr( "Add" ) );
+    tbaAdd = addAction( QIcon( ":/tool/add" ), tr("Add") );
     connect( tbaAdd, &QAction::triggered, this, &ToolBar::actionAdd );
 
-    tbaEdit = addAction( QIcon( ":/tool/edit" ), tr( "Edit" ) );
+    tbaEdit = addAction( QIcon( ":/tool/edit" ), tr("Edit") );
     connect( tbaEdit, &QAction::triggered, this, &ToolBar::actionEdit );
 
-    tbaRemove = addAction( QIcon( ":/tool/delete" ), tr( "Remove" ) );
+    tbaRemove = addAction( QIcon( ":/tool/delete" ), tr("Remove") );
     connect( tbaRemove, &QAction::triggered, this, &ToolBar::actionRemove );
 
     addSeparator();
 
-    tbaFilmScanner = addAction( QIcon( ":/window/film-scanner" ), tr( "Film scanner" ) );
+    tbaFilmScanner = addAction( QIcon( ":/window/film-scanner" ), tr("Film scanner") );
     connect( tbaFilmScanner, &QAction::triggered, this, &ToolBar::actionFilmScanner );
 
     addSeparator();
 
-    tbaRandom = addAction( QIcon( ":/tool/random" ), tr( "Random" ) );
+    tbaRandom = addAction( QIcon( ":/tool/random" ), tr("Random") );
     connect( tbaRandom, &QAction::triggered, this, &ToolBar::actionRandom );
 
-    tbaSearch = addAction( QIcon( ":/tool/find" ), tr( "Search" ) );
+    tbaSearch = addAction( QIcon( ":/tool/find" ), tr("Search") );
     connect( tbaSearch, &QAction::triggered, this, &ToolBar::actionSearch );
 
     addSeparator();
 
-    tbaExit = addAction( QIcon( ":/action/exit" ), tr( "Exit" ) );
+    tbaExit = addAction( QIcon( ":/action/exit" ), tr("Exit") );
     connect( tbaExit, &QAction::triggered, this, &ToolBar::actionExit );
 }
 

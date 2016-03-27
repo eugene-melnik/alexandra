@@ -82,8 +82,8 @@ void AddFilmWindow::OpenFilm()
         openPath = settings->GetLastFilmPath();
     }
 
-    QFileInfo fileName = QFileDialog::getOpenFileName( this, tr( "Select film" ), openPath,
-                                                       tr( "Video files (%1)" ).arg( FilesExtensions::GetFilmExtensionsForFilter() ) );
+    QFileInfo fileName = QFileDialog::getOpenFileName( this, tr("Select film"), openPath,
+                                                       tr("Video files (%1)").arg( FilesExtensions::GetFilmExtensionsForFilter() ) );
 
     if( fileName.isFile() )
     {
@@ -109,7 +109,7 @@ void AddFilmWindow::OpenFilm()
         if( !posterFileName.isEmpty() )
         {
             ePosterFileName->setText( posterFileName );
-            bOpenPoster->setText( tr( "Clear" ) );
+            bOpenPoster->setText( tr("Clear") );
         }
 
         settings->SetLastFilmPath( fileName.absolutePath() );
@@ -124,13 +124,13 @@ void AddFilmWindow::OpenPosterFileClicked()
     {
         DebugPrint( "Selecting new poster" );
 
-        QFileInfo fileName = QFileDialog::getOpenFileName( this, tr( "Select image" ), settings->GetLastPosterPath(),
-                                                           tr( "Images (%1)" ).arg( FilesExtensions::GetImageExtensionsForFilter() ) );
+        QFileInfo fileName = QFileDialog::getOpenFileName( this, tr("Select image"), settings->GetLastPosterPath(),
+                                                           tr("Images (%1)").arg( FilesExtensions::GetImageExtensionsForFilter() ) );
 
         if( fileName.isFile() )
         {
             ePosterFileName->setText( fileName.absoluteFilePath() );
-            bOpenPoster->setText( tr( "Clear" ) );
+            bOpenPoster->setText( tr("Clear") );
 
             settings->SetLastPosterPath( fileName.absolutePath() );
             eTitle->setFocus();
@@ -148,7 +148,7 @@ void AddFilmWindow::OpenPosterFileClicked()
 
         if( posterPath == postersDirPath )
         {
-            int answer = QMessageBox::question( this, tr( "Clear poster" ), tr( "Remove image file?" ) );
+            int answer = QMessageBox::question( this, tr("Clear poster"), tr("Remove image file?") );
 
             if( answer == QMessageBox::Yes )
             {
@@ -164,7 +164,7 @@ void AddFilmWindow::OpenPosterFileClicked()
         }
 
         ePosterFileName->clear();
-        bOpenPoster->setText( tr( "Open" ) );
+        bOpenPoster->setText( tr("Open") );
     }
 }
 
@@ -173,7 +173,7 @@ void AddFilmWindow::LoadInformation()
 {
     if( eTitle->text().isEmpty() && eOriginalTitle->text().isEmpty() )
     {
-        QMessageBox::information( this, tr( "Loading information" ), tr( "Input title for searching!" ) );
+        QMessageBox::information( this, tr("Loading information"), tr("Input title for searching!") );
         eTitle->setFocus();
         return;
     }
@@ -213,7 +213,7 @@ bool AddFilmWindow::CanBeSaved()
       // Checking for necessary fields
     if( eTitle->text().isEmpty() )
     {
-        QMessageBox::information( this, tr( "Adding film" ), tr( "Field \"Title\" can't be empty." ) );
+        QMessageBox::information( this, tr("Adding film"), tr("Field \"Title\" can't be empty.") );
         eTitle->setFocus();
         return( false );
     }
@@ -304,7 +304,7 @@ void AddFilmWindow::Save()
             }
             else
             {
-                QMessageBox::warning( this, tr( "Saving film" ), tr( "Error while moving poster to posters directory." ) );
+                QMessageBox::warning( this, tr("Saving"), tr("Error while moving poster to posters directory.") );
             }
         }
     }
@@ -319,7 +319,7 @@ void AddFilmWindow::InformationLoaded( const FilmItem& film, const QString& post
     {
         filmNewPosterName = film.GetColumnData( FilmItem::PosterColumn ).toString();
         ePosterFileName->setText( posterFileName );
-        bOpenPoster->setText( tr( "Clear" ) );
+        bOpenPoster->setText( tr("Clear") );
     }
 
     if( eTitle->text().isEmpty() )
@@ -356,11 +356,11 @@ void AddFilmWindow::InformationLoadError( const QString& error )
     bLoad->setEnabled( true );
     progressBar->hide();
 
-    QMessageBox::warning( this, tr( "Loading information" ), tr( "Error!\n%1" ).arg( tr( error.toUtf8() ) ) );
+    QMessageBox::warning( this, tr("Loading information"), tr("Error!\n%1").arg( tr(error.toUtf8()) ) );
 
     if( sbYear->value() != sbYear->minimum() )
     {
-        QMessageBox::information( this, tr( "Loading information" ),
+        QMessageBox::information( this, tr("Loading information"),
                                   tr( "Please note that the search is performed on the fields \"Title\" (or \"Original title\") "
                                       "and \"Year\" (if specified). Perhaps some of these data are incorrect." ) );
     }

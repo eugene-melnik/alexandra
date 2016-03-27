@@ -131,8 +131,7 @@ void SearchWindow::SimpleSearchStart()
 
     if( keyword.isEmpty() || columns.isEmpty() )
     {
-        QMessageBox::information( this, tr( "Search" ),
-                                  tr( "Nothing to search. Input keyword and select at least one field." ) );
+        QMessageBox::information( this, tr("Search"), tr("Nothing to search. Input keyword and select at least one field.") );
         return;
     }
 
@@ -400,7 +399,7 @@ void SearchWindow::SetupProxyModel( QAbstractProxyModel* proxy )
 
     if( proxy->rowCount() == 0 )
     {
-        QMessageBox::information( this, tr( "Simple search" ), tr( "Nothing was found." ) );
+        QMessageBox::information( this, tr("Simple search"), tr("Nothing was found.") );
     }
 
       // FIXME: One Qt::DescendingOrder doesn't work

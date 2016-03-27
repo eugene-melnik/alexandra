@@ -101,7 +101,7 @@
              <item>
               <widget class="QLabel" name="lFavouriteFilms">
                <property name="text">
-                <string>0</string>
+                <string notr="true">0</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -188,7 +188,7 @@
              <item>
               <widget class="QLabel" name="lNumberOfDirectors">
                <property name="text">
-                <string>0</string>
+                <string notr="true">0</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -198,7 +198,7 @@
              <item>
               <widget class="QLabel" name="lNumberOfScreenwriters">
                <property name="text">
-                <string>0</string>
+                <string notr="true">0</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -208,7 +208,7 @@
              <item>
               <widget class="QLabel" name="lNumberOfGenres">
                <property name="text">
-                <string>0</string>
+                <string notr="true">0</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -218,7 +218,7 @@
              <item>
               <widget class="QLabel" name="lNumberOfActors">
                <property name="text">
-                <string>0</string>
+                <string notr="true">0</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -228,7 +228,7 @@
              <item>
               <widget class="QLabel" name="lNumberOfCountries">
                <property name="text">
-                <string>0</string>
+                <string notr="true">0</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>

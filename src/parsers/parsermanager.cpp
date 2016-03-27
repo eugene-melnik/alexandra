@@ -32,7 +32,7 @@
 
 ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
 {
-    parsers.insert( Auto,       tr( "<Auto>" ) );
+    parsers.insert( Auto,       tr("<Auto>") );
     parsers.insert( IMDB,       "IMDB (http://www.imdb.com/)" );
     parsers.insert( Kinopoisk,  "КиноПоиск (http://www.kinopoisk.ru/)" );
     parsers.insert( Kinoteatr,  "Кіно-Театр (http://kino-teatr.ua/)" );
@@ -75,7 +75,7 @@ void ParserManager::SearchSync( FilmItem* filmSaveTo, QString* posterFileNameSav
 
     if( title.isEmpty() )
     {
-        emit Error( tr( "Nothing to search." ) );
+        emit Error( tr("Nothing to search.") );
         return;
     }
 

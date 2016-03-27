@@ -26,7 +26,7 @@
 
 EditFilmWindow::EditFilmWindow( QWidget* parent ) : AddFilmWindow( parent )
 {
-    setWindowTitle( tr( "Edit film" ) );
+    setWindowTitle( tr("Edit film") );
 }
 
 

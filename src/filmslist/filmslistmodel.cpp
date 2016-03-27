@@ -366,17 +366,17 @@ void FilmsListModel::LoadFromFile( QString fileName )
             }
             else
             {
-                emit DatabaseReadError( tr( "Can't load database!" ) );
+                emit DatabaseReadError( tr("Can't load database!") );
             }
         }
         else
         {
-            emit DatabaseReadError( tr( "Wrong database file format." ) );
+            emit DatabaseReadError( tr("Wrong database file format.") );
         }
     }
     else
     {
-        emit DatabaseReadError( tr( "Error while reading database file. Check the access permissions." ) );
+        emit DatabaseReadError( tr("Error while reading database file. Check the access permissions.") );
     }
 
     endResetModel();

@@ -160,7 +160,7 @@ void FilmsViewList::ShowHeaderContextMenu( const QPoint& pos )
 {
       // Setup
     QHeaderView* header = horizontalHeader();
-    QMenu menu( tr( "Columns" ) );
+    QMenu menu( tr("Columns") );
 
       // "Title" always enabled
       // "Filename" and "Poster" always disabled
@@ -173,7 +173,7 @@ void FilmsViewList::ShowHeaderContextMenu( const QPoint& pos )
     }
 
     menu.addSeparator();
-    QAction* resetAction = menu.addAction( tr( "Reset to defaults" ) );
+    QAction* resetAction = menu.addAction( tr("Reset to defaults") );
     resetAction->setData( model()->columnCount() );
 
       // Show

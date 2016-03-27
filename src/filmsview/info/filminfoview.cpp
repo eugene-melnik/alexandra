@@ -110,7 +110,7 @@ void FilmInfoView::ShowEmptyDatabaseMessage()
     lTagline->setText( "1. " + line2 );
     lTagline->show();
 
-    const QString line3 = tr( "Scan selected folders on the drive with the automatic addition of the selected films (menu \"Tools\"→\"Films scanner\" or button on the toolbar)." );
+    const QString line3 = tr( "Scan the directories on your hard drive (menu \"Tools\"→\"Films scanner\" or button on the toolbar)." );
     lGenre->setText( "2. " + line3 );
     lGenre->show();
 
@@ -118,7 +118,7 @@ void FilmInfoView::ShowEmptyDatabaseMessage()
     lCountry->setText( "3. " + line4 );
     lCountry->show();
 
-    const QString line5 = tr( "All of these tools have automatic information retrieval via the Internet, as well as loading a graphic poster for the film. Enjoy! :)" );
+    const QString line5 = tr( "All of these tools have automatic information retrieval via the Internet as well as loading a graphic poster for the film. Enjoy!" );
     lScreenwriter->setText( line5 );
     lScreenwriter->show();
 }

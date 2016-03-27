@@ -98,13 +98,13 @@ void MainWindow::AddFilmsFromOutside( const QStringList& filmsFileNames )
 
     if( newFilms.size() == 0 )
     {
-        QMessageBox::information( this, tr( "Add films" ), tr( "Nothing to add." ) );
+        QMessageBox::information( this, tr("Add films"), tr("Nothing to add.") );
     }
     else
     {
-        messageText = tr( "Add the following film(s)?\n" ) + messageText;
+        messageText = tr("Add the following film(s)?\n") + messageText;
 
-        int answer = QMessageBox::question( this, tr( "Add films" ), messageText,
+        int answer = QMessageBox::question( this, tr("Add films"), messageText,
                                             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes );
 
         if( answer == QMessageBox::Yes )
@@ -114,7 +114,7 @@ void MainWindow::AddFilmsFromOutside( const QStringList& filmsFileNames )
                 filmsListModel->AddFilmItem( film );
             }
 
-            QMessageBox::information( this, tr( "Add films" ), tr( "Done!" ) );
+            QMessageBox::information( this, tr("Add films"), tr("Done!") );
         }
         else
         {
@@ -147,12 +147,12 @@ void MainWindow::DatabaseConvertOld()
 
     do
     {
-        QString newName = QFileDialog::getSaveFileName( this, tr( "Save backup" ), backupFileName, tr( "Alexandra DB (*.adat)" ) );
+        QString newName = QFileDialog::getSaveFileName( this, tr("Save backup"), backupFileName, tr("Alexandra DB (*.adat)") );
 
         if( newName.isEmpty() )
         {
             int answer = QMessageBox::warning( this,
-                                               tr( "Save backup" ),
+                                               tr("Save backup"),
                                                tr( "Are you sure you don't want to save a backup? You can lose "
                                                    "your data if the conversion fails!" ),
                                                QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
@@ -169,12 +169,11 @@ void MainWindow::DatabaseConvertOld()
             }
             else
             {
-                QMessageBox::warning( this, tr( "Save backup" ), tr( "Unable to save file. Try to select another location." ) );
+                QMessageBox::warning( this, tr("Save backup"), tr("Unable to save file. Try to select another location.") );
             }
         }
     }
     while( !isDone );
-
 }
 
 
@@ -191,7 +190,7 @@ void MainWindow::DatabaseChanged()
 void MainWindow::ResetStatistics()
 {
     filmsListModel->ResetViews();
-    QMessageBox::information( this, tr( "Reset statistics" ), tr( "Done!" ) );
+    QMessageBox::information( this, tr("Reset statistics"), tr("Done!") );
 }
 
 
@@ -222,8 +221,8 @@ void MainWindow::DatabaseReadError( const QString& message )
 {
     ClearTextFields();
     SetAllFunctionsEnabled( false );
-    wFilmInfo->ShowMessage( tr( "Error reading the database!" ) );
-    QMessageBox::critical( this, tr( "Database read error" ), message );
+    wFilmInfo->ShowMessage( tr("Error reading the database!") );
+    QMessageBox::critical( this, tr("Database read error"), message );
 }
 
 
@@ -237,7 +236,7 @@ void MainWindow::DatabaseIsEmpty()
 void MainWindow::DatabaseIsReadonly()
 {
     SetReadOnlyMode();
-    statusbar->SetAdditionalText( tr( "The database file is read-only." ) );
+    statusbar->SetAdditionalText( tr("The database file is read-only.") );
 }
 
 
@@ -395,7 +394,7 @@ void MainWindow::AddToPlaylist()
 
         if( !wPlaylist->IsEmpty() )
         {
-            bPlay->setText( tr( "Play list" ) );
+            bPlay->setText( tr("Play list") );
             bPlay->setEnabled( true );
         }
     }
@@ -565,18 +564,18 @@ void MainWindow::ShowRemoveFilmWindow()
     }
 
     QModelIndexList selectedIndexes = filmsView->GetSelectedItemsList();
-    QString windowTitle = tr( "Remove film" );
+    QString windowTitle = tr("Remove film");
     QString windowMessage;
 
     if( selectedIndexes.count() == 0 )
     {
-        QMessageBox::warning( this, windowTitle, tr( "Nothing was selected!") );
+        QMessageBox::warning( this, windowTitle, tr("Nothing was selected!") );
         return;
     }
     else if( selectedIndexes.count() == 1 ) // One film selected
     {
         QString filmTitle = filmsListProxyModel->GetFilmTitleByIndex( selectedIndexes.at(0) );
-        windowMessage = tr( "Are you sure to remove \"%1\"?" ).arg( filmTitle );
+        windowMessage = tr("Are you sure to remove \"%1\"?").arg( filmTitle );
     }
     else // More than one film selected
     {
@@ -586,7 +585,7 @@ void MainWindow::ShowRemoveFilmWindow()
             windowMessage.append( QString( "%1) %2\n" ).arg( i + 1 ).arg( filmTitle ) );
         };
 
-        windowMessage = tr( "Are you sure to remove following films?\n" );
+        windowMessage = tr("Are you sure to remove following films?\n");
         const int maxItemCount = 20;
 
         for( int i = 0; i < std::min( maxItemCount - 1, selectedIndexes.count() ); i++ )
@@ -632,8 +631,8 @@ void MainWindow::ShowRemoveFileWindow()
     QModelIndex index = filmsView->GetCurrentIndex();
     const FilmItem* film = filmsListProxyModel->GetFilmItemByIndex( index );
 
-    int answer = QMessageBox::question( this, tr( "Remove file" ),
-                                        tr( "Are you sure to remove file \"%1\"?" ).arg( film->GetTitle() ) );
+    int answer = QMessageBox::question( this, tr("Remove file"),
+                                        tr("Are you sure to remove file \"%1\"?").arg( film->GetTitle() ) );
 
     if( answer == QMessageBox::Yes )
     {
@@ -641,8 +640,8 @@ void MainWindow::ShowRemoveFileWindow()
 
         if( QFile(filmFileName).remove() )
         {
-            answer = QMessageBox::question( this, tr( "Remove file" ),
-                                            tr( "File was successfully removed. Do you want to remove record from the database?" ) );
+            answer = QMessageBox::question( this, tr("Remove file"),
+                                            tr("File was successfully removed. Do you want to remove record from the database?") );
 
             if( answer == QMessageBox::Yes )
             {
@@ -657,7 +656,7 @@ void MainWindow::ShowRemoveFileWindow()
         }
         else
         {
-            QMessageBox::warning( this, tr( "Remove file" ), tr( "Unable to remove file \"%1\"!" ).arg( filmFileName ) );
+            QMessageBox::warning( this, tr("Remove file"), tr("Unable to remove file \"%1\"!").arg( filmFileName ) );
         }
     }
 }
@@ -707,7 +706,7 @@ void MainWindow::ShowMovedFilmsWindow()
 
     if( films.isEmpty() )
     {
-        QMessageBox::information( this, tr( "Moved films" ), tr( "Nothing to move." ) );
+        QMessageBox::information( this, tr("Moved films"), tr("Nothing to move.") );
     }
     else
     {
@@ -759,11 +758,11 @@ void MainWindow::SetCurrentFilmIsViewed( bool setViewed )
     else // Uncheck
     {
         QMessageBox mb( this );
-        mb.setWindowTitle( tr( "Views counter" ) );
-        mb.setText( tr( "What do you want to do?" ) );
+        mb.setWindowTitle( tr("Views counter") );
+        mb.setText( tr("What do you want to do?") );
         QAbstractButton* cancelButton = mb.addButton( QMessageBox::Cancel );
-        QAbstractButton* addViewButton = mb.addButton( tr( "Add view"), QMessageBox::AcceptRole );
-        QAbstractButton* resetViewsButton = mb.addButton( tr( "Reset views"), QMessageBox::ResetRole);
+        QAbstractButton* addViewButton = mb.addButton( tr("Add view"), QMessageBox::AcceptRole );
+        QAbstractButton* resetViewsButton = mb.addButton( tr("Reset views"), QMessageBox::ResetRole);
         mb.setEscapeButton( cancelButton );
 
         mb.exec();
@@ -1049,9 +1048,8 @@ void MainWindow::LoadSettings()
 
     if( !wPlaylist->IsEmpty() )
     {
-        bPlay->setText( tr( "Play list" ) );
+        bPlay->setText( tr("Play list") );
     }
-
     DebugPrintFuncDone( "MainWindow::LoadSettings" );
 }
 
@@ -1069,7 +1067,7 @@ void MainWindow::LoadAppearance()
       // Style
     QString style = settings->GetApplicationStyleName();
 
-    if( style == tr( "<Theme>" ) )
+    if( style == tr("<Theme>") )
     {
         QFile file( Alexandra::themes[ settings->GetApplicationThemeIndex() ].path + "style.qss" );
         file.open( QIODevice::ReadOnly );

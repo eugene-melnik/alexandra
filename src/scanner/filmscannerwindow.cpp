@@ -96,7 +96,7 @@ FilmScannerWindow::~FilmScannerWindow()
 
 void FilmScannerWindow::SelectDirectory()
 {
-    QString directory = QFileDialog::getExistingDirectory( this, tr( "Select directory for scanning" ), eDirectory->text() );
+    QString directory = QFileDialog::getExistingDirectory( this, tr("Select directory for scanning"), eDirectory->text() );
 
     if( !directory.isEmpty() )
     {
@@ -121,7 +121,7 @@ void FilmScannerWindow::Scan()
       // Messages
     if( eDirectory->text().isEmpty() )
     {
-        QMessageBox::information( this, tr( "Film scanner" ), tr( "First select the directory to scan." ) );
+        QMessageBox::information( this, tr("Film scanner"), tr("First select the directory to scan.") );
         return;
     }
 
@@ -134,7 +134,7 @@ void FilmScannerWindow::Scan()
 
       // Flip button
     bScan->setEnabled( true );
-    bScan->setText( tr( "Cancel" ) );
+    bScan->setText( tr("Cancel") );
     progressBar->show();
 
     DebugPrintFuncDone( "FilmScannerWindow::Scan" );
@@ -147,7 +147,7 @@ void FilmScannerWindow::AddSelected()
 
     if( selectedFilms.empty() ) // Nothing was selected
     {
-        QMessageBox::information( this, tr( "Film scanner" ), tr( "First select the files to add." ) );
+        QMessageBox::information( this, tr("Film scanner"), tr("First select the files to add.") );
     }
     else
     {
@@ -184,12 +184,12 @@ void FilmScannerWindow::ShowFounded( QStringList fileNames )
 {
     DebugPrintFunc( "FilmScannerWindow::ShowFounded", fileNames.size() );
 
-    bScan->setText( tr( "Scan" ) );
+    bScan->setText( tr("Scan") );
     progressBar->hide();
 
     if( fileNames.isEmpty() )
     {
-        QMessageBox::information( this, tr( "Film scanner" ), tr( "Nothing was found." ) );
+        QMessageBox::information( this, tr("Film scanner"), tr("Nothing was found.") );
         return;
     }
 

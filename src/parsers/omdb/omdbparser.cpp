@@ -33,7 +33,7 @@ OmdbParser::OmdbParser() : AbstractParser()
 
       // Strings for localization mechanism of Qt
       // which may be returned by server
-    tr( "Movie not found!" );
+    tr("Movie not found!");
 }
 
 

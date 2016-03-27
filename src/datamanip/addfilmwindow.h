@@ -54,8 +54,8 @@ class AddFilmWindow : public QDialog, protected Ui::AddFilmWindow
         void OpenPosterFileClicked();
         void LoadInformation();
 
-        void EditStarring() { ShowEditor( lStarringText, tr( "Starring" ) ); }
-        void EditDescription() { ShowEditor( lDescriptionText, tr( "Description" ) ); }
+        void EditStarring() { ShowEditor( lStarringText, tr("Starring") ); }
+        void EditDescription() { ShowEditor( lDescriptionText, tr("Description") ); }
 
         void ShowEditor( CutLabel* editDataIn, const QString& title );
 

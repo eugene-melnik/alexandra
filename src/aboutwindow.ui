@@ -227,7 +227,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Author(s):</string>
+                <string>Author:</string>
                </property>
               </widget>
              </item>

@@ -76,7 +76,7 @@ MovedFilmsWindow::~MovedFilmsWindow()
 
 void MovedFilmsWindow::SelectDirectory()
 {
-    QString directory = QFileDialog::getExistingDirectory( this, tr( "Select directory for scanning" ), eDirectory->text() );
+    QString directory = QFileDialog::getExistingDirectory( this, tr("Select directory for scanning"), eDirectory->text() );
 
     if( !directory.isEmpty() )
     {
@@ -101,7 +101,7 @@ void MovedFilmsWindow::Scan()
       // Messages
     if( eDirectory->text().isEmpty() )
     {
-        QMessageBox::information( this, tr( "Moved films" ), tr( "First select the directory to scan." ) );
+        QMessageBox::information( this, tr("Moved films"), tr("First select the directory to scan.") );
         return;
     }
 
@@ -111,7 +111,7 @@ void MovedFilmsWindow::Scan()
     filmScannerWorker->start();
 
       // Flip button
-    bScan->setText( tr( "Cancel" ) );
+    bScan->setText( tr("Cancel") );
     progressBar->show();
 }
 
@@ -121,7 +121,7 @@ void MovedFilmsWindow::ShowFounded( QStringList fileNames )
     DebugPrintFunc( "MovedFilmsWindow::ShowFounded", fileNames.size() );
 
       // Flip button
-    bScan->setText( tr( "Scan" ) );
+    bScan->setText( tr("Scan") );
     progressBar->hide();
 
       // Show
@@ -145,7 +145,7 @@ void MovedFilmsWindow::ShowFounded( QStringList fileNames )
 
     if( gbFounded->GetItemsCount() == 0 )
     {
-        QMessageBox::information( this, tr( "Moved films" ), tr( "Nothing was found." ) );
+        QMessageBox::information( this, tr("Moved films"), tr("Nothing was found.") );
     }
 
     DebugPrintFuncDone( "MovedFilmsWindow::ShowFounded" );
@@ -156,7 +156,7 @@ void MovedFilmsWindow::MoveSelected()
 {
     if( lSelected->text().toInt() == 0 )
     {
-        QMessageBox::information( this, tr( "Moved films" ), tr( "First select the files to move." ) );
+        QMessageBox::information( this, tr("Moved films" ), tr("First select the files to move.") );
         return;
     }
 

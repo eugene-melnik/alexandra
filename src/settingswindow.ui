@@ -722,7 +722,7 @@
             <item>
              <widget class="QCheckBox" name="cCheckFilesAtStartup">
               <property name="text">
-               <string>Checking availability of files at startup</string>
+               <string>Highlight unavailable files</string>
               </property>
              </widget>
             </item>

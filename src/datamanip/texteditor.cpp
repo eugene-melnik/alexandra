@@ -53,9 +53,12 @@ void TextEditor::reject()
 {
     if( isTextChanged )
     {
-        int answer = QMessageBox::question( this, windowTitle(), tr( "Are you sure you want to discard changes?" ) );
+        int answer = QMessageBox::question( this, windowTitle(), tr("Are you sure you want to discard changes?") );
 
-        if( answer == QMessageBox::No ) return;
+        if( answer == QMessageBox::No )
+        {
+            return;
+        }
     }
 
     QDialog::reject();

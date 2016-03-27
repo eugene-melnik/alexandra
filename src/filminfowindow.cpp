@@ -69,6 +69,6 @@ void FilmInfoWindow::CopyToClipboard()
 {
     eTechInfo->selectAll();
     eTechInfo->copy();
-    QMessageBox::information( this, tr( "Technical information" ), tr( "Successfully copied." ) );
+    QMessageBox::information( this, tr("Technical information"), tr("Successfully copied.") );
 }
 

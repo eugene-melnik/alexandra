@@ -70,7 +70,7 @@ void SettingsWindow::ConfigureAppearanceTab()
 
       /// Application styles
 
-    appStyles.append( tr( "<Theme>" ) );
+    appStyles.append( tr("<Theme>") );
     appStyles.append( QStyleFactory::keys() );
 
     cbStyle->addItems( appStyles );
@@ -105,11 +105,11 @@ void SettingsWindow::ConfigureAppearanceTab()
 
       /// Toolbar style
 
-    toolStyles.insert( Qt::ToolButtonIconOnly,       tr( "Icon only" ) );
-    toolStyles.insert( Qt::ToolButtonTextOnly,       tr( "Text only" ) );
-    toolStyles.insert( Qt::ToolButtonTextBesideIcon, tr( "Text beside icon" ) );
-    toolStyles.insert( Qt::ToolButtonTextUnderIcon,  tr( "Text under icon" ) );
-    toolStyles.insert( Qt::ToolButtonFollowStyle,    tr( "<Follow system style>" ) );
+    toolStyles.insert( Qt::ToolButtonIconOnly,       tr("Icon only") );
+    toolStyles.insert( Qt::ToolButtonTextOnly,       tr("Text only") );
+    toolStyles.insert( Qt::ToolButtonTextBesideIcon, tr("Text beside icon") );
+    toolStyles.insert( Qt::ToolButtonTextUnderIcon,  tr("Text under icon") );
+    toolStyles.insert( Qt::ToolButtonFollowStyle,    tr("<Follow system style>") );
 
     cbToolbarStyle->addItems( toolStyles.values() );
     cbToolbarStyle->setCurrentIndex( settings->GetMainWindowToolbarStyle() );
@@ -221,9 +221,9 @@ void SettingsWindow::ConfigureApplicationTab()
 
       /// Player
 
-    playerBehaviors.insert( "0-auto",        tr( "<Auto>" ) );
-    playerBehaviors.insert( "1-add-to-list", tr( "Add to playlist" ) );
-    playerBehaviors.insert( "2-play",        tr( "Play" ) );
+    playerBehaviors.insert( "0-auto",        tr("<Auto>") );
+    playerBehaviors.insert( "1-add-to-list", tr("Add to playlist") );
+    playerBehaviors.insert( "2-play",        tr("Play") );
 
     cbDoubleClickBehavior->addItems( playerBehaviors.values() );
     cbDoubleClickBehavior->setCurrentText( playerBehaviors.value( settings->GetPlayerDoubleClickBehavior() ) );
@@ -302,12 +302,12 @@ void SettingsWindow::ConfigureApplicationTab()
 void SettingsWindow::SelectExternalPlayer()
 {
     #ifdef Q_OS_WIN32
-        QString filter = tr( "Executable files (*.exe)" );
+        QString filter = tr("Executable files (*.exe)");
     #else
-        QString filter = tr( "Executable files (*)" );
+        QString filter = tr("Executable files (*)");
     #endif
 
-    QString externalPlayer = QFileDialog::getOpenFileName( this, tr( "Select external player" ), eExternalPlayer->text(), filter );
+    QString externalPlayer = QFileDialog::getOpenFileName( this, tr("Select external player"), eExternalPlayer->text(), filter );
 
     if( !externalPlayer.isEmpty() )
     {
@@ -328,9 +328,9 @@ void SettingsWindow::SetDefaultExternalPlayer()
 
 void SettingsWindow::OpenDatabaseFile()
 {
-    QString databaseFileName = QFileDialog::getOpenFileName( this, tr( "Select database file" ),
+    QString databaseFileName = QFileDialog::getOpenFileName( this, tr("Select database file"),
                                                              eDatabaseFile->text(),
-                                                             tr( "Alexandra DB (*.adat)" ) );
+                                                             tr("Alexandra DB (*.adat)") );
 
     if( !databaseFileName.isEmpty() )
     {
@@ -339,8 +339,8 @@ void SettingsWindow::OpenDatabaseFile()
 
         if( QFile::exists( postersDir ) )
         {
-            int answer = QMessageBox::question( this, tr( "Settings" ),
-                                                tr( "Would you like to set the catalog of posters is \"%1\"?" ).arg( postersDir ) );
+            int answer = QMessageBox::question( this, tr("Settings"),
+                                                tr("Would you like to set the catalog of posters is \"%1\"?").arg( postersDir ) );
 
             if( answer == QMessageBox::Yes )
             {
@@ -353,7 +353,7 @@ void SettingsWindow::OpenDatabaseFile()
 
 void SettingsWindow::CreateDatabase()
 {
-    QString databaseFileName = QFileDialog::getSaveFileName( this, tr( "Create database" ), "database.adat", tr( "Alexandra DB (*.adat)" ) );
+    QString databaseFileName = QFileDialog::getSaveFileName( this, tr("Create database"), "database.adat", tr("Alexandra DB (*.adat)") );
 
     if( !databaseFileName.isEmpty() )
     {
@@ -363,8 +363,8 @@ void SettingsWindow::CreateDatabase()
           // Posters dir
         QString postersDir = QFileInfo( databaseFileName ).absolutePath() + "/posters";
 
-        int answer = QMessageBox::question( this, tr( "Create database" ),
-                                            tr( "Would you like to set the directory for posters next to the database file?" ),
+        int answer = QMessageBox::question( this, tr("Create database"),
+                                            tr("Would you like to set the directory for posters next to the database file?"),
                                             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes );
 
         if( answer == QMessageBox::Yes )
@@ -379,8 +379,8 @@ void SettingsWindow::CreateDatabase()
 
 void SettingsWindow::EraseDatabaseQuestion()
 {
-    int answer = QMessageBox::warning( this, tr( "Erase database" ),
-                                       tr( "Are you sure you want to erase the database and posters?" ),
+    int answer = QMessageBox::warning( this, tr("Erase database"),
+                                       tr("Are you sure you want to erase the database and posters?"),
                                        QMessageBox::Yes | QMessageBox::No, QMessageBox::No );
 
     if( answer == QMessageBox::Yes )
@@ -405,7 +405,7 @@ void SettingsWindow::SelectColorUnavailable()
 
 void SettingsWindow::OpenPostersFolder()
 {
-    QString newFolder = QFileDialog::getExistingDirectory( this, tr( "Select posters' folder" ), ePostersFolder->text() );
+    QString newFolder = QFileDialog::getExistingDirectory( this, tr("Select posters' folder"), ePostersFolder->text() );
 
     if( !newFolder.isEmpty() )
     {
@@ -509,7 +509,7 @@ bool SettingsWindow::HasDuplicate( QString currentKey, QString objName )
         if( s.keyEdit->objectName() != objName                      // Not the same object
             && s.keyEdit->keySequence().toString() == currentKey )  // Key sequences equal
         {
-            QMessageBox::warning( this, tr( "Shortcuts" ), tr( "This shortcut is already in use!" ) );
+            QMessageBox::warning( this, tr("Shortcuts"), tr("This shortcut is already in use!") );
             return( true );
         }
     }
@@ -541,7 +541,7 @@ void SettingsWindow::SaveSettings()
 
     if( isNeedReboot )
     {
-        QMessageBox::information( this, tr( "Settings" ), tr( "For taking all settings, restart the application." ) );
+        QMessageBox::information( this, tr("Settings"), tr("For taking all settings, restart the application.") );
     }
 
     if( isSettingsChanged )

@@ -38,7 +38,7 @@ class TextEditor : public QDialog, protected Ui::TextEditor
 
         void SetDataSource( CutLabel* source ) { dataSource = source; }
         void SetDataReceiver( CutLabel* receiver ) { dataReceiver = receiver; }
-        void SetTitle( const QString& title ) { setWindowTitle( tr( "Editing \"%1\"").arg(title) ); }
+        void SetTitle( const QString& title ) { setWindowTitle( tr("Editing \"%1\"").arg(title) ); }
 
         void show();
 

@@ -135,8 +135,8 @@ void PlaylistWidget::ShowContextMenu( const QPoint& pos )
     if( lwMain->count() > 0 && lwMain->currentRow() >= 0 )
     {
         QMenu menu;
-        menu.addAction( QIcon( ":/tool/delete" ), tr( "Remove from playlist" ), this, SLOT( RemoveCurrentFromList() ) );
-        menu.addAction( QIcon( ":/tool/clear" ),  tr( "Clear all" ),            this, SLOT( Clear() ) );
+        menu.addAction( QIcon( ":/tool/delete" ), tr("Remove from playlist"), this, SLOT( RemoveCurrentFromList() ) );
+        menu.addAction( QIcon( ":/tool/clear" ),  tr("Clear all"),            this, SLOT( Clear() ) );
         menu.exec( mapToGlobal( pos ) );
     }
 }
