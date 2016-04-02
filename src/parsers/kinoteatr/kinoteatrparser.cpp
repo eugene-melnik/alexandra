@@ -85,7 +85,7 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
         film.SetColumnData( FilmItem::StarringColumn, RegExpTools::ParseList( str, reStarringList, reName ) );
 
           // Description
-        QRegExp reDescription( "id='filmText' itemprop=\"description\"><.*>(.*)</p>" );
+        QRegExp reDescription( "id='filmText' itemprop=\"description\"><p.*>(.*)</p>" );
         film.SetColumnData( FilmItem::DescriptionColumn, RegExpTools::ParseItem( str, reDescription ) );
 
           // Advanced information
@@ -118,19 +118,20 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
               // Lot of redirectes... :(
 
             QString newRedirectUrl = redirectUrl;
-            str = QString( request.runSync( QUrl( newRedirectUrl.replace( "film", "film-poster" ) ) ) );
-            RegExpTools::SimplifyText( str );
-            DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
+            QString s = QString( request.runSync( QUrl( newRedirectUrl.replace( "film", "film-poster" ) ) ) );
+            RegExpTools::SimplifyText( s );
+            DebugPrint( QString( "Simpified to: %1 bytes" ).arg( s.size() ) );
 
             QRegExp rePoster( "class=\"poster_preview\" ><a.*href=\"(.*)\"" );
-            str = QString( request.runSync( QUrl( RegExpTools::ParseItem( str, rePoster ) ) ) );
-            RegExpTools::SimplifyText( str );
-            DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
+            s = QString( request.runSync( QUrl( RegExpTools::ParseItem( s, rePoster ) ) ) );
+            RegExpTools::SimplifyText( s );
+            DebugPrint( QString( "Simpified to: %1 bytes" ).arg( s.size() ) );
 
             rePoster = QRegExp( "class=\"posterImg\".*><img src=\"(.*)\"" );
-            posterUrl = RegExpTools::ParseItem( str, rePoster );
+            posterUrl = RegExpTools::ParseItem( s, rePoster );
         }
-        else // Small poster
+
+        if( posterUrl.isEmpty() ) // Small poster
         {
             QRegExp rePoster( "id='filmPoster'.*><img src='(.*)'" );
             posterUrl = RegExpTools::ParseItem( str, rePoster );

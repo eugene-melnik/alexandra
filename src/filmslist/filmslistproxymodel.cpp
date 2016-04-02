@@ -115,6 +115,7 @@ QVariant FilmsListProxyModel::data( const QModelIndex& index, int role ) const
                     case FilmItem::RatingColumn :
                     {
                         double rating = item->GetColumnData( FilmItem::RatingColumn ).toDouble();
+                        rating = (rating > 0) ? rating : 1.0;
 
                         if( !mapPixRatings.contains(rating) )
                         {
