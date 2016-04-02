@@ -54,11 +54,11 @@ QUrl ImdbParser::Parse( const QByteArray& data )
         DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
 
           // Title
-        QRegExp reTitle( "class=\"itemprop\".*>(.*)</span>" );
+        QRegExp reTitle( "h1 itemprop=\"name\".*>(.*)<span" );
         film.SetColumnData( FilmItem::TitleColumn, RegExpTools::ParseItem( str, reTitle ) );
 
           // Original title
-        QRegExp reOriginalTitle( "class=\"title-extra\".*> \"(.*)\" <i>" );
+        QRegExp reOriginalTitle( "div class=\"originalTitle\">(.*)<span" );
         film.SetColumnData( FilmItem::OriginalTitleColumn, RegExpTools::ParseItem( str, reOriginalTitle ) );
 
           // Tagline
@@ -142,18 +142,19 @@ QUrl ImdbParser::Parse( const QByteArray& data )
 
         if( AlexandraSettings::GetInstance()->GetParsersLoadBigPoster() )
         {
-            QRegExp rePoster( "class=\"image\"><a href=\"(/media.*)\"" );
-            str = QString( request.runSync( QUrl( "http://www.imdb.com" + RegExpTools::ParseItem( str, rePoster ) ) ) );
+            QRegExp rePoster( "div class=\"poster\"><a href=\"(.*)\"" );
+            QString s = QString( request.runSync( QUrl( "http://www.imdb.com" + RegExpTools::ParseItem( str, rePoster ) ) ) );
 
-            RegExpTools::SimplifyText( str );
-            DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
+            RegExpTools::SimplifyText( s );
+            DebugPrint( QString( "Simpified to: %1 bytes" ).arg( s.size() ) );
 
             rePoster = QRegExp( "id=\"primary-img\".*src=\"(.*)\"" );
-            posterUrl = RegExpTools::ParseItem( str, rePoster );
+            posterUrl = RegExpTools::ParseItem( s, rePoster );
         }
-        else // Small poster
+
+        if( posterUrl.isEmpty() ) // Small poster
         {
-            QRegExp rePoster( "<td.*id=\"img_primary\"><.*><a href=\"/media/.*><img.*src=\"(.*)\" itemprop=\"image\" />" );
+            QRegExp rePoster( "div class=\"poster\"><.*><img.*src=\"(.*)\"" );
             posterUrl = RegExpTools::ParseItem( str, rePoster );
         }
 
