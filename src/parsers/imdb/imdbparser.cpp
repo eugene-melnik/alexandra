@@ -168,3 +168,4 @@ QUrl ImdbParser::Parse( const QByteArray& data )
 
     return( posterUrl );
 }
+

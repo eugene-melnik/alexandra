@@ -23,12 +23,14 @@
 #include "tools/regexptools.h"
 #include "tools/debug.h"
 
+
 KinoteatrParser::KinoteatrParser() : AbstractParser()
 {
     DebugPrintFunc( "KinoteatrParser::KinoteatrParser" );
     searchUrlWithYear = QString( "http://kino-teatr.ua/uk/main/films.phtml?title=%1&year=%2" );
     searchUrl = QString( "http://kino-teatr.ua/uk/main/films.phtml?title=%1" );
 }
+
 
 QUrl KinoteatrParser::Parse( const QByteArray& data )
 {
@@ -144,3 +146,4 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
 
     return( posterUrl );
 }
+

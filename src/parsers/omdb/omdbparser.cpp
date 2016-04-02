@@ -32,7 +32,7 @@ OmdbParser::OmdbParser() : AbstractParser()
     searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=json" );
 
       // Strings for localization mechanism of Qt
-      // which may be returned by server
+      // which can be returned by server
     tr("Movie not found!");
 }
 

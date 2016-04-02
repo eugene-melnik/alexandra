@@ -21,13 +21,16 @@
 #ifndef PARSERMANAGER_H
 #define PARSERMANAGER_H
 
+
 #include <QDir>
 #include <QMap>
 #include <QStringList>
 #include <QTime>
 #include <QUrl>
 
+
 #include "filmslist/filmitem.h"
+
 
 class ParserManager : public QObject
 {
@@ -86,4 +89,6 @@ class ParserManager : public QObject
         QTime time;
 };
 
+
 #endif // PARSERMANAGER_H
+

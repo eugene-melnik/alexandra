@@ -155,7 +155,8 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
                 posterUrl = "http://www.kinopoisk.ru" + posterSubUrl;
             }
         }
-        else
+
+        if( posterUrl.isEmpty() )
         {
             QRegExp rePosterUrl( "class=\"popupBigImage\".*><.*src=\"(.*)\" alt.*>" );
             posterUrl = QUrl( RegExpTools::ParseItem( str, rePosterUrl ) );

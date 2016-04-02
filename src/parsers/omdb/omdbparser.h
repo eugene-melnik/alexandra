@@ -21,7 +21,9 @@
 #ifndef OMDBPARSER_H
 #define OMDBPARSER_H
 
+
 #include "parsers/abstractparser.h"
+
 
 class OmdbParser : public AbstractParser
 {
@@ -34,4 +36,6 @@ class OmdbParser : public AbstractParser
         QUrl Parse( const QByteArray& data ) override;
 };
 
+
 #endif // OMDBPARSER_H
+

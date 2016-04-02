@@ -21,7 +21,9 @@
 #ifndef KINOPOISKPARSER_H
 #define KINOPOISKPARSER_H
 
+
 #include "parsers/abstractparser.h"
+
 
 class KinopoiskParser : public AbstractParser
 {
@@ -34,4 +36,6 @@ class KinopoiskParser : public AbstractParser
         QUrl Parse( const QByteArray& data ) override;
 };
 
+
 #endif // KINOPOISKPARSER_H
+

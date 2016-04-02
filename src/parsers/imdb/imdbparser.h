@@ -21,7 +21,9 @@
 #ifndef IMDBPARSER_H
 #define IMDBPARSER_H
 
+
 #include "parsers/abstractparser.h"
+
 
 class ImdbParser : public AbstractParser
 {
@@ -34,4 +36,6 @@ class ImdbParser : public AbstractParser
         QUrl Parse( const QByteArray& data ) override;
 };
 
+
 #endif // IMDBPARSER_H
+
