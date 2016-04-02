@@ -1,6 +1,6 @@
 #define MyAppName "Alexandra Video Library"
 #define MyAppNameShort "Alexandra"
-#define MyAppVersion "1.4.0"
+#define MyAppVersion "1.5.0"
 #define MyAppPublisher "Eugene Melnik"
 #define MyAppURL "http://alexandra-qt.sourceforge.net/"
 #define MyAppExeName "alexandra.exe"
@@ -30,6 +30,7 @@ SolidCompression=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
+Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
@@ -40,14 +41,14 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 [Files]
 Source: "..\src\alexandra.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\lib\MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.5\mingw492_32\bin\libgcc_s_dw2-1.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.5\mingw492_32\bin\libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.5\mingw492_32\bin\libwinpthread-1.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.5\mingw492_32\bin\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.5\mingw492_32\bin\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.5\mingw492_32\bin\Qt5Network.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.5\mingw492_32\bin\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.5\mingw492_32\plugins\platforms\qwindows.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
+Source: "C:\Qt\5.6\mingw49_32\bin\libgcc_s_dw2-1.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Qt\5.6\mingw49_32\bin\libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Qt\5.6\mingw49_32\bin\libwinpthread-1.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Qt\5.6\mingw49_32\bin\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Qt\5.6\mingw49_32\bin\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Qt\5.6\mingw49_32\bin\Qt5Network.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Qt\5.6\mingw49_32\bin\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Qt\5.6\mingw49_32\plugins\platforms\qwindows.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
