@@ -188,8 +188,8 @@ QRgb AlexandraSettings::GetUnavailableFileColor() const
 
 int AlexandraSettings::GetListFontSize() const
 {
-    return( value( "ListView/FontSize", 10 ).toInt() ); // Different font size on different platforms
-                                                        // TODO: Need to do something
+    int defaultValue = qApp->font().pointSize();
+    return( value( "ListView/FontSize", defaultValue ).toInt() );
 }
 
 
@@ -207,7 +207,8 @@ int AlexandraSettings::GetGridItemSize() const
 
 int AlexandraSettings::GetGridFontSize() const
 {
-    return( value( "GridView/FontSize", 10 ).toInt() ); // Font size. Again ^
+    int defaultValue = qApp->font().pointSize();
+    return( value( "GridView/FontSize", defaultValue ).toInt() );
 }
 
 

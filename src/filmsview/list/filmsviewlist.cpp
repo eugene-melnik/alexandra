@@ -92,7 +92,9 @@ void FilmsViewList::LoadSettings()
     }
 
     verticalHeader()->setDefaultSectionSize( settings->GetListRowHeight() );
-    setStyleSheet( QString( "font-size: %1pt" ).arg( settings->GetListFontSize() ) );
+    QFont font = this->font();
+    font.setPointSize(settings->GetListFontSize());
+    setFont( font );
 }
 
 
@@ -100,7 +102,10 @@ void FilmsViewList::ReloadSettings()
 {
     AlexandraSettings* settings = AlexandraSettings::GetInstance();
     verticalHeader()->setDefaultSectionSize( settings->GetListRowHeight() );
-    setStyleSheet( QString( "font-size: %1pt" ).arg( settings->GetListFontSize() ) );
+
+    QFont font = this->font();
+    font.setPointSize(settings->GetListFontSize());
+    setFont( font );
 }
 
 

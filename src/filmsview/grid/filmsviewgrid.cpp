@@ -74,7 +74,9 @@ void FilmsViewGrid::setModel( QAbstractItemModel* model )
 
 void FilmsViewGrid::ReloadSettings()
 {
-    setStyleSheet( QString( "font-size: %1pt" ).arg( AlexandraSettings::GetInstance()->GetGridFontSize() ) );
+    QFont font = this->font();
+    font.setPointSize(AlexandraSettings::GetInstance()->GetGridFontSize());
+    setFont( font );
 }
 
 
