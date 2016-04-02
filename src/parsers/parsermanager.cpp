@@ -170,7 +170,7 @@ void ParserManager::CreateParser()
             }
             else
             {
-                currentParser = new OmdbParser();
+                currentParser = new ImdbParser();
             }
 
             break;
