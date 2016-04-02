@@ -16,6 +16,7 @@ Alexandra Video Library — a simple and comfortable program for organization an
  - Random film selection.
  - Views statistics.
  - MediaInfo built-in.
+ - Portable version.
 
 ![Main window List](/doc/screenshots/01_MainWindow_List.png "Main window -- list")
 

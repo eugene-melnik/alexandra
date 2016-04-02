@@ -195,7 +195,12 @@ void FilmScannerWindow::ShowFounded( QStringList fileNames )
 
     for( const QString& fileName : fileNames )
     {
-        bool setDisabled = existedFileNames.contains( fileName );
+        #ifdef PORTABLE_VERSION
+            bool setDisabled = existedFileNames.contains( QDir(qApp->applicationDirPath()).relativeFilePath(fileName) );
+        #else
+            bool setDisabled = existedFileNames.contains( fileName );
+        #endif
+
         gbFounded->AddItem( fileName, setDisabled );
     }
 
@@ -207,7 +212,12 @@ void FilmScannerWindow::DisableFilm( FilmItem* film )
 {
     QString filmFilename = film->GetFileName();
     existedFileNames.append( filmFilename );
-    gbFounded->DisableItem( filmFilename, true );
+
+    #ifdef PORTABLE_VERSION
+        gbFounded->DisableItem( QFileInfo(filmFilename).absoluteFilePath(), true );
+    #else
+        gbFounded->DisableItem( filmFilename, true );
+    #endif
 
     lSelected->setText( QString::number(--newFilmsCount) );
     progressBar->setValue( progressBar->maximum() - newFilmsCount );

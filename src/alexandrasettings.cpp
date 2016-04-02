@@ -77,7 +77,13 @@ QString AlexandraSettings::GetExternalPlayer() const
 
 QString AlexandraSettings::GetLastFilmPath() const
 {
-    return( value( "Application/LastFilmPath", QDir::homePath() ).toString() );
+    #ifdef PORTABLE_VERSION
+        QString defaultValue = "..";
+    #else
+        QString defaultValue = QDir::homePath();
+    #endif
+
+    return( value( "Application/LastFilmPath", defaultValue ).toString() );
 }
 
 
@@ -277,7 +283,13 @@ bool AlexandraSettings::GetShowTechInfo() const
 
 QString AlexandraSettings::GetFilmsScannerLastDir() const
 {
-    return( value( "FilmsScanner/LastDir", QDir::homePath() ).toString() );
+    #ifdef PORTABLE_VERSION
+        QString defaultValue = "..";
+    #else
+        QString defaultValue = QDir::homePath();
+    #endif
+
+    return( value( "FilmsScanner/LastDir", defaultValue ).toString() );
 }
 
 

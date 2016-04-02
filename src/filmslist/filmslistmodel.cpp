@@ -25,6 +25,7 @@
 #include "version.h"
 
 #include <thread>
+#include <QDir>
 #include <QFileInfo>
 #include <QPixmap>
 
@@ -399,6 +400,15 @@ void FilmsListModel::AddFilmItem( FilmItem* film )
 
     int pos = rootItem->GetChildrenCount();
     beginInsertRows( QModelIndex(), pos, pos );
+
+    #ifdef PORTABLE_VERSION
+        if (!film->GetFileName().isEmpty())
+        {
+            QString realativePath = QDir(qApp->applicationDirPath()).relativeFilePath(film->GetFileName());
+            film->SetColumnData( FilmItem::FileNameColumn, realativePath);
+        }
+    #endif
+
     rootItem->AppendChild( film );
     endInsertRows();
 }
@@ -411,6 +421,14 @@ void FilmsListModel::EditFilmItem( FilmItem* film, const QModelIndex& index )
 
     int row = index.row();
     film->SetParent( rootItem );
+
+    #ifdef PORTABLE_VERSION
+        if (!film->GetFileName().isEmpty())
+        {
+            QString realativePath = QDir(qApp->applicationDirPath()).relativeFilePath(film->GetFileName());
+            film->SetColumnData( FilmItem::FileNameColumn, realativePath);
+        }
+    #endif
 
     FilmItem* oldFilm = static_cast<FilmItem*>( index.internalPointer() );
     *oldFilm = *film;

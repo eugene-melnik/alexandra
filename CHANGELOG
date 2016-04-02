@@ -10,6 +10,7 @@ alexandra (1.5.0) unstable; urgency=low
   * German translation (by Martin Gansser).
   * Link for translators in About window.
   * Saving of playlist data on exit.
+  * Portable version improvements.
 
  -- Eugene Melnik <jeka7js@gmail.com>  Sun, 27 Mar 2016 16:46:02 +0300
 
