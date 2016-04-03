@@ -30,10 +30,10 @@ void NetworkRequest::run( const QUrl& url )
     data.clear();
     reply = MakeRequest( url );
 
-    connect( reply, &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
-    connect( reply, &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
-    connect( reply, &QNetworkReply::finished, this, &NetworkRequest::Finished );
-    connect( reply, &QNetworkReply::finished, reply, &QObject::deleteLater );
+    connect( reply.data(), &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
+    connect( reply.data(), &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
+    connect( reply.data(), &QNetworkReply::finished, this, &NetworkRequest::Finished );
+    connect( reply.data(), &QNetworkReply::finished, reply, &QObject::deleteLater );
 
     DebugPrintFuncDone( "NetworkRequest::run" );
 }
@@ -47,10 +47,10 @@ QByteArray NetworkRequest::runSync( const QUrl& url )
     reply = MakeRequest( url );
 
     QEventLoop loop;
-    connect( reply, &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
-    connect( reply, &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
-    connect( reply, &QNetworkReply::finished, this, &NetworkRequest::CheckForRedirect );
-    connect( reply, &QNetworkReply::finished, &loop, &QEventLoop::quit );
+    connect( reply.data(), &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
+    connect( reply.data(), &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
+    connect( reply.data(), &QNetworkReply::finished, this, &NetworkRequest::CheckForRedirect );
+    connect( reply.data(), &QNetworkReply::finished, &loop, &QEventLoop::quit );
     loop.exec();
 
     DebugPrint( QString( "Loaded: %1 bytes" ).arg( data.size() ) );
