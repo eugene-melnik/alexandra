@@ -33,7 +33,7 @@ void NetworkRequest::run( const QUrl& url )
     connect( reply.data(), &QNetworkReply::downloadProgress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
     connect( reply.data(), &QNetworkReply::readyRead, this, &NetworkRequest::ReadyRead );
     connect( reply.data(), &QNetworkReply::finished, this, &NetworkRequest::Finished );
-    connect( reply.data(), &QNetworkReply::finished, reply, &QObject::deleteLater );
+    connect( reply.data(), &QNetworkReply::finished, reply.data(), &QObject::deleteLater );
 
     DebugPrintFuncDone( "NetworkRequest::run" );
 }
