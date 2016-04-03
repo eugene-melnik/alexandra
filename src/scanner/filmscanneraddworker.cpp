@@ -45,12 +45,10 @@ void FilmScannerAddWorker::run()
         QString title = FilmItem::GetClearedTitle( QFileInfo(fileName).completeBaseName(), &year );
 
         FilmItem* film = new FilmItem();
-        film->SetIsFileExists( FilmItem::Exists );
         film->SetColumnData( FilmItem::FileNameColumn, fileName );
         film->SetColumnData( FilmItem::TitleColumn, title );
         film->SetColumnData( FilmItem::YearColumn, year );
 
-        QString newPosterFileName = film->GetPosterFilePath();
         QString posterFileName;
 
           // Search for a poster on the disk
@@ -86,7 +84,7 @@ void FilmScannerAddWorker::run()
           // Moving poster
         if( !posterFileName.isEmpty() )
         {
-            if( SavePosterTo( posterFileName, newPosterFileName ) )
+            if( SavePosterTo( posterFileName, film->GetPosterFilePath() ) )
             {
                 film->SetIsPosterExists( FilmItem::Exists );
             }
@@ -97,6 +95,7 @@ void FilmScannerAddWorker::run()
         }
 
           // Adding film to the list
+        film->SetIsFileExists( FilmItem::Exists );
         emit FilmCreated( film );
     }
 }
