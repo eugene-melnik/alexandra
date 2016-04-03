@@ -1177,7 +1177,7 @@ void MainWindow::SetEmptyMode( bool empty )
     bAddToPlaylist->setDisabled( empty );
 
     eFilter->setDisabled( empty );
-    wFilmInfo->ShowEmptyDatabaseMessage(); // TODO: check in FilmInfoView (?)
+    wFilmInfo->ShowEmptyDatabaseMessage();
     lFilmPoster->Clear();
     lTechInformation->Clear();
 }

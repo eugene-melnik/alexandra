@@ -61,6 +61,15 @@ QByteArray NetworkRequest::runSync( const QUrl& url )
 }
 
 
+void NetworkRequest::Abort()
+{
+    if( !reply.isNull() )
+    {
+        reply->abort();
+    }
+}
+
+
 QNetworkReply* NetworkRequest::MakeRequest( const QUrl& url )
 {
     QString userAgent = QString( "Alexandra/%1.%2 (%3)" ).arg( Alexandra::verMajor )

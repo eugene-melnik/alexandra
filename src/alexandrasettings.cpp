@@ -262,7 +262,7 @@ bool AlexandraSettings::GetMainWindowStatusbarIsVisible() const
 
 QList<int> AlexandraSettings::GetQuickSearchFilter() const
 {
-    QVariantList defaultValue = { FilmItem::TitleColumn, FilmItem::TagsColumn };
+    QVariantList defaultValue = { FilmItem::TitleColumn, FilmItem::OriginalTitleColumn, FilmItem::TagsColumn };
 
     QVariantList list = value( "MainWindow/QuickSearchFilter", defaultValue ).toList();
     QList<int> result;

@@ -67,7 +67,7 @@ class AddFilmWindow : public QDialog, protected Ui::AddFilmWindow
         void InformationLoadError( const QString& error );
 
     private:
-        ParserManager* parser = nullptr;
+        ParserManager* parser;
 };
 
 

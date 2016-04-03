@@ -20,7 +20,6 @@
 
 #include "filmscanneraddworker.h"
 #include "tools/filesextensions.h"
-#include "parsers/parsermanager.h"
 
 #include <QDir>
 #include <QFileInfo>
@@ -35,7 +34,6 @@ FilmScannerAddWorker::FilmScannerAddWorker() : QThread(),
 
 void FilmScannerAddWorker::run()
 {
-    ParserManager parser;
 
     for( const QString& fileName : foundedFilms )
     {

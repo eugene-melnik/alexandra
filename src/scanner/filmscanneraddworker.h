@@ -24,6 +24,7 @@
 
 #include "alexandrasettings.h"
 #include "filmslist/filmitem.h"
+#include "parsers/parsermanager.h"
 
 
 #include <QList>
@@ -44,7 +45,7 @@ class FilmScannerAddWorker : public QThread
         void SetLoadInformation( bool load ) { loadInformation = load; }
         void SetSearchForPoster( bool load ) { searchForPoster = load; }
 
-        void Cancel() { isCanceled = true; }
+        void Cancel() { isCanceled = true; parser.Abort(); }
 
     signals:
         void FilmCreated( FilmItem* );
@@ -55,6 +56,7 @@ class FilmScannerAddWorker : public QThread
     private:
         bool SavePosterTo( QString sourceName, QString destinationName );
 
+        ParserManager parser;
         QStringList foundedFilms;
         bool loadInformation = false;
         bool searchForPoster = false;

@@ -49,7 +49,7 @@ class AbstractParser : public QObject
                 url = searchUrl.arg( QUrl::toPercentEncoding( title ).data() );
             }
 
-            request.run(  url );
+            request.run( url );
         }
 
         virtual void SyncSearchFor( FilmItem* filmSaveTo, QUrl* posterUrlSaveTo,
@@ -80,6 +80,8 @@ class AbstractParser : public QObject
 
             *posterUrlSaveTo = posterUrl;
         }
+
+        void Abort() { request.Abort(); }
 
         virtual ~AbstractParser() = default;
 

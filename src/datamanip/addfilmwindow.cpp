@@ -31,7 +31,8 @@
 
 AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent ),
     filmNewPosterName( FilmItem::GetRandomHash() ),
-    settings( AlexandraSettings::GetInstance() )
+    settings( AlexandraSettings::GetInstance() ),
+    parser( new ParserManager() )
 {
     DebugPrint( "AddFilmWindow::AddFilmWindow()" );
 
@@ -52,7 +53,6 @@ AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent ),
     connect( bDescriptionEdit, &QPushButton::clicked, this, &AddFilmWindow::EditDescription );
 
       // Setup parsers
-    parser = new ParserManager();
     cbOnlineSource->addItems( parser->GetAvailableParsers() );
     cbOnlineSource->setCurrentIndex( settings->GetDefaultParserIndex() );
 
@@ -69,6 +69,7 @@ AddFilmWindow::AddFilmWindow( QWidget* parent ) : QDialog( parent ),
 AddFilmWindow::~AddFilmWindow()
 {
     DebugPrint( "AddFilmWindow::~AddFilmWindow()" );
+    parser->Abort();
     delete parser;
 }
 

@@ -19,7 +19,6 @@
   *************************************************************************************************/
 
 #include "parsermanager.h"
-#include "abstractparser.h"
 #include "kinopoisk/kinopoiskparser.h"
 #include "kinoteatr/kinoteatrparser.h"
 #include "imdb/imdbparser.h"
@@ -37,6 +36,15 @@ ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
     parsers.insert( Kinopoisk,  "КиноПоиск (http://www.kinopoisk.ru/)" );
     parsers.insert( Kinoteatr,  "Кіно-Театр (http://kino-teatr.ua/)" );
     parsers.insert( OMDB,       "OMDB (http://www.omdbapi.com/)" );
+}
+
+
+ParserManager::~ParserManager()
+{
+    if( !stdPosterFileName.isEmpty() )
+    {
+        QFile(stdPosterFileName).remove();
+    }
 }
 
 
@@ -83,8 +91,7 @@ void ParserManager::SearchSync( FilmItem* filmSaveTo, QString* posterFileNameSav
     connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
 
     QUrl posterUrl;
-    AbstractParser* cp = dynamic_cast<AbstractParser*>( currentParser );
-    cp->SyncSearchFor( filmSaveTo, &posterUrl, title, year );
+    currentParser->SyncSearchFor( filmSaveTo, &posterUrl, title, year );
 
     if( loadPoster && posterFileNameSaveTo != nullptr )
     {
@@ -96,7 +103,13 @@ void ParserManager::SearchSync( FilmItem* filmSaveTo, QString* posterFileNameSav
         }
     }
 
-    cp->deleteLater();
+    currentParser->deleteLater();
+}
+
+
+void ParserManager::Abort()
+{
+    currentParser->Abort();
 }
 
 
@@ -158,7 +171,7 @@ void ParserManager::CreateParser()
 
         default : // Parser::Auto
         {
-            // TODO: more logic
+            // TODO: add more logic
 
             if( QLocale::system().name().left(2) == "ru" )
             {

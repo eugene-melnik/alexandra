@@ -29,6 +29,7 @@
 #include <QUrl>
 
 
+#include "abstractparser.h"
 #include "filmslist/filmitem.h"
 
 
@@ -47,6 +48,8 @@ class ParserManager : public QObject
         };
 
         explicit ParserManager( Parser p = Parser::Auto );
+        virtual ~ParserManager();
+
         QStringList GetAvailableParsers() const { return( parsers.values() ); }
 
         void SetParserId( Parser p ) { selectedParserId = p; }
@@ -58,6 +61,8 @@ class ParserManager : public QObject
         void Reset();
         void Search();
         void SearchSync( FilmItem* filmSaveTo, QString* posterFileNameSaveTo );
+
+        void Abort();
 
     signals:
         void Progress( quint64 received, quint64 total );
@@ -81,7 +86,7 @@ class ParserManager : public QObject
         QString year;
         bool loadPoster;
 
-        QObject* currentParser = nullptr;
+        AbstractParser* currentParser = nullptr;
 
         const QString stdPosterFileName = QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() );
 

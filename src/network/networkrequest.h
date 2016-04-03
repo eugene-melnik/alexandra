@@ -24,6 +24,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QPointer>
 #include <QUrl>
 
 class NetworkRequest : public QObject
@@ -35,6 +36,8 @@ class NetworkRequest : public QObject
 
         void run( const QUrl& url );
         QByteArray runSync( const QUrl& url );
+
+        void Abort();
 
     signals:
         void Progress( quint64 received, quint64 total );
@@ -49,7 +52,7 @@ class NetworkRequest : public QObject
 
     private:
         QNetworkAccessManager accessManager;
-        QNetworkReply* reply = nullptr;
+        QPointer<QNetworkReply> reply;
 
         QByteArray data;
 };
