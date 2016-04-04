@@ -109,7 +109,10 @@ void ParserManager::SearchSync( FilmItem* filmSaveTo, QString* posterFileNameSav
 
 void ParserManager::Abort()
 {
-    currentParser->Abort();
+    if( currentParser != nullptr )
+    {
+        currentParser->Abort();
+    }
 }
 
 
