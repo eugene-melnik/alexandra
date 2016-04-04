@@ -24,6 +24,7 @@
 
 #include <QDir>
 #include <QMap>
+#include <QPointer>
 #include <QStringList>
 #include <QTime>
 #include <QUrl>
@@ -86,7 +87,7 @@ class ParserManager : public QObject
         QString year;
         bool loadPoster;
 
-        AbstractParser* currentParser = nullptr;
+        QPointer<AbstractParser> currentParser;
 
         const QString stdPosterFileName = QDir::tempPath() + QString( "/tmpPoster%1" ).arg( rand() );
 

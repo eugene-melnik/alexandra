@@ -65,14 +65,13 @@ void ParserManager::Search()
     if( title.isEmpty() ) return;
 
     CreateParser();
-    connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
-    connect( currentParser, SIGNAL( Loaded(const FilmItem&, const QUrl&) ), this, SLOT( InformationLoaded(FilmItem, const QUrl&) ) );
-    connect( currentParser, SIGNAL( Loaded(const FilmItem&, const QUrl&) ), currentParser, SLOT( deleteLater() ) );
-    connect( currentParser, SIGNAL( Error(const QString&) ), this, SLOT( InformationLoadError(const QString&) ) );
-    connect( currentParser, SIGNAL( Error(const QString&) ), currentParser, SLOT( deleteLater() ) );
+    connect( currentParser.data(), SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
+    connect( currentParser.data(), SIGNAL( Loaded(const FilmItem&, const QUrl&) ), this, SLOT( InformationLoaded(FilmItem, const QUrl&) ) );
+    connect( currentParser.data(), SIGNAL( Loaded(const FilmItem&, const QUrl&) ), currentParser.data(), SLOT( deleteLater() ) );
+    connect( currentParser.data(), SIGNAL( Error(const QString&) ), this, SLOT( InformationLoadError(const QString&) ) );
+    connect( currentParser.data(), SIGNAL( Error(const QString&) ), currentParser.data(), SLOT( deleteLater() ) );
 
-    AbstractParser* cp = dynamic_cast<AbstractParser*>( currentParser );
-    cp->SearchFor( title, year );
+    currentParser->SearchFor( title, year );
 }
 
 
@@ -88,7 +87,7 @@ void ParserManager::SearchSync( FilmItem* filmSaveTo, QString* posterFileNameSav
     }
 
     CreateParser();
-    connect( currentParser, SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
+    connect( currentParser.data(), SIGNAL( Progress(quint64,quint64) ), this, SLOT( ProgressChanged(quint64,quint64) ) );
 
     QUrl posterUrl;
     currentParser->SyncSearchFor( filmSaveTo, &posterUrl, title, year );
@@ -109,7 +108,7 @@ void ParserManager::SearchSync( FilmItem* filmSaveTo, QString* posterFileNameSav
 
 void ParserManager::Abort()
 {
-    if( currentParser != nullptr )
+    if( !currentParser.isNull() )
     {
         currentParser->Abort();
     }
