@@ -238,7 +238,13 @@ QByteArray AlexandraSettings::GetMainWindowSplitterState() const
 
 int AlexandraSettings::GetMainWindowToolbarStyle() const
 {
-    return( value( "MainWindow/ToolbarStyle", Qt::ToolButtonFollowStyle ).toInt() );
+    #ifdef Q_OS_LINUX
+        int defaultValue = Qt::ToolButtonFollowStyle;
+    #else
+        int defaultValue = Qt::ToolButtonTextBesideIcon;
+    #endif
+
+    return( value( "MainWindow/ToolbarStyle", defaultValue ).toInt() );
 }
 
 

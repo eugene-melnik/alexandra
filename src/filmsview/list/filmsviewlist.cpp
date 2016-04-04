@@ -198,6 +198,8 @@ void FilmsViewList::ShowHeaderContextMenu( const QPoint& pos )
             RestoreColumnsOrder();
             SetDefaultColumnsView();
         }
+
+        SaveSettings();
     }
 }
 

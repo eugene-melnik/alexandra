@@ -32,6 +32,12 @@ FilmInfoWindow::FilmInfoWindow( QWidget* parent ) : QDialog( parent )
     setAttribute( Qt::WA_DeleteOnClose );
     connect( bCopyToClipboard, &QPushButton::clicked, this, &FilmInfoWindow::CopyToClipboard );
     connect( this, &FilmInfoWindow::FullInfoLoaded, this, [this] (const QString& text){ eTechInfo->setPlainText( text ); } );
+
+    #ifdef Q_OS_LINUX
+        eTechInfo->setFont( QFont("Monospace", 8) );
+    #elif defined(Q_OS_WIN32)
+        eTechInfo->setFont( QFont("Lucida Console", 9) );
+    #endif
 }
 
 

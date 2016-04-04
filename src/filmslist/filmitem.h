@@ -147,9 +147,6 @@ class FilmItem
 
         mutable Existing isFileExists = Unknown;
         mutable Existing isPosterExists = Unknown;
-
-          // Constants
-        const QString DatetimeFormat = "yyyy.MM.dd--hh:mm,";
 };
 
 

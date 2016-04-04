@@ -1349,7 +1349,7 @@
        <item>
         <widget class="QGroupBox" name="gbOther">
          <property name="title">
-          <string notr="true">Other</string>
+          <string>Other</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>

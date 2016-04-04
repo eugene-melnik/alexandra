@@ -24,6 +24,9 @@
 #include <QTime>
 
 
+static const QString DatetimeFormat = "yyyy.MM.dd--hh:mm,";
+
+
 FilmItem::FilmItem()
 {
     for( int i = 0; i < AllColumnCount; ++i )

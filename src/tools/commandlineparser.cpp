@@ -65,7 +65,7 @@ QString CommandLineParser::GetConfigLocation() const
             {
                 configFile = QProcessEnvironment::systemEnvironment().value( "HOME" ) + "/.config";
             }
-        #elif defined( Q_OS_WIN32 )
+        #elif defined(Q_OS_WIN32)
             configFile = QProcessEnvironment::systemEnvironment().value( "APPDATA" );
         #endif
 
