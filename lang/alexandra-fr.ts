@@ -35,7 +35,7 @@
     <message>
         <location filename="../src/aboutwindow.ui" line="230"/>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation>Auteur :</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="243"/>
@@ -100,7 +100,7 @@
     <message>
         <location filename="../src/aboutwindow.cpp" line="75"/>
         <source>Help with translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Aide à la traduction</translation>
     </message>
 </context>
 <context>
@@ -211,7 +211,7 @@
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="204"/>
         <source>Try to fetch information from the selected online source.</source>
-        <translation type="unfinished"></translation>
+        <translation>Essayer de récupérer des informations à partir de la source en ligne sélectionnée.</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="207"/>
@@ -221,7 +221,7 @@
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="327"/>
         <source>Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="447"/>
@@ -268,7 +268,7 @@
         <location filename="../src/datamanip/addfilmwindow.ui" line="681"/>
         <location filename="../src/datamanip/addfilmwindow.ui" line="731"/>
         <source>Edit</source>
-        <translation type="unfinished">Éditer</translation>
+        <translation>Éditer</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="698"/>
@@ -367,12 +367,12 @@
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="307"/>
         <source>Saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarde</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="307"/>
         <source>Error while moving poster to posters directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors du déplacement des affiches dans le dossier.</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="359"/>
@@ -384,7 +384,7 @@
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="364"/>
         <source>Please note that the search is performed on the fields &quot;Title&quot; (or &quot;Original title&quot;) and &quot;Year&quot; (if specified). Perhaps some of these data are incorrect.</source>
-        <translation type="unfinished"></translation>
+        <translation>A noter, la recherche est faite sur les champs &quot;Titre&quot; (ou &quot;Titre original&quot;) et &quot;Année&quot; (si indiqué). Peut être que des données sont incorrectes.</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="216"/>
@@ -397,32 +397,32 @@
     <message>
         <location filename="../src/mainwindow/checkvieweddialog.ui" line="14"/>
         <source>Views counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Compteur de vues</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/checkvieweddialog.ui" line="20"/>
         <source>Mark viewed films:</source>
-        <translation type="unfinished"></translation>
+        <translation>Marquer les films vus :</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/checkvieweddialog.ui" line="43"/>
         <source>Select all</source>
-        <translation type="unfinished">Tout sélectionner</translation>
+        <translation>Tout sélectionner</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/checkvieweddialog.ui" line="50"/>
         <source>Unselect all</source>
-        <translation type="unfinished">Tout désélectionner</translation>
+        <translation>Tout désélectionner</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/checkvieweddialog.ui" line="57"/>
         <source>Invert selection</source>
-        <translation type="unfinished">Inverser la sélection</translation>
+        <translation>Inverser la sélection</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/checkvieweddialog.ui" line="77"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -430,22 +430,22 @@
     <message>
         <location filename="../src/widgets/checkedlistwidget.cpp" line="167"/>
         <source>Select all</source>
-        <translation type="unfinished">Tout sélectionner</translation>
+        <translation>Tout sélectionner</translation>
     </message>
     <message>
         <location filename="../src/widgets/checkedlistwidget.cpp" line="168"/>
         <source>Unselect all</source>
-        <translation type="unfinished">Tout désélectionner</translation>
+        <translation>Tout désélectionner</translation>
     </message>
     <message>
         <location filename="../src/widgets/checkedlistwidget.cpp" line="169"/>
         <source>Invert selection</source>
-        <translation type="unfinished">Inverser la sélection</translation>
+        <translation>Inverser la sélection</translation>
     </message>
     <message>
         <location filename="../src/widgets/checkedlistwidget.cpp" line="171"/>
         <source>Scroll to checked</source>
-        <translation type="unfinished"></translation>
+        <translation>Défiler pour vérifier</translation>
     </message>
 </context>
 <context>
@@ -469,32 +469,32 @@
     <message>
         <location filename="../src/filmsview/info/filminfoview.cpp" line="101"/>
         <source>Your database is empty</source>
-        <translation type="unfinished">Votre base de données est vide</translation>
+        <translation>Votre base de données est vide</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filminfoview.cpp" line="105"/>
         <source>Hi! At this point your database is empty. It&apos;s time to fill it! To do this, use the following tools:</source>
-        <translation type="unfinished">Salut ! À ce stade, votre base de données est vide. Il est temps de la remplir ! Pour ce faire, utilisez les outils suivants :</translation>
+        <translation>Salut ! À ce stade, votre base de données est vide. Il est temps de la remplir ! Pour ce faire, utilisez les outils suivants :</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filminfoview.cpp" line="109"/>
         <source>Adding movies one by one (menu &quot;Film&quot;→&quot;Add film&quot; or the &quot;Add&quot; button on the toolbar).</source>
-        <translation type="unfinished">Ajout de films un par un (menu &quot;Film&quot;→&quot;Ajouter un film&quot; ou avec le bouton de la barre d&apos;outils &quot;Ajouter&quot;).</translation>
+        <translation>Ajout de films un par un (menu &quot;Film&quot;→&quot;Ajouter un film&quot; ou avec le bouton de la barre d&apos;outils &quot;Ajouter&quot;).</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filminfoview.cpp" line="113"/>
         <source>Scan the directories on your hard drive (menu &quot;Tools&quot;→&quot;Films scanner&quot; or button on the toolbar).</source>
-        <translation type="unfinished"></translation>
+        <translation>Parcourir les dossiers sur le disque dur (menu &quot;Outils&quot;→&quot;Explorer les films&quot; ou avec le bouton de la barre d&apos;outils).</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filminfoview.cpp" line="117"/>
         <source>If you already have filled database, just select it in the settings (&quot;Application&quot; tab).</source>
-        <translation type="unfinished">Si vous avez déjà une base de données remplie, il suffit de la sélectionner dans les paramètres (onglet &quot;Application&quot;).</translation>
+        <translation>Si vous avez déjà une base de données remplie, il suffit de la sélectionner dans les préférences (onglet &quot;Application&quot;).</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filminfoview.cpp" line="121"/>
         <source>All of these tools have automatic information retrieval via the Internet as well as loading a graphic poster for the film. Enjoy!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous ces outils ont la récupération automatique d&apos;information via Internet de même que le chargement d&apos;affiche pour le film. Amusez-vous bien !</translation>
     </message>
 </context>
 <context>
@@ -602,12 +602,12 @@
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="190"/>
         <source>Download big poster (if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger la grande affiche (si possible)</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="197"/>
         <source>Download more information (if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger plus d&apos;informations (si possible)</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="218"/>
@@ -660,17 +660,17 @@
     <message>
         <location filename="../src/filmsview/info/filmtechinfoview.cpp" line="124"/>
         <source>px</source>
-        <translation type="unfinished">px</translation>
+        <translation>px</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filmtechinfoview.cpp" line="126"/>
         <source>fps</source>
-        <translation type="unfinished"></translation>
+        <translation>fps</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filmtechinfoview.cpp" line="128"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Durée</translation>
     </message>
 </context>
 <context>
@@ -737,117 +737,117 @@
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="39"/>
         <source>Title</source>
-        <translation type="unfinished">Titre</translation>
+        <translation>Titre</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="40"/>
         <source>Original title</source>
-        <translation type="unfinished">Titre original</translation>
+        <translation>Titre original</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="41"/>
         <source>Tagline</source>
-        <translation type="unfinished">Slogan</translation>
+        <translation>Slogan</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="42"/>
         <source>Year</source>
-        <translation type="unfinished">Année</translation>
+        <translation>Année</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="43"/>
         <source>Genre</source>
-        <translation type="unfinished">Genre</translation>
+        <translation>Genre</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="44"/>
         <source>Country</source>
-        <translation type="unfinished">Pays</translation>
+        <translation>Pays</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="45"/>
         <source>Director</source>
-        <translation type="unfinished">Réalisateur</translation>
+        <translation>Réalisateur</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="46"/>
         <source>Producer</source>
-        <translation type="unfinished">Producteur(s)</translation>
+        <translation>Producteur(s)</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="47"/>
         <source>Screenwriter</source>
-        <translation type="unfinished">Scénariste</translation>
+        <translation>Scénariste</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="48"/>
         <source>Composer</source>
-        <translation type="unfinished">Compositeur</translation>
+        <translation>Compositeur</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="49"/>
         <source>Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="50"/>
         <source>Rating</source>
-        <translation type="unfinished">Note</translation>
+        <translation>Note</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="51"/>
         <source>Viewed</source>
-        <translation type="unfinished"></translation>
+        <translation>Vus</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="52"/>
         <source>Favourite</source>
-        <translation type="unfinished"></translation>
+        <translation>Favori</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="53"/>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Vues</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="54"/>
         <source>Starring</source>
-        <translation type="unfinished">Avec</translation>
+        <translation>Avec</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="55"/>
         <source>Description</source>
-        <translation type="unfinished">Description</translation>
+        <translation>Description</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="56"/>
         <source>Tags</source>
-        <translation type="unfinished">Étiquettes</translation>
+        <translation>Étiquettes</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="57"/>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du fichier</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="58"/>
         <source>Poster</source>
-        <translation type="unfinished">Affiche</translation>
+        <translation>Affiche</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="369"/>
         <source>Can&apos;t load database!</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de charger la base de données !</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="374"/>
         <source>Wrong database file format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mauvais format de fichier de la base de données.</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="379"/>
         <source>Error while reading database file. Check the access permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de la lecture du fichier de la base de données. Vérifier les permissions.</translation>
     </message>
 </context>
 <context>
@@ -934,12 +934,12 @@
     <message>
         <location filename="../src/filmsview/list/filmsviewlist.cpp" line="163"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Colonnes</translation>
     </message>
     <message>
         <location filename="../src/filmsview/list/filmsviewlist.cpp" line="176"/>
         <source>Reset to defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser les paramètres par défaut</translation>
     </message>
 </context>
 <context>
@@ -947,27 +947,27 @@
     <message>
         <location filename="../src/widgets/foundedlistwidget.ui" line="29"/>
         <source>Founded</source>
-        <translation type="unfinished"></translation>
+        <translation>Trouvés</translation>
     </message>
     <message>
         <location filename="../src/widgets/foundedlistwidget.ui" line="53"/>
         <source>Scroll to selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Défiler pour sélectionner</translation>
     </message>
     <message>
         <location filename="../src/widgets/foundedlistwidget.ui" line="73"/>
         <source>Select all</source>
-        <translation type="unfinished">Tout sélectionner</translation>
+        <translation>Tout sélectionner</translation>
     </message>
     <message>
         <location filename="../src/widgets/foundedlistwidget.ui" line="80"/>
         <source>Unselect all</source>
-        <translation type="unfinished">Tout désélectionner</translation>
+        <translation>Tout désélectionner</translation>
     </message>
     <message>
         <location filename="../src/widgets/foundedlistwidget.ui" line="87"/>
         <source>Invert selection</source>
-        <translation type="unfinished">Inverser la sélection</translation>
+        <translation>Inverser la sélection</translation>
     </message>
 </context>
 <context>
@@ -1018,7 +1018,7 @@
         <location filename="../src/mainwindow/mainwindow.cpp" line="406"/>
         <location filename="../src/mainwindow/mainwindow.cpp" line="504"/>
         <source>Play</source>
-        <translation type="unfinished">Lecture</translation>
+        <translation>Lecture</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="306"/>
@@ -1130,12 +1130,12 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="506"/>
         <source>Show statusbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher la barre d&apos;état</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="509"/>
         <source>Show or hide statusbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher ou cacher la barre d&apos;état</translation>
     </message>
     <message>
         <source>Erase database</source>
@@ -1161,34 +1161,34 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="101"/>
         <source>Nothing to add.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rien à ajouter.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="141"/>
         <source>It seems you are running the new version of Alexandra for the old version of database. Backup your database in the next dialog before automatic conversion.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il se peut que vous exécutiez une nouvelle version d&apos;Alexandra avec une vieille version de base de données. Sauvegardez votre base de données dans la fenêtre suivante avant une conversion automatique.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="150"/>
         <location filename="../src/mainwindow/mainwindow.cpp" line="155"/>
         <location filename="../src/mainwindow/mainwindow.cpp" line="172"/>
         <source>Save backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarder la sauvegarde</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="150"/>
         <source>Alexandra DB (*.adat)</source>
-        <translation type="unfinished">Alexandra DB (*.adat)</translation>
+        <translation>Alexandra DB (*.adat)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="156"/>
         <source>Are you sure you don&apos;t want to save a backup? You can lose your data if the conversion fails!</source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes-vous sûr(e) de ne pas vouloir sauvegarder ? Vous pouvez perdre des données si la conversion échoue !</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="172"/>
         <source>Unable to save file. Try to select another location.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de sauvegarder le fichier. Essayer de sauvegarder dans un autre endroit.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="193"/>
@@ -1198,62 +1198,62 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="225"/>
         <source>Database read error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de lecture de la base de données</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="239"/>
         <source>The database file is read-only.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier de la base de données est en lecture seule.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="358"/>
         <source>Nothing was found</source>
-        <translation type="unfinished"></translation>
+        <translation>Rien n&apos;a été trouvé</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="359"/>
         <source>Make sure all words are spelled correctly or try using other keywords.</source>
-        <translation type="unfinished"></translation>
+        <translation>Assurez-vous que tous les mots sont écrits correctement ou essayer d&apos;utiliser d&apos;autres mots clés.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="490"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="572"/>
         <source>Nothing was selected!</source>
-        <translation type="unfinished"></translation>
+        <translation>Rien n&apos;a été sélectionné !</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="644"/>
         <source>File was successfully removed. Do you want to remove record from the database?</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier a été supprimé avec succès. Voulez-vous supprimer l&apos;enregistrement de la base de données ?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="709"/>
         <source>Nothing to move.</source>
-        <translation type="unfinished">Rien à déplacer.</translation>
+        <translation>Rien à déplacer.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="761"/>
         <source>Views counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Compteur de vues</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="762"/>
         <source>What do you want to do?</source>
-        <translation type="unfinished"></translation>
+        <translation>Que voulez-vous faire ?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="764"/>
         <source>Add view</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter une vue</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="765"/>
         <source>Reset views</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser les vues</translation>
     </message>
     <message>
         <source>Error reading the database! Check the permissions or choose another database file in settings (&quot;Application&quot; tab).</source>
@@ -1530,7 +1530,7 @@
     <message>
         <location filename="../src/parsers/omdb/omdbparser.cpp" line="36"/>
         <source>Movie not found!</source>
-        <translation type="unfinished">Film non trouvé !</translation>
+        <translation>Film non trouvé !</translation>
     </message>
 </context>
 <context>
@@ -1543,7 +1543,7 @@
     <message>
         <location filename="../src/parsers/parsermanager.cpp" line="78"/>
         <source>Nothing to search.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rien à rechercher.</translation>
     </message>
 </context>
 <context>
@@ -1562,17 +1562,17 @@
     <message>
         <location filename="../src/widgets/playlistwidget.ui" line="29"/>
         <source>Playlist:</source>
-        <translation type="unfinished">Liste de lecture :</translation>
+        <translation>Liste de lecture :</translation>
     </message>
     <message>
         <location filename="../src/widgets/playlistwidget.cpp" line="138"/>
         <source>Remove from playlist</source>
-        <translation type="unfinished">Supprimer de la liste de lecture</translation>
+        <translation>Supprimer de la liste de lecture</translation>
     </message>
     <message>
         <location filename="../src/widgets/playlistwidget.cpp" line="139"/>
         <source>Clear all</source>
-        <translation type="unfinished">Tout effacer</translation>
+        <translation>Tout effacer</translation>
     </message>
 </context>
 <context>
@@ -1584,7 +1584,7 @@
     <message>
         <location filename="../src/version.h" line="34"/>
         <source>Small, fast, but powerful video library, written in C++ with Qt5.</source>
-        <translation type="unfinished"></translation>
+        <translation>Petite, rapide, mais puissante vidéothèque, écrit en C++ et Qt5.</translation>
     </message>
 </context>
 <context>
@@ -1649,7 +1649,7 @@
     <message>
         <location filename="../src/search/searchedit.cpp" line="39"/>
         <source>Select columns for searching</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner des colonnes pour la recherche</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="102"/>
@@ -1664,27 +1664,27 @@
     <message>
         <location filename="../src/search/searchedit.ui" line="38"/>
         <source>Show viewed films</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les films vus</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.ui" line="61"/>
         <source>Show favourite films</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les films favoris</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.ui" line="84"/>
         <source>Show only existing films</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher uniquement les films existants</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.ui" line="101"/>
         <source>Type keyword for filtering films list</source>
-        <translation type="unfinished">Taper un mot clé pour filtrer la liste de films</translation>
+        <translation>Taper un mot clé pour filtrer la liste de films</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.ui" line="107"/>
         <source>&lt;type to search&gt;</source>
-        <translation type="unfinished">&lt;Taper pour rechercher&gt;</translation>
+        <translation>&lt;Taper pour rechercher&gt;</translation>
     </message>
 </context>
 <context>
@@ -1698,7 +1698,7 @@
         <location filename="../src/search/searchwindow.ui" line="34"/>
         <location filename="../src/search/searchwindow.cpp" line="402"/>
         <source>Simple search</source>
-        <translation type="unfinished"></translation>
+        <translation>Recherche simple</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="40"/>
@@ -1713,18 +1713,18 @@
     <message>
         <location filename="../src/search/searchwindow.ui" line="58"/>
         <source>Original title</source>
-        <translation type="unfinished">Titre original</translation>
+        <translation>Titre original</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="68"/>
         <location filename="../src/search/searchwindow.ui" line="338"/>
         <source>Tagline</source>
-        <translation type="unfinished">Slogan</translation>
+        <translation>Slogan</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="160"/>
         <source>Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="170"/>
@@ -1802,65 +1802,65 @@
     <message>
         <location filename="../src/search/searchwindow.ui" line="256"/>
         <source>Advanced search</source>
-        <translation type="unfinished">Recherche avancée</translation>
+        <translation>Recherche avancée</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="310"/>
         <source>Complete or partial title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titre complet ou partiel</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="313"/>
         <source>Title contains</source>
-        <translation type="unfinished"></translation>
+        <translation>Titre contenant</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="325"/>
         <source>Search in description</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher dans la description</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="335"/>
         <source>Search in tagline</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher dans le slogan</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="373"/>
         <source>Range of years or a specific value</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalle d&apos;années ou valeur spécifique</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="392"/>
         <location filename="../src/search/searchwindow.ui" line="503"/>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>De</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="399"/>
         <location filename="../src/search/searchwindow.ui" line="510"/>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>à</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="446"/>
         <location filename="../src/search/searchwindow.ui" line="569"/>
         <source>Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalle</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="654"/>
         <source>Hide viewed</source>
-        <translation type="unfinished"></translation>
+        <translation>Cacher les vus</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="661"/>
         <source>Hide favourite</source>
-        <translation type="unfinished"></translation>
+        <translation>Cacher les favoris</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="668"/>
         <source>Approximate</source>
-        <translation type="unfinished"></translation>
+        <translation>Approximatif</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="901"/>
@@ -1880,7 +1880,7 @@
     <message>
         <location filename="../src/search/searchwindow.ui" line="1002"/>
         <source>&amp;Show</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;fficher</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1893,7 +1893,7 @@
     <message>
         <location filename="../src/search/searchwindow.cpp" line="134"/>
         <source>Nothing to search. Input keyword and select at least one field.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rien à rechercher. Saisir un mot clé et sélectionnez au moins un champ.</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.cpp" line="402"/>
@@ -1909,7 +1909,7 @@
     <message>
         <location filename="../src/search/searchwindow.ui" line="229"/>
         <source>Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot clé</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="487"/>
@@ -2051,7 +2051,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="725"/>
         <source>Highlight unavailable files</source>
-        <translation type="unfinished"></translation>
+        <translation>Surligner les fichiers indisponibles</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="855"/>
@@ -2138,17 +2138,17 @@
     <message>
         <location filename="../src/settingswindow.ui" line="1358"/>
         <source>Download big poster (if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger la grande affiche (si possible)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1368"/>
         <source>Download more information (if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger plus d&apos;informations (si possible)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1378"/>
         <source>(These options use more traffic and may slows down the loading)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Ces options utilisent plus de trafic et peuvent ralentir le chargement)</translation>
     </message>
     <message>
         <source>IMDB</source>
@@ -2170,7 +2170,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="1427"/>
         <source>&amp;Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Appliquer</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1434"/>
@@ -2202,7 +2202,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="471"/>
         <source>Show technical information</source>
-        <translation type="unfinished">Afficher les informations techniques</translation>
+        <translation>Afficher les informations techniques</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="517"/>
@@ -2416,7 +2416,7 @@
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="62"/>
         <source>Favourite films:</source>
-        <translation type="unfinished"></translation>
+        <translation>Films favoris :</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="69"/>
@@ -2436,27 +2436,27 @@
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="152"/>
         <source>Number of directors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de réalisateurs :</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="159"/>
         <source>Number of screenwriters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de scénaristes :</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="166"/>
         <source>Number of genres:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de genres :</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="173"/>
         <source>Number of actors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre d&apos;acteurs :</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="180"/>
         <source>Number of countries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de pays :</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="247"/>
@@ -2476,12 +2476,12 @@
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="317"/>
         <source>Reset view counters</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser le compteur de vues</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.cpp" line="90"/>
         <source>The calculations are inaccurate because some of files aren&apos;t available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les calculs sont inexacts parce que certains fichiers ne sont pas disponibles.</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.cpp" line="131"/>
@@ -2521,7 +2521,7 @@
     <message>
         <location filename="../src/statusbar.cpp" line="72"/>
         <source>Shown: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Affiche : %1</translation>
     </message>
 </context>
 <context>
@@ -2529,22 +2529,22 @@
     <message>
         <location filename="../src/datamanip/texteditor.ui" line="25"/>
         <source>Clear</source>
-        <translation type="unfinished">Effacer</translation>
+        <translation>Effacer</translation>
     </message>
     <message>
         <location filename="../src/datamanip/texteditor.ui" line="45"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../src/datamanip/texteditor.cpp" line="56"/>
         <source>Are you sure you want to discard changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes-vous sûr(e) d&apos;abandonner les modifications ?</translation>
     </message>
     <message>
         <location filename="../src/datamanip/texteditor.h" line="41"/>
         <source>Editing &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Édition &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
