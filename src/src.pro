@@ -159,6 +159,7 @@ FORMS += datamanip/addfilmwindow.ui \
     # Translations #
 
 TRANSLATIONS += ../lang/alexandra-cs.ts \
+                ../lang/alexandra-de.ts \
                 ../lang/alexandra-fr.ts \
                 ../lang/alexandra-ru_RU.ts \
                 ../lang/alexandra-uk_UA.ts

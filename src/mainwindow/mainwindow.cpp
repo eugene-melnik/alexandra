@@ -575,7 +575,7 @@ void MainWindow::ShowRemoveFilmWindow()
     else if( selectedIndexes.count() == 1 ) // One film selected
     {
         QString filmTitle = filmsListProxyModel->GetFilmTitleByIndex( selectedIndexes.at(0) );
-        windowMessage = tr("Are you sure to remove \"%1\"?").arg( filmTitle );
+        windowMessage = tr("Are you sure you want to remove \"%1\"?").arg( filmTitle );
     }
     else // More than one film selected
     {
@@ -585,7 +585,7 @@ void MainWindow::ShowRemoveFilmWindow()
             windowMessage.append( QString( "%1) %2\n" ).arg( i + 1 ).arg( filmTitle ) );
         };
 
-        windowMessage = tr("Are you sure to remove following films?\n");
+        windowMessage = tr("Are you sure you want to remove following films?\n");
         const int maxItemCount = 20;
 
         for( int i = 0; i < std::min( maxItemCount - 1, selectedIndexes.count() ); i++ )

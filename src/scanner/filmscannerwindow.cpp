@@ -121,7 +121,7 @@ void FilmScannerWindow::Scan()
       // Messages
     if( eDirectory->text().isEmpty() )
     {
-        QMessageBox::information( this, tr("Film scanner"), tr("First select the directory to scan.") );
+        QMessageBox::information( this, tr("Film scanner"), tr("Select the directory to scan.") );
         return;
     }
 
@@ -147,7 +147,7 @@ void FilmScannerWindow::AddSelected()
 
     if( selectedFilms.empty() ) // Nothing was selected
     {
-        QMessageBox::information( this, tr("Film scanner"), tr("First select the files to add.") );
+        QMessageBox::information( this, tr("Film scanner"), tr("Select the files to add.") );
     }
     else
     {

@@ -101,7 +101,7 @@ void MovedFilmsWindow::Scan()
       // Messages
     if( eDirectory->text().isEmpty() )
     {
-        QMessageBox::information( this, tr("Moved films"), tr("First select the directory to scan.") );
+        QMessageBox::information( this, tr("Moved films"), tr("Select the directory to scan.") );
         return;
     }
 
@@ -156,7 +156,7 @@ void MovedFilmsWindow::MoveSelected()
 {
     if( lSelected->text().toInt() == 0 )
     {
-        QMessageBox::information( this, tr("Moved films" ), tr("First select the files to move.") );
+        QMessageBox::information( this, tr("Moved films" ), tr("Select the files to move.") );
         return;
     }
 

@@ -29,10 +29,6 @@
         <translation>Version MediaInfo :</translation>
     </message>
     <message>
-        <source>Author(s):</source>
-        <translation type="vanished">Auteur(s) :</translation>
-    </message>
-    <message>
         <location filename="../src/aboutwindow.ui" line="230"/>
         <source>Author:</source>
         <translation>Auteur :</translation>
@@ -118,7 +114,7 @@
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="67"/>
         <location filename="../src/datamanip/addfilmwindow.ui" line="113"/>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="167"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="168"/>
         <source>Open</source>
         <translation>Ouvrir</translation>
     </message>
@@ -148,10 +144,6 @@
         <translation>Sélectionner une affiche sur le disque</translation>
     </message>
     <message>
-        <source>Try to fetch information from the selected online source. The search is conducted by fields &quot;Title&quot; and &quot;Year&quot; (optional)</source>
-        <translation type="vanished">Essayez de rapporter les informations depuis les sources en lignes sélectionnées. La recherche est menée par des champs &quot;Titre&quot; et &quot;Année&quot; (optionnel)</translation>
-    </message>
-    <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="235"/>
         <source>Tagline</source>
         <translation>Slogan</translation>
@@ -160,10 +152,6 @@
         <location filename="../src/datamanip/addfilmwindow.ui" line="267"/>
         <source>Year</source>
         <translation>Année</translation>
-    </message>
-    <message>
-        <source>Budget, $</source>
-        <translation type="vanished">Budget, $</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="431"/>
@@ -189,14 +177,6 @@
         <location filename="../src/datamanip/addfilmwindow.ui" line="597"/>
         <source>Genres, comma separated</source>
         <translation>Genres, séparés par une virgule</translation>
-    </message>
-    <message>
-        <source>The actors, who played in the film (comma separated)</source>
-        <translation type="vanished">Les acteurs, qui ont joués dans le film (séparés par une virgule)</translation>
-    </message>
-    <message>
-        <source>Short description of the plot</source>
-        <translation type="vanished">Brève description de l&apos;intrigue</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="373"/>
@@ -282,10 +262,6 @@
         <translation>Étiquettes</translation>
     </message>
     <message>
-        <source>User-defined words and phrases for faster search</source>
-        <translation type="vanished">Mots et expressions définies par l&apos;utilisateur pour la recherche rapide</translation>
-    </message>
-    <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="776"/>
         <source>Is viewed</source>
         <translation>Vu</translation>
@@ -306,88 +282,84 @@
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="85"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="86"/>
         <source>Select film</source>
         <translation>Sélectionner un film</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="127"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="128"/>
         <source>Select image</source>
         <translation>Sélectionner une image</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="86"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="87"/>
         <source>Video files (%1)</source>
         <translation>Fichiers vidéo (%1)</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="128"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="129"/>
         <source>Images (%1)</source>
         <translation>Images (%1)</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="299"/>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="112"/>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="133"/>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="322"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="113"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="134"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="323"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
     <message>
-        <source>Movie not found!</source>
-        <translation type="vanished">Film non trouvé !</translation>
-    </message>
-    <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="151"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="152"/>
         <source>Clear poster</source>
         <translation>Effacer l&apos;affiche</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="151"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="152"/>
         <source>Remove image file?</source>
         <translation>Supprimer l&apos;image ?</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="176"/>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="359"/>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="363"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="177"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="362"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="366"/>
         <source>Loading information</source>
         <translation>Chargement des informations</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="176"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="177"/>
         <source>Input title for searching!</source>
         <translation>Titre d&apos;entrée pour la recherche !</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="216"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="217"/>
         <source>Adding film</source>
         <translation>Ajout du film</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="307"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="308"/>
         <source>Saving</source>
         <translation>Sauvegarde</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="307"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="308"/>
         <source>Error while moving poster to posters directory.</source>
         <translation>Erreur lors du déplacement des affiches dans le dossier.</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="359"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="362"/>
         <source>Error!
 %1</source>
         <translation>Erreur !
 %1</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="364"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="367"/>
         <source>Please note that the search is performed on the fields &quot;Title&quot; (or &quot;Original title&quot;) and &quot;Year&quot; (if specified). Perhaps some of these data are incorrect.</source>
         <translation>A noter, la recherche est faite sur les champs &quot;Titre&quot; (ou &quot;Titre original&quot;) et &quot;Année&quot; (si indiqué). Peut être que des données sont incorrectes.</translation>
     </message>
     <message>
-        <location filename="../src/datamanip/addfilmwindow.cpp" line="216"/>
+        <location filename="../src/datamanip/addfilmwindow.cpp" line="217"/>
         <source>Field &quot;Title&quot; can&apos;t be empty.</source>
         <translation>Le champ &quot;Titre&quot; ne peut pas être vide.</translation>
     </message>
@@ -455,14 +427,6 @@
         <source>Edit film</source>
         <translation>Éditer le film</translation>
     </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">Effacer</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="vanished">Ouvrir</translation>
-    </message>
 </context>
 <context>
     <name>FilmInfoView</name>
@@ -501,35 +465,27 @@
     <name>FilmInfoWindow</name>
     <message>
         <location filename="../src/filminfowindow.ui" line="23"/>
-        <location filename="../src/filminfowindow.cpp" line="72"/>
+        <location filename="../src/filminfowindow.cpp" line="78"/>
         <source>Technical information</source>
         <translation>Information technique</translation>
     </message>
     <message>
-        <location filename="../src/filminfowindow.ui" line="49"/>
+        <location filename="../src/filminfowindow.ui" line="39"/>
         <source>Loading...</source>
         <translation>Chargement...</translation>
     </message>
     <message>
-        <location filename="../src/filminfowindow.ui" line="58"/>
+        <location filename="../src/filminfowindow.ui" line="48"/>
         <source>Copy to clipboard</source>
         <translation>Copier dans le presse-papier</translation>
     </message>
     <message>
-        <location filename="../src/filminfowindow.ui" line="78"/>
+        <location filename="../src/filminfowindow.ui" line="68"/>
         <source>&amp;Close</source>
         <translation>&amp;Fermer</translation>
     </message>
     <message>
-        <source>%1&amp;times;%2 px &amp;bull; %3 fps&lt;br/&gt;</source>
-        <translation type="vanished">%1&amp;times;%2 px &amp;bull; %3 fps&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <source>Duration &amp;mdash; %1</source>
-        <translation type="vanished">Durée &amp;mdash; %1</translation>
-    </message>
-    <message>
-        <location filename="../src/filminfowindow.cpp" line="72"/>
+        <location filename="../src/filminfowindow.cpp" line="78"/>
         <source>Successfully copied.</source>
         <translation>Copié avec succès.</translation>
     </message>
@@ -560,29 +516,19 @@
         <translation>Explorer dans les sous-dossiers</translation>
     </message>
     <message>
+        <location filename="../src/scanner/filmscannerwindow.cpp" line="124"/>
+        <source>Select the directory to scan.</source>
+        <translation>Sélectionner d&apos;abord un dossier à explorer.</translation>
+    </message>
+    <message>
+        <location filename="../src/scanner/filmscannerwindow.cpp" line="150"/>
+        <source>Select the files to add.</source>
+        <translation>Sélectionner d&apos;abord les fichiers à ajouter.</translation>
+    </message>
+    <message>
         <location filename="../src/scanner/filmscannerwindow.cpp" line="187"/>
         <source>Scan</source>
         <translation>Analyser</translation>
-    </message>
-    <message>
-        <source>Founded</source>
-        <translation type="vanished">Résultat de l&apos;analyse</translation>
-    </message>
-    <message>
-        <source>Filename</source>
-        <translation type="vanished">Nom du fichier</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation type="vanished">Tout sélectionner</translation>
-    </message>
-    <message>
-        <source>Unselect all</source>
-        <translation type="vanished">Tout désélectionner</translation>
-    </message>
-    <message>
-        <source>Invert selection</source>
-        <translation type="vanished">Inverser la sélection</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="121"/>
@@ -640,19 +586,9 @@
         <translation>Sélectionner un dossier à explorer</translation>
     </message>
     <message>
-        <location filename="../src/scanner/filmscannerwindow.cpp" line="124"/>
-        <source>First select the directory to scan.</source>
-        <translation>Sélectionner d&apos;abord un dossier à explorer.</translation>
-    </message>
-    <message>
         <location filename="../src/scanner/filmscannerwindow.cpp" line="192"/>
         <source>Nothing was found.</source>
         <translation>Rien n&apos;a été trouvé.</translation>
-    </message>
-    <message>
-        <location filename="../src/scanner/filmscannerwindow.cpp" line="150"/>
-        <source>First select the files to add.</source>
-        <translation>Sélectionner d&apos;abord les fichiers à ajouter.</translation>
     </message>
 </context>
 <context>
@@ -674,178 +610,119 @@
     </message>
 </context>
 <context>
-    <name>FilmViewGridModel</name>
-    <message>
-        <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Titre original :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Slogan :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Genre :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Année :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Budget:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Budget :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Pays :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Screenwriter:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Scénariste :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Réalisateur :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Producteur(s) :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Composer:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Compositeur :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Avec :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Note :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Description :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Étiquettes :&lt;/b&gt; %1</translation>
-    </message>
-</context>
-<context>
     <name>FilmsListModel</name>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="39"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="40"/>
         <source>Title</source>
         <translation>Titre</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="40"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="41"/>
         <source>Original title</source>
         <translation>Titre original</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="41"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="42"/>
         <source>Tagline</source>
         <translation>Slogan</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="42"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="43"/>
         <source>Year</source>
         <translation>Année</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="43"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="44"/>
         <source>Genre</source>
         <translation>Genre</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="44"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="45"/>
         <source>Country</source>
         <translation>Pays</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="45"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="46"/>
         <source>Director</source>
         <translation>Réalisateur</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="46"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="47"/>
         <source>Producer</source>
         <translation>Producteur(s)</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="47"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="48"/>
         <source>Screenwriter</source>
         <translation>Scénariste</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="48"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="49"/>
         <source>Composer</source>
         <translation>Compositeur</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="49"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="50"/>
         <source>Budget</source>
         <translation>Budget</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="50"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="51"/>
         <source>Rating</source>
         <translation>Note</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="51"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="52"/>
         <source>Viewed</source>
         <translation>Vus</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="52"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="53"/>
         <source>Favourite</source>
         <translation>Favori</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="53"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="54"/>
         <source>Views</source>
         <translation>Vues</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="54"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="55"/>
         <source>Starring</source>
         <translation>Avec</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="55"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="56"/>
         <source>Description</source>
         <translation>Description</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="56"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="57"/>
         <source>Tags</source>
         <translation>Étiquettes</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="57"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="58"/>
         <source>Filename</source>
         <translation>Nom du fichier</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="58"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="59"/>
         <source>Poster</source>
         <translation>Affiche</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="369"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="370"/>
         <source>Can&apos;t load database!</source>
         <translation>Impossible de charger la base de données !</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="374"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="375"/>
         <source>Wrong database file format.</source>
         <translation>Mauvais format de fichier de la base de données.</translation>
     </message>
     <message>
-        <location filename="../src/filmslist/filmslistmodel.cpp" line="379"/>
+        <location filename="../src/filmslist/filmslistmodel.cpp" line="380"/>
         <source>Error while reading database file. Check the access permissions.</source>
         <translation>Erreur lors de la lecture du fichier de la base de données. Vérifier les permissions.</translation>
     </message>
@@ -896,48 +773,12 @@
 <context>
     <name>FilmsViewList</name>
     <message>
-        <source>V</source>
-        <translation type="vanished">V</translation>
-    </message>
-    <message>
-        <source>F</source>
-        <translation type="vanished">F</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="vanished">Titre</translation>
-    </message>
-    <message>
-        <source>Year</source>
-        <translation type="vanished">Année</translation>
-    </message>
-    <message>
-        <source>Genre</source>
-        <translation type="vanished">Genre</translation>
-    </message>
-    <message>
-        <source>Director</source>
-        <translation type="vanished">Réalisateur</translation>
-    </message>
-    <message>
-        <source>Rating</source>
-        <translation type="vanished">Note</translation>
-    </message>
-    <message>
-        <source>Is viewed</source>
-        <translation type="vanished">Vu</translation>
-    </message>
-    <message>
-        <source>Is favourite</source>
-        <translation type="vanished">Favori</translation>
-    </message>
-    <message>
-        <location filename="../src/filmsview/list/filmsviewlist.cpp" line="163"/>
+        <location filename="../src/filmsview/list/filmsviewlist.cpp" line="168"/>
         <source>Columns</source>
         <translation>Colonnes</translation>
     </message>
     <message>
-        <location filename="../src/filmsview/list/filmsviewlist.cpp" line="176"/>
+        <location filename="../src/filmsview/list/filmsviewlist.cpp" line="181"/>
         <source>Reset to defaults</source>
         <translation>Réinitialiser les paramètres par défaut</translation>
     </message>
@@ -973,14 +814,6 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <source>Type keyword for filtering films list</source>
-        <translation type="vanished">Taper un mot clé pour filtrer la liste de films</translation>
-    </message>
-    <message>
-        <source>&lt;type to search&gt;</source>
-        <translation type="vanished">&lt;Taper pour rechercher&gt;</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="117"/>
         <source>Is viewed</source>
         <translation>Vu</translation>
@@ -1001,17 +834,9 @@
         <translation>Lecture du film ou de la liste de lecture</translation>
     </message>
     <message>
-        <source>&amp;PLAY</source>
-        <translation type="vanished">&amp;LECTURE</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="246"/>
         <source>Add to playlist</source>
         <translation>Ajouter à la liste de lecture</translation>
-    </message>
-    <message>
-        <source>Playlist:</source>
-        <translation type="vanished">Liste de lecture :</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="217"/>
@@ -1138,14 +963,6 @@
         <translation>Afficher ou cacher la barre d&apos;état</translation>
     </message>
     <message>
-        <source>Erase database</source>
-        <translation type="vanished">Supprimer la base de données</translation>
-    </message>
-    <message>
-        <source>Nothing to erase.</source>
-        <translation type="vanished">Rien à effacer.</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="117"/>
         <location filename="../src/mainwindow/mainwindow.cpp" line="193"/>
         <source>Done!</source>
@@ -1226,6 +1043,18 @@
         <translation>Rien n&apos;a été sélectionné !</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="578"/>
+        <source>Are you sure you want to remove &quot;%1&quot;?</source>
+        <translation>Êtes-vous sûr(e) de supprimer le fichier &quot;%1&quot; ?</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="588"/>
+        <source>Are you sure you want to remove following films?
+</source>
+        <translation>Êtes-vous sûr(e) de supprimer le(s) film(s) suivant ?
+</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="644"/>
         <source>File was successfully removed. Do you want to remove record from the database?</source>
         <translation>Le fichier a été supprimé avec succès. Voulez-vous supprimer l&apos;enregistrement de la base de données ?</translation>
@@ -1256,38 +1085,6 @@
         <translation>Réinitialiser les vues</translation>
     </message>
     <message>
-        <source>Error reading the database! Check the permissions or choose another database file in settings (&quot;Application&quot; tab).</source>
-        <translation type="vanished">Échec de la lecture de la base de données ! Vérifiez les permissions ou choisissez un autre fichier de base de données dans les paramètres (onglet &quot;Application&quot;).</translation>
-    </message>
-    <message>
-        <source>Your database is empty</source>
-        <translation type="vanished">Votre base de données est vide</translation>
-    </message>
-    <message>
-        <source>Hi! At this point your database is empty. It&apos;s time to fill it! To do this, use the following tools:</source>
-        <translation type="vanished">Salut ! À ce stade, votre base de données est vide. Il est temps de la remplir ! Pour ce faire, utilisez les outils suivants :</translation>
-    </message>
-    <message>
-        <source>Adding movies one by one (menu &quot;Film&quot;→&quot;Add film&quot; or the &quot;Add&quot; button on the toolbar).</source>
-        <translation type="vanished">Ajout de films un par un (menu &quot;Film&quot;→&quot;Ajouter un film&quot; ou avec le bouton de la barre d&apos;outils &quot;Ajouter&quot;).</translation>
-    </message>
-    <message>
-        <source>Scan selected folders on the drive with the automatic addition of the selected films (menu &quot;Tools&quot;→&quot;Films scanner&quot; or button on the toolbar).</source>
-        <translation type="vanished">Analyser les dossiers séléctionnés sur le disque avec l&apos;ajout automatique des films sélectionnés (menu &quot;Outils&quot;→&quot;Explorer les films&quot; ou avec le bouton de la barre d&apos;outils).</translation>
-    </message>
-    <message>
-        <source>If you already have filled database, just select it in the settings (&quot;Application&quot; tab).</source>
-        <translation type="vanished">Si vous avez déjà une base de données remplie, il suffit de la sélectionner dans les paramètres (onglet &quot;Application&quot;).</translation>
-    </message>
-    <message>
-        <source>All of these tools have automatic information retrieval via the Internet, as well as loading a graphic poster for the film. Enjoy! :)</source>
-        <translation type="vanished">Tous ces outils récupèrent automatiquement des informations via Internet, tout comme le chargement des affiches de film. Profitez-en ! :-)</translation>
-    </message>
-    <message>
-        <source>Nothing was found! Try to change keyword or search settings.</source>
-        <translation type="vanished">Rien n&apos;a été trouvé ! Essayez de changer de mots clés ou de paramètres de recherche.</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="224"/>
         <source>Error reading the database!</source>
         <translation>Erreur lors de la lecture de la base de données !</translation>
@@ -1300,94 +1097,10 @@
         <translation>Ajouter des films</translation>
     </message>
     <message>
-        <source>There is nothing to add.</source>
-        <translation type="vanished">Il n&apos;y a rien à ajouter.</translation>
-    </message>
-    <message>
-        <source>Database</source>
-        <translation type="vanished">Base de données</translation>
-    </message>
-    <message>
-        <source>Database is readonly! Editing functions are disabled.</source>
-        <translation type="vanished">La base de données est en lecture seule ! Les fonctions d&apos;édition sont désactivées.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Titre original :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Slogan :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Genre :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Année :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Budget:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Budget :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Pays :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Screenwriter:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Scénariste :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Réalisateur :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Producteur(s) :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Composer:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Compositeur :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Avec :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Note :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Description :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Étiquettes :&lt;/b&gt; %1</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="397"/>
         <location filename="../src/mainwindow/mainwindow.cpp" line="1051"/>
         <source>Play list</source>
         <translation>Lecture de la liste</translation>
-    </message>
-    <message>
-        <source>STOP</source>
-        <translation type="vanished">STOP</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="578"/>
-        <source>Are you sure to remove &quot;%1&quot;?</source>
-        <translation>Êtes-vous sûr(e) de supprimer &quot;%1&quot; ?</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="588"/>
-        <source>Are you sure to remove following films?
-</source>
-        <translation>Êtes-vous sûr(e) de supprimer le(s) film(s) suivant ?
-</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="634"/>
@@ -1402,17 +1115,9 @@
         <translation>Êtes-vous sûr(e) de supprimer le fichier &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <source>Remove record from database?</source>
-        <translation type="vanished">Supprimer l&apos;enregistrement de la base de données ?</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="659"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Impossible de supprimer le fichier &quot;%1&quot; !</translation>
-    </message>
-    <message>
-        <source> (another)</source>
-        <translation type="vanished"> (un autre)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="1070"/>
@@ -1446,34 +1151,24 @@
         <translation>Explorer dans les sous-dossiers</translation>
     </message>
     <message>
+        <location filename="../src/scanner/movedfilmswindow.cpp" line="104"/>
+        <source>Select the directory to scan.</source>
+        <translation>Sélectionner d&apos;abord un dossier à explorer.</translation>
+    </message>
+    <message>
         <location filename="../src/scanner/movedfilmswindow.cpp" line="124"/>
         <source>Scan</source>
         <translation>Analyser</translation>
     </message>
     <message>
+        <location filename="../src/scanner/movedfilmswindow.cpp" line="159"/>
+        <source>Select the files to move.</source>
+        <translation>Sélectionner d&apos;abord les fichiers à déplacer.</translation>
+    </message>
+    <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="81"/>
         <source>&amp;Scan</source>
         <translation>Analy&amp;ser</translation>
-    </message>
-    <message>
-        <source>Founded</source>
-        <translation type="vanished">Résultats de l&apos;analyse</translation>
-    </message>
-    <message>
-        <source>Filename</source>
-        <translation type="vanished">Nom de fichier</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation type="vanished">Tout sélectionner</translation>
-    </message>
-    <message>
-        <source>Unselect all</source>
-        <translation type="vanished">Tout désélectionner</translation>
-    </message>
-    <message>
-        <source>Invert selection</source>
-        <translation type="vanished">Inverser la sélection</translation>
     </message>
     <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="115"/>
@@ -1496,10 +1191,6 @@
         <translation>&amp;Fermer</translation>
     </message>
     <message>
-        <source>Nothing to move.</source>
-        <translation type="vanished">Rien à déplacer.</translation>
-    </message>
-    <message>
         <location filename="../src/scanner/movedfilmswindow.cpp" line="114"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
@@ -1510,19 +1201,9 @@
         <translation>Sélectionner un répertoire à analyser</translation>
     </message>
     <message>
-        <location filename="../src/scanner/movedfilmswindow.cpp" line="104"/>
-        <source>First select the directory to scan.</source>
-        <translation>Sélectionner d&apos;abord un répertoire à analyser.</translation>
-    </message>
-    <message>
         <location filename="../src/scanner/movedfilmswindow.cpp" line="148"/>
         <source>Nothing was found.</source>
         <translation>Rien n&apos;a été trouvé.</translation>
-    </message>
-    <message>
-        <location filename="../src/scanner/movedfilmswindow.cpp" line="159"/>
-        <source>First select the files to move.</source>
-        <translation>Sélectionner d&apos;abord les fichiers à déplacer.</translation>
     </message>
 </context>
 <context>
@@ -1536,25 +1217,14 @@
 <context>
     <name>ParserManager</name>
     <message>
-        <location filename="../src/parsers/parsermanager.cpp" line="35"/>
+        <location filename="../src/parsers/parsermanager.cpp" line="34"/>
         <source>&lt;Auto&gt;</source>
         <translation>&lt;Auto&gt;</translation>
     </message>
     <message>
-        <location filename="../src/parsers/parsermanager.cpp" line="78"/>
+        <location filename="../src/parsers/parsermanager.cpp" line="85"/>
         <source>Nothing to search.</source>
         <translation>Rien à rechercher.</translation>
-    </message>
-</context>
-<context>
-    <name>PlayListWidget</name>
-    <message>
-        <source>Remove from playlist</source>
-        <translation type="vanished">Supprimer de la liste de lecture</translation>
-    </message>
-    <message>
-        <source>Clear all</source>
-        <translation type="vanished">Tout effacer</translation>
     </message>
 </context>
 <context>
@@ -1578,10 +1248,6 @@
 <context>
     <name>QObject</name>
     <message>
-        <source>A small opensource video library with great potential, written in C++ using Qt5 framework.</source>
-        <translation type="vanished">Une petite vidéothèque open source avec un grand potentiel, écrit en C++ utilisant le framework Qt5.</translation>
-    </message>
-    <message>
         <location filename="../src/version.h" line="34"/>
         <source>Small, fast, but powerful video library, written in C++ with Qt5.</source>
         <translation>Petite, rapide, mais puissante vidéothèque, écrit en C++ et Qt5.</translation>
@@ -1598,54 +1264,6 @@
 </context>
 <context>
     <name>SearchEdit</name>
-    <message>
-        <source>Select fields for filtration</source>
-        <translation type="vanished">Sélectionner des champs pour le filtrage</translation>
-    </message>
-    <message>
-        <source>Filter by:</source>
-        <translation type="vanished">Filtrer par :</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="vanished">Titre</translation>
-    </message>
-    <message>
-        <source>Tags</source>
-        <translation type="vanished">Étiquettes</translation>
-    </message>
-    <message>
-        <source>Genre</source>
-        <translation type="vanished">Genre</translation>
-    </message>
-    <message>
-        <source>Starring</source>
-        <translation type="vanished">Avec</translation>
-    </message>
-    <message>
-        <source>Director</source>
-        <translation type="vanished">Réalisateur</translation>
-    </message>
-    <message>
-        <source>Producer</source>
-        <translation type="vanished">Producteur(s)</translation>
-    </message>
-    <message>
-        <source>Screenwriter</source>
-        <translation type="vanished">Scénariste</translation>
-    </message>
-    <message>
-        <source>Composer</source>
-        <translation type="vanished">Compositeur</translation>
-    </message>
-    <message>
-        <source>Country</source>
-        <translation type="vanished">Pays</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="vanished">Description</translation>
-    </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="39"/>
         <source>Select columns for searching</source>
@@ -1789,10 +1407,6 @@
         <translation>Tout désélectionner</translation>
     </message>
     <message>
-        <source>Keywords</source>
-        <translation type="vanished">Mots clés</translation>
-    </message>
-    <message>
         <location filename="../src/search/searchwindow.ui" line="243"/>
         <location filename="../src/search/searchwindow.ui" line="675"/>
         <location filename="../src/search/searchwindow.cpp" line="134"/>
@@ -1881,14 +1495,6 @@
         <location filename="../src/search/searchwindow.ui" line="1002"/>
         <source>&amp;Show</source>
         <translation>A&amp;fficher</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="vanished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>Nothing to search. Input keyword first.</source>
-        <translation type="vanished">Rien à rechercher. Saisir un mot clé.</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.cpp" line="134"/>
@@ -2035,10 +1641,6 @@
         <translation>Largeur du panneau</translation>
     </message>
     <message>
-        <source>Automatically load technical information</source>
-        <translation type="vanished">Charger automatiquement les informations techniques</translation>
-    </message>
-    <message>
         <location filename="../src/settingswindow.ui" line="573"/>
         <source>Select</source>
         <translation>Sélectionner</translation>
@@ -2136,6 +1738,11 @@
         <translation>Source en ligne par défaut</translation>
     </message>
     <message>
+        <location filename="../src/settingswindow.ui" line="1352"/>
+        <source>Other</source>
+        <translation>Autre</translation>
+    </message>
+    <message>
         <location filename="../src/settingswindow.ui" line="1358"/>
         <source>Download big poster (if possible)</source>
         <translation>Télécharger la grande affiche (si possible)</translation>
@@ -2149,18 +1756,6 @@
         <location filename="../src/settingswindow.ui" line="1378"/>
         <source>(These options use more traffic and may slows down the loading)</source>
         <translation>(Ces options utilisent plus de trafic et peuvent ralentir le chargement)</translation>
-    </message>
-    <message>
-        <source>IMDB</source>
-        <translation type="vanished">IMDB</translation>
-    </message>
-    <message>
-        <source>Load big poster</source>
-        <translation type="vanished">Charger une grande affiche</translation>
-    </message>
-    <message>
-        <source>Load additional data</source>
-        <translation type="vanished">Charger des données supplémentaires</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1420"/>
@@ -2244,10 +1839,6 @@
         <translation>Supprimer la base de données</translation>
     </message>
     <message>
-        <source>Checking availability of files at startup</source>
-        <translation type="vanished">Vérifier la présence des fichiers au démarrage</translation>
-    </message>
-    <message>
         <location filename="../src/settingswindow.ui" line="732"/>
         <source>Select color</source>
         <translation>Sélectionner une couleur</translation>
@@ -2292,10 +1883,6 @@
         <location filename="../src/settingswindow.cpp" line="356"/>
         <source>Alexandra DB (*.adat)</source>
         <translation>Alexandra DB (*.adat)</translation>
-    </message>
-    <message>
-        <source>Not a database file or incorrect version!</source>
-        <translation type="vanished">Ceci n&apos;est pas un fichier de base de données, ou la version est incorrecte !</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.cpp" line="343"/>
@@ -2494,10 +2081,6 @@
         <translation>&amp;Fermer</translation>
     </message>
     <message>
-        <source>The calculation is not accurate, because some files are not available.</source>
-        <translation type="vanished">Le calcul n&apos;est pas exacte, car certains fichiers ne sont pas disponibles.</translation>
-    </message>
-    <message>
         <location filename="../src/statistics/statisticswindow.cpp" line="131"/>
         <source>Are you sure?</source>
         <translation>Êtes-vous sûr(e) ?</translation>
@@ -2505,14 +2088,6 @@
 </context>
 <context>
     <name>StatusBar</name>
-    <message>
-        <source>Loading...</source>
-        <translation type="vanished">Chargement...</translation>
-    </message>
-    <message>
-        <source>Founded: %1</source>
-        <translation type="vanished">Trouvé : %1</translation>
-    </message>
     <message>
         <location filename="../src/statusbar.cpp" line="57"/>
         <source>Total films: %1 (%2 viewed, %3 favourite)</source>
