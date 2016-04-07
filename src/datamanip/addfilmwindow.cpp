@@ -355,6 +355,8 @@ void AddFilmWindow::InformationLoaded( const FilmItem& film, const QString& post
 void AddFilmWindow::InformationLoadError( const QString& error )
 {
     bLoad->setEnabled( true );
+    bOk->setEnabled( true );
+    bCancel->setEnabled( true );
     progressBar->hide();
 
     QMessageBox::warning( this, tr("Loading information"), tr("Error!\n%1").arg( tr(error.toUtf8()) ) );
