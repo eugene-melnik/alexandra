@@ -788,7 +788,7 @@
     <message>
         <location filename="../src/widgets/foundedlistwidget.ui" line="29"/>
         <source>Founded</source>
-        <translation>Trouvés</translation>
+        <translation>Résultat de l&apos;analyse</translation>
     </message>
     <message>
         <location filename="../src/widgets/foundedlistwidget.ui" line="53"/>
