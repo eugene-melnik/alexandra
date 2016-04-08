@@ -31,7 +31,7 @@
     <message>
         <location filename="../src/aboutwindow.ui" line="230"/>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation>Autor:</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="243"/>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../src/aboutwindow.cpp" line="75"/>
         <source>Help with translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Překlady</translation>
     </message>
 </context>
 <context>
@@ -191,7 +191,7 @@
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="204"/>
         <source>Try to fetch information from the selected online source.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokusit se nahrát údaje z vybraného internetového zdroje.</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="207"/>
@@ -201,7 +201,7 @@
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="327"/>
         <source>Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozpočet</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="447"/>
@@ -262,10 +262,6 @@
         <translation>Značky</translation>
     </message>
     <message>
-        <source>User-defined words and phrases for faster search</source>
-        <translation type="vanished">Uživatelem stanovená slova a slovní spojení pro rychlejší hledání</translation>
-    </message>
-    <message>
         <location filename="../src/datamanip/addfilmwindow.ui" line="776"/>
         <source>Is viewed</source>
         <translation>Zhlédnuto</translation>
@@ -314,10 +310,6 @@
         <translation>Vyprázdnit</translation>
     </message>
     <message>
-        <source>Movie not found!</source>
-        <translation type="vanished">Film nenalezen!</translation>
-    </message>
-    <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="152"/>
         <source>Clear poster</source>
         <translation>Vyprázdnit plakát</translation>
@@ -347,12 +339,12 @@
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="308"/>
         <source>Saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukládání</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="308"/>
         <source>Error while moving poster to posters directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při přesunu plakátu do adresáře s plakáty.</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="362"/>
@@ -364,7 +356,7 @@
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="367"/>
         <source>Please note that the search is performed on the fields &quot;Title&quot; (or &quot;Original title&quot;) and &quot;Year&quot; (if specified). Perhaps some of these data are incorrect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Všimněte si, prosím, že hledání je prováděno v polích Název (nebo Původní název) a Rok (je-li zadán). Některá z těchto dat jsou možná nepřesná.</translation>
     </message>
     <message>
         <location filename="../src/datamanip/addfilmwindow.cpp" line="217"/>
@@ -377,12 +369,12 @@
     <message>
         <location filename="../src/mainwindow/checkvieweddialog.ui" line="14"/>
         <source>Views counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Počítadlo zhlédnutí</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/checkvieweddialog.ui" line="20"/>
         <source>Mark viewed films:</source>
-        <translation type="unfinished"></translation>
+        <translation>Označit zhlédnuté filmy:</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/checkvieweddialog.ui" line="43"/>
@@ -425,7 +417,7 @@
     <message>
         <location filename="../src/widgets/checkedlistwidget.cpp" line="171"/>
         <source>Scroll to checked</source>
-        <translation type="unfinished"></translation>
+        <translation>Projíždět po označené</translation>
     </message>
 </context>
 <context>
@@ -434,14 +426,6 @@
         <location filename="../src/datamanip/editfilmwindow.cpp" line="29"/>
         <source>Edit film</source>
         <translation>Upravit film</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">Vyprázdnit</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="vanished">Otevřít</translation>
     </message>
 </context>
 <context>
@@ -464,7 +448,7 @@
     <message>
         <location filename="../src/filmsview/info/filminfoview.cpp" line="113"/>
         <source>Scan the directories on your hard drive (menu &quot;Tools&quot;→&quot;Films scanner&quot; or button on the toolbar).</source>
-        <translation type="unfinished"></translation>
+        <translation>Prohledat adresáře na pevném disku (nabídka Nástroje → Prohledávač filmů nebo tlačítko v nástrojovém pruhu).</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filminfoview.cpp" line="117"/>
@@ -474,7 +458,7 @@
     <message>
         <location filename="../src/filmsview/info/filminfoview.cpp" line="121"/>
         <source>All of these tools have automatic information retrieval via the Internet as well as loading a graphic poster for the film. Enjoy!</source>
-        <translation type="unfinished"></translation>
+        <translation>Všechny tyto nástroje získávají údaje samočinně z internetu, a stejně tak nahrávají plakáty k filmu. Užijte si to! :-)</translation>
     </message>
 </context>
 <context>
@@ -499,14 +483,6 @@
         <location filename="../src/filminfowindow.ui" line="68"/>
         <source>&amp;Close</source>
         <translation>&amp;Zavřít</translation>
-    </message>
-    <message>
-        <source>%1&amp;times;%2 px &amp;bull; %3 fps&lt;br/&gt;</source>
-        <translation type="vanished">%1&amp;times;%2 px &amp;bull; %3 fps&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <source>Duration &amp;mdash; %1</source>
-        <translation type="vanished">Doba trvání &amp;mdash; %1</translation>
     </message>
     <message>
         <location filename="../src/filminfowindow.cpp" line="78"/>
@@ -542,37 +518,17 @@
     <message>
         <location filename="../src/scanner/filmscannerwindow.cpp" line="124"/>
         <source>Select the directory to scan.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte adresář k prohledání.</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.cpp" line="150"/>
         <source>Select the files to add.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte soubory k přidání.</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.cpp" line="187"/>
         <source>Scan</source>
         <translation>Prohledat</translation>
-    </message>
-    <message>
-        <source>Founded</source>
-        <translation type="vanished">Nalezeno</translation>
-    </message>
-    <message>
-        <source>Filename</source>
-        <translation type="vanished">Název souboru</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation type="vanished">Vybrat vše</translation>
-    </message>
-    <message>
-        <source>Unselect all</source>
-        <translation type="vanished">Odznačit vše</translation>
-    </message>
-    <message>
-        <source>Invert selection</source>
-        <translation type="vanished">Obrátit výběr</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="121"/>
@@ -592,12 +548,12 @@
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="190"/>
         <source>Download big poster (if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stáhnout velký plakát (je-li to možné)</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="197"/>
         <source>Download more information (if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stáhnout další údaje (je-li to možné)</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="218"/>
@@ -630,17 +586,9 @@
         <translation>Vybrat adresář k prohledání</translation>
     </message>
     <message>
-        <source>First select the directory to scan.</source>
-        <translation type="vanished">Nejprve vyberte adresář k prohledání.</translation>
-    </message>
-    <message>
         <location filename="../src/scanner/filmscannerwindow.cpp" line="192"/>
         <source>Nothing was found.</source>
         <translation>Nic nebylo nalezeno.</translation>
-    </message>
-    <message>
-        <source>First select the files to add.</source>
-        <translation type="vanished">Nejprve vyberte soubory k přidání.</translation>
     </message>
 </context>
 <context>
@@ -648,76 +596,17 @@
     <message>
         <location filename="../src/filmsview/info/filmtechinfoview.cpp" line="124"/>
         <source>px</source>
-        <translation>px</translation>
+        <translation>obrazových bodů</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filmtechinfoview.cpp" line="126"/>
         <source>fps</source>
-        <translation type="unfinished"></translation>
+        <translation>snímků za sekundu</translation>
     </message>
     <message>
         <location filename="../src/filmsview/info/filmtechinfoview.cpp" line="128"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>FilmViewGridModel</name>
-    <message>
-        <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Původní název:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Zkrácený obsah:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Žánr:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Rok:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Budget:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Rozpočet:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Země:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Screenwriter:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Scénárista:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Režisér:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Výrobce:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Composer:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Skladatel:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;V hlavní roli:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Hodnocení:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Popis:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Značky:&lt;/b&gt; %1</translation>
+        <translation>Doba trvání</translation>
     </message>
 </context>
 <context>
@@ -775,7 +664,7 @@
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="50"/>
         <source>Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozpočet</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="51"/>
@@ -785,17 +674,17 @@
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="52"/>
         <source>Viewed</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhlédnuto</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="53"/>
         <source>Favourite</source>
-        <translation type="unfinished"></translation>
+        <translation>Oblíbený</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="54"/>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhlédnutí</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="55"/>
@@ -825,17 +714,17 @@
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="370"/>
         <source>Can&apos;t load database!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nahrát databázi!</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="375"/>
         <source>Wrong database file format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Špatný formát databáze.</translation>
     </message>
     <message>
         <location filename="../src/filmslist/filmslistmodel.cpp" line="380"/>
         <source>Error while reading database file. Check the access permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při čtení souboru s databází. Prověřte přístupová oprávnění.</translation>
     </message>
 </context>
 <context>
@@ -884,50 +773,14 @@
 <context>
     <name>FilmsViewList</name>
     <message>
-        <source>V</source>
-        <translation type="vanished">V</translation>
-    </message>
-    <message>
-        <source>F</source>
-        <translation type="vanished">F</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="vanished">Název</translation>
-    </message>
-    <message>
-        <source>Year</source>
-        <translation type="vanished">Rok</translation>
-    </message>
-    <message>
-        <source>Genre</source>
-        <translation type="vanished">Žánr</translation>
-    </message>
-    <message>
-        <source>Director</source>
-        <translation type="vanished">Režisér</translation>
-    </message>
-    <message>
-        <source>Rating</source>
-        <translation type="vanished">Hodnocení</translation>
-    </message>
-    <message>
-        <source>Is viewed</source>
-        <translation type="vanished">Zhlédnuto</translation>
-    </message>
-    <message>
-        <source>Is favourite</source>
-        <translation type="vanished">Oblíbený</translation>
-    </message>
-    <message>
         <location filename="../src/filmsview/list/filmsviewlist.cpp" line="168"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Sloupce</translation>
     </message>
     <message>
         <location filename="../src/filmsview/list/filmsviewlist.cpp" line="181"/>
         <source>Reset to defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit na výchozí</translation>
     </message>
 </context>
 <context>
@@ -940,7 +793,7 @@
     <message>
         <location filename="../src/widgets/foundedlistwidget.ui" line="53"/>
         <source>Scroll to selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Projíždět po označené</translation>
     </message>
     <message>
         <location filename="../src/widgets/foundedlistwidget.ui" line="73"/>
@@ -960,14 +813,6 @@
 </context>
 <context>
     <name>MainWindow</name>
-    <message>
-        <source>Type keyword for filtering films list</source>
-        <translation type="vanished">Napište klíčové slovo pro filtrování seznamu filmů</translation>
-    </message>
-    <message>
-        <source>&lt;type to search&gt;</source>
-        <translation type="vanished">&lt;Pište pro hledání&gt;</translation>
-    </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="117"/>
         <source>Is viewed</source>
@@ -989,17 +834,9 @@
         <translation>Přehrát film nebo seznam skladeb</translation>
     </message>
     <message>
-        <source>&amp;PLAY</source>
-        <translation type="vanished">&amp;PŘEHRÁT</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="246"/>
         <source>Add to playlist</source>
         <translation>Přidat do seznamu skladeb</translation>
-    </message>
-    <message>
-        <source>Playlist:</source>
-        <translation type="vanished">Seznam skladeb:</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="217"/>
@@ -1118,29 +955,17 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="506"/>
         <source>Show statusbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat stavový řádek</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="509"/>
         <source>Show or hide statusbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat nebo skrýt stavový řádek</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="224"/>
         <source>Error reading the database!</source>
         <translation>Chyba při čtení databáze!</translation>
-    </message>
-    <message>
-        <source>Database</source>
-        <translation type="vanished">Databáze</translation>
-    </message>
-    <message>
-        <source>Database is readonly! Editing functions are disabled.</source>
-        <translation type="vanished">Databáze je pouze pro čtení! Úpravy jsou zakázány.</translation>
-    </message>
-    <message>
-        <source>Are you sure to remove &quot;%1&quot;?</source>
-        <translation type="vanished">Jste si jistý, že chcete odstranit &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="105"/>
@@ -1149,32 +974,15 @@
         <translation>Přidat následující film(y)?</translation>
     </message>
     <message>
-        <source>Erase database</source>
-        <translation type="vanished">Vymazat databázi</translation>
-    </message>
-    <message>
-        <source>Nothing to erase.</source>
-        <translation type="vanished">Nic k vymazání.</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="117"/>
         <location filename="../src/mainwindow/mainwindow.cpp" line="193"/>
         <source>Done!</source>
         <translation>Hotovo!</translation>
     </message>
     <message>
-        <source>Nothing was found! Try to change keyword or search settings.</source>
-        <translation type="vanished">Nic nebylo nalezeno! Vyzkoušejte změnu klíčového slova nebo nastavení hledání.</translation>
-    </message>
-    <message>
-        <source>Are you sure to remove following films?
-</source>
-        <translation type="vanished">Jste si jistý, že chcete odstranit filmy?</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="644"/>
         <source>File was successfully removed. Do you want to remove record from the database?</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor byl úspěšně odstraněn. Chcete záznam odstranit z databáze?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="659"/>
@@ -1191,19 +999,19 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="101"/>
         <source>Nothing to add.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nic k přidání.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="141"/>
         <source>It seems you are running the new version of Alexandra for the old version of database. Backup your database in the next dialog before automatic conversion.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdá se, že provozujete novou verzi Alexandry na staré verzi databáze. V dalším dialogu zazálohujte databázi před automatickým převodem.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="150"/>
         <location filename="../src/mainwindow/mainwindow.cpp" line="155"/>
         <location filename="../src/mainwindow/mainwindow.cpp" line="172"/>
         <source>Save backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit zálohu</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="150"/>
@@ -1213,53 +1021,53 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="156"/>
         <source>Are you sure you don&apos;t want to save a backup? You can lose your data if the conversion fails!</source>
-        <translation type="unfinished"></translation>
+        <translation>Jste si jistý, že zálohu nechcete uložit? pokud se převod nezdaří, můžete přijít o data!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="172"/>
         <source>Unable to save file. Try to select another location.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze uložit soubor. Pokuste se vybrat jiné umístění.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="225"/>
         <source>Database read error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při čtení databáze</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="239"/>
         <source>The database file is read-only.</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor s databází je pouze pro čtení.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="358"/>
         <source>Nothing was found</source>
-        <translation type="unfinished"></translation>
+        <translation>Nic nebylo nalezeno</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="359"/>
         <source>Make sure all words are spelled correctly or try using other keywords.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ujistěte se, že byla všechna slova napsána správně nebo zkuste užití jiných klíčových slov.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="490"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastavit</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="572"/>
         <source>Nothing was selected!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nic nebylo vybráno!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="578"/>
         <source>Are you sure you want to remove &quot;%1&quot;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Jste si jistý, že chcete odstranit &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="588"/>
         <source>Are you sure you want to remove following films?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Jste si jistý, že chcete odstranit následující filmy?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="635"/>
@@ -1274,26 +1082,22 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="761"/>
         <source>Views counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Počítadlo zhlédnutí</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="762"/>
         <source>What do you want to do?</source>
-        <translation type="unfinished"></translation>
+        <translation>Co chcete dělat?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="764"/>
         <source>Add view</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat zhlédnutí</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="765"/>
         <source>Reset views</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Original title:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Původní název:&lt;/b&gt; %1</translation>
+        <translation>Vynulovat zhlédnutí</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="101"/>
@@ -1303,111 +1107,15 @@
         <translation>Přidat filmy</translation>
     </message>
     <message>
-        <source>There is nothing to add.</source>
-        <translation type="vanished">Není nic k přidání.</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="193"/>
         <source>Reset statistics</source>
         <translation>Vynulovat statistiku</translation>
-    </message>
-    <message>
-        <source>Error reading the database! Check the permissions or choose another database file in settings (&quot;Application&quot; tab).</source>
-        <translation type="vanished">Chyba při čtení databáze! Prověřte oprávnění nebo zvolte jiný soubor s databází v nastavení (karta Program).</translation>
-    </message>
-    <message>
-        <source>Your database is empty</source>
-        <translation type="vanished">Vaše databáze je prázdná</translation>
-    </message>
-    <message>
-        <source>Hi! At this point your database is empty. It&apos;s time to fill it! To do this, use the following tools:</source>
-        <translation type="vanished">Nazdar. V tomto okamžiku je vaše databáze prázdná. Je čas ji naplnit. K tomu použijte následující nástroje:</translation>
-    </message>
-    <message>
-        <source>Adding movies one by one (menu &quot;Film&quot;→&quot;Add film&quot; or the &quot;Add&quot; button on the toolbar).</source>
-        <translation type="vanished">Přidání filmů jeden po druhém (nabídka Film → Přidat film nebo tlačítko Přidat v nástrojovém pruhu).</translation>
-    </message>
-    <message>
-        <source>Scan selected folders on the drive with the automatic addition of the selected films (menu &quot;Tools&quot;→&quot;Films scanner&quot; or button on the toolbar).</source>
-        <translation type="vanished">Prohledat vybrané složky na disku s automatickým přidáním vybraných filmů (nabídka Nástroje → Prohledávač filmů nebo tlačítko Přidat v nástrojovém pruhu).</translation>
-    </message>
-    <message>
-        <source>If you already have filled database, just select it in the settings (&quot;Application&quot; tab).</source>
-        <translation type="vanished">Pokud jste již vyplnil databázi, prostě ji vyberte v nastavení (karta Program).</translation>
-    </message>
-    <message>
-        <source>All of these tools have automatic information retrieval via the Internet, as well as loading a graphic poster for the film. Enjoy! :)</source>
-        <translation type="vanished">Všechny tyto nástroje získávají údaje samočinně z internetu, a stejně tak plakáty k filmu. Užijte si to! :-)</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tagline:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Zkrácený obsah:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Žánr:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Rok:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Budget:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Rozpočet:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Country:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Země:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Screenwriter:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Scénárista:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Director:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Režisér:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Producer:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Výrobce:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Composer:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Skladatel:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Starring:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;V hlavní roli:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Hodnocení:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Description:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Popis:&lt;/b&gt; %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tags:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Značky:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="397"/>
         <location filename="../src/mainwindow/mainwindow.cpp" line="1051"/>
         <source>Play list</source>
         <translation>Přehrát seznam</translation>
-    </message>
-    <message>
-        <source>STOP</source>
-        <translation type="vanished">ZASTAVIT</translation>
-    </message>
-    <message>
-        <source>Remove record from database?</source>
-        <translation type="vanished">Odstranit záznam z databáze?</translation>
-    </message>
-    <message>
-        <source> (another)</source>
-        <translation type="vanished">(jiný)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="1070"/>
@@ -1443,7 +1151,7 @@
     <message>
         <location filename="../src/scanner/movedfilmswindow.cpp" line="104"/>
         <source>Select the directory to scan.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte adresář k prohledání.</translation>
     </message>
     <message>
         <location filename="../src/scanner/movedfilmswindow.cpp" line="124"/>
@@ -1453,32 +1161,12 @@
     <message>
         <location filename="../src/scanner/movedfilmswindow.cpp" line="159"/>
         <source>Select the files to move.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte soubory k přesunutí.</translation>
     </message>
     <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="81"/>
         <source>&amp;Scan</source>
         <translation>&amp;Prohledat</translation>
-    </message>
-    <message>
-        <source>Founded</source>
-        <translation type="vanished">Nalezeno</translation>
-    </message>
-    <message>
-        <source>Filename</source>
-        <translation type="vanished">Název souboru</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation type="vanished">Vybrat vše</translation>
-    </message>
-    <message>
-        <source>Unselect all</source>
-        <translation type="vanished">Odznačit vše</translation>
-    </message>
-    <message>
-        <source>Invert selection</source>
-        <translation type="vanished">Obrátit výběr</translation>
     </message>
     <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="115"/>
@@ -1501,10 +1189,6 @@
         <translation>&amp;Zavřít</translation>
     </message>
     <message>
-        <source>Nothing to move.</source>
-        <translation type="vanished">Nic k přesunutí.</translation>
-    </message>
-    <message>
         <location filename="../src/scanner/movedfilmswindow.cpp" line="114"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
@@ -1515,17 +1199,9 @@
         <translation>Vybrat adresář k prohledání</translation>
     </message>
     <message>
-        <source>First select the directory to scan.</source>
-        <translation type="vanished">Nejprve vyberte adresář k prohledání.</translation>
-    </message>
-    <message>
         <location filename="../src/scanner/movedfilmswindow.cpp" line="148"/>
         <source>Nothing was found.</source>
         <translation>Nic nebylo nalezeno.</translation>
-    </message>
-    <message>
-        <source>First select the files to move.</source>
-        <translation type="vanished">Nejprve vyberte soubory k přesunutí.</translation>
     </message>
 </context>
 <context>
@@ -1546,18 +1222,7 @@
     <message>
         <location filename="../src/parsers/parsermanager.cpp" line="85"/>
         <source>Nothing to search.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PlayListWidget</name>
-    <message>
-        <source>Remove from playlist</source>
-        <translation type="vanished">Odstranit ze seznamu skladeb</translation>
-    </message>
-    <message>
-        <source>Clear all</source>
-        <translation type="vanished">Smazat vše</translation>
+        <translation>Nic k hledání.</translation>
     </message>
 </context>
 <context>
@@ -1581,13 +1246,9 @@
 <context>
     <name>QObject</name>
     <message>
-        <source>A small opensource video library with great potential, written in C++ using Qt5 framework.</source>
-        <translation type="vanished">Malá videoknihovna s otevřeným zdrojovým kódem, s velkými možnostmi, napsaná v C++ za použití soustavy Qt5.</translation>
-    </message>
-    <message>
         <location filename="../src/version.h" line="34"/>
         <source>Small, fast, but powerful video library, written in C++ with Qt5.</source>
-        <translation type="unfinished"></translation>
+        <translation>Malá, rychlá a šikovná videoknihovna napsaná v C++ pomocí Qt5.</translation>
     </message>
 </context>
 <context>
@@ -1602,57 +1263,9 @@
 <context>
     <name>SearchEdit</name>
     <message>
-        <source>Select fields for filtration</source>
-        <translation type="vanished">Vybrat pole k filtrování</translation>
-    </message>
-    <message>
-        <source>Filter by:</source>
-        <translation type="vanished">Filtrovat podle:</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="vanished">Název</translation>
-    </message>
-    <message>
-        <source>Tags</source>
-        <translation type="vanished">Značky</translation>
-    </message>
-    <message>
-        <source>Genre</source>
-        <translation type="vanished">Žánr</translation>
-    </message>
-    <message>
-        <source>Starring</source>
-        <translation type="vanished">V hlavní roli</translation>
-    </message>
-    <message>
-        <source>Director</source>
-        <translation type="vanished">Režisér</translation>
-    </message>
-    <message>
-        <source>Producer</source>
-        <translation type="vanished">Výrobce</translation>
-    </message>
-    <message>
-        <source>Screenwriter</source>
-        <translation type="vanished">Scénárista</translation>
-    </message>
-    <message>
-        <source>Composer</source>
-        <translation type="vanished">Skladatel</translation>
-    </message>
-    <message>
-        <source>Country</source>
-        <translation type="vanished">Země</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="vanished">Popis</translation>
-    </message>
-    <message>
         <location filename="../src/search/searchedit.cpp" line="39"/>
         <source>Select columns for searching</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat sloupce k hledání</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.cpp" line="102"/>
@@ -1667,17 +1280,17 @@
     <message>
         <location filename="../src/search/searchedit.ui" line="38"/>
         <source>Show viewed films</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat zhlédnuté filmy</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.ui" line="61"/>
         <source>Show favourite films</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat oblíbené filmy</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.ui" line="84"/>
         <source>Show only existing films</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat pouze jsoucí filmy</translation>
     </message>
     <message>
         <location filename="../src/search/searchedit.ui" line="101"/>
@@ -1729,7 +1342,7 @@
         <location filename="../src/search/searchwindow.ui" line="34"/>
         <location filename="../src/search/searchwindow.cpp" line="402"/>
         <source>Simple search</source>
-        <translation type="unfinished"></translation>
+        <translation>Jednoduché hledání</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="58"/>
@@ -1750,7 +1363,7 @@
     <message>
         <location filename="../src/search/searchwindow.ui" line="160"/>
         <source>Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozpočet</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="194"/>
@@ -1771,7 +1384,7 @@
     <message>
         <location filename="../src/search/searchwindow.ui" line="229"/>
         <source>Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>Klíčové slovo</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="256"/>
@@ -1781,60 +1394,60 @@
     <message>
         <location filename="../src/search/searchwindow.ui" line="310"/>
         <source>Complete or partial title</source>
-        <translation type="unfinished"></translation>
+        <translation>Úplný nebo částečný název</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="313"/>
         <source>Title contains</source>
-        <translation type="unfinished"></translation>
+        <translation>Název obsahuje</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="325"/>
         <source>Search in description</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat v popisu</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="335"/>
         <source>Search in tagline</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat ve zkráceném obsahu</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="373"/>
         <source>Range of years or a specific value</source>
-        <translation type="unfinished"></translation>
+        <translation>Časový rozsah v rocích nebo určitá hodnota</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="392"/>
         <location filename="../src/search/searchwindow.ui" line="503"/>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>Od</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="399"/>
         <location filename="../src/search/searchwindow.ui" line="510"/>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>Do</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="446"/>
         <location filename="../src/search/searchwindow.ui" line="569"/>
         <source>Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozsah</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="654"/>
         <source>Hide viewed</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrýt zhlédnuté</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="661"/>
         <source>Hide favourite</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrýt oblíbené</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="668"/>
         <source>Approximate</source>
-        <translation type="unfinished"></translation>
+        <translation>Přibližný</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="959"/>
@@ -1849,11 +1462,7 @@
     <message>
         <location filename="../src/search/searchwindow.ui" line="1002"/>
         <source>&amp;Show</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="vanished">&amp;OK</translation>
+        <translation>Uká&amp;zat</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="116"/>
@@ -1879,10 +1488,6 @@
         <translation>Země</translation>
     </message>
     <message>
-        <source>Keywords</source>
-        <translation type="vanished">Klíčová slova</translation>
-    </message>
-    <message>
         <location filename="../src/search/searchwindow.ui" line="243"/>
         <location filename="../src/search/searchwindow.ui" line="675"/>
         <location filename="../src/search/searchwindow.cpp" line="134"/>
@@ -1895,13 +1500,9 @@
         <translation>Výsledek</translation>
     </message>
     <message>
-        <source>Nothing to search. Input keyword first.</source>
-        <translation type="vanished">Nic k hledání. Nejprve zadejte klíčové slovo.</translation>
-    </message>
-    <message>
         <location filename="../src/search/searchwindow.cpp" line="134"/>
         <source>Nothing to search. Input keyword and select at least one field.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nic k hledání. Zadejte klíčové slovo a vyberte alespoň jedno pole.</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.cpp" line="402"/>
@@ -2027,10 +1628,6 @@
         <translation>Šířka panelu</translation>
     </message>
     <message>
-        <source>Automatically load technical information</source>
-        <translation type="vanished">Nahrát technické údaje automaticky</translation>
-    </message>
-    <message>
         <location filename="../src/settingswindow.ui" line="573"/>
         <source>Select</source>
         <translation>Vybrat</translation>
@@ -2043,7 +1640,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="725"/>
         <source>Highlight unavailable files</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvýraznit nedostupné soubory</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="752"/>
@@ -2140,34 +1737,22 @@
     <message>
         <location filename="../src/settingswindow.ui" line="1352"/>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>Jiné</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1358"/>
         <source>Download big poster (if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stáhnout velký plakát (je-li to možné)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1368"/>
         <source>Download more information (if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stáhnout další údaje (je-li to možné)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1378"/>
         <source>(These options use more traffic and may slows down the loading)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>IMDB</source>
-        <translation type="vanished">IMDB</translation>
-    </message>
-    <message>
-        <source>Load big poster</source>
-        <translation type="vanished">Nahrát velký plakát</translation>
-    </message>
-    <message>
-        <source>Load additional data</source>
-        <translation type="vanished">Nahrát dodatečné údaje</translation>
+        <translation>(Tyto volby používají více provozních prostředků a mohou zpomalit nahrávání)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1420"/>
@@ -2177,7 +1762,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="1427"/>
         <source>&amp;Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Použít</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1434"/>
@@ -2228,10 +1813,6 @@
         <location filename="../src/settingswindow.cpp" line="366"/>
         <source>Create database</source>
         <translation>Vytvořit databázi</translation>
-    </message>
-    <message>
-        <source>Checking availability of files at startup</source>
-        <translation type="vanished">Ověření dostupnosti souborů při spuštění</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="732"/>
@@ -2289,10 +1870,6 @@
         <location filename="../src/settingswindow.cpp" line="356"/>
         <source>Alexandra DB (*.adat)</source>
         <translation>Alexandra DB (*.adat)</translation>
-    </message>
-    <message>
-        <source>Not a database file or incorrect version!</source>
-        <translation type="vanished">Není soubor s databází nebo nesprávná verze!</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.cpp" line="343"/>
@@ -2424,7 +2001,7 @@
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="62"/>
         <source>Favourite films:</source>
-        <translation type="unfinished"></translation>
+        <translation>Oblíbené filmy:</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="69"/>
@@ -2444,27 +2021,27 @@
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="152"/>
         <source>Number of directors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet režisérů:</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="159"/>
         <source>Number of screenwriters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet scénáristů:</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="166"/>
         <source>Number of genres:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet žánrů:</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="173"/>
         <source>Number of actors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet účinkujících:</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="180"/>
         <source>Number of countries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet zemí:</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="247"/>
@@ -2484,12 +2061,12 @@
     <message>
         <location filename="../src/statistics/statisticswindow.ui" line="317"/>
         <source>Reset view counters</source>
-        <translation type="unfinished"></translation>
+        <translation>Vynulovat počítadla zhlédnutí</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.cpp" line="90"/>
         <source>The calculations are inaccurate because some of files aren&apos;t available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Výpočty nejsou přesné, protože některé soubory nejsou dostupné.</translation>
     </message>
     <message>
         <location filename="../src/statistics/statisticswindow.cpp" line="131"/>
@@ -2502,10 +2079,6 @@
         <translation>&amp;Zavřít</translation>
     </message>
     <message>
-        <source>The calculation is not accurate, because some files are not available.</source>
-        <translation type="vanished">Výpočet není přesný, protože některé soubory nejsou dostupné.</translation>
-    </message>
-    <message>
         <location filename="../src/statistics/statisticswindow.cpp" line="131"/>
         <source>Are you sure?</source>
         <translation>Jste si jistý?</translation>
@@ -2514,14 +2087,6 @@
 <context>
     <name>StatusBar</name>
     <message>
-        <source>Loading...</source>
-        <translation type="vanished">Nahrává se...</translation>
-    </message>
-    <message>
-        <source>Founded: %1</source>
-        <translation type="vanished">Nalezeno: %1</translation>
-    </message>
-    <message>
         <location filename="../src/statusbar.cpp" line="57"/>
         <source>Total films: %1 (%2 viewed, %3 favourite)</source>
         <translation>Celkem filmů: %1 (%2 zhlédnuto, %3 oblíbených)</translation>
@@ -2529,7 +2094,7 @@
     <message>
         <location filename="../src/statusbar.cpp" line="72"/>
         <source>Shown: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázáno: %1</translation>
     </message>
 </context>
 <context>
@@ -2547,12 +2112,12 @@
     <message>
         <location filename="../src/datamanip/texteditor.cpp" line="56"/>
         <source>Are you sure you want to discard changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Jste si jistý, že chcete zahodit změny?</translation>
     </message>
     <message>
         <location filename="../src/datamanip/texteditor.h" line="41"/>
         <source>Editing &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravuje se &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
