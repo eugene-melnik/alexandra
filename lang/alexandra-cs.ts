@@ -1252,15 +1252,6 @@
     </message>
 </context>
 <context>
-    <name>S:</name>
-    <message>
-        <location filename="../src/filminfowindow.cpp" line="50"/>
-        <source></source>
-        <comment>Translate only &quot;Duration&quot;</comment>
-        <translation></translation>
-    </message>
-</context>
-<context>
     <name>SearchEdit</name>
     <message>
         <location filename="../src/search/searchedit.cpp" line="39"/>
