@@ -226,6 +226,12 @@ void MainWindow::DatabaseReadError( const QString& message )
 }
 
 
+void MainWindow::DatabaseWriteError( const QString& message )
+{
+    QMessageBox::critical( this, tr("Database write error"), message );
+}
+
+
 void MainWindow::DatabaseIsEmpty()
 {
     ClearTextFields();
@@ -876,6 +882,7 @@ void MainWindow::SetupWindows()
 
     connect( filmsListModel, &FilmsListModel::DatabaseLoaded, this, &MainWindow::DatabaseIsLoaded );
     connect( filmsListModel, &FilmsListModel::DatabaseReadError,  this, &MainWindow::DatabaseReadError );
+    connect( filmsListModel, &FilmsListModel::DatabaseWriteError,  this, &MainWindow::DatabaseWriteError );
     connect( filmsListModel, &FilmsListModel::DatabaseIsReadonly, this, &MainWindow::DatabaseIsReadonly );
     connect( filmsListModel, &FilmsListModel::DatabaseIsEmpty,    this, &MainWindow::DatabaseIsEmpty );
     connect( filmsListModel, &FilmsListModel::DatabaseChanged, this, &MainWindow::DatabaseChanged );

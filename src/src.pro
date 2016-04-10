@@ -11,7 +11,7 @@ TARGET = alexandra
 TEMPLATE = app
 
 
-#CONFIG += release
+CONFIG += release
 #CONFIG += debug console
 
 QT = core gui widgets network

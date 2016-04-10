@@ -69,7 +69,7 @@ bool FilmsListLoader::Populate( FilmItem* rootItem, QString fileName )
 }
 
 
-bool FilmsListLoader::Save( FilmItem* rootItem, QString fileName )
+bool FilmsListLoader::Save( FilmItem* rootItem, QString fileName, QString* errorString )
 {
     DebugPrintFunc( "FilmsListLoader::Save", fileName );
 
@@ -93,18 +93,25 @@ bool FilmsListLoader::Save( FilmItem* rootItem, QString fileName )
 
     QFile file( fileName );
 
-    if( file.open( QIODevice::WriteOnly ) || file.write(data) == -1 )
+    if( file.open( QIODevice::WriteOnly ) )
     {
         QDataStream stream( &file );
         stream.setVersion( QDataStream::Qt_5_3 );
         stream << Alexandra::databaseHeader;
         stream << Alexandra::databaseVersion;
         stream << data;
+        file.close();
     }
     else
     {
         DebugPrint( "Saving failed!" );
         DebugPrintFuncDone( "FilmsListLoader::Save" );
+
+        if (errorString != nullptr)
+        {
+            *errorString = file.errorString();
+        }
+
         return( false );
     }
 

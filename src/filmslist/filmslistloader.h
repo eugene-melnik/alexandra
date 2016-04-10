@@ -33,7 +33,7 @@ class FilmsListLoader
 {
     public:
         static bool Populate( FilmItem* rootItem, QString fileName );
-        static bool Save( FilmItem* rootItem, QString fileName );
+        static bool Save( FilmItem* rootItem, QString fileName, QString* errorString = nullptr );
 
         static bool CreateEmptyDatabase( QString fileName );
 

@@ -87,7 +87,7 @@ class FilmsListModel : public QAbstractItemModel
     signals:
         void DatabaseConvertOld();
         void DatabaseReadError( QString );
-        void DatabaseWriteError();
+        void DatabaseWriteError( QString );
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 

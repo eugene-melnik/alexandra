@@ -69,6 +69,7 @@ class MainWindow : public QMainWindow, protected Ui::MainWindow
 
         void DatabaseIsLoaded() { SetAllFunctionsEnabled( true ); }
         void DatabaseReadError( const QString& message );
+        void DatabaseWriteError( const QString& message );
         void DatabaseIsEmpty();
         void DatabaseIsReadonly();
 

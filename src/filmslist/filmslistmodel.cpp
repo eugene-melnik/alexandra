@@ -543,14 +543,15 @@ QModelIndex FilmsListModel::GetFilmIndex( QString title ) const
 
 void FilmsListModel::SaveToFileSync( QString fileName )
 {
-    if( isDatabaseChanged )
+    if( isDatabaseChanged && !isReadonly )
     {
         QMutexLocker locker( &mutexDataEdit );
         isDatabaseChanged = false;
+        QString errorString;
 
-        if( !FilmsListLoader::Save( rootItem, fileName ) )
+        if( !FilmsListLoader::Save( rootItem, fileName, &errorString ) )
         {
-            emit DatabaseWriteError();
+            emit DatabaseWriteError( errorString );
         }
     }
 }
