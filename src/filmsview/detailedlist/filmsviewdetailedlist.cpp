@@ -43,7 +43,7 @@ FilmsViewDetailedList::FilmsViewDetailedList( QWidget* parent ) : QTableWidget( 
     verticalHeader()->hide();
 
       // Signals
-//    connect( this, SIGNAL(activated(QModelIndex)), this, SIGNAL(CurrentActivated(QModelIndex)) );
+    connect( this, SIGNAL(activated(QModelIndex)), this, SIGNAL(CurrentActivated(QModelIndex)) );
 
     connect( this, &QWidget::customContextMenuRequested, this, [this] (const QPoint& pos)
     {
@@ -68,13 +68,14 @@ void FilmsViewDetailedList::setModel( QAbstractItemModel* model )
 //    {
 //        QModelIndex index = currentIndex();
 //        selectionModel()->currentChanged( index, index );
-//        DebugPrint("DATA CHANGED");
 //    } );
 }
 
 
 void FilmsViewDetailedList::ResetContents()
 {
+    DebugPrintFunc( "FilmsViewDetailedList::ResetContents" );
+
     clearContents();
     setColumnCount( 1 );
     setRowCount( sourceModel->rowCount() );
@@ -83,7 +84,10 @@ void FilmsViewDetailedList::ResetContents()
     {
         FilmDetailedInfo* filmInfoWidget = new FilmDetailedInfo( this );
 
-        QString title = sourceModel->index( row, FilmItem::TitleColumn).data().toString();
+        QPixmap poster = sourceModel->index( row, FilmItem::PosterColumn).data(Qt::DecorationRole).value<QPixmap>();
+        filmInfoWidget->lPoster->setPixmap( poster.scaledToWidth(filmInfoWidget->lPoster->maximumWidth(), Qt::SmoothTransformation) );
+
+        QString title = "<b> " + sourceModel->index( row, FilmItem::TitleColumn).data().toString() + "</b>";
         QString year = sourceModel->index( row, FilmItem::YearColumn).data().toString();
 
         if( !year.isEmpty() )
@@ -92,8 +96,14 @@ void FilmsViewDetailedList::ResetContents()
         }
 
         filmInfoWidget->lTitle->setText( title );
+        filmInfoWidget->lRating->setPixmap( sourceModel->index( row, FilmItem::RatingColumn).data(Qt::DecorationRole).value<QPixmap>() );
+        filmInfoWidget->lGenres->setText( "<b>Genres:</b> " + sourceModel->index( row, FilmItem::GenreColumn).data().toString() );
+        filmInfoWidget->lActors->setText( "<b>Actors:</b> " + sourceModel->index( row, FilmItem::StarringColumn).data().toString().left(200) + "..." );
+
         setCellWidget( row, 0, filmInfoWidget );
-        setRowHeight( row, 100 );
+        setRowHeight( row, 150 );
     }
+
+    DebugPrintFuncDone( "FilmsViewDetailedList::ResetContents" );
 }
 
