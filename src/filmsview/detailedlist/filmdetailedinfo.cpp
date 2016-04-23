@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: abstractfilmsview.h                                                                     *
+ *  file: filmdetailedinfo.cpp                                                                    *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,40 +18,11 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ABSTRACTFILMSVIEW_H
-#define ABSTRACTFILMSVIEW_H
+#include "filmdetailedinfo.h"
 
 
-#include <QColor>
-#include <QModelIndex>
-#include <QStringList>
-
-// TODO: docs
-
-class AbstractFilmsView
+FilmDetailedInfo::FilmDetailedInfo( QWidget* parent ) : QWidget( parent )
 {
-    public:
-        virtual ~AbstractFilmsView() {}
-
-        virtual void LoadSettings() {}
-        virtual void ReloadSettings() {}
-        virtual void SaveSettings() const {}
-
-        virtual int GetRowCount() = 0;
-        virtual QModelIndex GetCurrentIndex() = 0;
-        virtual QModelIndexList GetSelectedItemsList() = 0;
-
-        virtual void SetCurrentIndex( const QModelIndex& index ) = 0;
-        virtual void SetCurrentRow( int row ) = 0;
-
-        virtual void ScrollToCurrent() = 0;
-
-//    signals:
-//        void CurrentChanged( const QModelIndex& );
-//        void CurrentActivated( const QModelIndex& );
-//        void ContextMenuRequested( const QPoint& );
-};
-
-
-#endif // ABSTRACTFILMSVIEW_H
+    setupUi( this );
+}
 

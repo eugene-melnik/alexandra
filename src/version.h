@@ -78,7 +78,8 @@ namespace Alexandra
         enum Mode
         {
             ListMode = 0,
-            GridMode = 1
+            GridMode = 1,
+            DetailedListMode = 2
         };
 
           // Themes

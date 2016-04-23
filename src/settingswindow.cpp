@@ -117,13 +117,17 @@ void SettingsWindow::ConfigureAppearanceTab()
 
       /// View mode
 
-    if( settings->GetFilmsViewMode() == Alexandra::ListMode )
+    if( settings->GetFilmsViewMode() == Alexandra::DetailedListMode )
     {
-        rbListView->setChecked( true );
+        rbDetailedListView->setChecked( true );
     }
-    else // Alexandra::GridMode
+    else if( settings->GetFilmsViewMode() == Alexandra::GridMode )
     {
         rbGridView->setChecked( true );
+    }
+    else // Alexandra::ListMode by default
+    {
+        rbListView->setChecked( true );
     }
 
       // List view
@@ -553,18 +557,23 @@ void SettingsWindow::SaveSettings()
         settings->SetApplicationThemeIndex( cbTheme->currentIndex() );
         settings->SetMainWindowToolbarStyle( cbToolbarStyle->currentIndex() );
 
-        if( rbListView->isChecked() )
+        if( rbDetailedListView->isChecked() )
         {
-            settings->SetFilmsViewMode( Alexandra::ListMode );
-            settings->SetListFontSize( sbListFontSize->value() );
-            settings->SetListRowHeight( sbListRowHeight->value() );
+            settings->SetFilmsViewMode( Alexandra::DetailedListMode );
+            /// TODO: add more settings
         }
-        else
+        else if( rbGridView->isChecked() )
         {
             settings->SetFilmsViewMode( Alexandra::GridMode );
             settings->SetGridItemSize( sbGridImageSize->value() );
             settings->SetGridFontSize( sbGridFontSize->value() );
             settings->SetGridShowTooltip( cShowTooltip->isChecked() );
+        }
+        else // ListMode
+        {
+            settings->SetFilmsViewMode( Alexandra::ListMode );
+            settings->SetListFontSize( sbListFontSize->value() );
+            settings->SetListRowHeight( sbListRowHeight->value() );
         }
 
         settings->SetMainWindowShowRightPanel( cShowRightPanel->isChecked() );

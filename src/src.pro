@@ -11,8 +11,8 @@ TARGET = alexandra
 TEMPLATE = app
 
 
-CONFIG += release
-#CONFIG += debug console
+#CONFIG += release
+CONFIG += debug console
 
 QT = core gui widgets network
 CONFIG += qt warn_on thread
@@ -47,6 +47,8 @@ HEADERS += datamanip/addfilmwindow.h \
            filmslist/filmslistloader.h \
            filmslist/filmslistmodel.h \
            filmslist/filmslistproxymodel.h \
+           filmsview/detailedlist/filmdetailedinfo.h \
+           filmsview/detailedlist/filmsviewdetailedlist.h \
            filmsview/grid/filmsviewgrid.h \
            filmsview/grid/filmsviewgridproxymodel.h \
            filmsview/info/abstractfilminfoview.h \
@@ -100,6 +102,8 @@ SOURCES += datamanip/addfilmwindow.cpp \
            filmslist/filmslistloader.cpp \
            filmslist/filmslistmodel.cpp \
            filmslist/filmslistproxymodel.cpp \
+           filmsview/detailedlist/filmdetailedinfo.cpp \
+           filmsview/detailedlist/filmsviewdetailedlist.cpp \
            filmsview/grid/filmsviewgrid.cpp \
            filmsview/grid/filmsviewgridproxymodel.cpp \
            filmsview/info/filminfoview.cpp \
@@ -141,6 +145,7 @@ SOURCES += datamanip/addfilmwindow.cpp \
 
 FORMS += datamanip/addfilmwindow.ui \
          datamanip/texteditor.ui \
+         filmsview/detailedlist/filmdetailedinfo.ui \
          filmsview/info/filminfoview.ui \
          mainwindow/checkvieweddialog.ui \
          mainwindow/mainwindow.ui \

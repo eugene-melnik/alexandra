@@ -20,6 +20,7 @@
 
 #include "datamanip/addfilmwindow.h"
 #include "datamanip/editfilmwindow.h"
+#include "filmsview/detailedlist/filmsviewdetailedlist.h"
 #include "filmsview/grid/filmsviewgrid.h"
 #include "filmsview/list/filmsviewlist.h"
 #include "search/searchwindow.h"
@@ -986,6 +987,14 @@ void MainWindow::SetupFilmsView()
 
     switch( settings->GetFilmsViewMode() )
     {
+        case Alexandra::DetailedListMode :
+        {
+            filmsListProxyModel->sort( FilmItem::TitleColumn );
+            view = new FilmsViewDetailedList( this );
+            DebugPrint( "DetailedList view mode" );
+            break;
+        }
+
         case Alexandra::GridMode :
         {
             filmsListProxyModel->sort( FilmItem::TitleColumn );
@@ -999,6 +1008,7 @@ void MainWindow::SetupFilmsView()
         {
             view = new FilmsViewList( this );
             DebugPrint( "List view mode" );
+            break;
         }
     }
 

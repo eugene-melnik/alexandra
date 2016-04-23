@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: abstractfilmsview.h                                                                     *
+ *  file: filmsviewdetailedlist.h                                                                 *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,40 +18,47 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ABSTRACTFILMSVIEW_H
-#define ABSTRACTFILMSVIEW_H
+#ifndef FILMSVIEWDETAILEDLIST_H
+#define FILMSVIEWDETAILEDLIST_H
 
 
-#include <QColor>
-#include <QModelIndex>
-#include <QStringList>
+#include <QTableWidget>
 
-// TODO: docs
 
-class AbstractFilmsView
+#include "../abstractfilmsview.h"
+
+
+class FilmsViewDetailedList : public QTableWidget, public AbstractFilmsView
 {
+    Q_OBJECT
+
     public:
-        virtual ~AbstractFilmsView() {}
+        explicit FilmsViewDetailedList( QWidget* parent = nullptr );
 
-        virtual void LoadSettings() {}
-        virtual void ReloadSettings() {}
-        virtual void SaveSettings() const {}
+        void setModel( QAbstractItemModel* model ) override;
 
-        virtual int GetRowCount() = 0;
-        virtual QModelIndex GetCurrentIndex() = 0;
-        virtual QModelIndexList GetSelectedItemsList() = 0;
+    public slots:
+        int GetRowCount() override { return( model()->rowCount() ); }
+        QModelIndex GetCurrentIndex() override { return( currentIndex() ); }
+        QModelIndexList GetSelectedItemsList() override { return( selectedIndexes() ); }
 
-        virtual void SetCurrentIndex( const QModelIndex& index ) = 0;
-        virtual void SetCurrentRow( int row ) = 0;
+        void SetCurrentIndex( const QModelIndex& index ) override { setCurrentIndex(index); }
+        void SetCurrentRow( int row ) override { SetCurrentIndex( model()->index(row, 0) ); }
 
-        virtual void ScrollToCurrent() = 0;
+        void ScrollToCurrent() override { scrollTo( GetCurrentIndex() ); }
 
-//    signals:
-//        void CurrentChanged( const QModelIndex& );
-//        void CurrentActivated( const QModelIndex& );
-//        void ContextMenuRequested( const QPoint& );
+    signals:
+        void CurrentChanged( const QModelIndex& );
+        void CurrentActivated( const QModelIndex& );
+        void ContextMenuRequested( const QPoint&, const QModelIndex& );
+
+    protected slots:
+        void ResetContents();
+
+    private:
+        QAbstractItemModel* sourceModel = nullptr;
 };
 
 
-#endif // ABSTRACTFILMSVIEW_H
+#endif // FILMSVIEWDETAILEDLIST_H
 

@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: abstractfilmsview.h                                                                     *
+ *  file: filmdetailedinfo.h                                                                      *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,40 +18,21 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef ABSTRACTFILMSVIEW_H
-#define ABSTRACTFILMSVIEW_H
+#ifndef FILMDETAILEDINFO_H
+#define FILMDETAILEDINFO_H
 
 
-#include <QColor>
-#include <QModelIndex>
-#include <QStringList>
+#include "ui_filmdetailedinfo.h"
 
-// TODO: docs
 
-class AbstractFilmsView
+class FilmDetailedInfo : public QWidget, public Ui::FilmDetailedInfo
 {
+    Q_OBJECT
+
     public:
-        virtual ~AbstractFilmsView() {}
-
-        virtual void LoadSettings() {}
-        virtual void ReloadSettings() {}
-        virtual void SaveSettings() const {}
-
-        virtual int GetRowCount() = 0;
-        virtual QModelIndex GetCurrentIndex() = 0;
-        virtual QModelIndexList GetSelectedItemsList() = 0;
-
-        virtual void SetCurrentIndex( const QModelIndex& index ) = 0;
-        virtual void SetCurrentRow( int row ) = 0;
-
-        virtual void ScrollToCurrent() = 0;
-
-//    signals:
-//        void CurrentChanged( const QModelIndex& );
-//        void CurrentActivated( const QModelIndex& );
-//        void ContextMenuRequested( const QPoint& );
+        explicit FilmDetailedInfo( QWidget* parent = nullptr );
 };
 
 
-#endif // ABSTRACTFILMSVIEW_H
+#endif // FILMDETAILEDINFO_H
 

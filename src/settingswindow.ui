@@ -390,6 +390,13 @@
              </widget>
             </item>
             <item>
+             <widget class="QRadioButton" name="rbDetailedListView">
+              <property name="text">
+               <string>Detailed list view</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QCheckBox" name="cShowRightPanel">
               <property name="text">
                <string>Show right panel</string>
@@ -1463,14 +1470,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>rbListView</sender>
+   <sender>rbGridView</sender>
    <signal>toggled(bool)</signal>
    <receiver>layoutViewModeGridView</receiver>
-   <slot>setDisabled(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>179</x>
-     <y>81</y>
+     <x>263</x>
+     <y>335</y>
     </hint>
     <hint type="destinationlabel">
      <x>180</x>
