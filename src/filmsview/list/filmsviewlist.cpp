@@ -63,7 +63,7 @@ FilmsViewList::FilmsViewList( QWidget* parent ) : QTableView( parent )
 }
 
 
-void FilmsViewList::setModel( QAbstractItemModel* model )
+void FilmsViewList::SetModel( FilmsListProxyModel* model )
 {
     QTableView::setModel( model );
 

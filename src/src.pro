@@ -102,7 +102,6 @@ SOURCES += datamanip/addfilmwindow.cpp \
            filmslist/filmslistloader.cpp \
            filmslist/filmslistmodel.cpp \
            filmslist/filmslistproxymodel.cpp \
-           filmsview/detailedlist/filmdetailedinfo.cpp \
            filmsview/detailedlist/filmsviewdetailedlist.cpp \
            filmsview/grid/filmsviewgrid.cpp \
            filmsview/grid/filmsviewgridproxymodel.cpp \

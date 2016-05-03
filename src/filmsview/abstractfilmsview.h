@@ -26,12 +26,17 @@
 #include <QModelIndex>
 #include <QStringList>
 
+
+#include "filmslist/filmslistproxymodel.h"
+
 // TODO: docs
 
 class AbstractFilmsView
 {
     public:
         virtual ~AbstractFilmsView() {}
+
+        virtual void SetModel( FilmsListProxyModel* model ) = 0;
 
         virtual void LoadSettings() {}
         virtual void ReloadSettings() {}

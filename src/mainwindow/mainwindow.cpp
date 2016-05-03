@@ -1012,14 +1012,14 @@ void MainWindow::SetupFilmsView()
         }
     }
 
-    filmsView = dynamic_cast<AbstractFilmsView*>( view );
-
       // Base signals
     connect( view, SIGNAL(CurrentChanged(QModelIndex)),   this, SLOT(ShowFilmInformation(QModelIndex)) );
     connect( view, SIGNAL(CurrentActivated(QModelIndex)), this, SLOT(DoubleClickBehavior()) );
     connect( view, SIGNAL(ContextMenuRequested(QPoint,QModelIndex)), this, SLOT(ShowFilmContextMenu(QPoint,QModelIndex)) );
 
-    view->setModel( filmsListProxyModel );
+    filmsView = dynamic_cast<AbstractFilmsView*>( view );
+    filmsView->SetModel( filmsListProxyModel );
+
     vlLeft->insertWidget( 0, view );
     view->show();
     view->setFocus();

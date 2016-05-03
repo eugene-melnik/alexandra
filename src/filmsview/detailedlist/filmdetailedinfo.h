@@ -22,15 +22,75 @@
 #define FILMDETAILEDINFO_H
 
 
+#include "filmslist/filmitem.h"
 #include "ui_filmdetailedinfo.h"
 
 
-class FilmDetailedInfo : public QWidget, public Ui::FilmDetailedInfo
+#include <QPixmap>
+
+
+class FilmDetailedInfo : public QWidget, protected Ui::FilmDetailedInfo
 {
     Q_OBJECT
 
     public:
-        explicit FilmDetailedInfo( QWidget* parent = nullptr );
+        explicit FilmDetailedInfo( QWidget* parent = nullptr ) : QWidget( parent )
+        {
+            setupUi( this );
+        }
+
+        void SetLazyLoading( bool lazy = true )
+        {
+            lazyLoading = lazy;
+        }
+
+        void SetFilm( const FilmItem* film )
+        {
+            this->film = film;
+
+            if( !lazyLoading )
+            {
+                LoadFilmData();
+            }
+        }
+
+    protected:
+        void paintEvent( QPaintEvent* event )
+        {
+            if( !dataLoaded )
+            {
+                LoadFilmData();
+            }
+
+            QWidget::paintEvent( event );
+        }
+
+        void LoadFilmData()
+        {
+            QPixmap poster( film->GetPosterFilePath() );
+            lPoster->setPixmap( poster.scaledToWidth( lPoster->maximumWidth(), Qt::SmoothTransformation ) );
+
+            QString title = "<b> " + film->GetTitle() + "</b>";
+            QString year = film->GetColumnData( FilmItem::YearColumn ).toString();
+
+            if( !year.isEmpty() )
+            {
+                title += QString( " (%1)" ).arg( year );
+            }
+
+            lTitle->setText( title );
+//            lRating->setPixmap( sourceModel->index( row, FilmItem::RatingColumn).data(Qt::DecorationRole).value<QPixmap>() );
+            lGenres->setText( "<b>Genres:</b> " + film->GetColumnData( FilmItem::GenreColumn ).toString() );
+            lActors->setText( "<b>Actors:</b> " + film->GetColumnData( FilmItem::StarringColumn).toString().left(200) + "..." );
+
+            dataLoaded = true;
+        }
+
+    private:
+        bool lazyLoading = false;
+        bool dataLoaded = false;
+
+        const FilmItem* film = nullptr;
 };
 
 

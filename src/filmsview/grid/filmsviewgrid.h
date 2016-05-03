@@ -36,7 +36,7 @@ class FilmsViewGrid : public QListView, public AbstractFilmsView
     public:
         explicit FilmsViewGrid( QWidget* parent = nullptr );
 
-        void setModel( QAbstractItemModel* model ) override;
+        void SetModel( FilmsListProxyModel* model ) override;
 
     public slots:
         void LoadSettings() override { ReloadSettings(); }

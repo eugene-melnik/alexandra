@@ -26,6 +26,7 @@
 
 
 #include "../abstractfilmsview.h"
+#include "filmslist/filmslistproxymodel.h"
 
 
 class FilmsViewDetailedList : public QTableWidget, public AbstractFilmsView
@@ -35,7 +36,7 @@ class FilmsViewDetailedList : public QTableWidget, public AbstractFilmsView
     public:
         explicit FilmsViewDetailedList( QWidget* parent = nullptr );
 
-        void setModel( QAbstractItemModel* model ) override;
+        void SetModel( FilmsListProxyModel* model ) override;
 
     public slots:
         int GetRowCount() override { return( model()->rowCount() ); }
@@ -56,7 +57,7 @@ class FilmsViewDetailedList : public QTableWidget, public AbstractFilmsView
         void ResetContents();
 
     private:
-        QAbstractItemModel* sourceModel = nullptr;
+        FilmsListProxyModel* sourceModel = nullptr;
 };
 
 

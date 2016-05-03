@@ -36,7 +36,7 @@ class FilmsViewList : public QTableView, public AbstractFilmsView
     public:
         explicit FilmsViewList( QWidget* parent = nullptr );
 
-        void setModel( QAbstractItemModel* model ) override;
+        void SetModel( FilmsListProxyModel* model ) override;
 
     public slots:
         void LoadSettings() override;

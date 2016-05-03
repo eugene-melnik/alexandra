@@ -55,12 +55,12 @@ FilmsViewDetailedList::FilmsViewDetailedList( QWidget* parent ) : QTableWidget( 
 }
 
 
-void FilmsViewDetailedList::setModel( QAbstractItemModel* model )
+void FilmsViewDetailedList::SetModel( FilmsListProxyModel* model )
 {
     sourceModel = model;
     ResetContents();
 
-    connect( sourceModel, &QAbstractItemModel::modelReset, this, &FilmsViewDetailedList::ResetContents);
+    connect( sourceModel, &FilmsListProxyModel::modelReset, this, &FilmsViewDetailedList::ResetContents);
 
 //    connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SIGNAL(CurrentChanged(QModelIndex)) );
 
@@ -82,23 +82,12 @@ void FilmsViewDetailedList::ResetContents()
 
     for( int row = 0; row < sourceModel->rowCount(); ++row )
     {
+        QModelIndex index = sourceModel->index( row, FilmItem::TitleColumn );
+        const FilmItem* film = sourceModel->GetFilmItemByIndex( index );
+
         FilmDetailedInfo* filmInfoWidget = new FilmDetailedInfo( this );
-
-        QPixmap poster = sourceModel->index( row, FilmItem::PosterColumn).data(Qt::DecorationRole).value<QPixmap>();
-        filmInfoWidget->lPoster->setPixmap( poster.scaledToWidth(filmInfoWidget->lPoster->maximumWidth(), Qt::SmoothTransformation) );
-
-        QString title = "<b> " + sourceModel->index( row, FilmItem::TitleColumn).data().toString() + "</b>";
-        QString year = sourceModel->index( row, FilmItem::YearColumn).data().toString();
-
-        if( !year.isEmpty() )
-        {
-            title += QString( " (%1)" ).arg(year);
-        }
-
-        filmInfoWidget->lTitle->setText( title );
-        filmInfoWidget->lRating->setPixmap( sourceModel->index( row, FilmItem::RatingColumn).data(Qt::DecorationRole).value<QPixmap>() );
-        filmInfoWidget->lGenres->setText( "<b>Genres:</b> " + sourceModel->index( row, FilmItem::GenreColumn).data().toString() );
-        filmInfoWidget->lActors->setText( "<b>Actors:</b> " + sourceModel->index( row, FilmItem::StarringColumn).data().toString().left(200) + "..." );
+        filmInfoWidget->SetLazyLoading( true );
+        filmInfoWidget->SetFilm( film );
 
         setCellWidget( row, 0, filmInfoWidget );
         setRowHeight( row, 150 );

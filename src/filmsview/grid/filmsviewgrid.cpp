@@ -53,7 +53,7 @@ FilmsViewGrid::FilmsViewGrid( QWidget* parent ) : QListView( parent ),
 }
 
 
-void FilmsViewGrid::setModel( QAbstractItemModel* model )
+void FilmsViewGrid::SetModel( FilmsListProxyModel* model )
 {
     proxyModel->setSourceModel( model );
 
