@@ -42,6 +42,12 @@ class FilmDetailedInfo : public QWidget, protected Ui::FilmDetailedInfo
             setupUi( this );
         }
 
+        void SetPoster( QPixmap poster )
+        {
+            int posterHeight = height() - 20; /// FIXME
+            lPoster->setPixmap( poster.scaledToHeight(posterHeight, Qt::SmoothTransformation) );
+        }
+
         void SetTitle( const QString& title, int year = 0 )
         {
             QString s = QString( "<b>%1</b>" ).arg( title );
@@ -54,34 +60,40 @@ class FilmDetailedInfo : public QWidget, protected Ui::FilmDetailedInfo
             lTitle->setText( s );
         }
 
-        void SetRating( QPixmap rating )
-        {
-            lRating->setPixmap( rating );
-        }
+        void SetViewed( QPixmap viewed ) { SetFieldPixmap( lViewed, viewed ); }
+        void SetFavourite( QPixmap favourite ) { SetFieldPixmap( lFavourite, favourite ); }
+        void SetRating( QPixmap rating ) { SetFieldPixmap( lRating, rating ); }
 
-        void SetPoster( QPixmap poster )
-        {
-            int posterHeight = height() - 20; /// FIXME
-            lPoster->setPixmap( poster.scaledToHeight(posterHeight, Qt::SmoothTransformation) );
-        }
-
-        void SetGenres( const QString& genres )
-        {
-            if( !genres.isEmpty() )
-            {
-                lGenres->setText( QString( "<b>%1:</b> %2" ).arg( tr("Genre") ).arg( genres ) );
-            }
-        }
-
-        void SetStarring( const QString& starring )
-        {
-            if( !genres.starring() )
-            {
-                lActors->setText( QString( "<b>%1:</b> %2" ).arg( tr("Starring") ).arg( starring ) );
-            }
-        }
+        void SetCountry( const QString& country ) { SetFieldData( lCountry, tr( "Country" ), country ); }
+        void SetGenres( const QString& genres ) { SetFieldData( lGenre, tr( "Genre" ), genres ); }
+        void SetDirector( const QString& director ) { SetFieldData( lDirector, tr( "Director" ), director ); }
+        void SetStarring( const QString& starring ) { SetFieldData( lStarring, tr( "Starring" ), starring ); }
 
     protected:
+        void SetFieldData( QLabel* field, const QString& title, const QString& data )
+        {
+            if( !data.isEmpty() )
+            {
+                field->setText( QString( "<b>%1:</b> %2" ).arg( title ).arg( data ) );
+            }
+            else
+            {
+                field->clear();
+            }
+        }
+
+        void SetFieldPixmap( QLabel* field, const QPixmap& pixmap )
+        {
+            if( !pixmap.isNull() )
+            {
+                field->setPixmap( pixmap );
+            }
+            else
+            {
+                field->clear();
+            }
+        }
+
         AlexandraSettings* settings;
 };
 

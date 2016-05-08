@@ -66,6 +66,20 @@
         </spacer>
        </item>
        <item>
+        <widget class="QLabel" name="lViewed">
+         <property name="text">
+          <string>viewed</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lFavourite">
+         <property name="text">
+          <string>favourite</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="lRating">
          <property name="text">
           <string notr="true">rating</string>
@@ -75,9 +89,16 @@
       </layout>
      </item>
      <item>
-      <widget class="QLabel" name="lGenres">
+      <widget class="QLabel" name="lCountry">
        <property name="text">
-        <string notr="true">genres</string>
+        <string>country</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lGenre">
+       <property name="text">
+        <string notr="true">genre</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -88,9 +109,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lActors">
+      <widget class="QLabel" name="lDirector">
        <property name="text">
-        <string notr="true">actors</string>
+        <string>director</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lStarring">
+       <property name="text">
+        <string notr="true">starring</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignJustify|Qt::AlignVCenter</set>

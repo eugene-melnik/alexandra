@@ -36,14 +36,20 @@ class FilmDetailedInfoDelegate : public QStyledItemDelegate
             const FilmsListProxyModel* model = static_cast<const FilmsListProxyModel*>( index.model() );
             int row = index.row();
 
+            filmInfo->SetPoster( model->index( row, FilmItem::PosterColumn ).data( Qt::DecorationRole ).value<QPixmap>() );
+
             QString title = model->index( row, FilmItem::TitleColumn ).data().toString();
             int year = model->index( row, FilmItem::YearColumn ).data().toInt();
             filmInfo->SetTitle( title, year );
 
+            filmInfo->SetViewed( model->index( row, FilmItem::IsViewedColumn ).data( Qt::DecorationRole ).value<QPixmap>() );
+            filmInfo->SetFavourite( model->index( row, FilmItem::IsFavouriteColumn ).data( Qt::DecorationRole ).value<QPixmap>() );
             filmInfo->SetRating( model->index( row, FilmItem::RatingColumn ).data( Qt::DecorationRole ).value<QPixmap>() );
+
+            filmInfo->SetCountry( model->index( row, FilmItem::CountryColumn ).data().toString() );
             filmInfo->SetGenres( model->index( row, FilmItem::GenreColumn ).data().toString() );
+            filmInfo->SetDirector( model->index( row, FilmItem::DirectorColumn ).data().toString() );
             filmInfo->SetStarring( model->index( row, FilmItem::StarringColumn ).data().toString() );
-            filmInfo->SetPoster( model->index( row, FilmItem::PosterColumn ).data( Qt::DecorationRole ).value<QPixmap>() );
 
               // https://bugreports.qt.io/browse/QTBUG-26694
             QPoint offset = painter->deviceTransform().map( option.rect.topLeft() );
