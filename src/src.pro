@@ -48,6 +48,7 @@ HEADERS += datamanip/addfilmwindow.h \
            filmslist/filmslistmodel.h \
            filmslist/filmslistproxymodel.h \
            filmsview/detailedlist/filmdetailedinfo.h \
+           filmsview/detailedlist/filmdetailedinfodelegate.h \
            filmsview/detailedlist/filmsviewdetailedlist.h \
            filmsview/grid/filmsviewgrid.h \
            filmsview/grid/filmsviewgridproxymodel.h \

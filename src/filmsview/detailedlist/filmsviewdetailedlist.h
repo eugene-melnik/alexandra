@@ -22,19 +22,22 @@
 #define FILMSVIEWDETAILEDLIST_H
 
 
-#include <QTableWidget>
+#include <QListView>
 
 
+#include "filmdetailedinfodelegate.h"
 #include "../abstractfilmsview.h"
 #include "filmslist/filmslistproxymodel.h"
 
 
-class FilmsViewDetailedList : public QTableWidget, public AbstractFilmsView
+class FilmsViewDetailedList : public QListView, public AbstractFilmsView
 {
     Q_OBJECT
 
     public:
         explicit FilmsViewDetailedList( QWidget* parent = nullptr );
+
+        virtual ~FilmsViewDetailedList();
 
         void SetModel( FilmsListProxyModel* model ) override;
 
@@ -53,13 +56,12 @@ class FilmsViewDetailedList : public QTableWidget, public AbstractFilmsView
         void CurrentActivated( const QModelIndex& );
         void ContextMenuRequested( const QPoint&, const QModelIndex& );
 
-    protected slots:
-        void ResetContents();
+    protected:
+        void updateGeometries() override;
 
-    private:
-        FilmsListProxyModel* sourceModel = nullptr;
+    protected:
+        FilmDetailedInfoDelegate* infoDelegate;
 };
-
 
 #endif // FILMSVIEWDETAILEDLIST_H
 

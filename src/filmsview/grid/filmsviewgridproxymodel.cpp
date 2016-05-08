@@ -45,18 +45,7 @@ QVariant FilmsViewGridProxyModel::data( const QModelIndex& index, int role ) con
                 if( !pixmapCache->contains(posterFileName) )
                 {
                     QVariant data = model->index( row, FilmItem::PosterColumn ).data( Qt::DecorationRole );
-                    QPixmap pixmap;
-
-                    if( data.isValid() )
-                    {
-                        pixmap = data.value<QPixmap>();
-                    }
-                    else
-                    {
-                        pixmap = QPixmap( ":/standart-poster" );
-                    }
-
-                    QPixmap* p = new QPixmap( pixmap.scaledToHeight( settings->GetGridItemSize(), Qt::SmoothTransformation ) );
+                    QPixmap* p = new QPixmap( data.value<QPixmap>().scaledToHeight( settings->GetGridItemSize(), Qt::SmoothTransformation ) );
 
                     pixmapCache->insert( posterFileName, p );
                 }

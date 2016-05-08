@@ -22,7 +22,9 @@
 #define FILMDETAILEDINFO_H
 
 
+#include "alexandrasettings.h"
 #include "filmslist/filmitem.h"
+#include "tools/debug.h"
 #include "ui_filmdetailedinfo.h"
 
 
@@ -34,63 +36,53 @@ class FilmDetailedInfo : public QWidget, protected Ui::FilmDetailedInfo
     Q_OBJECT
 
     public:
-        explicit FilmDetailedInfo( QWidget* parent = nullptr ) : QWidget( parent )
+        explicit FilmDetailedInfo( QWidget* parent = nullptr )
+            : QWidget( parent ), settings( AlexandraSettings::GetInstance() )
         {
             setupUi( this );
         }
 
-        void SetLazyLoading( bool lazy = true )
+        void SetTitle( const QString& title, int year = 0 )
         {
-            lazyLoading = lazy;
+            QString s = QString( "<b>%1</b>" ).arg( title );
+
+            if( year > 0 )
+            {
+                s += QString( " (%1)" ).arg( year );
+            }
+
+            lTitle->setText( s );
         }
 
-        void SetFilm( const FilmItem* film )
+        void SetRating( QPixmap rating )
         {
-            this->film = film;
+            lRating->setPixmap( rating );
+        }
 
-            if( !lazyLoading )
+        void SetPoster( QPixmap poster )
+        {
+            int posterHeight = height() - 20; /// FIXME
+            lPoster->setPixmap( poster.scaledToHeight(posterHeight, Qt::SmoothTransformation) );
+        }
+
+        void SetGenres( const QString& genres )
+        {
+            if( !genres.isEmpty() )
             {
-                LoadFilmData();
+                lGenres->setText( QString( "<b>%1:</b> %2" ).arg( tr("Genre") ).arg( genres ) );
+            }
+        }
+
+        void SetStarring( const QString& starring )
+        {
+            if( !genres.starring() )
+            {
+                lActors->setText( QString( "<b>%1:</b> %2" ).arg( tr("Starring") ).arg( starring ) );
             }
         }
 
     protected:
-        void paintEvent( QPaintEvent* event )
-        {
-            if( !dataLoaded )
-            {
-                LoadFilmData();
-            }
-
-            QWidget::paintEvent( event );
-        }
-
-        void LoadFilmData()
-        {
-            QPixmap poster( film->GetPosterFilePath() );
-            lPoster->setPixmap( poster.scaledToWidth( lPoster->maximumWidth(), Qt::SmoothTransformation ) );
-
-            QString title = "<b> " + film->GetTitle() + "</b>";
-            QString year = film->GetColumnData( FilmItem::YearColumn ).toString();
-
-            if( !year.isEmpty() )
-            {
-                title += QString( " (%1)" ).arg( year );
-            }
-
-            lTitle->setText( title );
-//            lRating->setPixmap( sourceModel->index( row, FilmItem::RatingColumn).data(Qt::DecorationRole).value<QPixmap>() );
-            lGenres->setText( "<b>Genres:</b> " + film->GetColumnData( FilmItem::GenreColumn ).toString() );
-            lActors->setText( "<b>Actors:</b> " + film->GetColumnData( FilmItem::StarringColumn).toString().left(200) + "..." );
-
-            dataLoaded = true;
-        }
-
-    private:
-        bool lazyLoading = false;
-        bool dataLoaded = false;
-
-        const FilmItem* film = nullptr;
+        AlexandraSettings* settings;
 };
 
 

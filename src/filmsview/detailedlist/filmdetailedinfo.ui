@@ -10,23 +10,17 @@
     <height>150</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>150</height>
+   </size>
+  </property>
   <layout class="QHBoxLayout" name="layoutMail">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="lPoster">
-       <property name="minimumSize">
-        <size>
-         <width>70</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>70</width>
-         <height>16777215</height>
-        </size>
-       </property>
        <property name="text">
         <string notr="true">poster</string>
        </property>

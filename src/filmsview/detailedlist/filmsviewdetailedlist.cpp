@@ -19,28 +19,26 @@
   *************************************************************************************************/
 
 #include "filmsviewdetailedlist.h"
-#include "filmdetailedinfo.h"
 #include "alexandrasettings.h"
 #include "filmslist/filmslistmodel.h"
 #include "tools/debug.h"
 
-#include <QHeaderView>
+#include <QScrollBar>
 
 
-FilmsViewDetailedList::FilmsViewDetailedList( QWidget* parent ) : QTableWidget( parent )
+FilmsViewDetailedList::FilmsViewDetailedList( QWidget* parent ) : QListView( parent ),
+    infoDelegate( new FilmDetailedInfoDelegate() )
 {
+    setItemDelegate( infoDelegate );
+
       // Appearance
     setAlternatingRowColors( true );
     setSelectionBehavior( QAbstractItemView::SelectRows );
     setSelectionMode( QAbstractItemView::ExtendedSelection );
-    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
     setEditTriggers( QAbstractItemView::NoEditTriggers );
     setContextMenuPolicy( Qt::CustomContextMenu );
-    setShowGrid( false );
 
-    horizontalHeader()->setStretchLastSection( true );
-    horizontalHeader()->hide();
-    verticalHeader()->hide();
+    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF: Qt bug?
 
       // Signals
     connect( this, SIGNAL(activated(QModelIndex)), this, SIGNAL(CurrentActivated(QModelIndex)) );
@@ -55,44 +53,29 @@ FilmsViewDetailedList::FilmsViewDetailedList( QWidget* parent ) : QTableWidget( 
 }
 
 
-void FilmsViewDetailedList::SetModel( FilmsListProxyModel* model )
+FilmsViewDetailedList::~FilmsViewDetailedList()
 {
-    sourceModel = model;
-    ResetContents();
-
-    connect( sourceModel, &FilmsListProxyModel::modelReset, this, &FilmsViewDetailedList::ResetContents);
-
-//    connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SIGNAL(CurrentChanged(QModelIndex)) );
-
-//    connect( sourceModel, &QAbstractItemModel::dataChanged, this, [this]
-//    {
-//        QModelIndex index = currentIndex();
-//        selectionModel()->currentChanged( index, index );
-//    } );
+    delete infoDelegate;
 }
 
 
-void FilmsViewDetailedList::ResetContents()
+void FilmsViewDetailedList::SetModel( FilmsListProxyModel* model )
 {
-    DebugPrintFunc( "FilmsViewDetailedList::ResetContents" );
+    QListView::setModel( model );
 
-    clearContents();
-    setColumnCount( 1 );
-    setRowCount( sourceModel->rowCount() );
+    connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SIGNAL(CurrentChanged(QModelIndex)) );
 
-    for( int row = 0; row < sourceModel->rowCount(); ++row )
+    connect( model, &QAbstractItemModel::dataChanged, this, [this]
     {
-        QModelIndex index = sourceModel->index( row, FilmItem::TitleColumn );
-        const FilmItem* film = sourceModel->GetFilmItemByIndex( index );
+        QModelIndex index = currentIndex();
+        selectionModel()->currentChanged( index, index );
+    } );
+}
 
-        FilmDetailedInfo* filmInfoWidget = new FilmDetailedInfo( this );
-        filmInfoWidget->SetLazyLoading( true );
-        filmInfoWidget->SetFilm( film );
 
-        setCellWidget( row, 0, filmInfoWidget );
-        setRowHeight( row, 150 );
-    }
-
-    DebugPrintFuncDone( "FilmsViewDetailedList::ResetContents" );
+void FilmsViewDetailedList::updateGeometries()
+{
+    QListView::updateGeometries();
+    verticalScrollBar()->setSingleStep( 40 ); /// FIXME: make dependence on item height
 }
 

@@ -206,13 +206,22 @@ QVariant FilmsListModel::data( const QModelIndex& index, int role ) const
 
             case Qt::DecorationRole :
             {
-                if( column == FilmItem::PosterColumn && item->GetIsPosterExists() )
+                if( column == FilmItem::PosterColumn )
                 {
                     QPixmap pixmap;
 
-                    if( pixmap.load( item->GetPosterFilePath() ) )
+                    if( item->GetIsPosterExists() )
+                    {
+                        pixmap.load( item->GetPosterFilePath() );
+                    }
+
+                    if( !pixmap.isNull() )
                     {
                         return( pixmap );
+                    }
+                    else
+                    {
+                        return( QPixmap(":/standart-poster") );
                     }
                 }
 
