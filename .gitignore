@@ -1,4 +1,4 @@
-debian/alexandra*
+debian/alexandra/*
 debian/files
 src/alexandra
 src/alexandra.exe
