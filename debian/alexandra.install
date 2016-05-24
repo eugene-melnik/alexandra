@@ -1,0 +1,5 @@
+src/alexandra				usr/bin
+linux/alexandra.desktop			usr/share/applications
+linux/alexandra_addfilms.desktop	usr/share/applications
+linux/alexandra.png			usr/share/pixmaps
+linux/alexandra.svg			usr/share/icons/hicolor/scalable/apps
