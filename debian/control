@@ -2,17 +2,19 @@ Source: alexandra
 Section: misc
 Priority: optional
 Maintainer: Eugene Melnik <jeka7js@gmail.com>
-Build-Depends: debhelper (>= 9), bash, devscripts
-Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 9),
+               qtbase5-dev,
+               qt5-default,
+               qttools5-dev-tools,
+               qttranslations5-l10n,
+               libmediainfo-dev
+Standards-Version: 3.9.7
 Homepage: http://alexandra-qt.sourceforge.net/
 
 Package: alexandra
-Version: 1.5.0
-Homepage: http://alexandra-qt.sourceforge.net/
-Architecture: amd64
-Priority: optional
-Section: misc
-Depends: ${shlibs:Depends}
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
 Description: small, fast, but powerful video library, written in C++ with Qt5
  Alexandra Video Library — a simple and comfortable program for organization
  and management of the your video library. You can completely customize your
@@ -31,4 +33,3 @@ Description: small, fast, but powerful video library, written in C++ with Qt5
   - MediaInfo built-in.
  .
  View, manage, collect. Alexandra Video Library.
-

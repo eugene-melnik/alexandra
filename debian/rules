@@ -1,23 +1,4 @@
 #!/usr/bin/make -f
-
-override_dh_install:
-	mkdir -p debian/alexandra
-	rm -rf debian/alexandra
-
-	mkdir -p debian/alexandra/usr/bin
-	mkdir -p debian/alexandra/usr/share/applications
-	mkdir -p debian/alexandra/usr/share/icons/hicolor/scalable/apps
-
-	cp src/alexandra debian/alexandra/usr/bin/
-	cp linux/alexandra.desktop debian/alexandra/usr/share/applications/
-	cp linux/alexandra_addfilms.desktop debian/alexandra/usr/share/applications/
-	cp linux/alexandra.png debian/alexandra/usr/share/icons/
-	cp linux/alexandra.svg debian/alexandra/usr/share/icons/hicolor/scalable/apps/
-
-	chmod +x debian/alexandra/usr/bin/alexandra
-
-# main packaging script based on dh7 syntax
 %:
-	dh $@ 
-
+	dh $@
 
