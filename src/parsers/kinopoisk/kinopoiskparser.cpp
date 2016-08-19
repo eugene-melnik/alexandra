@@ -80,11 +80,6 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
         QRegExp reCountry( "href=\"/lists/m_act\\[country\\]/.*>(.*)</a>" );
         film.SetColumnData( FilmItem::CountryColumn, RegExpTools::ParseList( str, reCountryList, reCountry ) );
 
-          // Screenwriter
-        QRegExp reScreenwriterList( "сценарий</td><.*>(.*)</td>" );
-        QRegExp reName( "href=\"/name/.*>(.*)</a>" );
-        film.SetColumnData( FilmItem::ScreenwriterColumn, RegExpTools::ParseList( str, reScreenwriterList, reName ) );
-
           // Genre
         QRegExp reGenreList( "itemprop=\"genre\">(.*)</span>" );
         QRegExp reGenre( "href=\"/lists/.*>(.*)</a>" );
@@ -94,6 +89,8 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
         QRegExp reDescription( "itemprop=\"description\">(.*)</div>" );
         film.SetColumnData( FilmItem::DescriptionColumn, RegExpTools::ParseItem( str, reDescription )
                                                          .replace( QRegExp( "<br /><br />|<br/><br/>|<br><br>" ), "<br/>\n" ) );
+
+        QRegExp reName( "class=\"info\"><div class=\"name\"><a href=\"/name/.*>(.*)</a>" );
 
           // Advanced information
 
@@ -107,21 +104,23 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
             DebugPrint( QString( "Simpified to: %1 bytes" ).arg( str.size() ) );
 
               // Director
-            QRegExp reDirectorList( "Режиссер(.*)<a name" );
-            reName = QRegExp( "class=\"name\"><a href=\"/name/.*>(.*)</a>" );
+            QRegExp reDirectorList( "<a name=\"director\">.*Режиссер.*</div>(.*)<a name" );
             film.SetColumnData( FilmItem::DirectorColumn, RegExpTools::ParseList( str, reDirectorList, reName ) );
 
               // Producer
-            QRegExp reProducerList( "Продюсер(.*)<a name" );
+            QRegExp reProducerList( "<a name=\"producer\">.*Продюсер.*</div>(.*)<a name" );
             film.SetColumnData( FilmItem::ProducerColumn, RegExpTools::ParseList( str, reProducerList, reName, 10 ) ); // 10 first producers
 
               // Composer
-            QRegExp reComposerList( "Композитор(.*)<a name" );
+            QRegExp reComposerList( "<a name=\"composer\">.*Композитор.*</div>(.*)<a name" );
             film.SetColumnData( FilmItem::ComposerColumn, RegExpTools::ParseList( str, reComposerList, reName ) );
 
+              // Screenwriter
+            QRegExp reScreenwriterList( "<a name=\"writer\">.*Сценарист.*</div>(.*)<a name" );
+            film.SetColumnData( FilmItem::ScreenwriterColumn, RegExpTools::ParseList( str, reScreenwriterList, reName ) );
+
               // Starring
-            QRegExp reStarringList( "Актер(.*)<a name" );
-            reName = QRegExp( "class=\"info\"><div class=\"name\"><a href=\"/name/.*>(.*)</a>" );
+            QRegExp reStarringList( "<a name=\"actor\">.*Актер.*</div>(.*)<a name" );
             film.SetColumnData( FilmItem::StarringColumn, RegExpTools::ParseList( str, reStarringList, reName, 20 ) ); // 20 first actors
         }
         else
@@ -137,6 +136,10 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
               // Composer
             QRegExp reComposerList( "itemprop=\"musicBy\">(.*)</td>" );
             film.SetColumnData( FilmItem::ComposerColumn, RegExpTools::ParseList( str, reComposerList, reName ) );
+
+              // Screenwriter
+            QRegExp reScreenwriterList( "сценарий</td><.*>(.*)</td>" );
+            film.SetColumnData( FilmItem::ScreenwriterColumn, RegExpTools::ParseList( str, reScreenwriterList, reName ) );
 
               // Starring
             QRegExp reStarringList( "В главных ролях:</h4>(.*)</ul>" );
