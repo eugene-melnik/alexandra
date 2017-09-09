@@ -1,5 +1,9 @@
 debian/alexandra/*
 debian/files
+debian/alexandra.debhelper.log
+debian/alexandra.postinst.debhelper
+debian/alexandra.postrm.debhelper
+debian/alexandra.substvars
 src/alexandra
 src/alexandra.exe
 windows/alexandra*.exe
@@ -7,3 +11,5 @@ windows/alexandra*.exe
 *.pro.user*
 Makefile
 tmp
+.qmake.stash
+
