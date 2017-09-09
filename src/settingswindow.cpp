@@ -524,14 +524,33 @@ bool SettingsWindow::HasDuplicate( QString currentKey, QString objName )
 
 void SettingsWindow::ConfigureSourcesTab()
 {
-    cbDefaultOnlineSource->addItems( ParserManager().GetAvailableParsers() );
-    cbDefaultOnlineSource->setCurrentIndex( settings->GetDefaultParserIndex() );
-    cDownloadBigPoster->setChecked( settings->GetParsersLoadBigPoster() );
-    cDownloadMoreInformation->setChecked( settings->GetParsersLoadAdvancedInfo() );
+    this->cbDefaultOnlineSource->addItems( ParserManager().GetAvailableParsers() );
+    this->cbDefaultOnlineSource->setCurrentIndex( this->settings->GetDefaultParserIndex() );
+    this->cDownloadBigPoster->setChecked( this->settings->GetParsersLoadBigPoster() );
+    this->cDownloadMoreInformation->setChecked( this->settings->GetParsersLoadAdvancedInfo() );
 
-    connect( cbDefaultOnlineSource, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( cDownloadBigPoster, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
-    connect( cDownloadMoreInformation, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( this->cbDefaultOnlineSource, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
+    connect( this->cDownloadBigPoster, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( this->cDownloadMoreInformation, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+
+    this->cProxyEnabled->setChecked( this->settings->GetParsersProxyEnabled() );
+    this->eHost->setText( this->settings->GetParsersProxyHostname() );
+
+    int port = this->settings->GetParsersProxyPort();
+
+    if( port > 0 )
+    {
+        this->ePort->setText( QString::number( this->settings->GetParsersProxyPort() ) );
+    }
+
+    this->eProxyUsername->setText( this->settings->GetParsersProxyUsername() );
+    this->eProxyPassword->setText( this->settings->GetParsersProxyPassword() );
+
+    connect( this->cProxyEnabled, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( this->eHost, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDbSettingsChanged );
+    connect( this->ePort, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDbSettingsChanged );
+    connect( this->eProxyUsername, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDbSettingsChanged );
+    connect( this->eProxyPassword, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDbSettingsChanged );
 }
 
 
@@ -587,7 +606,7 @@ void SettingsWindow::SaveSettings()
         settings->SetPosterSavingQuality( savingFormats[ cbSavingFormat->currentIndex() ].quality );
         settings->SetScalePostersToHeight( cScalePoster->isChecked() ? sbScaleToHeight->value() : 0 );
 
-          /// Shortcuts tab
+        /// Shortcuts tab
 
         for( Shortcut& s : shortcuts )
         {
@@ -595,13 +614,19 @@ void SettingsWindow::SaveSettings()
             s.SetSetting( settings, currentKey );
         }
 
-          /// Sources tab
+        /// Sources tab
 
-        settings->SetDefaultParserIndex( cbDefaultOnlineSource->currentIndex() );
-        settings->SetParsersLoadBigPoster( cDownloadBigPoster->isChecked() );
-        settings->SetParsersLoadAdvancedInfo( cDownloadMoreInformation->isChecked() );
+        this->settings->SetDefaultParserIndex( this->cbDefaultOnlineSource->currentIndex() );
+        this->settings->SetParsersLoadBigPoster( this->cDownloadBigPoster->isChecked() );
+        this->settings->SetParsersLoadAdvancedInfo( this->cDownloadMoreInformation->isChecked() );
 
-          /// Save
+        this->settings->SetParsersProxyEnabled( this->cProxyEnabled->isChecked() );
+        this->settings->SetParsersProxyHostname( this->eHost->text().trimmed() );
+        this->settings->SetParsersProxyPort( this->ePort->text().toInt() );
+        this->settings->SetParsersProxyUsername( this->eProxyUsername->text() );
+        this->settings->SetParsersProxyPassword( this->eProxyPassword->text() );
+
+        /// Save
 
         settings->sync();
         emit SettingsChanged();

@@ -77,6 +77,11 @@ class AlexandraSettings : public QSettings
 
         bool GetParsersLoadAdvancedInfo() const;
         bool GetParsersLoadBigPoster() const;
+        bool GetParsersProxyEnabled() const;
+        QString GetParsersProxyHostname() const;
+        int GetParsersProxyPort() const;
+        QString GetParsersProxyUsername() const;
+        QString GetParsersProxyPassword() const;
 
         QString GetShortcutAddFilm() const;
         QString GetShortcutEditFilm() const;
@@ -137,6 +142,11 @@ class AlexandraSettings : public QSettings
 
         void SetParsersLoadAdvancedInfo( bool b );
         void SetParsersLoadBigPoster( bool b );
+        void SetParsersProxyEnabled( bool b );
+        void SetParsersProxyHostname( const QString& s );
+        void SetParsersProxyPort( int n );
+        void SetParsersProxyUsername( const QString& s );
+        void SetParsersProxyPassword( const QString& s );
 
         void SetShortcutAddFilm( const QString& s );
         void SetShortcutEditFilm( const QString& s );

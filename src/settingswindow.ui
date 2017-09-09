@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>520</width>
-    <height>590</height>
+    <height>661</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1347,6 +1347,101 @@
         </layout>
        </item>
        <item>
+        <widget class="QGroupBox" name="gbProxy">
+         <property name="title">
+          <string>Proxy server settings</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QCheckBox" name="cProxyEnabled">
+            <property name="text">
+             <string>Use proxy for fetching the data</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="hlHostPort" stretch="3,0,1">
+            <item>
+             <widget class="QLineEdit" name="eHost">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="placeholderText">
+               <string>IP or Hostname</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelDots">
+              <property name="text">
+               <string>:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="ePort">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="placeholderText">
+               <string>Port</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="hlProxyUsername" stretch="1,0">
+            <item>
+             <widget class="QLabel" name="labelUsername">
+              <property name="text">
+               <string>Username (optional)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="eProxyUsername">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="hlProxyPassword" stretch="1,0">
+            <item>
+             <widget class="QLabel" name="labelPassword">
+              <property name="text">
+               <string>Password (optional)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="eProxyPassword">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QGroupBox" name="gbOther">
          <property name="title">
           <string>Other</string>
@@ -1479,18 +1574,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>bCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>SettingsWindow</receiver>
-   <slot>reject()</slot>
+   <sender>cProxyEnabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>ePort</receiver>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>356</y>
+     <x>259</x>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
-     <x>269</x>
-     <y>189</y>
+     <x>430</x>
+     <y>158</y>
     </hint>
    </hints>
   </connection>
@@ -1523,6 +1618,54 @@
     <hint type="destinationlabel">
      <x>429</x>
      <y>493</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cProxyEnabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>eHost</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>200</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cProxyEnabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>eProxyUsername</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>386</x>
+     <y>192</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cProxyEnabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>eProxyPassword</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>386</x>
+     <y>226</y>
     </hint>
    </hints>
   </connection>

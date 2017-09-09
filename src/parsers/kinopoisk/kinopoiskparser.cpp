@@ -25,12 +25,11 @@
 
 #include <QTextCodec>
 
-
 KinopoiskParser::KinopoiskParser() : AbstractParser()
 {
     DebugPrintFunc( "KinopoiskParser::KinopoiskParser" );
-    searchUrlWithYear = QString( "http://www.kinopoisk.ru/index.php?level=7&m_act[what]=content&first=yes&m_act[find]=%1&m_act[year]=%2" );
-    searchUrl = QString( "http://www.kinopoisk.ru/index.php?first=yes&kp_query=%1" );
+    searchUrlWithYear = QString( "https://www.kinopoisk.ru/index.php?level=7&m_act[what]=content&first=yes&m_act[find]=%1&m_act[year]=%2" );
+    searchUrl = QString( "https://www.kinopoisk.ru/index.php?first=yes&kp_query=%1" );
 }
 
 
@@ -97,7 +96,7 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
         if( AlexandraSettings::GetInstance()->GetParsersLoadAdvancedInfo() )
         {
             QRegExp reMoreUrl( "<h4><a href=\"(.*)\">показать всех</a>" );
-            QUrl moreUrl( "http://www.kinopoisk.ru" + RegExpTools::ParseItem( str, reMoreUrl ) );
+            QUrl moreUrl( "https://www.kinopoisk.ru" + RegExpTools::ParseItem( str, reMoreUrl ) );
 
             QString str = codec->toUnicode( request.runSync( moreUrl ) );
             RegExpTools::SimplifyText( str );
@@ -155,7 +154,7 @@ QUrl KinopoiskParser::Parse( const QByteArray& data )
 
             if( !posterSubUrl.isEmpty() )
             {
-                posterUrl = "http://www.kinopoisk.ru" + posterSubUrl;
+                posterUrl = "https://www.kinopoisk.ru" + posterSubUrl;
             }
         }
 
