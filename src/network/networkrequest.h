@@ -22,10 +22,12 @@
 #define NETWORKREQUEST_H
 
 #include <QNetworkAccessManager>
+#include <QNetworkProxy>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QPointer>
 #include <QUrl>
+
 
 class NetworkRequest : public QObject
 {
@@ -33,6 +35,10 @@ class NetworkRequest : public QObject
 
     public:
         NetworkRequest() = default;
+        ~NetworkRequest();
+
+        void SetProxy( QNetworkProxy* proxy );
+        void ClearProxy();
 
         void run( const QUrl& url );
         QByteArray runSync( const QUrl& url );
@@ -46,6 +52,7 @@ class NetworkRequest : public QObject
 
     private slots:
         QNetworkReply* MakeRequest( const QUrl& url );
+
         void CheckForRedirect();
         void ReadyRead();
         void Finished();
@@ -54,7 +61,10 @@ class NetworkRequest : public QObject
         QNetworkAccessManager accessManager;
         QPointer<QNetworkReply> reply;
 
+        QNetworkProxy* proxy = nullptr;
+
         QByteArray data;
 };
+
 
 #endif // NETWORKREQUEST_H

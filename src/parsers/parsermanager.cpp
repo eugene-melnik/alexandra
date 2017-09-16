@@ -33,7 +33,7 @@ ParserManager::ParserManager( ParserManager::Parser p ) : selectedParserId( p )
 {
     parsers.insert( Auto,       tr("<Auto>") );
     parsers.insert( IMDB,       "IMDB (http://www.imdb.com/)" );
-    parsers.insert( Kinopoisk,  "КиноПоиск (http://www.kinopoisk.ru/)" );
+    parsers.insert( Kinopoisk,  "КиноПоиск (https://www.kinopoisk.ru/)" );
     parsers.insert( Kinoteatr,  "Кіно-Театр (http://kino-teatr.ua/)" );
     parsers.insert( OMDB,       "OMDB (http://www.omdbapi.com/)" );
 }
@@ -149,25 +149,25 @@ void ParserManager::CreateParser()
     {
         case OMDB :
         {
-            currentParser = new OmdbParser();
+            this->currentParser = new OmdbParser();
             break;
         }
 
         case Kinopoisk :
         {
-            currentParser = new KinopoiskParser();
+            this->currentParser = new KinopoiskParser();
             break;
         }
 
         case Kinoteatr :
         {
-            currentParser = new KinoteatrParser();
+            this->currentParser = new KinoteatrParser();
             break;
         }
 
         case IMDB :
         {
-            currentParser = new ImdbParser();
+            this->currentParser = new ImdbParser();
             break;
         }
 
@@ -177,15 +177,15 @@ void ParserManager::CreateParser()
 
             if( QLocale::system().name().left(2) == "ru" )
             {
-                currentParser = new KinopoiskParser();
+                this->currentParser = new KinopoiskParser();
             }
             else if( QLocale::system().name().left(2) == "uk" )
             {
-                currentParser = new KinoteatrParser();
+                this->currentParser = new KinoteatrParser();
             }
             else
             {
-                currentParser = new ImdbParser();
+                this->currentParser = new ImdbParser();
             }
 
             break;

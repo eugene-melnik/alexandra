@@ -80,6 +80,8 @@ QVariant FilmsViewGridProxyModel::data( const QModelIndex& index, int role ) con
 
                     return( tooltip );
                 }
+
+                break;
             }
 
             case Qt::SizeHintRole :

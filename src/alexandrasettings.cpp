@@ -318,6 +318,36 @@ bool AlexandraSettings::GetParsersLoadBigPoster() const
 }
 
 
+bool AlexandraSettings::GetParsersProxyEnabled() const
+{
+    return( value( "Parsers/ProxyEnabled", false ).toBool() );
+}
+
+
+QString AlexandraSettings::GetParsersProxyHostname() const
+{
+    return( value( "Parsers/ProxyHostname", "" ).toString() );
+}
+
+
+int AlexandraSettings::GetParsersProxyPort() const
+{
+    return( value( "Parsers/ProxyPort", "" ).toInt() );
+}
+
+
+QString AlexandraSettings::GetParsersProxyUsername() const
+{
+    return( value( "Parsers/ProxyUsername", "" ).toString() );
+}
+
+
+QString AlexandraSettings::GetParsersProxyPassword() const
+{
+    return( value( "Parsers/ProxyPassword", "" ).toString() );
+}
+
+
 QString AlexandraSettings::GetShortcutAddFilm() const
 {
     return( value( "Shortcuts/AddFilm", "Ctrl+A" ).toString() );
@@ -617,7 +647,37 @@ void AlexandraSettings::SetParsersLoadAdvancedInfo( bool b )
 
 void AlexandraSettings::SetParsersLoadBigPoster( bool b )
 {
-    setValue( "Parsers/LoadBigPoster", b );
+    this->setValue( "Parsers/LoadBigPoster", b );
+}
+
+
+void AlexandraSettings::SetParsersProxyEnabled( bool b )
+{
+    this->setValue( "Parsers/ProxyEnabled", b );
+}
+
+
+void AlexandraSettings::SetParsersProxyHostname( const QString& s )
+{
+    this->setValue( "Parsers/ProxyHostname", s );
+}
+
+
+void AlexandraSettings::SetParsersProxyPort( int n )
+{
+    this->setValue( "Parsers/ProxyPort", n );
+}
+
+
+void AlexandraSettings::SetParsersProxyUsername( const QString& s )
+{
+    this->setValue( "Parsers/ProxyUsername", s );
+}
+
+
+void AlexandraSettings::SetParsersProxyPassword( const QString& s )
+{
+    this->setValue( "Parsers/ProxyPassword", s );
 }
 
 

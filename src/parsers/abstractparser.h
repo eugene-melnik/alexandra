@@ -21,11 +21,13 @@
 #ifndef ABSTRACTPARSER_H
 #define ABSTRACTPARSER_H
 
+#include "alexandrasettings.h"
 #include "filmslist/filmitem.h"
 #include "tools/debug.h"
 #include "network/networkrequest.h"
 
 // TODO: need to comment //
+
 
 class AbstractParser : public QObject
 {
@@ -34,6 +36,18 @@ class AbstractParser : public QObject
     public:
         AbstractParser()
         {
+            if( AlexandraSettings::GetInstance()->GetParsersProxyEnabled() )
+            {
+                QString host = AlexandraSettings::GetInstance()->GetParsersProxyHostname();
+                int port = AlexandraSettings::GetInstance()->GetParsersProxyPort();
+                QString username = AlexandraSettings::GetInstance()->GetParsersProxyUsername();
+                QString password = AlexandraSettings::GetInstance()->GetParsersProxyPassword();
+
+                QNetworkProxy* proxy = new QNetworkProxy( QNetworkProxy::HttpProxy, host, port, username, password );
+
+                this->request.SetProxy( proxy );
+            }
+
             connect( &request, &NetworkRequest::DataLoaded, this, &AbstractParser::DataLoaded );
             connect( &request, &NetworkRequest::DataLoadError, this, [this] (const QString& e) { emit Error( e ); } );
             connect( &request, &NetworkRequest::Progress, this, [this] (quint64 received, quint64 total) { emit Progress( received, total ); } );
@@ -107,5 +121,6 @@ class AbstractParser : public QObject
         NetworkRequest request;
         FilmItem film;
 };
+
 
 #endif // ABSTRACTPARSER_H

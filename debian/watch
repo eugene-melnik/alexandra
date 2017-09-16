@@ -1,0 +1,3 @@
+version=3
+https://github.com/jeka-js/alexandra/releases \
+    (?:.*/)?([\d\.]+)\.tar\.gz

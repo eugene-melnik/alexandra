@@ -23,6 +23,29 @@
 #include "tools/debug.h"
 
 
+NetworkRequest::~NetworkRequest()
+{
+    this->ClearProxy();
+}
+
+
+void NetworkRequest::SetProxy( QNetworkProxy* proxy )
+{
+    this->ClearProxy();
+    this->proxy = proxy;
+}
+
+
+void NetworkRequest::ClearProxy()
+{
+    if (this->proxy != nullptr)
+    {
+        delete this->proxy;
+        this->proxy = nullptr;
+    }
+}
+
+
 void NetworkRequest::run( const QUrl& url )
 {
     DebugPrintFunc( "NetworkRequest::run", url.toString() );
@@ -82,6 +105,11 @@ QNetworkReply* NetworkRequest::MakeRequest( const QUrl& url )
 
     QNetworkRequest request( url );
     request.setRawHeader( "User-Agent", userAgent.toUtf8() );
+
+    if (this->proxy != nullptr)
+    {
+        this->accessManager.setProxy( *this->proxy );
+    }
 
     return( accessManager.get( request ) );
 }
