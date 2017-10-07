@@ -4,6 +4,7 @@ debian/alexandra.debhelper.log
 debian/alexandra.postinst.debhelper
 debian/alexandra.postrm.debhelper
 debian/alexandra.substvars
+debian/.debhelper
 src/alexandra
 src/alexandra.exe
 windows/alexandra*.exe
@@ -12,4 +13,3 @@ windows/alexandra*.exe
 Makefile
 tmp
 .qmake.stash
-

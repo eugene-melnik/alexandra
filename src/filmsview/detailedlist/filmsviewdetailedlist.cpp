@@ -29,25 +29,23 @@
 FilmsViewDetailedList::FilmsViewDetailedList( QWidget* parent ) : QListView( parent ),
     infoDelegate( new FilmDetailedInfoDelegate() )
 {
-    setItemDelegate( infoDelegate );
+    this->setItemDelegate( infoDelegate );
 
-      // Appearance
-    setAlternatingRowColors( true );
-    setSelectionBehavior( QAbstractItemView::SelectRows );
-    setSelectionMode( QAbstractItemView::ExtendedSelection );
-    setEditTriggers( QAbstractItemView::NoEditTriggers );
-    setContextMenuPolicy( Qt::CustomContextMenu );
+    // Appearance
+    //this->setAlternatingRowColors( true );
+    this->setSelectionBehavior( QAbstractItemView::SelectRows );
+    this->setSelectionMode( QAbstractItemView::ExtendedSelection );
+    this->setEditTriggers( QAbstractItemView::NoEditTriggers );
+    this->setContextMenuPolicy( Qt::CustomContextMenu );
 
-    setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF: Qt bug?
+    this->setVerticalScrollMode( QAbstractItemView::ScrollPerPixel ); // WTF: Qt bug?
 
-      // Signals
-    connect( this, SIGNAL(activated(QModelIndex)), this, SIGNAL(CurrentActivated(QModelIndex)) );
-
-    connect( this, &QWidget::customContextMenuRequested, this, [this] (const QPoint& pos)
-    {
-        if( GetCurrentIndex().isValid() )
+    // Signals
+    QObject::connect( this, SIGNAL(activated(QModelIndex)), this, SIGNAL(CurrentActivated(QModelIndex)) );
+    QObject::connect( this, &QWidget::customContextMenuRequested, this, [this] (const QPoint& pos) {
+        if( this->GetCurrentIndex().isValid() )
         {
-            emit ContextMenuRequested( pos, GetCurrentIndex() );
+            emit ContextMenuRequested( pos, this->GetCurrentIndex() );
         }
     } );
 }
@@ -55,7 +53,7 @@ FilmsViewDetailedList::FilmsViewDetailedList( QWidget* parent ) : QListView( par
 
 FilmsViewDetailedList::~FilmsViewDetailedList()
 {
-    delete infoDelegate;
+    delete this->infoDelegate;
 }
 
 
@@ -63,12 +61,10 @@ void FilmsViewDetailedList::SetModel( FilmsListProxyModel* model )
 {
     QListView::setModel( model );
 
-    connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SIGNAL(CurrentChanged(QModelIndex)) );
-
-    connect( model, &QAbstractItemModel::dataChanged, this, [this]
-    {
-        QModelIndex index = currentIndex();
-        selectionModel()->currentChanged( index, index );
+    QObject::connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SIGNAL(CurrentChanged(QModelIndex)) );
+    QObject::connect( model, &QAbstractItemModel::dataChanged, this, [this] {
+        QModelIndex index = this->currentIndex();
+        this->selectionModel()->currentChanged( index, index );
     } );
 }
 
@@ -76,6 +72,6 @@ void FilmsViewDetailedList::SetModel( FilmsListProxyModel* model )
 void FilmsViewDetailedList::updateGeometries()
 {
     QListView::updateGeometries();
-    verticalScrollBar()->setSingleStep( 40 ); /// FIXME: make dependence on item height
+    this->verticalScrollBar()->setSingleStep( 40 ); /// FIXME: make dependence on item height
 }
 

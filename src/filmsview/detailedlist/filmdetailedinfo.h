@@ -28,6 +28,7 @@
 #include "ui_filmdetailedinfo.h"
 
 
+#include <QPainter>
 #include <QPixmap>
 
 
@@ -39,13 +40,13 @@ class FilmDetailedInfo : public QWidget, protected Ui::FilmDetailedInfo
         explicit FilmDetailedInfo( QWidget* parent = nullptr )
             : QWidget( parent ), settings( AlexandraSettings::GetInstance() )
         {
-            setupUi( this );
+            this->setupUi( this );
         }
 
         void SetPoster( QPixmap poster )
         {
             int posterHeight = height() - 20; /// FIXME
-            lPoster->setPixmap( poster.scaledToHeight(posterHeight, Qt::SmoothTransformation) );
+            this->lPoster->setPixmap( poster.scaledToHeight(posterHeight, Qt::SmoothTransformation) );
         }
 
         void SetTitle( const QString& title, int year = 0 )
@@ -57,7 +58,7 @@ class FilmDetailedInfo : public QWidget, protected Ui::FilmDetailedInfo
                 s += QString( " (%1)" ).arg( year );
             }
 
-            lTitle->setText( s );
+            this->lTitle->setText( s );
         }
 
         void SetViewed( QPixmap viewed ) { SetFieldPixmap( lViewed, viewed ); }

@@ -63,5 +63,6 @@ class FilmsViewDetailedList : public QListView, public AbstractFilmsView
         FilmDetailedInfoDelegate* infoDelegate;
 };
 
+
 #endif // FILMSVIEWDETAILEDLIST_H
 
