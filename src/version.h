@@ -30,11 +30,11 @@ namespace Alexandra
         const QString appName = "alexandra";
         const QString appNameGui = "Alexandra Video Library";
         const QString appLicense = "GNU GPL v2";
-        const QString appWebsite = "http://alexandra-qt.sourceforge.net/";
+        const QString appWebsite = "http://emelnik.solutions/project/alexandra/";
         const QString appDescription = QObject::tr( "Small, fast, but powerful video library, written in C++ with Qt5." );
 
           // Links
-        const QString linkUpdates = "http://alexandra-qt.sourceforge.net/en/updates/index.html";
+        const QString linkUpdates = "http://emelnik.solutions/project/alexandra/updates/";
         const QString linkTranslations = "https://www.transifex.com/eugene-melnik/alexandra-video-library/";
 
           // Author
