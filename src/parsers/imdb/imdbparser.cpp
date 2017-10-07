@@ -36,11 +36,11 @@ QUrl ImdbParser::Parse( const QByteArray& data )
 {
     DebugPrintFunc( "ImdbParser::Parse", data.size() );
 
-    QString foundedPage( data );
-    RegExpTools::SimplifyText( foundedPage );
+    QString foundPage( data );
+    RegExpTools::SimplifyText( foundPage );
 
-    QRegExp reRedirect( "class=\"number\">1.</td><td class=\"title\"><a href=\"(.*)\">");
-    QString redirectUrl( RegExpTools::ParseItem( foundedPage, reRedirect ) );
+    QRegExp reRedirect( "class=\"lister-item-content\">.*1.*<a href=\"(.*)\"" );
+    QString redirectUrl( RegExpTools::ParseItem( foundPage, reRedirect ).split( '?' ).first() );
 
     QUrl posterUrl;
 
@@ -79,7 +79,7 @@ QUrl ImdbParser::Parse( const QByteArray& data )
 
           // Country
         QRegExp reCountryList( "Countr.*</h4>(.*)</div>" );
-        QRegExp reCountry( "href=\"/country/.*>(.*)</a>" );
+        QRegExp reCountry( "<a.*>(.*)</a>" );
         film.SetColumnData( FilmItem::CountryColumn, RegExpTools::ParseList( str, reCountryList, reCountry ) );
 
           // Genre
