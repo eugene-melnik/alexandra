@@ -22,7 +22,8 @@
 #include "tools/debug.h"
 #include "version.h"
 
-#include <QRegExp>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 
 UpdateChecker::UpdateChecker()
@@ -43,26 +44,13 @@ void UpdateChecker::DataLoaded( const QByteArray& data )
 {
     DebugPrintFunc( "UpdateChecker::DataLoaded", data.size() );
 
-    QString str( data );
+    QJsonObject json = QJsonDocument::fromJson( data ).object();
 
-    QRegExp reCounterUrl( "<counter_lnk>(.*)</counter_lnk>" );
-    reCounterUrl.setMinimal( true );
-    reCounterUrl.indexIn( str );
-    DebugPrint( "COUNTER URL -- " + reCounterUrl.cap(1) );
+    QString latestVersion = json["latest_version"].toString();
+    DebugPrint( "LATEST VERSION -- " + latestVersion );
+    emit Loaded( latestVersion );
 
-#ifndef QT_DEBUG
-      // Don't count launches of debug version of an app
-    request.runSync( reCounterUrl.cap(1) );
-#endif
-
-    QRegExp reLatestVersion( "<latest_ver>(.*)</latest_ver>" );
-    reLatestVersion.setMinimal( true );
-    reLatestVersion.indexIn( str );
-
-    DebugPrint( "LATEST VERSION -- " + reLatestVersion.cap(1) );
     DebugPrintFuncDone( "UpdateChecker::DataLoaded" );
-
-    emit Loaded( reLatestVersion.cap(1) );
 }
 
 
