@@ -28,11 +28,22 @@
 OmdbParser::OmdbParser() : AbstractParser()
 {
     DebugPrintFunc( "OmdbParser::OmdbParser" );
-    searchUrlWithYear = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=json" );
-    searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=json" );
 
-      // Strings for localization mechanism of Qt
-      // which can be returned by server
+    QString apikey = AlexandraSettings::GetInstance()->GetParsersOmdbApiKey();
+
+    if( !apikey.isEmpty() )
+    {
+        this->searchUrlWithYear = QString( "http://www.omdbapi.com/?apikey=%1" ).arg( apikey ) + QString( "&t=%1&y=%2&plot=full&r=json&v=1" );
+        this->searchUrl = QString( "http://www.omdbapi.com/?apikey=%1" ).arg( apikey ) + QString( "&t=%1&plot=full&r=json&v=1" );
+    }
+    else
+    {
+        this->searchUrlWithYear = QString( "http://www.omdbapi.com/?t=%1&y=%2&plot=full&r=json&v=1" );
+        this->searchUrl = QString( "http://www.omdbapi.com/?t=%1&plot=full&r=json&v=1" );
+    }
+
+    // Strings for localization mechanism of Qt
+    // which can be returned by server
     tr("Movie not found!");
 }
 
@@ -44,7 +55,7 @@ QUrl OmdbParser::Parse( const QByteArray& data )
     QJsonObject json = QJsonDocument::fromJson( data ).object();
     QUrl posterUrl;
 
-    if( json["Response"].toString() == "True" )
+    if( json["Response"].toBool() == true )
     {
         film.SetColumnData( FilmItem::TitleColumn, json["Title"].toString() );
         film.SetColumnData( FilmItem::OriginalTitleColumn, json["Title"].toString() );

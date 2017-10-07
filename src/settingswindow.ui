@@ -1347,6 +1347,29 @@
         </layout>
        </item>
        <item>
+        <widget class="QGroupBox" name="gbOmdbSettings">
+         <property name="title">
+          <string>OMDb settings</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="labelApiKey">
+              <property name="text">
+               <string>API key</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="eOmdbApiKey"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QGroupBox" name="gbProxy">
          <property name="title">
           <string>Proxy server settings</string>

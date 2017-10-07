@@ -526,12 +526,10 @@ void SettingsWindow::ConfigureSourcesTab()
 {
     this->cbDefaultOnlineSource->addItems( ParserManager().GetAvailableParsers() );
     this->cbDefaultOnlineSource->setCurrentIndex( this->settings->GetDefaultParserIndex() );
-    this->cDownloadBigPoster->setChecked( this->settings->GetParsersLoadBigPoster() );
-    this->cDownloadMoreInformation->setChecked( this->settings->GetParsersLoadAdvancedInfo() );
-
     connect( this->cbDefaultOnlineSource, SIGNAL( currentIndexChanged(int) ), this, SLOT( SetIsSettingsChanged() ) );
-    connect( this->cDownloadBigPoster, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
-    connect( this->cDownloadMoreInformation, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+
+    this->eOmdbApiKey->setText( this->settings->GetParsersOmdbApiKey() );
+    connect( this->eOmdbApiKey, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDbSettingsChanged );
 
     this->cProxyEnabled->setChecked( this->settings->GetParsersProxyEnabled() );
     this->eHost->setText( this->settings->GetParsersProxyHostname() );
@@ -551,6 +549,12 @@ void SettingsWindow::ConfigureSourcesTab()
     connect( this->ePort, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDbSettingsChanged );
     connect( this->eProxyUsername, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDbSettingsChanged );
     connect( this->eProxyPassword, &QLineEdit::textChanged, this, &SettingsWindow::SetIsDbSettingsChanged );
+
+    this->cDownloadBigPoster->setChecked( this->settings->GetParsersLoadBigPoster() );
+    this->cDownloadMoreInformation->setChecked( this->settings->GetParsersLoadAdvancedInfo() );
+
+    connect( this->cDownloadBigPoster, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
+    connect( this->cDownloadMoreInformation, &QCheckBox::toggled, this, &SettingsWindow::SetIsSettingsChanged );
 }
 
 
@@ -590,7 +594,7 @@ void SettingsWindow::SaveSettings()
         settings->SetMainWindowRightPanelWidth( sbPanelWidth->value() );
         settings->SetShowTechInfo( cbShowTechInfo->isChecked() );
 
-          /// Application tab
+        /// Application tab
 
         settings->SetApplicationShowSplashScreen( cShowSplashScreen->isChecked() );
         settings->SetApplicationLocaleIndex( cbLanguage->currentIndex()-1 );
@@ -619,6 +623,8 @@ void SettingsWindow::SaveSettings()
         this->settings->SetDefaultParserIndex( this->cbDefaultOnlineSource->currentIndex() );
         this->settings->SetParsersLoadBigPoster( this->cDownloadBigPoster->isChecked() );
         this->settings->SetParsersLoadAdvancedInfo( this->cDownloadMoreInformation->isChecked() );
+
+        this->settings->SetParsersOmdbApiKey( this->eOmdbApiKey->text() );
 
         this->settings->SetParsersProxyEnabled( this->cProxyEnabled->isChecked() );
         this->settings->SetParsersProxyHostname( this->eHost->text().trimmed() );

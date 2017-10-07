@@ -348,6 +348,12 @@ QString AlexandraSettings::GetParsersProxyPassword() const
 }
 
 
+QString AlexandraSettings::GetParsersOmdbApiKey() const
+{
+    return( value( "Parsers/OmdbApiKey", "" ).toString() );
+}
+
+
 QString AlexandraSettings::GetShortcutAddFilm() const
 {
     return( value( "Shortcuts/AddFilm", "Ctrl+A" ).toString() );
@@ -678,6 +684,12 @@ void AlexandraSettings::SetParsersProxyUsername( const QString& s )
 void AlexandraSettings::SetParsersProxyPassword( const QString& s )
 {
     this->setValue( "Parsers/ProxyPassword", s );
+}
+
+
+void AlexandraSettings::SetParsersOmdbApiKey( const QString& s)
+{
+    this->setValue( "Parsers/OmdbApiKey", s );
 }
 
 

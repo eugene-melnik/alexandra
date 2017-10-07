@@ -82,6 +82,7 @@ class AlexandraSettings : public QSettings
         int GetParsersProxyPort() const;
         QString GetParsersProxyUsername() const;
         QString GetParsersProxyPassword() const;
+        QString GetParsersOmdbApiKey() const;
 
         QString GetShortcutAddFilm() const;
         QString GetShortcutEditFilm() const;
@@ -147,6 +148,7 @@ class AlexandraSettings : public QSettings
         void SetParsersProxyPort( int n );
         void SetParsersProxyUsername( const QString& s );
         void SetParsersProxyPassword( const QString& s );
+        void SetParsersOmdbApiKey( const QString& s );
 
         void SetShortcutAddFilm( const QString& s );
         void SetShortcutEditFilm( const QString& s );
