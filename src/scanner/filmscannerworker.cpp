@@ -59,7 +59,7 @@ QStringList FilmScannerWorker::ScanDirectory( const QString& dir )
         if( isCanceled ) break;
 
         result.append( fileInfo.absoluteFilePath() );
-        emit IncFoundedTotal();
+        emit IncFoundTotal();
     }
 
     return( result );

@@ -36,11 +36,11 @@ QUrl KinoteatrParser::Parse( const QByteArray& data )
 {
     DebugPrintFunc( "KinoteatrParser::Parse", data.size() );
 
-    QString foundedPage( data );
-    RegExpTools::SimplifyText( foundedPage );
+    QString foundPage( data );
+    RegExpTools::SimplifyText( foundPage );
 
     QRegExp reRedirect( "id='searchItemFilms'><a href='(.*)'");
-    QString redirectUrl( RegExpTools::ParseItem( foundedPage, reRedirect ) );
+    QString redirectUrl( RegExpTools::ParseItem( foundPage, reRedirect ) );
 
     QUrl posterUrl;
 

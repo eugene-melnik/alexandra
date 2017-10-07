@@ -98,7 +98,7 @@
     </layout>
    </item>
    <item>
-    <widget class="FoundedListWidget" name="gbFounded" native="true"/>
+    <widget class="FoundListWidget" name="gbFound" native="true"/>
    </item>
    <item>
     <widget class="Line" name="lineMain0">
@@ -110,14 +110,14 @@
    <item>
     <layout class="QHBoxLayout" name="layoutFooter" stretch="0,0,0,0,0,1,0,0,0">
      <item>
-      <widget class="QLabel" name="labelTotalFounded">
+      <widget class="QLabel" name="labelTotalFound">
        <property name="text">
-        <string>Total founded:</string>
+        <string>Total found:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lTotalFounded">
+      <widget class="QLabel" name="lTotalFound">
        <property name="text">
         <string notr="true">0</string>
        </property>
@@ -193,9 +193,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>FoundedListWidget</class>
+   <class>FoundListWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/foundedlistwidget.h</header>
+   <header>widgets/foundlistwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

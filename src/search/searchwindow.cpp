@@ -392,10 +392,11 @@ void SearchWindow::SetupAdvancedProxy( AdvancedSearchProxyModel* proxy )
 
 void SearchWindow::SetupProxyModel( QAbstractProxyModel* proxy )
 {
-    delete proxyModel;
-    proxyModel = proxy;
-    tvResult->setModel( proxyModel );
-    lTotalFounded->setText( QString::number(proxy->rowCount()) );
+    delete this->proxyModel;
+
+    this->proxyModel = proxy;
+    this->tvResult->setModel( proxyModel );
+    this->lTotalFound->setText( QString::number(proxy->rowCount()) );
 
     if( proxy->rowCount() == 0 )
     {
@@ -403,8 +404,8 @@ void SearchWindow::SetupProxyModel( QAbstractProxyModel* proxy )
     }
 
       // FIXME: One Qt::DescendingOrder doesn't work
-    tvResult->horizontalHeader()->setSortIndicator( FilmItem::RatingColumn, Qt::AscendingOrder );
-    tvResult->horizontalHeader()->setSortIndicator( FilmItem::RatingColumn, Qt::DescendingOrder );
+    this->tvResult->horizontalHeader()->setSortIndicator( FilmItem::RatingColumn, Qt::AscendingOrder );
+    this->tvResult->horizontalHeader()->setSortIndicator( FilmItem::RatingColumn, Qt::DescendingOrder );
 }
 
 

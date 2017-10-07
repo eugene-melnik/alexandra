@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FoundedListWidget</class>
- <widget class="QWidget" name="FoundedListWidget">
+ <class>FoundListWidget</class>
+ <widget class="QWidget" name="FoundListWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -24,11 +24,11 @@
     <number>0</number>
    </property>
    <item row="0" column="0">
-    <widget class="QGroupBox" name="gbFounded">
+    <widget class="QGroupBox" name="gbFound">
      <property name="title">
-      <string>Founded</string>
+      <string>Found</string>
      </property>
-     <layout class="QVBoxLayout" name="layoutFounded">
+     <layout class="QVBoxLayout" name="layoutFound">
       <property name="leftMargin">
        <number>9</number>
       </property>
@@ -39,7 +39,7 @@
        <number>9</number>
       </property>
       <item>
-       <widget class="CheckedListWidget" name="lwFounded">
+       <widget class="CheckedListWidget" name="lwFound">
         <property name="alternatingRowColors">
          <bool>true</bool>
         </property>

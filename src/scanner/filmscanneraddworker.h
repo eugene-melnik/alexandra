@@ -41,7 +41,7 @@ class FilmScannerAddWorker : public QThread
     public:
         FilmScannerAddWorker();
 
-        void SetFoundedFilms( QStringList founded ) { foundedFilms = founded; }
+        void SetFoundFilms( QStringList found ) { this->foundFilms = found; }
         void SetLoadInformation( bool load ) { loadInformation = load; }
         void SetSearchForPoster( bool load ) { searchForPoster = load; }
 
@@ -57,7 +57,7 @@ class FilmScannerAddWorker : public QThread
         bool SavePosterTo( QString sourceName, QString destinationName );
 
         ParserManager parser;
-        QStringList foundedFilms;
+        QStringList foundFilms;
         bool loadInformation = false;
         bool searchForPoster = false;
         bool isCanceled = false;

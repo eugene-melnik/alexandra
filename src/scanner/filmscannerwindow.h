@@ -50,8 +50,8 @@ class FilmScannerWindow : public QDialog, protected Ui::FilmScannerWindow
         void Scan();
         void AddSelected();
 
-        void IncFoundedTotal();
-        void ShowFounded( QStringList fileNames );
+        void IncFoundTotal();
+        void ShowFound( QStringList fileNames );
         void DisableFilm( FilmItem* film );
 
     private:

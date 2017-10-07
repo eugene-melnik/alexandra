@@ -40,7 +40,7 @@ class FilmScannerWorker : public QThread
         void Terminate() { isTerminated = true; isCanceled = true; }
 
     signals:
-        void IncFoundedTotal();
+        void IncFoundTotal();
         void Scanned( QStringList );
 
     protected:

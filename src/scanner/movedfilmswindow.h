@@ -48,7 +48,7 @@ class MovedFilmsWindow : public QDialog, protected Ui::MovedFilmsWindow
         void SelectDirectory();
         void Scan();
 
-        void ShowFounded( QStringList fileNames );
+        void ShowFound( QStringList fileNames );
         void MoveSelected();
 
     private:

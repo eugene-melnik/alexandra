@@ -38,19 +38,19 @@ MovedFilmsWindow::MovedFilmsWindow( QWidget* parent ) : QDialog( parent ),
     progressBar->hide();
 
       // Worker
-    connect( filmScannerWorker, &FilmScannerWorker::Scanned, this, &MovedFilmsWindow::ShowFounded );
+    connect( filmScannerWorker, &FilmScannerWorker::Scanned, this, &MovedFilmsWindow::ShowFound );
 
       // Buttons and view
     connect( bSelectDirectory, &QPushButton::clicked, this, &MovedFilmsWindow::SelectDirectory );
     connect( bScan, &QPushButton::clicked, this, &MovedFilmsWindow::Scan );
     connect( bMove, &QPushButton::clicked, this, &MovedFilmsWindow::MoveSelected );
 
-    connect( gbFounded, &FoundedListWidget::ItemsCountChanged, this, [this] (int count)
+    connect( this->gbFound, &FoundListWidget::ItemsCountChanged, this, [this] (int count)
     {
-        lTotalFounded->setText( QString::number(count) );
+        this->lTotalFound->setText( QString::number(count) );
     } );
 
-    connect( gbFounded, &FoundedListWidget::SelectionChanged, this, [this] (int count)
+    connect( this->gbFound, &FoundListWidget::SelectionChanged, this, [this] (int count)
     {
         lSelected->setText( QString::number(count) );
     } );
@@ -96,7 +96,7 @@ void MovedFilmsWindow::Scan()
         return;
     }
 
-    gbFounded->Clear();
+    this->gbFound->Clear();
 
       // Messages
     if( eDirectory->text().isEmpty() )
@@ -116,9 +116,9 @@ void MovedFilmsWindow::Scan()
 }
 
 
-void MovedFilmsWindow::ShowFounded( QStringList fileNames )
+void MovedFilmsWindow::ShowFound( QStringList fileNames )
 {
-    DebugPrintFunc( "MovedFilmsWindow::ShowFounded", fileNames.size() );
+    DebugPrintFunc( "MovedFilmsWindow::ShowFound", fileNames.size() );
 
       // Flip button
     bScan->setText( tr("Scan") );
@@ -136,19 +136,19 @@ void MovedFilmsWindow::ShowFounded( QStringList fileNames )
 
             if( newFileName == unavailFileName && newFilePath != unavailFilePath ) // Protection from multiple moving
             {
-                gbFounded->AddItem( newFilePath, qVariantFromValue( (void*)film ) );
+                this->gbFound->AddItem( newFilePath, qVariantFromValue( (void*)film ) );
                 fileNames.removeOne( newFilePath );
                 break;
             }
         }
     }
 
-    if( gbFounded->GetItemsCount() == 0 )
+    if( this->gbFound->GetItemsCount() == 0 )
     {
         QMessageBox::information( this, tr("Moved films"), tr("Nothing was found.") );
     }
 
-    DebugPrintFuncDone( "MovedFilmsWindow::ShowFounded" );
+    DebugPrintFuncDone( "MovedFilmsWindow::ShowFound" );
 }
 
 
@@ -160,10 +160,10 @@ void MovedFilmsWindow::MoveSelected()
         return;
     }
 
-    for( QPair<QString,QVariant> itemData : gbFounded->GetSelectedItemsData() )
+    for( QPair<QString,QVariant> itemData : this->gbFound->GetSelectedItemsData() )
     {
           // Uncheck and disable
-        gbFounded->DisableItem( itemData.first, true );
+        this->gbFound->DisableItem( itemData.first, true );
 
           // Change filename
         FilmItem* film = (FilmItem*) itemData.second.value<void*>();

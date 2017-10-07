@@ -954,9 +954,9 @@
    <item>
     <layout class="QHBoxLayout" name="layoutFooter">
      <item>
-      <widget class="QLabel" name="labelTotalFounded">
+      <widget class="QLabel" name="labelTotalFound">
        <property name="text">
-        <string>Total founded:</string>
+        <string>Total found:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -964,7 +964,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lTotalFounded">
+      <widget class="QLabel" name="lTotalFound">
        <property name="text">
         <string notr="true">0</string>
        </property>

@@ -35,7 +35,7 @@ FilmScannerAddWorker::FilmScannerAddWorker() : QThread(),
 void FilmScannerAddWorker::run()
 {
 
-    for( const QString& fileName : foundedFilms )
+    for( const QString& fileName : this->foundFilms )
     {
         if( isCanceled ) break;
 

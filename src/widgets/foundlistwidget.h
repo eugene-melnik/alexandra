@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: foundedlistwidget.h                                                                     *
+ *  file: foundlistwidget.h                                                                       *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,22 +18,22 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#ifndef FOUNDEDLISTWIDGET_H
-#define FOUNDEDLISTWIDGET_H
+#ifndef FOUNDLISTWIDGET_H
+#define FOUNDLISTWIDGET_H
 
 
-#include "ui_foundedlistwidget.h"
+#include "ui_foundlistwidget.h"
 
 
 #include <QWidget>
 
 
-class FoundedListWidget : public QWidget, public Ui::FoundedListWidget
+class FoundListWidget : public QWidget, public Ui::FoundListWidget
 {
     Q_OBJECT
 
     public:
-        explicit FoundedListWidget( QWidget* parent = nullptr );
+        explicit FoundListWidget( QWidget* parent = nullptr );
 
         void AddItem( QString itemText, bool setDisabled = false );
         void AddItem( QString itemText, QVariant data, bool setDisabled = false );
@@ -41,9 +41,9 @@ class FoundedListWidget : public QWidget, public Ui::FoundedListWidget
         void Clear();
 
         QStringList GetItems() const;
-        QStringList GetSelectedItems() const { return( lwFounded->GetSelectedItems() ); }
-        QList<QPair<QString,QVariant>> GetSelectedItemsData() const { return( lwFounded->GetSelectedItemsData() ); }
-        int GetItemsCount() const { return( lwFounded->count() ); }
+        QStringList GetSelectedItems() const { return( this->lwFound->GetSelectedItems() ); }
+        QList<QPair<QString,QVariant>> GetSelectedItemsData() const { return( this->lwFound->GetSelectedItemsData() ); }
+        int GetItemsCount() const { return( this->lwFound->count() ); }
 
     signals:
         void ItemsCountChanged( int newCount );
@@ -57,4 +57,4 @@ class FoundedListWidget : public QWidget, public Ui::FoundedListWidget
 };
 
 
-#endif // FOUNDEDLISTWIDGET_H
+#endif // FOUNDLISTWIDGET_H

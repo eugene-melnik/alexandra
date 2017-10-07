@@ -40,8 +40,8 @@ FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent ),
     progressBar->hide();
 
       // Scanner worker
-    connect( filmScannerWorker, &FilmScannerWorker::Scanned,         this, &FilmScannerWindow::ShowFounded );
-    connect( filmScannerWorker, &FilmScannerWorker::IncFoundedTotal, this, &FilmScannerWindow::IncFoundedTotal );
+    connect( filmScannerWorker, &FilmScannerWorker::Scanned,         this, &FilmScannerWindow::ShowFound );
+    connect( filmScannerWorker, &FilmScannerWorker::IncFoundTotal, this, &FilmScannerWindow::IncFoundTotal );
 
       // Add worker
     connect( filmAddWorker, &FilmScannerAddWorker::FilmCreated, this, &FilmScannerWindow::AddFilm );
@@ -58,12 +58,12 @@ FilmScannerWindow::FilmScannerWindow( QWidget* parent ) : QDialog( parent ),
     connect( bScan,            &QPushButton::clicked, this, &FilmScannerWindow::Scan );
     connect( bAdd,             &QPushButton::clicked, this, &FilmScannerWindow::AddSelected );
 
-    connect( gbFounded, &FoundedListWidget::ItemsCountChanged, this, [this] (int count)
+    connect( this->gbFound, &FoundListWidget::ItemsCountChanged, this, [this] (int count)
     {
-        lTotalFounded->setText( QString::number(count) );
+        this->lTotalFound->setText( QString::number(count) );
     } );
 
-    connect( gbFounded, &FoundedListWidget::SelectionChanged, this, [this] (int count)
+    connect( this->gbFound, &FoundListWidget::SelectionChanged, this, [this] (int count)
     {
         lSelected->setText( QString::number(count) );
     } );
@@ -116,7 +116,7 @@ void FilmScannerWindow::Scan()
         return;
     }
 
-    gbFounded->Clear();
+    this->gbFound->Clear();
 
       // Messages
     if( eDirectory->text().isEmpty() )
@@ -143,7 +143,7 @@ void FilmScannerWindow::Scan()
 
 void FilmScannerWindow::AddSelected()
 {
-    QStringList selectedFilms = gbFounded->GetSelectedItems();
+    QStringList selectedFilms = this->gbFound->GetSelectedItems();
 
     if( selectedFilms.empty() ) // Nothing was selected
     {
@@ -165,7 +165,7 @@ void FilmScannerWindow::AddSelected()
         settings->sync();
 
           // Adding worker
-        filmAddWorker->SetFoundedFilms( selectedFilms );
+        filmAddWorker->SetFoundFilms( selectedFilms );
         filmAddWorker->SetLoadInformation( cLoadInformation->isChecked() );
         filmAddWorker->SetSearchForPoster( cSearchForPoster->isChecked() );
         filmAddWorker->start();
@@ -173,16 +173,16 @@ void FilmScannerWindow::AddSelected()
 }
 
 
-void FilmScannerWindow::IncFoundedTotal()
+void FilmScannerWindow::IncFoundTotal()
 {
-    int n = lTotalFounded->text().toInt() + 1;
-    lTotalFounded->setText( QString::number( n ) );
+    int n = lTotalFound->text().toInt() + 1;
+    lTotalFound->setText( QString::number( n ) );
 }
 
 
-void FilmScannerWindow::ShowFounded( QStringList fileNames )
+void FilmScannerWindow::ShowFound( QStringList fileNames )
 {
-    DebugPrintFunc( "FilmScannerWindow::ShowFounded", fileNames.size() );
+    DebugPrintFunc( "FilmScannerWindow::ShowFound", fileNames.size() );
 
     bScan->setText( tr("Scan") );
     progressBar->hide();
@@ -201,10 +201,10 @@ void FilmScannerWindow::ShowFounded( QStringList fileNames )
             bool setDisabled = existedFileNames.contains( fileName );
         #endif
 
-        gbFounded->AddItem( fileName, setDisabled );
+        gbFound->AddItem( fileName, setDisabled );
     }
 
-    DebugPrintFuncDone( "FilmScannerWindow::ShowFounded" );
+    DebugPrintFuncDone( "FilmScannerWindow::ShowFound" );
 }
 
 
@@ -214,9 +214,9 @@ void FilmScannerWindow::DisableFilm( FilmItem* film )
     existedFileNames.append( filmFilename );
 
     #ifdef PORTABLE_VERSION
-        gbFounded->DisableItem( QFileInfo(filmFilename).absoluteFilePath(), true );
+        this->gbFound->DisableItem( QFileInfo(filmFilename).absoluteFilePath(), true );
     #else
-        gbFounded->DisableItem( filmFilename, true );
+        this->gbFound->DisableItem( filmFilename, true );
     #endif
 
     lSelected->setText( QString::number(--newFilmsCount) );

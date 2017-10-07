@@ -1,6 +1,6 @@
 /*************************************************************************************************
  *                                                                                                *
- *  file: foundedlistwidget.cpp                                                                   *
+ *  file: foundlistwidget.cpp                                                                     *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
  *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
@@ -18,42 +18,42 @@
  *                                                                                                *
   *************************************************************************************************/
 
-#include "foundedlistwidget.h"
+#include "foundlistwidget.h"
 
 
-FoundedListWidget::FoundedListWidget(QWidget* parent) : QWidget(parent)
+FoundListWidget::FoundListWidget(QWidget* parent) : QWidget(parent)
 {
     setupUi( this );
-    connect( bScrollToChecked, &QPushButton::clicked, lwFounded, &CheckedListWidget::ScrollToChecked );
-    connect( bSelectAll,       &QPushButton::clicked, lwFounded, &CheckedListWidget::SelectAll );
-    connect( bSelectAll,       &QPushButton::clicked, this,      &FoundedListWidget::CalculateSelected );
-    connect( bUnselectAll,     &QPushButton::clicked, lwFounded, &CheckedListWidget::UnselectAll );
-    connect( bUnselectAll,     &QPushButton::clicked, this,      &FoundedListWidget::CalculateSelected );
-    connect( bInvertSelection, &QPushButton::clicked, lwFounded, &CheckedListWidget::InvertSelection );
-    connect( bInvertSelection, &QPushButton::clicked, this,      &FoundedListWidget::CalculateSelected );
-    connect( lwFounded,        &QListWidget::clicked, this,      &FoundedListWidget::CalculateSelected );
+    connect( bScrollToChecked, &QPushButton::clicked, lwFound, &CheckedListWidget::ScrollToChecked );
+    connect( bSelectAll,       &QPushButton::clicked, lwFound, &CheckedListWidget::SelectAll );
+    connect( bSelectAll,       &QPushButton::clicked, this,    &FoundListWidget::CalculateSelected );
+    connect( bUnselectAll,     &QPushButton::clicked, lwFound, &CheckedListWidget::UnselectAll );
+    connect( bUnselectAll,     &QPushButton::clicked, this,    &FoundListWidget::CalculateSelected );
+    connect( bInvertSelection, &QPushButton::clicked, lwFound, &CheckedListWidget::InvertSelection );
+    connect( bInvertSelection, &QPushButton::clicked, this,    &FoundListWidget::CalculateSelected );
+    connect( lwFound,          &QListWidget::clicked, this,    &FoundListWidget::CalculateSelected );
 }
 
 
-void FoundedListWidget::AddItem( QString itemText, bool setDisabled )
+void FoundListWidget::AddItem( QString itemText, bool setDisabled )
 {
-    lwFounded->AddItem( itemText, setDisabled, disabledColor );
-    emit ItemsCountChanged( lwFounded->count() );
+    this->lwFound->AddItem( itemText, setDisabled, disabledColor );
+    emit ItemsCountChanged( this->lwFound->count() );
 }
 
 
-void FoundedListWidget::AddItem( QString itemText, QVariant data, bool setDisabled )
+void FoundListWidget::AddItem( QString itemText, QVariant data, bool setDisabled )
 {
-    lwFounded->AddItem( itemText, data, setDisabled, disabledColor );
-    emit ItemsCountChanged( lwFounded->count() );
+    this->lwFound->AddItem( itemText, data, setDisabled, disabledColor );
+    emit ItemsCountChanged( this->lwFound->count() );
 }
 
 
-void FoundedListWidget::DisableItem( QString itemText, bool scrollToItem )
+void FoundListWidget::DisableItem( QString itemText, bool scrollToItem )
 {
-    for( int row = 0; row < lwFounded->count(); ++row )
+    for( int row = 0; row < this->lwFound->count(); ++row )
     {
-        QListWidgetItem* item = lwFounded->item(row);
+        QListWidgetItem* item = this->lwFound->item(row);
 
         if( item->text() == itemText )
         {
@@ -63,7 +63,7 @@ void FoundedListWidget::DisableItem( QString itemText, bool scrollToItem )
 
             if( scrollToItem )
             {
-                lwFounded->scrollToItem( item, QAbstractItemView::PositionAtCenter );
+                this->lwFound->scrollToItem( item, QAbstractItemView::PositionAtCenter );
             }
 
             break;
@@ -72,34 +72,34 @@ void FoundedListWidget::DisableItem( QString itemText, bool scrollToItem )
 }
 
 
-void FoundedListWidget::Clear()
+void FoundListWidget::Clear()
 {
-    lwFounded->clear();
+    this->lwFound->clear();
     emit ItemsCountChanged( 0 );
     emit SelectionChanged( 0 );
 }
 
 
-QStringList FoundedListWidget::GetItems() const
+QStringList FoundListWidget::GetItems() const
 {
     QStringList items;
 
-    for( int row = 0; row < lwFounded->count(); ++row )
+    for( int row = 0; row < this->lwFound->count(); ++row )
     {
-        items.append( lwFounded->item(row)->text() );
+        items.append( this->lwFound->item(row)->text() );
     }
 
     return( items );
 }
 
 
-void FoundedListWidget::CalculateSelected()
+void FoundListWidget::CalculateSelected()
 {
     int count = 0;
 
-    for( int row = 0; row < lwFounded->count(); ++row )
+    for( int row = 0; row < this->lwFound->count(); ++row )
     {
-        QListWidgetItem* item = lwFounded->item(row);
+        QListWidgetItem* item = this->lwFound->item(row);
 
         if( item->checkState() == Qt::Checked )
         {

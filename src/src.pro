@@ -82,7 +82,7 @@ HEADERS += datamanip/addfilmwindow.h \
            tools/regexptools.h \
            tools/timecounter.h \
            widgets/checkedlistwidget.h \
-           widgets/foundedlistwidget.h \
+           widgets/foundlistwidget.h \
            widgets/playlistwidget.h \
            aboutwindow.h \
            alexandrasettings.h \
@@ -130,7 +130,7 @@ SOURCES += datamanip/addfilmwindow.cpp \
            tools/regexptools.cpp \
            tools/timecounter.cpp \
            widgets/checkedlistwidget.cpp \
-           widgets/foundedlistwidget.cpp \
+           widgets/foundlistwidget.cpp \
            widgets/playlistwidget.cpp \
            aboutwindow.cpp \
            alexandrasettings.cpp \
@@ -150,7 +150,7 @@ FORMS += datamanip/addfilmwindow.ui \
          search/searchedit.ui \
          search/searchwindow.ui \
          statistics/statisticswindow.ui \
-         widgets/foundedlistwidget.ui \
+         widgets/foundlistwidget.ui \
          widgets/playlistwidget.ui \
          aboutwindow.ui \
          settingswindow.ui
