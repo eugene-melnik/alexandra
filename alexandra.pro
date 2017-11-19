@@ -5,5 +5,4 @@ src.depends = lang
 
 OTHER_FILES += CHANGELOG \
                LICENSE \
-               README.md \
-               .travis.yml
+               README.md
