@@ -1,3 +1,4 @@
+debian/.debhelper
 debian/alexandra/*
 debian/files
 debian/alexandra.debhelper.log

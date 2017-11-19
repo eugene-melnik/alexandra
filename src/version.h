@@ -40,12 +40,12 @@ namespace Alexandra
           // Author
         const QString appAuthor = "Eugene Melnik <eugene@melnik.solutions>";
         const QString orgName   = "Eugene Melnik";
-        const QString orgDomain = "eugene.melnik.com";
+        const QString orgDomain = "melnik.solutions";
 
           // Version
         const quint8  verMajor = 1;
         const quint8  verMinor = 5;
-        const quint8  verFix = 0;
+        const quint8  verFix = 1;
         const QString appVersionFull = QString( "%1.%2.%3" ).arg( verMajor ).arg( verMinor ).arg( verFix );
         const QString appBuildDate = QString( __DATE__ );
 
