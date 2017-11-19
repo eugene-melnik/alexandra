@@ -3,7 +3,7 @@
  *  file: texteditor.h                                                                            *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2017 Eugene Melnik <eugene@melnik.solutions>                               *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *

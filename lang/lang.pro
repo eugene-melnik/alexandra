@@ -1,7 +1,7 @@
  ###################################################################
 #                                                                   #
 #  Alexandra Video Library                                          #
-#  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>        #
+#  Copyright (C) 2014-2017 Eugene Melnik <eugene@melnik.solutions>  #
 #                                                                   #
  ###################################################################
 
