@@ -1047,7 +1047,7 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="231"/>
         <source>Database write error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur d&apos;écriture de la base de données</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="245"/>
@@ -1771,47 +1771,47 @@
     <message>
         <location filename="../src/settingswindow.ui" line="1352"/>
         <source>OMDb settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres OMDb</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1360"/>
         <source>API key</source>
-        <translation type="unfinished"></translation>
+        <translation>Clé API</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1375"/>
         <source>Proxy server settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres du serveur proxy</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1381"/>
         <source>Use proxy for fetching the data</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser un proxy pour récupérer les données</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1393"/>
         <source>IP or Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>IP ou nom d&apos;hôte</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1400"/>
         <source>:</source>
-        <translation type="unfinished"></translation>
+        <translation>:</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1410"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1421"/>
         <source>Username (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;utilisateur (facultatif)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1445"/>
         <source>Password (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe (facultatif)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1470"/>
