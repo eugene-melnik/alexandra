@@ -3,7 +3,7 @@
  *  file: version.h                                                                               *
  *                                                                                                *
  *  Alexandra Video Library                                                                       *
- *  Copyright (C) 2014-2016 Eugene Melnik <jeka7js@gmail.com>                                     *
+ *  Copyright (C) 2014-2017 Eugene Melnik <eugene@melnik.solutions>                               *
  *                                                                                                *
  *  Alexandra is free software; you can redistribute it and/or modify it under the terms of the   *
  *  GNU General Public License as published by the Free Software Foundation; either version 2 of  *
@@ -38,14 +38,14 @@ namespace Alexandra
         const QString linkTranslations = "https://www.transifex.com/eugene-melnik/alexandra-video-library/";
 
           // Author
-        const QString appAuthor = "Eugene Melnik <jeka7js@gmail.com>";
+        const QString appAuthor = "Eugene Melnik <eugene@melnik.solutions>";
         const QString orgName   = "Eugene Melnik";
-        const QString orgDomain = "eugene.melnik.com";
+        const QString orgDomain = "melnik.solutions";
 
           // Version
         const quint8  verMajor = 1;
         const quint8  verMinor = 5;
-        const quint8  verFix = 0;
+        const quint8  verFix = 1;
         const QString appVersionFull = QString( "%1.%2.%3" ).arg( verMajor ).arg( verMinor ).arg( verFix );
         const QString appBuildDate = QString( __DATE__ );
 

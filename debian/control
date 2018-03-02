@@ -1,7 +1,7 @@
 Source: alexandra
 Section: misc
 Priority: optional
-Maintainer: Eugene Melnik <jeka7js@gmail.com>
+Maintainer: Eugene Melnik <eugene@melnik.solutions>
 Build-Depends: debhelper (>= 9),
                qtbase5-dev,
                qt5-default,

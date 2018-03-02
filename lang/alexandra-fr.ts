@@ -516,6 +516,11 @@
         <translation>Explorer dans les sous-dossiers</translation>
     </message>
     <message>
+        <location filename="../src/scanner/filmscannerwindow.ui" line="218"/>
+        <source>Total found:</source>
+        <translation>Total trouvé :</translation>
+    </message>
+    <message>
         <location filename="../src/scanner/filmscannerwindow.cpp" line="124"/>
         <source>Select the directory to scan.</source>
         <translation>Sélectionner d&apos;abord un dossier à explorer.</translation>
@@ -556,9 +561,8 @@
         <translation>Télécharger plus d&apos;informations (si possible)</translation>
     </message>
     <message>
-        <location filename="../src/scanner/filmscannerwindow.ui" line="218"/>
         <source>Total founded:</source>
-        <translation>Total trouvé :</translation>
+        <translation type="vanished">Total trouvé :</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="239"/>
@@ -784,31 +788,54 @@
     </message>
 </context>
 <context>
-    <name>FoundedListWidget</name>
+    <name>FoundListWidget</name>
     <message>
-        <location filename="../src/widgets/foundedlistwidget.ui" line="29"/>
-        <source>Founded</source>
+        <location filename="../src/widgets/foundlistwidget.ui" line="29"/>
+        <source>Found</source>
         <translation>Résultat de l&apos;analyse</translation>
     </message>
     <message>
-        <location filename="../src/widgets/foundedlistwidget.ui" line="53"/>
+        <location filename="../src/widgets/foundlistwidget.ui" line="53"/>
         <source>Scroll to selected</source>
         <translation>Défiler pour sélectionner</translation>
     </message>
     <message>
-        <location filename="../src/widgets/foundedlistwidget.ui" line="73"/>
+        <location filename="../src/widgets/foundlistwidget.ui" line="73"/>
         <source>Select all</source>
         <translation>Tout sélectionner</translation>
     </message>
     <message>
-        <location filename="../src/widgets/foundedlistwidget.ui" line="80"/>
+        <location filename="../src/widgets/foundlistwidget.ui" line="80"/>
         <source>Unselect all</source>
         <translation>Tout désélectionner</translation>
     </message>
     <message>
-        <location filename="../src/widgets/foundedlistwidget.ui" line="87"/>
+        <location filename="../src/widgets/foundlistwidget.ui" line="87"/>
         <source>Invert selection</source>
         <translation>Inverser la sélection</translation>
+    </message>
+</context>
+<context>
+    <name>FoundedListWidget</name>
+    <message>
+        <source>Founded</source>
+        <translation type="vanished">Résultat de l&apos;analyse</translation>
+    </message>
+    <message>
+        <source>Scroll to selected</source>
+        <translation type="vanished">Défiler pour sélectionner</translation>
+    </message>
+    <message>
+        <source>Select all</source>
+        <translation type="vanished">Tout sélectionner</translation>
+    </message>
+    <message>
+        <source>Unselect all</source>
+        <translation type="vanished">Tout désélectionner</translation>
+    </message>
+    <message>
+        <source>Invert selection</source>
+        <translation type="vanished">Inverser la sélection</translation>
     </message>
 </context>
 <context>
@@ -840,8 +867,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="217"/>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="406"/>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="504"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="412"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="510"/>
         <source>Play</source>
         <translation>Lecture</translation>
     </message>
@@ -912,7 +939,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="433"/>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="567"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="573"/>
         <source>Remove film</source>
         <translation>Supprimer le film</translation>
     </message>
@@ -938,7 +965,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="478"/>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="709"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="715"/>
         <source>Moved films</source>
         <translation>Films déplacés</translation>
     </message>
@@ -1018,69 +1045,74 @@
         <translation>Erreur de lecture de la base de données</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="239"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="231"/>
+        <source>Database write error</source>
+        <translation>Erreur d&apos;écriture de la base de données</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="245"/>
         <source>The database file is read-only.</source>
         <translation>Le fichier de la base de données est en lecture seule.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="358"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="364"/>
         <source>Nothing was found</source>
         <translation>Rien n&apos;a été trouvé</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="359"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="365"/>
         <source>Make sure all words are spelled correctly or try using other keywords.</source>
         <translation>Assurez-vous que tous les mots sont écrits correctement ou essayer d&apos;utiliser d&apos;autres mots clés.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="490"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="496"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="572"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="578"/>
         <source>Nothing was selected!</source>
         <translation>Rien n&apos;a été sélectionné !</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="578"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="584"/>
         <source>Are you sure you want to remove &quot;%1&quot;?</source>
         <translation>Êtes-vous sûr(e) de supprimer le fichier &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="588"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="594"/>
         <source>Are you sure you want to remove following films?
 </source>
         <translation>Êtes-vous sûr(e) de supprimer le(s) film(s) suivant ?
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="644"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="650"/>
         <source>File was successfully removed. Do you want to remove record from the database?</source>
         <translation>Le fichier a été supprimé avec succès. Voulez-vous supprimer l&apos;enregistrement de la base de données ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="709"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="715"/>
         <source>Nothing to move.</source>
         <translation>Rien à déplacer.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="761"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="767"/>
         <source>Views counter</source>
         <translation>Compteur de vues</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="762"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="768"/>
         <source>What do you want to do?</source>
         <translation>Que voulez-vous faire ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="764"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="770"/>
         <source>Add view</source>
         <translation>Ajouter une vue</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="765"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="771"/>
         <source>Reset views</source>
         <translation>Réinitialiser les vues</translation>
     </message>
@@ -1097,30 +1129,30 @@
         <translation>Ajouter des films</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="397"/>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="1051"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="403"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="1058"/>
         <source>Play list</source>
         <translation>Lecture de la liste</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="634"/>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="643"/>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="659"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="640"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="649"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="665"/>
         <source>Remove file</source>
         <translation>Supprimer le fichier</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="635"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="641"/>
         <source>Are you sure to remove file &quot;%1&quot;?</source>
         <translation>Êtes-vous sûr(e) de supprimer le fichier &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="659"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="665"/>
         <source>Unable to remove file &quot;%1&quot;!</source>
         <translation>Impossible de supprimer le fichier &quot;%1&quot; !</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow/mainwindow.cpp" line="1070"/>
+        <location filename="../src/mainwindow/mainwindow.cpp" line="1077"/>
         <source>&lt;Theme&gt;</source>
         <translation>&lt;Thème&gt;</translation>
     </message>
@@ -1151,6 +1183,11 @@
         <translation>Explorer dans les sous-dossiers</translation>
     </message>
     <message>
+        <location filename="../src/scanner/movedfilmswindow.ui" line="115"/>
+        <source>Total found:</source>
+        <translation>Total trouvé :</translation>
+    </message>
+    <message>
         <location filename="../src/scanner/movedfilmswindow.cpp" line="104"/>
         <source>Select the directory to scan.</source>
         <translation>Sélectionner d&apos;abord un dossier à explorer.</translation>
@@ -1171,9 +1208,8 @@
         <translation>Analy&amp;ser</translation>
     </message>
     <message>
-        <location filename="../src/scanner/movedfilmswindow.ui" line="115"/>
         <source>Total founded:</source>
-        <translation>Total trouvé :</translation>
+        <translation type="vanished">Total trouvé :</translation>
     </message>
     <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="136"/>
@@ -1209,7 +1245,7 @@
 <context>
     <name>OmdbParser</name>
     <message>
-        <location filename="../src/parsers/omdb/omdbparser.cpp" line="36"/>
+        <location filename="../src/parsers/omdb/omdbparser.cpp" line="47"/>
         <source>Movie not found!</source>
         <translation>Film non trouvé !</translation>
     </message>
@@ -1305,7 +1341,7 @@
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="34"/>
-        <location filename="../src/search/searchwindow.cpp" line="402"/>
+        <location filename="../src/search/searchwindow.cpp" line="403"/>
         <source>Simple search</source>
         <translation>Recherche simple</translation>
     </message>
@@ -1474,8 +1510,12 @@
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="959"/>
-        <source>Total founded:</source>
+        <source>Total found:</source>
         <translation>Total trouvé :</translation>
+    </message>
+    <message>
+        <source>Total founded:</source>
+        <translation type="vanished">Total trouvé :</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="992"/>
@@ -1493,7 +1533,7 @@
         <translation>Rien à rechercher. Saisir un mot clé et sélectionnez au moins un champ.</translation>
     </message>
     <message>
-        <location filename="../src/search/searchwindow.cpp" line="402"/>
+        <location filename="../src/search/searchwindow.cpp" line="403"/>
         <source>Nothing was found.</source>
         <translation>Rien n&apos;a été trouvé.</translation>
     </message>
@@ -1520,7 +1560,7 @@
         <location filename="../src/settingswindow.ui" line="23"/>
         <location filename="../src/settingswindow.ui" line="1160"/>
         <location filename="../src/settingswindow.cpp" line="342"/>
-        <location filename="../src/settingswindow.cpp" line="544"/>
+        <location filename="../src/settingswindow.cpp" line="567"/>
         <source>Settings</source>
         <translation>Préférences</translation>
     </message>
@@ -1730,36 +1770,81 @@
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1352"/>
+        <source>OMDb settings</source>
+        <translation>Paramètres OMDb</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1360"/>
+        <source>API key</source>
+        <translation>Clé API</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1375"/>
+        <source>Proxy server settings</source>
+        <translation>Paramètres du serveur proxy</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1381"/>
+        <source>Use proxy for fetching the data</source>
+        <translation>Utiliser un proxy pour récupérer les données</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1393"/>
+        <source>IP or Hostname</source>
+        <translation>IP ou nom d&apos;hôte</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1400"/>
+        <source>:</source>
+        <translation>:</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1410"/>
+        <source>Port</source>
+        <translation>Port</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1421"/>
+        <source>Username (optional)</source>
+        <translation>Nom d&apos;utilisateur (facultatif)</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1445"/>
+        <source>Password (optional)</source>
+        <translation>Mot de passe (facultatif)</translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1470"/>
         <source>Other</source>
         <translation>Autre</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1358"/>
+        <location filename="../src/settingswindow.ui" line="1476"/>
         <source>Download big poster (if possible)</source>
         <translation>Télécharger la grande affiche (si possible)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1368"/>
+        <location filename="../src/settingswindow.ui" line="1486"/>
         <source>Download more information (if possible)</source>
         <translation>Télécharger plus d&apos;informations (si possible)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1378"/>
+        <location filename="../src/settingswindow.ui" line="1496"/>
         <source>(These options use more traffic and may slows down the loading)</source>
         <translation>(Ces options utilisent plus de trafic et peuvent ralentir le chargement)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1420"/>
+        <location filename="../src/settingswindow.ui" line="1538"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Annuler</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1427"/>
+        <location filename="../src/settingswindow.ui" line="1545"/>
         <source>&amp;Apply</source>
         <translation>&amp;Appliquer</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1434"/>
+        <location filename="../src/settingswindow.ui" line="1552"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -1845,7 +1930,7 @@
         <translation>Redimenssionner l&apos;affiche à la hauteur</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.cpp" line="544"/>
+        <location filename="../src/settingswindow.cpp" line="567"/>
         <source>For taking all settings, restart the application.</source>
         <translation>Pour prendre en compte tous les paramètres, redémarrer l&apos;application.</translation>
     </message>

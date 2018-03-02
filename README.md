@@ -1,7 +1,5 @@
-# Alexandra Video Library v1.5
+# Alexandra Video Library v1.5.1
 ##### Small, fast, but powerful video library, written in C++ with Qt5.
-[![Build Status](https://travis-ci.org/jeka-js/alexandra.svg)](https://travis-ci.org/jeka-js/alexandra)
-
 
 Alexandra Video Library — a simple and comfortable program for organization and management of the your video library. You can completely customize your movies in a list or a grid, add detailed information, tags, posters, view technical information about the file and use advanced search.
 
@@ -24,7 +22,6 @@ Alexandra Video Library — a simple and comfortable program for organization an
 
 View, manage, collect. Alexandra Video Library.
 
-=
 
 **Build depends:**
 
