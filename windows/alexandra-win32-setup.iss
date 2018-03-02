@@ -1,8 +1,8 @@
 #define MyAppName "Alexandra Video Library"
 #define MyAppNameShort "Alexandra"
-#define MyAppVersion "1.5.0"
+#define MyAppVersion "1.5.1"
 #define MyAppPublisher "Eugene Melnik"
-#define MyAppURL "http://alexandra-qt.sourceforge.net/"
+#define MyAppURL "http://melnik.solutions/project/alexandra/"
 #define MyAppExeName "alexandra.exe"
 
 [Setup]
@@ -14,8 +14,8 @@ VersionInfoVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
-AppSupportURL="http://sourceforge.net/projects/alexandra-qt/support/"
-AppUpdatesURL="http://alexandra-qt.sourceforge.net/en/download/"
+AppSupportURL="http://melnik.solutions/project/alexandra/"
+AppUpdatesURL="http://melnik.solutions/project/alexandra#download"
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 LicenseFile=..\LICENSE
