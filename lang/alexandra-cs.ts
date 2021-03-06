@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>AboutWindow</name>
     <message>
@@ -61,17 +61,17 @@
     <message>
         <location filename="../src/aboutwindow.ui" line="352"/>
         <source>People, who contributed to Alexandra Video Library:</source>
-        <translation>Lidé, kteří přispěli do knihovny obrazových záznamů Alexandra:</translation>
+        <translation>Lidé, kteří přispěli Alexandra Video Library:</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="367"/>
         <source>Donate</source>
-        <translation>Darovat</translation>
+        <translation>Dary</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="373"/>
         <source>Alexandra Video Library is freeware, there are no sales or other revenues. Thus you can donate to encourage the author and to enable him to continue developing the project. Thank you!</source>
-        <translation>Alexandra Video Library je freeware, žádný prodej nebo jiný příjem. A tak můžete dát dar, abyste povzbudili autora a umožnili mu pokračovat ve vývoji projektu. Děkuji!</translation>
+        <translation>Alexandra Video Library je freeware, neprodává se a není z něj žádný jiný příjem. Vaším darem povzbudíteautora a umožníte mu pokračovat v rozvoji projektu. Děkuji!</translation>
     </message>
     <message>
         <location filename="../src/aboutwindow.ui" line="429"/>
@@ -417,7 +417,7 @@
     <message>
         <location filename="../src/widgets/checkedlistwidget.cpp" line="171"/>
         <source>Scroll to checked</source>
-        <translation>Projíždět po označené</translation>
+        <translation>Přejít na zaškrtnuté</translation>
     </message>
 </context>
 <context>
@@ -562,7 +562,7 @@
     </message>
     <message>
         <source>Total founded:</source>
-        <translation type="vanished">Celkem nalezeno:</translation>
+        <translation>Celkem nalezeno:</translation>
     </message>
     <message>
         <location filename="../src/scanner/filmscannerwindow.ui" line="239"/>
@@ -819,23 +819,23 @@
     <name>FoundedListWidget</name>
     <message>
         <source>Founded</source>
-        <translation type="vanished">Nalezeno</translation>
+        <translation>Nalezeno</translation>
     </message>
     <message>
         <source>Scroll to selected</source>
-        <translation type="vanished">Projíždět po označené</translation>
+        <translation>Projíždět po označené</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="vanished">Vybrat vše</translation>
+        <translation>Vybrat vše</translation>
     </message>
     <message>
         <source>Unselect all</source>
-        <translation type="vanished">Odznačit vše</translation>
+        <translation>Odznačit vše</translation>
     </message>
     <message>
         <source>Invert selection</source>
-        <translation type="vanished">Obrátit výběr</translation>
+        <translation>Obrátit výběr</translation>
     </message>
 </context>
 <context>
@@ -972,7 +972,7 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="486"/>
         <source>Show fullscreen</source>
-        <translation>Ukázat na celou obrazovku</translation>
+        <translation>Zobrazit na celou obrazovku</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.ui" line="495"/>
@@ -1063,7 +1063,7 @@
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="231"/>
         <source>Database write error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při zápisu do databáze</translation>
     </message>
     <message>
         <location filename="../src/mainwindow/mainwindow.cpp" line="245"/>
@@ -1207,7 +1207,7 @@
     </message>
     <message>
         <source>Total founded:</source>
-        <translation type="vanished">Celkem nalezeno:</translation>
+        <translation>Celkem nalezeno:</translation>
     </message>
     <message>
         <location filename="../src/scanner/movedfilmswindow.ui" line="136"/>
@@ -1483,7 +1483,7 @@
     </message>
     <message>
         <source>Total founded:</source>
-        <translation type="vanished">Celkem nalezeno:</translation>
+        <translation>Celkem nalezeno:</translation>
     </message>
     <message>
         <location filename="../src/search/searchwindow.ui" line="992"/>
@@ -1570,7 +1570,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="49"/>
         <source>Global</source>
-        <translation>Celkové</translation>
+        <translation>Celkový</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="173"/>
@@ -1580,7 +1580,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="181"/>
         <source>List view</source>
-        <translation>Pohled se seznamem</translation>
+        <translation>Zobrazení v seznamu</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="229"/>
@@ -1596,7 +1596,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="286"/>
         <source>Grid view</source>
-        <translation>Pohled s mřížkou</translation>
+        <translation>Zobrazení v mřížce</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="331"/>
@@ -1631,7 +1631,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="517"/>
         <source>Show splash screen at startup</source>
-        <translation>Ukázat uvítací obrazovku při spuštění</translation>
+        <translation>Při spuštění ukázat uvítací obrazovku</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="532"/>
@@ -1651,7 +1651,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="95"/>
         <source>Toolbar style</source>
-        <translation>Styl pruhu s nástroji</translation>
+        <translation>Pruh s nástroji</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="440"/>
@@ -1666,7 +1666,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="595"/>
         <source>Double click behavior</source>
-        <translation>Chování s dvojitým klepnutím</translation>
+        <translation>Při dvojitém klepnutím</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="725"/>
@@ -1768,47 +1768,47 @@
     <message>
         <location filename="../src/settingswindow.ui" line="1352"/>
         <source>OMDb settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení OMDb</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1360"/>
         <source>API key</source>
-        <translation type="unfinished"></translation>
+        <translation>Klíč API</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1375"/>
         <source>Proxy server settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení serveru proxy</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1381"/>
         <source>Use proxy for fetching the data</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít proxy pro natahování dat</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1393"/>
         <source>IP or Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresa IP nebo název serveru</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1400"/>
         <source>:</source>
-        <translation type="unfinished"></translation>
+        <translation>:</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1410"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Přípojka (port)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1421"/>
         <source>Username (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Uživatelské jméno (volitelné)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1445"/>
         <source>Password (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Heslo (volitelné)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1470"/>
@@ -1828,7 +1828,7 @@
     <message>
         <location filename="../src/settingswindow.ui" line="1496"/>
         <source>(These options use more traffic and may slows down the loading)</source>
-        <translation>(Tyto volby používají více provozních prostředků a mohou zpomalit nahrávání)</translation>
+        <translation>(Používá více provozních prostředků a může zpomalit nahrávání)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1538"/>
